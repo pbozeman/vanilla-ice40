@@ -23140,6 +23140,17 @@
 		)
 		(uuid "1f8e49ed-9cb0-4c11-96f5-22bac792af86")
 	)
+	(label "U5V"
+		(at 49.53 22.86 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2313027f-5de8-4e52-bec9-6e375e4848de")
+	)
 	(label "IOB_102"
 		(at 351.79 218.44 0)
 		(fields_autoplaced yes)
