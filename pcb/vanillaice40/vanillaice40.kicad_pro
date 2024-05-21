@@ -118,7 +118,7 @@
         "min_clearance": 0.1524,
         "min_connection": 0.127,
         "min_copper_edge_clearance": 0.25,
-        "min_hole_clearance": 0.35,
+        "min_hole_clearance": 0.3048,
         "min_hole_to_hole": 0.25,
         "min_microvia_diameter": 0.2,
         "min_microvia_drill": 0.1,
@@ -212,6 +212,10 @@
         {
           "diameter": 0.0,
           "drill": 0.0
+        },
+        {
+          "diameter": 0.6096,
+          "drill": 0.3048
         },
         {
           "diameter": 0.8128,
