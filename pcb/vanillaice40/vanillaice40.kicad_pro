@@ -178,6 +178,7 @@
       ],
       "track_widths": [
         0.0,
+        0.156464,
         0.254,
         0.508
       ],
@@ -211,6 +212,10 @@
         {
           "diameter": 0.0,
           "drill": 0.0
+        },
+        {
+          "diameter": 0.8128,
+          "drill": 0.4064
         }
       ],
       "zones_allow_external_fillets": false
@@ -486,7 +491,7 @@
       },
       {
         "bus_width": 12,
-        "clearance": 0.254,
+        "clearance": 0.1524,
         "diff_pair_gap": 0.254,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.254,
@@ -544,6 +549,10 @@
       {
         "netclass": "POWER_IN",
         "pattern": "/U5V"
+      },
+      {
+        "netclass": "90ohm",
+        "pattern": "/USB_D*"
       }
     ]
   },
