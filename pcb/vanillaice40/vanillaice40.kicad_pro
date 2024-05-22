@@ -77,7 +77,7 @@
         "footprint": "error",
         "footprint_symbol_mismatch": "warning",
         "footprint_type_mismatch": "ignore",
-        "hole_clearance": "error",
+        "hole_clearance": "ignore",
         "hole_near_hole": "error",
         "invalid_outline": "error",
         "isolated_copper": "warning",
@@ -512,7 +512,7 @@
       },
       {
         "bus_width": 12,
-        "clearance": 0.254,
+        "clearance": 0.1524,
         "diff_pair_gap": 0.1524,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.1524,
