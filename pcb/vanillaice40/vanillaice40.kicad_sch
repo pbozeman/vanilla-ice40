@@ -26404,6 +26404,15 @@
 				(hide yes)
 			)
 		)
+		(property "'LCSC Part #" ""
+			(at 0 345.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9910f621-428c-4b38-9343-4fee9bca07bb")
 		)
@@ -26670,6 +26679,15 @@
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
 			(at 39.37 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "'LCSC Part #" ""
+			(at 0 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27283,7 +27301,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "CONN_SM04B_JST"
+		(property "Footprint" "SM04B-SRSS-TB-LF-SN:CONN_SM04B_JST"
 			(at 181.61 22.86 0)
 			(effects
 				(font
@@ -29129,6 +29147,15 @@
 				(hide yes)
 			)
 		)
+		(property "'LCSC Part #" ""
+			(at 0 287.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "5"
 			(uuid "9ae525ac-21a8-4260-81c9-4acaf4256b1d")
 		)
@@ -29445,7 +29472,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "CONN_120S-0.8SV20"
+		(property "Footprint" "FX18-120S-0-8SV20:CONN_120S-0.8SV20"
 			(at 237.49 147.32 0)
 			(effects
 				(font
@@ -31699,7 +31726,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "CONN_120S-0.8SV20"
+		(property "Footprint" "FX18-120S-0-8SV20:CONN_120S-0.8SV20"
 			(at 212.09 147.32 0)
 			(effects
 				(font
@@ -32522,6 +32549,15 @@
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
 			(at 99.06 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "'LCSC Part #" ""
+			(at 0 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34953,7 +34989,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT6_DRL_TEX"
+		(property "Footprint" "PS563252DRLR:SOT6_DRL_TEX"
 			(at 208.28 106.68 0)
 			(effects
 				(font
@@ -39980,7 +40016,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT6_DRL_TEX"
+		(property "Footprint" "PS563252DRLR:SOT6_DRL_TEX"
 			(at 208.28 71.12 0)
 			(effects
 				(font
@@ -40812,6 +40848,15 @@
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
 			(at 97.79 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "'LCSC Part #" ""
+			(at 0 162.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -42116,7 +42161,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "CONN_120S-0.8SV20"
+		(property "Footprint" "FX18-120S-0-8SV20:CONN_120S-0.8SV20"
 			(at 264.16 147.32 0)
 			(effects
 				(font
