@@ -18002,6 +18002,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 81.28) (xy 110.49 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3b4693dd-cccc-4d7a-996e-d09ea1199b69")
+	)
+	(wire
+		(pts
 			(xy 227.33 185.42) (xy 237.49 185.42)
 		)
 		(stroke
@@ -18752,6 +18762,16 @@
 	)
 	(wire
 		(pts
+			(xy 110.49 55.88) (xy 110.49 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5a0cca99-b346-417e-933e-f706f01e3533")
+	)
+	(wire
+		(pts
 			(xy 264.16 71.12) (xy 276.86 71.12)
 		)
 		(stroke
@@ -19082,6 +19102,16 @@
 	)
 	(wire
 		(pts
+			(xy 110.49 77.47) (xy 110.49 81.28)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "69badfd0-6e75-4fe4-93ed-b1b5a8fe48ef")
+	)
+	(wire
+		(pts
 			(xy 285.75 190.5) (xy 295.91 190.5)
 		)
 		(stroke
@@ -19199,6 +19229,16 @@
 			(type default)
 		)
 		(uuid "6cad8f4b-d622-4671-8ee8-22cbb944c9ac")
+	)
+	(wire
+		(pts
+			(xy 104.14 58.42) (xy 110.49 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d6a5e50-6fc6-4ad1-a434-7cb64719c178")
 	)
 	(wire
 		(pts
@@ -19389,6 +19429,16 @@
 			(type default)
 		)
 		(uuid "77176c47-18c2-4cb2-b3ac-68145aeb7e87")
+	)
+	(wire
+		(pts
+			(xy 110.49 58.42) (xy 110.49 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "77352282-a0d5-4369-9413-38c8507cab17")
 	)
 	(wire
 		(pts
@@ -19992,6 +20042,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 83.82) (xy 110.49 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b41d61f-d0eb-4724-ac05-de2fe80a1bf7")
+	)
+	(wire
+		(pts
 			(xy 167.64 157.48) (xy 182.88 157.48)
 		)
 		(stroke
@@ -20389,6 +20449,16 @@
 			(type default)
 		)
 		(uuid "99b897e4-9468-48e9-9779-d43604d8e998")
+	)
+	(wire
+		(pts
+			(xy 110.49 83.82) (xy 110.49 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "99c5572f-fe26-4fa2-bb8a-72353a52ed8f")
 	)
 	(wire
 		(pts
@@ -21109,6 +21179,16 @@
 			(type default)
 		)
 		(uuid "b756ed32-b8e0-4cc6-b6b9-eb0d8b9ff967")
+	)
+	(wire
+		(pts
+			(xy 104.14 55.88) (xy 110.49 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b79dbfe4-5b55-40fa-ba43-da53a6216cec")
 	)
 	(wire
 		(pts
@@ -26206,13 +26286,79 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x02_Pin")
-		(at 24.13 172.72 0)
+		(lib_id "power:+3V3")
+		(at 110.49 53.34 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0771b0f3-f368-48d5-a192-07268189462e")
+		(property "Reference" "#PWR070"
+			(at 110.49 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 110.49 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 110.49 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0d82255a-a3db-43dc-be5a-5a9246fe6291")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "#PWR070")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 24.13 172.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "085038b5-0036-42a9-88bc-5d5110e2403c")
 		(property "Reference" "J5"
@@ -26484,9 +26630,9 @@
 		(at 39.37 22.86 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "0f7f3cb4-4090-42dd-aa6c-297a1a4acf93")
 		(property "Reference" "J1"
 			(at 40.005 17.78 0)
@@ -28926,9 +29072,9 @@
 		(at 24.13 143.51 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "2fad9d4b-60b0-469f-b3ec-0f059db33401")
 		(property "Reference" "J4"
@@ -30945,6 +31091,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 110.49 86.36 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4b0b5681-1604-46a6-827d-4d909b575c1a")
+		(property "Reference" "#PWR073"
+			(at 110.49 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 110.49 91.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 110.49 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "591a197f-70c1-48c3-a1b0-bc279542c1ef")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "#PWR073")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:VBUS")
 		(at 201.93 102.87 0)
 		(unit 1)
@@ -32224,6 +32436,73 @@
 			(project "vanillaice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "#PWR068")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 99.06 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp yes)
+		(uuid "60c05143-a82f-4da9-9445-03d4d6298df1")
+		(property "Reference" "J6"
+			(at 99.695 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 99.695 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 99.06 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 99.06 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 99.06 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8e3cca88-213c-4f8e-8c4d-5fad530aa27f")
+		)
+		(pin "2"
+			(uuid "639be11b-04ca-4125-8abe-12c9a50a61a8")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "J6")
 					(unit 1)
 				)
 			)
@@ -38475,6 +38754,72 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 110.49 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b8ee874e-8214-466a-aba9-56302d47a4d5")
+		(property "Reference" "#PWR071"
+			(at 110.49 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 110.49 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 110.49 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b9213d2b-2de7-40b7-869b-b1c97c18b645")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "#PWR071")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 368.3 125.73 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -39810,6 +40155,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 110.49 77.47 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d185bce1-7cf3-4574-9aac-ba02fc730980")
+		(property "Reference" "#PWR072"
+			(at 110.49 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+1V2"
+			(at 110.49 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 110.49 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f9304c75-90e3-4b96-b75d-f05ffbd954fb")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "#PWR072")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 397.51 44.45 0)
 		(unit 1)
@@ -40315,6 +40726,73 @@
 			(project "vanillaice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "X1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Pin")
+		(at 97.79 81.28 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp yes)
+		(uuid "dbfd5361-0633-4f50-9907-ce2fffb571bc")
+		(property "Reference" "J7"
+			(at 98.425 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x02_Pin"
+			(at 98.425 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+			(at 97.79 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 97.79 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 97.79 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "6efb2986-e7c1-44ce-8e85-9dc66c2122d6")
+		)
+		(pin "2"
+			(uuid "84f69d3d-cf3d-40b3-83a2-0eaa3960cac8")
+		)
+		(instances
+			(project "vanillaice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "J7")
 					(unit 1)
 				)
 			)
