@@ -25815,7 +25815,7 @@
 		(at 60.96 46.164)
 		(tags "TPS563252DRLR ")
 		(property "Reference" "U1"
-			(at 0 0 0)
+			(at 1.016 2.985 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "7ad16f0c-001a-4423-9f45-3635786e7840")
@@ -25838,7 +25838,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT6_DRL_TEX"
+		(property "Footprint" "PS563252DRLR:SOT6_DRL_TEX"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -27315,7 +27315,7 @@
 		(at 71.374 46.228)
 		(tags "TPS563252DRLR ")
 		(property "Reference" "U4"
-			(at 0 0 0)
+			(at 1.016 3.048 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "9ec2ecfd-3d71-4cb3-b174-4edff1b6f371")
@@ -27338,7 +27338,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT6_DRL_TEX"
+		(property "Footprint" "PS563252DRLR:SOT6_DRL_TEX"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -37792,7 +37792,7 @@
 		(at 87.122 36.83 180)
 		(tags "SM04B-SRSS-TBLFSN ")
 		(property "Reference" "J2"
-			(at 1.5 0 180)
+			(at 6.731 2.032 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "bd2d899a-e175-4e98-b4a9-b32719ddfac4")
@@ -37815,7 +37815,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN_SM04B_JST"
+		(property "Footprint" "SM04B-SRSS-TB-LF-SN:CONN_SM04B_JST"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -42992,7 +42992,7 @@
 		(at 137.45 61.524999 -90)
 		(tags "FX18-120S-0.8SV20 ")
 		(property "Reference" "J3"
-			(at 0 0 -90)
+			(at -26.218999 6.64 0)
 			(unlocked yes)
 			(layer "F.SilkS")
 			(uuid "742f7792-78f4-4728-985a-ef819d072e78")
@@ -43015,7 +43015,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN_120S-0.8SV20"
+		(property "Footprint" "FX18-120S-0-8SV20:CONN_120S-0.8SV20"
 			(at 0 0 -90)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -45378,7 +45378,7 @@
 		)
 	)
 	(gr_text "v0.1"
-		(at 127 33.401 0)
+		(at 127 34.02595 0)
 		(layer "F.SilkS")
 		(uuid "d4c506fb-3df3-46b8-9c54-2e16c6804f8f")
 		(effects
