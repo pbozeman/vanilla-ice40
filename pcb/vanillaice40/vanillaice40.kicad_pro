@@ -661,6 +661,18 @@
           "label": "Package",
           "name": "Package",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB Position Offset",
+          "name": "JLCPCB Position Offset",
+          "show": true
+        },
+        {
+          "group_by": false,
+          "label": "JLCPCB Rotation Offset",
+          "name": "JLCPCB Rotation Offset",
+          "show": true
         }
       ],
       "filter_string": "",
