@@ -32783,6 +32783,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Position Offset" "0,1.3335"
+			(at 35.56 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "A5"
 			(uuid "3f9435c3-0c75-404b-ab0e-5151e1967bba")
 		)
