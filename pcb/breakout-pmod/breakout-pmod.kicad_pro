@@ -115,7 +115,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.1524,
+        "min_clearance": 0.127,
         "min_connection": 0.127,
         "min_copper_edge_clearance": 0.25,
         "min_hole_clearance": 0.3048,
@@ -461,7 +461,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.1524,
+        "clearance": 0.127,
         "diff_pair_gap": 0.1524,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.1524,
@@ -536,7 +536,7 @@
     "netclass_patterns": [
       {
         "netclass": "POWER",
-        "pattern": "+3V3"
+        "pattern": "/+3V3"
       },
       {
         "netclass": "POWER",
