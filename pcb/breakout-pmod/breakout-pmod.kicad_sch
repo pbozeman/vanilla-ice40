@@ -17320,7 +17320,7 @@
 		(uuid "02eae30c-a405-492c-9395-4f2d91e82839")
 	)
 	(label "IOR_139"
-		(at 138.43 125.73 180)
+		(at 138.43 130.81 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17331,7 +17331,7 @@
 		(uuid "061bc004-6ffe-4e81-9b14-e54e1476777d")
 	)
 	(label "GND"
-		(at 290.83 189.23 0)
+		(at 325.12 186.69 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17342,7 +17342,7 @@
 		(uuid "06776abf-8227-40a4-9654-3750c73d0d55")
 	)
 	(label "IOT_216"
-		(at 290.83 153.67 0)
+		(at 361.95 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17375,7 +17375,7 @@
 		(uuid "0b1eda91-2889-4b36-8ff1-932f1c825b40")
 	)
 	(label "GND"
-		(at 290.83 118.11 0)
+		(at 361.95 151.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17386,7 +17386,7 @@
 		(uuid "0b2050f4-6fcd-4960-9326-40b3cc4c228c")
 	)
 	(label "IOR_112"
-		(at 361.95 95.25 0)
+		(at 290.83 173.99 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17419,7 +17419,7 @@
 		(uuid "0f433a74-4c9d-4780-bdb0-bf48d949591e")
 	)
 	(label "IOT_213"
-		(at 290.83 146.05 0)
+		(at 361.95 123.19 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17430,7 +17430,7 @@
 		(uuid "11fd1a39-1697-47a2-9d50-2ee84e351ff6")
 	)
 	(label "IOR_140"
-		(at 361.95 133.35 0)
+		(at 290.83 135.89 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17452,7 +17452,7 @@
 		(uuid "12a0fc55-8917-484e-aeb9-a946d4b6b796")
 	)
 	(label "GND"
-		(at 361.95 128.27 0)
+		(at 290.83 143.51 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17485,7 +17485,7 @@
 		(uuid "1814a65c-44f8-4899-8a3b-0d94eaada983")
 	)
 	(label "GND"
-		(at 138.43 128.27 180)
+		(at 138.43 125.73 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17496,7 +17496,7 @@
 		(uuid "18aed6b3-3a37-4e07-8a41-04e2b05689a5")
 	)
 	(label "IOL_10B"
-		(at 290.83 191.77 0)
+		(at 325.12 184.15 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17551,7 +17551,7 @@
 		(uuid "1e091f68-a67a-48d3-b1d8-e474e94f037b")
 	)
 	(label "+3V3"
-		(at 290.83 140.97 0)
+		(at 361.95 128.27 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17584,7 +17584,7 @@
 		(uuid "1f9ce82e-9aca-4d2e-9274-4c7e55d41b3d")
 	)
 	(label "IOB_73"
-		(at 325.12 158.75 0)
+		(at 325.12 110.49 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17595,7 +17595,7 @@
 		(uuid "1fea59a1-cfba-4a28-a0b1-967771b562e7")
 	)
 	(label "IOL_5A"
-		(at 290.83 173.99 0)
+		(at 361.95 95.25 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17606,7 +17606,7 @@
 		(uuid "2063fe19-73c0-4dad-b556-2c9ed4f906ef")
 	)
 	(label "IOL_17B"
-		(at 325.12 102.87 0)
+		(at 325.12 166.37 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17617,7 +17617,7 @@
 		(uuid "22a5a4c2-40e5-43ef-afdc-a5b31333065a")
 	)
 	(label "IOT_173"
-		(at 290.83 130.81 0)
+		(at 361.95 138.43 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17672,7 +17672,7 @@
 		(uuid "29beba19-fcaf-4f29-acf5-d8b05b5525ed")
 	)
 	(label "GND"
-		(at 325.12 186.69 0)
+		(at 290.83 189.23 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17738,7 +17738,7 @@
 		(uuid "2fb3d239-0a09-4d41-bf77-3336413820b1")
 	)
 	(label "IOL_18A"
-		(at 325.12 110.49 0)
+		(at 325.12 158.75 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17749,7 +17749,7 @@
 		(uuid "312adbfa-c7e2-4be1-8a38-ff71e84a0fd8")
 	)
 	(label "IOL_4B"
-		(at 290.83 171.45 0)
+		(at 361.95 97.79 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17793,7 +17793,7 @@
 		(uuid "3665c4ff-6a89-4e2e-9687-aae2db81f854")
 	)
 	(label "IOB_96"
-		(at 325.12 184.15 0)
+		(at 290.83 191.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17815,7 +17815,7 @@
 		(uuid "36d6c038-71a2-4591-9853-511d3786bd50")
 	)
 	(label "+3V3"
-		(at 361.95 156.21 0)
+		(at 290.83 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17859,7 +17859,7 @@
 		(uuid "39ddd3d1-3855-48b4-b48d-dc5ae0089074")
 	)
 	(label "IOR_152"
-		(at 361.95 148.59 0)
+		(at 290.83 120.65 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17870,7 +17870,7 @@
 		(uuid "3b1ae87c-0f60-4373-bb75-0bee679a8dfe")
 	)
 	(label "+3V3"
-		(at 361.95 130.81 0)
+		(at 290.83 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17892,7 +17892,7 @@
 		(uuid "3cf07683-0fb6-429c-90c0-1a9d771a5864")
 	)
 	(label "IOB_61"
-		(at 325.12 146.05 0)
+		(at 325.12 123.19 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17903,7 +17903,7 @@
 		(uuid "3dca35e6-7dd5-4a31-a17c-4e0a89163f69")
 	)
 	(label "IOL_12A"
-		(at 290.83 194.31 0)
+		(at 325.12 181.61 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17914,7 +17914,7 @@
 		(uuid "3f7fa44c-8034-4642-a2e6-73734f15cd45")
 	)
 	(label "IOT_191"
-		(at 290.83 107.95 0)
+		(at 361.95 161.29 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17925,7 +17925,7 @@
 		(uuid "3fc6035a-4aa1-4f27-ac2b-ba0d99334e27")
 	)
 	(label "IOB_64"
-		(at 325.12 151.13 0)
+		(at 325.12 118.11 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17958,7 +17958,7 @@
 		(uuid "4124944b-fcbe-402a-85c9-c74d00f95d28")
 	)
 	(label "IOB_95"
-		(at 325.12 181.61 0)
+		(at 290.83 194.31 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17969,7 +17969,7 @@
 		(uuid "41b7aa6b-7f2d-438d-be25-8b78cde85611")
 	)
 	(label "IOL_12B"
-		(at 325.12 90.17 0)
+		(at 325.12 179.07 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17980,7 +17980,7 @@
 		(uuid "423a4c20-a2ec-403c-a31a-0dafe3eb9d2b")
 	)
 	(label "IOR_161"
-		(at 361.95 158.75 0)
+		(at 290.83 110.49 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -17991,7 +17991,7 @@
 		(uuid "430148ac-2e36-485b-af70-94f1237df6a1")
 	)
 	(label "IOR_110"
-		(at 361.95 90.17 0)
+		(at 290.83 179.07 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18002,7 +18002,7 @@
 		(uuid "43c0faa6-bc94-4805-879f-e25d1186ff9f")
 	)
 	(label "+3V3"
-		(at 325.12 189.23 0)
+		(at 290.83 186.69 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18013,7 +18013,7 @@
 		(uuid "44bd8e6f-13df-4fa5-9312-4b7858dc0d1c")
 	)
 	(label "IOL_13A"
-		(at 325.12 92.71 0)
+		(at 325.12 176.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18035,7 +18035,7 @@
 		(uuid "46d0072c-6bd7-4cbd-a4eb-53e55e4e90f3")
 	)
 	(label "IOR_120"
-		(at 361.95 113.03 0)
+		(at 290.83 156.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18046,7 +18046,7 @@
 		(uuid "46dddb05-ba89-41b5-904c-19fbf8adaaa7")
 	)
 	(label "IOR_118"
-		(at 361.95 107.95 0)
+		(at 290.83 161.29 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18057,7 +18057,7 @@
 		(uuid "47a5c817-0dfd-4f5a-82fa-233549286abe")
 	)
 	(label "IOT_174"
-		(at 290.83 128.27 0)
+		(at 361.95 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18068,7 +18068,7 @@
 		(uuid "48fa5f4f-15df-44fb-bce4-02bbe170b282")
 	)
 	(label "IOL_13B"
-		(at 325.12 95.25 0)
+		(at 325.12 173.99 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18079,7 +18079,7 @@
 		(uuid "49acd23a-1cd7-49dd-a025-e1da1c36c8c8")
 	)
 	(label "IOL_4A"
-		(at 290.83 168.91 0)
+		(at 361.95 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18101,7 +18101,7 @@
 		(uuid "4b96a86d-44bd-41ac-ad37-ff4dcd0eb1e7")
 	)
 	(label "IOL_23A"
-		(at 325.12 115.57 0)
+		(at 325.12 153.67 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18156,7 +18156,7 @@
 		(uuid "4dbd6b6f-57b2-4052-bad8-a37eab5f17cf")
 	)
 	(label "+3V3"
-		(at 325.12 163.83 0)
+		(at 325.12 105.41 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18189,7 +18189,7 @@
 		(uuid "4ea1e38e-1261-41f5-8a6b-3ef7be5fbb61")
 	)
 	(label "IOB_102"
-		(at 325.12 191.77 0)
+		(at 290.83 184.15 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18200,7 +18200,7 @@
 		(uuid "4f0273b3-c0ac-467f-b289-068e7436d558")
 	)
 	(label "IOT_215"
-		(at 290.83 151.13 0)
+		(at 361.95 118.11 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18211,7 +18211,7 @@
 		(uuid "54265b3f-5c4a-41b4-b428-d04a17da195b")
 	)
 	(label "IOB_72"
-		(at 325.12 156.21 0)
+		(at 325.12 113.03 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18233,7 +18233,7 @@
 		(uuid "59fe8b95-915a-4836-b566-4373a500c4b1")
 	)
 	(label "IOB_71"
-		(at 325.12 153.67 0)
+		(at 325.12 115.57 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18255,7 +18255,7 @@
 		(uuid "5bfe3498-0178-4e0f-b9ab-0070ffd7d651")
 	)
 	(label "GND"
-		(at 138.43 153.67 180)
+		(at 138.43 151.13 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18288,7 +18288,7 @@
 		(uuid "63464415-590c-4914-a0a2-1290bc3e3669")
 	)
 	(label "IOT_168"
-		(at 361.95 171.45 0)
+		(at 290.83 97.79 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18310,7 +18310,7 @@
 		(uuid "6af72f67-53a1-4c73-a891-1046254b6973")
 	)
 	(label "IOT_212"
-		(at 290.83 95.25 0)
+		(at 361.95 173.99 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18321,7 +18321,7 @@
 		(uuid "6bebb02f-54bf-459d-b18f-964e962e667c")
 	)
 	(label "IOR_160"
-		(at 361.95 151.13 0)
+		(at 290.83 113.03 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18354,7 +18354,7 @@
 		(uuid "6f8f3af3-3963-4d20-928a-6bc758367ced")
 	)
 	(label "IOL_24B"
-		(at 325.12 123.19 0)
+		(at 325.12 146.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18365,7 +18365,7 @@
 		(uuid "704798a6-7c14-4848-b240-15aa1e26f982")
 	)
 	(label "IOT_221"
-		(at 290.83 163.83 0)
+		(at 361.95 105.41 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18387,7 +18387,7 @@
 		(uuid "71e0b43b-0cd2-416d-828c-e9113dffcb85")
 	)
 	(label "IOR_166"
-		(at 361.95 166.37 0)
+		(at 290.83 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18398,7 +18398,7 @@
 		(uuid "72d23a20-fea3-4ded-944e-276233b83511")
 	)
 	(label "IOT_178"
-		(at 290.83 123.19 0)
+		(at 361.95 146.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18420,7 +18420,7 @@
 		(uuid "754c927d-2798-4188-9d3d-23bc057afd3a")
 	)
 	(label "+3V3"
-		(at 138.43 156.21 180)
+		(at 138.43 153.67 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18453,7 +18453,7 @@
 		(uuid "7604a274-6d59-4ee0-aef4-0364f535f33e")
 	)
 	(label "+3V3"
-		(at 290.83 186.69 0)
+		(at 325.12 189.23 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18486,7 +18486,7 @@
 		(uuid "7856519b-0018-447a-ab3c-c2c6f3619efe")
 	)
 	(label "IOL_5B"
-		(at 290.83 176.53 0)
+		(at 361.95 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18497,7 +18497,7 @@
 		(uuid "791194b0-68ea-4e6a-95c0-8dd06318e8e8")
 	)
 	(label "IOL_18B"
-		(at 325.12 113.03 0)
+		(at 325.12 156.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18508,7 +18508,7 @@
 		(uuid "79b2ede2-680f-4b80-b32c-7753c753c4e0")
 	)
 	(label "IOT_192"
-		(at 290.83 105.41 0)
+		(at 361.95 163.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18530,7 +18530,7 @@
 		(uuid "7c8b9581-7a3e-4dde-beb3-bf61dc23c45c")
 	)
 	(label "IOT_220"
-		(at 290.83 161.29 0)
+		(at 361.95 107.95 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18563,7 +18563,7 @@
 		(uuid "7ea4e4d6-74bd-4841-8395-c80b5812ec35")
 	)
 	(label "IOT_217"
-		(at 290.83 156.21 0)
+		(at 361.95 113.03 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18585,7 +18585,7 @@
 		(uuid "83f55efd-2b46-47aa-8eeb-1ea76039a50e")
 	)
 	(label "IOR_111"
-		(at 361.95 92.71 0)
+		(at 290.83 176.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18618,7 +18618,7 @@
 		(uuid "89b1e367-8bda-4a97-82a5-12931d222c5f")
 	)
 	(label "IOR_115"
-		(at 361.95 100.33 0)
+		(at 290.83 168.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18629,7 +18629,7 @@
 		(uuid "8aa6d8ee-48db-46a5-94b5-4c0100da4bb7")
 	)
 	(label "IOB_94"
-		(at 325.12 179.07 0)
+		(at 325.12 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18651,7 +18651,7 @@
 		(uuid "8dbe6766-6e03-4f5c-8bfb-fc89eb5094a4")
 	)
 	(label "IOT_170"
-		(at 290.83 138.43 0)
+		(at 361.95 130.81 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18673,7 +18673,7 @@
 		(uuid "8fe2b38d-4ca5-463d-b1dd-d7dc3448f642")
 	)
 	(label "IOR_136"
-		(at 361.95 118.11 0)
+		(at 290.83 151.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18684,7 +18684,7 @@
 		(uuid "90112c87-c47f-4b1f-9518-20cec7bea3a9")
 	)
 	(label "IOB_63"
-		(at 325.12 148.59 0)
+		(at 325.12 120.65 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18706,7 +18706,7 @@
 		(uuid "945ca93d-d136-4644-85e3-b8f547a1dee0")
 	)
 	(label "IOT_177"
-		(at 290.83 125.73 0)
+		(at 361.95 143.51 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18728,7 +18728,7 @@
 		(uuid "95d8e353-9574-49ae-a022-7f4157e87da5")
 	)
 	(label "IOR_167"
-		(at 361.95 168.91 0)
+		(at 290.83 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18805,7 +18805,7 @@
 		(uuid "97f6b8e0-a32c-483e-b1b8-dcf61a7995f6")
 	)
 	(label "IOR_128"
-		(at 361.95 115.57 0)
+		(at 290.83 153.67 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18849,7 +18849,7 @@
 		(uuid "9c5f9a5d-ac13-417c-86c9-f18a609d6905")
 	)
 	(label "IOL_17A"
-		(at 325.12 100.33 0)
+		(at 325.12 168.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18882,7 +18882,7 @@
 		(uuid "9e9c8681-7fa8-4a52-a3a2-aded26429cf2")
 	)
 	(label "IOB_57"
-		(at 325.12 143.51 0)
+		(at 325.12 125.73 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18904,7 +18904,7 @@
 		(uuid "a056dbe6-4d03-4510-9caf-d5b1553ab399")
 	)
 	(label "+3V3"
-		(at 290.83 115.57 0)
+		(at 361.95 153.67 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18926,7 +18926,7 @@
 		(uuid "a3ede9a5-0349-4fb2-b2c7-878521699141")
 	)
 	(label "IOR_109"
-		(at 325.12 194.31 0)
+		(at 290.83 181.61 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18959,7 +18959,7 @@
 		(uuid "a7b43117-956c-496d-b4ab-5ffffd6c3a1e")
 	)
 	(label "IOT_206"
-		(at 290.83 97.79 0)
+		(at 361.95 171.45 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18981,7 +18981,7 @@
 		(uuid "a8417def-8634-4331-8824-184e91c45900")
 	)
 	(label "IOB_81"
-		(at 325.12 171.45 0)
+		(at 325.12 97.79 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19003,7 +19003,7 @@
 		(uuid "a9bb13eb-d05d-472a-b101-c0d5f746ebf5")
 	)
 	(label "IOR_165"
-		(at 361.95 163.83 0)
+		(at 290.83 105.41 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19014,7 +19014,7 @@
 		(uuid "aa18213b-f6d8-4f6c-b286-c9bbe807bf90")
 	)
 	(label "GND"
-		(at 290.83 143.51 0)
+		(at 361.95 125.73 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19036,7 +19036,7 @@
 		(uuid "ab56ec22-53ad-4254-941c-8ec4d7e61101")
 	)
 	(label "IOR_160"
-		(at 138.43 151.13 180)
+		(at 138.43 156.21 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19047,7 +19047,7 @@
 		(uuid "acf1d748-006d-4f4b-9d06-4e04de404169")
 	)
 	(label "IOT_172"
-		(at 290.83 133.35 0)
+		(at 361.95 135.89 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19069,7 +19069,7 @@
 		(uuid "ae9c6aa6-24fe-49c6-b5a1-2cb8bf6bc0ae")
 	)
 	(label "IOR_114"
-		(at 361.95 97.79 0)
+		(at 290.83 171.45 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19080,7 +19080,7 @@
 		(uuid "af0202e4-a595-4cec-b950-9458a57a9272")
 	)
 	(label "GND"
-		(at 361.95 153.67 0)
+		(at 290.83 118.11 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19102,7 +19102,7 @@
 		(uuid "b067caad-f202-4623-ac7d-dbb483d410ab")
 	)
 	(label "IOR_146"
-		(at 361.95 140.97 0)
+		(at 290.83 128.27 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19113,7 +19113,7 @@
 		(uuid "b16e9263-106a-41a2-8c49-2fb1488d9587")
 	)
 	(label "IOR_147"
-		(at 361.95 143.51 0)
+		(at 290.83 125.73 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19124,7 +19124,7 @@
 		(uuid "b1b7f8b6-0284-4cc5-ae1b-5e2e3003e907")
 	)
 	(label "IOR_148"
-		(at 361.95 146.05 0)
+		(at 290.83 123.19 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19146,7 +19146,7 @@
 		(uuid "b2dd3268-905f-4a7b-b62d-3f8b426621bf")
 	)
 	(label "+3V3"
-		(at 325.12 105.41 0)
+		(at 325.12 163.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19168,7 +19168,7 @@
 		(uuid "b3887d4e-9821-4856-9939-518c9e2429e2")
 	)
 	(label "IOR_117"
-		(at 361.95 105.41 0)
+		(at 290.83 163.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19179,7 +19179,7 @@
 		(uuid "b655d0a2-19f0-4386-ab0e-9481d682ea5a")
 	)
 	(label "IOT_198"
-		(at 290.83 100.33 0)
+		(at 361.95 168.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19212,7 +19212,7 @@
 		(uuid "b93a1123-8a48-419a-993c-a3fa595139d0")
 	)
 	(label "IOL_25A"
-		(at 325.12 125.73 0)
+		(at 325.12 143.51 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19234,7 +19234,7 @@
 		(uuid "bd57b158-a64d-4700-94c3-0f831597c3fe")
 	)
 	(label "IOT_219"
-		(at 290.83 158.75 0)
+		(at 361.95 110.49 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19256,7 +19256,7 @@
 		(uuid "bf8cf2a4-b894-4fdc-88cc-57d870f2fa28")
 	)
 	(label "IOL_14B"
-		(at 325.12 97.79 0)
+		(at 325.12 171.45 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19278,7 +19278,7 @@
 		(uuid "bfd9e2f2-8611-4580-9c88-ef8c19172f4b")
 	)
 	(label "+3V3"
-		(at 138.43 130.81 180)
+		(at 138.43 128.27 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19300,7 +19300,7 @@
 		(uuid "c48ec37c-f3cc-427d-8ebb-8df2ff6b88cc")
 	)
 	(label "IOT_190"
-		(at 290.83 110.49 0)
+		(at 361.95 158.75 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19322,7 +19322,7 @@
 		(uuid "c54b2598-361b-4dd0-9355-028b410b5166")
 	)
 	(label "IOL_8A"
-		(at 290.83 179.07 0)
+		(at 361.95 90.17 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19333,7 +19333,7 @@
 		(uuid "c5b281ff-aa73-4c8e-aca0-99828b757da0")
 	)
 	(label "IOR_139"
-		(at 361.95 125.73 0)
+		(at 290.83 138.43 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19355,7 +19355,7 @@
 		(uuid "c60d7a62-9609-4c3e-9dd8-0b07442df1c4")
 	)
 	(label "GND"
-		(at 325.12 107.95 0)
+		(at 325.12 161.29 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19388,7 +19388,7 @@
 		(uuid "c8170ac8-297d-407f-8617-cd6545853289")
 	)
 	(label "IOT_222"
-		(at 290.83 166.37 0)
+		(at 361.95 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19399,7 +19399,7 @@
 		(uuid "c827dc08-02aa-4ec0-ab52-e8ad79863013")
 	)
 	(label "IOL_24A"
-		(at 325.12 120.65 0)
+		(at 325.12 148.59 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19410,7 +19410,7 @@
 		(uuid "c8c053d8-4665-4fd9-934c-06d19612f6e2")
 	)
 	(label "IOB_56"
-		(at 325.12 140.97 0)
+		(at 325.12 128.27 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19432,7 +19432,7 @@
 		(uuid "cbbf9326-24da-4fc2-bde3-1e2efb174991")
 	)
 	(label "IOT_214"
-		(at 290.83 148.59 0)
+		(at 361.95 120.65 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19465,7 +19465,7 @@
 		(uuid "cf15b377-2f67-4596-b557-913c3f2f6694")
 	)
 	(label "IOB_80"
-		(at 325.12 168.91 0)
+		(at 325.12 100.33 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19476,7 +19476,7 @@
 		(uuid "cf9813b6-9188-4d4b-bf35-71b8d13320cb")
 	)
 	(label "GND"
-		(at 325.12 161.29 0)
+		(at 325.12 107.95 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19487,7 +19487,7 @@
 		(uuid "d0425159-b6ef-40b9-83cf-0f67757ce6f5")
 	)
 	(label "IOT_197"
-		(at 290.83 102.87 0)
+		(at 361.95 166.37 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19498,7 +19498,7 @@
 		(uuid "d043cb95-c780-492e-aa98-dd4a521b1559")
 	)
 	(label "IOT_169"
-		(at 361.95 173.99 0)
+		(at 290.83 95.25 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19531,7 +19531,7 @@
 		(uuid "d5b0baa7-bed9-445b-a032-9d72c4c457c7")
 	)
 	(label "IOB_91"
-		(at 325.12 176.53 0)
+		(at 325.12 92.71 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19542,7 +19542,7 @@
 		(uuid "d6108a05-98ed-4a1a-b7c2-d4bd9e50957f")
 	)
 	(label "IOR_116"
-		(at 361.95 102.87 0)
+		(at 290.83 166.37 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19564,7 +19564,7 @@
 		(uuid "d75d445d-e478-4e1e-8e65-f5afd65cc34a")
 	)
 	(label "IOL_8B"
-		(at 290.83 181.61 0)
+		(at 325.12 194.31 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19586,7 +19586,7 @@
 		(uuid "db1719e5-c7c9-4d30-9608-872f873ca2e5")
 	)
 	(label "IOR_138"
-		(at 361.95 123.19 0)
+		(at 290.83 146.05 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19608,7 +19608,7 @@
 		(uuid "dce543dd-ef56-449e-bfa5-c27c0e4e3c5f")
 	)
 	(label "IOT_171"
-		(at 290.83 135.89 0)
+		(at 361.95 133.35 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19619,7 +19619,7 @@
 		(uuid "dee3e777-7f20-4496-a83c-4d38ba74e3a3")
 	)
 	(label "IOR_141"
-		(at 361.95 135.89 0)
+		(at 290.83 133.35 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19641,7 +19641,7 @@
 		(uuid "df23c722-940a-4b51-89c6-b0665f69ffff")
 	)
 	(label "IOR_144"
-		(at 361.95 138.43 0)
+		(at 290.83 130.81 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19685,7 +19685,7 @@
 		(uuid "e237f829-f2f0-4125-a49c-a5de5203a44b")
 	)
 	(label "IOB_79"
-		(at 325.12 166.37 0)
+		(at 325.12 102.87 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19707,7 +19707,7 @@
 		(uuid "e455e0d6-c900-486e-96f0-4e87a477eb47")
 	)
 	(label "IOB_82"
-		(at 325.12 173.99 0)
+		(at 325.12 95.25 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19718,7 +19718,7 @@
 		(uuid "e48efe4c-edb3-49fb-9c29-231ace806be8")
 	)
 	(label "IOL_10A"
-		(at 290.83 184.15 0)
+		(at 325.12 191.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19751,7 +19751,7 @@
 		(uuid "e6d95e33-7151-4695-8206-333473a49691")
 	)
 	(label "IOR_119"
-		(at 361.95 110.49 0)
+		(at 290.83 158.75 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19773,7 +19773,7 @@
 		(uuid "eb4a0481-00af-4ad9-a018-56b868a1d68f")
 	)
 	(label "IOR_137"
-		(at 361.95 120.65 0)
+		(at 290.83 148.59 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19795,7 +19795,7 @@
 		(uuid "ec7c4110-95d3-49e7-ac5e-ee2beb34048a")
 	)
 	(label "IOT_179"
-		(at 290.83 120.65 0)
+		(at 361.95 148.59 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19806,7 +19806,7 @@
 		(uuid "eccb951d-2933-49b3-8778-73651292c05d")
 	)
 	(label "IOR_164"
-		(at 361.95 161.29 0)
+		(at 290.83 107.95 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19850,7 +19850,7 @@
 		(uuid "ef13f97d-82d1-49d0-9aa2-2e465d037946")
 	)
 	(label "IOL_23B"
-		(at 325.12 118.11 0)
+		(at 325.12 151.13 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19883,7 +19883,7 @@
 		(uuid "f4b7460d-df50-42b7-a1d2-046bd1562e33")
 	)
 	(label "IOL_25B"
-		(at 325.12 128.27 0)
+		(at 325.12 140.97 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -19905,7 +19905,7 @@
 		(uuid "f6223e57-3176-4543-ba3c-3fd63d85542f")
 	)
 	(label "IOT_181"
-		(at 290.83 113.03 0)
+		(at 361.95 156.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
