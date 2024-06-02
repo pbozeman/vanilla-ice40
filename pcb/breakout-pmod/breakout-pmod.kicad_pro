@@ -638,6 +638,12 @@
           "label": "Description",
           "name": "Description",
           "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Digi-Key Part Number",
+          "name": "Digi-Key Part Number",
+          "show": true
         }
       ],
       "filter_string": "",
