@@ -17,8 +17,9 @@
         devShell = pkgs.mkShell {
           buildInputs = with pkgs; [
             gtkwave
-            yosys
+            verible
             verilog
+            yosys
           ];
         };
       }
