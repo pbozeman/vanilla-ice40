@@ -4,6 +4,11 @@
 # verilog builds
 .build
 
+# Ideally these will get checked in, but
+# Diamond Programmer hardcodes the paths, and so,
+# don't work between OS's, different users, etc.
+*.xcf
+
 #
 # icecube2
 #
