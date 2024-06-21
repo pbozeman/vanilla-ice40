@@ -21186,7 +21186,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "04e017b6-1667-4c6b-986c-77b45b87314f")
 		(property "Reference" "J1"
 			(at 23.876 94.488 90)
@@ -21227,6 +21227,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 41.91 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11865-ND"
 			(at 41.91 96.52 0)
 			(effects
 				(font
@@ -21630,7 +21639,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "0cbb22ac-04ed-45d7-b890-7ef74430c626")
 		(property "Reference" "J1"
 			(at 57.658 94.488 90)
@@ -21671,6 +21680,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 76.2 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11865-ND"
 			(at 76.2 96.52 0)
 			(effects
 				(font
@@ -22170,7 +22188,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "32423a7b-ce81-4c82-96ae-45c02b8deb18")
 		(property "Reference" "J2"
 			(at 340.868 119.126 90)
@@ -22211,6 +22229,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 356.87 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11867-ND"
 			(at 356.87 96.52 0)
 			(effects
 				(font
@@ -22890,6 +22917,15 @@
 				(hide yes)
 			)
 		)
+		(property "LCSC Part #" " C1348726"
+			(at 208.28 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "23"
 			(uuid "86cbb31c-1f4e-4294-adc2-52f55bc3b586")
 		)
@@ -23345,7 +23381,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "af1cd120-1490-49f7-b8e1-4e2dab464547")
 		(property "Reference" "J2"
 			(at 307.086 120.142 90)
@@ -23386,6 +23422,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 322.58 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11867-ND"
 			(at 322.58 96.52 0)
 			(effects
 				(font
@@ -23985,7 +24030,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "daf1ffac-7f7d-41c8-8c33-104c312b9790")
 		(property "Reference" "J1"
 			(at 94.488 94.234 90)
@@ -24026,6 +24071,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 113.03 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11865-ND"
 			(at 113.03 96.52 0)
 			(effects
 				(font
@@ -24428,7 +24482,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "de4f4353-b7ae-4b73-97a2-42e83afe1c1a")
 		(property "Reference" "J2"
 			(at 377.698 119.888 90)
@@ -24469,6 +24523,15 @@
 			)
 		)
 		(property "Description" ""
+			(at 393.7 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11867-ND"
 			(at 393.7 96.52 0)
 			(effects
 				(font

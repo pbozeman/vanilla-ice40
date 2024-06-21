@@ -15449,6 +15449,12 @@
 		(uuid "201f548f-0d63-4835-add5-0691dce1024b")
 	)
 	(junction
+		(at 214.63 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2074df6c-2cd8-4063-87df-b30c767474c5")
+	)
+	(junction
 		(at 353.06 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -16119,10 +16125,6 @@
 		(uuid "1ff7af95-7807-48b6-89ed-4ec947776645")
 	)
 	(no_connect
-		(at 217.17 76.2)
-		(uuid "280a301a-1245-418d-b48a-6bc263b94054")
-	)
-	(no_connect
 		(at 154.94 236.22)
 		(uuid "313d3610-9e83-4bc6-b066-73e5b3d2108d")
 	)
@@ -16319,16 +16321,6 @@
 			(type default)
 		)
 		(uuid "02b94645-5056-4f1a-ab7b-9710444ddc1f")
-	)
-	(wire
-		(pts
-			(xy 264.16 106.68) (xy 276.86 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0327bdaf-e738-4ba8-af22-07be5f2173f0")
 	)
 	(wire
 		(pts
@@ -17152,16 +17144,6 @@
 	)
 	(wire
 		(pts
-			(xy 276.86 107.95) (xy 276.86 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1d3afea1-f994-4d39-b6f5-23ec2aec7a82")
-	)
-	(wire
-		(pts
 			(xy 308.61 142.24) (xy 308.61 137.16)
 		)
 		(stroke
@@ -17199,6 +17181,16 @@
 			(type default)
 		)
 		(uuid "1de645be-edb5-40c6-8281-a52a447398f7")
+	)
+	(wire
+		(pts
+			(xy 214.63 71.12) (xy 214.63 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1e0d8b04-d109-47fb-9a59-602cda8e1c5c")
 	)
 	(wire
 		(pts
@@ -18772,16 +18764,6 @@
 	)
 	(wire
 		(pts
-			(xy 264.16 71.12) (xy 276.86 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5a48f32e-3584-41ac-be52-9b69d9220cb7")
-	)
-	(wire
-		(pts
 			(xy 264.16 111.76) (xy 264.16 109.22)
 		)
 		(stroke
@@ -18809,6 +18791,16 @@
 			(type default)
 		)
 		(uuid "5b60287c-6e70-4fc6-833f-2553928f89ad")
+	)
+	(wire
+		(pts
+			(xy 214.63 71.12) (xy 217.17 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5bd0c6d5-8ef4-4aa8-94a1-ee9ecd04af9d")
 	)
 	(wire
 		(pts
@@ -21752,6 +21744,16 @@
 	)
 	(wire
 		(pts
+			(xy 214.63 76.2) (xy 217.17 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d21c6be1-16a8-4347-bc4c-a06d571a8544")
+	)
+	(wire
+		(pts
 			(xy 44.45 25.4) (xy 49.53 25.4)
 		)
 		(stroke
@@ -21922,7 +21924,7 @@
 	)
 	(wire
 		(pts
-			(xy 205.74 71.12) (xy 217.17 71.12)
+			(xy 205.74 71.12) (xy 214.63 71.12)
 		)
 		(stroke
 			(width 0)
@@ -21959,16 +21961,6 @@
 			(type default)
 		)
 		(uuid "da7322e7-537c-45a4-937c-73955d13fc2f")
-	)
-	(wire
-		(pts
-			(xy 276.86 72.39) (xy 276.86 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "dad46a78-e3e4-4ab7-9168-a1cd7ccb29ed")
 	)
 	(wire
 		(pts
@@ -28047,6 +28039,100 @@
 			(project "vanilla-ice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "#PWR057")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 74.93 41.91 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "293eea20-ce38-4cf9-9d24-e4401121e4a6")
+		(property "Reference" "R6"
+			(at 78.232 40.894 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "5.1k"
+			(at 78.486 42.926 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C23186"
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-FX-5101ELFCT-ND"
+			(at 74.93 41.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "c639b3c1-12ce-4a8a-828d-eff1d9b24856")
+		)
+		(pin "1"
+			(uuid "92dae3f7-47e2-447f-b8af-ed913eeae699")
+		)
+		(instances
+			(project "vanilla-ice40"
+				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
+					(reference "R6")
 					(unit 1)
 				)
 			)
@@ -34920,103 +35006,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
-		(at 74.93 41.91 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "7156dba4-8a5d-461f-b73a-cfc00eef1c07")
-		(property "Reference" "R6"
-			(at 77.47 40.6399 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "2.2k"
-			(at 77.47 43.1799 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C4190"
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 74.93 41.91 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "a1eb9698-0578-438b-bf53-f6047f8eaf2d")
-		)
-		(pin "1"
-			(uuid "0cbc102c-010a-4799-bbb1-b0244e09a54b")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "R6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Memory_EEPROM:93LCxxBxxOT")
 		(at 33.02 223.52 0)
 		(unit 1)
@@ -38867,72 +38856,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:GND")
-		(at 276.86 82.55 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "a37b436a-3cd6-470d-a035-f7102c51cef6")
-		(property "Reference" "#PWR031"
-			(at 276.86 88.9 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 276.86 87.63 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 276.86 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 276.86 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 276.86 82.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e4546e07-e9f7-45fd-a827-3f2f7c91fedc")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "#PWR031")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Small")
 		(at 165.1 152.4 90)
 		(unit 1)
@@ -40731,103 +40654,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:LED_Small")
-		(at 276.86 80.01 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c1b054aa-8ce6-4ab7-90a3-b675ec8bda96")
-		(property "Reference" "3V3_1"
-			(at 279.4 78.6764 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Red"
-			(at 279.4 81.2164 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
-			(at 276.86 80.01 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 276.86 80.01 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Light emitting diode, small symbol"
-			(at 276.86 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C2286"
-			(at 276.86 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 276.86 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "732-4978-1-ND"
-			(at 276.86 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "453c7b23-8515-432f-a8b7-4e96ded2fbcf")
-		)
-		(pin "1"
-			(uuid "d60c7d51-761e-463d-9501-5dbd677a14f7")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "3V3_1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 201.93 110.49 0)
 		(unit 1)
@@ -40989,103 +40815,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:LED_Small")
-		(at 276.86 115.57 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c5991c2d-96f8-467e-8556-2534f2a8ca48")
-		(property "Reference" "1V2_1"
-			(at 279.4 114.2364 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "Red"
-			(at 279.4 116.7764 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
-			(at 276.86 115.57 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 276.86 115.57 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Light emitting diode, small symbol"
-			(at 276.86 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C2286"
-			(at 276.86 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 276.86 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "732-4978-1-ND"
-			(at 276.86 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "2557f44c-9de6-44f2-ac03-fb5b3fb8b4a1")
-		)
-		(pin "1"
-			(uuid "a74d6dfd-dbe7-4a73-9df2-c113794c995d")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "1V2_1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 254 45.72 0)
 		(unit 1)
@@ -41145,103 +40874,6 @@
 			(project "vanilla-ice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "#PWR015")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 276.86 110.49 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "c853ea48-a4c3-4b30-acdd-081f06765df5")
-		(property "Reference" "R21"
-			(at 279.4 109.2199 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "2.2k"
-			(at 279.4 111.7599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C4190"
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 276.86 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "379b01c9-2105-482e-9c30-72b127e9060e")
-		)
-		(pin "1"
-			(uuid "e86eb25c-0e5b-432a-bbaa-f5a6def51822")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "R21")
 					(unit 1)
 				)
 			)
@@ -41500,103 +41132,6 @@
 			(project "vanilla-ice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "#PWR064")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 276.86 74.93 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "cc997836-10b4-4483-a14c-49c0b54bff29")
-		(property "Reference" "R11"
-			(at 279.4 73.6599 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "2.2k"
-			(at 279.4 76.1999 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C4190"
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 276.86 74.93 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "26ff5c3a-f44c-4a57-a06d-c1c74d0fc385")
-		)
-		(pin "1"
-			(uuid "61f3f5ac-8cd0-4d47-8b59-f669019bf468")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "R11")
 					(unit 1)
 				)
 			)
@@ -43539,72 +43074,6 @@
 			(project "vanilla-ice40"
 				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
 					(reference "C43")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 276.86 118.11 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "e6faa996-3641-4163-9205-ddcd8f90719e")
-		(property "Reference" "#PWR045"
-			(at 276.86 124.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 276.86 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 276.86 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 276.86 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 276.86 118.11 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "76ae0be6-7cb9-4495-8fbc-729d1517fd82")
-		)
-		(instances
-			(project "vanilla-ice40"
-				(path "/a9f93d6d-ad6a-4eb5-8259-93de27758801"
-					(reference "#PWR045")
 					(unit 1)
 				)
 			)
