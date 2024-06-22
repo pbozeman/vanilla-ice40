@@ -3,7 +3,7 @@ TEST_DIR = test
 BUILD_DIR = .build
 
 # Common sources
-COMMON_SRC = common/counter.v
+COMMON_SRC = $(wildcard common/*.v))
 
 # VGA sources
 VGA_SRC = vga/src/pixel_addr.v
@@ -20,7 +20,7 @@ TEST_BENCHES = counter_tb pixel_addr_tb
 OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
 
 # Compiler and simulator
-IVERILOG = iverilog
+IVERILOG = iverilog -DSIMULATOR
 VVP = vvp
 
 # All targets

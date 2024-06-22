@@ -1,3 +1,5 @@
+`ifndef SIMULATOR
+
 `define PLL_DIVR (4'd0)
 `define PLL_DIVF (7'd7)
 `define PLL_DIVQ (3'd5)
@@ -41,3 +43,5 @@ module pll_vga (
   );
 
 endmodule
+
+`endif
