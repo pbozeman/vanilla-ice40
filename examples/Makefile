@@ -5,13 +5,16 @@ BUILD_DIR = .build
 # Common sources
 COMMON_SRC = common/counter.v
 
+# VGA sources
+VGA_SRC = vga/src/pixel_addr.v
+
 # Common sources
-SRC = $(COMMON_SRC)
+SRC = $(COMMON_SRC) $(VGA_SRC)
 TB_COMMON_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_COMMON_SRC)
 
 # Test benches
-TEST_BENCHES = counter_tb
+TEST_BENCHES = counter_tb pixel_addr_tb
 
 # Output executables
 OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))

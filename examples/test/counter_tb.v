@@ -24,7 +24,7 @@ module counter_tb;
   end
 
   initial begin
-    $dumpfile(".build/counter-dump.vcd");
+    $dumpfile(".build/counter_dump.vcd");
     $dumpvars(0, counter_tb);
 
     clk = 0;
