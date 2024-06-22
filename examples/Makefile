@@ -3,12 +3,12 @@ TEST_DIR = test
 BUILD_DIR = .build
 
 # Common sources
-COMMON_SRC = $(wildcard common/*.v))
+COMMON_SRC = $(wildcard common/*.v)
 
 # VGA sources
 VGA_SRC = $(filter-out %_top.v, $(wildcard vga/src/*.v))
 
-# Common sources
+# All sources
 SRC = $(COMMON_SRC) $(VGA_SRC)
 TB_COMMON_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_COMMON_SRC)
@@ -40,7 +40,6 @@ FAIL_COUNT := 0
 # Function to run test bench and update counters
 define run_test
 	@echo "Running $1..."
-	touch $(BUILD_DIR)/tb_success.log
 	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
 endef
 
@@ -64,6 +63,6 @@ clean:
 
 clean_logs: $(BUILD_DIR)
 	@rm -f $(BUILD_DIR)/tb_success.log $(BUILD_DIR)/tb_failure.log
-	@touch $(BUILD_DIR)/tb_failure.log
+	@touch $(BUILD_DIR)/tb_success.log $(BUILD_DIR)/tb_failure.log
 
 .PHONY: all clean clean_logs check test $(addprefix run_, $(TEST_BENCHES))
