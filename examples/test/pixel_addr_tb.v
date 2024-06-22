@@ -18,7 +18,7 @@ module pixel_addr_tb;
   end
 
   initial begin
-    $dumpfile(".build/pixel_addr-dump.vcd");
+    $dumpfile(".build/pixel_addr_dump.vcd");
     $dumpvars(0, pixel_addr_tb);
 
     clk   = 0;
