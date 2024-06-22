@@ -14,7 +14,7 @@ TB_COMMON_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_COMMON_SRC)
 
 # Test benches
-TEST_BENCHES = counter_tb pixel_addr_tb vga_tb
+TEST_BENCHES = counter_tb pixel_addr_tb vga_tb vga_test_01_tb
 
 # Output executables
 OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
