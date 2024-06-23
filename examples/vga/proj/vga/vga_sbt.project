@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=vga
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../src/vga_top.v,../../../common/pll_vga.v,../../src/pixel_addr.v,../../src/vga.v,../../src/vga_test_01.v,../../../common/counter.v
+ProjectVFiles=../../src/vga_top.v=work,../../../common/pll_vga.v=work,../../src/pixel_addr.v=work,../../src/vga.v=work,../../src/vga_test_01.v=work,../../../common/counter.v=work
 ProjectCFiles=
 CurImplementation=vga_Implmnt
 Implementations=vga_Implmnt

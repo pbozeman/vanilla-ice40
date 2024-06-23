@@ -63,8 +63,8 @@ module vga_top (
       .clk_i(vga_clk),
       .reset_i(reset),
       .visible_o(visible),
-      .hsync_o(VGA_HSYNC),
-      .vsync_o(VGA_VSYNC),
+      .hsync_o(`VGA_HSYNC),
+      .vsync_o(`VGA_VSYNC),
       .column_o(column),
       .row_o(row)
   );
