@@ -5,3 +5,28 @@ set_io led2_o 2
 
 set_io EF_01 90
 set_io EF_02 87
+set_io EF_03 84
+set_io EF_04 82
+set_io EF_05 88
+set_io EF_06 85
+set_io EF_07 83
+set_io EF_08 81
+
+set_io GH_01 80
+set_io GH_02 78
+set_io GH_03 75
+set_io GH_04 73
+set_io GH_05 79
+set_io GH_06 76
+set_io GH_07 74
+set_io GH_08 62
+
+# template
+#set_io xx_01
+#set_io xx_05
+#set_io xx_02
+#set_io xx_06
+#set_io xx_03
+#set_io xx_07
+#set_io xx_04
+#set_io xx_08
