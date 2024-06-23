@@ -1,5 +1,8 @@
 `ifndef SIMULATOR
 
+// avoid undeclared symbols
+`default_nettype none
+
 `define PLL_DIVR (4'd0)
 `define PLL_DIVF (7'd7)
 `define PLL_DIVQ (3'd5)

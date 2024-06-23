@@ -1,3 +1,9 @@
+// for simulation
+`timescale 1ns / 1ps
+
+// avoid undeclared symbols
+`default_nettype none
+
 module blinky_top (
     input wire clk_i,
     output reg led1_o,

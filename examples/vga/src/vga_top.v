@@ -1,3 +1,9 @@
+// for simulation
+`timescale 1ns / 1ps
+
+// avoid undeclared symbols
+`default_nettype none
+
 `define VGA_RED_0 EF_01
 `define VGA_RED_1 EF_02
 `define VGA_RED_2 EF_03

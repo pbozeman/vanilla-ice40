@@ -1,5 +1,12 @@
 // defaults to industry standard 640x480@60Hz
 // http://www.tinyvga.com/vga-timing/640x480@60Hz
+
+// for simulation
+`timescale 1ns / 1ps
+
+// avoid undeclared symbols
+`default_nettype none
+
 module vga #(
     parameter H_VISIBLE = 640,
     parameter H_FRONT_PORCH = 16,

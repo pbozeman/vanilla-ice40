@@ -1,3 +1,9 @@
+// for simulation
+`timescale 1ns / 1ps
+
+// avoid undeclared symbols
+`default_nettype none
+
 module vga_test_01 (
     input [9:0] column_i,
     input [9:0] row_i,

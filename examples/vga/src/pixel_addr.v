@@ -1,6 +1,12 @@
 // defaults to 640x480
 // http://www.tinyvga.com/vga-timing/640x480@60Hz
 
+// for simulation
+`timescale 1ns / 1ps
+
+// avoid undeclared symbols
+`default_nettype none
+
 module pixel_addr #(
     parameter H_WHOLE_LINE  = 800,
     parameter V_WHOLE_FRAME = 525
