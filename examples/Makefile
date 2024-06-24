@@ -2,19 +2,19 @@
 TEST_DIR = test
 BUILD_DIR = .build
 
-# Common sources
-COMMON_SRC = $(wildcard common/*.v)
+# Lib sources
+LIB_SRC = $(wildcard lib/*.v)
 
 # VGA sources
-VGA_SRC = $(filter-out %_top.v, $(wildcard vga/src/*.v))
+VGA_SRC = $(filter-out %_top.v, $(wildcard vga/*.v))
 
 # UART sources
-UART_SRC = $(wildcard uart/src/*.v)
+UART_SRC = $(wildcard uart/*.v)
 
 # All sources
-SRC = $(COMMON_SRC) $(VGA_SRC) $(UART_SRC)
-TB_COMMON_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
-ALL_SRC = $(SRC) $(TB_COMMON_SRC)
+SRC = $(LIB_SRC) $(VGA_SRC) $(UART_SRC)
+TB_LIB_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
+ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Test benches
 TEST_BENCHES = counter_tb pixel_addr_tb vga_tb vga_test_01_tb uart_hello_tb fifo_tb
@@ -73,7 +73,7 @@ lint: $(addprefix lint_, $(TEST_BENCHES))
 
 define lint_rule
 lint_$(1):
-	$(LINTER) -Icommon -Ivga/src -Iuart/src -Itest assert.v $(TEST_DIR)/$(1).v
+	$(LINTER) -Ilib -Ivga/src -Iuart -Itest assert.v $(TEST_DIR)/$(1).v
 endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))

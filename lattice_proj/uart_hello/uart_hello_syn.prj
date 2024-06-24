@@ -2,8 +2,9 @@
 #-- Project file N:\home\pbozeman\src\vanilla-ice40\examples\uart\proj\uart_hello\uart_hello_syn.prj
 #project files
 
-add_file -verilog -lib work "../../src/uart_hello_top.v" 
-add_file -verilog -lib work "../../../common/uart_tx.v" 
+add_file -verilog -lib work "../../examples/uart/uart_hello_top.v" 
+add_file -verilog -lib work "../../examples/lib/uart_tx.v" 
+add_file -constraint -lib work "../../constraints/vanilla-ice40-clock.sdc"
 #implementation: "uart_hello_Implmnt"
 impl -add uart_hello_Implmnt -type fpga
 
