@@ -6,10 +6,10 @@ BUILD_DIR = .build
 COMMON_SRC = $(wildcard common/*.v)
 
 # VGA sources
-VGA_SRC = $(wildcard vga/src/*.v)
+VGA_SRC = $(filter-out %_top.v, $(wildcard vga/src/*.v))
 
 # UART sources
-VGA_SRC = $(wildcard uart/src/*.v)
+UART_SRC = $(wildcard uart/src/*.v)
 
 # All sources
 SRC = $(COMMON_SRC) $(VGA_SRC) $(UART_SRC)
