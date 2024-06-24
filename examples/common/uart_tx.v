@@ -28,7 +28,7 @@ module uart_tx #(
 
   reg [ 1:0] state = IDLE;
   reg [13:0] clk_count = 0;
-  reg [ 3:0] bit_index = 0;
+  reg [ 2:0] bit_index = 0;
   reg [ 7:0] data_buffer = 0;
 
   always @(posedge clk_i) begin
