@@ -28,6 +28,11 @@
   - move icecube projects into a single dir
 - add yosys compilation
 
+### misc
+
+- make sure all components have a reset_i
+- create reset component and use in top modules
+
 ### uart
 
 - add tests
