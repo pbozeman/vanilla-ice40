@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=uart_hello
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../src/uart_hello_top.v=work,../../../common/uart_tx.v
+ProjectVFiles=../../src/uart_hello_top.v=work,../../../common/uart_tx.v=work
 ProjectCFiles=
 CurImplementation=uart_hello_Implmnt
 Implementations=uart_hello_Implmnt

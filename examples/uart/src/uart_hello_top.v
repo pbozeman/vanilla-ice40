@@ -12,7 +12,9 @@ module uart_hello_top (
     output wire led2_o
 );
   // Message to send
-  reg [7:0] message[0:12];
+  reg [7:0] message[0:14];
+
+  reg initialized = 0;
 
   initial begin
     message[0]  = "H";
@@ -28,12 +30,14 @@ module uart_hello_top (
     message[10] = "l";
     message[11] = "d";
     message[12] = "!";
+    message[13] = "\r";
+    message[14] = "\n";
   end
 
   reg [3:0] msg_index = 0;
+  reg [7:0] tx_data;
   reg tx_send = 0;
   wire tx_ready;
-  wire reset = 0;
   wire debug;
 
   uart_tx #(
@@ -41,8 +45,7 @@ module uart_hello_top (
       .BAUD_RATE (115_200)
   ) uart_tx_inst (
       .clk_i(clk_i),
-      .reset_i(reset),
-      .data_i(message[msg_index]),
+      .data_i(tx_data),
       .tx_send_i(tx_send),
       .tx_ready_o(tx_ready),
       .tx_o(UART_TX),
@@ -50,19 +53,35 @@ module uart_hello_top (
   );
 
   always @(posedge clk_i) begin
-    if (tx_ready && !tx_send) begin
-      if (msg_index < 13) begin
+    if (!initialized) begin
+      message[0]  <= "H";
+      message[1]  <= "e";
+      message[2]  <= "l";
+      message[3]  <= "l";
+      message[4]  <= "o";
+      message[5]  <= ",";
+      message[6]  <= " ";
+      message[7]  <= "W";
+      message[8]  <= "o";
+      message[9]  <= "r";
+      message[10] <= "l";
+      message[11] <= "d";
+      message[12] <= "!";
+      message[13] <= "\r";
+      message[14] <= "\n";
+      initialized <= 1;
+    end else if (tx_ready) begin
+      if (msg_index < 15) begin
+        tx_data   <= message[msg_index];
         tx_send   <= 1;
         msg_index <= msg_index + 1;
       end else begin
         tx_send   <= 0;
         msg_index <= 0;
       end
-    end else if (tx_send) begin
-      tx_send <= 0;
     end
   end
 
   assign led1_o = tx_ready;
-  assign led2_o = tx_send;
+  assign led2_o = debug;
 endmodule
