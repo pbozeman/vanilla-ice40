@@ -9,6 +9,7 @@
 - add tx/rx to breakout
 - remove 3v3 and 1v2 voltage breakouts
 - add 5v power jumper or transistor
+- double check tx/rx net labels. they might be backwards, or at least misleading, as they might be from the ftdi perspective and not ice40
 
 ### PMOD board
 
