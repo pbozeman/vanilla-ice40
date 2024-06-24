@@ -73,7 +73,7 @@ lint: $(addprefix lint_, $(TEST_BENCHES))
 
 define lint_rule
 lint_$(1):
-	$(LINTER) -Ilib -Ivga/src -Iuart -Itest assert.v $(TEST_DIR)/$(1).v
+	$(LINTER) -Ilib -Ivga -Iuart -Itest assert.v $(TEST_DIR)/$(1).v
 endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))

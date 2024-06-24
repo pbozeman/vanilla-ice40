@@ -1,12 +1,13 @@
 #-- Synopsys, Inc.
 #project files
 
-add_file -verilog -lib work "../../src/vga_top.v" 
-add_file -verilog -lib work "../../../common/pll_vga.v" 
-add_file -verilog -lib work "../../src/pixel_addr.v" 
-add_file -verilog -lib work "../../src/vga.v" 
-add_file -verilog -lib work "../../src/vga_test_01.v" 
-add_file -verilog -lib work "../../../common/counter.v" 
+add_file -verilog -lib work "../../examples/vga/pixel_addr.v" 
+add_file -verilog -lib work "../../examples/vga/vga.v" 
+add_file -verilog -lib work "../../examples/vga/vga_test_01.v" 
+add_file -verilog -lib work "../../examples/vga/vga_top.v" 
+add_file -verilog -lib work "../../examples/lib/counter.v" 
+add_file -verilog -lib work "../../examples/lib/pll_vga.v" 
+add_file -constraint -lib work "../../constraints/vanilla-ice40-clock.sdc"
 #implementation: "vga_Implmnt"
 impl -add vga_Implmnt -type fpga
 
