@@ -16,24 +16,6 @@ module uart_hello_top (
 
   reg initialized = 0;
 
-  initial begin
-    message[0]  = "H";
-    message[1]  = "e";
-    message[2]  = "l";
-    message[3]  = "l";
-    message[4]  = "o";
-    message[5]  = ",";
-    message[6]  = " ";
-    message[7]  = "W";
-    message[8]  = "o";
-    message[9]  = "r";
-    message[10] = "l";
-    message[11] = "d";
-    message[12] = "!";
-    message[13] = "\r";
-    message[14] = "\n";
-  end
-
   reg [3:0] msg_index = 0;
   reg [7:0] tx_data;
   reg tx_send = 0;
