@@ -23,9 +23,6 @@
 
 ### Project structure
 
-- update source layout
-  - change to rtl dir
-  - move icecube projects into a single dir
 - add yosys compilation
 
 ### misc
