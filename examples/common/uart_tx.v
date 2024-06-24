@@ -15,7 +15,8 @@ module uart_tx #(
     input wire [7:0] data_i,
     input wire tx_send_i,
     output reg tx_ready_o,
-    output reg tx_o
+    output reg tx_o,
+    output reg debug_o
 );
 
   localparam CLOCKS_PER_BIT = CLOCK_FREQ / BAUD_RATE;
@@ -31,6 +32,15 @@ module uart_tx #(
   reg [ 3:0] bit_index = 0;
   reg [ 7:0] data_buffer = 0;
 
+  initial begin
+    state <= IDLE;
+    clk_count <= 0;
+    bit_index <= 0;
+    tx_ready_o <= 1;
+    tx_o <= 1;
+    debug_o <= 0;
+  end
+
   always @(posedge clk_i or posedge reset_i) begin
     if (reset_i) begin
       state <= IDLE;
@@ -38,6 +48,7 @@ module uart_tx #(
       bit_index <= 0;
       tx_ready_o <= 1;
       tx_o <= 1;
+      debug_o <= 0;
     end else begin
       case (state)
         IDLE: begin
