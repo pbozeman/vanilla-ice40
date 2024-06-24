@@ -30,7 +30,7 @@ module uart_hello_top (
       .clk_i(clk_i),
       .reset_i(reset),
       .data_i(tx_data),
-      .tx_send_i(tx_send),
+      .tx_en_i(tx_send),
       .tx_ready_o(tx_ready),
       .tx_o(UART_TX),
       .debug_o(debug)

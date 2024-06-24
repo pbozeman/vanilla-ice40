@@ -13,7 +13,7 @@ module uart_tx #(
     input wire clk_i,
     input wire reset_i,
     input wire [7:0] data_i,
-    input wire tx_send_i,
+    input wire tx_en_i,
     output reg tx_ready_o,
     output reg tx_o,
     output reg debug_o
@@ -45,7 +45,7 @@ module uart_tx #(
       case (state)
         IDLE: begin
           clk_count <= 0;
-          if (tx_send_i) begin
+          if (tx_en_i) begin
             tx_ready_o <= 0;
             data_buffer <= data_i;
             state <= START;
