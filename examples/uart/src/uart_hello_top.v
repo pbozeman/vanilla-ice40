@@ -49,8 +49,8 @@ module uart_hello_top (
       message[10] <= "l";
       message[11] <= "d";
       message[12] <= "!";
-      message[13] <= "\r";
-      message[14] <= "\n";
+      message[13] <= 8'h0D;
+      message[14] <= 8'h0A;
       initialized <= 1;
     end else if (tx_ready) begin
       if (msg_index < 15) begin
