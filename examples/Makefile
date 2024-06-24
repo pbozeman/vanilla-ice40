@@ -26,6 +26,9 @@ OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
 IVERILOG = iverilog -DSIMULATOR
 VVP = vvp
 
+# Linter
+LINTER = verilator --lint-only --timing --Wno-WIDTHEXPAND
+
 # All targets
 all: $(OUTS)
 
@@ -58,7 +61,19 @@ test: clean_logs $(addprefix run_, $(TEST_BENCHES))
 	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
 	@echo "=============================="
 
-check: test
+check: lint test
+
+# Linting rules
+.PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
+
+lint: $(addprefix lint_, $(TEST_BENCHES))
+
+define lint_rule
+lint_$(1):
+	$(LINTER) -Icommon -Ivga/src -Iuart/src -Itest assert.v $(TEST_DIR)/$(1).v
+endef
+
+$(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
 
 # Clean build artifacts
 clean:

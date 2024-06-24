@@ -1,3 +1,6 @@
+// for simulation
+`timescale 1ns / 1ps
+
 `ifndef SIMULATOR
 
 // avoid undeclared symbols

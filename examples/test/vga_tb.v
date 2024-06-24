@@ -1,3 +1,6 @@
+// for simulation
+`timescale 1ns / 1ps
+
 module vga_tb;
 
   reg clk = 1'b0;
