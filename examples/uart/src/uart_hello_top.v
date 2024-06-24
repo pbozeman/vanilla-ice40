@@ -19,6 +19,7 @@ module uart_hello_top (
   reg [3:0] msg_index = 0;
   reg [7:0] tx_data;
   reg tx_send = 0;
+  wire reset = 0;
   wire tx_ready;
   wire debug;
 
@@ -27,6 +28,7 @@ module uart_hello_top (
       .BAUD_RATE (115_200)
   ) uart_tx_inst (
       .clk_i(clk_i),
+      .reset_i(reset),
       .data_i(tx_data),
       .tx_send_i(tx_send),
       .tx_ready_o(tx_ready),
