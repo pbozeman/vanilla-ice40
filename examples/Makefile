@@ -29,6 +29,9 @@ VVP = vvp
 # Linter
 LINTER = verilator --lint-only --timing --Wno-WIDTHEXPAND
 
+# Formatter
+FORMATTER = verible-verilog-format --inplace
+
 # All targets
 all: $(OUTS)
 
@@ -74,6 +77,12 @@ lint_$(1):
 endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
+
+# Formatting rule
+.PHONY: format
+format:
+	$(FORMATTER) $(ALL_SRC) $(TEST_DIR)/*.v
+
 
 # Clean build artifacts
 clean:
