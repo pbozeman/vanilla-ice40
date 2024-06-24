@@ -21,7 +21,6 @@ module uart_hello_top (
   reg tx_send = 0;
   wire reset = 0;
   wire tx_ready;
-  wire debug;
 
   uart_tx #(
       .CLOCK_FREQ(100_000_000),
@@ -32,8 +31,7 @@ module uart_hello_top (
       .data_i(tx_data),
       .tx_en_i(tx_send),
       .tx_ready_o(tx_ready),
-      .tx_o(UART_TX),
-      .debug_o(debug)
+      .tx_o(UART_TX)
   );
 
   always @(posedge clk_i) begin
@@ -66,6 +64,7 @@ module uart_hello_top (
     end
   end
 
-  assign led1_o = tx_ready;
-  assign led2_o = debug;
+  assign led1_o = 1'bZ;
+  assign led2_o = 1'bZ;
+
 endmodule

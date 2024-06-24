@@ -15,8 +15,7 @@ module uart_tx #(
     input wire [7:0] data_i,
     input wire tx_en_i,
     output reg tx_ready_o,
-    output reg tx_o,
-    output reg debug_o
+    output reg tx_o
 );
 
   localparam CLOCKS_PER_BIT = CLOCK_FREQ / BAUD_RATE;
@@ -40,7 +39,6 @@ module uart_tx #(
       data_buffer <= 0;
       tx_ready_o <= 1;
       tx_o <= 1;
-      debug_o <= 0;
     end else begin
       case (state)
         IDLE: begin
@@ -65,7 +63,6 @@ module uart_tx #(
           end
         end
         DATA: begin
-          debug_o <= 1;
           // bit by bit send of data
           tx_o <= data_buffer[bit_index];
           // hold for baud rate clocks
@@ -79,7 +76,6 @@ module uart_tx #(
             end else begin
               bit_index <= 0;
               state <= STOP;
-              debug_o <= 0;
             end
           end
         end
