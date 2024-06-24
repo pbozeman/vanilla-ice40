@@ -11,20 +11,25 @@ module uart_hello_fifo_top (
     output wire led1_o,
     output wire led2_o
 );
+  wire reset = 0;
+  reg initialized = 0;
 
   // Message to send
   reg [7:0] message[0:14];
-  reg initialized = 0;
   reg [3:0] msg_index = 0;
 
-  reg fifo_write_en = 0;
-  wire reset = 0;
+  // UART signal
   wire tx_ready;
 
   // FIFO signals
+  reg [7:0] fifo_write_data;
+  reg fifo_write_en = 0;
+
   wire [7:0] fifo_read_data;
-  wire fifo_empty, fifo_full;
   wire fifo_read_en;
+
+  wire fifo_empty;
+  wire fifo_full;
 
   // UART transmitter instantiation
   uart_tx #(
@@ -41,13 +46,13 @@ module uart_hello_fifo_top (
 
   // FIFO instantiation
   fifo #(
-      .FIFO_DEPTH(16)
+      .DEPTH(16)
   ) fifo_inst (
       .clk_i(clk_i),
       .reset_i(reset),
       .write_en_i(fifo_write_en),
       .read_en_i(fifo_read_en),
-      .write_data_i(message[msg_index]),
+      .write_data_i(fifo_write_data),
       .read_data_o(fifo_read_data),
       .empty_o(fifo_empty),
       .full_o(fifo_full)
@@ -75,14 +80,18 @@ module uart_hello_fifo_top (
       message[14] <= 8'h0A;
       initialized <= 1;
     end else if (msg_index < 15 && !fifo_full) begin
+      fifo_write_data <= message[msg_index];
       fifo_write_en <= 1;
       msg_index <= msg_index + 1;
+    end else if (msg_index == 15) begin
+      fifo_write_en <= 0;
+      msg_index <= 0;
     end else begin
       fifo_write_en <= 0;
     end
   end
 
-  assign led1_o = 1'bZ;
-  assign led2_o = 1'bZ;
+  assign led1_o = 1'b0;
+  assign led2_o = 1'b0;
 
 endmodule

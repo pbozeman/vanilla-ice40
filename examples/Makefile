@@ -17,7 +17,7 @@ TB_LIB_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Test benches
-TEST_BENCHES = counter_tb pixel_addr_tb vga_tb vga_test_01_tb uart_hello_tb fifo_tb
+TEST_BENCHES = counter_tb pixel_addr_tb vga_tb vga_test_01_tb uart_hello_tb uart_hello_fifo_tb fifo_tb fifo_interleaved_tb
 
 # Output executables
 OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
@@ -27,7 +27,7 @@ IVERILOG = iverilog -DSIMULATOR
 VVP = vvp
 
 # Linter
-LINTER = verilator --lint-only --timing --Wno-WIDTHEXPAND
+LINTER = verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 
 # Formatter
 FORMATTER = verible-verilog-format --inplace
