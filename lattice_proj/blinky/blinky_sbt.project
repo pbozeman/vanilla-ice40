@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=blinky
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../src/blinky_top.v=work
+ProjectVFiles=../../examples/blinky/blinky_top.v
 ProjectCFiles=
 CurImplementation=blinky_Implmnt
 Implementations=blinky_Implmnt
@@ -25,7 +25,7 @@ DesignCell=blinky_top
 SynthesisSDCFile=blinky_Implmnt/blinky.scf
 UserPinConstraintFile=
 UserSDCFile=
-PhysicalConstraintFile=../../../../constraints/vanilla-ice40.pcf
+PhysicalConstraintFile=../../constraints/vanilla-ice40.pcf
 BackendImplPathName=
 Devicevoltage=1.14
 DevicevoltagePerformance=+/-5%(datasheet default)

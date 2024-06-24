@@ -1,6 +1,6 @@
 #-- Synopsys, Inc.
 
-add_file -verilog -lib work "../../src/blinky_top.v" 
+add_file -verilog -lib work "../../examples/blinky/blinky_top.v" 
 #implementation: "blinky_Implmnt"
 impl -add blinky_Implmnt -type fpga
 
