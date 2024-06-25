@@ -6,9 +6,9 @@ BUILD_DIR = .build
 TEST_BENCHES = $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
 # Source files
-DIRS := $(filter-out $(TEST_DIR), $(wildcard */))
-SRC := $(foreach dir,$(DIRS),$(wildcard $(dir)*.v))
-TB_LIB_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
+DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
+SRC := $(filter-out vga/vga_top.v, $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
+TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Output executables
