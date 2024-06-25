@@ -22,9 +22,6 @@ module fifo #(
   reg [$clog2(DEPTH)-1:0] rd_ptr = 0;
   reg [$clog2(DEPTH+1)-1:0] fifo_count = 0;
 
-  assign full_o  = (fifo_count == DEPTH);
-  assign empty_o = (fifo_count == 0);
-
   // Write operation
   always @(posedge clk_i or posedge reset_i) begin
     if (reset_i) begin
@@ -60,4 +57,8 @@ module fifo #(
       endcase
     end
   end
+
+  assign full_o  = (fifo_count == DEPTH);
+  assign empty_o = (fifo_count == 0);
+
 endmodule

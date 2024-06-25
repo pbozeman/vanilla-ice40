@@ -36,4 +36,5 @@
 
 ### fifo
 
-- add tests
+- maybe add an "almost full" as it's hard to manage right
+  at the boundary of being full
