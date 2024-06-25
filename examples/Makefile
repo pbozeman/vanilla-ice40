@@ -2,22 +2,14 @@
 TEST_DIR = test
 BUILD_DIR = .build
 
-# Lib sources
-LIB_SRC = $(wildcard lib/*.v)
+# Test benches
+TEST_BENCHES = $(basename $(notdir $(wildcard test/*_tb.v)))
 
-# VGA sources
-VGA_SRC = $(filter-out %_top.v, $(wildcard vga/*.v))
-
-# UART sources
-UART_SRC = $(wildcard uart/*.v)
-
-# All sources
-SRC = $(LIB_SRC) $(VGA_SRC) $(UART_SRC)
+# Source files
+DIRS := $(filter-out test, $(wildcard */))
+SRC := $(foreach dir,$(DIRS),$(wildcard $(dir)*.v))
 TB_LIB_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
-
-# Test benches
-TEST_BENCHES = counter_tb pixel_addr_tb vga_tb vga_test_01_tb uart_hello_tb uart_hello_fifo_tb fifo_tb fifo_interleaved_tb
 
 # Output executables
 OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
