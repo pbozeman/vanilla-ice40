@@ -3,10 +3,10 @@ TEST_DIR = test
 BUILD_DIR = .build
 
 # Test benches
-TEST_BENCHES = $(basename $(notdir $(wildcard test/*_tb.v)))
+TEST_BENCHES = $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
 # Source files
-DIRS := $(filter-out test, $(wildcard */))
+DIRS := $(filter-out $(TEST_DIR), $(wildcard */))
 SRC := $(foreach dir,$(DIRS),$(wildcard $(dir)*.v))
 TB_LIB_SRC = $(filter-out %_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
@@ -40,13 +40,13 @@ FAIL_COUNT := 0
 
 # Function to run test bench and update counters
 define run_test
-	@echo "Running $1..."
 	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
 endef
 
 # General rule for running each test bench
 .PHONY: $(addprefix run_, $(TEST_BENCHES))
 $(addprefix run_, $(TEST_BENCHES)): run_% : $(BUILD_DIR)/%
+	@echo make $@
 	$(call run_test,$<)
 
 # Run all test benches sequentially and show summary
@@ -60,12 +60,13 @@ check: lint test
 
 # Linting rules
 .PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
-
 lint: $(addprefix lint_, $(TEST_BENCHES))
 
+LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) assert.v $(TEST_DIR)/$(1).v
 define lint_rule
 lint_$(1):
-	$(LINTER) -Ilib -Ivga -Iuart -Itest assert.v $(TEST_DIR)/$(1).v
+	@echo "make lint $1"
+	@$(LINT_CMD) || (echo $(LINT_CMD); exit 1)
 endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
@@ -74,7 +75,6 @@ $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
 .PHONY: format
 format:
 	$(FORMATTER) $(ALL_SRC) $(TEST_DIR)/*.v
-
 
 # Clean build artifacts
 clean:
