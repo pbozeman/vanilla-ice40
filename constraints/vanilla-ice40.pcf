@@ -150,6 +150,24 @@ set_io DC_PINS[5] 117
 set_io DC_PINS[6] 115
 set_io DC_PINS[7] 113
 
+set_io HG_01 144
+set_io HG_02 8
+set_io HG_03 10
+set_io HG_04 12
+set_io HG_05 7
+set_io HG_06 9
+set_io HG_07 11
+set_io HG_08 15
+
+set_io HG_PINS[0] 144
+set_io HG_PINS[1] 8
+set_io HG_PINS[2] 10
+set_io HG_PINS[3] 12
+set_io HG_PINS[4] 7
+set_io HG_PINS[5] 9
+set_io HG_PINS[6] 11
+set_io HG_PINS[7] 15
+
 # template
 #set_io xx_01
 #set_io xx_05
