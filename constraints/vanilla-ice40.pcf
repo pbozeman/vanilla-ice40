@@ -69,6 +69,15 @@ set_io GH_06 76
 set_io GH_07 74
 set_io GH_08 62
 
+set_io GH_PINS[0] 80
+set_io GH_PINS[1] 78
+set_io GH_PINS[2] 75
+set_io GH_PINS[3] 73
+set_io GH_PINS[4] 79
+set_io GH_PINS[5] 76
+set_io GH_PINS[6] 74
+set_io GH_PINS[7] 62
+
 set_io BA_01 134
 set_io BA_02 129
 set_io BA_03 125
