@@ -233,8 +233,7 @@ module solder_chk_tb;
     $dumpfile(".build/solder_chk.vcd");
     $dumpvars(0, uut);
 
-    // Run the simulation for 2 ms (2000 µs)
-    #2000000;
+    repeat(200) @(posedge clk);
 
     $finish;
   end

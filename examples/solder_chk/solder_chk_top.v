@@ -97,7 +97,7 @@ module solder_chk_top (
     inout wire PIN119,
     inout wire PIN120,
     inout wire PIN121,
-    inout wire PIN122,
+    input wire PIN122,
     inout wire PIN124,
     inout wire PIN125,
     inout wire PIN128,
@@ -210,7 +210,7 @@ module solder_chk_top (
     PIN119,
     PIN120,
     PIN121,
-    PIN122,
+    // PIN122,
     PIN124,
     PIN125,
     PIN128,
@@ -317,7 +317,7 @@ module solder_chk_top (
     PIN119,
     PIN120,
     PIN121,
-    PIN122,
+    // PIN122,
     PIN124,
     PIN125,
     PIN128,
@@ -335,7 +335,7 @@ module solder_chk_top (
     PIN144 } = test_pins;
 
   io_walker #(
-      .NUM_PINS(104)
+      .NUM_PINS(103)
   ) uut (
       .clk_i(clk_i),
       .test_pins(test_pins),
@@ -343,7 +343,7 @@ module solder_chk_top (
       .error_o(error)
   );
 
-  assign led1_o = test_pins[0];
+  assign led1_o = PIN122;
   assign led2_o = error;
 
 endmodule
