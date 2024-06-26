@@ -78,6 +78,24 @@ set_io GH_PINS[5] 76
 set_io GH_PINS[6] 74
 set_io GH_PINS[7] 62
 
+set_io IJ_01 61
+set_io IJ_02 56
+set_io IJ_03 52
+set_io IJ_04 48
+set_io IJ_05 60
+set_io IJ_06 55
+set_io IJ_07 49
+set_io IJ_08 47
+
+set_io IJ_PINS[0] 61
+set_io IJ_PINS[1] 56
+set_io IJ_PINS[2] 52
+set_io IJ_PINS[3] 48
+set_io IJ_PINS[4] 60
+set_io IJ_PINS[5] 55
+set_io IJ_PINS[6] 49
+set_io IJ_PINS[7] 47
+
 set_io BA_01 134
 set_io BA_02 129
 set_io BA_03 125
