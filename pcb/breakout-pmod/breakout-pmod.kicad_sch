@@ -10824,7 +10824,7 @@
 		(uuid "1ea092f9-4158-4faf-bc30-e5f81ac57599")
 	)
 	(label "HG_03"
-		(at 165.1 175.26 0)
+		(at 165.1 177.8 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10846,13 +10846,13 @@
 		(uuid "1f9ce82e-9aca-4d2e-9274-4c7e55d41b3d")
 	)
 	(label "HG_04"
-		(at 198.12 175.26 180)
+		(at 165.1 180.34 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "1fe01675-2440-410a-9e0a-f3a592bbba3c")
 	)
@@ -10945,7 +10945,7 @@
 		(uuid "2627221e-9562-44b6-88e4-d94a76855f5b")
 	)
 	(label "HG_06"
-		(at 138.43 90.17 180)
+		(at 138.43 95.25 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11253,13 +11253,13 @@
 		(uuid "46d0072c-6bd7-4cbd-a4eb-53e55e4e90f3")
 	)
 	(label "HG_02"
-		(at 198.12 172.72 180)
+		(at 165.1 175.26 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "471e4e56-c0e2-4bc9-8cc1-5e9e005a9a08")
 	)
@@ -11319,7 +11319,7 @@
 		(uuid "4c0cf2d4-b45e-4d8f-b5e1-9d3bb01b7bdf")
 	)
 	(label "HG_04"
-		(at 138.43 95.25 180)
+		(at 93.98 194.31 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11528,7 +11528,7 @@
 		(uuid "5d77ac5c-1d35-4f72-ac1d-e617dbea8160")
 	)
 	(label "HG_05"
-		(at 138.43 92.71 180)
+		(at 138.43 100.33 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11649,7 +11649,7 @@
 		(uuid "6ed5d475-e127-4174-8a53-1249669edb18")
 	)
 	(label "HG_06"
-		(at 198.12 177.8 180)
+		(at 198.12 175.26 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11858,7 +11858,7 @@
 		(uuid "7e8a397b-e35f-4e78-949e-9af7fca88bd9")
 	)
 	(label "HG_07"
-		(at 93.98 194.31 180)
+		(at 138.43 90.17 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12309,7 +12309,7 @@
 		(uuid "a35b9b18-924d-4525-a1fc-15ed89804372")
 	)
 	(label "HG_02"
-		(at 138.43 100.33 180)
+		(at 138.43 97.79 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12936,24 +12936,24 @@
 		(uuid "cf15b377-2f67-4596-b557-913c3f2f6694")
 	)
 	(label "HG_05"
-		(at 165.1 177.8 0)
+		(at 198.12 172.72 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "d14f3e67-5b3a-4e9c-9a8e-4cc3ebf88475")
 	)
 	(label "HG_07"
-		(at 165.1 180.34 0)
+		(at 198.12 177.8 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "d2e5e7fa-7dd0-4791-9d25-0d91975b9c39")
 	)
@@ -12980,7 +12980,7 @@
 		(uuid "d467c0fc-90a7-471a-a1fe-7c263af428a9")
 	)
 	(label "HG_03"
-		(at 138.43 97.79 180)
+		(at 138.43 92.71 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
