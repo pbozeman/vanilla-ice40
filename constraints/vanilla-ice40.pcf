@@ -69,6 +69,24 @@ set_io GH_06 76
 set_io GH_07 74
 set_io GH_08 62
 
+set_io BA_01 134
+set_io BA_02 129
+set_io BA_03 125
+set_io BA_04 122
+set_io BA_05 130
+set_io BA_06 128
+set_io BA_07 124
+set_io BA_08 121
+
+set_io BA_PINS[0] 134
+set_io BA_PINS[1] 129
+set_io BA_PINS[2] 125
+set_io BA_PINS[3] 122
+set_io BA_PINS[4] 130
+set_io BA_PINS[5] 128
+set_io BA_PINS[6] 124
+set_io BA_PINS[7] 121
+
 # template
 #set_io xx_01
 #set_io xx_05
