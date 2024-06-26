@@ -96,6 +96,24 @@ set_io IJ_PINS[5] 55
 set_io IJ_PINS[6] 49
 set_io IJ_PINS[7] 47
 
+set_io KL_01 45
+set_io KL_02 43
+set_io KL_03 41
+set_io KL_04 38
+set_io KL_05 44
+set_io KL_06 42
+set_io KL_07 39
+set_io KL_08 37
+
+set_io KL_PINS[0] 45
+set_io KL_PINS[1] 43
+set_io KL_PINS[2] 41
+set_io KL_PINS[3] 38
+set_io KL_PINS[4] 44
+set_io KL_PINS[5] 42
+set_io KL_PINS[6] 39
+set_io KL_PINS[7] 37
+
 set_io BA_01 134
 set_io BA_02 129
 set_io BA_03 125
