@@ -5,9 +5,12 @@ BUILD_DIR = .build
 # Test benches
 TEST_BENCHES = $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
+# Files that have feature not supported by verible
+VERIBLE_EXCLUDE = vga/vga_top.v blinky_pmod/blinky_all_top.v
+
 # Source files
 DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
-SRC := $(filter-out vga/vga_top.v, $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
+SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
 TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
