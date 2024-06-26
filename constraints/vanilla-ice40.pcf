@@ -87,6 +87,24 @@ set_io BA_PINS[5] 128
 set_io BA_PINS[6] 124
 set_io BA_PINS[7] 121
 
+set_io DC_01 120
+set_io DC_02 118
+set_io DC_04 116
+set_io DC_03 114
+set_io DC_05 119
+set_io DC_06 117
+set_io DC_07 115
+set_io DC_08 113
+
+set_io DC_PINS[0] 120
+set_io DC_PINS[1] 118
+set_io DC_PINS[2] 116
+set_io DC_PINS[3] 114
+set_io DC_PINS[4] 119
+set_io DC_PINS[5] 117
+set_io DC_PINS[6] 115
+set_io DC_PINS[7] 113
+
 # template
 #set_io xx_01
 #set_io xx_05
