@@ -15,6 +15,15 @@ set_io CD_06 96
 set_io CD_07 94
 set_io CD_08 91
 
+set_io CD_PINS[0] 99
+set_io CD_PINS[1] 97
+set_io CD_PINS[2] 95
+set_io CD_PINS[3] 93
+set_io CD_PINS[4] 98
+set_io CD_PINS[5] 96
+set_io CD_PINS[6] 94
+set_io CD_PINS[7] 91
+
 set_io EF_01 90
 set_io EF_02 87
 set_io EF_03 84
@@ -23,6 +32,15 @@ set_io EF_05 88
 set_io EF_06 85
 set_io EF_07 83
 set_io EF_08 81
+
+set_io EF_PINS[0] 90
+set_io EF_PINS[1] 87
+set_io EF_PINS[2] 84
+set_io EF_PINS[3] 82
+set_io EF_PINS[4] 88
+set_io EF_PINS[5] 85
+set_io EF_PINS[6] 83
+set_io EF_PINS[7] 81
 
 set_io GH_01 80
 set_io GH_02 78
