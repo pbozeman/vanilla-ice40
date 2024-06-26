@@ -4,8 +4,8 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=blinky
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../examples/blinky/blinky_top.v
-ProjectCFiles=
+ProjectVFiles=../../examples/blinky/blinky_top.v=work
+ProjectCFiles=../../constraints/vanilla-ice40-clock.sdc
 CurImplementation=blinky_Implmnt
 Implementations=blinky_Implmnt
 StartFromSynthesis=yes
