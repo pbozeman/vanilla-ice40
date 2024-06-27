@@ -6,6 +6,7 @@
 module pin_walker_tb;
   localparam NUM_PINS = 16;
   localparam CLOCK_FREQ_HZ = 10;
+  localparam DIVISOR = 4;
 
   reg clk = 1'b0;
   wire [NUM_PINS-1:0] pins;
@@ -15,7 +16,8 @@ module pin_walker_tb;
 
   pin_walker #(
       .NUM_PINS(NUM_PINS),
-      .CLOCK_FREQ_HZ(CLOCK_FREQ_HZ)
+      .CLOCK_FREQ_HZ(CLOCK_FREQ_HZ),
+      .DIVISOR(DIVISOR)
   ) uut (
       .clk_i (clk),
       .pins_o(pins)
@@ -28,11 +30,11 @@ module pin_walker_tb;
     $dumpfile(".build/pin_walker.vcd");
     $dumpvars(0, pin_walker_tb);
 
-    for (i = 0; i < 32 * (CLOCK_FREQ_HZ / 2); i = i + 1) begin
+    for (i = 0; i < 32 * (CLOCK_FREQ_HZ / DIVISOR); i = i + 1) begin
       @(posedge clk);
 
-      if (i % (CLOCK_FREQ_HZ / 2) == 0) begin
-        expected = {NUM_PINS{1'b0}} | (1'b1 << ((i / (CLOCK_FREQ_HZ / 2)) % NUM_PINS));
+      if (i % (CLOCK_FREQ_HZ / DIVISOR) == 0) begin
+        expected = {NUM_PINS{1'b0}} | (1'b1 << ((i / (CLOCK_FREQ_HZ / DIVISOR)) % NUM_PINS));
         `ASSERT(pins == expected);
       end
     end
