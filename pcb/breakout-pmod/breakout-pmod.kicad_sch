@@ -10791,7 +10791,7 @@
 		(uuid "1cb7d771-c1e2-4ac4-b88c-412d84e06cae")
 	)
 	(label "FE_07"
-		(at 138.43 107.95 180)
+		(at 138.43 118.11 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10901,7 +10901,7 @@
 		(uuid "23a947b0-b540-482f-a1fc-7cd904634644")
 	)
 	(label "FE_05"
-		(at 262.89 67.31 180)
+		(at 262.89 64.77 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11077,7 +11077,7 @@
 		(uuid "2ffd698d-a741-402e-8bf0-18a6add72360")
 	)
 	(label "FE_07"
-		(at 262.89 64.77 180)
+		(at 262.89 69.85 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11275,7 +11275,7 @@
 		(uuid "4a98d419-e08e-40f6-8e31-95e81b4e58fa")
 	)
 	(label "FE_05"
-		(at 138.43 113.03 180)
+		(at 138.43 107.95 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11330,7 +11330,7 @@
 		(uuid "4cc75a38-c36f-4e62-9673-248987e94f3d")
 	)
 	(label "FE_02"
-		(at 138.43 120.65 180)
+		(at 138.43 110.49 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11473,7 +11473,7 @@
 		(uuid "57780def-4be1-4ce6-b3ad-43ba3bc1c174")
 	)
 	(label "FE_02"
-		(at 229.87 72.39 0)
+		(at 229.87 67.31 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11484,7 +11484,7 @@
 		(uuid "588016d5-f76a-4a56-9a2b-9e7e3be49806")
 	)
 	(label "FE_08"
-		(at 138.43 105.41 180)
+		(at 138.43 123.19 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11682,13 +11682,13 @@
 		(uuid "7045f325-5216-4905-b119-e52702f05b11")
 	)
 	(label "FE_01"
-		(at 262.89 72.39 180)
+		(at 229.87 64.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "71d54642-3250-4f0d-8a03-2b0801e2bd5e")
 	)
@@ -12078,7 +12078,7 @@
 		(uuid "945ca93d-d136-4644-85e3-b8f547a1dee0")
 	)
 	(label "FE_03"
-		(at 138.43 118.11 180)
+		(at 138.43 115.57 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12122,7 +12122,7 @@
 		(uuid "9788a486-2b82-4e9f-97dd-9d248fec0340")
 	)
 	(label "FE_04"
-		(at 138.43 115.57 180)
+		(at 138.43 120.65 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12232,13 +12232,13 @@
 		(uuid "9c5f9a5d-ac13-417c-86c9-f18a609d6905")
 	)
 	(label "FE_08"
-		(at 229.87 64.77 0)
+		(at 262.89 72.39 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "9e02c498-ff43-4687-91f5-2c702f810481")
 	)
@@ -12672,7 +12672,7 @@
 		(uuid "bd3cbdb6-985a-4b41-b366-d04fd67e6019")
 	)
 	(label "FE_06"
-		(at 138.43 110.49 180)
+		(at 138.43 113.03 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12694,13 +12694,13 @@
 		(uuid "be9417ca-7c9e-4140-84df-f5ceb738a187")
 	)
 	(label "FE_03"
-		(at 262.89 69.85 180)
+		(at 229.87 69.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "bf17ef9f-381d-416f-8ff6-ef425dc33dff")
 	)
@@ -12749,7 +12749,7 @@
 		(uuid "c27f5f9c-a88c-4cd6-b194-0c899db86a47")
 	)
 	(label "FE_04"
-		(at 229.87 69.85 0)
+		(at 229.87 72.39 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12859,7 +12859,7 @@
 		(uuid "c78c2f6f-72ac-4cfe-b8f9-e90bbf901681")
 	)
 	(label "FE_01"
-		(at 138.43 123.19 180)
+		(at 138.43 105.41 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13222,13 +13222,13 @@
 		(uuid "eb4a0481-00af-4ad9-a018-56b868a1d68f")
 	)
 	(label "FE_06"
-		(at 229.87 67.31 0)
+		(at 262.89 67.31 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "eba4af90-7deb-4be4-85ce-0310553d5bbd")
 	)
