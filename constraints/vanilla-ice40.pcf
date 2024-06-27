@@ -222,16 +222,6 @@ set_io LK_PINS[5] 29
 set_io LK_PINS[6] 33
 set_io LK_PINS[7] 34
 
-# template
-#set_io xx_01
-#set_io xx_05
-#set_io xx_02
-#set_io xx_06
-#set_io xx_03
-#set_io xx_07
-#set_io xx_04
-#set_io xx_08
-
 set_io PIN1 1
 set_io PIN2 2
 set_io PIN3 3
