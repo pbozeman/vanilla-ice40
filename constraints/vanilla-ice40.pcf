@@ -150,6 +150,24 @@ set_io DC_PINS[5] 117
 set_io DC_PINS[6] 115
 set_io DC_PINS[7] 113
 
+set_io FE_01 143
+set_io FE_02 141
+set_io FE_03 138
+set_io FE_04 136
+set_io FE_05 142
+set_io FE_06 139
+set_io FE_07 137
+set_io FE_08 135
+
+set_io FE_PINS[0] 143
+set_io FE_PINS[1] 141
+set_io FE_PINS[2] 138
+set_io FE_PINS[3] 136
+set_io FE_PINS[4] 142
+set_io FE_PINS[5] 139
+set_io FE_PINS[6] 137
+set_io FE_PINS[7] 135
+
 set_io HG_01 144
 set_io HG_02 8
 set_io HG_03 10
