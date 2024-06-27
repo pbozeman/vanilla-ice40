@@ -15,9 +15,9 @@
 
 ### PMOD board
 
-- redo silk screen numbers (they are wrong)
 - make font bigger
-- update schematic to match actual pinouts
+- FE and JI are wired backwards. They will work in the AB position,
+but probably not in the mirrored BA chain.
 
 ## RTL
 
