@@ -10483,7 +10483,7 @@
 		(uuid "00ebf5f1-e5d7-4340-863c-17fc70459797")
 	)
 	(label "JI_04"
-		(at 93.98 176.53 180)
+		(at 93.98 181.61 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11165,7 +11165,7 @@
 		(uuid "38403f6f-a6a3-47fa-bcc9-463f2dde626f")
 	)
 	(label "JI_06"
-		(at 93.98 171.45 180)
+		(at 93.98 173.99 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11308,7 +11308,7 @@
 		(uuid "4bee2061-7f12-4594-99b3-45f1347a9331")
 	)
 	(label "JI_07"
-		(at 93.98 168.91 180)
+		(at 93.98 179.07 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -11506,13 +11506,13 @@
 		(uuid "5b136654-87f6-4dd6-b5e4-661074ae293d")
 	)
 	(label "JI_03"
-		(at 262.89 44.45 180)
+		(at 229.87 44.45 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "5b609c2b-3668-4b01-a57e-46758b9c3ecc")
 	)
@@ -11814,7 +11814,7 @@
 		(uuid "7ad2b8e8-e1b8-4b7f-a530-6043b595cecb")
 	)
 	(label "JI_08"
-		(at 93.98 166.37 180)
+		(at 93.98 184.15 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12001,7 +12001,7 @@
 		(uuid "89f1284e-7b89-4fe8-a55e-e5a472b68f4b")
 	)
 	(label "JI_04"
-		(at 229.87 44.45 0)
+		(at 229.87 46.99 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12034,18 +12034,18 @@
 		(uuid "8dbe6766-6e03-4f5c-8bfb-fc89eb5094a4")
 	)
 	(label "JI_08"
-		(at 229.87 39.37 0)
+		(at 262.89 46.99 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "8e37459f-b424-45d6-bd81-f4e3ffee47f5")
 	)
 	(label "JI_01"
-		(at 93.98 184.15 180)
+		(at 93.98 166.37 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12089,7 +12089,7 @@
 		(uuid "95d8e353-9574-49ae-a022-7f4157e87da5")
 	)
 	(label "JI_02"
-		(at 93.98 181.61 180)
+		(at 93.98 171.45 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12188,13 +12188,13 @@
 		(uuid "98b02eb8-f51f-468d-8292-531242f7678e")
 	)
 	(label "JI_01"
-		(at 262.89 46.99 180)
+		(at 229.87 39.37 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "9a4507ae-c935-4912-ac38-0fde34689371")
 	)
@@ -12540,7 +12540,7 @@
 		(uuid "b5c1642c-5ebd-4bbd-8f0b-18516c9011d2")
 	)
 	(label "JI_02"
-		(at 229.87 46.99 0)
+		(at 229.87 41.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12562,7 +12562,7 @@
 		(uuid "b73fde03-007f-442c-86b9-6a148fc20d7a")
 	)
 	(label "JI_05"
-		(at 262.89 41.91 180)
+		(at 262.89 39.37 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12617,7 +12617,7 @@
 		(uuid "bbd11faf-9749-4eda-bbd4-543b7e190e20")
 	)
 	(label "JI_07"
-		(at 262.89 39.37 180)
+		(at 262.89 44.45 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12925,7 +12925,7 @@
 		(uuid "cf1326f8-711e-4988-87a4-c20949c4e06f")
 	)
 	(label "JI_05"
-		(at 93.98 173.99 180)
+		(at 93.98 168.91 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13024,7 +13024,7 @@
 		(uuid "dab7e67c-d081-458e-8ba7-0542192e502b")
 	)
 	(label "JI_03"
-		(at 93.98 179.07 180)
+		(at 93.98 176.53 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13266,13 +13266,13 @@
 		(uuid "eeabf0a4-794c-4d9c-9b08-f90aee746ad5")
 	)
 	(label "JI_06"
-		(at 229.87 41.91 0)
+		(at 262.89 41.91 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "f22d3457-7a56-463e-bd74-12347be7a81e")
 	)
