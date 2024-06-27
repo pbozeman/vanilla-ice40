@@ -186,6 +186,24 @@ set_io HG_PINS[5] 9
 set_io HG_PINS[6] 11
 set_io HG_PINS[7] 15
 
+set_io JI_01 24
+set_io JI_02 22
+set_io JI_03 19
+set_io JI_04 17
+set_io JI_05 23
+set_io JI_06 20
+set_io JI_07 18
+set_io JI_08 16
+
+set_io JI_PINS[0] 24
+set_io JI_PINS[1] 22
+set_io JI_PINS[2] 19
+set_io JI_PINS[3] 17
+set_io JI_PINS[4] 23
+set_io JI_PINS[5] 20
+set_io JI_PINS[6] 18
+set_io JI_PINS[7] 16
+
 set_io LK_01 25
 set_io LK_02 28
 set_io LK_03 31
