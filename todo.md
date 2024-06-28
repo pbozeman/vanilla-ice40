@@ -30,6 +30,10 @@
 - create reset component and use in top modules
 - redo nets without mirroring
 
+### sram
+
+- rename rw_i. it's ambiguous
+
 ### uart
 
 - add tests
