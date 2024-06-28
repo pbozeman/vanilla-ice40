@@ -35,6 +35,8 @@
 ### sram
 
 - rename rw_i. it's ambiguous
+- the sram tester is a total mess.. clean it up. I just kept beating on output
+  from Claude.ai. I likely would have been better at just doing this myself.
 
 ### uart
 

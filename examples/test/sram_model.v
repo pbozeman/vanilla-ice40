@@ -14,7 +14,7 @@ module sram_model #(
     parameter real tDOE = 6,    // OE# Access Time
     parameter real tAW  = 8,    // Address Setup Time to Write End
 
-    parameter integer BAD_DATA = 8'bxx
+    parameter integer BAD_DATA = 1'bx
 ) (
     input wire we_n_i,
     input wire oe_n_i,

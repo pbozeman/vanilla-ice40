@@ -322,6 +322,52 @@ set_io PMOD_PINS[93] 29
 set_io PMOD_PINS[94] 32
 set_io PMOD_PINS[95] 34
 
+
+//
+// Sram pins
+//
+set_io SRAM_ADDR_BUS[0] 81
+set_io SRAM_ADDR_BUS[1] 82
+set_io SRAM_ADDR_BUS[2] 83
+set_io SRAM_ADDR_BUS[3] 84
+set_io SRAM_ADDR_BUS[4] 85
+set_io SRAM_ADDR_BUS[5] 112
+set_io SRAM_ADDR_BUS[6] 110
+set_io SRAM_ADDR_BUS[7] 105
+set_io SRAM_ADDR_BUS[8] 106
+set_io SRAM_ADDR_BUS[9] 94
+set_io SRAM_ADDR_BUS[10] 93
+set_io SRAM_ADDR_BUS[11] 91
+set_io SRAM_ADDR_BUS[12] 90
+set_io SRAM_ADDR_BUS[13] 88
+set_io SRAM_ADDR_BUS[14] 87
+set_io SRAM_ADDR_BUS[15] 48
+set_io SRAM_ADDR_BUS[16] 49
+set_io SRAM_ADDR_BUS[17] 52
+set_io SRAM_ADDR_BUS[18] 55
+set_io SRAM_ADDR_BUS[19] 56
+
+set_io SRAM_DATA_BUS[0] 79
+set_io SRAM_DATA_BUS[1] 78
+set_io SRAM_DATA_BUS[2] 76
+set_io SRAM_DATA_BUS[3] 75
+set_io SRAM_DATA_BUS[4] 74
+set_io SRAM_DATA_BUS[5] 73
+set_io SRAM_DATA_BUS[6] 62
+set_io SRAM_DATA_BUS[7] 61
+set_io SRAM_DATA_BUS[8] 95
+set_io SRAM_DATA_BUS[9] 96
+set_io SRAM_DATA_BUS[10] 97
+set_io SRAM_DATA_BUS[11] 98
+set_io SRAM_DATA_BUS[12] 99
+set_io SRAM_DATA_BUS[13] 101
+set_io SRAM_DATA_BUS[14] 102
+set_io SRAM_DATA_BUS[15] 104
+
+set_io SRAM_CS_N 80
+set_io SRAM_OE_N 105
+set_io SRAM_WE_N 60
+
 //
 // all pins by number
 //
