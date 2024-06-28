@@ -35,8 +35,6 @@ module sram_model #(
   reg output_active;
   reg [DATA_BITS-1:0] data_out;
 
-  // Delayed address for output hold time
-  reg [ADDR_BITS-1:0] addr_delayed;
 
   // Previous data for output hold time
   reg [DATA_BITS-1:0] prev_data;
@@ -53,10 +51,9 @@ module sram_model #(
 
   // Delayed address update and data handling
   always @(addr_i) begin
-    prev_data = sram[addr_delayed];
+    prev_data = sram[addr_i];
     last_addr_change = $realtime;
-    #(tOHA) addr_delayed = addr_i;
-    #(tAA - tOHA) data_out = sram[addr_delayed];
+    #(tAA - tOHA) data_out = sram[addr_i];
   end
 
   // Track OE# falling edge
@@ -75,7 +72,7 @@ module sram_model #(
       end else if ($realtime < last_addr_change + tAA) begin
         data_out = {DATA_BITS{BAD_DATA}};
       end else begin
-        data_out = sram[addr_delayed];
+        data_out = sram[addr_i];
       end
     end else begin
       data_out = {DATA_BITS{1'bz}};
