@@ -23,6 +23,8 @@
 ### Project structure
 
 - add yosys compilation
+- drop _i and_o except where actually part of the name.
+  The linter catches directional issues just fine, and they are cruft.
 
 ### misc
 
