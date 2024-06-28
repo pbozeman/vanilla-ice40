@@ -16,8 +16,7 @@
 ### PMOD board
 
 - make font bigger
-- FE and JI are wired backwards. They will work in the AB position,
-but probably not in the mirrored BA chain.
+- redo nets since they don't need to be mirrored
 
 ## RTL
 
@@ -29,6 +28,7 @@ but probably not in the mirrored BA chain.
 
 - make sure all components have a reset_i
 - create reset component and use in top modules
+- redo nets without mirroring
 
 ### uart
 
