@@ -27,6 +27,7 @@
 - add yosys compilation
 - make: all files are included in both yosys and verification.. limit them to just
   the dependencies
+- move to per top pcf files
 
 ### misc
 
