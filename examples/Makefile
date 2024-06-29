@@ -63,7 +63,7 @@ write_json $$@
 endef
 
 define synth_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(BUILD_DIR) $(1) $(LIB_DIR)/*.v
+$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) $(LIB_DIR)/*.v | $(BUILD_DIR)
 	$(YOSYS) -p '$(call YOSYS_CMD,$(1))'
 endef
 
