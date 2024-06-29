@@ -44,6 +44,9 @@ YOSYS := yosys
 # PNR
 NEXTPNR := nextpnr-ice40
 
+# bin creation
+ICEPACK := icepack
+
 # All targets
 all: check
 
@@ -70,7 +73,7 @@ endef
 $(foreach top,$(TOP_MODULES),$(eval $(call synth_rule,$(top))))
 
 .PHONY: synth
-synth: $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MODULES)))))
+synth: $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MODULES)))))
 
 ##############################################################################
 #
@@ -89,6 +92,21 @@ $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
 
 .PHONY: pnr
 pnr: $(addprefix $(BUILD_DIR)/,$(addsuffix .asc,$(notdir $(basename $(TOP_MODULES)))))
+
+##############################################################################
+#
+# Bitstream
+#
+##############################################################################
+define bitstream_rule
+$(BUILD_DIR)/$(notdir $(basename $(1))).bin: $(BUILD_DIR)/$(notdir $(basename $(1))).asc
+	$(ICEPACK) $$< $$@
+endef
+
+$(foreach top,$(TOP_MODULES),$(eval $(call bitstream_rule,$(top))))
+
+.PHONY: bitstream
+bitstream: $(addprefix $(BUILD_DIR)/,$(addsuffix .bin,$(notdir $(basename $(TOP_MODULES)))))
 
 ##############################################################################
 #
