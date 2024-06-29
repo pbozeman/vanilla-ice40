@@ -1,12 +1,14 @@
 # Directories
 TEST_DIR := test
+LIB_DIR := lib
 BUILD_DIR := .build
 
-# Non test source dirs
+# Dirs
 DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
+TOP_DIRS := $(filter-out $(TEST_DIR)/, $(DIRS))
 
-# Tops
-TOPS := $(basename $(foreach dir,$(DIRS), $(notdir $(wildcard $(dir)*_top.v))))
+# Top modules
+TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.v))
 
 # Test benches
 TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
@@ -32,6 +34,9 @@ LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 # Formatter
 FORMATTER := verible-verilog-format --inplace
 
+# Synthesis
+YOSYS = yosys
+
 # All targets
 all: check
 
@@ -44,8 +49,21 @@ $(BUILD_DIR):
 # Synthesis
 #
 ##############################################################################
-synth:
-	@echo $(TOPS)
+define YOSYS_CMD
+read_verilog $(dir $(1))/*.v $(LIB_DIR)/*.v; \
+synth_ice40 -top $(notdir $(basename $(1))); \
+write_json $$@
+endef
+
+define synth_rule
+$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) $(LIB_DIR)/*.v
+	$(YOSYS) -p '$(call YOSYS_CMD,$(1))'
+endef
+
+$(foreach top,$(TOP_MODULES),$(eval $(call synth_rule,$(top))))
+
+synth: $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MODULES)))))
+	@echo $(TOP_MODULES)
 
 ##############################################################################
 #
