@@ -14,7 +14,7 @@ TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.v))
 TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
 # Files that have feature not supported by verible
-VERIBLE_EXCLUDE := vga/vga_top.v sram_test/sram_tester_top.v
+VERIBLE_EXCLUDE := vga/vga_top.v
 
 # Source files
 SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
