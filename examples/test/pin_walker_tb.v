@@ -19,8 +19,8 @@ module pin_walker_tb;
       .CLOCK_FREQ_HZ(CLOCK_FREQ_HZ),
       .DIVISOR(DIVISOR)
   ) uut (
-      .clk_i (clk),
-      .pins_o(pins)
+      .clk (clk),
+      .pins(pins)
   );
 
   // clock generator

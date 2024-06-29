@@ -14,14 +14,14 @@ module fifo_tb;
   integer i;
 
   fifo uut (
-      .clk_i(clk),
-      .reset_i(reset),
-      .write_en_i(write_en),
-      .read_en_i(read_en),
+      .clk(clk),
+      .reset(reset),
+      .write_en(write_en),
+      .read_en(read_en),
       .write_data_i(write_data),
-      .read_data_o(read_data),
-      .empty_o(empty),
-      .full_o(full)
+      .read_data(read_data),
+      .empty(empty),
+      .full(full)
   );
 
   // clock generator

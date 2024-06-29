@@ -8,24 +8,24 @@ module counter #(
     parameter MAX_VALUE = 16,
     parameter WIDTH = $clog2(MAX_VALUE + 1)
 ) (
-    input clk_i,
-    input reset_i,
+    input clk,
+    input reset,
     input enable_i,
-    output reg [WIDTH-1:0] count_o
+    output reg [WIDTH-1:0] count
 );
 
   initial begin
-    count_o = {WIDTH{1'b0}};
+    count = {WIDTH{1'b0}};
   end
 
-  always @(posedge clk_i or posedge reset_i) begin
-    if (reset_i) begin
-      count_o <= 0;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      count <= 0;
     end else if (enable_i) begin
-      if (count_o >= MAX_VALUE) begin
-        count_o <= 0;
+      if (count >= MAX_VALUE) begin
+        count <= 0;
       end else begin
-        count_o <= count_o + 1;
+        count <= count + 1;
       end
     end
   end

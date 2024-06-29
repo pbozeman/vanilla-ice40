@@ -5,11 +5,11 @@
 `default_nettype none
 
 module uart_hello_top (
-    input  wire clk_i,
+    input  wire CLK,
     output wire UART_TX,
 
-    output wire led1_o,
-    output wire led2_o
+    output wire LED1,
+    output wire LED2
 );
   // Message to send
   reg [7:0] message[0:14];
@@ -26,15 +26,15 @@ module uart_hello_top (
       .CLOCK_FREQ(100_000_000),
       .BAUD_RATE (115_200)
   ) uart_tx_inst (
-      .clk_i(clk_i),
-      .reset_i(reset),
+      .clk(CLK),
+      .reset(reset),
       .data_i(tx_data),
       .tx_en_i(tx_send),
-      .tx_ready_o(tx_ready),
-      .tx_o(UART_TX)
+      .tx_ready(tx_ready),
+      .tx(UART_TX)
   );
 
-  always @(posedge clk_i) begin
+  always @(posedge CLK) begin
     if (!initialized) begin
       message[0]  <= "H";
       message[1]  <= "e";
@@ -64,7 +64,7 @@ module uart_hello_top (
     end
   end
 
-  assign led1_o = 1'bZ;
-  assign led2_o = 1'bZ;
+  assign LED1 = 1'bZ;
+  assign LED2 = 1'bZ;
 
 endmodule

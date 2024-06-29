@@ -8,14 +8,14 @@ module fifo #(
     parameter DATA_WIDTH = 8,
     parameter DEPTH      = 16
 ) (
-    input  wire                  clk_i,
-    input  wire                  reset_i,
-    input  wire                  write_en_i,
-    input  wire                  read_en_i,
+    input  wire                  clk,
+    input  wire                  reset,
+    input  wire                  write_en,
+    input  wire                  read_en,
     input  wire [DATA_WIDTH-1:0] write_data_i,
-    output reg  [DATA_WIDTH-1:0] read_data_o,
-    output wire                  empty_o,
-    output wire                  full_o
+    output reg  [DATA_WIDTH-1:0] read_data,
+    output wire                  empty,
+    output wire                  full
 );
   reg [DATA_WIDTH-1:0] fifo_mem[0:DEPTH-1];
   reg [$clog2(DEPTH)-1:0] wr_ptr = 0;
@@ -23,33 +23,33 @@ module fifo #(
   reg [$clog2(DEPTH+1)-1:0] fifo_count = 0;
 
   // Write operation
-  always @(posedge clk_i or posedge reset_i) begin
-    if (reset_i) begin
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       wr_ptr <= 0;
-    end else if (write_en_i && !full_o) begin
+    end else if (write_en && !full) begin
       fifo_mem[wr_ptr] <= write_data_i;
       wr_ptr <= (wr_ptr + 1) % DEPTH;
     end
   end
 
   // Read operation
-  always @(posedge clk_i or posedge reset_i) begin
-    if (reset_i) begin
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       rd_ptr <= 0;
-      read_data_o <= 0;
-    end else if (read_en_i && !empty_o) begin
-      read_data_o <= fifo_mem[rd_ptr];
+      read_data <= 0;
+    end else if (read_en && !empty) begin
+      read_data <= fifo_mem[rd_ptr];
       rd_ptr <= (rd_ptr + 1) % DEPTH;
     end
   end
 
   // FIFO count management
-  always @(posedge clk_i or posedge reset_i) begin
-    if (reset_i) begin
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       fifo_count <= 0;
     end else begin
       case ({
-        ({write_en_i && !full_o, read_en_i && !empty_o})
+        ({write_en && !full, read_en && !empty})
       })
         2'b01:   fifo_count <= fifo_count - 1;
         2'b10:   fifo_count <= fifo_count + 1;
@@ -58,7 +58,7 @@ module fifo #(
     end
   end
 
-  assign full_o  = (fifo_count == DEPTH);
-  assign empty_o = (fifo_count == 0);
+  assign full  = (fifo_count == DEPTH);
+  assign empty = (fifo_count == 0);
 
 endmodule

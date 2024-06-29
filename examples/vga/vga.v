@@ -20,13 +20,13 @@ module vga #(
     parameter V_BACK_PORCH = 33,
     parameter V_WHOLE_FRAME = 525
 ) (
-    input clk_i,
-    input reset_i,
-    output visible_o,
-    output hsync_o,
-    output vsync_o,
-    output [9:0] column_o,
-    output [9:0] row_o
+    input clk,
+    input reset,
+    output visible,
+    output hsync,
+    output vsync,
+    output [9:0] column,
+    output [9:0] row
 );
 
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
@@ -36,14 +36,14 @@ module vga #(
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
   pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
-      clk_i,
-      reset_i,
-      column_o,
-      row_o
+      clk,
+      reset,
+      column,
+      row
   );
 
-  assign visible_o = (column_o < H_VISIBLE && row_o < V_VISIBLE) ? 1 : 0;
-  assign hsync_o   = (column_o >= H_SYNC_START && column_o < H_SYNC_END) ? 0 : 1;
-  assign vsync_o   = (row_o >= V_SYNC_START && row_o < V_SYNC_END) ? 0 : 1;
+  assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;
+  assign hsync   = (column >= H_SYNC_START && column < H_SYNC_END) ? 0 : 1;
+  assign vsync   = (row >= V_SYNC_START && row < V_SYNC_END) ? 0 : 1;
 
 endmodule

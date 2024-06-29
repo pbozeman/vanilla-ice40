@@ -7,10 +7,10 @@ module pixel_addr_tb;
   wire [9:0] row;
 
   pixel_addr uut (
-      .clk_i(clk),
-      .reset_i(reset),
-      .column_o(column),
-      .row_o(row)
+      .clk(clk),
+      .reset(reset),
+      .column(column),
+      .row(row)
   );
 
   always begin

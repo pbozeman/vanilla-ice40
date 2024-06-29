@@ -5,11 +5,11 @@
 // Parameters:
 //    N_BITS - Number of input bits.
 // Outputs:
-//    ascii_o - Array of ASCII characters, sized to (N_BITS+3)/4.
+//    ascii - Array of ASCII characters, sized to (N_BITS+3)/4.
 // Usage:
-//    Declare ascii_o in the instantiating module as follows:
+//    Declare ascii in the instantiating module as follows:
 //    localparam SIZE = (N_BITS + 3) / 4;
-//    reg [7:0] ascii_o[SIZE-1:0];
+//    reg [7:0] ascii[SIZE-1:0];
 //
 // The expression (N_BITS + 3) / 4 is used to ensure rounding up when the total
 // number of bits isn't a multiple of 4. Adding 3 before dividing by 4
@@ -29,10 +29,10 @@
 module bits_to_hex #(
     parameter N_BITS = 32
 ) (
-    input wire clk_i,
-    input wire reset_i,
-    input wire [N_BITS-1:0] bits_i,
-    output reg [8*((N_BITS+3)/4)-1:0] ascii_o
+    input wire clk,
+    input wire reset,
+    input wire [N_BITS-1:0] bits,
+    output reg [8*((N_BITS+3)/4)-1:0] ascii
 );
   // Calculate number of nibbles needed
   localparam N_NIBBLES = (N_BITS + 3) / 4;
@@ -48,10 +48,10 @@ module bits_to_hex #(
     end
   endfunction
 
-  always @(posedge clk_i or posedge reset_i) begin
-    if (reset_i) begin
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       for (i = 0; i < N_NIBBLES; i = i + 1) begin
-        ascii_o[i*8+:8] <= 8'd0;
+        ascii[i*8+:8] <= 8'd0;
       end
     end else begin
       // This will get expanded during synthesis
@@ -59,14 +59,14 @@ module bits_to_hex #(
         // Handle partial nibbles by 0 padding them
         if (i == N_NIBBLES - 1 && (N_BITS % 4) != 0) begin
           case (N_BITS % 4)
-            1: ascii_o[i*8+:8] <= nibble_to_ascii({3'b000, bits_i[N_BITS-1:N_BITS-1]});
-            2: ascii_o[i*8+:8] <= nibble_to_ascii({2'b00, bits_i[N_BITS-1:N_BITS-2]});
-            3: ascii_o[i*8+:8] <= nibble_to_ascii({1'b0, bits_i[N_BITS-1:N_BITS-3]});
-            default: ascii_o[i*8+:8] <= 8'd0;  // Should not occur
+            1: ascii[i*8+:8] <= nibble_to_ascii({3'b000, bits[N_BITS-1:N_BITS-1]});
+            2: ascii[i*8+:8] <= nibble_to_ascii({2'b00, bits[N_BITS-1:N_BITS-2]});
+            3: ascii[i*8+:8] <= nibble_to_ascii({1'b0, bits[N_BITS-1:N_BITS-3]});
+            default: ascii[i*8+:8] <= 8'd0;  // Should not occur
           endcase
         end else begin
           // Process full nibbles
-          ascii_o[i*8+:8] <= nibble_to_ascii(bits_i[(i*4)+:4]);
+          ascii[i*8+:8] <= nibble_to_ascii(bits[(i*4)+:4]);
         end
       end
     end

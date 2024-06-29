@@ -11,26 +11,26 @@ module pixel_addr #(
     parameter H_WHOLE_LINE  = 800,
     parameter V_WHOLE_FRAME = 525
 ) (
-    input clk_i,
-    input reset_i,
-    output [9:0] column_o,
-    output [9:0] row_o
+    input clk,
+    input reset,
+    output [9:0] column,
+    output [9:0] row
 );
 
   localparam ENABLE = 1'b1;
 
   counter #(H_WHOLE_LINE - 1) h_counter (
-      clk_i,
-      reset_i,
+      clk,
+      reset,
       ENABLE,
-      column_o
+      column
   );
 
   counter #(V_WHOLE_FRAME - 1) v_counter (
-      clk_i,
-      reset_i,
-      column_o == H_WHOLE_LINE - 1,
-      row_o
+      clk,
+      reset,
+      column == H_WHOLE_LINE - 1,
+      row
   );
 
 endmodule

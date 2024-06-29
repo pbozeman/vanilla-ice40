@@ -14,13 +14,13 @@ module vga_tb;
   reg [3:0] frames = 0;
 
   vga uut (
-      .clk_i(clk),
-      .reset_i(reset),
-      .visible_o(visible),
-      .hsync_o(hsync),
-      .vsync_o(vsync),
-      .column_o(column),
-      .row_o(row)
+      .clk(clk),
+      .reset(reset),
+      .visible(visible),
+      .hsync(hsync),
+      .vsync(vsync),
+      .column(column),
+      .row(row)
   );
 
   // clock generator

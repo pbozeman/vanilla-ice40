@@ -12,10 +12,10 @@ module counter_tb;
   counter #(
       .MAX_VALUE(MAX_VALUE)
   ) uut (
-      .clk_i(clk),
-      .reset_i(reset),
+      .clk(clk),
+      .reset(reset),
       .enable_i(enable),
-      .count_o(count)
+      .count(count)
   );
 
   always begin

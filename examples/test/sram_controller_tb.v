@@ -27,10 +27,10 @@ module sram_controller_tb;
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
-      .we_n_i (we_n),
-      .oe_n_i (oe_n),
-      .ce_n_i (ce_n),
-      .addr_i (addr_bus),
+      .we_n(we_n),
+      .oe_n(oe_n),
+      .ce_n(ce_n),
+      .addr(addr_bus),
       .data_io(data_bus)
   );
 
@@ -39,17 +39,17 @@ module sram_controller_tb;
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) ctrl (
-      .clk_i(clk),
-      .reset_i(reset),
-      .rw_i(rw),
-      .addr_i(addr),
+      .clk(clk),
+      .reset(reset),
+      .rw(rw),
+      .addr(addr),
       .data_i(data_write),
       .data_o(data_read),
-      .addr_bus_o(addr_bus),
-      .we_n_o(we_n),
-      .oe_n_o(oe_n),
+      .addr_bus(addr_bus),
+      .we_n(we_n),
+      .oe_n(oe_n),
       .data_bus_io(data_bus),
-      .ce_n_o(ce_n)
+      .ce_n(ce_n)
   );
 
   // Clock generation

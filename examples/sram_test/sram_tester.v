@@ -36,18 +36,18 @@ module sram_tester #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram_ctrl (
-      .clk_i(clk),
-      .reset_i(reset),
-      .addr_i(addr),
-      .rw_i(rw),
+      .clk(clk),
+      .reset(reset),
+      .addr(addr),
+      .rw(rw),
 
       .data_i(data_write),
       .data_o(data_read),
-      .addr_bus_o(addr_bus),
-      .we_n_o(we_n),
-      .oe_n_o(oe_n),
+      .addr_bus(addr_bus),
+      .we_n(we_n),
+      .oe_n(oe_n),
       .data_bus_io(data_bus),
-      .ce_n_o(ce_n)
+      .ce_n(ce_n)
   );
 
   wire [DATA_BITS-1:0] pattern;

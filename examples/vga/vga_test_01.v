@@ -5,15 +5,15 @@
 `default_nettype none
 
 module vga_test_01 (
-    input [9:0] column_i,
-    input [9:0] row_i,
-    output wire [3:0] green_o,
-    output wire [3:0] red_o,
-    output wire [3:0] blue_o
+    input [9:0] column,
+    input [9:0] row,
+    output wire [3:0] green,
+    output wire [3:0] red,
+    output wire [3:0] blue
 );
 
-  assign red_o   = (row_i < 480 && column_i < 213) ? 4'b1111 : 4'b0000;
-  assign green_o = (row_i < 480 && column_i >= 213 && column_i < 426) ? 4'b1111 : 4'b0000;
-  assign blue_o  = (row_i < 480 && column_i >= 426 && column_i < 640) ? 4'b1111 : 4'b0000;
+  assign red   = (row < 480 && column < 213) ? 4'b1111 : 4'b0000;
+  assign green = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
+  assign blue  = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
 
 endmodule

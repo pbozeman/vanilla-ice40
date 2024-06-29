@@ -9,8 +9,8 @@ module pin_walker #(
     parameter integer CLOCK_FREQ_HZ = 100_000_000,
     parameter integer DIVISOR = 4
 ) (
-    input wire clk_i,
-    output wire [NUM_PINS-1:0] pins_o
+    input wire clk,
+    output wire [NUM_PINS-1:0] pins
 );
 
   localparam DELAY = CLOCK_FREQ_HZ / DIVISOR;
@@ -18,7 +18,7 @@ module pin_walker #(
   reg [$clog2(NUM_PINS)-1:0] pin_idx = 0;
   reg [$clog2(DELAY)-1:0] counter = 0;
 
-  always @(posedge clk_i) begin
+  always @(posedge clk) begin
     if (counter < DELAY - 1) begin
       counter <= counter + 1;
     end else begin
@@ -31,6 +31,6 @@ module pin_walker #(
     end
   end
 
-  assign pins_o = (1 << pin_idx);
+  assign pins = (1 << pin_idx);
 
 endmodule

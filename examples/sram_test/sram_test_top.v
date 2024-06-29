@@ -5,12 +5,12 @@
 `default_nettype none
 
 module sram_test_top (
-    input  wire clk_i,
-    output wire led1_o,
-    output wire led2_o
+    input  wire CLK,
+    output wire LED1,
+    output wire LED2
 );
 
-  assign led1_o = 1'bZ;
-  assign led2_o = 1'bZ;
+  assign LED1 = 1'bZ;
+  assign LED2 = 1'bZ;
 
 endmodule

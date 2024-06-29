@@ -15,10 +15,10 @@ module bits_to_hex_tb;
   bits_to_hex #(
       .N_BITS(8)
   ) uut_8bits (
-      .clk_i  (clk),
-      .reset_i(reset),
-      .bits_i (bits_8),
-      .ascii_o(ascii_8)
+      .clk  (clk),
+      .reset(reset),
+      .bits (bits_8),
+      .ascii(ascii_8)
   );
 
   reg  [ 6:0] bits_7 = 0;
@@ -27,10 +27,10 @@ module bits_to_hex_tb;
   bits_to_hex #(
       .N_BITS(7)
   ) uut_7bits (
-      .clk_i  (clk),
-      .reset_i(reset),
-      .bits_i (bits_7),
-      .ascii_o(ascii_7)
+      .clk  (clk),
+      .reset(reset),
+      .bits (bits_7),
+      .ascii(ascii_7)
   );
 
   reg  [ 63:0] bits_64 = 0;
@@ -39,10 +39,10 @@ module bits_to_hex_tb;
   bits_to_hex #(
       .N_BITS(64)
   ) uut_64bits (
-      .clk_i  (clk),
-      .reset_i(reset),
-      .bits_i (bits_64),
-      .ascii_o(ascii_64)
+      .clk  (clk),
+      .reset(reset),
+      .bits (bits_64),
+      .ascii(ascii_64)
   );
 
   // clock generator

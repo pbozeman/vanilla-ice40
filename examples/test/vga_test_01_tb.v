@@ -14,21 +14,21 @@ module vga_test_01_tb;
   wire [3:0] blue;
 
   vga vga_inst (
-      .clk_i(clk),
-      .reset_i(reset),
-      .visible_o(visible),
-      .hsync_o(hsync),
-      .vsync_o(vsync),
-      .column_o(column),
-      .row_o(row)
+      .clk(clk),
+      .reset(reset),
+      .visible(visible),
+      .hsync(hsync),
+      .vsync(vsync),
+      .column(column),
+      .row(row)
   );
 
   vga_test_01 vga_pattern (
-      .column_i(column),
-      .row_i(row),
-      .red_o(red),
-      .green_o(green),
-      .blue_o(blue)
+      .column(column),
+      .row(row),
+      .red(red),
+      .green(green),
+      .blue(blue)
   );
 
   // clock generator

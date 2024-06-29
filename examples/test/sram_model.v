@@ -16,10 +16,10 @@ module sram_model #(
 
     parameter integer BAD_DATA = 1'bx
 ) (
-    input wire we_n_i,
-    input wire oe_n_i,
-    input wire ce_n_i,
-    input wire [ADDR_BITS-1:0] addr_i,
+    input wire we_n,
+    input wire oe_n,
+    input wire ce_n,
+    input wire [ADDR_BITS-1:0] addr,
     inout wire [DATA_BITS-1:0] data_io
 );
 
@@ -50,20 +50,20 @@ module sram_model #(
   assign data_io = output_active ? data_out : {DATA_BITS{1'bz}};
 
   // Delayed address update and data handling
-  always @(addr_i) begin
-    prev_data = sram[addr_i];
+  always @(addr) begin
+    prev_data = sram[addr];
     last_addr_change = $realtime;
-    #(tAA - tOHA) data_out = sram[addr_i];
+    #(tAA - tOHA) data_out = sram[addr];
   end
 
   // Track OE# falling edge
-  always @(negedge oe_n_i) begin
+  always @(negedge oe_n) begin
     last_oe_fall = $realtime;
   end
 
   // Control output_active signal and read operation
   always @(*) begin
-    output_active = !ce_n_i && !oe_n_i;
+    output_active = !ce_n && !oe_n;
     if (output_active) begin
       if ($realtime < last_oe_fall + tDOE) begin
         data_out = {DATA_BITS{1'bz}};
@@ -72,7 +72,7 @@ module sram_model #(
       end else if ($realtime < last_addr_change + tAA) begin
         data_out = {DATA_BITS{BAD_DATA}};
       end else begin
-        data_out = sram[addr_i];
+        data_out = sram[addr];
       end
     end else begin
       data_out = {DATA_BITS{1'bz}};
@@ -82,15 +82,15 @@ module sram_model #(
   // Write operation
   reg write_enable;
 
-  always @(we_n_i, ce_n_i, addr_i) begin
+  always @(we_n, ce_n, addr) begin
     write_enable = 0;
-    if (!we_n_i && !ce_n_i) begin
+    if (!we_n && !ce_n) begin
       #(tAW) write_enable = 1;
     end
   end
 
   always @(posedge write_enable) begin
-    sram[addr_i] = data_in;
+    sram[addr] = data_in;
   end
 
 endmodule

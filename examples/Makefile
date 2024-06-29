@@ -6,7 +6,7 @@ BUILD_DIR = .build
 TEST_BENCHES = $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
 # Files that have feature not supported by verible
-VERIBLE_EXCLUDE = vga/vga_top.v
+VERIBLE_EXCLUDE = vga/vga_top.v sram_test/sram_tester_top.v
 
 # Source files
 DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))

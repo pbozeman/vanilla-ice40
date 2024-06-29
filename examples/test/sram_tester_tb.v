@@ -54,10 +54,10 @@ module sram_tester_tb ();
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
-      .we_n_i (we_n),
-      .oe_n_i (oe_n),
-      .ce_n_i (ce_n),
-      .addr_i (addr_bus),
+      .we_n(we_n),
+      .oe_n(oe_n),
+      .ce_n(ce_n),
+      .addr(addr_bus),
       .data_io(data_bus)
   );
 

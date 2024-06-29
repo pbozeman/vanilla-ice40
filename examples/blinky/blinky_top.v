@@ -5,9 +5,9 @@
 `default_nettype none
 
 module blinky_top (
-    input wire clk_i,
-    output reg led1_o,
-    output led2_o
+    input wire CLK,
+    output reg LED1,
+    output LED2
 );
 
   // 100 MHz clock
@@ -19,15 +19,15 @@ module blinky_top (
   // 27-bit counter to hold counts up to 50 million
   reg [26:0] counter;
 
-  always @(posedge clk_i) begin
+  always @(posedge CLK) begin
     if (counter < HALF_SEC_COUNT - 1) begin
       counter <= counter + 1;
     end else begin
       counter <= 0;
-      led1_o  <= ~led1_o;
+      LED1 <= ~LED1;
     end
   end
 
-  assign led2_o = 1'bZ;
+  assign LED2 = 1'bZ;
 
 endmodule

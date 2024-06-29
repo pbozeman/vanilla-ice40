@@ -23,9 +23,9 @@
 `define VGA_VSYNC GH_06
 
 module vga_top (
-    input  wire clk_i,
-    output wire led1_o,
-    output wire led2_o,
+    input  wire CLK,
+    output wire LED1,
+    output wire LED2,
     output wire `VGA_RED_0,
     output wire `VGA_RED_1,
     output wire `VGA_RED_2,
@@ -55,30 +55,30 @@ module vga_top (
   wire vga_clk;
 
   pll_vga pll_vga_inst (
-      .clk_i(clk_i),
+      .clk_i(CLK),
       .clk_o(vga_clk)
   );
 
   vga vga_inst (
-      .clk_i(vga_clk),
-      .reset_i(reset),
-      .visible_o(visible),
-      .hsync_o(`VGA_HSYNC),
-      .vsync_o(`VGA_VSYNC),
-      .column_o(column),
-      .row_o(row)
+      .clk(vga_clk),
+      .reset(reset),
+      .visible(visible),
+      .hsync(`VGA_HSYNC),
+      .vsync(`VGA_VSYNC),
+      .column(column),
+      .row(row)
   );
 
   vga_test_01 vga_pattern (
-      .column_i(column),
-      .row_i(row),
-      .red_o(red),
-      .green_o(green),
-      .blue_o(blue)
+      .column(column),
+      .row(row),
+      .red(red),
+      .green(green),
+      .blue(blue)
   );
 
-  assign led1_o = 1'bZ;
-  assign led2_o = 1'bZ;
+  assign LED1 = 1'bZ;
+  assign LED2 = 1'bZ;
 
   assign `VGA_RED_0 = red[0];
   assign `VGA_RED_1 = red[1];
