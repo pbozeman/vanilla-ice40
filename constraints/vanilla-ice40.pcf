@@ -222,9 +222,9 @@ set_io LK_PINS[5] 29
 set_io LK_PINS[6] 32
 set_io LK_PINS[7] 34
 
-//
-// all pmod pins
-//
+#
+# all pmod pins
+#
 set_io PMOD_PINS[0] 112
 set_io PMOD_PINS[1] 107
 set_io PMOD_PINS[2] 105
@@ -323,9 +323,9 @@ set_io PMOD_PINS[94] 32
 set_io PMOD_PINS[95] 34
 
 
-//
-// Sram pins
-//
+#
+# Sram pins
+#
 set_io SRAM_ADDR_BUS[0] 81
 set_io SRAM_ADDR_BUS[1] 82
 set_io SRAM_ADDR_BUS[2] 83
@@ -368,9 +368,9 @@ set_io SRAM_CS_N 80
 set_io SRAM_OE_N 105
 set_io SRAM_WE_N 60
 
-//
-// all pins by number
-//
+#
+# all pins by number
+#
 set_io PIN1 1
 set_io PIN2 2
 set_io PIN3 3
