@@ -22,14 +22,18 @@
 
 ### Project structure
 
+### make
+
 - add yosys compilation
-  The linter catches directional issues just fine, and they are cruft.
+- make: all files are included in both yosys and verification.. limit them to just
+  the dependencies
 
 ### misc
 
 - make sure all components have a reset_i
 - create reset component and use in top modules
 - redo nets without mirroring
+- standardize wave output names
 
 ### sram
 
