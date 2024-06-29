@@ -1,12 +1,12 @@
 # Directories
-TEST_DIR = test
-BUILD_DIR = .build
+TEST_DIR := test
+BUILD_DIR := .build
 
 # Test benches
-TEST_BENCHES = $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
+TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
 # Files that have feature not supported by verible
-VERIBLE_EXCLUDE = vga/vga_top.v sram_test/sram_tester_top.v
+VERIBLE_EXCLUDE := vga/vga_top.v sram_test/sram_tester_top.v
 
 # Source files
 DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
@@ -15,17 +15,17 @@ TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Output executables
-OUTS = $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
+OUTS := $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
 
 # Compiler and simulator
-IVERILOG = iverilog -DSIMULATOR
-VVP = vvp
+IVERILOG := iverilog -DSIMULATOR
+VVP := vvp
 
 # Linter
-LINTER = verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
+LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 
 # Formatter
-FORMATTER = verible-verilog-format --inplace
+FORMATTER := verible-verilog-format --inplace
 
 # All targets
 all: $(OUTS)
