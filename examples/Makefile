@@ -2,6 +2,12 @@
 TEST_DIR := test
 BUILD_DIR := .build
 
+# Non test source dirs
+DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
+
+# Tops
+TOPS := $(basename $(foreach dir,$(DIRS), $(notdir $(wildcard $(dir)*_top.v))))
+
 # Test benches
 TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 
@@ -9,7 +15,6 @@ TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
 VERIBLE_EXCLUDE := vga/vga_top.v sram_test/sram_tester_top.v
 
 # Source files
-DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
 SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
 TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
@@ -28,13 +33,25 @@ LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 FORMATTER := verible-verilog-format --inplace
 
 # All targets
-all: $(OUTS)
+all: check
 
 # Ensure build directory exists
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
-# General rule for building each test bench executable
+##############################################################################
+#
+# Synthesis
+#
+##############################################################################
+synth:
+	@echo $(TOPS)
+
+##############################################################################
+#
+# Verification
+#
+##############################################################################
 $(BUILD_DIR)/%: $(ALL_SRC) $(TEST_DIR)/%.v | $(BUILD_DIR)
 	$(IVERILOG) -o $@ $^
 
@@ -61,7 +78,11 @@ test: clean_logs $(addprefix run_, $(TEST_BENCHES))
 
 check: lint test
 
-# Linting rules
+##############################################################################
+#
+# Linting
+#
+##############################################################################
 .PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
 lint: $(addprefix lint_, $(TEST_BENCHES))
 
@@ -74,12 +95,20 @@ endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
 
-# Formatting rule
+##############################################################################
+#
+# Formatting
+#
+##############################################################################
 .PHONY: format
 format:
 	$(FORMATTER) $(ALL_SRC) $(TEST_DIR)/*.v
 
-# Clean build artifacts
+##############################################################################
+#
+# Cleaning
+#
+##############################################################################
 clean:
 	rm -rf $(BUILD_DIR)
 
