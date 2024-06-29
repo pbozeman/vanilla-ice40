@@ -16,6 +16,7 @@
         # Base build inputs common to all systems
         baseBuildInputs = with pkgs; [
           gtkwave
+          icestorm
           nextpnr
           verilator
           verilog
