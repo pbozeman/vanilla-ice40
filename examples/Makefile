@@ -47,6 +47,9 @@ NEXTPNR := nextpnr-ice40
 # bin creation
 ICEPACK := icepack
 
+# programming
+ICEPROG := iceprog
+
 # All targets
 all: check
 
@@ -107,6 +110,25 @@ $(foreach top,$(TOP_MODULES),$(eval $(call bitstream_rule,$(top))))
 
 .PHONY: bitstream
 bitstream: $(addprefix $(BUILD_DIR)/,$(addsuffix .bin,$(notdir $(basename $(TOP_MODULES)))))
+
+##############################################################################
+#
+# Programming
+#
+##############################################################################
+# Rule to program a specific bitstream
+define program_rule
+.PHONY: program_$(notdir $(basename $(1)))
+$(notdir $(basename $(1))): $(BUILD_DIR)/$(notdir $(basename $(1))).bin
+	$(ICEPROG) $$<
+endef
+
+$(foreach top,$(TOP_MODULES),$(eval $(call program_rule,$(top))))
+
+.PHONY: list
+list:
+	@echo "Available programming targets:"
+	@$(foreach top,$(TOP_MODULES),echo " $(notdir $(basename $(top)))";)
 
 ##############################################################################
 #
