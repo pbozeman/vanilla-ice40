@@ -14,7 +14,7 @@ module sram_tester #(
     output wire test_pass,
 
     // sram pins
-    output wire rw,
+    output wire read_only,
     output wire [ADDR_BITS-1:0] addr,
     output wire [DATA_BITS-1:0] data_write,
     output wire [DATA_BITS-1:0] data_read,
@@ -39,8 +39,7 @@ module sram_tester #(
       .clk(clk),
       .reset(reset),
       .addr(addr),
-      .rw(rw),
-
+      .read_only(read_only),
       .data_i(data_write),
       .data_o(data_read),
       .addr_bus(addr_bus),
@@ -79,7 +78,7 @@ module sram_tester #(
       .reset(reset),
       .addr_done(addr_done),
       .pattern_done(pattern_done),
-      .rw(rw),
+      .read_only(read_only),
       .next_addr(next_addr),
       .next_pattern(next_pattern),
       .test_done(test_done),

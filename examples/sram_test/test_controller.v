@@ -9,7 +9,7 @@ module test_controller (
     input  wire reset,
     input  wire addr_done,
     input  wire pattern_done,
-    output reg  rw,
+    output reg  read_only,
     output reg  next_addr,
     output reg  next_pattern,
     output reg  test_done,
@@ -30,7 +30,7 @@ module test_controller (
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= IDLE;
-      rw <= 1'b0;
+      read_only <= 1'b0;
       next_addr <= 1'b0;
       next_pattern <= 1'b0;
       test_done <= 1'b0;
@@ -39,17 +39,17 @@ module test_controller (
       case (state)
         IDLE: begin
           state <= WRITING;
-          rw <= 1'b0;
+          read_only <= 1'b0;
           next_addr <= 1'b1;
           write_complete <= 1'b0;
           next_pattern <= 1'b0;
         end
         WRITING: begin
           next_pattern <= 1'b0;
-          rw <= 1'b0;
+          read_only <= 1'b0;
           if (addr_done && !write_complete) begin
             write_complete <= 1'b1;
-            rw <= 1'b1;
+            read_only <= 1'b1;
             next_addr <= 1'b1;
             state <= SWITCHING;
           end else begin
@@ -57,7 +57,7 @@ module test_controller (
           end
         end
         SWITCHING: begin
-          rw <= 1'b1;
+          read_only <= 1'b1;
           next_pattern <= 1'b0;
           state <= READING;
         end
@@ -77,7 +77,7 @@ module test_controller (
         NEXT_PATTERN: begin
           next_pattern <= 1'b1;
           state <= WRITING;
-          rw <= 1'b0;
+          read_only <= 1'b0;
           write_complete <= 1'b0;
         end
         DONE: begin

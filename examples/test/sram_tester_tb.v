@@ -17,7 +17,7 @@ module sram_tester_tb ();
   wire test_pass;
 
   // sram pins
-  wire rw;
+  wire read_only;
   wire [ADDR_BITS-1:0] addr;
   wire [DATA_BITS-1:0] data_write;
   wire [DATA_BITS-1:0] data_read;
@@ -37,7 +37,7 @@ module sram_tester_tb ();
       .reset(reset),
       .test_done(test_done),
       .test_pass(test_pass),
-      .rw(rw),
+      .read_only(read_only),
       .addr(addr),
       .data_write(data_write),
       .data_read(data_read),

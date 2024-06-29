@@ -10,7 +10,7 @@ module sram_controller_tb;
 
   reg clk;
   reg reset;
-  reg rw;
+  reg read_only;
   reg [ADDR_BITS-1:0] addr;
   reg [DATA_BITS-1:0] data_write;
   wire [DATA_BITS-1:0] data_read;
@@ -41,7 +41,7 @@ module sram_controller_tb;
   ) ctrl (
       .clk(clk),
       .reset(reset),
-      .rw(rw),
+      .read_only(read_only),
       .addr(addr),
       .data_i(data_write),
       .data_o(data_read),
@@ -65,7 +65,7 @@ module sram_controller_tb;
 
     // Initialize control signals
     reset = 1;
-    rw = 0;
+    read_only = 0;
     addr = 10'h0;
     data_write = 8'h00;
 
@@ -74,7 +74,7 @@ module sram_controller_tb;
     @(posedge clk);
 
     // Write cycle
-    rw = 0;
+    read_only = 0;
     addr = 10'h100;
     data_write = 8'hA1;
     @(posedge clk);
@@ -90,7 +90,7 @@ module sram_controller_tb;
     @(posedge clk);
 
     // switch directions
-    rw = 1;
+    read_only = 1;
 
     // need 1 clock to switch direction, otherwise, we write as we change addr
     // (this may not be true for a real chip)
