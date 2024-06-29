@@ -9,37 +9,55 @@ module sram_controller #(
     parameter integer DATA_BITS = 16
 ) (
     // to/from the caller
-    input wire clk,
-    input wire reset,
-    input wire read_only,
-    input wire [ADDR_BITS-1:0] addr,
-    input wire [DATA_BITS-1:0] data_i,
-    output reg [DATA_BITS-1:0] data_o,
+    input  wire                 clk,
+    input  wire                 reset,
+    input  wire                 read_only,
+    input  wire [ADDR_BITS-1:0] addr,
+    input  wire [DATA_BITS-1:0] data_i,
+    output reg  [DATA_BITS-1:0] data_o,
+    output reg  [ADDR_BITS-1:0] data_o_addr,
 
     // to/from the chip
-    output wire [ADDR_BITS-1:0] addr_bus,
-    inout wire [DATA_BITS-1:0] data_bus_io,
-    output wire we_n,
-    output wire oe_n,
-    output wire ce_n
+    output reg  [ADDR_BITS-1:0] addr_bus,
+    inout  wire [DATA_BITS-1:0] data_bus_io,
+    output reg                  we_n,
+    output reg                  oe_n,
+    output wire                 ce_n
 );
 
-  // control signals
+  reg [DATA_BITS-1:0] data_write_reg = 0;
+  reg read_only_reg = 0;
+
+  // Chip select is always active
   assign ce_n = 1'b0;
-  assign we_n = (read_only == 1'b1) ? 1'b1 : 1'b0;
-  assign oe_n = (read_only == 1'b1) ? 1'b0 : 1'b1;
-  assign addr_bus = addr;
 
-  // control data bus direction
-  assign data_bus_io = (read_only == 1'b1) ? {DATA_BITS{1'bz}} : data_i;
+  // Tristate buffer for data bus
+  assign data_bus_io = (read_only_reg) ? {DATA_BITS{1'bz}} : data_write_reg;
 
-  // Load data_o register when reading
+  // Main control logic
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      data_o <= {DATA_BITS{1'b0}};
-    end else if (read_only == 1'b1) begin
-      data_o <= data_bus_io;
+      addr_bus <= 0;
+      we_n <= 1'b1;
+      oe_n <= 1'b1;
+      data_o <= 0;
+      data_write_reg <= 0;
+      read_only_reg <= 0;
+    end else begin
+      // Register inputs every cycle
+      addr_bus <= addr;
+      data_write_reg <= data_i;
+      read_only_reg <= read_only;
+
+      // Control signals
+      we_n <= read_only;
+      oe_n <= ~read_only;
+
+      // Read data
+      if (read_only_reg) begin
+        data_o_addr <= data_bus_io;
+        data_o <= data_bus_io;
+      end
     end
   end
-
 endmodule

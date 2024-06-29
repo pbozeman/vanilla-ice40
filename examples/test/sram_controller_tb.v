@@ -14,6 +14,7 @@ module sram_controller_tb;
   reg [ADDR_BITS-1:0] addr;
   reg [DATA_BITS-1:0] data_write;
   wire [DATA_BITS-1:0] data_read;
+  wire [ADDR_BITS-1:0] addr_read;
 
   // chip lines
   wire [ADDR_BITS-1:0] addr_bus;
@@ -45,6 +46,7 @@ module sram_controller_tb;
       .addr(addr),
       .data_i(data_write),
       .data_o(data_read),
+      .data_o_addr(addr_read),
       .addr_bus(addr_bus),
       .we_n(we_n),
       .oe_n(oe_n),

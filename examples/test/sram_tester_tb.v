@@ -6,15 +6,21 @@
 module sram_tester_tb ();
 
   // Parameters
-  localparam ADDR_BITS = 10;
-  localparam DATA_BITS = 8;
-  localparam MAX_CYCLES = 100000;
+  localparam ADDR_BITS = 4;
+  localparam DATA_BITS = 2;
+  localparam MAX_CYCLES = 50000;
 
   // Signals
   reg clk;
   reg reset;
   wire test_done;
   wire test_pass;
+
+  // debug signals
+  wire [2:0] pattern_state;
+  wire [2:0] test_state;
+  wire [DATA_BITS-1:0] prev_read_data;
+  wire [DATA_BITS-1:0] prev_expected_data;
 
   // sram pins
   wire read_only;
@@ -37,6 +43,10 @@ module sram_tester_tb ();
       .reset(reset),
       .test_done(test_done),
       .test_pass(test_pass),
+      .pattern_state(pattern_state),
+      .test_state(test_state),
+      .prev_read_data(prev_read_data),
+      .prev_expected_data(prev_expected_data),
       .read_only(read_only),
       .addr(addr),
       .data_write(data_write),
@@ -46,7 +56,6 @@ module sram_tester_tb ();
       .oe_n(oe_n),
       .data_bus(data_bus),
       .ce_n(ce_n)
-
   );
 
   // Instantiate the mocked SRAM model
@@ -72,8 +81,9 @@ module sram_tester_tb ();
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       timeout_counter <= 0;
-    end else if (!test_done) begin
+    end else begin
       timeout_counter <= timeout_counter + 1;
+      `ASSERT(test_pass == 1'b1);
     end
   end
 
@@ -83,21 +93,22 @@ module sram_tester_tb ();
     $dumpvars(0, sram_tester_tb);
 
     // Initialize Inputs
-    reset = 1;
+    reset = 0;
 
     // Wait 10 ns for global reset to finish
     #10;
 
     // Release reset
-    reset = 0;
+    //reset = 0;
 
     // Wait for test to complete or timeout
     wait (test_done || (timeout_counter == MAX_CYCLES - 1));
 
-    `ASSERT(test_done);
+    `ASSERT(test_done === 1'b1);
+    `ASSERT(test_pass === 1'b1);
 
     // Add some delay after test completion
-    #10;
+    #5;
 
     // Finish the simulation
     $finish;

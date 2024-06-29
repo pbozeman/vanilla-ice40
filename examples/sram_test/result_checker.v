@@ -12,9 +12,28 @@ module result_checker #(
     input wire enable,
     input wire [DATA_BITS-1:0] read_data,
     input wire [DATA_BITS-1:0] expected_data,
-    output wire test_pass
+    output reg test_pass,
+
+    output reg [DATA_BITS-1:0] prev_read_data = 0,
+    output reg [DATA_BITS-1:0] prev_expected_data = 0
 );
 
-  assign test_pass = (!enable || read_data == expected_data);
+  reg prev_failure = 0;
+
+  always @(posedge clk) begin
+    // So this is kinda hacked up. It's like this from
+    // when I was debugging and just wanted to figure it
+    // out.
+    if (!enable || read_data == expected_data) begin
+      test_pass <= (1'b1 & ~prev_failure);
+    end else begin
+      test_pass <= 1'b0;
+      if (!prev_failure) begin
+        prev_failure <= 1;
+        prev_read_data <= read_data;
+        prev_expected_data <= expected_data;
+      end
+    end
+  end
 
 endmodule
