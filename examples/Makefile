@@ -1,3 +1,7 @@
+# Ice40 config
+DEVICE := hx4k
+PACKAGE := tq144
+
 # Directories
 TEST_DIR := test
 LIB_DIR := lib
@@ -37,6 +41,9 @@ FORMATTER := verible-verilog-format --inplace
 # Synthesis
 YOSYS := yosys
 
+# PNR
+NEXTPNR := nextpnr-ice40
+
 # All targets
 all: check
 
@@ -62,8 +69,26 @@ endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call synth_rule,$(top))))
 
-synth: $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MODULES)))))
-	@echo $(TOP_MODULES)
+.PHONY: synth
+synth: $(BUILD_DIR) $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MODULES)))))
+
+##############################################################################
+#
+# P&R
+#
+##############################################################################
+PCF_DIR := ../constraints
+PCF_FILES := $(wildcard $(PCF_DIR)/*.pcf)
+
+define pnr_rule
+$(BUILD_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILES)
+	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --json $$< $(addprefix --pcf ,$(PCF_FILES)) --top $(notdir $(basename $(1))) --asc $$@
+endef
+
+$(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
+
+.PHONY: pnr
+pnr: $(addprefix $(BUILD_DIR)/,$(addsuffix .asc,$(notdir $(basename $(TOP_MODULES)))))
 
 ##############################################################################
 #
