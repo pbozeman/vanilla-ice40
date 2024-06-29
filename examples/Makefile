@@ -50,7 +50,7 @@ $(BUILD_DIR):
 #
 ##############################################################################
 define YOSYS_CMD
-read_verilog $(dir $(1))/*.v $(LIB_DIR)/*.v; \
+read_verilog $(dir $(1))*.v $(LIB_DIR)/*.v; \
 synth_ice40 -top $(notdir $(basename $(1))); \
 write_json $$@
 endef
