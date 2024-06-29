@@ -35,7 +35,7 @@ LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 FORMATTER := verible-verilog-format --inplace
 
 # Synthesis
-YOSYS = yosys
+YOSYS := yosys
 
 # All targets
 all: check
