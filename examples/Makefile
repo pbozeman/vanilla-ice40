@@ -111,6 +111,9 @@ $(foreach top,$(TOP_MODULES),$(eval $(call bitstream_rule,$(top))))
 .PHONY: bitstream
 bitstream: $(addprefix $(BUILD_DIR)/,$(addsuffix .bin,$(notdir $(basename $(TOP_MODULES)))))
 
+.PHONY: bits
+bits: bitstream
+
 ##############################################################################
 #
 # Programming
