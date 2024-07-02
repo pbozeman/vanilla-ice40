@@ -91,14 +91,14 @@ module sram_tester #(
       .pattern_state(pattern_state)
   );
 
-  address_generator #(
-      .ADDR_BITS(ADDR_BITS)
+  iter #(
+      .MAX_VALUE((1 << ADDR_BITS) - 1)
   ) addr_gen (
       .clk(clk),
       .reset(addr_gen_reset),
-      .next_addr(next_addr),
-      .addr(addr),
-      .addr_done(addr_done)
+      .next(next_addr),
+      .val(addr),
+      .done(addr_done)
   );
 
   test_controller test_ctrl (
