@@ -14,7 +14,7 @@ module counter_tb;
   ) uut (
       .clk(clk),
       .reset(reset),
-      .enable_i(enable),
+      .enable(enable),
       .count(count)
   );
 

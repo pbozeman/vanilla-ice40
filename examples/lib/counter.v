@@ -10,7 +10,7 @@ module counter #(
 ) (
     input clk,
     input reset,
-    input enable_i,
+    input enable,
     output reg [WIDTH-1:0] count
 );
 
@@ -21,7 +21,7 @@ module counter #(
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       count <= 0;
-    end else if (enable_i) begin
+    end else if (enable) begin
       if (count >= MAX_VALUE) begin
         count <= 0;
       end else begin
@@ -29,4 +29,5 @@ module counter #(
       end
     end
   end
+
 endmodule
