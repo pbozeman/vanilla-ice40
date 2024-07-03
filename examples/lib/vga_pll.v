@@ -1,5 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef VGA_PLL
+`define VGA_PLL
+
+`include "directives.v"
 
 `ifndef SIMULATOR
 
@@ -50,4 +52,5 @@ module vga_pll (
 
 endmodule
 
+`endif
 `endif

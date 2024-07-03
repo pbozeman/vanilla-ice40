@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "fifo.v"
+
 module fifo_tb;
 
   reg clk = 1'b0;

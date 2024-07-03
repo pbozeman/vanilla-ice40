@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "counter.v"
+
 module counter_tb;
   parameter MAX_VALUE = 250;
   parameter WIDTH = 8;

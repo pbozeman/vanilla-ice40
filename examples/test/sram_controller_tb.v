@@ -1,5 +1,8 @@
 `include "testing.v"
 
+`include "sram_controller.v"
+`include "sram_model.v"
+
 module sram_controller_tb;
   localparam ADDR_BITS = 10;
   localparam DATA_BITS = 8;

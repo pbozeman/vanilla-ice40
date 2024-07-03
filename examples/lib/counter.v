@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef COUNTER_V
+`define COUNTER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module counter #(
     parameter MAX_VALUE = 16,
@@ -31,3 +30,5 @@ module counter #(
   end
 
 endmodule
+
+`endif

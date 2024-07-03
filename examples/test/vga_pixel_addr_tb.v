@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "vga_pixel_addr.v"
+
 module vga_pixel_addr_tb;
   reg clk;
   reg reset;

@@ -1,3 +1,6 @@
+`ifndef SRAM_MODEL_V
+`define SRAM_MODEL_V
+
 `include "directives.v"
 
 module sram_model #(
@@ -111,3 +114,5 @@ module sram_model #(
   end
 
 endmodule
+
+`endif

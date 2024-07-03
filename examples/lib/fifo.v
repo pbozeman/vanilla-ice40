@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef FIFO_V
+`define FIFO_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module fifo #(
     parameter DATA_WIDTH = 8,
@@ -62,3 +61,5 @@ module fifo #(
   assign empty = (fifo_count == 0);
 
 endmodule
+
+`endif

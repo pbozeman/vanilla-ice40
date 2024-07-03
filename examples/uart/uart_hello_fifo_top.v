@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`include "directives.v"
 
-// avoid undeclared symbols
-`default_nettype none
+`include "fifo.v"
+`include "uart_tx.v"
 
 module uart_hello_fifo_top (
     input  wire CLK,

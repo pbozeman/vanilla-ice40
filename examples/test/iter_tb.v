@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "iter.v"
+
 module iter_tb;
 
   parameter MAX_VALUE = 10;

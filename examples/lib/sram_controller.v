@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef SRAM_CONTROLLER_V
+`define SRAM_CONTROLLER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module sram_controller #(
     parameter integer ADDR_BITS = 20,
@@ -60,4 +59,7 @@ module sram_controller #(
       end
     end
   end
+
 endmodule
+
+`endif

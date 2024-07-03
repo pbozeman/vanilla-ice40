@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef BIT_REVERSER_V
+`define BIT_REVERSER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module bit_reverser #(
     parameter WIDTH = 8
@@ -19,3 +18,5 @@ module bit_reverser #(
   endgenerate
 
 endmodule
+
+`endif

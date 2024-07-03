@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "bits_to_hex.v"
+
 module bits_to_hex_tb;
 
   reg clk = 1'b0;

@@ -1,8 +1,9 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef ITER_V
+`define ITER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
+
+`include "counter.v"
 
 module iter #(
     parameter integer MAX_VALUE = 16,
@@ -28,3 +29,4 @@ module iter #(
 
 endmodule
 
+`endif

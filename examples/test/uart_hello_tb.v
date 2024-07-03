@@ -1,5 +1,8 @@
 `include "testing.v"
 
+`include "uart_hello_top.v"
+`include "uart_tx.v"
+
 module uart_hello_tb;
 
   reg  clk = 1'b0;

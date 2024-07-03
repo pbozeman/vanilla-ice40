@@ -20,11 +20,10 @@
 // - For 1 to 4 bits, 1 nibble is needed.
 // - For 5 to 8 bits, 2 nibbles are needed, and so on.
 
-// for simulation
-`timescale 1ns / 1ps
+`ifndef BITS_TO_HEX_V
+`define BITS_TO_HEX_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module bits_to_hex #(
     parameter N_BITS = 32
@@ -74,3 +73,4 @@ module bits_to_hex #(
 
 endmodule
 
+`endif

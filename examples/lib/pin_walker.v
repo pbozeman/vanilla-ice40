@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef PIN_WALKER_V
+`define PIN_WALKER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module pin_walker #(
     parameter integer NUM_PINS = 8,
@@ -34,3 +33,5 @@ module pin_walker #(
   assign pins = (1 << pin_idx);
 
 endmodule
+
+`endif

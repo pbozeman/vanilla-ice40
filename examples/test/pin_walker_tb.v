@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "pin_walker.v"
+
 module pin_walker_tb;
   localparam NUM_PINS = 16;
   localparam CLOCK_FREQ_HZ = 10;

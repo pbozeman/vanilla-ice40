@@ -1,11 +1,9 @@
+`ifndef UART_TX_V
+`define UART_TX_V
+
+`include "directives.v"
+
 // 8n1 is hardcoded
-
-// for simulation
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
-
 module uart_tx #(
     parameter CLOCK_FREQ = 100_000_000,
     parameter BAUD_RATE  = 115_200
@@ -95,3 +93,5 @@ module uart_tx #(
   end
 
 endmodule
+
+`endif

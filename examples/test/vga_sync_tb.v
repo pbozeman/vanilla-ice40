@@ -1,5 +1,7 @@
 `include "testing.v"
 
+`include "vga_sync.v"
+
 module vga_sync_tb;
 
   reg clk = 1'b0;

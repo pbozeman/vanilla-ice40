@@ -57,6 +57,9 @@ all: check
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+# Load previous deps
+-include $(wildcard $(BUILD_DIR)/*.d)
+
 ##############################################################################
 #
 # Synthesis
@@ -139,8 +142,9 @@ list:
 #
 ##############################################################################
 .PRECIOUS: $(BUILD_DIR)/%
-$(BUILD_DIR)/%: $(ALL_SRC) $(TEST_DIR)/%.v | $(BUILD_DIR)
-	$(IVERILOG) $(foreach dir,$(DIRS), -I$(dir)) -o $@ $^
+$(BUILD_DIR)/%: $(TEST_DIR)/%.v | $(BUILD_DIR)
+	$(IVERILOG) -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $^
+	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
 	@$(VVP) $^ && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log

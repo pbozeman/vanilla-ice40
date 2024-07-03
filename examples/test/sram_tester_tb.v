@@ -1,5 +1,9 @@
 `include "testing.v"
 
+`include "sram_controller.v"
+`include "sram_model.v"
+`include "sram_tester.v"
+
 module sram_tester_tb ();
 
   // Parameters
