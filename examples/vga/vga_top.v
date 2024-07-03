@@ -54,7 +54,7 @@ module vga_top (
 
   wire vga_clk;
 
-  pll_vga pll_vga_inst (
+  vga_pll vga_pll_inst (
       .clk_i(CLK),
       .clk_o(vga_clk)
   );

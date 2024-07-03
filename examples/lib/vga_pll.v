@@ -11,7 +11,7 @@
 `define PLL_DIVQ (3'd5)
 `define PLL_FILTER_RANGE (3'd1)
 
-module pll_vga (
+module vga_pll (
     input  wire clk_i,
     output wire clk_o
 );
