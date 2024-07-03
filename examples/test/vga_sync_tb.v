@@ -1,7 +1,7 @@
 // for simulation
 `timescale 1ns / 1ps
 
-module vga_tb;
+module vga_sync_tb;
 
   reg clk = 1'b0;
   reg reset = 1'b0;
@@ -13,7 +13,7 @@ module vga_tb;
 
   reg [3:0] frames = 0;
 
-  vga uut (
+  vga_sync uut (
       .clk(clk),
       .reset(reset),
       .visible(visible),
@@ -28,7 +28,7 @@ module vga_tb;
 
   initial begin
     $dumpfile(".build/vga_dump.vcd");
-    $dumpvars(0, vga_tb);
+    $dumpvars(0, vga_sync_tb);
 
     // 3 frames
     repeat (3 * 800 * 600) @(posedge clk);

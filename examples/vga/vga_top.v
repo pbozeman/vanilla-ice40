@@ -59,7 +59,7 @@ module vga_top (
       .clk_o(vga_clk)
   );
 
-  vga vga_inst (
+  vga_sync vga_inst (
       .clk(vga_clk),
       .reset(reset),
       .visible(visible),

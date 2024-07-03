@@ -7,7 +7,7 @@
 // avoid undeclared symbols
 `default_nettype none
 
-module vga #(
+module vga_sync #(
     parameter H_VISIBLE = 640,
     parameter H_FRONT_PORCH = 16,
     parameter H_SYNC_PULSE = 96,

@@ -13,7 +13,7 @@ module vga_test_01_tb;
   wire [3:0] green;
   wire [3:0] blue;
 
-  vga vga_inst (
+  vga_sync vga_inst (
       .clk(clk),
       .reset(reset),
       .visible(visible),
