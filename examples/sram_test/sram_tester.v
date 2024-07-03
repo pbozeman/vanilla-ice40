@@ -22,8 +22,8 @@ module sram_tester #(
     // sram pins
     output wire read_only,
     output wire [ADDR_BITS-1:0] addr,
-    output wire [DATA_BITS-1:0] data_write,
-    output wire [DATA_BITS-1:0] data_read,
+    output wire [DATA_BITS-1:0] write_data,
+    output wire [DATA_BITS-1:0] read_data,
     output wire [ADDR_BITS-1:0] addr_bus,
     inout wire [DATA_BITS-1:0] data_bus,
     output wire we_n,
@@ -121,7 +121,7 @@ module sram_tester #(
       .clk(clk),
       .reset(reset),
       .enable(enable_checker),
-      .read_data(data_read),
+      .read_data(read_data),
       .expected_data(pattern_custom),
       .test_pass(test_pass),
       .prev_read_data(prev_read_data),
@@ -129,7 +129,7 @@ module sram_tester #(
   );
 
   // Sram
-  assign data_write = pattern;
+  assign write_data = pattern;
 
   sram_controller #(
       .ADDR_BITS(ADDR_BITS),
@@ -139,8 +139,8 @@ module sram_tester #(
       .reset(reset),
       .addr(addr),
       .read_only(read_only),
-      .data_i(data_write),
-      .data_o(data_read),
+      .data_i(write_data),
+      .data_o(read_data),
       .data_o_addr(addr_read),
       .addr_bus(addr_bus),
       .we_n(we_n),

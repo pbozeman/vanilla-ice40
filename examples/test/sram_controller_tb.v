@@ -12,8 +12,8 @@ module sram_controller_tb;
   reg reset;
   reg read_only;
   reg [ADDR_BITS-1:0] addr;
-  reg [DATA_BITS-1:0] data_write;
-  wire [DATA_BITS-1:0] data_read;
+  reg [DATA_BITS-1:0] write_data;
+  wire [DATA_BITS-1:0] read_data;
   wire [ADDR_BITS-1:0] addr_read;
 
   // chip lines
@@ -44,8 +44,8 @@ module sram_controller_tb;
       .reset(reset),
       .read_only(read_only),
       .addr(addr),
-      .data_i(data_write),
-      .data_o(data_read),
+      .data_i(write_data),
+      .data_o(read_data),
       .data_o_addr(addr_read),
       .addr_bus(addr_bus),
       .we_n(we_n),
@@ -69,7 +69,7 @@ module sram_controller_tb;
     reset = 1;
     read_only = 0;
     addr = 10'h0;
-    data_write = 8'h00;
+    write_data = 8'h00;
 
     // Reset sequence
     #10 reset = 0;
@@ -78,17 +78,17 @@ module sram_controller_tb;
     // Write cycle
     read_only = 0;
     addr = 10'h100;
-    data_write = 8'hA1;
+    write_data = 8'hA1;
     @(posedge clk);
 
     // Addr 2
     addr = 10'h101;
-    data_write = 8'hB2;
+    write_data = 8'hB2;
     @(posedge clk);
 
     // Addr 3
     addr = 10'h102;
-    data_write = 8'hC3;
+    write_data = 8'hC3;
     @(posedge clk);
 
     // switch directions
@@ -107,14 +107,14 @@ module sram_controller_tb;
     // the new addr in a pipeline
     addr = 10'h101;
     @(posedge clk);
-    `ASSERT(data_read === 8'hA1);
+    `ASSERT(read_data === 8'hA1);
 
     addr = 10'h102;
     @(posedge clk);
-    `ASSERT(data_read === 8'hB2);
+    `ASSERT(read_data === 8'hB2);
 
     @(posedge clk);
-    `ASSERT(data_read === 8'hC3);
+    `ASSERT(read_data === 8'hC3);
 
     $finish;
   end

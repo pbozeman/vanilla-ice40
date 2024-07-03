@@ -25,8 +25,8 @@ module sram_tester_tb ();
   // sram pins
   wire read_only;
   wire [ADDR_BITS-1:0] addr;
-  wire [DATA_BITS-1:0] data_write;
-  wire [DATA_BITS-1:0] data_read;
+  wire [DATA_BITS-1:0] write_data;
+  wire [DATA_BITS-1:0] read_data;
   wire [ADDR_BITS-1:0] addr_bus;
   wire [DATA_BITS-1:0] data_bus;
   wire we_n;
@@ -49,8 +49,8 @@ module sram_tester_tb ();
       .prev_expected_data(prev_expected_data),
       .read_only(read_only),
       .addr(addr),
-      .data_write(data_write),
-      .data_read(data_read),
+      .write_data(write_data),
+      .read_data(read_data),
       .addr_bus(addr_bus),
       .we_n(we_n),
       .oe_n(oe_n),

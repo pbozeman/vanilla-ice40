@@ -33,8 +33,8 @@ module sram_tester_top #(
   // Internal signals
   wire reset = 0;
   wire [ADDR_BITS-1:0] addr;
-  wire [DATA_BITS-1:0] data_write;
-  wire [DATA_BITS-1:0] data_read;
+  wire [DATA_BITS-1:0] write_data;
+  wire [DATA_BITS-1:0] read_data;
   wire test_done;
   wire test_pass;
   wire read_only;
@@ -59,8 +59,8 @@ module sram_tester_top #(
       .prev_read_data(prev_read_data),
       .read_only(read_only),
       .addr(addr),
-      .data_write(data_write),
-      .data_read(data_read),
+      .write_data(write_data),
+      .read_data(read_data),
       .addr_bus(SRAM_ADDR_BUS),
       .data_bus(SRAM_DATA_BUS),
       .ce_n(SRAM_CS_N),
@@ -101,8 +101,8 @@ module sram_tester_top #(
   // LED2 is success
   assign LED2 = test_pass;
 
-  assign HG_PINS = (test_pass ? data_write : prev_expected_data);
-  assign LK_PINS = (test_pass ? data_read : prev_read_data);
+  assign HG_PINS = (test_pass ? write_data : prev_expected_data);
+  assign LK_PINS = (test_pass ? read_data : prev_read_data);
 
   assign BA_PINS[2:0] = pattern_state_reversed;
 

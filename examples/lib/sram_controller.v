@@ -25,14 +25,14 @@ module sram_controller #(
     output wire                 ce_n
 );
 
-  reg [DATA_BITS-1:0] data_write_reg = 0;
+  reg [DATA_BITS-1:0] write_data_reg = 0;
   reg read_only_reg = 0;
 
   // Chip select is always active
   assign ce_n = 1'b0;
 
   // Tristate buffer for data bus
-  assign data_bus_io = (read_only_reg) ? {DATA_BITS{1'bz}} : data_write_reg;
+  assign data_bus_io = (read_only_reg) ? {DATA_BITS{1'bz}} : write_data_reg;
 
   // Main control logic
   always @(posedge clk or posedge reset) begin
@@ -41,12 +41,12 @@ module sram_controller #(
       we_n <= 1'b1;
       oe_n <= 1'b1;
       data_o <= 0;
-      data_write_reg <= 0;
+      write_data_reg <= 0;
       read_only_reg <= 0;
     end else begin
       // Register inputs every cycle
       addr_bus <= addr;
-      data_write_reg <= data_i;
+      write_data_reg <= data_i;
       read_only_reg <= read_only;
 
       // Control signals
