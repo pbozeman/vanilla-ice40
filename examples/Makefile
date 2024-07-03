@@ -47,8 +47,9 @@ ICEPACK := icepack
 # programming
 ICEPROG := iceprog
 
-# All targets
-all: check
+VCD_FILES := $(addprefix $(BUILD_DIR)/,$(addsuffix .vcd,$(TEST_BENCHES)))
+.PHONY: unit
+unit: $(VCD_FILES)
 
 # Ensure build directory exists
 $(BUILD_DIR):
@@ -147,7 +148,6 @@ $(BUILD_DIR)/%: $(TEST_DIR)/%.v | $(BUILD_DIR)
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
 	@$(VVP) $^ && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
 
-# Function to run test bench and update counters
 define run_test
 	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
 endef
@@ -159,13 +159,13 @@ $(addprefix run_, $(TEST_BENCHES)): run_% : $(BUILD_DIR)/%
 	$(call run_test,$<)
 
 # Run all test benches sequentially and show summary
-test: clean_logs $(addprefix run_, $(TEST_BENCHES))
+all_unit: clean_logs $(addprefix run_, $(TEST_BENCHES))
 	@echo "=============================="
 	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
 	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
 	@echo "=============================="
 
-check: lint test
+check: lint all_unit
 
 ##############################################################################
 #
