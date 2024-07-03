@@ -7,7 +7,7 @@
 // avoid undeclared symbols
 `default_nettype none
 
-module pixel_addr #(
+module vga_pixel_addr #(
     parameter H_WHOLE_LINE  = 800,
     parameter V_WHOLE_FRAME = 525
 ) (

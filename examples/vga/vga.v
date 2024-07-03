@@ -35,7 +35,7 @@ module vga #(
   localparam V_SYNC_START = V_VISIBLE + V_FRONT_PORCH;
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
-  pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
+  vga_pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
       clk,
       reset,
       column,

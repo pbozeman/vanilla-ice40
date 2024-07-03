@@ -1,12 +1,12 @@
 `timescale 1ns / 1ps
 
-module pixel_addr_tb;
+module vga_pixel_addr_tb;
   reg clk;
   reg reset;
   wire [9:0] column;
   wire [9:0] row;
 
-  pixel_addr uut (
+  vga_pixel_addr uut (
       .clk(clk),
       .reset(reset),
       .column(column),
@@ -18,8 +18,8 @@ module pixel_addr_tb;
   end
 
   initial begin
-    $dumpfile(".build/pixel_addr_dump.vcd");
-    $dumpvars(0, pixel_addr_tb);
+    $dumpfile(".build/vga_pixel_addr.vcd");
+    $dumpvars(0, vga_pixel_addr_tb);
 
     clk   = 0;
     reset = 0;
