@@ -138,11 +138,12 @@ list:
 # Verification
 #
 ##############################################################################
+.PRECIOUS: $(BUILD_DIR)/%
 $(BUILD_DIR)/%: $(ALL_SRC) $(TEST_DIR)/%.v | $(BUILD_DIR)
-	$(IVERILOG) -o $@ $^
+	$(IVERILOG) $(foreach dir,$(DIRS), -I$(dir)) -o $@ $^
 
-SUCCESS_COUNT := 0
-FAIL_COUNT := 0
+$(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
+	@$(VVP) $^ && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
 
 # Function to run test bench and update counters
 define run_test
@@ -172,7 +173,7 @@ check: lint test
 .PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
 lint: $(addprefix lint_, $(TEST_BENCHES))
 
-LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) assert.v $(TEST_DIR)/$(1).v
+LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).v
 define lint_rule
 lint_$(1):
 	@echo "make lint $1"

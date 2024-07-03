@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
 module counter_tb;
   parameter MAX_VALUE = 250;
@@ -23,10 +23,9 @@ module counter_tb;
     #1000;
   end
 
-  initial begin
-    $dumpfile(".build/counter_dump.vcd");
-    $dumpvars(0, counter_tb);
+  `TEST_SETUP(counter_tb);
 
+  initial begin
     clk = 0;
     reset = 0;
     enable = 0;

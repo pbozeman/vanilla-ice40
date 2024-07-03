@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
 module vga_test_01_tb;
 
@@ -34,10 +34,9 @@ module vga_test_01_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/vga_test_01.vcd");
-    $dumpvars(0, vga_test_01_tb);
+  `TEST_SETUP(vga_test_01_tb);
 
+  initial begin
     // 3 frames
     repeat (3 * 800 * 600) @(posedge clk);
     $finish;

@@ -1,6 +1,6 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
-module uart_hello_tb;
+module uart_hello_fifo_tb;
 
   reg  clk = 1'b0;
   reg  reset = 1'b0;
@@ -18,13 +18,10 @@ module uart_hello_tb;
   // clock generator
   always #1 clk = ~clk;
 
+  `TEST_SETUP(uart_hello_fifo_tb);
+
   initial begin
-    $dumpfile(".build/uart_hello_fifo.vcd");
-    $dumpvars(0, uut);
-
-    // Run the simulation for 2 ms (2000 µs)
-    #2000000;
-
+    #20000;
     $finish;
   end
 

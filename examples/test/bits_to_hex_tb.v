@@ -1,8 +1,4 @@
-// for simulation
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
+`include "testing.v"
 
 module bits_to_hex_tb;
 
@@ -48,10 +44,9 @@ module bits_to_hex_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/bits_to_hex.vcd");
-    $dumpvars(0, bits_to_hex_tb);
+  `TEST_SETUP(bits_to_hex_tb);
 
+  initial begin
     // pause
     #5;
 

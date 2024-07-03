@@ -1,7 +1,4 @@
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
+`include "testing.v"
 
 module sram_tester_tb ();
 
@@ -70,6 +67,8 @@ module sram_tester_tb ();
       .data_io(data_bus)
   );
 
+  `TEST_SETUP(sram_tester_tb);
+
   // Clock generation
   initial begin
     // 10ns period clock
@@ -89,9 +88,6 @@ module sram_tester_tb ();
 
   // Testbench stimulus
   initial begin
-    $dumpfile(".build/sram_tester.vcd");
-    $dumpvars(0, sram_tester_tb);
-
     // Initialize Inputs
     reset = 0;
 

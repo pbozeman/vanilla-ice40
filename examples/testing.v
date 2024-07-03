@@ -14,12 +14,6 @@
    initial begin                              \
      $dumpfile({".build/", `"mod`", ".vcd"}); \
      $dumpvars(0, mod);                       \
-   end                                        \
-                                              \
-   // 10ns period clock                       \
-   initial begin                              \
-     clk = 0;                                 \
-     forever #5 clk = ~clk;                   \
    end
 
 `endif

@@ -1,6 +1,6 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
-module fifo_interleved_tb;
+module fifo_interleaved_tb;
 
   reg clk = 1'b0;
   reg reset = 1'b0;
@@ -31,10 +31,9 @@ module fifo_interleved_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/fifo_interleaved.vcd");
-    $dumpvars(0, fifo_interleved_tb);
+  `TEST_SETUP(fifo_interleaved_tb);
 
+  initial begin
     // pause
     #5;
 

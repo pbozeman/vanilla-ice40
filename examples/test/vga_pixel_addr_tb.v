@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
 module vga_pixel_addr_tb;
   reg clk;
@@ -17,10 +17,9 @@ module vga_pixel_addr_tb;
     forever #5 clk = ~clk;
   end
 
-  initial begin
-    $dumpfile(".build/vga_pixel_addr.vcd");
-    $dumpvars(0, vga_pixel_addr_tb);
+  `TEST_SETUP(vga_pixel_addr_tb);
 
+  initial begin
     clk   = 0;
     reset = 0;
 

@@ -1,8 +1,4 @@
-// for simulation
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
+`include "testing.v"
 
 module sram_controller_tb;
   localparam ADDR_BITS = 10;
@@ -60,11 +56,10 @@ module sram_controller_tb;
     forever #5 clk = ~clk;  // 10ns period clock
   end
 
+  `TEST_SETUP(sram_controller_tb);
+
   // Test sequence
   initial begin
-    $dumpfile(".build/sram_controller_tb.vcd");
-    $dumpvars(0, sram_controller_tb);
-
     // Initialize control signals
     reset = 1;
     read_only = 0;

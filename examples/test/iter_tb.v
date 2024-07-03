@@ -1,8 +1,4 @@
-// for simulation
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
+`include "testing.v"
 
 module iter_tb;
 
@@ -32,10 +28,9 @@ module iter_tb;
     forever #5 clk = ~clk;
   end
 
-  initial begin
-    $dumpfile(".build/iter_dump.vcd");
-    $dumpvars(0, iter_tb);
+  `TEST_SETUP(iter_tb);
 
+  initial begin
     reset = 1;
     next = 0;
     expected_val = 0;

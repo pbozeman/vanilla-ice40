@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+`include "testing.v"
 
 module fifo_tb;
 
@@ -27,10 +27,9 @@ module fifo_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/fifo.vcd");
-    $dumpvars(0, uut);
+  `TEST_SETUP(fifo_tb);
 
+  initial begin
     // pause
     #5;
 

@@ -1,5 +1,4 @@
-// for simulation
-`timescale 1ns / 1ps
+`include "testing.v"
 
 module vga_sync_tb;
 
@@ -26,10 +25,9 @@ module vga_sync_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/vga_dump.vcd");
-    $dumpvars(0, vga_sync_tb);
+  `TEST_SETUP(vga_sync_tb);
 
+  initial begin
     // 3 frames
     repeat (3 * 800 * 600) @(posedge clk);
 

@@ -1,7 +1,4 @@
-`timescale 1ns / 1ps
-
-// avoid undeclared symbols
-`default_nettype none
+`include "testing.v"
 
 module pin_walker_tb;
   localparam NUM_PINS = 16;
@@ -26,10 +23,9 @@ module pin_walker_tb;
   // clock generator
   always #1 clk = ~clk;
 
-  initial begin
-    $dumpfile(".build/pin_walker.vcd");
-    $dumpvars(0, pin_walker_tb);
+  `TEST_SETUP(pin_walker_tb);
 
+  initial begin
     for (i = 0; i < 32 * (CLOCK_FREQ_HZ / DIVISOR); i = i + 1) begin
       @(posedge clk);
 
