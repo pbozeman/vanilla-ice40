@@ -96,6 +96,9 @@ module sram_tester #(
       .sram_read_only(read_only)
   );
 
+  // Debug outputs to use in the case of test failure
+  // (these will the the ones that failed, since test_fail
+  // is clocked)
   reg [DATA_BITS-1:0] prev_pattern = {DATA_BITS{1'b0}};
   reg [ADDR_BITS-1:0] prev_addr = 0;
 
