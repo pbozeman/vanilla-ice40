@@ -83,17 +83,17 @@ module sram_tester #(
   test_controller test_ctrl (
       .clk(clk),
       .reset(reset),
-      .addr_done(addr_done),
-      .pattern_done(pattern_done),
-      .test_fail(test_fail),
-      .read_only(read_only),
-      .addr_next(addr_next),
-      .pattern_next(pattern_next),
       .test_done(test_done),
+      .test_state(test_state),
       .addr_reset(addr_reset),
+      .addr_next(addr_next),
+      .addr_done(addr_done),
       .pattern_reset(pattern_reset),
+      .pattern_next(pattern_next),
+      .pattern_done(pattern_done),
       .enable_checker(enable_checker),
-      .test_state(test_state)
+      .test_fail(test_fail),
+      .sram_read_only(read_only)
   );
 
   reg [DATA_BITS-1:0] prev_pattern = {DATA_BITS{1'b0}};
