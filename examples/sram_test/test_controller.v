@@ -14,12 +14,12 @@ module test_controller (
     input wire pattern_done,
     input wire test_fail,
     output reg read_only = 0,
-    output reg next_addr = 0,
+    output reg addr_next = 0,
     output wire pattern_next,
     output reg test_done = 0,
     output wire enable_checker,
-    output reg addr_gen_reset = 0,
-    output wire pattern_gen_reset,
+    output reg addr_reset = 0,
+    output wire pattern_reset,
     output wire [2:0] test_state
 );
 
@@ -39,75 +39,75 @@ module test_controller (
     if (reset) begin
       state <= IDLE;
       read_only <= 1'b0;
-      next_addr <= 1'b0;
+      addr_next <= 1'b0;
       test_done <= 1'b0;
       write_complete <= 1'b0;
-      addr_gen_reset <= 1'b1;
+      addr_reset <= 1'b1;
     end else begin
       case (state)
         IDLE: begin
           state <= WRITING;
           read_only <= 1'b0;
-          next_addr <= 1'b1;
+          addr_next <= 1'b1;
           write_complete <= 1'b0;
           test_done <= 1'b0;
-          addr_gen_reset <= 1'b0;
+          addr_reset <= 1'b0;
         end
         WRITING: begin
           read_only <= 1'b0;
           if (addr_done && !write_complete) begin
             write_complete <= 1'b1;
             read_only <= 1'b1;
-            next_addr <= 1'b0;
-            addr_gen_reset <= 1'b1;
+            addr_next <= 1'b0;
+            addr_reset <= 1'b1;
             state <= SWITCHING_1;
           end else begin
-            addr_gen_reset <= 1'b0;
-            next_addr <= 1'b1;
+            addr_reset <= 1'b0;
+            addr_next  <= 1'b1;
           end
         end
         SWITCHING_1: begin
-          addr_gen_reset <= 1'b0;
+          addr_reset <= 1'b0;
           read_only <= 1'b1;
-          next_addr <= 1'b0;
+          addr_next <= 1'b0;
           state <= SWITCHING_2;
         end
         SWITCHING_2: begin
-          addr_gen_reset <= 1'b0;
+          addr_reset <= 1'b0;
           read_only <= 1'b1;
-          next_addr <= 1'b1;
+          addr_next <= 1'b1;
           state <= READING;
         end
         READING: begin
           if (test_fail) begin
             state <= HALT;
-            next_addr <= 1'b0;
+            addr_next <= 1'b0;
           end else if (addr_done) begin
             if (pattern_done) begin
               state <= DONE;
             end else begin
-              addr_gen_reset <= 1'b1;
+              addr_reset <= 1'b1;
               read_only <= 1'b0;
               state <= NEXT_PATTERN;
             end
-            next_addr <= 1'b1;
+            addr_next <= 1'b1;
           end else begin
-            next_addr <= 1'b1;
+            addr_next <= 1'b1;
           end
         end
         NEXT_PATTERN: begin
           state <= WRITING;
           read_only <= 1'b0;
           write_complete <= 1'b0;
-          addr_gen_reset <= 1'b1;
+          addr_reset <= 1'b1;
         end
         DONE: begin
-          addr_gen_reset <= 1'b1;
+          addr_reset <= 1'b1;
           test_done <= 1'b1;
           state <= IDLE;
         end
         HALT: begin
-          next_addr <= 1'b0;
+          addr_next <= 1'b0;
           test_done <= 1'b1;
           // Stay in HALT state until reset
         end
@@ -116,8 +116,8 @@ module test_controller (
     end
   end
 
-  assign pattern_next = (state == NEXT_PATTERN);
+  assign pattern_next   = (state == NEXT_PATTERN);
   assign enable_checker = (state == READING);
-  assign pattern_gen_reset = (reset || state == DONE);
+  assign pattern_reset  = (reset || state == DONE);
 
 endmodule

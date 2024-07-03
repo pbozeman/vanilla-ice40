@@ -31,51 +31,40 @@ module sram_tester #(
     output wire ce_n
 );
 
-  wire next_addr;
-  wire pattern_next;
+  // address generator signals
+  wire addr_reset;
+  wire addr_next;
   wire addr_done;
-  wire pattern_done;
-  wire enable_checker;
-  wire addr_gen_reset;
-  wire pattern_gen_reset;
-  wire test_fail;
   wire [ADDR_BITS-1:0] addr_read;
 
-  assign test_fail = ~test_pass;
+  // pattern generator signals
+  wire pattern_reset;
+  wire pattern_next;
+  wire pattern_done;
+  wire [DATA_BITS-1:0] pattern;
+  reg [DATA_BITS-1:0] pattern_custom;
 
-  sram_controller #(
-      .ADDR_BITS(ADDR_BITS),
-      .DATA_BITS(DATA_BITS)
-  ) sram_ctrl (
-      .clk(clk),
-      .reset(reset),
-      .addr(addr),
-      .read_only(read_only),
-      .data_i(data_write),
-      .data_o(data_read),
-      .data_o_addr(addr_read),
-      .addr_bus(addr_bus),
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .data_bus_io(data_bus),
-      .ce_n(ce_n)
+  // result checker signals
+  wire enable_checker;
+  wire test_fail;
+
+  // Address generation
+  iter #(
+      .MAX_VALUE((1 << ADDR_BITS) - 1)
+  ) addr_gen (
+      .clk  (clk),
+      .reset(addr_reset),
+      .next (addr_next),
+      .val  (addr),
+      .done (addr_done)
   );
 
-  wire [DATA_BITS-1:0] pattern;
-
-  reg  [DATA_BITS-1:0] hack_pattern;
-
-  assign data_write = hack_pattern;
-
+  // Pattern generation
   always @* begin
-    if (pattern_state == 3'b110) begin
-      if (read_only) begin
-        hack_pattern = addr_read;
-      end else begin
-        hack_pattern = addr;
-      end
+    if (read_only) begin
+      pattern_custom = addr_read;
     end else begin
-      hack_pattern = pattern;
+      pattern_custom = addr;
     end
   end
 
@@ -83,22 +72,12 @@ module sram_tester #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
       .clk(clk),
-      .reset(pattern_gen_reset),
+      .reset(pattern_reset),
       .next(pattern_next),
       .pattern(pattern),
       .done(pattern_done),
-      .custom(addr[DATA_BITS-1:0]),
+      .custom(pattern_custom),
       .state(pattern_state)
-  );
-
-  iter #(
-      .MAX_VALUE((1 << ADDR_BITS) - 1)
-  ) addr_gen (
-      .clk  (clk),
-      .reset(addr_gen_reset),
-      .next (next_addr),
-      .val  (addr),
-      .done (addr_done)
   );
 
   test_controller test_ctrl (
@@ -108,11 +87,11 @@ module sram_tester #(
       .pattern_done(pattern_done),
       .test_fail(test_fail),
       .read_only(read_only),
-      .next_addr(next_addr),
+      .addr_next(addr_next),
       .pattern_next(pattern_next),
       .test_done(test_done),
-      .addr_gen_reset(addr_gen_reset),
-      .pattern_gen_reset(pattern_gen_reset),
+      .addr_reset(addr_reset),
+      .pattern_reset(pattern_reset),
       .enable_checker(enable_checker),
       .test_state(test_state)
   );
@@ -130,6 +109,9 @@ module sram_tester #(
     end
   end
 
+  // Results checker
+  assign test_fail = ~test_pass;
+
   result_checker #(
       .DATA_BITS(DATA_BITS)
   ) result_check (
@@ -137,10 +119,31 @@ module sram_tester #(
       .reset(reset),
       .enable(enable_checker),
       .read_data(data_read),
-      .expected_data(hack_pattern),
+      .expected_data(pattern_custom),
       .test_pass(test_pass),
       .prev_read_data(prev_read_data),
       .prev_expected_data(prev_expected_data)
+  );
+
+  // Sram
+  assign data_write = pattern;
+
+  sram_controller #(
+      .ADDR_BITS(ADDR_BITS),
+      .DATA_BITS(DATA_BITS)
+  ) sram_ctrl (
+      .clk(clk),
+      .reset(reset),
+      .addr(addr),
+      .read_only(read_only),
+      .data_i(data_write),
+      .data_o(data_read),
+      .data_o_addr(addr_read),
+      .addr_bus(addr_bus),
+      .we_n(we_n),
+      .oe_n(oe_n),
+      .data_bus_io(data_bus),
+      .ce_n(ce_n)
   );
 
 endmodule
