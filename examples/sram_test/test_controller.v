@@ -15,7 +15,7 @@ module test_controller (
     input wire test_fail,
     output reg read_only = 0,
     output reg next_addr = 0,
-    output wire next_pattern,
+    output wire pattern_next,
     output reg test_done = 0,
     output wire enable_checker,
     output reg addr_gen_reset = 0,
@@ -116,7 +116,7 @@ module test_controller (
     end
   end
 
-  assign next_pattern = (state == NEXT_PATTERN);
+  assign pattern_next = (state == NEXT_PATTERN);
   assign enable_checker = (state == READING);
   assign pattern_gen_reset = (reset || state == DONE);
 

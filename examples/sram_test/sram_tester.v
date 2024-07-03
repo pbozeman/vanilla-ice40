@@ -32,7 +32,7 @@ module sram_tester #(
 );
 
   wire next_addr;
-  wire next_pattern;
+  wire pattern_next;
   wire addr_done;
   wire pattern_done;
   wire enable_checker;
@@ -84,21 +84,21 @@ module sram_tester #(
   ) pattern_gen (
       .clk(clk),
       .reset(pattern_gen_reset),
-      .next_pattern(next_pattern),
+      .next(pattern_next),
       .pattern(pattern),
-      .pattern_done(pattern_done),
-      .seed(addr[DATA_BITS-1:0]),
-      .pattern_state(pattern_state)
+      .done(pattern_done),
+      .custom(addr[DATA_BITS-1:0]),
+      .state(pattern_state)
   );
 
   iter #(
       .MAX_VALUE((1 << ADDR_BITS) - 1)
   ) addr_gen (
-      .clk(clk),
+      .clk  (clk),
       .reset(addr_gen_reset),
-      .next(next_addr),
-      .val(addr),
-      .done(addr_done)
+      .next (next_addr),
+      .val  (addr),
+      .done (addr_done)
   );
 
   test_controller test_ctrl (
@@ -109,7 +109,7 @@ module sram_tester #(
       .test_fail(test_fail),
       .read_only(read_only),
       .next_addr(next_addr),
-      .next_pattern(next_pattern),
+      .pattern_next(pattern_next),
       .test_done(test_done),
       .addr_gen_reset(addr_gen_reset),
       .pattern_gen_reset(pattern_gen_reset),
