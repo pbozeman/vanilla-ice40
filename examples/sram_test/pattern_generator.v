@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef PATTERN_GENERATOR_V
+`define PATTERN_GENERATOR_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module pattern_generator #(
     parameter integer DATA_BITS = 16
@@ -62,3 +61,5 @@ module pattern_generator #(
   end
 
 endmodule
+
+`endif

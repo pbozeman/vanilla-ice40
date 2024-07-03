@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef VGA_TEST_01_V
+`define VGA_TEST_01_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module vga_test_01 (
     input [9:0] column,
@@ -17,3 +16,5 @@ module vga_test_01 (
   assign blue  = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
 
 endmodule
+
+`endif

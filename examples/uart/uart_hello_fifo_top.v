@@ -1,3 +1,6 @@
+`ifndef UART_FIFO_TOP_V
+`define UART_FIFO_TOP_V
+
 `include "directives.v"
 
 `include "fifo.v"
@@ -95,3 +98,5 @@ module uart_hello_fifo_top (
   assign LED2 = 1'b0;
 
 endmodule
+
+`endif

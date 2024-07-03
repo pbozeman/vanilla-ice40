@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`include "directives.v"
 
-// avoid undeclared symbols
-`default_nettype none
+`include "bit_reverser.v"
+`include "sram_tester.v"
 
 module sram_tester_top #(
     parameter integer ADDR_BITS = 20,

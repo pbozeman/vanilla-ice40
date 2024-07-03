@@ -1,7 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
-// avoid undeclared symbols
-`default_nettype none
+`ifndef RESULT_CHECER_V
+`define RESULT_CHECER_V
+
+`include "directives.v"
 
 module result_checker #(
     parameter integer DATA_BITS = 16
@@ -39,3 +39,5 @@ module result_checker #(
   end
 
 endmodule
+
+`endif

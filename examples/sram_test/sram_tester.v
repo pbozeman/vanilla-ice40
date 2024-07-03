@@ -1,8 +1,13 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef SRAM_TESTER_V
+`define SRAM_TESTER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
+
+`include "iter.v"
+`include "pattern_generator.v"
+`include "result_checker.v"
+`include "sram_controller.v"
+`include "test_controller.v"
 
 module sram_tester #(
     parameter integer ADDR_BITS = 20,
@@ -150,3 +155,5 @@ module sram_tester #(
   );
 
 endmodule
+
+`endif

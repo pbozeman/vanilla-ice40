@@ -1,8 +1,8 @@
-// for simulation
-`timescale 1ns / 1ps
+`include "directives.v"
 
-// avoid undeclared symbols
-`default_nettype none
+`include "vga_pll.v"
+`include "vga_sync.v"
+`include "vga_test_01.v"
 
 `define VGA_RED_0 EF_01
 `define VGA_RED_1 EF_02

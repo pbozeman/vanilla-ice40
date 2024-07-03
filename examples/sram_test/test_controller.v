@@ -1,8 +1,7 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef TEST_CONTROLLER_V
+`define TEST_CONTROLLER_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
 
 module test_controller (
     input wire clk,
@@ -121,3 +120,5 @@ module test_controller (
   assign test_state     = state;
 
 endmodule
+
+`endif

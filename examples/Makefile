@@ -25,9 +25,6 @@ SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*
 TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
-# Output executables
-OUTS := $(patsubst %, $(BUILD_DIR)/%, $(TEST_BENCHES))
-
 # Compiler and simulator
 IVERILOG := iverilog -DSIMULATOR
 VVP := vvp
@@ -66,14 +63,15 @@ $(BUILD_DIR):
 #
 ##############################################################################
 define YOSYS_CMD
-read_verilog $(dir $(1))*.v $(LIB_DIR)/*.v; \
+read_verilog -I$(LIB_DIR) -I$(dir $(1)) $1;\
 synth_ice40 -top $(notdir $(basename $(1))); \
 write_json $$@
 endef
 
 define synth_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) $(wildcard $(dir $(1))*.v) $(LIB_DIR)/*.v | $(BUILD_DIR)
-	$(YOSYS) -p '$(call YOSYS_CMD,$(1))'
+$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) | $(BUILD_DIR)
+	$(YOSYS) -E $(BUILD_DIR)/$(notdir $(basename $(1))).dep -p '$(call YOSYS_CMD,$(1))'
+	cat $(BUILD_DIR)/$(notdir $(basename $(1))).dep | tr ' ' '\n' | grep -v '^/' | tr '\n' ' ' | awk '{$$$$1=$$$$1":"; print}' > $(BUILD_DIR)/$(notdir $(basename $(1))).d
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call synth_rule,$(top))))

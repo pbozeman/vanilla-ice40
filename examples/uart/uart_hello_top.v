@@ -1,8 +1,9 @@
-// for simulation
-`timescale 1ns / 1ps
+`ifndef UART_HELLO_TOP_V
+`define UART_HELLO_TOP_V
 
-// avoid undeclared symbols
-`default_nettype none
+`include "directives.v"
+
+`include "uart_tx.v"
 
 module uart_hello_top (
     input  wire CLK,
@@ -68,3 +69,5 @@ module uart_hello_top (
   assign LED2 = 1'bZ;
 
 endmodule
+
+`endif

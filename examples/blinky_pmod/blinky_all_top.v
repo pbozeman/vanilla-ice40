@@ -1,3 +1,7 @@
+`include "directives.v"
+
+`include "pin_walker.v"
+
 module blinky_all_top #(
     parameter NUM_PINS = 96
 ) (
