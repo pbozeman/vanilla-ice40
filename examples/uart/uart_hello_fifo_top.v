@@ -52,7 +52,7 @@ module uart_hello_fifo_top (
       .reset(reset),
       .write_en(fifo_write_en),
       .read_en(fifo_read_en),
-      .write_data_i(fifo_write_data),
+      .write_data(fifo_write_data),
       .read_data(fifo_read_data),
       .empty(fifo_empty),
       .full(fifo_full)

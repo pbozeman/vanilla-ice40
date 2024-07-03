@@ -12,7 +12,7 @@ module fifo #(
     input  wire                  reset,
     input  wire                  write_en,
     input  wire                  read_en,
-    input  wire [DATA_WIDTH-1:0] write_data_i,
+    input  wire [DATA_WIDTH-1:0] write_data,
     output reg  [DATA_WIDTH-1:0] read_data,
     output wire                  empty,
     output wire                  full
@@ -27,7 +27,7 @@ module fifo #(
     if (reset) begin
       wr_ptr <= 0;
     end else if (write_en && !full) begin
-      fifo_mem[wr_ptr] <= write_data_i;
+      fifo_mem[wr_ptr] <= write_data;
       wr_ptr <= (wr_ptr + 1) % DEPTH;
     end
   end

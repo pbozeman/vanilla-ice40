@@ -22,7 +22,7 @@ module fifo_interleved_tb;
       .reset(reset),
       .write_en(write_en),
       .read_en(read_en),
-      .write_data_i(write_data),
+      .write_data(write_data),
       .read_data(read_data),
       .empty(empty),
       .full(full)
