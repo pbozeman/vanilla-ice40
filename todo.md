@@ -12,6 +12,7 @@
 - double check tx/rx net labels. they might be backwards, or at
   least misleading, as they might be from the ftdi perspective
   and not ice40
+- maybe move i2c connector to the cbsel0/1 pins
 
 ### PMOD board
 
