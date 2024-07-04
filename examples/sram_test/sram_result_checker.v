@@ -1,9 +1,9 @@
-`ifndef RESULT_CHECER_V
-`define RESULT_CHECER_V
+`ifndef SRAM_RESULT_CHECER_V
+`define SRAM_RESULT_CHECER_V
 
 `include "directives.v"
 
-module result_checker #(
+module sram_result_checker #(
     parameter integer DATA_BITS = 16
 ) (
     input  wire                 clk,

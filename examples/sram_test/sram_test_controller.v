@@ -1,9 +1,9 @@
-`ifndef TEST_CONTROLLER_V
-`define TEST_CONTROLLER_V
+`ifndef SRAM_TEST_CONTROLLER_V
+`define SRAM_TEST_CONTROLLER_V
 
 `include "directives.v"
 
-module test_controller (
+module sram_test_controller (
     input wire clk,
     input wire reset,
 

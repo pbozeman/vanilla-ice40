@@ -1,3 +1,6 @@
+`ifndef SRAM_TESTER_TOP_V
+`define SRAM_TESTER_TOP_V
+
 `include "directives.v"
 
 `include "bit_reverser.v"
@@ -126,3 +129,5 @@ module sram_tester_top #(
   endgenerate
 
 endmodule
+
+`endif

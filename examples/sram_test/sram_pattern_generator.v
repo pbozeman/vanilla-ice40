@@ -3,7 +3,7 @@
 
 `include "directives.v"
 
-module pattern_generator #(
+module sram_pattern_generator #(
     parameter integer DATA_BITS = 16
 ) (
     input wire clk,

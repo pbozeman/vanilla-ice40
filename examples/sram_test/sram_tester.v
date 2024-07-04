@@ -4,10 +4,11 @@
 `include "directives.v"
 
 `include "iter.v"
-`include "pattern_generator.v"
-`include "result_checker.v"
 `include "sram_controller.v"
-`include "test_controller.v"
+
+`include "sram_pattern_generator.v"
+`include "sram_result_checker.v"
+`include "sram_test_controller.v"
 
 module sram_tester #(
     parameter integer ADDR_BITS = 20,
@@ -73,7 +74,7 @@ module sram_tester #(
     end
   end
 
-  pattern_generator #(
+  sram_pattern_generator #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
       .clk(clk),
@@ -85,7 +86,7 @@ module sram_tester #(
       .state(pattern_state)
   );
 
-  test_controller test_ctrl (
+  sram_test_controller test_ctrl (
       .clk(clk),
       .reset(reset),
       .test_done(test_done),
@@ -120,7 +121,7 @@ module sram_tester #(
   // Results checker
   assign test_fail = ~test_pass;
 
-  result_checker #(
+  sram_result_checker #(
       .DATA_BITS(DATA_BITS)
   ) result_check (
       .clk(clk),
