@@ -146,7 +146,7 @@ $(BUILD_DIR)/%: $(TEST_DIR)/%.v | $(BUILD_DIR)
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
-	@$(VVP) $^ && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
+	@$(VVP) $^
 
 define run_test
 	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
@@ -163,6 +163,7 @@ all_unit: clean_logs $(addprefix run_, $(TEST_BENCHES))
 	@echo "=============================="
 	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
 	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
+	@sed 's/^/    /' $(BUILD_DIR)/tb_failure.log
 	@echo "=============================="
 
 check: lint all_unit
