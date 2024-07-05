@@ -31,9 +31,7 @@ module sram_model #(
 );
 
   // memory
-  // verilator lint_off UNOPTFLAT
-  reg [DATA_BITS-1:0] sram[0:(2**ADDR_BITS)-1];
-  // verilator lint_on UNOPTFLAT
+  reg [DATA_BITS-1:0] sram[0:(1 << ADDR_BITS)-1];
 
   // data read from bus
   wire [DATA_BITS-1:0] data_in;
@@ -97,21 +95,26 @@ module sram_model #(
     end
   end
 
+  // We do immediate assignment so that our timings are explicit.
+  // (Note: tAW to write_enabled is delayed.)
+  //
+  // However, if we try to ensure all paths in this block
+  // assign to sram[addr], thus avoiding the latch warning,
+  // we create a circular dependency that iverilog can't optimize
+  // and the compile at >16 bits of addr space takes forever.
+  // Hence, we allow latch creation below.
+  //
+  // verilator lint_off LATCH
   always @(*) begin
     if (write_enable) begin
       if (INJECT_ERROR && addr == {DATA_BITS{1'b1}}) begin
         sram[addr] = {DATA_BITS{1'b1}};
-      end else begin
-        if (!we_n) begin
-          sram[addr] = data_in;
-        end else begin
-          sram[addr] = sram[addr];
-        end
+      end else if (!we_n) begin
+        sram[addr] = data_in;
       end
-    end else begin
-      sram[addr] = sram[addr];
     end
   end
+  // verilator lint_on LATCH
 
 endmodule
 
