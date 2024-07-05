@@ -1,0 +1,65 @@
+#-- Synopsys, Inc.
+#project files
+
+add_file -verilog -lib work "../../examples/vga_sram/vga_sram.v" 
+add_file -verilog -lib work "../../examples/vga_sram/vga_sram_display.v" 
+add_file -verilog -lib work "../../examples/vga_sram/vga_sram_pattern_generator.v" 
+add_file -verilog -lib work "../../examples/vga_sram/vga_sram_top.v" 
+add_file -verilog -lib work "../../examples/lib/counter.v" 
+add_file -verilog -lib work "../../examples/lib/vga_pixel_addr.v" 
+add_file -verilog -lib work "../../examples/lib/vga_pll.v" 
+add_file -verilog -lib work "../../examples/lib/vga_sync.v" 
+add_file -constraint -lib work "../../constraints/vanilla-ice40-clock.sdc"
+#implementation: "vga_sram_Implmnt"
+impl -add vga_sram_Implmnt -type fpga
+
+#implementation attributes
+set_option -vlog_std v2001
+set_option -project_relative_includes 1
+set_option -include_path {../../examples/lib/}
+
+
+#device options
+set_option -technology SBTiCE40
+set_option -part iCE40HX4K
+set_option -package TQ144
+set_option -speed_grade 
+set_option -part_companion ""
+
+#compilation/mapping options
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+
+# Silicon Blue iCE40
+set_option -maxfan 10000
+set_option -disable_io_insertion 0
+set_option -pipe 1
+set_option -retiming 0
+set_option -update_models_cp 0
+set_option -fixgatedclocks 2
+set_option -fixgeneratedclocks 0
+
+# NFilter
+set_option -popfeed 0
+set_option -constprop 0
+set_option -createhierarchy 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_format "edif"
+project -result_file ./vga_sram_Implmnt/vga_sram.edf
+project -log_file "./vga_sram_Implmnt/vga_sram.srr"
+impl -active vga_sram_Implmnt
+project -run synthesis -clean
