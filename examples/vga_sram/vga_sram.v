@@ -33,11 +33,10 @@ module vga_sram #(
     output wire ce_n
 );
 
-  wire visible;
   wire [9:0] column;
   wire [9:0] row;
 
-  wire read_only;
+  wire sram_read_only;
   wire [ADDR_BITS-1:0] sram_addr;
   wire [DATA_BITS-1:0] sram_data_i;
   wire [DATA_BITS-1:0] sram_data_o;
@@ -48,23 +47,13 @@ module vga_sram #(
   wire [ADDR_BITS-1:0] pattern_addr;
   wire [ADDR_BITS-1:0] display_addr;
 
-  vga_sync vga_inst (
-      .clk(clk),
-      .reset(reset),
-      .visible(visible),
-      .hsync(vga_hsync),
-      .vsync(vga_vsync),
-      .column(column),
-      .row(row)
-  );
-
   sram_controller #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram_ctrl (
       .clk(clk),
       .reset(reset),
-      .read_only(read_only),
+      .read_only(sram_read_only),
       .addr(sram_addr),
       .data_i(sram_data_i),
       .data_o(sram_data_o),
@@ -94,19 +83,19 @@ module vga_sram #(
       .clk(clk),
       .reset(reset),
       .pattern_done(pattern_done),
-      .column(column),
-      .row(row),
-      .sram_data(sram_data_o),
       .sram_addr(display_addr),
-      .read_only(read_only),
+      .sram_data(sram_data_o),
+      .hsync(vga_hsync),
+      .vsync(vga_vsync),
       .red(vga_red),
       .green(vga_green),
       .blue(vga_blue)
   );
 
   // Mux access to the sram between pattern gen and display
+  assign sram_addr = pattern_done ? display_addr : pattern_addr;
   assign sram_data_i = pattern_done ? {DATA_BITS{1'bz}} : pattern_data;
-  assign sram_addr   = pattern_done ? display_addr : pattern_addr;
+  assign sram_read_only = pattern_done;
 
 endmodule
 
