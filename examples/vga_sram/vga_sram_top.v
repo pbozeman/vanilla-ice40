@@ -70,8 +70,8 @@ module vga_sram_top #(
   assign BA_PINS[3:0] = vga_red;
   assign BA_PINS[7:4] = vga_blue;
   assign DC_PINS[3:0] = vga_green;
-  assign DC_PINS[4]   = vga_hsync;
-  assign DC_PINS[5]   = vga_vsync;
+  assign DC_PINS[4] = vga_hsync;
+  assign DC_PINS[5] = vga_vsync;
 
 endmodule
 `endif
