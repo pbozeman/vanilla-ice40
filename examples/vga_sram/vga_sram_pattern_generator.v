@@ -10,48 +10,41 @@ module vga_sram_pattern_generator #(
     input wire clk,
     input wire reset,
 
-    output reg [ADDR_BITS-1:0] addr,
-    output reg [DATA_BITS-1:0] data,
+    output reg  [ADDR_BITS-1:0] addr,
+    output wire [DATA_BITS-1:0] data,
 
-    output reg done
+    output reg done = 0
 );
 
-  reg [9:0] current_column;
-  reg [9:0] current_row;
+  reg [9:0] column = 0;
+  reg [9:0] row = 0;
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       addr <= 0;
-      data <= 0;
       done <= 0;
-      current_column <= 0;
-      current_row <= 0;
+      column <= 0;
+      row <= 0;
     end else if (!done) begin
-      if (current_column < 640 && current_row < 480) begin
-        if (current_column < 213) begin
-          // Red
-          data <= 16'b1111_0000_0000_0000;
-        end else if (current_column < 426) begin
-          // Green
-          data <= 16'b0000_1111_0000_0000;
-        end else begin
-          // Blue
-          data <= 16'b0000_0000_1111_0000;
-        end
-
-        addr <= (current_row * 640) + current_column;
-
-        if (current_column == 639) begin
-          current_column <= 0;
-          current_row <= current_row + 1;
-        end else begin
-          current_column <= current_column + 1;
-        end
+      if (column < 640) begin
+        column <= column + 1;
+        addr   <= (row * 640) + column;
       end else begin
-        done <= 1;
+        if (row < 480) begin
+          column <= 0;
+          row <= row + 1;
+          addr <= (row + 1) * 640;
+        end else begin
+          done <= 1;
+        end
       end
     end
   end
+
+  assign data[15:12] = (row < 480 && column < 213) ? 4'b1111 : 4'b0000;
+  assign data[11:8]  = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
+  assign data[7:4]   = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
+  assign data[3:0]   = 4'b0000;
 
 endmodule
 
