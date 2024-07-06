@@ -4,7 +4,6 @@
 `include "directives.v"
 
 `include "sram_controller.v"
-`include "vga_sync.v"
 `include "vga_sram_pattern_generator.v"
 `include "vga_sram_display.v"
 
