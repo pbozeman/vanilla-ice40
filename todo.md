@@ -19,6 +19,11 @@
 - make font bigger
 - redo nets since they don't need to be mirrored
 
+### tri sram
+
+- the vga addr buffer likely doesn't need a latch and we
+  might be able to drop to just a buffer
+
 ## RTL
 
 ### Project structure

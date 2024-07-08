@@ -16159,10 +16159,6 @@
 		(uuid "4e64e511-7a74-4978-a251-b60164034c64")
 	)
 	(no_connect
-		(at 242.57 146.05)
-		(uuid "55d90c2c-49ee-402f-8727-648f0be52ded")
-	)
-	(no_connect
 		(at 347.98 143.51)
 		(uuid "5652dee6-5146-443c-af4d-2886665799f1")
 	)
@@ -16253,10 +16249,6 @@
 	(no_connect
 		(at 231.14 96.52)
 		(uuid "93da7831-ec95-4703-b228-d1c6acadbc1a")
-	)
-	(no_connect
-		(at 242.57 143.51)
-		(uuid "954acde7-0717-494f-8a06-d85f984b9e08")
 	)
 	(no_connect
 		(at 393.7 96.52)
@@ -16463,10 +16455,6 @@
 		(uuid "f7960e8c-4f37-4df2-ac96-c7b2ce2f9c70")
 	)
 	(no_connect
-		(at 242.57 148.59)
-		(uuid "f8200024-8f5e-4ca0-a864-1128ec56f858")
-	)
-	(no_connect
 		(at 242.57 184.15)
 		(uuid "fbdfe350-73f0-472f-a2f7-b9b3166ee0c9")
 	)
@@ -16492,7 +16480,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 134.62) (xy 62.23 134.62)
+			(xy 46.99 130.81) (xy 62.23 130.81)
 		)
 		(stroke
 			(width 0)
@@ -17162,6 +17150,16 @@
 	)
 	(wire
 		(pts
+			(xy 46.99 87.63) (xy 62.23 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2229516b-3c26-4fee-ab69-45c2f6ef8869")
+	)
+	(wire
+		(pts
 			(xy 383.54 78.74) (xy 393.7 78.74)
 		)
 		(stroke
@@ -17342,7 +17340,7 @@
 	)
 	(bus
 		(pts
-			(xy 46.99 38.1) (xy 62.23 38.1)
+			(xy 46.99 36.83) (xy 62.23 36.83)
 		)
 		(stroke
 			(width 0)
@@ -17482,7 +17480,7 @@
 	)
 	(bus
 		(pts
-			(xy 46.99 43.18) (xy 62.23 43.18)
+			(xy 46.99 41.91) (xy 62.23 41.91)
 		)
 		(stroke
 			(width 0)
@@ -17632,7 +17630,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 48.26) (xy 62.23 48.26)
+			(xy 46.99 46.99) (xy 62.23 46.99)
 		)
 		(stroke
 			(width 0)
@@ -17782,7 +17780,7 @@
 	)
 	(bus
 		(pts
-			(xy 46.99 40.64) (xy 62.23 40.64)
+			(xy 46.99 39.37) (xy 62.23 39.37)
 		)
 		(stroke
 			(width 0)
@@ -18292,7 +18290,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 50.8) (xy 62.23 50.8)
+			(xy 46.99 49.53) (xy 62.23 49.53)
 		)
 		(stroke
 			(width 0)
@@ -19462,6 +19460,16 @@
 	)
 	(wire
 		(pts
+			(xy 46.99 55.88) (xy 62.23 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9741a6ad-6a08-4533-b461-4658a8b364b9")
+	)
+	(wire
+		(pts
 			(xy 368.3 109.22) (xy 368.3 111.76)
 		)
 		(stroke
@@ -20342,7 +20350,7 @@
 	)
 	(bus
 		(pts
-			(xy 46.99 33.02) (xy 62.23 33.02)
+			(xy 46.99 31.75) (xy 62.23 31.75)
 		)
 		(stroke
 			(width 0)
@@ -20382,7 +20390,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 129.54) (xy 62.23 129.54)
+			(xy 46.99 125.73) (xy 62.23 125.73)
 		)
 		(stroke
 			(width 0)
@@ -20772,7 +20780,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 132.08) (xy 62.23 132.08)
+			(xy 46.99 128.27) (xy 62.23 128.27)
 		)
 		(stroke
 			(width 0)
@@ -20822,7 +20830,7 @@
 	)
 	(wire
 		(pts
-			(xy 46.99 53.34) (xy 62.23 53.34)
+			(xy 46.99 52.07) (xy 62.23 52.07)
 		)
 		(stroke
 			(width 0)
@@ -21079,6 +21087,16 @@
 			(type default)
 		)
 		(uuid "ed6420f9-6063-4c55-93cb-bf76152c9846")
+	)
+	(wire
+		(pts
+			(xy 46.99 134.62) (xy 62.23 134.62)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "edaa5f9e-0688-4e7b-9f29-c6076ad3bac1")
 	)
 	(wire
 		(pts
@@ -21412,7 +21430,7 @@
 	)
 	(bus
 		(pts
-			(xy 46.99 30.48) (xy 62.23 30.48)
+			(xy 46.99 29.21) (xy 62.23 29.21)
 		)
 		(stroke
 			(width 0)
@@ -21597,7 +21615,7 @@
 		(uuid "10751369-3d02-4ce8-b3c8-3f4a65576f0d")
 	)
 	(label "A2D_2_EN#"
-		(at 46.99 53.34 0)
+		(at 46.99 52.07 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -22037,7 +22055,7 @@
 		(uuid "2cab1d79-bcaf-4590-93c2-98ad56836c0b")
 	)
 	(label "A2D_G_[0..3]"
-		(at 46.99 40.64 0)
+		(at 46.99 39.37 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -22510,7 +22528,7 @@
 		(uuid "4edd89ca-ddad-43c6-864e-805acf35fdf8")
 	)
 	(label "A2D_B_[0..3]"
-		(at 46.99 43.18 0)
+		(at 46.99 41.91 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -22586,6 +22604,17 @@
 		)
 		(uuid "53b3525b-2ae3-4200-baf3-99b12ee6ab4b")
 	)
+	(label "VGA_D_L"
+		(at 242.57 148.59 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5499dcd8-7305-4569-b2a4-0a4875558544")
+	)
 	(label "0_OE#"
 		(at 190.5 91.44 0)
 		(fields_autoplaced yes)
@@ -22631,7 +22660,7 @@
 		(uuid "58ab8512-36d5-4d1d-95c7-e018480e86ed")
 	)
 	(label "A2D_1_EN#"
-		(at 46.99 50.8 0)
+		(at 46.99 49.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -22651,6 +22680,17 @@
 			(justify right bottom)
 		)
 		(uuid "596f0ea0-c139-4b64-8ad5-b1f047161346")
+	)
+	(label "VGA_A_L"
+		(at 242.57 146.05 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "598c86e2-0aed-41fe-a3f4-4930c7a5a8de")
 	)
 	(label "+3V3"
 		(at 384.81 161.29 0)
@@ -23334,6 +23374,17 @@
 		)
 		(uuid "869bc48b-310c-4315-b00c-4629e31998a5")
 	)
+	(label "VGA_D_L"
+		(at 46.99 134.62 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "89b79fa2-6c2b-4fbf-aec5-8be603509641")
+	)
 	(label "0_WE#"
 		(at 207.01 224.79 180)
 		(fields_autoplaced yes)
@@ -23632,7 +23683,7 @@
 		(uuid "9eafe8f5-2f00-49eb-a762-f761b863ceef")
 	)
 	(label "A2D_R_[0..3]"
-		(at 46.99 38.1 0)
+		(at 46.99 36.83 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23687,7 +23738,7 @@
 		(uuid "a408f8af-f381-4424-9fc8-be3d466cad10")
 	)
 	(label "A2D_0_EN#"
-		(at 46.99 48.26 0)
+		(at 46.99 46.99 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23709,7 +23760,7 @@
 		(uuid "a6c2da03-2b37-46cc-ac90-246be36a5c0b")
 	)
 	(label "VGA_2_D_EN#"
-		(at 46.99 134.62 0)
+		(at 46.99 130.81 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -23841,7 +23892,7 @@
 		(uuid "b27a137e-83e8-48be-90af-71d5200fd9b5")
 	)
 	(label "VGA_1_D_EN#"
-		(at 46.99 132.08 0)
+		(at 46.99 128.27 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -24039,7 +24090,7 @@
 		(uuid "c27bf306-0fda-4899-8229-5093c04a1519")
 	)
 	(label "A2D_Y_[0..9]"
-		(at 46.99 33.02 0)
+		(at 46.99 31.75 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -24335,6 +24386,17 @@
 		)
 		(uuid "d4ea5ec1-81de-4f90-a4c9-05583853c66d")
 	)
+	(label "A2D_L"
+		(at 242.57 143.51 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d53102da-f785-43f4-9057-da6d88667440")
+	)
 	(label "VGA_1_A_EN#"
 		(at 207.01 146.05 180)
 		(fields_autoplaced yes)
@@ -24533,8 +24595,19 @@
 		)
 		(uuid "e46efee2-408c-4487-9c23-1c9d5942f3a3")
 	)
+	(label "A2D_L"
+		(at 46.99 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e53997cf-20f1-464f-aa0c-9f79ebb969df")
+	)
 	(label "A2D_X_[0..9]"
-		(at 46.99 30.48 0)
+		(at 46.99 29.21 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -24665,6 +24738,17 @@
 		)
 		(uuid "f01440a5-e04c-4a32-8978-e017ca93d7e5")
 	)
+	(label "VGA_A_L"
+		(at 46.99 87.63 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f134a557-7934-40ce-8d0a-90288a0c0f51")
+	)
 	(label "1_D8"
 		(at 320.04 78.74 180)
 		(fields_autoplaced yes)
@@ -24743,7 +24827,7 @@
 		(uuid "f4c82bc8-41b4-48a0-9e50-06ecfcc8fdf8")
 	)
 	(label "VGA_0_D_EN#"
-		(at 46.99 129.54 0)
+		(at 46.99 125.73 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -30856,7 +30940,7 @@
 			)
 		)
 		(pin "1_EN#" input
-			(at 62.23 132.08 180)
+			(at 62.23 128.27 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30866,7 +30950,7 @@
 			(uuid "ff362531-680a-4b67-a95d-459ce8b0c6e8")
 		)
 		(pin "2_EN#" input
-			(at 62.23 134.62 180)
+			(at 62.23 130.81 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30876,7 +30960,7 @@
 			(uuid "13fe77a4-4191-486e-8bf6-234ba5ea1b38")
 		)
 		(pin "0_EN#" input
-			(at 62.23 129.54 180)
+			(at 62.23 125.73 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -30985,6 +31069,16 @@
 			)
 			(uuid "2c3aa49d-98c0-43d2-aa22-79fb66c841b3")
 		)
+		(pin "L" input
+			(at 62.23 134.62 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "f52f9470-730a-4afe-a28b-7f4224a85dea")
+		)
 		(instances
 			(project "breakout-tri-sram"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
@@ -30994,8 +31088,8 @@
 		)
 	)
 	(sheet
-		(at 62.23 26.67)
-		(size 45.72 30.48)
+		(at 62.23 24.13)
+		(size 45.72 35.56)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -31006,7 +31100,7 @@
 		)
 		(uuid "3bf6cf1b-1dc3-418d-b56d-4a3324d44f9d")
 		(property "Sheetname" "A2D_buffers"
-			(at 62.23 25.9584 0)
+			(at 62.23 23.4184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31015,7 +31109,7 @@
 			)
 		)
 		(property "Sheetfile" "a2d_buffers.kicad_sch"
-			(at 62.23 57.7346 0)
+			(at 62.23 60.2746 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31024,7 +31118,7 @@
 			)
 		)
 		(pin "A2D_Y_A[0..9]" input
-			(at 62.23 33.02 180)
+			(at 62.23 31.75 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31034,7 +31128,7 @@
 			(uuid "236ea2ec-2893-44c2-b382-4bcb2b8e03c8")
 		)
 		(pin "A2D_B[0..3]" input
-			(at 62.23 43.18 180)
+			(at 62.23 41.91 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31044,7 +31138,7 @@
 			(uuid "da85a061-fbdb-43a7-a581-984ed1bea1ba")
 		)
 		(pin "A2D_G[0..3]" input
-			(at 62.23 40.64 180)
+			(at 62.23 39.37 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31054,7 +31148,7 @@
 			(uuid "a4eec6e4-582d-49b9-a32f-645976a8ae45")
 		)
 		(pin "A2D_R[0..3]" input
-			(at 62.23 38.1 180)
+			(at 62.23 36.83 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31064,7 +31158,7 @@
 			(uuid "fee462d5-4514-43e5-ba34-4a40d49acc97")
 		)
 		(pin "A2D_X_A[0..9]" input
-			(at 62.23 30.48 180)
+			(at 62.23 29.21 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31074,7 +31168,7 @@
 			(uuid "09c04d11-723d-471a-9764-e39c53eb071a")
 		)
 		(pin "A2D_1_EN#" input
-			(at 62.23 50.8 180)
+			(at 62.23 49.53 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31084,7 +31178,7 @@
 			(uuid "9f0c0846-5391-44ba-ae87-2cbf31aa4eeb")
 		)
 		(pin "A2D_0_EN#" input
-			(at 62.23 48.26 180)
+			(at 62.23 46.99 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31094,7 +31188,7 @@
 			(uuid "ac28e098-11d2-458d-a920-9bb0b979ab9d")
 		)
 		(pin "A2D_2_EN#" input
-			(at 62.23 53.34 180)
+			(at 62.23 52.07 180)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31163,6 +31257,16 @@
 			)
 			(uuid "03d44bf3-690d-4288-ab3c-5b779788a03b")
 		)
+		(pin "A2D_L" input
+			(at 62.23 55.88 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "0bb21dd8-4afb-465e-961e-ba090db925bc")
+		)
 		(instances
 			(project "breakout-tri-sram"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
@@ -31173,7 +31277,7 @@
 	)
 	(sheet
 		(at 62.23 71.12)
-		(size 45.72 16.51)
+		(size 45.72 20.32)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -31193,7 +31297,7 @@
 			)
 		)
 		(property "Sheetfile" "vga_addr_buffers.kicad_sch.kicad_sch"
-			(at 62.23 88.2146 0)
+			(at 62.23 92.0246 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -31270,6 +31374,16 @@
 				(justify right)
 			)
 			(uuid "f3de190a-6842-4f0d-bac8-b47cd5a0bea8")
+		)
+		(pin "L" input
+			(at 62.23 87.63 180)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+			(uuid "b7db9fe3-bc6a-4aa1-9fdf-20bcdf62b76a")
 		)
 		(instances
 			(project "breakout-tri-sram"
