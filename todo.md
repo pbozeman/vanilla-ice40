@@ -13,6 +13,7 @@
   least misleading, as they might be from the ftdi perspective
   and not ice40
 - maybe move i2c connector to the cbsel0/1 pins
+- consider signal only option to use ice boards together
 
 ### PMOD board
 
