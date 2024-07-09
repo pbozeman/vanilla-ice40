@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.2032
+          "min_clearance": 0.3048
         }
       },
       "diff_pair_dimensions": [
@@ -77,8 +77,9 @@
         "footprint": "error",
         "footprint_symbol_mismatch": "warning",
         "footprint_type_mismatch": "ignore",
-        "hole_clearance": "ignore",
+        "hole_clearance": "error",
         "hole_near_hole": "error",
+        "holes_co_located": "warning",
         "invalid_outline": "error",
         "isolated_copper": "warning",
         "item_on_disabled_layer": "error",
@@ -115,7 +116,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.1524,
+        "min_clearance": 0.2032,
         "min_connection": 0.127,
         "min_copper_edge_clearance": 0.25,
         "min_hole_clearance": 0.3048,
@@ -180,7 +181,9 @@
         0.0,
         0.156464,
         0.254,
-        0.508
+        0.381,
+        0.5588,
+        0.889
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {
