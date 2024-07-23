@@ -116,9 +116,9 @@
       "rules": {
         "max_error": 0.005,
         "min_clearance": 0.127,
-        "min_connection": 0.127,
+        "min_connection": 0.12446,
         "min_copper_edge_clearance": 0.25,
-        "min_hole_clearance": 0.254,
+        "min_hole_clearance": 0.2,
         "min_hole_to_hole": 0.254,
         "min_microvia_diameter": 0.2,
         "min_microvia_drill": 0.1,
@@ -791,6 +791,18 @@
     [
       "6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5",
       "Root"
+    ],
+    [
+      "8fa8b499-bf6e-428e-9b7b-1dd20539af7f",
+      "hx8k power"
+    ],
+    [
+      "8fcffd86-9b82-4947-9420-a56f34009c5e",
+      "sram programmer"
+    ],
+    [
+      "4c09157d-3537-4cf3-bc9c-21379ec730e4",
+      "usb-c power"
     ]
   ],
   "text_variables": {}
