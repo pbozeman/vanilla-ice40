@@ -4686,7 +4686,7 @@
 			(solder_mask_margin 0.102)
 			(uuid "3fb1a7f3-b79f-45e0-90ba-02a855a95573")
 		)
-		(model "/Users/pbozeman/src/vanilla-ice40/pcb/models/ICE40HX8K-CT256/ICE40HX8K-CT256.step"
+		(model "${KIPRJMOD}/../models/ICE40HX8K-CT256/ICE40HX8K-CT256.step"
 			(offset
 				(xyz 0 0 -0.5)
 			)

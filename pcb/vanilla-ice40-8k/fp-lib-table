@@ -3,5 +3,5 @@
   (lib (name "ICE40HX8K-CT256")(type "KiCad")(uri "${KIPRJMOD}/../models/ICE40HX8K-CT256")(options "")(descr ""))
   (lib (name "custom")(type "KiCad")(uri "${KIPRJMOD}/../models/custom.pretty")(options "")(descr ""))
   (lib (name "TPS563252DRLR")(type "KiCad")(uri "${KIPRJMOD}/../models//ul_TPS563252DRLR/KiCADv6/footprints.pretty")(options "")(descr ""))
-  (lib (name "logo")(type "KiCad")(uri "/Users/pbozeman/src/vanilla-ice40/pcb/models/logo.pretty")(options "")(descr ""))
+  (lib (name "logo")(type "KiCad")(uri "${KIPRJMOD}/../models/logo.pretty")(options "")(descr ""))
 )
