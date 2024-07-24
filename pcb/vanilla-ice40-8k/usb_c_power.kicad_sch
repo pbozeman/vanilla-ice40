@@ -2179,6 +2179,12 @@
 		(uuid "e439b7ea-c807-462f-93e3-ae0e49f630a7")
 	)
 	(junction
+		(at 73.66 39.37)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e704dc84-5b44-423c-bf56-87a1ede66d60")
+	)
+	(junction
 		(at 88.9 82.55)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3042,6 +3048,16 @@
 	)
 	(wire
 		(pts
+			(xy 73.66 36.83) (xy 73.66 39.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dd529168-8998-4f1c-953c-0a6261339d9e")
+	)
+	(wire
+		(pts
 			(xy 133.35 53.34) (xy 133.35 54.61)
 		)
 		(stroke
@@ -3234,17 +3250,6 @@
 			(justify left bottom)
 		)
 		(uuid "a880e498-61d6-455a-ba72-3f375236921d")
-	)
-	(label "U5V"
-		(at 69.85 39.37 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "b9f73038-8a75-4408-94a3-a1cc8b3e083d")
 	)
 	(label "USB_DP"
 		(at 254 60.96 0)
@@ -5605,7 +5610,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VBUS_5V"
+		(property "Value" "F_5V"
 			(at 133.35 80.01 0)
 			(effects
 				(font
@@ -6008,6 +6013,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:VBUS")
+		(at 73.66 36.83 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b6fff954-8851-4239-a642-0b5c5b050dda")
+		(property "Reference" "#PWR078"
+			(at 73.66 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 73.914 33.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 73.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 73.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 73.66 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "36b1edf1-471c-4234-8925-014ecd33bff4")
+		)
+		(instances
+			(project "vanilla-ice40-8k"
+				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
+					(reference "#PWR078")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 195.58 64.77 0)
 		(unit 1)
@@ -6090,7 +6160,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VBUS_5V"
+		(property "Value" "F_5V"
 			(at 133.35 44.45 0)
 			(effects
 				(font
@@ -6317,7 +6387,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "VBUS_5V"
+		(property "Value" "F_5V"
 			(at 90.424 41.91 0)
 			(effects
 				(font
