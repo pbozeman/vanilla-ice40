@@ -4133,6 +4133,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "1N5819HW-FDICT-ND"
+			(at 166.37 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C82544"
+			(at 166.37 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "c9577532-54c9-4150-b483-3cfb45be45b4")
 		)
@@ -6821,7 +6839,16 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "DNP"
+			(at 33.02 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 33.02 34.29 0)
 			(effects
 				(font
@@ -7773,7 +7800,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Q_PMOS_DSG"
+		(property "Value" "1N5819HW"
 			(at 170.18 49.5299 0)
 			(effects
 				(font
@@ -7801,6 +7828,24 @@
 			)
 		)
 		(property "Description" "P-MOSFET transistor, drain/source/gate"
+			(at 163.83 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "1N5819HW-FDICT-ND"
+			(at 163.83 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C82544"
 			(at 163.83 48.26 0)
 			(effects
 				(font
@@ -8435,7 +8480,16 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "DNP"
+			(at 67.31 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 67.31 34.29 0)
 			(effects
 				(font
@@ -8774,7 +8828,16 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "DNP"
+			(at 97.79 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 97.79 34.29 0)
 			(effects
 				(font

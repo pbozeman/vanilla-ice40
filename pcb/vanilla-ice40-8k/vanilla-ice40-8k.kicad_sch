@@ -29421,7 +29421,7 @@
 		(exclude_from_sim yes)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "24ecaff5-c6f6-415a-81fc-e8c687cd07d7")
 		(property "Reference" "H101"
@@ -29469,8 +29469,26 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "DNP"
+			(at 375.92 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
+			(at 375.92 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
-			(project ""
+			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
 					(reference "H101")
 					(unit 1)
@@ -29485,7 +29503,7 @@
 		(exclude_from_sim yes)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "27c0d3bb-45c9-4e27-962c-5ed979376c66")
 		(property "Reference" "H102"
@@ -29533,6 +29551,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "DNP"
+			(at 375.92 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
+			(at 375.92 29.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
@@ -29549,7 +29585,7 @@
 		(exclude_from_sim yes)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "2ae2d9cf-b714-4884-b9cd-28a763b39aa5")
 		(property "Reference" "H104"
@@ -29589,6 +29625,24 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 375.92 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "DNP"
+			(at 375.92 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 375.92 44.45 0)
 			(effects
 				(font
@@ -30227,6 +30281,24 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "220-1575-ND"
+			(at 386.08 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C1521993"
+			(at 386.08 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -31948,6 +32020,24 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "220-1575-ND"
+			(at 293.37 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C1521993"
+			(at 293.37 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -34037,6 +34127,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "220-1575-ND"
+			(at 247.65 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C1521993"
+			(at 247.65 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "A9"
 			(uuid "359f527f-517d-4771-aeca-4bdc4d84beaf")
 		)
@@ -36102,6 +36210,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "220-1575-ND"
+			(at 340.36 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C1521993"
+			(at 340.36 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "A9"
 			(uuid "359f527f-517d-4771-aeca-4bdc4d84beb0")
 		)
@@ -37111,7 +37237,7 @@
 		(exclude_from_sim yes)
 		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "a7055d28-7b74-4f56-bcc3-c6c3355b7598")
 		(property "Reference" "H103"
@@ -37151,6 +37277,24 @@
 			)
 		)
 		(property "Description" "Mounting Hole without connection"
+			(at 375.92 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "DNP"
+			(at 375.92 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 375.92 36.83 0)
 			(effects
 				(font

@@ -7477,7 +7477,16 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "DNP"
+			(at 44.45 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 44.45 92.71 0)
 			(effects
 				(font
@@ -8031,7 +8040,7 @@
 		(at 52.07 121.92 90)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp yes)
 		(uuid "3bf78de8-5b0e-415e-b17b-71e39f688eed")
@@ -8923,7 +8932,16 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "DNP"
+			(at 43.18 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "DNP"
 			(at 43.18 62.23 0)
 			(effects
 				(font
