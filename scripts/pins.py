@@ -4,7 +4,7 @@ import sys
 
 from dataclasses import dataclass
 
-from boards import hx8k
+from boards import hx4k, hx8k
 
 # This script generates pcf files for the vanilla ice peripheral boards.
 #
@@ -178,14 +178,18 @@ def gen_right_pcf(pin_config):
     gen_pcf_from_groups("R", ice_groups)
 
 def gen_pcf(pin_config):
-    gen_left_pcf(pin_config)
-    gen_right_pcf(pin_config)
+    if (pin_config.left_pin_to_logical):
+        gen_left_pcf(pin_config)
+
+    if (pin_config.right_pin_to_logical):
+        gen_right_pcf(pin_config)
 
 hx8k = IcePinConfig(hx8k.logical_pin_to_phys,
                     hx8k.left_pin_to_logical,
                     hx8k.right_pin_to_logical)
 
-boards = { 'hx8k': hx8k }
+boards = { 'hx4k': hx4k,
+           'hx8k': hx8k }
 
 def main():
     if len(sys.argv) < 2:
