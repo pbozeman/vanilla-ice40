@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 from dataclasses import dataclass
 
 from boards import hx8k
@@ -183,8 +185,19 @@ hx8k = IcePinConfig(hx8k.logical_pin_to_phys,
                     hx8k.left_pin_to_logical,
                     hx8k.right_pin_to_logical)
 
+boards = { 'hx8k': hx8k }
+
 def main():
-    gen_pcf(hx8k);
+    if len(sys.argv) < 2:
+        print("Usage: pins.py <board_name>")
+        sys.exit(1)
+
+    board_name = sys.argv[1]
+    if board_name in boards:
+        gen_pcf(boards[board_name])
+    else:
+        print(f"Board '{board_name}' not supported.")
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
