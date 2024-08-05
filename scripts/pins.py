@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from dataclasses import dataclass
+
 import unittest
 
 # This script generates pcf files for the vanilla ice peripheral boards.
@@ -322,6 +324,105 @@ hx8k_b2b_left = [
     (118, 'IOT_176')
 ]
 
+hx8k_b2b_right = [
+    (3, 'IOR_166'),
+    (4, 'IOR_160'),
+    (5, 'IOR_158'),
+    (6, 'IOR_162'),
+    (7, 'IOR_155'),
+    (8, 'IOR_152'),
+    (9, 'IOR_150'),
+    (10, 'IOR_139'),
+    (13, 'IOR_142'),
+    (14, 'IOR_137'),
+    (15, 'IOR_134'),
+    (16, 'IOR_128'),
+    (17, 'IOR_129'),
+    (18, 'IOR_118'),
+    (19, 'IOR_119'),
+    (20, 'IOR_114'),
+    (23, 'IOR_115'),
+    (24, 'IOR_111'),
+    (25, 'IOB_98'),
+    (26, 'IOR_120'),
+    (27, 'IOB_99'),
+    (28, 'IOB_82'),
+    (29, 'IOB_74'),
+    (30, 'IOB_80'),
+    (31, 'IOB_87'),
+    (32, 'IOB_86'),
+    (33, 'IOB_78'),
+    (34, 'IOB_83'),
+    (35, 'IOB_94'),
+    (36, 'IOB_85'),
+    (37, 'IOB_89'),
+    (38, 'IOB_66'),
+    (41, 'IOB_77'),
+    (42, 'IOB_67'),
+    (43, 'IOB_56'),
+    (44, 'IOB_58'),
+    (45, 'IOL_26B'),
+    (46, 'IOB_54'),
+    (47, 'IOB_73'),
+    (48, 'IOB_71'),
+    (51, 'IOL_22A'),
+    (52, 'IOL_20A'),
+    (53, 'IOL_25B'),
+    (54, 'IOL_24B'),
+    (55, 'IOB_52'),
+    (56, 'IOB_64'),
+    (57, 'IOL_21A'),
+    (58, 'IOL_19A'),
+    (63, 'IOR_165'),
+    (64, 'IOR_167'),
+    (65, 'IOR_161'),
+    (66, 'IOR_157'),
+    (67, 'IOR_153'),
+    (68, 'IOR_156'),
+    (69, 'IOR_151'),
+    (70, 'IOR_147'),
+    (73, 'IOR_149'),
+    (74, 'IOR_143'),
+    (75, 'IOR_145'),
+    (76, 'IOR_141'),
+    (77, 'IOR_144'),
+    (78, 'IOR_138'),
+    (79, 'IOR_130'),
+    (80, 'IOR_133'),
+    (83, 'IOR_131'),
+    (84, 'IOR_127'),
+    (85, 'IOR_116'),
+    (86, 'IOR_121'),
+    (87, 'IOR_123'),
+    (88, 'IOR_117'),
+    (89, 'IOB_101'),
+    (90, 'IOR_113'),
+    (91, 'IOR_112'),
+    (92, 'IOB_102'),
+    (93, 'IOB_93'),
+    (94, 'IOB_100'),
+    (95, 'IOB_91'),
+    (96, 'IOR_110'),
+    (97, 'IOB_91'),
+    (98, 'IOR_109'),
+    (101, 'IOB_68'),
+    (102, 'IOB_88'),
+    (103, 'IOB_84'),
+    (104, 'IOB_79'),
+    (105, 'IOB_81'),
+    (106, 'IOB_76'),
+    (107, 'IOB_72'),
+    (108, 'IOB_75'),
+    (111, 'IOB_69'),
+    (112, 'IOB_60'),
+    (113, 'IOB_63'),
+    (114, 'IOB_61'),
+    (115, 'IOB_59'),
+    (116, 'IOB_57'),
+    (117, 'IOB_55'),
+    (118, 'IOB_53')
+]
+
 hx8k_signals = [
     ('CLK', 'IOL_14A'),
     ('UART_RX', 'IOR_140'),
@@ -394,6 +495,7 @@ def dicts_from_pairs(pairs):
 hx8k_pins_l_to_p, hx8k_pins_p_to_l = dicts_from_pairs(hx8k_pins)
 hx8k_signal_s_to_p, hx8k_signal_p_to_s = dicts_from_pairs(hx8k_signals)
 hx8k_left_to_fpga, hx8k_fpga_to_left = dicts_from_pairs(hx8k_b2b_left);
+hx8k_right_to_fpga, hx8k_fpga_to_right = dicts_from_pairs(hx8k_b2b_right);
 
 def b2b_pin_to_pin(pin):
     if pin <= 60:
@@ -406,11 +508,11 @@ def traverse(key, *dicts):
         key = d[key]
     return key
 
-def peripheral_pin_to_ice_pin(pin):
-    return traverse(b2b_pin_to_pin(pin), hx8k_left_to_fpga, hx8k_pins_l_to_p)
+def peripheral_pin_to_ice_pin(pin, io_dict, pin_dict):
+    return traverse(b2b_pin_to_pin(pin), io_dict, pin_dict)
 
-def peripheral_group_to_ice_group(grp):
-    return [peripheral_pin_to_ice_pin(p) for p in grp]
+def peripheral_group_to_ice_group(grp, io_dict, pin_dict):
+    return [peripheral_pin_to_ice_pin(p, io_dict, pin_dict) for p in grp]
 
 def groups_to_pins(groups):
     result = []
@@ -422,52 +524,76 @@ def groups_to_pins(groups):
 def ice_group_to_pcf(label, pins):
     return "\n".join(f"set_io {label}[{i}] {pin}" for i, pin in enumerate(pins))
 
-ice_groups = [(l, peripheral_group_to_ice_group(p)) for l, p in peripheral_groups]
-ice_group_pins = groups_to_pins(ice_groups)
+def gen_pcf_from_groups(side: str, ice_groups):
+    ice_group_pins = groups_to_pins(ice_groups)
 
-base_to_p, p_to_base = dicts_from_pairs(ice_group_pins)
+    # pmod pins
+    concatenated_groups = sum([pins for _, pins in ice_groups], [])
+    ice_pins = [p for p in concatenated_groups]
 
-def base_group_to_ice_group(grp):
-    return [base_to_p[p] for p in grp]
-
-# pmod pins
-concatenated_groups = sum([pins for _, pins in ice_groups], [])
-ice_pins = [p for p in concatenated_groups]
-
-# sram pin groups
-sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
-
-def gen_pcf():
+    base_to_p, p_to_base = dicts_from_pairs(ice_group_pins)
+ 
+    def base_group_to_ice_group(grp):
+        return [base_to_p[p] for p in grp]
+ 
     # base groups
     for g in ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf(lable, pins))
+        print(ice_group_to_pcf(f"{side}_{lable}", pins))
         print()
  
     # pmod aliases
     for g in ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf("PMOD_" + lable, pins))
+        print(ice_group_to_pcf(f"{side}_PMOD_{lable}", pins))
         print()
   
     # all pmods
-    print(ice_group_to_pcf("PMOD", [p for p in ice_pins]))
+    print(ice_group_to_pcf(f"{side}_PMOD", [p for p in ice_pins]))
     print()
    
     # sram
     sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
     
     for s, p in sram_signals:
-        print(f"set_io {s} {base_to_p[p]}")
+        print(f"set_io {side}_{s} {base_to_p[p]}")
     
     print()
     for g in sram_ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf(lable, pins))
+        print(ice_group_to_pcf(f"{side}_{lable}", pins))
         print()
 
+@dataclass
+class PinConfig:
+    logical_pin_to_phys: {str, str}
+    left_pin_to_logical: {int, str}
+    right_pin_to_logical: {int, str}
+
+def gen_left_pcf(pin_config):
+    ice_groups = [(l,
+                   peripheral_group_to_ice_group(g,
+                                                 pin_config.left_pin_to_logical,
+                                                 pin_config.logical_pin_to_phys))
+        for l, g in peripheral_groups]
+    gen_pcf_from_groups("L", ice_groups)
+
+def gen_right_pcf(pin_config):
+    ice_groups = [(l,
+                   peripheral_group_to_ice_group(g,
+                                                 pin_config.right_pin_to_logical,
+                                                 pin_config.logical_pin_to_phys))
+        for l, g in peripheral_groups]
+    gen_pcf_from_groups("R", ice_groups)
+
+def gen_pcf(pin_config):
+    gen_left_pcf(pin_config)
+    gen_right_pcf(pin_config)
+
+hx8k = PinConfig(hx8k_pins_l_to_p, hx8k_left_to_fpga, hx8k_right_to_fpga)
+
 def main():
-    gen_pcf();
+    gen_pcf(hx8k);
 
 if __name__ == '__main__':
     main()
