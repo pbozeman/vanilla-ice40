@@ -438,33 +438,33 @@ ice_pins = [p for p in concatenated_groups]
 sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
 
 def gen_pcf():
-  # base groups
-  for g in ice_groups:
-      lable, pins = g
-      print(ice_group_to_pcf(lable, pins))
-      print()
+    # base groups
+    for g in ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf(lable, pins))
+        print()
  
-  # pmod aliases
-  for g in ice_groups:
-      lable, pins = g
-      print(ice_group_to_pcf("PMOD_" + lable, pins))
-      print()
+    # pmod aliases
+    for g in ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf("PMOD_" + lable, pins))
+        print()
   
-  # all pmods
-  print(ice_group_to_pcf("PMOD", [p for p in ice_pins]))
-  print()
-  
-  # sram
-  sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
-  
-  for s, p in sram_signals:
-      print(f"set_io {s} {base_to_p[p]}")
-  
-  print()
-  for g in sram_ice_groups:
-      lable, pins = g
-      print(ice_group_to_pcf(lable, pins))
-      print()
+    # all pmods
+    print(ice_group_to_pcf("PMOD", [p for p in ice_pins]))
+    print()
+   
+    # sram
+    sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
+    
+    for s, p in sram_signals:
+        print(f"set_io {s} {base_to_p[p]}")
+    
+    print()
+    for g in sram_ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf(lable, pins))
+        print()
 
 def main():
     gen_pcf();
