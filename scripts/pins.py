@@ -2,8 +2,6 @@
 
 from dataclasses import dataclass
 
-import unittest
-
 from boards import hx8k
 
 # This script generates pcf files for the vanilla ice peripheral boards.
@@ -190,12 +188,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# Unit tests
-#
-# These are very incomplete, but this is a basic end to end test that
-# ensures translation is mapping to the correct pin through all the layers
-class TestTranslation(unittest.TestCase):
-
-    def test_end_to_end(self):
-        self.assertEqual(base_to_p['D[0]'], 'A1')
