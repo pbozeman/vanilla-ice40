@@ -438,10 +438,6 @@ ice_pins = [p for p in concatenated_groups]
 sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
 
 def gen_pcf():
-  #
-  # produce pcf
-  #
-
   # base groups
   for g in ice_groups:
       lable, pins = g
