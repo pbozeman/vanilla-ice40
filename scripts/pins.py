@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import unittest
+
 # This script generates pcf files for the vanilla ice peripheral boards.
 #
 # It is easier to transcribe the mappings for each level rather than try to
@@ -428,36 +430,57 @@ base_to_p, p_to_base = dicts_from_pairs(ice_group_pins)
 def base_group_to_ice_group(grp):
     return [base_to_p[p] for p in grp]
 
-#
-# produce pcf
-#
-
-# base groups
-for g in ice_groups:
-    lable, pins = g
-    print(ice_group_to_pcf(lable, pins))
-    print()
-
-# pmod aliases
-for g in ice_groups:
-    lable, pins = g
-    print(ice_group_to_pcf("PMOD_" + lable, pins))
-    print()
-
-# all pmods
+# pmod pins
 concatenated_groups = sum([pins for _, pins in ice_groups], [])
 ice_pins = [p for p in concatenated_groups]
-print(ice_group_to_pcf("PMOD", [p for p in ice_pins]))
-print()
 
-# sram
+# sram pin groups
 sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
 
-for s, p in sram_signals:
-    print(f"set_io {s} {base_to_p[p]}")
+def gen_pcf():
+  #
+  # produce pcf
+  #
 
-print()
-for g in sram_ice_groups:
-    lable, pins = g
-    print(ice_group_to_pcf(lable, pins))
-    print()
+  # base groups
+  for g in ice_groups:
+      lable, pins = g
+      print(ice_group_to_pcf(lable, pins))
+      print()
+ 
+  # pmod aliases
+  for g in ice_groups:
+      lable, pins = g
+      print(ice_group_to_pcf("PMOD_" + lable, pins))
+      print()
+  
+  # all pmods
+  print(ice_group_to_pcf("PMOD", [p for p in ice_pins]))
+  print()
+  
+  # sram
+  sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
+  
+  for s, p in sram_signals:
+      print(f"set_io {s} {base_to_p[p]}")
+  
+  print()
+  for g in sram_ice_groups:
+      lable, pins = g
+      print(ice_group_to_pcf(lable, pins))
+      print()
+
+def main():
+    gen_pcf();
+
+if __name__ == '__main__':
+    main()
+
+# Unit tests
+#
+# These are very incomplete, but this is a basic end to end test that
+# ensures translation is mapping to the correct pin through all the layers
+class TestTranslation(unittest.TestCase):
+
+    def test_end_to_end(self):
+        self.assertEqual(base_to_p['D[0]'], 'A1')

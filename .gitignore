@@ -1,6 +1,9 @@
 # direnv
 .direnv
 
+# python
+__pycache__
+
 # verilog builds
 .build
 
