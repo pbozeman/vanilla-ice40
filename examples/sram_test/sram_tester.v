@@ -103,7 +103,7 @@ module sram_tester #(
   );
 
   // Debug outputs to use in the case of test failure
-  // (these will the the ones that failed, since test_fail
+  // (these will the ones that failed, since test_fail
   // is clocked)
   reg [DATA_BITS-1:0] prev_pattern = {DATA_BITS{1'b0}};
   reg [ADDR_BITS-1:0] prev_addr = 0;
