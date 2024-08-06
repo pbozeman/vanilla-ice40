@@ -76,8 +76,8 @@ module vga_sram_display #(
   assign blue = visible ? sram_data[7:4] : 4'b0000;
 
   assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;
-  assign hsync   = (column >= H_SYNC_START && column < H_SYNC_END) ? 0 : 1;
-  assign vsync   = (row >= V_SYNC_START && row < V_SYNC_END) ? 0 : 1;
+  assign hsync = (column >= H_SYNC_START && column < H_SYNC_END) ? 0 : 1;
+  assign vsync = (row >= V_SYNC_START && row < V_SYNC_END) ? 0 : 1;
 
 endmodule
 

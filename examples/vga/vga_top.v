@@ -4,23 +4,23 @@
 `include "vga_sync.v"
 `include "vga_test_01.v"
 
-`define VGA_RED_0 BA_01
-`define VGA_RED_1 BA_02
-`define VGA_RED_2 BA_03
-`define VGA_RED_3 BA_04
+`define VGA_RED_0 R_E_01
+`define VGA_RED_1 R_E_02
+`define VGA_RED_2 R_E_03
+`define VGA_RED_3 R_E_04
 
-`define VGA_BLUE_0 BA_05
-`define VGA_BLUE_1 BA_06
-`define VGA_BLUE_2 BA_07
-`define VGA_BLUE_3 BA_08
+`define VGA_BLUE_0 R_E_05
+`define VGA_BLUE_1 R_E_06
+`define VGA_BLUE_2 R_E_07
+`define VGA_BLUE_3 R_E_08
 
-`define VGA_GREEN_0 DC_01
-`define VGA_GREEN_1 DC_02
-`define VGA_GREEN_2 DC_03
-`define VGA_GREEN_3 DC_04
+`define VGA_GREEN_0 R_F_01
+`define VGA_GREEN_1 R_F_02
+`define VGA_GREEN_2 R_F_03
+`define VGA_GREEN_3 R_F_04
 
-`define VGA_HSYNC DC_05
-`define VGA_VSYNC DC_06
+`define VGA_HSYNC R_F_05
+`define VGA_VSYNC R_F_06
 
 module vga_top (
     input  wire CLK,

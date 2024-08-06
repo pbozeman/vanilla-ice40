@@ -16,17 +16,17 @@ module vga_sram_top #(
     output wire LED2,
 
     // sram buses
-    output wire [ADDR_BITS-1:0] SRAM_ADDR_BUS,
-    inout  wire [DATA_BITS-1:0] SRAM_DATA_BUS,
+    output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
 
     // sram control signals
-    output wire SRAM_CS_N,
-    output wire SRAM_OE_N,
-    output wire SRAM_WE_N,
+    output wire R_SRAM_CS_N,
+    output wire R_SRAM_OE_N,
+    output wire R_SRAM_WE_N,
 
     // used for vga signals
-    output wire [7:0] BA_PINS,
-    output wire [7:0] DC_PINS
+    output wire [7:0] R_E,
+    output wire [7:0] R_F
 );
 
   wire reset = 0;
@@ -57,21 +57,21 @@ module vga_sram_top #(
       .vga_vsync(vga_vsync),
 
       // sram signals
-      .addr_bus(SRAM_ADDR_BUS),
-      .data_bus_io(SRAM_DATA_BUS),
-      .we_n(SRAM_WE_N),
-      .oe_n(SRAM_OE_N),
-      .ce_n(SRAM_CS_N)
+      .addr_bus(R_SRAM_ADDR_BUS),
+      .data_bus_io(R_SRAM_DATA_BUS),
+      .we_n(R_SRAM_WE_N),
+      .oe_n(R_SRAM_OE_N),
+      .ce_n(R_SRAM_CS_N)
   );
 
   assign LED1 = 1'bz;
   assign LED2 = 1'bz;
 
-  assign BA_PINS[3:0] = vga_red;
-  assign BA_PINS[7:4] = vga_blue;
-  assign DC_PINS[3:0] = vga_green;
-  assign DC_PINS[4] = vga_hsync;
-  assign DC_PINS[5] = vga_vsync;
+  assign R_E[3:0] = vga_red;
+  assign R_E[7:4] = vga_blue;
+  assign R_F[3:0] = vga_green;
+  assign R_F[4] = vga_hsync;
+  assign R_F[5] = vga_vsync;
 
 endmodule
 `endif

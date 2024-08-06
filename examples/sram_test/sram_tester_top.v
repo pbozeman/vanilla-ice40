@@ -16,20 +16,19 @@ module sram_tester_top #(
     output wire LED2,
 
     // Buses
-    output wire [ADDR_BITS-1:0] SRAM_ADDR_BUS,
-    inout  wire [DATA_BITS-1:0] SRAM_DATA_BUS,
+    output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
 
     // Control signals
-    output wire SRAM_CS_N,
-    output wire SRAM_OE_N,
-    output wire SRAM_WE_N,
+    output wire R_SRAM_CS_N,
+    output wire R_SRAM_OE_N,
+    output wire R_SRAM_WE_N,
 
-    output wire [7:0] BA_PINS,
-    output wire [7:0] DC_PINS,
-    output wire [7:0] KL_PINS,
-    output wire [7:0] HG_PINS,
-    output wire [7:0] LK_PINS
-
+    output wire [7:0] R_E,
+    output wire [7:0] R_F,
+    output wire [7:0] R_H,
+    output wire [7:0] R_I,
+    output wire [7:0] R_J
 );
 
   // Internal signals
@@ -63,11 +62,11 @@ module sram_tester_top #(
       .addr(addr),
       .write_data(write_data),
       .read_data(read_data),
-      .addr_bus(SRAM_ADDR_BUS),
-      .data_bus(SRAM_DATA_BUS),
-      .ce_n(SRAM_CS_N),
-      .we_n(SRAM_WE_N),
-      .oe_n(SRAM_OE_N)
+      .addr_bus(R_SRAM_ADDR_BUS),
+      .data_bus(R_SRAM_DATA_BUS),
+      .ce_n(R_SRAM_CS_N),
+      .we_n(R_SRAM_WE_N),
+      .oe_n(R_SRAM_OE_N)
   );
 
   wire [ADDR_BITS-1:0] addr_reversed;
@@ -85,7 +84,7 @@ module sram_tester_top #(
   bit_reverser #(
       .WIDTH(8)
   ) data_reverser (
-      .in (SRAM_DATA_BUS),
+      .in (R_SRAM_DATA_BUS),
       .out(data_reversed)
   );
 
@@ -103,28 +102,28 @@ module sram_tester_top #(
   // LED2 is success
   assign LED2 = test_pass;
 
-  assign HG_PINS = (test_pass ? write_data : prev_expected_data);
-  assign LK_PINS = (test_pass ? read_data : prev_read_data);
+  assign R_I = (test_pass ? write_data : prev_expected_data);
+  assign R_J = (test_pass ? read_data : prev_read_data);
 
-  assign BA_PINS[2:0] = pattern_state_reversed;
+  assign R_E[2:0] = pattern_state_reversed;
 
   // set pmod leds to the addr
   generate
     if (ADDR_BITS >= 20) begin : full_addr_mapping
-      assign BA_PINS[3]   = 1'b0;
-      assign BA_PINS[7:4] = addr_reversed[3:0];
-      assign DC_PINS      = addr_reversed[11:4];
-      assign KL_PINS      = addr_reversed[19:12];
+      assign R_E[3]   = 1'b0;
+      assign R_E[7:4] = addr_reversed[3:0];
+      assign R_F      = addr_reversed[11:4];
+      assign R_H      = addr_reversed[19:12];
     end else if (ADDR_BITS >= 16) begin : partial_addr_mapping
-      assign BA_PINS[3]   = 1'b0;
-      assign BA_PINS[7:4] = addr_reversed[3:0];
-      assign DC_PINS      = addr_reversed[11:4];
-      assign KL_PINS      = addr_reversed[ADDR_BITS-1:12];
+      assign R_E[3]   = 1'b0;
+      assign R_E[7:4] = addr_reversed[3:0];
+      assign R_F      = addr_reversed[11:4];
+      assign R_H      = addr_reversed[ADDR_BITS-1:12];
     end else begin : minimal_addr_mapping
-      assign BA_PINS[3]   = 1'b0;
-      assign BA_PINS[7:4] = 4'b0;
-      assign DC_PINS      = addr_reversed[ADDR_BITS-1:ADDR_BITS/2];
-      assign KL_PINS      = addr_reversed[ADDR_BITS/2-1:0];
+      assign R_E[3]   = 1'b0;
+      assign R_E[7:4] = 4'b0;
+      assign R_F      = addr_reversed[ADDR_BITS-1:ADDR_BITS/2];
+      assign R_H      = addr_reversed[ADDR_BITS/2-1:0];
     end
   endgenerate
 
