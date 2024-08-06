@@ -103,7 +103,7 @@ sram_groups = [
     ),
 ]
 
-sram_signals = [("SRAM_CS#", "D[0]"), ("SRAM_OE#", "A[2]"), ("SRAM_WE#", "G[4]")]
+sram_signals = [("SRAM_CS_N", "D[0]"), ("SRAM_OE_N", "A[2]"), ("SRAM_WE_N", "G[4]")]
 
 
 def b2b_pin_to_pin(pin):
@@ -135,7 +135,13 @@ def groups_to_pins(groups):
     return result
 
 
-def ice_group_to_pcf(label, pins):
+def ice_group_to_pcf_pin(label, pins, width=2):
+    return "\n".join(
+        f"set_io {label}_{i+1:0{width}} {pin}" for i, pin in enumerate(pins)
+    )
+
+
+def ice_group_to_pcf_array(label, pins):
     return "\n".join(f"set_io {label}[{i}] {pin}" for i, pin in enumerate(pins))
 
 
@@ -154,17 +160,19 @@ def gen_pcf_from_groups(side: str, ice_groups):
     # base groups
     for g in ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf(f"{side}_{lable}", pins))
+        print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
+        print()
+        print(ice_group_to_pcf_array(f"{side}_{lable}", pins))
         print()
 
     # pmod aliases
     for g in ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf(f"{side}_PMOD_{lable}", pins))
+        print(ice_group_to_pcf_array(f"{side}_PMOD_{lable}", pins))
         print()
 
     # all pmods
-    print(ice_group_to_pcf(f"{side}_PMOD", [p for p in ice_pins]))
+    print(ice_group_to_pcf_array(f"{side}_PMOD", [p for p in ice_pins]))
     print()
 
     # sram
@@ -176,7 +184,9 @@ def gen_pcf_from_groups(side: str, ice_groups):
     print()
     for g in sram_ice_groups:
         lable, pins = g
-        print(ice_group_to_pcf(f"{side}_{lable}", pins))
+        print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
+        print()
+        print(ice_group_to_pcf_array(f"{side}_{lable}", pins))
         print()
 
 
