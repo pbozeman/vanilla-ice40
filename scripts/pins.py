@@ -26,8 +26,11 @@ class IcePinConfig:
     # e.g. E4 (for bga) or 112 for lqfp
     logical_pin_to_phys: {str, str}
 
+    # on board signals, e.g. CLK, LED, etc.
+    signals: (str, str)
+
     # numeric pin, e.g. 3, on the leftmost connector to logical name of the pin
-    # that it's connected to, e.g.: IOL_23B for bga or 112 for lqfp
+    # that its connected to, e.g.: IOL_23B
     left_pin_to_logical: {int, str}
 
     # same format as above, but for the connector on the right of the board
@@ -187,7 +190,7 @@ def gen_left_pcf(pin_config):
         )
         for l, g in peripheral_groups
     ]
-    gen_pcf_from_groups("L", ice_groups)
+    gen_pcf_from_groups("L", pin_config.ice_groups)
 
 
 def gen_right_pcf(pin_config):
@@ -204,6 +207,10 @@ def gen_right_pcf(pin_config):
 
 
 def gen_pcf(pin_config):
+    for s, p in pin_config.signals:
+        print(f"set_io {s} {pin_config.logical_pin_to_phys[p]}")
+    print()
+
     if pin_config.left_pin_to_logical:
         gen_left_pcf(pin_config)
 
@@ -211,11 +218,21 @@ def gen_pcf(pin_config):
         gen_right_pcf(pin_config)
 
 
-hx8k = IcePinConfig(
-    hx8k.logical_pin_to_phys, hx8k.left_pin_to_logical, hx8k.right_pin_to_logical
+hx8k_config = IcePinConfig(
+    hx8k.logical_pin_to_phys,
+    hx8k.signals,
+    hx8k.left_pin_to_logical,
+    hx8k.right_pin_to_logical,
 )
 
-boards = {"hx4k": hx4k, "hx8k": hx8k}
+hx4k_config = IcePinConfig(
+    hx4k.logical_pin_to_phys,
+    hx4k.signals,
+    hx4k.left_pin_to_logical,
+    hx4k.right_pin_to_logical,
+)
+
+boards = {"hx4k": hx4k_config, "hx8k": hx8k_config}
 
 
 def main():

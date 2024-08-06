@@ -407,4 +407,10 @@ right_pin_to_logical = {
     118: "IOB_53",
 }
 
-signals = {"CLK": "IOL_14A", "UART_RX": "IOR_140", "UART_TX": "IOR_154"}
+signals = (
+    ("CLK", "IOL_14A"),
+    ("LED1", "IOR_140"),
+    ("LED2", "IOR_154"),
+    ("UART_RX", "IOR_136"),
+    ("UART_TX", "IOR_126"),
+)
