@@ -132,6 +132,9 @@ $(foreach top,$(TOP_MODULES),$(eval $(call program_rule,$(top))))
 
 .PHONY: list
 list:
+	@echo "Available unit test targets:"
+	@$(foreach t,$(TEST_BENCHES),echo " $t";)
+	@echo
 	@echo "Available programming targets:"
 	@$(foreach top,$(TOP_MODULES),echo " $(notdir $(basename $(top)))";)
 
@@ -153,13 +156,13 @@ define run_test
 endef
 
 # General rule for running each test bench
-.PHONY: $(addprefix run_, $(TEST_BENCHES))
-$(addprefix run_, $(TEST_BENCHES)): run_% : $(BUILD_DIR)/%
+.PHONY: $(TEST_BENCHES)
+$(TEST_BENCHES): % : $(BUILD_DIR)/%
 	@echo make $@
 	$(call run_test,$<)
 
 # Run all test benches sequentially and show summary
-all_unit: clean_logs $(addprefix run_, $(TEST_BENCHES))
+all_unit: clean_logs $(TEST_BENCHES)
 	@echo "=============================="
 	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
 	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
