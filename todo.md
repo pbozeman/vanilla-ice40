@@ -5,20 +5,14 @@
 ### Main board
 
 - lcsc green led is a bit dim
-- remove values from buttons/leds and replace with silk text
 - add tx/rx to breakout
 - remove 3v3 and 1v2 voltage breakouts
-- add 5v power jumper or transistor
-- double check tx/rx net labels. they might be backwards, or at
-  least misleading, as they might be from the ftdi perspective
-  and not ice40
-- maybe move i2c connector to the cbsel0/1 pins
 - consider signal only option to use ice boards together
 
 ### PMOD board
 
 - make font bigger
-- redo nets since they don't need to be mirrored
+- move pmods slightly over the edge of the pcb
 
 ### tri sram
 
