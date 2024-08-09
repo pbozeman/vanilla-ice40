@@ -144,7 +144,14 @@ module sram_controller_tb;
     @(posedge clk);
     `ASSERT(read_data === 8'h52);
 
+    // Note: req is set to 0
+    req  = 0;
     addr = 10'h103;
+    @(posedge clk);
+    `ASSERT(read_data === 8'bx);
+
+    // go back to reading
+    req = 1;
     @(posedge clk);
     `ASSERT(read_data === 8'h53);
 

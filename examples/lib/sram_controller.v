@@ -76,6 +76,7 @@ module sram_controller #(
   localparam WRITE_HOLD = 3'd4;
 
   reg [2:0] state = 0;
+
   reg [DATA_BITS-1:0] write_data_reg = 0;
   wire bus_active;
 
@@ -91,7 +92,7 @@ module sram_controller #(
   // chip to release the bus. (see the timing comment at the top of the
   // module)
   assign bus_active = (state == WRITING || state == WRITE_HOLD);
-  assign data_bus_io = bus_active ? write_data_reg : {DATA_BITS{1'bz}};
+  assign data_bus_io = bus_active ? write_data : {DATA_BITS{1'bz}};
 
   assign read_data = ~oe_n ? data_bus_io : {DATA_BITS{1'bx}};
 
@@ -103,13 +104,12 @@ module sram_controller #(
       state <= IDLE;
     end else begin
       addr_bus <= addr;
-      write_data_reg <= write_data;
 
       case (state)
         IDLE: state <= ~req ? IDLE : write_enable ? WRITING : READING;
         READING: state <= ~req ? IDLE : write_enable ? READ_TO_WRITE : READING;
         READ_TO_WRITE: state <= WRITING;
-        WRITING: state <= WRITE_HOLD;
+        WRITING: state <= ~req ? IDLE : write_enable ? WRITE_HOLD : READING;
         WRITE_HOLD: state <= ~req ? IDLE : write_enable ? WRITING : READING;
         default: state <= state;
       endcase
@@ -117,7 +117,7 @@ module sram_controller #(
   end
 
   always @(negedge clk) begin
-    we_n <= ~(state == WRITING);
+    we_n <= ~(state == WRITING && write_enable);
   end
 
 endmodule
