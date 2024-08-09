@@ -13,7 +13,7 @@ module sram_model #(
     // Note: tAA should really be 10 to match the real hw.
     // However 10 pushes right up on simulation clock and the
     // harder memory tests fail. The real 10ns chip seems to work
-    // with the sram_controller at 100Mhz. It is unclear to me 
+    // with the sram_controller at 100Mhz. It is unclear to me
     // if I'm running the chip beyond spec, but if so,
     // it's right on the very edge of being out of compliance.
     parameter real tAA  = 9,    // Address Access Time
@@ -57,7 +57,7 @@ module sram_model #(
 
   // Delayed address update and data handling
   always @(addr) begin
-    prev_data = sram[addr];
+    prev_data = data_out;
     last_addr_change = $realtime;
   end
 
