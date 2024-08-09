@@ -116,6 +116,26 @@ module sram_model #(
   end
   // verilator lint_on LATCH
 
+  reg [ADDR_BITS-1:0] we_n_initial_addr;
+  reg [DATA_BITS-1:0] we_n_initial_data;
+
+  always @(negedge we_n) begin
+    we_n_initial_addr <= addr;
+    we_n_initial_data <= data_io;
+  end
+
+  always @(posedge we_n) begin
+    if (we_n_initial_addr != addr) begin
+      $display("addr changed during write");
+      $fatal;
+    end
+
+    if (we_n_initial_data != data_io) begin
+      $display("data changed during write");
+      $fatal;
+    end
+  end
+
 endmodule
 
 `endif
