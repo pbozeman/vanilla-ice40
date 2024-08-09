@@ -6,13 +6,10 @@
 
 `ifndef SIMULATOR
 
-// avoid undeclared symbols
-`default_nettype none
-
 `define PLL_DIVR (4'd0)
-`define PLL_DIVF (7'd1)
-`define PLL_DIVQ (3'd0)
-`define PLL_FILTER_RANGE (3'd1)
+`define PLL_DIVF (7'd7)
+`define PLL_DIVQ (3'd2)
+`define PLL_FILTER_RANGE (3'd5)
 
 module pll_200 (
     input  wire clk_i,
