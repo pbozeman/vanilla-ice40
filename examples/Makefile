@@ -1,11 +1,15 @@
 # Ice40 config
-DEVICE := hx4k
-PACKAGE := tq144
+
+#DEVICE := hx4k
+#PACKAGE := tq144
+DEVICE := hx8k
+PACKAGE := ct256
 
 # Directories
 TEST_DIR := test
 LIB_DIR := lib
 BUILD_DIR := .build
+BITS_DIR := .build/$(DEVICE)-$(PACKAGE)
 
 # Dirs
 DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
@@ -55,6 +59,12 @@ unit: $(VCD_FILES)
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
+$(BITS_DIR):
+	mkdir -p $(BITS_DIR)
+
+$(PCF_DIR):
+	mkdir -p $(PCF_DIR)
+
 # Load previous deps
 -include $(wildcard $(BUILD_DIR)/*.d)
 
@@ -86,17 +96,20 @@ synth: $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MOD
 #
 ##############################################################################
 PCF_DIR := ../constraints
-PCF_FILES := $(wildcard $(PCF_DIR)/*.pcf)
+PCF_FILE := $(PCF_DIR)/vanilla-ice40-$(DEVICE)-$(PACKAGE).pcf
+
+$(PCF_FILE): | $(PCF_DIR)
+	../scripts/pins.py $(DEVICE) > $(PCF_FILE)
 
 define pnr_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILES)
-	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --json $$< $(addprefix --pcf ,$(PCF_FILES)) --top $(notdir $(basename $(1))) --asc $$@
+$(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
+	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
 
 .PHONY: pnr
-pnr: $(addprefix $(BUILD_DIR)/,$(addsuffix .asc,$(notdir $(basename $(TOP_MODULES)))))
+pnr: $(addprefix $(BITS_DIR)/,$(addsuffix .asc,$(notdir $(basename $(TOP_MODULES)))))
 
 ##############################################################################
 #
@@ -104,14 +117,14 @@ pnr: $(addprefix $(BUILD_DIR)/,$(addsuffix .asc,$(notdir $(basename $(TOP_MODULE
 #
 ##############################################################################
 define bitstream_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).bin: $(BUILD_DIR)/$(notdir $(basename $(1))).asc
+$(BITS_DIR)/$(notdir $(basename $(1))).bin: $(BITS_DIR)/$(notdir $(basename $(1))).asc
 	$(ICEPACK) $$< $$@
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call bitstream_rule,$(top))))
 
 .PHONY: bitstream
-bitstream: $(addprefix $(BUILD_DIR)/,$(addsuffix .bin,$(notdir $(basename $(TOP_MODULES)))))
+bitstream: $(addprefix $(BITS_DIR)/,$(addsuffix .bin,$(notdir $(basename $(TOP_MODULES)))))
 
 .PHONY: bits
 bits: bitstream
@@ -124,7 +137,7 @@ bits: bitstream
 # Rule to program a specific bitstream
 define program_rule
 .PHONY: program_$(notdir $(basename $(1)))
-$(notdir $(basename $(1))): $(BUILD_DIR)/$(notdir $(basename $(1))).bin
+$(notdir $(basename $(1))): $(BITS_DIR)/$(notdir $(basename $(1))).bin
 	$(ICEPROG) $$<
 endef
 
