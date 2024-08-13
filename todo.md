@@ -5,7 +5,10 @@
 ### Main board
 
 - lcsc green led is a bit dim
-- add tx/rx to breakout
+- validate i2c
+- validate urx/utx
+- validate all passive silk screen positions
+- bump font sizes
 - remove 3v3 and 1v2 voltage breakouts
 - consider signal only option to use ice boards together
 
@@ -13,6 +16,11 @@
 
 - make font bigger
 - move pmods slightly over the edge of the pcb
+- add mounting holes
+
+### SRAM
+
+- add mounting holes
 
 ### tri sram
 
