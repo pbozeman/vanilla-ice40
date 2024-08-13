@@ -200,7 +200,7 @@ def gen_left_pcf(pin_config):
         )
         for l, g in peripheral_groups
     ]
-    gen_pcf_from_groups("L", pin_config.ice_groups)
+    gen_pcf_from_groups("L", ice_groups)
 
 
 def gen_right_pcf(pin_config):
