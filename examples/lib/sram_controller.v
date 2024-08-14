@@ -30,9 +30,7 @@ module sram_controller #(
     output wire                 ce_n
 );
 
-  // We are fully in spec for writes with a 100mhz clock since they
-  // happen over 2 clock cycles. Reads happen in 1 cycle, so may be out of
-  // spec at 100mhz, but it's right on the edge and seems to work.
+  // Reads and writes happen over 2 clock cycles.
   //
   // For writes, we wait half a clock (5 ns) for signals to settle, then
   // pulse we_n on a negative clock edge for a full 10ns. We don't update
@@ -45,15 +43,11 @@ module sram_controller #(
   //   second_falling_edge: release we_n
   //   .... and we_n is disabled for half a clock before we start over
   //
-  // Reads might be violating the sram specs. While we hold for a full
-  // clock, if we are using a 100MHZ clock, this will be right at the 10ns
-  // limit. We could be violating timing by a fraction of a nanosecond due
-  // to uneven propagation delays, etc. This implementation does not
-  // violate timing if the clock is less than 100mhz, e.g. when used
-  // with svga pixel clocks.
+  // Reads set the address and then read on the next clock cycle.
   //
-  // If higher clocks are needed, then add an extra read hold state and
-  // then use 2 sram in an interleaved/pipelined fashion.
+  // TODO: The following comment is from when we had 1 cycle reads. It might
+  // be possible to modulate oe_n like we do we_n now that we are doing
+  // 2 cycle reads. Revisit this.
   //
   // When switching from read to write, we have to wait 1 clock
   // in the READ_TO_WRITE state because the data sheet says it takes
@@ -71,11 +65,12 @@ module sram_controller #(
   //
   localparam IDLE = 3'd0;
   localparam READING = 3'd1;
-  localparam READ_TO_WRITE = 3'd2;
-  localparam WRITING = 3'd3;
-  localparam WRITE_HOLD = 3'd4;
+  localparam READ_HOLD = 3'd2;
+  localparam READ_TO_WRITE = 3'd3;
+  localparam WRITING = 3'd4;
+  localparam WRITE_HOLD = 3'd5;
 
-  reg [2:0] state = 0;
+  reg [3:0] state = 0;
 
   reg [DATA_BITS-1:0] write_data_reg = 0;
   wire bus_active;
@@ -85,7 +80,7 @@ module sram_controller #(
   // put the chip into idle/low power mode.
   assign ce_n = 1'b0;
 
-  assign oe_n = (state != READING);
+  assign oe_n = ~(state == READING || state == READ_HOLD);
 
   // It is tempting to use oe_n to determine we can put data on the bus,
   // but, we need to go through the READ_TO_WRITE transition to allow the
@@ -96,8 +91,9 @@ module sram_controller #(
 
   assign read_data = ~oe_n ? data_bus_io : {DATA_BITS{1'bx}};
 
-  // all states can take a request, except for the double state write
-  assign ready = (state != WRITING);
+  // all states can take a request, except for the start
+  // of reads and writes
+  assign ready = ~(state == WRITING || state == READING);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
@@ -107,7 +103,8 @@ module sram_controller #(
 
       case (state)
         IDLE: state <= ~req ? IDLE : write_enable ? WRITING : READING;
-        READING: state <= ~req ? IDLE : write_enable ? READ_TO_WRITE : READING;
+        READING: state <= ~req ? IDLE : write_enable ? READ_TO_WRITE : READ_HOLD;
+        READ_HOLD: state <= ~req ? IDLE : write_enable ? READ_TO_WRITE : READING;
         READ_TO_WRITE: state <= WRITING;
         WRITING: state <= ~req ? IDLE : write_enable ? WRITE_HOLD : READING;
         WRITE_HOLD: state <= ~req ? IDLE : write_enable ? WRITING : READING;

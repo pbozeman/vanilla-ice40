@@ -9,14 +9,7 @@ module sram_model #(
     parameter integer INJECT_ERROR = 0,
 
     // timings (in ns)
-    //
-    // Note: tAA should really be 10 to match the real hw.
-    // However 10 pushes right up on simulation clock and the
-    // harder memory tests fail. The real 10ns chip seems to work
-    // with the sram_controller at 100Mhz. It is unclear to me
-    // if I'm running the chip beyond spec, but if so,
-    // it's right on the very edge of being out of compliance.
-    parameter real tAA  = 9,    // Address Access Time
+    parameter real tAA  = 10,   // Address Access Time
     parameter real tOHA = 2.5,  // Output Hold Time
     parameter real tDOE = 6,    // OE# Access Time
     parameter real tAW  = 8,    // Address Setup Time to Write End

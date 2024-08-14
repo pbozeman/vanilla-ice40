@@ -102,6 +102,7 @@ module sram_controller_tb;
     write_enable = 0;
     addr = 10'h0AA;
     @(posedge clk);
+    @(posedge clk);
     `ASSERT(~oe_n);
     `ASSERT(read_data === 8'hA1);
     `ASSERT(ready);
@@ -138,9 +139,11 @@ module sram_controller_tb;
 
     addr = 10'h101;
     @(posedge clk);
+    @(posedge clk);
     `ASSERT(read_data === 8'h51);
 
     addr = 10'h102;
+    @(posedge clk);
     @(posedge clk);
     `ASSERT(read_data === 8'h52);
 
@@ -152,6 +155,7 @@ module sram_controller_tb;
 
     // go back to reading
     req = 1;
+    @(posedge clk);
     @(posedge clk);
     `ASSERT(read_data === 8'h53);
 

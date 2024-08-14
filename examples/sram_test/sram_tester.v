@@ -65,6 +65,7 @@ module sram_tester #(
   wire addr_done;
 
   reg last_write;
+  reg last_read;
 
   // Pattern generator signals
   wire pattern_reset;
@@ -107,7 +108,8 @@ module sram_tester #(
     START = 3'b000,
     WRITING = 3'b001,
     WRITE_HOLD = 3'b010,
-    READING = 3'b100,
+    READING = 3'b011,
+    READ_HOLD = 3'b100,
     NEXT_PATTERN = 3'b101,
     DONE = 3'b110,
     HALT = 3'b111;
@@ -159,6 +161,13 @@ module sram_tester #(
         end
 
         READING: begin
+          last_read <= addr_done;
+          addr_reset <= 1'b0;
+          addr_next <= 1'b0;
+          state <= READ_HOLD;
+        end
+
+        READ_HOLD: begin
           prev_read_data <= read_data;
           prev_expected_data <= pattern;
 
@@ -167,7 +176,7 @@ module sram_tester #(
             test_pass <= 1'b0;
             state <= HALT;
           end else begin
-            if (addr_done) begin
+            if (last_read) begin
               addr_reset <= 1'b1;
               addr_next <= 1'b0;
               state <= NEXT_PATTERN;
