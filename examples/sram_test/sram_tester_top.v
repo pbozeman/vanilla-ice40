@@ -48,22 +48,12 @@ module sram_tester_top #(
   wire [DATA_BITS-1:0] prev_expected_data;
   wire [DATA_BITS-1:0] prev_read_data;
 
-  wire clk;
-  wire pll_clk;
-
-  vga_pll pll (
-      .clk_i(CLK),
-      .clk_o(pll_clk)
-  );
-
-  assign clk = pll_clk;
-
   sram_tester #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) tester (
       // main signals
-      .clk(clk),
+      .clk(CLK),
       .reset(reset),
       .test_done(test_done),
       .test_pass(test_pass),
@@ -115,7 +105,7 @@ module sram_tester_top #(
   );
 
   // 10 clock reset
-  always @(posedge clk) begin
+  always @(posedge CLK) begin
     if (reset_counter < 4'd10) begin
       reset_counter <= reset_counter + 1;
       reset <= 1;
