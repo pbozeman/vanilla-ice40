@@ -19,11 +19,9 @@ TOP_DIRS := $(filter-out $(TEST_DIR)/, $(DIRS))
 # Top modules
 TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.v))
 
-$(info Before filtering: $(TOP_MODULES))
 ifneq ($(DEVICE),hx8k)
   TOP_MODULES := $(filter-out %left_top.v %both_top.v, $(TOP_MODULES))
 endif
-$(info After filtering: $(TOP_MODULES))
 
 # Test benches
 TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
