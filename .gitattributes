@@ -1,0 +1,4 @@
+examples/** linguist-documentation=false
+*.v linguist-language=verilog
+
+pcb/models/** linguist-vendored
