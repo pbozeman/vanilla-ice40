@@ -22,11 +22,6 @@
 
 - add mounting holes
 
-### tri sram
-
-- the vga addr buffer likely doesn't need a latch and we
-  might be able to drop to just a buffer
-
 ## RTL
 
 ### Project structure
@@ -42,13 +37,6 @@
 
 - make sure all components have a reset_i
 - create reset component and use in top modules
-- redo nets without mirroring
-- standardize wave output names
-
-### sram
-
-- the sram tester is a total mess.. clean it up. I just kept beating on output
-  from Claude.ai. I likely would have been better at just doing this myself.
 
 ### uart
 
