@@ -170,7 +170,7 @@ $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
 	@$(VVP) $^
 
 define run_test
-	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "$1" >> $(BUILD_DIR)/tb_failure.log
+	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "make $(notdir $1)" >> $(BUILD_DIR)/tb_failure.log
 endef
 
 # General rule for running each test bench
