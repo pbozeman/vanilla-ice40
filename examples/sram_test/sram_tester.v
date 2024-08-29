@@ -36,7 +36,7 @@ module sram_tester #(
     output wire ce_n
 );
 
-  wire req;
+  reg  req = 0;
   wire ready;
 
   // Sram controller
@@ -69,7 +69,7 @@ module sram_tester #(
 
   // Pattern generator signals
   wire pattern_reset;
-  wire pattern_next;
+  reg pattern_next;
   wire pattern_done;
   wire [DATA_BITS-1:0] pattern;
   reg [DATA_BITS-1:0] pattern_custom;
@@ -98,7 +98,7 @@ module sram_tester #(
   );
 
   always @(posedge clk) begin
-    if (state == WRITE_HOLD || state == READING) begin
+    if (state == WRITE_HOLD || state == READ_HOLD) begin
       pattern_custom <= addr;
     end
   end
@@ -110,7 +110,6 @@ module sram_tester #(
     WRITE_HOLD = 3'b010,
     READING = 3'b011,
     READ_HOLD = 3'b100,
-    NEXT_PATTERN = 3'b101,
     DONE = 3'b110,
     HALT = 3'b111;
 
@@ -118,7 +117,6 @@ module sram_tester #(
 
   reg [31:0] count = 0;
 
-  assign req = 1;
   assign write_enable = ((state == START || state == DONE ||
                           state == WRITING || state == WRITE_HOLD)
                           && ~last_write);
@@ -132,9 +130,11 @@ module sram_tester #(
       addr_next <= 1'b0;
       last_write <= 1'b0;
     end else begin
+      pattern_next <= 1'b0;
 
       case (state)
         START: begin
+          req <= 1'b1;
           addr_reset <= 1'b0;
           test_done <= 1'b0;
           last_write <= 1'b0;
@@ -144,18 +144,18 @@ module sram_tester #(
         WRITING: begin
           last_write <= addr_done;
           addr_reset <= 1'b0;
-          addr_next <= 1'b0;
+          addr_next <= 1'b1;
           state <= WRITE_HOLD;
         end
 
         WRITE_HOLD: begin
+          addr_next <= 1'b0;
           if (last_write) begin
             // start over and read data back
             last_write <= 1'b0;
             addr_reset <= 1'b1;
             state <= READING;
           end else begin
-            addr_next <= 1'b1;
             state <= WRITING;
           end
         end
@@ -163,7 +163,7 @@ module sram_tester #(
         READING: begin
           last_read <= addr_done;
           addr_reset <= 1'b0;
-          addr_next <= 1'b0;
+          addr_next <= 1'b1;
           state <= READ_HOLD;
         end
 
@@ -177,23 +177,20 @@ module sram_tester #(
             state <= HALT;
           end else begin
             if (last_read) begin
-              addr_reset <= 1'b1;
               addr_next <= 1'b0;
-              state <= NEXT_PATTERN;
+              if (pattern_done) begin
+                state <= DONE;
+              end else begin
+                pattern_next <= 1'b1;
+                addr_reset <= 1'b1;
+                state <= WRITING;
+              end
+
             end else begin
               addr_reset <= 1'b0;
-              addr_next <= 1'b1;
+              addr_next <= 1'b0;
               state <= READING;
             end
-          end
-        end
-
-        NEXT_PATTERN: begin
-          if (pattern_done) begin
-            state <= DONE;
-          end else begin
-            addr_reset <= 1'b0;
-            state <= WRITING;
           end
         end
 
@@ -214,7 +211,6 @@ module sram_tester #(
     end
   end
 
-  assign pattern_next = (state == NEXT_PATTERN);
   assign pattern_reset = (reset || state == DONE);
   assign write_data = pattern;
 

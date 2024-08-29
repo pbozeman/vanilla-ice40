@@ -92,6 +92,7 @@ module sram_controller_tb;
     `ASSERT(data_bus === 8'hA1);
     `ASSERT(oe_n);
     `ASSERT(!we_n);
+
     `ASSERT(!ready);
     @(posedge clk);
     `ASSERT(oe_n);
@@ -102,8 +103,9 @@ module sram_controller_tb;
     write_enable = 0;
     addr = 10'h0AA;
     @(posedge clk);
-    @(posedge clk);
     `ASSERT(~oe_n);
+    @(posedge clk);
+    `ASSERT(oe_n);
     `ASSERT(read_data === 8'hA1);
     `ASSERT(ready);
 
@@ -111,10 +113,7 @@ module sram_controller_tb;
     // Multi write/read
     //
 
-    // Need 1 clock to switch from read to write
     write_enable = 1;
-    @(posedge clk);
-    `ASSERT(oe_n);
 
     // Addr 1
     addr = 10'h101;
@@ -151,7 +150,7 @@ module sram_controller_tb;
     req  = 0;
     addr = 10'h103;
     @(posedge clk);
-    `ASSERT(read_data === 8'bx);
+    `ASSERT(read_data === 8'h52);
 
     // go back to reading
     req = 1;
