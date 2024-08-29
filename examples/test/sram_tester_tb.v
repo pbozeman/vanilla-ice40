@@ -108,6 +108,7 @@ module sram_tester_tb ();
     reset = 0;
 
     wait (done_counter == 2 || timeout_counter == MAX_CYCLES - 1);
+    `ASSERT(done_counter === 2);
 
     $finish;
   end
