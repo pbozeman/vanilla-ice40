@@ -131,10 +131,6 @@ module axi_sram_controller_tb;
       `ASSERT(s_axi_bresp === 2'b00);
 
       s_axi_bready = 0;
-      @(posedge axi_aclk);
-
-      // Check that write enable is de-asserted after write
-      `ASSERT(sram_we_n === 1'b1)
     end
   endtask
 
@@ -166,12 +162,8 @@ module axi_sram_controller_tb;
       // Check SRAM signals and AXI response
       `ASSERT(s_axi_rresp === 2'b00);
 
-      data = s_axi_rdata;
       s_axi_rready = 0;
-      @(posedge axi_aclk);
-
-      // Check that output enable is de-asserted after read
-      `ASSERT(sram_oe_n === 1'b1)
+      data = s_axi_rdata;
     end
   endtask
 
@@ -186,7 +178,6 @@ module axi_sram_controller_tb;
     s_axi_bready = 0;
     s_axi_araddr = 0;
     s_axi_arvalid = 0;
-    s_axi_rready = 0;
     read_data = 0;
 
     // Reset

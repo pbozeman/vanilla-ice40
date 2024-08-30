@@ -48,8 +48,8 @@ module axi_sram_controller #(
 );
 
   // Internal signals
-  reg                       sram_req = 0;
-  reg                       sram_write_enable = 0;
+  wire                      sram_req;
+  wire                      sram_write_enable;
   reg  [AXI_ADDR_WIDTH-1:0] sram_addr_internal = 0;
   reg  [AXI_DATA_WIDTH-1:0] sram_write_data = 0;
   wire [AXI_DATA_WIDTH-1:0] sram_read_data;
@@ -66,22 +66,12 @@ module axi_sram_controller #(
   reg [1:0] axi_state = IDLE;
   reg [1:0] axi_next_state;
 
+  reg sram_req_reg;
+
   // AXI-Lite control signals
-  reg s_axi_awready_reg = 0;
-  reg s_axi_wready_reg = 0;
   reg s_axi_bvalid_reg = 0;
-  reg s_axi_arready_reg = 0;
   reg s_axi_rvalid_reg = 0;
   reg [AXI_DATA_WIDTH-1:0] s_axi_rdata_reg = 0;
-
-  assign s_axi_awready = s_axi_awready_reg;
-  assign s_axi_wready  = s_axi_wready_reg;
-  assign s_axi_bvalid  = s_axi_bvalid_reg;
-  assign s_axi_bresp   = RESP_OK;
-  assign s_axi_arready = s_axi_arready_reg;
-  assign s_axi_rvalid  = s_axi_rvalid_reg;
-  assign s_axi_rdata   = s_axi_rdata_reg;
-  assign s_axi_rresp   = RESP_OK;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -109,10 +99,10 @@ module axi_sram_controller #(
 
     case (axi_state)
       IDLE: begin
-        if (s_axi_arvalid) begin
-          axi_next_state = READ;
-        end else if (s_axi_awvalid && s_axi_wvalid) begin
+        if (s_axi_awvalid && s_axi_wvalid) begin
           axi_next_state = WRITE;
+        end else if (s_axi_arvalid) begin
+          axi_next_state = READ;
         end
       end
       READ: begin
@@ -122,7 +112,11 @@ module axi_sram_controller #(
       end
       WRITE: begin
         if (sram_ready) begin
-          axi_next_state = RESP;
+          if (s_axi_bready) begin
+            axi_next_state = IDLE;
+          end else begin
+            axi_next_state = RESP;
+          end
         end
       end
       RESP: begin
@@ -137,47 +131,33 @@ module axi_sram_controller #(
   always @(posedge axi_aclk or posedge ~axi_aresetn) begin
     if (~axi_aresetn) begin
       axi_state <= IDLE;
-      s_axi_awready_reg <= 0;
-      s_axi_wready_reg <= 0;
       s_axi_bvalid_reg <= 0;
-      s_axi_arready_reg <= 0;
       s_axi_rvalid_reg <= 0;
       s_axi_rdata_reg <= 0;
-      sram_req <= 0;
-      sram_write_enable <= 0;
       sram_addr_internal <= 0;
       sram_write_data <= 0;
     end else begin
       axi_state <= axi_next_state;
+      sram_req_reg <= 1'b0;
 
       case (axi_state)
         IDLE: begin
-          s_axi_awready_reg <= 1;
-          s_axi_wready_reg <= 1;
-          s_axi_arready_reg <= 1;
           s_axi_bvalid_reg <= 0;
           s_axi_rvalid_reg <= 0;
-          sram_req <= 0;
 
           if (s_axi_arvalid) begin
+            sram_req_reg <= 1'b1;
             sram_addr_internal <= s_axi_araddr[AXI_ADDR_WIDTH-1:0];
-            sram_write_enable <= 0;
-            sram_req <= 1;
-            s_axi_arready_reg <= 0;
           end else if (s_axi_awvalid && s_axi_wvalid) begin
+            sram_req_reg <= 1'b1;
             sram_addr_internal <= s_axi_awaddr[AXI_ADDR_WIDTH-1:0];
             sram_write_data <= s_axi_wdata[AXI_DATA_WIDTH-1:0];
-            sram_write_enable <= 1;
-            sram_req <= 1;
-            s_axi_awready_reg <= 0;
-            s_axi_wready_reg <= 0;
           end
         end
         READ: begin
           if (sram_ready) begin
-            s_axi_rdata_reg <= {{(AXI_DATA_WIDTH - AXI_DATA_WIDTH) {1'b0}}, sram_read_data};
+            s_axi_rdata_reg  <= {{(AXI_DATA_WIDTH - AXI_DATA_WIDTH) {1'b0}}, sram_read_data};
             s_axi_rvalid_reg <= 1;
-            sram_req <= 0;
           end
           if (s_axi_rready && s_axi_rvalid_reg) begin
             s_axi_rvalid_reg <= 0;
@@ -185,7 +165,6 @@ module axi_sram_controller #(
         end
         WRITE: begin
           if (sram_ready) begin
-            sram_req <= 0;
             s_axi_bvalid_reg <= 1;
           end
         end
@@ -197,6 +176,21 @@ module axi_sram_controller #(
       endcase
     end
   end
+
+  // read channel
+  assign s_axi_arready = sram_ready;
+  assign s_axi_rvalid = s_axi_rvalid_reg;
+  assign s_axi_rdata = s_axi_rdata_reg;
+  assign s_axi_rresp = RESP_OK;
+
+  // write channel
+  assign s_axi_awready = sram_ready;
+  assign s_axi_wready = sram_ready;
+  assign s_axi_bvalid = s_axi_bvalid_reg;
+  assign s_axi_bresp = RESP_OK;
+
+  assign sram_req = sram_req_reg;
+  assign sram_write_enable = (axi_next_state == WRITE || axi_state == WRITE);
 
 endmodule
 
