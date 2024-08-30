@@ -126,8 +126,6 @@ module axi_sram_controller_tb;
 
       // Wait for write response
       while (!s_axi_bvalid) @(posedge axi_aclk);
-
-      // Check SRAM signals and AXI response
       `ASSERT(s_axi_bresp === 2'b00);
 
       s_axi_bready = 0;
@@ -158,8 +156,6 @@ module axi_sram_controller_tb;
 
       // Wait for read data
       while (!s_axi_rvalid) @(posedge axi_aclk);
-
-      // Check SRAM signals and AXI response
       `ASSERT(s_axi_rresp === 2'b00);
 
       s_axi_rready = 0;
