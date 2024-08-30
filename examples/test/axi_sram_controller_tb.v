@@ -16,7 +16,7 @@ module axi_sram_controller_tb;
 
   // AXI-Lite Write Data Channel
   reg  [AXI_DATA_WIDTH-1:0] s_axi_wdata;
-  reg  [               3:0] s_axi_wstrb;
+  reg                       s_axi_wstrb;
   reg                       s_axi_wvalid;
   wire                      s_axi_wready;
 
@@ -89,6 +89,8 @@ module axi_sram_controller_tb;
       .data_io(sram_data)
   );
 
+  reg [8:0] test_line;
+
   // Clock generation
   initial begin
     axi_aclk = 0;
@@ -97,48 +99,150 @@ module axi_sram_controller_tb;
 
   `TEST_SETUP(axi_sram_controller_tb);
 
-
   task reset;
     begin
-      s_axi_awaddr = 0;
-      s_axi_awvalid = 0;
-      s_axi_wdata = 0;
-      s_axi_wstrb = 0;
-      s_axi_wvalid = 0;
-      s_axi_bready = 0;
-      s_axi_araddr = 0;
-      s_axi_arvalid = 0;
-      read_data = 0;
+      s_axi_awaddr = 1'b0;
+      s_axi_awvalid = 1'b0;
+      s_axi_wdata = 1'b0;
+      s_axi_wstrb = 1'b0;
+      s_axi_wvalid = 1'b0;
+      s_axi_bready = 1'b0;
+      s_axi_araddr = 1'b0;
+      s_axi_arvalid = 1'b0;
+      read_data = 1'b0;
 
-      axi_aresetn = 0;
+      axi_aresetn = 1'b0;
       @(posedge axi_aclk);
 
-      axi_aresetn = 1;
+      axi_aresetn = 1'b1;
       @(posedge axi_aclk);
     end
   endtask
 
   task test_waddr_only;
     begin
+      test_line = `__LINE__;
       reset();
 
-      s_axi_awaddr  = 8'hA1;
-      s_axi_awvalid = 1;
+      s_axi_awaddr  = 10'hA0;
+      s_axi_awvalid = 1'b1;
 
       // waddr should not go ready because the controller can't accept
       // another waddr until it receives a matching wdata.
       //
       // clock a few times for good measure
       repeat (10) begin
-        `ASSERT(s_axi_awready === 1'b0);
         @(posedge axi_aclk);
+        `ASSERT(s_axi_awready === 1'b0);
       end
+    end
+  endtask
+
+  task test_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      s_axi_awaddr  = 10'hB0;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h10;
+      s_axi_wvalid  = 1'b1;
+      s_axi_bready  = 1'b1;
+      @(posedge axi_aclk);
+
+      // We have to test the signals together because they can happen in the
+      // same clock (and with the current implementation, they do.)
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+
+      // Our response should always be available
+      `ASSERT(s_axi_bvalid === 1'b1);
+
+      // And should always be valid
+      `ASSERT(s_axi_bresp === 2'b00);
+
+      s_axi_awvalid = 1'b0;
+      s_axi_wvalid  = 1'b0;
+    end
+  endtask
+
+  task test_write_delay_resp;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      s_axi_awaddr  = 10'hC0;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h20;
+      s_axi_wvalid  = 1'b1;
+      s_axi_bready  = 1'b0;
+      @(posedge axi_aclk);
+
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+
+      s_axi_awvalid = 1'b0;
+      s_axi_wvalid  = 1'b0;
+
+      // Our response should not be available
+      `ASSERT(s_axi_bvalid === 1'b0);
+      `ASSERT(s_axi_bresp !== 2'b00);
+
+      // It should not be possible to write again because
+      // we are blocked on the response
+      s_axi_awaddr  = 10'hC1;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h21;
+      s_axi_wvalid  = 1'b1;
+
+      // Make sure a write can't start while blocked
+      repeat (10) begin
+        @(posedge axi_aclk);
+        `ASSERT(s_axi_awready === 1'b0);
+      end
+
+      // Accept the response
+      s_axi_bready = 1'b1;
+      @(posedge axi_aclk);
+
+      `ASSERT(s_axi_bvalid === 1'b1);
+      `ASSERT(s_axi_bresp === 2'b00);
+    end
+  endtask
+
+
+  task test_multi_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      s_axi_awaddr  = 10'hD0;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h30;
+      s_axi_wvalid  = 1'b1;
+      s_axi_bready  = 1'b1;
+      @(posedge axi_aclk);
+
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+      `ASSERT(s_axi_bvalid === 1'b1);
+      `ASSERT(s_axi_bresp === 2'b00);
+
+      s_axi_awaddr  = 10'hD1;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h31;
+      s_axi_wvalid  = 1'b1;
+      @(posedge axi_aclk);
+
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+      `ASSERT(s_axi_bvalid === 1'b1);
+      `ASSERT(s_axi_bresp === 2'b00);
     end
   endtask
 
   // Test sequence
   initial begin
     test_waddr_only();
+    test_write();
+    test_write_delay_resp();
+    test_multi_write();
 
     $finish;
   end
