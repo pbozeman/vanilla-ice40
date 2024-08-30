@@ -61,6 +61,8 @@ module axi_sram_controller #(
   localparam WRITE = 2'd2;
   localparam RESP = 2'd3;
 
+  localparam RESP_OK = 2'b00;
+
   reg [1:0] axi_state = IDLE;
   reg [1:0] axi_next_state;
 
@@ -75,11 +77,11 @@ module axi_sram_controller #(
   assign s_axi_awready = s_axi_awready_reg;
   assign s_axi_wready  = s_axi_wready_reg;
   assign s_axi_bvalid  = s_axi_bvalid_reg;
-  assign s_axi_bresp   = 2'b00;  // OKAY response
+  assign s_axi_bresp   = RESP_OK;
   assign s_axi_arready = s_axi_arready_reg;
   assign s_axi_rvalid  = s_axi_rvalid_reg;
   assign s_axi_rdata   = s_axi_rdata_reg;
-  assign s_axi_rresp   = 2'b00;  // OKAY response
+  assign s_axi_rresp   = RESP_OK;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -104,6 +106,7 @@ module axi_sram_controller #(
   // AXI-Lite state machine
   always @(*) begin
     axi_next_state = axi_state;
+
     case (axi_state)
       IDLE: begin
         if (s_axi_arvalid) begin
