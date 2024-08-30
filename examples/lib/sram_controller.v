@@ -15,7 +15,7 @@ module sram_controller #(
     input wire req,
 
     // the controller/sram is ready to take a request
-    output reg ready,
+    output wire ready,
 
     input  wire                 write_enable,
     input  wire [ADDR_BITS-1:0] addr,
@@ -57,7 +57,8 @@ module sram_controller #(
   reg [2:0] next_state;
   reg next_oe_n;
   reg next_we_n;
-  reg next_ready;
+
+  reg ready_reg;
 
   reg [DATA_BITS-1:0] write_data_reg = 0;
 
@@ -72,13 +73,12 @@ module sram_controller #(
     next_state = state;
     next_oe_n  = 1'b1;
     next_we_n  = 1'b1;
-    next_ready = 1'b0;
+    ready_reg  = 1'b1;
 
     case (state)
       IDLE: begin
         if (req) begin
-          next_ready = 1'b1;
-
+          ready_reg = 1'b0;
           if (!write_enable) begin
             next_state = READING;
             next_oe_n  = 1'b0;
@@ -112,7 +112,6 @@ module sram_controller #(
       state <= IDLE;
     end else begin
       state <= next_state;
-      ready <= next_ready;
     end
   end
 
@@ -129,6 +128,8 @@ module sram_controller #(
       oe_n <= next_oe_n;
     end
   end
+
+  assign ready = ready_reg;
 
 endmodule
 

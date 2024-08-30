@@ -77,6 +77,7 @@ module sram_controller_tb;
 
     `ASSERT(ready);
     `ASSERT(oe_n);
+    `ASSERT(we_n);
 
     //
     // Single read/write
@@ -84,25 +85,27 @@ module sram_controller_tb;
 
     // Write
     write_enable = 1;
+
     req = 1'b1;
     addr = 10'h0AA;
     write_data = 8'hA1;
     @(posedge clk);
+    `ASSERT(!ready);
     `ASSERT(addr_bus === 10'h0AA);
     `ASSERT(data_bus === 8'hA1);
     `ASSERT(oe_n);
     `ASSERT(!we_n);
 
-    `ASSERT(!ready);
     @(posedge clk);
+    `ASSERT(ready);
     `ASSERT(oe_n);
     `ASSERT(we_n);
-    `ASSERT(ready);
 
     // Read
     write_enable = 0;
     addr = 10'h0AA;
     @(posedge clk);
+    `ASSERT(!ready);
     `ASSERT(~oe_n);
     @(posedge clk);
     `ASSERT(oe_n);
