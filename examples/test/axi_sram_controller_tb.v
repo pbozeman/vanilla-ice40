@@ -317,6 +317,93 @@ module axi_sram_controller_tb;
   endtask
 
 
+  task test_read_delay_resp;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      axi_write(10'hF0, 8'h60);
+
+      // setup the read
+      s_axi_araddr  = 10'hF0;
+      s_axi_arvalid = 1'b1;
+      s_axi_rready  = 1'b0;
+
+      // clock the input
+      @(posedge axi_aclk);
+
+      `WAIT_FOR_SIGNAL(s_axi_arready);
+
+      // disable new read
+      s_axi_arvalid = 1'b0;
+
+      // validate data
+      `ASSERT(s_axi_rdata === 8'h60);
+
+      // Our response should not be available
+      `ASSERT(s_axi_rvalid === 1'b0);
+      `ASSERT(s_axi_rresp === 2'bxx);
+
+      // It should not be possible to read again because
+      // we are blocked on a response
+      s_axi_araddr  = 10'hF0;
+      s_axi_arvalid = 1'b1;
+
+      // Make sure a read can't start a while blocked
+      repeat (10) begin
+        @(posedge axi_aclk);
+        `ASSERT(s_axi_arready === 1'b0);
+      end
+
+      // Similarly, we should not be able to write
+      s_axi_awaddr  = 10'hF1;
+      s_axi_awvalid = 1'b1;
+      s_axi_wdata   = 8'h61;
+      s_axi_wvalid  = 1'b1;
+      s_axi_bready  = 1'b1;
+
+      // Make sure a write can't start while blocked
+      repeat (10) begin
+        @(posedge axi_aclk);
+        `ASSERT(s_axi_awready === 1'b0);
+      end
+
+      // Accept the response
+      s_axi_rready = 1'b1;
+      @(posedge axi_aclk);
+
+      `ASSERT(s_axi_rvalid === 1'b1);
+      `ASSERT(s_axi_rresp === 2'b00);
+
+      // allow it to go to the next txn
+      @(posedge axi_aclk);
+
+      // Even though the read was issued first, writes have priority
+      // and we need to clear it first.
+      //
+      // This is an implementation detail that is annoying to have
+      // baked in as an assumption in this test. A real axi
+      // master should have always blocks running concurrently
+      // so that the valid lines are lowered when ready goes high.
+      // In such an implementation the master would not have to worry
+      // about what order they are waiting, but since we are doing
+      // timed loops and asserts in the tests, we do.
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+
+      // disable more writes
+      s_axi_awvalid = 1'b0;
+      s_axi_wvalid  = 1'b0;
+
+      // Then the read should clear
+      `WAIT_FOR_SIGNAL(s_axi_rvalid);
+
+      // validate the write went through (and that we can read
+      // after all these shenanigans)
+      axi_read_expected(10'hF1, 8'h61);
+    end
+  endtask
+
+
   // Test sequence
   initial begin
     test_waddr_only();
@@ -327,6 +414,7 @@ module axi_sram_controller_tb;
     test_read_write();
     test_read_write_multi();
     test_read_write_interleved();
+    test_read_delay_resp();
 
     $finish;
   end
