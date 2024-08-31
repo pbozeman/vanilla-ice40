@@ -99,6 +99,7 @@ module axi_sram_controller_tb;
 
   `TEST_SETUP(axi_sram_controller_tb);
 
+
   task reset;
     begin
       s_axi_awaddr = 1'b0;
@@ -118,6 +119,7 @@ module axi_sram_controller_tb;
       @(posedge axi_aclk);
     end
   endtask
+
 
   task axi_write;
     input [AXI_ADDR_WIDTH-1:0] addr;
@@ -150,6 +152,7 @@ module axi_sram_controller_tb;
     end
   endtask
 
+
   task axi_read_expected;
     input [AXI_ADDR_WIDTH-1:0] addr;
     input [AXI_DATA_WIDTH-1:0] data;
@@ -174,6 +177,7 @@ module axi_sram_controller_tb;
     end
   endtask
 
+
   task test_waddr_only;
     begin
       test_line = `__LINE__;
@@ -193,6 +197,7 @@ module axi_sram_controller_tb;
     end
   endtask
 
+
   task test_write;
     begin
       test_line = `__LINE__;
@@ -201,6 +206,7 @@ module axi_sram_controller_tb;
       axi_write(10'hB0, 8'h10);
     end
   endtask
+
 
   task test_write_delay_resp;
     begin
@@ -270,6 +276,47 @@ module axi_sram_controller_tb;
     end
   endtask
 
+
+  task test_read_write_multi;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      axi_write(10'hD0, 8'h50);
+      axi_read_expected(10'hD0, 8'h50);
+
+      axi_write(10'hD1, 8'h51);
+      axi_read_expected(10'hD1, 8'h51);
+
+      axi_write(10'hD2, 8'h52);
+      axi_read_expected(10'hD2, 8'h52);
+    end
+  endtask
+
+
+  task test_read_write_interleved;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      axi_write(10'hE0, 8'h50);
+      axi_write(10'hE1, 8'h51);
+      axi_write(10'hE2, 8'h52);
+
+      axi_read_expected(10'hE0, 8'h50);
+      axi_write(10'hE3, 8'h53);
+      axi_read_expected(10'hE1, 8'h51);
+      axi_write(10'hE4, 8'h54);
+      axi_read_expected(10'hE2, 8'h52);
+      axi_write(10'hE5, 8'h55);
+
+      axi_read_expected(10'hE3, 8'h53);
+      axi_read_expected(10'hE4, 8'h54);
+      axi_read_expected(10'hE5, 8'h55);
+    end
+  endtask
+
+
   // Test sequence
   initial begin
     test_waddr_only();
@@ -278,7 +325,8 @@ module axi_sram_controller_tb;
     test_multi_write();
 
     test_read_write();
-    // TODO: more read tests
+    test_read_write_multi();
+    test_read_write_interleved();
 
     $finish;
   end
