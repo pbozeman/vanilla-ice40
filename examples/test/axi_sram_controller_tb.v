@@ -119,6 +119,61 @@ module axi_sram_controller_tb;
     end
   endtask
 
+  task axi_write;
+    input [AXI_ADDR_WIDTH-1:0] addr;
+    input [AXI_DATA_WIDTH-1:0] data;
+
+    begin
+      // addr
+      s_axi_awaddr  = addr;
+      s_axi_awvalid = 1'b1;
+
+      // data
+      s_axi_wdata   = data;
+      s_axi_wvalid  = 1'b1;
+
+      // resp
+      s_axi_bready  = 1'b1;
+
+      // clock the input
+      @(posedge axi_aclk);
+
+      // We have to test the signals together because they can happen in the
+      // same clock (and with the current implementation, they do.)
+      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+      `ASSERT(s_axi_bvalid === 1'b1);
+      `ASSERT(s_axi_bresp === 2'b00);
+
+      s_axi_awvalid = 1'b0;
+      s_axi_wvalid  = 1'b0;
+      s_axi_bready  = 1'b0;
+    end
+  endtask
+
+  task axi_read_expected;
+    input [AXI_ADDR_WIDTH-1:0] addr;
+    input [AXI_DATA_WIDTH-1:0] data;
+
+    begin
+      // setup the read
+      s_axi_araddr  = addr;
+      s_axi_arvalid = 1'b1;
+      s_axi_rready  = 1'b1;
+
+      // clock the input
+      @(posedge axi_aclk);
+
+      `WAIT_FOR_SIGNAL(s_axi_arready);
+
+      // validate data
+      `ASSERT(s_axi_rdata === data);
+
+      // validate response
+      `ASSERT(s_axi_rvalid === 1'b1);
+      `ASSERT(s_axi_rresp === 2'b00);
+    end
+  endtask
+
   task test_waddr_only;
     begin
       test_line = `__LINE__;
@@ -143,25 +198,7 @@ module axi_sram_controller_tb;
       test_line = `__LINE__;
       reset();
 
-      s_axi_awaddr  = 10'hB0;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h10;
-      s_axi_wvalid  = 1'b1;
-      s_axi_bready  = 1'b1;
-      @(posedge axi_aclk);
-
-      // We have to test the signals together because they can happen in the
-      // same clock (and with the current implementation, they do.)
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
-
-      // Our response should always be available
-      `ASSERT(s_axi_bvalid === 1'b1);
-
-      // And should always be valid
-      `ASSERT(s_axi_bresp === 2'b00);
-
-      s_axi_awvalid = 1'b0;
-      s_axi_wvalid  = 1'b0;
+      axi_write(10'hB0, 8'h10);
     end
   endtask
 
@@ -170,6 +207,8 @@ module axi_sram_controller_tb;
       test_line = `__LINE__;
       reset();
 
+      // setup the signals instead of calling axi_write so that we can
+      // control (and test) the response ready
       s_axi_awaddr  = 10'hC0;
       s_axi_awvalid = 1'b1;
       s_axi_wdata   = 8'h20;
@@ -214,26 +253,9 @@ module axi_sram_controller_tb;
       test_line = `__LINE__;
       reset();
 
-      s_axi_awaddr  = 10'hD0;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h30;
-      s_axi_wvalid  = 1'b1;
-      s_axi_bready  = 1'b1;
-      @(posedge axi_aclk);
-
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
-      `ASSERT(s_axi_bvalid === 1'b1);
-      `ASSERT(s_axi_bresp === 2'b00);
-
-      s_axi_awaddr  = 10'hD1;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h31;
-      s_axi_wvalid  = 1'b1;
-      @(posedge axi_aclk);
-
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
-      `ASSERT(s_axi_bvalid === 1'b1);
-      `ASSERT(s_axi_bresp === 2'b00);
+      axi_write(10'hD0, 8'h30);
+      axi_write(10'hD1, 8'h31);
+      axi_write(10'hD2, 8'h32);
     end
   endtask
 
@@ -243,33 +265,8 @@ module axi_sram_controller_tb;
       test_line = `__LINE__;
       reset();
 
-      s_axi_awaddr  = 10'hE0;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h40;
-      s_axi_wvalid  = 1'b1;
-      s_axi_bready  = 1'b1;
-      @(posedge axi_aclk);
-
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
-      `ASSERT(s_axi_bvalid === 1'b1);
-      `ASSERT(s_axi_bresp === 2'b00);
-      s_axi_awvalid = 1'b0;
-      s_axi_wvalid  = 1'b0;
-
-      // setup the read
-      s_axi_araddr  = 10'hE0;
-      s_axi_arvalid = 1'b1;
-      s_axi_rready  = 1'b1;
-      @(posedge axi_aclk);
-
-      `WAIT_FOR_SIGNAL(s_axi_arready);
-
-      // validate data
-      `ASSERT(s_axi_rdata === 8'h40);
-
-      // validate response
-      `ASSERT(s_axi_rvalid === 1'b1);
-      `ASSERT(s_axi_rresp === 2'b00);
+      axi_write(10'hE0, 8'h40);
+      axi_read_expected(10'hE0, 8'h40);
     end
   endtask
 
