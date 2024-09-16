@@ -418,7 +418,7 @@
       "pin_to_pin": "error",
       "power_pin_not_driven": "error",
       "similar_labels": "warning",
-      "simulation_model_issue": "warning",
+      "simulation_model_issue": "ignore",
       "unannotated": "error",
       "unit_value_mismatch": "error",
       "unresolved_variable": "error",
@@ -599,7 +599,7 @@
     ],
     [
       "72f7b3b0-9aad-456f-b2b7-645b743c86eb",
-      "xy_diff_pairs"
+      "adc"
     ]
   ],
   "text_variables": {}
