@@ -11,6 +11,7 @@
 - bump font sizes
 - remove 3v3 and 1v2 voltage breakouts
 - consider signal only option to use ice boards together
+- should OE enable on the oscillator use a 1K+ resistor instead of 0R?
 
 ### PMOD board
 
