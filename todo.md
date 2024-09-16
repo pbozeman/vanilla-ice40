@@ -2,6 +2,10 @@
 
 ## PCB
 
+### All
+
+- review FB specs
+
 ### Main board
 
 - lcsc green led is a bit dim
