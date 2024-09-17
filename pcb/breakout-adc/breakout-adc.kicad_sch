@@ -11296,7 +11296,7 @@
 	(text_box "Comments:\n\nX is +/- 8Vpp\nY is +/- 6Vpp\n\nR/G/B are 3bit color. 1.0 is black, 3.5V is on.\n\nThe resistors for RGB input are to limit current in the event of consistent 3.6V overshoot as these go directly to the FPGA.\n\nThe RGB resistors arealso part of the low pass filter, with the cap by the b2b connector. (This filter will be moved right by the FGPA in a final production/non-modular build)"
 		(exclude_from_sim no)
 		(at 190.5 130.81 0)
-		(size 120.65 125.73)
+		(size 118.11 124.46)
 		(stroke
 			(width 0)
 			(type default)
