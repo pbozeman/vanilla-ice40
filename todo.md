@@ -18,6 +18,10 @@
 - consider signal only option to use ice boards together
 - should OE enable on the oscillator use a 1K+ resistor instead of 0R?
 
+### ADC board
+
+- add zone fill keepouts under Rg, Rf, and Op amps per the data sheet
+
 ### PMOD board
 
 - make font bigger
