@@ -5,6 +5,7 @@
 ### All
 
 - review FB specs
+- review b2b footprints and polarity
 
 ### Main board
 
