@@ -21,6 +21,7 @@
 ### ADC board
 
 - add zone fill keepouts under Rg, Rf, and Op amps per the data sheet
+- check resistor array footprint pad sizes
 
 ### PMOD board
 
