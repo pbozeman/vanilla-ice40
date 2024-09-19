@@ -39,6 +39,9 @@ components on the bottom of the board. Note: the reference
 design has the feedback network on the opposite side of the
 chip as well.
 
+Note: there is a power trace run under Rf, that goes under a large
+percentage of the pad, but there is in the reference layout also.
+
 ## ADC
 
 [ADC10DL065 data sheet](https://www.ti.com/lit/ds/symlink/adc10dl065.pdf)
