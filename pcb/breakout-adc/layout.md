@@ -4,6 +4,11 @@
 
 [ADC10DL065 data sheet](https://www.ti.com/lit/ds/symlink/adc10dl065.pdf)
 
+### V reference pins
+
+VRPA/B, VRMA/B, VMRNA/B should all share a single ground connection.
+See figure 7 in the data sheet.
+
 ### DRGND
 >
 >The ground return for the data outputs (DR GND) carries the ground current
