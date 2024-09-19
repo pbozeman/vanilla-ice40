@@ -9729,7 +9729,7 @@
 		)
 		(uuid ea0ca5cd-4c0c-4a6c-8fe5-e40480c28cb3)
 	)
-	(text_box "Comments\n\n* ADC uses 2V PP for its differential input. We lower voltages to 1.8VPP in order to not overshoot.\n\n* Target X gain: 1.8V/16V = 0.1125\n* Target Y gain: 1.8V/12V = 0.15\n\nThe cut off frequencies for the filters into and out of the X & Y op amps are slightly different due to the difference in Rg, but it isn't worth additional parts in the BOM to keep them the same. The filters are based on the design of a similar, but obsolete, product, under the assumption that they had good reasons for choosing them."
+	(text_box "Comments\n\n* ADC uses 2V PP for its differential input. We lower voltages to 1.8VPP in order to not overshoot.\n\n* Target X gain: 1.8V/16V = 0.1125\n* Target Y gain: 1.8V/12V = 0.15\n\nThe cut off frequencies for the filters into and out of the X & Y op amps are slightly different due to the difference in Rg, but it isn't worth additional parts in the BOM to keep them the same. The filters are based on the design of a similar, but obsolete, product, under the assumption that they had good reasons for choosing them.\n\nX_P and X_N inputs to the ADC are swapped. This is because the pins swich orders on the ADC (i.e. A is 1=P, 2=N, but for B its 15=P, 16=N). I wanted to keep the op amp circuits symetrical. This likely means that X will be mirrored. It will get unmirrored in the fpga."
 		(exclude_from_sim no)
 		(at 156.21 189.23 0)
 		(size 120.65 74.93)
@@ -10180,7 +10180,7 @@
 		(uuid "2bbe5309-41dc-4148-a25b-6f04588f04ab")
 	)
 	(label "X_N"
-		(at 185.42 121.92 0)
+		(at 185.42 124.46 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10664,7 +10664,7 @@
 		(uuid "a19bbd1f-1947-47e8-bc2f-1469c2a6645f")
 	)
 	(label "X_P"
-		(at 185.42 124.46 0)
+		(at 185.42 121.92 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -18826,72 +18826,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+3V3")
-		(at 180.34 161.29 0)
-		(mirror y)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "9963bef1-5d36-4ccd-af1e-75638664dafe")
-		(property "Reference" "#PWR010"
-			(at 180.34 165.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+3V3"
-			(at 180.34 156.21 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 180.34 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 180.34 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 180.34 161.29 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b00c86c8-70d9-4b3e-bb83-db60c523e19f")
-		)
-		(instances
-			(project "breakout-adc"
-				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
-					(reference "#PWR010")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:R_Pack04")
 		(at 260.35 134.62 270)
 		(unit 1)
@@ -20497,7 +20431,8 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x02_Counter_Clockwise")
-		(at 80.01 226.06 0)
+		(at 80.01 228.6 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
@@ -20505,7 +20440,7 @@
 		(dnp no)
 		(uuid "afdeaf1f-55bd-49d0-8a42-06175c71f83c")
 		(property "Reference" "J20"
-			(at 81.28 223.266 0)
+			(at 81.28 223.012 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20513,7 +20448,7 @@
 			)
 		)
 		(property "Value" "Conn_02x02_Counter_Clockwise"
-			(at 81.28 222.25 0)
+			(at 81.28 232.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20522,7 +20457,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x02_P2.54mm_Vertical"
-			(at 80.01 226.06 0)
+			(at 80.01 228.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20531,7 +20466,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 80.01 226.06 0)
+			(at 80.01 228.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -20540,7 +20475,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x02, counter clockwise pin numbering scheme (similar to DIP package numbering), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 80.01 226.06 0)
+			(at 80.01 228.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -21717,6 +21652,72 @@
 			(project "breakout-adc"
 				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
 					(reference "C31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3VA")
+		(at 180.34 161.29 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ca8ea0d2-92fe-41ef-a46a-1884bd495a29")
+		(property "Reference" "#PWR010"
+			(at 180.34 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3ADC"
+			(at 180.34 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 180.34 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 180.34 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3.3VA\""
+			(at 180.34 161.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "15ee7cdb-c9b8-4f18-af1f-3f48403f3e1d")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
+					(reference "#PWR010")
 					(unit 1)
 				)
 			)

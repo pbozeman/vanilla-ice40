@@ -9412,10 +9412,10 @@
 		(uuid "2cf86ee4-b0e9-49e5-975c-603f1641c008")
 	)
 	(junction
-		(at 45.72 53.34)
+		(at 93.98 48.26)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "3384a8c8-a7a5-43e5-b722-605b38424f6b")
+		(uuid "3bbdc6f9-e430-4293-af49-d60bf5b39d86")
 	)
 	(junction
 		(at 45.72 92.71)
@@ -9430,22 +9430,10 @@
 		(uuid "69eda150-d393-42fe-b467-9240d6d93d61")
 	)
 	(junction
-		(at 90.17 45.72)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "79e6ffa6-db17-482a-85ee-722fae4e72c7")
-	)
-	(junction
 		(at 45.72 97.79)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "8df28dc6-fac3-44bb-baf7-cf75101b1c10")
-	)
-	(junction
-		(at 93.98 48.26)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "933ecd06-f7ba-4dc1-810d-acec690e6c60")
 	)
 	(junction
 		(at 88.9 93.98)
@@ -9458,6 +9446,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b3e6773d-474a-4cd2-bdf7-1c34da6275fd")
+	)
+	(junction
+		(at 90.17 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b4d40f72-2777-4cf5-b7a0-a6c2d4675bf7")
 	)
 	(junction
 		(at 96.52 99.06)
@@ -9482,6 +9476,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "e8293073-3d50-4bdb-9965-f7df9ea71382")
+	)
+	(junction
+		(at 45.72 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ffc3f348-2198-4e65-bab9-8075e70cdac4")
 	)
 	(no_connect
 		(at 52.07 177.8)
@@ -9859,16 +9859,6 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 50.8) (xy 45.72 53.34)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "10d1ae61-64e4-4ff4-945b-8121bdd55779")
-	)
-	(wire
-		(pts
 			(xy 129.54 205.74) (xy 123.19 205.74)
 		)
 		(stroke
@@ -9889,7 +9879,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 53.34) (xy 45.72 53.34)
+			(xy 41.91 50.8) (xy 45.72 50.8)
 		)
 		(stroke
 			(width 0)
@@ -10049,7 +10039,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 53.34) (xy 45.72 59.69)
+			(xy 45.72 50.8) (xy 45.72 57.15)
 		)
 		(stroke
 			(width 0)
@@ -10126,16 +10116,6 @@
 			(type default)
 		)
 		(uuid "3be6e2d9-ee01-4e45-b929-b5127b6b4575")
-	)
-	(wire
-		(pts
-			(xy 41.91 48.26) (xy 93.98 48.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3fe03348-f98b-4014-a59d-71d6616a5fd5")
 	)
 	(wire
 		(pts
@@ -10239,6 +10219,16 @@
 	)
 	(wire
 		(pts
+			(xy 41.91 48.26) (xy 93.98 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "482f6485-85f0-4857-94e3-bea79283a586")
+	)
+	(wire
+		(pts
 			(xy 127 241.3) (xy 127 243.84)
 		)
 		(stroke
@@ -10246,16 +10236,6 @@
 			(type default)
 		)
 		(uuid "4a37691e-3cc6-4d61-9933-8bf22ea5de74")
-	)
-	(wire
-		(pts
-			(xy 41.91 50.8) (xy 45.72 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4a9858ae-7528-4195-b08d-5300e219000f")
 	)
 	(wire
 		(pts
@@ -10779,16 +10759,6 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 45.72) (xy 90.17 45.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8cd73fb2-afc9-42f6-9212-94ea89094251")
-	)
-	(wire
-		(pts
 			(xy 229.87 69.85) (xy 248.92 69.85)
 		)
 		(stroke
@@ -10986,6 +10956,16 @@
 			(type default)
 		)
 		(uuid "aa2b1e71-08fa-495f-aaa0-ab8e4f99f73c")
+	)
+	(wire
+		(pts
+			(xy 41.91 45.72) (xy 90.17 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abe0514b-dc96-4389-aa06-00ae39a13498")
 	)
 	(wire
 		(pts
@@ -11229,6 +11209,16 @@
 	)
 	(wire
 		(pts
+			(xy 45.72 43.18) (xy 45.72 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d61558c8-c062-4bca-baef-4fb8cfc20f2c")
+	)
+	(wire
+		(pts
 			(xy 293.37 60.96) (xy 288.29 60.96)
 		)
 		(stroke
@@ -11306,6 +11296,16 @@
 			(type default)
 		)
 		(uuid "df7261e0-c161-4bb1-a397-a22c0dd01472")
+	)
+	(wire
+		(pts
+			(xy 41.91 43.18) (xy 45.72 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e09cb720-1596-40a7-9b27-109cab2d24f4")
 	)
 	(wire
 		(pts
@@ -11523,6 +11523,25 @@
 			(justify left top)
 		)
 		(uuid "26ff4dc5-bf86-4fe3-9d48-1d04341b8242")
+	)
+	(text_box "Quesitons:\n\nBecause of it's position on the board, U8 (the ESD protection for X/Y) was referenced to the analog supply. I assume the internal diodes are quite and won't be a source of noise. Is this correct?"
+		(exclude_from_sim no)
+		(at 311.15 130.81 0)
+		(size 97.79 101.6)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "36d8856b-5294-4c78-8ddd-4c3dc36f9adf")
 	)
 	(text "Power Pins"
 		(exclude_from_sim no)
@@ -11886,7 +11905,7 @@
 	)
 	(text "X"
 		(exclude_from_sim no)
-		(at 33.274 48.26 0)
+		(at 33.274 48.514 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -14272,7 +14291,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 45.72 59.69 0)
+		(at 45.72 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -14281,7 +14300,7 @@
 		(fields_autoplaced yes)
 		(uuid "5466b169-04a5-456a-b74d-99efef9e3a87")
 		(property "Reference" "#PWR0107"
-			(at 45.72 66.04 0)
+			(at 45.72 63.5 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14290,7 +14309,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 45.72 64.77 0)
+			(at 45.72 62.23 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14298,7 +14317,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 45.72 59.69 0)
+			(at 45.72 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14307,7 +14326,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.72 59.69 0)
+			(at 45.72 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14316,7 +14335,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 45.72 59.69 0)
+			(at 45.72 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14363,7 +14382,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x12_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical"
 			(at 336.55 68.58 0)
 			(effects
 				(font
@@ -14864,7 +14883,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x12_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical"
 			(at 368.3 68.58 0)
 			(effects
 				(font
@@ -15947,7 +15966,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x04")
-		(at 36.83 48.26 0)
+		(at 36.83 45.72 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -15956,7 +15975,7 @@
 		(dnp no)
 		(uuid "d200eab4-3cf4-46da-8955-6e496974962b")
 		(property "Reference" "J1"
-			(at 36.83 41.91 0)
+			(at 36.83 39.37 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15964,7 +15983,7 @@
 			)
 		)
 		(property "Value" "Screw_Terminal_01x04"
-			(at 36.83 57.15 0)
+			(at 36.83 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15973,7 +15992,7 @@
 			)
 		)
 		(property "Footprint" "Connector_Phoenix_MC:PhoenixContact_MC_1,5_4-G-3.81_1x04_P3.81mm_Horizontal"
-			(at 36.83 48.26 0)
+			(at 36.83 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15982,7 +16001,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 36.83 48.26 0)
+			(at 36.83 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15991,7 +16010,7 @@
 			)
 		)
 		(property "Description" "Generic screw terminal, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 36.83 48.26 0)
+			(at 36.83 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16550,7 +16569,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+3V3"
+		(property "Value" "+3V3A"
 			(at 111.76 34.29 0)
 			(effects
 				(font
