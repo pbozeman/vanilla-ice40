@@ -6,6 +6,7 @@
 
 - review FB specs
 - review b2b footprints and polarity
+- consider redoing the pins on the P b2b connector to match S.
 
 ### Main board
 
