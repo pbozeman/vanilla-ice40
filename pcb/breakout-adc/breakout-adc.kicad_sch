@@ -9406,6 +9406,12 @@
 		(uuid "0b6b8560-6b0f-41e0-8caf-dd7174e8219f")
 	)
 	(junction
+		(at 382.27 90.17)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "299ea5ff-2e99-4bd4-a0fc-dc6091055781")
+	)
+	(junction
 		(at 96.52 99.06)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -9464,6 +9470,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b4d40f72-2777-4cf5-b7a0-a6c2d4675bf7")
+	)
+	(junction
+		(at 382.27 87.63)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "da03c99b-1472-416e-bc02-b2e769f63515")
 	)
 	(junction
 		(at 127 243.84)
@@ -10049,6 +10061,16 @@
 	)
 	(wire
 		(pts
+			(xy 382.27 87.63) (xy 387.35 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "304d45a6-b15c-4ce2-b740-6bb38a9fb9f5")
+	)
+	(wire
+		(pts
 			(xy 129.54 177.8) (xy 123.19 177.8)
 		)
 		(stroke
@@ -10056,6 +10078,16 @@
 			(type default)
 		)
 		(uuid "30a7cfae-1e0b-4b05-9a5e-c12d5a074407")
+	)
+	(wire
+		(pts
+			(xy 382.27 87.63) (xy 382.27 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "329824d6-7dc9-408b-b0ff-893a1263cf26")
 	)
 	(wire
 		(pts
@@ -10799,6 +10831,16 @@
 	)
 	(wire
 		(pts
+			(xy 382.27 90.17) (xy 387.35 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "913626f0-38ef-4646-967a-6c9cbabee73f")
+	)
+	(wire
+		(pts
 			(xy 382.27 58.42) (xy 382.27 60.96)
 		)
 		(stroke
@@ -10956,6 +10998,16 @@
 			(type default)
 		)
 		(uuid "abe0514b-dc96-4389-aa06-00ae39a13498")
+	)
+	(wire
+		(pts
+			(xy 382.27 90.17) (xy 382.27 95.25)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae524969-4150-418c-91ef-b732c7c338cb")
 	)
 	(wire
 		(pts
@@ -11369,6 +11421,16 @@
 	)
 	(wire
 		(pts
+			(xy 382.27 85.09) (xy 387.35 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef470ae9-e7b7-4a73-9428-f90779cfd4f3")
+	)
+	(wire
+		(pts
 			(xy 144.78 157.48) (xy 123.19 157.48)
 		)
 		(stroke
@@ -11426,6 +11488,16 @@
 			(type default)
 		)
 		(uuid "f8b76e8b-81d4-4b3c-8a1b-966e602a65ac")
+	)
+	(wire
+		(pts
+			(xy 382.27 85.09) (xy 382.27 87.63)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8da14e1-c765-4fd5-abba-c3233d664424")
 	)
 	(wire
 		(pts
@@ -11594,6 +11666,16 @@
 			)
 		)
 		(uuid "0cce14ef-dfe2-4e1f-859b-6442f83e0760")
+	)
+	(text "Extra GND Pins"
+		(exclude_from_sim no)
+		(at 389.636 79.756 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0cdfa38f-cafc-4b04-89e1-b5b1b03e88be")
 	)
 	(text "L_03"
 		(exclude_from_sim no)
@@ -14658,6 +14740,72 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 392.43 90.17 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "639349d7-0b30-4eec-b8db-3eb43233bcb9")
+		(property "Reference" "J18"
+			(at 395.224 89.916 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x01_Pin"
+			(at 391.795 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature"
+			(at 392.43 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 392.43 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 392.43 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2f7633c9-bcb2-4b31-b45c-f6fa55d56b1e")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "J18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 76.2 99.06 270)
 		(unit 1)
@@ -14752,6 +14900,72 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 392.43 85.09 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6afe3237-cb39-4477-a0cf-cf0f1e02d9ab")
+		(property "Reference" "J16"
+			(at 395.224 84.836 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x01_Pin"
+			(at 391.795 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature"
+			(at 392.43 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 392.43 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 392.43 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b687efcd-5a15-4b9b-aed9-372f620525b6")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "J16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 111.76 87.63 0)
 		(unit 1)
@@ -14812,6 +15026,73 @@
 			(project "breakout-adc"
 				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
 					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 382.27 95.25 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7b1344d2-1af6-4580-875f-eb241c0430f8")
+		(property "Reference" "#PWR021"
+			(at 382.27 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 382.27 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 382.27 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 382.27 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 382.27 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ad969e34-4c97-4eb9-be31-4fc437534384")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "#PWR021")
 					(unit 1)
 				)
 			)
@@ -15789,6 +16070,72 @@
 			(project "breakout-adc"
 				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
 					(reference "C41")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 392.43 87.63 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b940d38a-4618-4e88-aeb5-d15ac84f96a9")
+		(property "Reference" "J17"
+			(at 395.224 87.376 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Conn_01x01_Pin"
+			(at 391.795 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Keystone_5000-5004_Miniature"
+			(at 392.43 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 392.43 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 392.43 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "371036de-8c69-4466-b957-ae10dfda4eff")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "J17")
 					(unit 1)
 				)
 			)
