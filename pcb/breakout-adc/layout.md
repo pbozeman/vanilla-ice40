@@ -68,6 +68,9 @@ it to the main gnd with something acting as a net-tie?
 >the DR GND pins should NOT be connected to system ground in close proximity
 >to any of the ADC10DL065’s other ground pins.
 
+Confirm this was the correct routing: I ended up running the gnd vias for
+DRGND outside the quiet area.
+
 ### Digital output pins
 >
 >The effects of the noise generated from the ADC output switching can be
