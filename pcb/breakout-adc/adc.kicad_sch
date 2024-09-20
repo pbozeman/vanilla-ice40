@@ -275,7 +275,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS574"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -291,14 +291,6 @@
 						(size 1.27 1.27)
 					)
 					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
 				)
 			)
 			(property "ki_keywords" "TTL REG DFF DFF8 3State"
@@ -728,7 +720,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "ADC10DL065CIVS/NOPB"
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/adc10dl065.pdf"
 				(at -1.27 -25.4 0)
 				(effects
 					(font
@@ -17661,7 +17653,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/scas301r/scas301r.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
 			(at 318.77 184.15 0)
 			(effects
 				(font
@@ -18684,7 +18676,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/scas301r/scas301r.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
 			(at 318.77 127 0)
 			(effects
 				(font
@@ -18928,7 +18920,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/scas301r/scas301r.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
 			(at 318.77 68.58 0)
 			(effects
 				(font
@@ -19321,7 +19313,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://support.epson.biz/td/api/doc_check.php?dl=brief_SG-8101CE"
+		(property "Datasheet" "https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8 002DC"
 			(at 44.45 241.3 0)
 			(effects
 				(font
@@ -20619,7 +20611,7 @@
 				)
 			)
 		)
-		(property "Value" "2.4k"
+		(property "Value" "1.8k"
 			(at 68.58 149.86 90)
 			(effects
 				(font

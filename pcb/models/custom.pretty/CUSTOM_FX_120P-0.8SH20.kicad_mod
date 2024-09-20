@@ -1,4 +1,4 @@
-(footprint "CUSTOM_FX_120S-0.8SH20"
+(footprint "CUSTOM_FX_120P-0.8SH20"
 	(version 20240108)
 	(generator "pcbnew")
 	(generator_version "8.0")
@@ -16,7 +16,7 @@
 			)
 		)
 	)
-	(property "Value" "CUSTOM_FX_120S-0.8SH20"
+	(property "Value" "CUSTOM_FX_120P-0.8SH20"
 		(at 0 0 0)
 		(unlocked yes)
 		(layer "F.Fab")
@@ -1054,7 +1054,7 @@
 		(uuid "604f1d6b-5678-46d9-9036-3623300a3c9f")
 	)
 	(pad "121" thru_hole oval
-		(at -28.325 2.4 90)
+		(at -28.325 -2.45 90)
 		(size 1.908 1.608)
 		(drill oval 1.4 1.1)
 		(layers "*.Cu" "*.Mask")
@@ -1062,7 +1062,7 @@
 		(uuid "392a056b-c6f7-45e9-b6d6-44177801ddf3")
 	)
 	(pad "122" thru_hole oval
-		(at -28.325 -2.45 90)
+		(at -28.325 2.4 90)
 		(size 2.608001 1.608)
 		(drill oval 2.1 1.1)
 		(layers "*.Cu" "*.Mask")
@@ -1086,7 +1086,7 @@
 		(uuid "08839b4d-f371-4798-8cc5-d5dce6da6306")
 	)
 	(pad "125" thru_hole oval
-		(at 28.325 2.45 90)
+		(at 28.325 -2.45 90)
 		(size 1.908 1.608)
 		(drill oval 1.4 1.1)
 		(layers "*.Cu" "*.Mask")
@@ -1094,16 +1094,16 @@
 		(uuid "5ac63a25-72a6-4f9e-8408-7110eedecd24")
 	)
 	(pad "126" thru_hole oval
-		(at 28.325 -2.45 90)
+		(at 28.325 2.45 90)
 		(size 2.608001 1.608)
 		(drill oval 2.1 1.1)
 		(layers "*.Cu" "*.Mask")
 		(remove_unused_layers no)
 		(uuid "7e49bb63-e454-4d18-b4b6-6f9ea9dd0dd2")
 	)
-	(model "${KIPRJMOD}/../models/ul_FX18-120S-0-8SV20/FX18-120S-0.8SH.stp"
+	(model "${KIPRJMOD}/../models/ul_FX18-120P-0-8SV20/FX18-120P-0.8SH.stp"
 		(offset
-			(xyz 0.4 -3 3)
+			(xyz 0.4 -16.5 3)
 		)
 		(scale
 			(xyz 1 1 1)
