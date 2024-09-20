@@ -1,0 +1,118 @@
+(footprint "KEYSTONE_5116"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 0.032 -2.2064 0)
+		(layer "F.SilkS")
+		(uuid "2ea31811-9bfa-4353-8aef-3bb81a6050f0")
+		(effects
+			(font
+				(size 0.64 0.64)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "KEYSTONE_5116"
+		(at 3.2832 2.2064 0)
+		(layer "F.Fab")
+		(uuid "fe197232-83b9-4e29-a73a-5338fc342ed6")
+		(effects
+			(font
+				(size 0.64 0.64)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "783e1c57-dd86-47b9-95e3-f66ec3b1852b")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "10ea4b91-523d-46ca-a04b-46b5101716d1")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "0371efa6-c8fe-40fe-a69b-0f3f305b86e4")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr through_hole)
+	(fp_circle
+		(center 0 0)
+		(end 1.27 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "1694c657-7299-4410-be37-b3f786de4fb8")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 1.52 0)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.CrtYd")
+		(uuid "94d44806-5ec7-40ee-9c80-29a03386d8a1")
+	)
+	(fp_circle
+		(center 0 0)
+		(end 1.27 0)
+		(stroke
+			(width 0.127)
+			(type solid)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "cd463411-7722-4776-8d8e-4a625cf8c59f")
+	)
+	(pad "1" thru_hole circle
+		(at 0 0)
+		(size 2 2)
+		(drill 1.02)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(solder_mask_margin 0.102)
+		(uuid "d26e4434-6399-4b2b-b8c5-a36e680a325e")
+	)
+	(model "${KIPRJMOD}/../models/keystone/5116.step"
+		(offset
+			(xyz 0.05 0 1.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 0 0)
+		)
+	)
+)
