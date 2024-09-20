@@ -59,7 +59,6 @@
         }
       ],
       "drc_exclusions": [
-        "lib_footprint_mismatch|68973965|94013534|cbea0662-d1b7-4f5e-a9ab-bdf5796e4f36|00000000-0000-0000-0000-000000000000",
         "text_thickness|95000000|63200000|a7b55b76-ae4d-4639-8ba1-9d97b7b12536|00000000-0000-0000-0000-000000000000"
       ],
       "meta": {
@@ -82,6 +81,7 @@
         "footprint_type_mismatch": "ignore",
         "hole_clearance": "ignore",
         "hole_near_hole": "error",
+        "holes_co_located": "warning",
         "invalid_outline": "error",
         "isolated_copper": "warning",
         "item_on_disabled_layer": "error",
@@ -583,6 +583,7 @@
   },
   "schematic": {
     "annotate_start_num": 0,
+    "bom_export_filename": "",
     "bom_fmt_presets": [],
     "bom_fmt_settings": {
       "field_delimiter": ",",

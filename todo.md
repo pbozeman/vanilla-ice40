@@ -30,9 +30,14 @@
 - move pmods slightly over the edge of the pcb
 - add mounting holes
 
+### Pass through
+
+- update with current board tolerances and sizes (e.g. vias are off)
+
 ### SRAM
 
 - add mounting holes
+- lower pcb fence vias violate drc tolerances
 
 ## RTL
 

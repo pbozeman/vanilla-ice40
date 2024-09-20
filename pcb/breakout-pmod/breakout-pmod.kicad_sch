@@ -457,7 +457,7 @@
 					)
 				)
 			)
-			(property "Footprint" "CONN_120P-0.8SV20"
+			(property "Footprint" "custom:CUSTOM_FX_120S-0.8SH20"
 				(at 0 0 0)
 				(effects
 					(font
@@ -467,7 +467,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "FX18-120P-0.8SV20"
+			(property "Datasheet" "https://www.hirose.com/en/product/document?clcode=CL0579-0020-7-00&productname=FX18-120P-0.8SV&series=FX18&documenttype=2DDrawing&lang=en&documentid=0000920405"
 				(at 0 0 0)
 				(effects
 					(font
@@ -13634,7 +13634,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "FX18-120P-0.8SV20"
+		(property "Datasheet" "https://www.hirose.com/en/product/document?clcode=CL0579-0020-7-00&productname=FX18-120P-0.8SV&series=FX18&documenttype=2DDrawing&lang=en&documentid=0000920405"
 			(at 128.27 90.17 0)
 			(effects
 				(font
@@ -14328,7 +14328,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "FX18-120P-0.8SV20"
+		(property "Datasheet" "https://www.hirose.com/en/product/document?clcode=CL0579-0020-7-00&productname=FX18-120P-0.8SV&series=FX18&documenttype=2DDrawing&lang=en&documentid=0000920405"
 			(at 40.64 90.17 0)
 			(effects
 				(font
@@ -15734,7 +15734,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "FX18-120P-0.8SV20"
+		(property "Datasheet" "https://www.hirose.com/en/product/document?clcode=CL0579-0020-7-00&productname=FX18-120P-0.8SV&series=FX18&documenttype=2DDrawing&lang=en&documentid=0000920405"
 			(at 83.82 90.17 0)
 			(effects
 				(font

@@ -25,7 +25,7 @@
 				)
 			)
 		)
-		(property "Footprint" "CONN_120S-0.8SV20"
+		(property "Footprint" "custom:CUSTOM_FX_120S-0.8SH20"
 			(at 0 0 0)
 			(effects
 				(font
@@ -35,7 +35,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "FX18-120S-0.8SV20"
+		(property "Datasheet" "https://www.hirose.com/en/product/document?clcode=CL0579-0033-9-00&productname=FX18-120S-0.8SV20&series=FX18&documenttype=2DDrawing&lang=en&documentid=0000949622"
 			(at 0 0 0)
 			(effects
 				(font
