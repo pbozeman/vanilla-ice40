@@ -9759,7 +9759,7 @@
 		)
 		(uuid "0d376a62-3a30-4eda-9bee-cc83c436ad26")
 	)
-	(text "1: offset binary w/DCS\n2: offset binary w/o DCS\n3: 2's compliment w/o DCS\n4: 2'compliment w/DCS"
+	(text "7: offset binary w/DCS\n5: offset binary w/o DCS\n3: 2's compliment w/o DCS\n1: 2'compliment w/DCS"
 		(exclude_from_sim no)
 		(at 189.23 177.038 0)
 		(effects
@@ -23437,7 +23437,8 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x04_Odd_Even")
-		(at 170.18 175.26 0)
+		(at 170.18 177.8 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim yes)
 		(in_bom yes)
@@ -23445,7 +23446,7 @@
 		(dnp no)
 		(uuid "f209cead-36dd-4e80-8f0f-11f2eba4414a")
 		(property "Reference" "J21"
-			(at 171.45 169.418 0)
+			(at 171.196 170.18 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23453,7 +23454,7 @@
 			)
 		)
 		(property "Value" "Conn_02x04_Odd_Even"
-			(at 171.45 168.91 0)
+			(at 171.45 184.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23462,7 +23463,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x04_P2.54mm_Vertical"
-			(at 170.18 175.26 0)
+			(at 170.18 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23471,7 +23472,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 170.18 175.26 0)
+			(at 170.18 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23480,7 +23481,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x04, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 170.18 175.26 0)
+			(at 170.18 177.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)

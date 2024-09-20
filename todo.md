@@ -22,7 +22,6 @@
 
 - add zone fill keepouts under Rg, Rf, and Op amps per the data sheet
 - check resistor array footprint pad sizes
-- consider inverting order of df/dcs pins so that pin 1 is on the left
 
 ### PMOD board
 
