@@ -12109,7 +12109,7 @@
 		(uuid "019022c3-0a87-480b-b6c4-9b7238b24ed0")
 	)
 	(label "Y0"
-		(at 346.71 55.88 0)
+		(at 346.71 78.74 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12175,7 +12175,7 @@
 		(uuid "13954e54-3da5-4333-9c1c-fd81f37eba37")
 	)
 	(label "GND"
-		(at 314.96 83.82 0)
+		(at 314.96 81.28 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12186,7 +12186,7 @@
 		(uuid "1463e600-b97f-4c7e-8302-206415ce8102")
 	)
 	(label "Y8"
-		(at 346.71 76.2 0)
+		(at 346.71 55.88 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12252,7 +12252,7 @@
 		(uuid "2b804588-eb6f-4d26-a924-d900dbea8d7d")
 	)
 	(label "Y7"
-		(at 346.71 73.66 0)
+		(at 346.71 63.5 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12274,7 +12274,7 @@
 		(uuid "2e66f6b9-f370-4857-9ec9-90e77e87e68e")
 	)
 	(label "Y3"
-		(at 346.71 63.5 0)
+		(at 346.71 73.66 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12373,7 +12373,7 @@
 		(uuid "446e7532-d781-4a11-adb1-a6fc985619ef")
 	)
 	(label "Y6"
-		(at 346.71 71.12 0)
+		(at 346.71 60.96 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12384,7 +12384,7 @@
 		(uuid "48c7c47c-ead1-45a9-8bb9-e08f750caa8a")
 	)
 	(label "Y9"
-		(at 346.71 78.74 0)
+		(at 346.71 58.42 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12428,7 +12428,7 @@
 		(uuid "56cee250-b0da-415f-b289-2ef49de9625b")
 	)
 	(label "ADC_CLK_HDR"
-		(at 346.71 81.28 0)
+		(at 346.71 83.82 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12549,7 +12549,7 @@
 		(uuid "672e4bc8-234c-4f85-8131-76ca046ddce2")
 	)
 	(label "X1"
-		(at 314.96 58.42 0)
+		(at 314.96 76.2 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12604,7 +12604,7 @@
 		(uuid "71dadfb0-9ae4-482f-97e4-17dbdac405bb")
 	)
 	(label "Y1"
-		(at 346.71 58.42 0)
+		(at 346.71 76.2 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12725,7 +12725,7 @@
 		(uuid "83e60023-6896-460c-905e-54e48e998919")
 	)
 	(label "X8"
-		(at 314.96 76.2 0)
+		(at 314.96 55.88 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12747,7 +12747,7 @@
 		(uuid "90005c0d-1f19-4f07-b3c3-dab474f77ddb")
 	)
 	(label "X0"
-		(at 314.96 55.88 0)
+		(at 314.96 78.74 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12868,7 +12868,7 @@
 		(uuid "b515c5db-dfe7-4662-b223-8ab485becace")
 	)
 	(label "ADC_CLK_HDR"
-		(at 314.96 81.28 0)
+		(at 314.96 83.82 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12879,7 +12879,7 @@
 		(uuid "bb059f87-beee-4be4-9b7c-9669dc7670d3")
 	)
 	(label "X2"
-		(at 314.96 60.96 0)
+		(at 314.96 73.66 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12912,7 +12912,7 @@
 		(uuid "c8d1a901-dd08-4900-883f-5b4929ea0919")
 	)
 	(label "X3"
-		(at 314.96 63.5 0)
+		(at 314.96 71.12 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12956,7 +12956,7 @@
 		(uuid "d1cad63f-074c-4e88-abf8-7ea6654e878d")
 	)
 	(label "GND"
-		(at 346.71 83.82 0)
+		(at 346.71 81.28 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12967,7 +12967,7 @@
 		(uuid "d5dfed47-3064-4ff4-accb-610d82af8f11")
 	)
 	(label "X9"
-		(at 314.96 78.74 0)
+		(at 314.96 58.42 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12978,7 +12978,7 @@
 		(uuid "db606f0e-d03d-4d39-b986-176086205be3")
 	)
 	(label "Y2"
-		(at 346.71 60.96 0)
+		(at 346.71 71.12 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13066,7 +13066,7 @@
 		(uuid "e75976d2-b652-49ff-ab41-3351541cb021")
 	)
 	(label "X7"
-		(at 314.96 73.66 0)
+		(at 314.96 63.5 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13077,7 +13077,7 @@
 		(uuid "ea58d443-cac2-469b-ad80-428b8bd7d1cc")
 	)
 	(label "X6"
-		(at 314.96 71.12 0)
+		(at 314.96 60.96 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
