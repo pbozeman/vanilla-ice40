@@ -4,8 +4,6 @@
 
 ### All
 
-- review FB specs
-- review b2b footprints and polarity
 - consider redoing the pins on the P b2b connector to match S.
 
 ### Main board
@@ -24,6 +22,10 @@
 - check resistor array footprint pad sizes
 - esd diodes are missing a pin 1 silk marker
 - clock fanout and adc have ugly pin 1 markers
+- add fence vias around the edge of the pcb
+- double check return paths on all layer changes
+- re-enable silkscreen warnings and fix
+- figure out the source of the symbol/lib mismatch DRC warning
 
 ### PMOD board
 
