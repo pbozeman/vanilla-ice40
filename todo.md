@@ -20,8 +20,9 @@
 
 ### ADC board
 
-- add zone fill keepouts under Rg, Rf, and Op amps per the data sheet
 - check resistor array footprint pad sizes
+- esd diodes are missing a pin 1 silk marker
+- clock fanout and adc have ugly pin 1 markers
 
 ### PMOD board
 
