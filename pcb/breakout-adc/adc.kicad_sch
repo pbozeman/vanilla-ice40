@@ -11183,6 +11183,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "490-3247-1-ND"
+			(at 99.06 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C437449"
+			(at 99.06 63.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "60f4d920-abfb-4b1b-b1aa-03e79078dc53")
 		)
@@ -11298,7 +11316,7 @@
 		(lib_id "ADC10DL065:ADC10DL065CIVS_NOPB")
 		(at 222.25 105.41 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -11669,7 +11687,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 185.42 39.37 0)
 			(effects
 				(font
@@ -11687,7 +11705,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 185.42 39.37 0)
 			(effects
 				(font
@@ -11830,7 +11848,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 187.96 102.87 0)
 			(effects
 				(font
@@ -11848,7 +11866,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 187.96 102.87 0)
 			(effects
 				(font
@@ -12091,6 +12109,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 57.15 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "490-GRT1555C1H161FA02DCT-ND"
+			(at 57.15 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C2188753"
 			(at 57.15 72.39 0)
 			(effects
 				(font
@@ -12487,7 +12523,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 224.79 39.37 0)
 			(effects
 				(font
@@ -12505,7 +12541,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 224.79 39.37 0)
 			(effects
 				(font
@@ -12583,7 +12619,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C71629"
 			(at 107.95 38.1 0)
 			(effects
 				(font
@@ -12601,7 +12637,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 107.95 38.1 0)
 			(effects
 				(font
@@ -12679,7 +12715,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 55.88 124.46 0)
 			(effects
 				(font
@@ -12697,7 +12733,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 55.88 124.46 0)
 			(effects
 				(font
@@ -12775,7 +12811,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C71629"
 			(at 95.25 38.1 0)
 			(effects
 				(font
@@ -12793,7 +12829,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 95.25 38.1 0)
 			(effects
 				(font
@@ -13587,7 +13623,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 219.71 39.37 0)
 			(effects
 				(font
@@ -13605,7 +13641,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 219.71 39.37 0)
 			(effects
 				(font
@@ -13683,7 +13719,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 195.58 39.37 0)
 			(effects
 				(font
@@ -13701,7 +13737,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 195.58 39.37 0)
 			(effects
 				(font
@@ -13780,7 +13816,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 306.07 35.56 0)
 			(effects
 				(font
@@ -13798,7 +13834,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 306.07 35.56 0)
 			(effects
 				(font
@@ -13869,6 +13905,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 135.89 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "490-GRT1555C1H161FA02DCT-ND"
+			(at 135.89 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C2188753"
 			(at 135.89 158.75 0)
 			(effects
 				(font
@@ -14272,7 +14326,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 162.56 111.76 0)
 			(effects
 				(font
@@ -14290,7 +14344,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 162.56 111.76 0)
 			(effects
 				(font
@@ -14368,7 +14422,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 171.45 111.76 0)
 			(effects
 				(font
@@ -14386,7 +14440,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 171.45 111.76 0)
 			(effects
 				(font
@@ -14532,7 +14586,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 180.34 86.36 0)
 			(effects
 				(font
@@ -14550,7 +14604,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 180.34 86.36 0)
 			(effects
 				(font
@@ -14694,7 +14748,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 173.99 40.64 0)
 			(effects
 				(font
@@ -14712,7 +14766,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 173.99 40.64 0)
 			(effects
 				(font
@@ -14856,7 +14910,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 80.01 124.46 0)
 			(effects
 				(font
@@ -14874,7 +14928,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 80.01 124.46 0)
 			(effects
 				(font
@@ -15182,7 +15236,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 162.56 86.36 0)
 			(effects
 				(font
@@ -15200,7 +15254,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 162.56 86.36 0)
 			(effects
 				(font
@@ -15597,7 +15651,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 80.01 38.1 0)
 			(effects
 				(font
@@ -15615,7 +15669,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 80.01 38.1 0)
 			(effects
 				(font
@@ -15693,7 +15747,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 190.5 39.37 0)
 			(effects
 				(font
@@ -15711,7 +15765,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 190.5 39.37 0)
 			(effects
 				(font
@@ -15896,7 +15950,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C77041"
 			(at 187.96 77.47 0)
 			(effects
 				(font
@@ -15914,7 +15968,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-3896-1-ND "
 			(at 187.96 77.47 0)
 			(effects
 				(font
@@ -16057,7 +16111,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 200.66 39.37 0)
 			(effects
 				(font
@@ -16075,7 +16129,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 200.66 39.37 0)
 			(effects
 				(font
@@ -16153,7 +16207,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 120.65 212.09 0)
 			(effects
 				(font
@@ -16171,7 +16225,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 120.65 212.09 0)
 			(effects
 				(font
@@ -16801,6 +16855,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "490-3247-1-ND"
+			(at 99.06 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C437449"
+			(at 99.06 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "9814b7d8-72ab-407b-b0cc-dd21443e3e59")
 		)
@@ -16870,7 +16942,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 205.74 39.37 0)
 			(effects
 				(font
@@ -16888,7 +16960,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 205.74 39.37 0)
 			(effects
 				(font
@@ -17032,7 +17104,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 342.9 162.56 0)
 			(effects
 				(font
@@ -17050,7 +17122,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 342.9 162.56 0)
 			(effects
 				(font
@@ -17261,7 +17333,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 242.57 39.37 0)
 			(effects
 				(font
@@ -17279,7 +17351,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 242.57 39.37 0)
 			(effects
 				(font
@@ -17586,6 +17658,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 99.06 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "490-3247-1-ND"
+			(at 99.06 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C437449"
 			(at 99.06 149.86 0)
 			(effects
 				(font
@@ -18202,6 +18292,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "490-3247-1-ND"
+			(at 99.06 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C437449"
+			(at 99.06 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "10920d81-89d8-45e3-88df-68e307dc0cbc")
 		)
@@ -18484,7 +18592,7 @@
 		(lib_id "74AVC9112:74AVC9112DCH")
 		(at 109.22 228.6 0)
 		(unit 1)
-		(exclude_from_sim no)
+		(exclude_from_sim yes)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
@@ -19493,7 +19601,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 342.9 106.68 0)
 			(effects
 				(font
@@ -19511,7 +19619,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 342.9 106.68 0)
 			(effects
 				(font
@@ -19683,7 +19791,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 214.63 39.37 0)
 			(effects
 				(font
@@ -19701,7 +19809,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 214.63 39.37 0)
 			(effects
 				(font
@@ -20400,7 +20508,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 55.88 38.1 0)
 			(effects
 				(font
@@ -20418,7 +20526,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 55.88 38.1 0)
 			(effects
 				(font
@@ -20707,7 +20815,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 247.65 39.37 0)
 			(effects
 				(font
@@ -20725,7 +20833,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 247.65 39.37 0)
 			(effects
 				(font
@@ -21131,7 +21239,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C71629"
 			(at 107.95 124.46 0)
 			(effects
 				(font
@@ -21149,7 +21257,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 107.95 124.46 0)
 			(effects
 				(font
@@ -21285,6 +21393,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor, small symbol"
+			(at 135.89 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "490-GRT1555C1H161FA02DCT-ND"
+			(at 135.89 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C2188753"
 			(at 135.89 72.39 0)
 			(effects
 				(font
@@ -21628,7 +21754,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 171.45 86.36 0)
 			(effects
 				(font
@@ -21646,7 +21772,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 171.45 86.36 0)
 			(effects
 				(font
@@ -21960,6 +22086,24 @@
 				(hide yes)
 			)
 		)
+		(property "Digi-Key Part Number" "490-GRT1555C1H161FA02DCT-ND"
+			(at 57.15 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C2188753"
+			(at 57.15 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "94e5457f-9c27-495d-9611-50a05edeb767")
 		)
@@ -22162,7 +22306,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C71629"
 			(at 95.25 124.46 0)
 			(effects
 				(font
@@ -22180,7 +22324,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 95.25 124.46 0)
 			(effects
 				(font
@@ -22659,7 +22803,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 180.34 111.76 0)
 			(effects
 				(font
@@ -22677,7 +22821,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 180.34 111.76 0)
 			(effects
 				(font
@@ -23182,7 +23326,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" ""
+		(property "LCSC Part #" "C1525"
 			(at 342.9 49.53 0)
 			(effects
 				(font
@@ -23200,7 +23344,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" ""
+		(property "Digi-Key Part Number" "490-6328-1-ND"
 			(at 342.9 49.53 0)
 			(effects
 				(font
