@@ -25,7 +25,6 @@
 - add fence vias around the edge of the pcb
 - double check return paths on all layer changes
 - re-enable silkscreen warnings and fix
-- figure out the source of the symbol/lib mismatch DRC warning
 
 ### PMOD board
 

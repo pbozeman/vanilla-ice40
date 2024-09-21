@@ -28,7 +28,7 @@
 					)
 				)
 			)
-			(property "Footprint" "VSSOP8_SOT765-1_NEX"
+			(property "Footprint" "74AVC9112:VSSOP8_SOT765-1_NEX"
 				(at -16.764 -4.572 0)
 				(effects
 					(font
@@ -55,14 +55,6 @@
 						(size 1.27 1.27)
 					)
 					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
 				)
 			)
 			(property "ki_keywords" "74AVC9112DCH"
@@ -710,7 +702,7 @@
 					)
 				)
 			)
-			(property "Footprint" "VEC64A_TEX"
+			(property "Footprint" "ADC10DL065:VEC64A_TEX"
 				(at -2.032 -23.114 0)
 				(effects
 					(font
@@ -11306,13 +11298,13 @@
 		(lib_id "ADC10DL065:ADC10DL065CIVS_NOPB")
 		(at 222.25 105.41 0)
 		(unit 1)
-		(exclude_from_sim yes)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "08f7652f-6f19-4347-b067-1070212da133")
 		(property "Reference" "U4"
-			(at 221.234 101.854 0)
+			(at 219.71 70.104 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -11320,15 +11312,15 @@
 			)
 		)
 		(property "Value" "ADC10DL065"
-			(at 221.488 104.902 0)
+			(at 219.71 72.644 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Footprint" "VEC64A_TEX"
-			(at 222.25 105.41 0)
+		(property "Footprint" "ADC10DL065:VEC64A_TEX"
+			(at 220.218 128.524 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11338,7 +11330,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/adc10dl065.pdf"
-			(at 222.25 105.41 0)
+			(at 220.98 130.81 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11348,7 +11340,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 222.25 105.41 0)
+			(at 251.46 146.05 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18492,13 +18484,13 @@
 		(lib_id "74AVC9112:74AVC9112DCH")
 		(at 109.22 228.6 0)
 		(unit 1)
-		(exclude_from_sim yes)
+		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
 		(uuid "95bb80fb-3431-4b22-912a-529adc831a8b")
 		(property "Reference" "U3"
-			(at 98.044 245.11 0)
+			(at 109.22 216.154 0)
 			(effects
 				(font
 					(size 1.524 1.524)
@@ -18506,15 +18498,15 @@
 			)
 		)
 		(property "Value" "74AVC9112"
-			(at 98.044 247.65 0)
+			(at 109.22 218.694 0)
 			(effects
 				(font
 					(size 1.524 1.524)
 				)
 			)
 		)
-		(property "Footprint" "VSSOP8_SOT765-1_NEX"
-			(at 109.22 228.6 0)
+		(property "Footprint" "74AVC9112:VSSOP8_SOT765-1_NEX"
+			(at 92.456 233.172 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18524,7 +18516,7 @@
 			)
 		)
 		(property "Datasheet" "74AVC9112DCH"
-			(at 109.22 228.6 0)
+			(at 90.17 233.172 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -18534,7 +18526,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 109.22 228.6 0)
+			(at 96.52 226.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
