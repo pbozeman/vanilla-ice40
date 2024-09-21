@@ -5,7 +5,7 @@
 	(layer "F.Cu")
 	(tags "D1213A-04S-7 ")
 	(property "Reference" "REF**"
-		(at 0 0 0)
+		(at 0 -2.05 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "14f359df-d3be-4108-993b-5788f38d08c2")
@@ -84,6 +84,18 @@
 		)
 		(layer "F.SilkS")
 		(uuid "faf5e51b-f576-4f56-b227-bed399292d8e")
+	)
+	(fp_poly
+		(pts
+			(xy -1.69 -0.649999) (xy -2.02 -0.409999) (xy -2.02 -0.889999) (xy -1.69 -0.649999)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "fcd30ff7-21ac-4c6d-86d3-5aa01b3c8fce")
 	)
 	(fp_line
 		(start -1.504 -1.114)
