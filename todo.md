@@ -20,7 +20,6 @@
 ### ADC board
 
 - check resistor array footprint pad sizes
-- add fence vias around the edge of the pcb
 
 ### PMOD board
 
