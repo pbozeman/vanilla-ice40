@@ -5,6 +5,10 @@
 ### All
 
 - consider redoing the pins on the P b2b connector to match S.
+- audit and standardize R manufacturer. Used to be bournes,
+  but the need for 0.1% tolerance from the same vendor at both
+  digikey and lcsc meant using Yaego. (Not that multivendor is
+  bad, but I find single vendor to be more ascetically pleasing :)
 
 ### Main board
 
