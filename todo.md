@@ -20,7 +20,6 @@
 ### ADC board
 
 - check resistor array footprint pad sizes
-- clock fanout and adc have ugly pin 1 markers
 - add fence vias around the edge of the pcb
 - double check return paths on all layer changes
 - re-enable silkscreen warnings and fix

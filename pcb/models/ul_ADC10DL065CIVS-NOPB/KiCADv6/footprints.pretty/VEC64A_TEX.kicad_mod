@@ -5,7 +5,7 @@
 	(layer "F.Cu")
 	(tags "ADC10DL065CIVS/NOPB ")
 	(property "Reference" "REF**"
-		(at 0 0 0)
+		(at -6.0071 -6.5 0)
 		(unlocked yes)
 		(layer "F.SilkS")
 		(uuid "d7856878-8299-495c-ad71-4c1176840d1d")
@@ -156,6 +156,18 @@
 		(fill solid)
 		(layer "F.SilkS")
 		(uuid "b56539ef-5ef5-49e9-8a70-41ccca712bfc")
+	)
+	(fp_poly
+		(pts
+			(xy -6.0071 -4.61) (xy -6.2471 -4.94) (xy -5.7671 -4.94) (xy -6.0071 -4.61)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill solid)
+		(layer "F.SilkS")
+		(uuid "28438966-42ca-4662-96c3-74d68a0c5c89")
 	)
 	(fp_poly
 		(pts
@@ -3026,29 +3038,6 @@
 		)
 		(layer "F.Fab")
 		(uuid "becfc23d-5074-4c53-a50c-a5df822f8dde")
-	)
-	(fp_text user "*"
-		(at -7.0866 -4.381 0)
-		(layer "F.SilkS")
-		(uuid "3b945251-52fa-4441-bb8d-f50640fd3147")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-		)
-	)
-	(fp_text user "*"
-		(at -7.0866 -4.381 0)
-		(unlocked yes)
-		(layer "F.SilkS")
-		(uuid "a6dbb540-0da3-423c-9e0c-242762e06ed2")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-		)
 	)
 	(fp_text user "*"
 		(at -4.6228 -3.619 0)
