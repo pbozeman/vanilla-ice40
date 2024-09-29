@@ -24,6 +24,8 @@
 ### ADC board
 
 - check resistor array footprint pad sizes
+- 0.01uf cap has wrong part numbers
+- add test point for 1.5v
 
 ### PMOD board
 
