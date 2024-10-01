@@ -18466,7 +18466,7 @@
 			)
 		)
 		(property "Footprint" "D1213A:SOT-363_DIO"
-			(at 0 0 -90)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "228f9aba-fd18-46d9-ad33-24d5fd9e11a8")
@@ -18478,7 +18478,7 @@
 			)
 		)
 		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/D1213A-04S.pdf"
-			(at 0 0 -90)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b370824c-3225-4bfc-8102-9addb761db16")
@@ -18490,7 +18490,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 -90)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "eb2da74a-0f3a-43a8-a1cc-88cb6ec99cdb")
@@ -23624,10 +23624,10 @@
 		(descr "SMD Crystal Oscillator Seiko Epson SG-8002CE https://support.epson.biz/td/api/doc_check.php?mode=dl&lang=en&Parts=SG-8002DC, 3.2x2.5mm^2 package")
 		(tags "SMD SMT crystal oscillator")
 		(property "Reference" "X1"
-			(at -3.273025 1.435 0)
+			(at -3.673025 1.635 0)
 			(unlocked yes)
 			(layer "F.SilkS")
-			(uuid "8114b10b-dccc-4396-9b48-cdb820287611")
+			(uuid "b32c2667-834f-4df9-a4ab-b6ff73c1c018")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -23638,7 +23638,7 @@
 		(property "Value" "SG-8101CE 50Mhz"
 			(at 0 2.55 90)
 			(layer "F.Fab")
-			(uuid "a0082fe5-1b9a-4a35-9503-da28f5f5762a")
+			(uuid "257532aa-63e4-480b-abb9-04c5e5b5ed61")
 			(effects
 				(font
 					(size 1 1)
@@ -23651,7 +23651,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ab01f5ff-4393-4714-96cd-c87f3a8802e0")
+			(uuid "48475d4c-c4c9-466f-8e24-8a6be9925c1a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23664,7 +23664,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ea8324a8-92be-489c-be83-03738c1734b2")
+			(uuid "e93abede-8a5c-468b-a385-2f34721643aa")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23677,7 +23677,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ae5c3075-c43f-47a2-bb21-bca9c27ac615")
+			(uuid "334666b2-268e-410d-9d11-743bae8ae704")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -23738,7 +23738,7 @@
 			)
 			(fill none)
 			(layer "F.Adhes")
-			(uuid "96c6ec6a-c32f-4945-82ec-74da710d67e4")
+			(uuid "c1674476-2d4c-4922-a427-27e2b4eaf02f")
 		)
 		(fp_circle
 			(center 0 0)
@@ -23749,7 +23749,7 @@
 			)
 			(fill none)
 			(layer "F.Adhes")
-			(uuid "4fa1c6dc-a710-4ce3-8a13-923dcce93300")
+			(uuid "6e2056c5-8f7d-46f0-8b6f-9a440ce54754")
 		)
 		(fp_circle
 			(center 0 0)
@@ -23760,7 +23760,7 @@
 			)
 			(fill none)
 			(layer "F.Adhes")
-			(uuid "fcb07333-69b0-4024-bf11-5bb82078e4dc")
+			(uuid "c04d5ced-ea45-48d5-aecb-08e1efa44fa4")
 		)
 		(fp_circle
 			(center 0 0)
@@ -23771,7 +23771,7 @@
 			)
 			(fill none)
 			(layer "F.Adhes")
-			(uuid "1baf0e93-1c45-447f-ba30-d42ba23bd05a")
+			(uuid "cf9a9f26-8d01-44c7-a4db-93b373185d24")
 		)
 		(fp_line
 			(start -2.1 1.75)
@@ -23781,7 +23781,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "d9adf365-8075-43cd-a30c-32ca6819116c")
+			(uuid "c10f3a47-c931-415f-8aaf-c4a8ca5a5203")
 		)
 		(fp_line
 			(start -2.1 -1.75)
@@ -23791,7 +23791,19 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "c2f5f0de-7285-4114-a9c9-6291d0612647")
+			(uuid "f3e1f946-d776-4d51-816e-204c575379ca")
+		)
+		(fp_poly
+			(pts
+				(xy -2.5 0.95) (xy -2.83 1.19) (xy -2.83 0.71) (xy -2.5 0.95)
+			)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(fill solid)
+			(layer "F.SilkS")
+			(uuid "12f19b24-ca6f-40a0-84bf-3061c077baf9")
 		)
 		(fp_line
 			(start -2.2 1.8)
@@ -23801,7 +23813,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "3f6c662a-fd80-4009-a44c-790f658a5ae3")
+			(uuid "2a42f959-a9ef-4bab-9ac4-036db57ae1a9")
 		)
 		(fp_line
 			(start 2.2 1.8)
@@ -23811,7 +23823,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "7c521e6a-37f4-4670-bda3-1abaa47fa983")
+			(uuid "4d44ad24-98b9-4210-8bd0-b7b4f35deeda")
 		)
 		(fp_line
 			(start -2.2 -1.8)
@@ -23821,7 +23833,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "498e37ac-3ae8-43b5-9169-1dce0db264be")
+			(uuid "8e08ac38-3826-496c-a2b9-9feba7b61915")
 		)
 		(fp_line
 			(start 2.2 -1.8)
@@ -23831,7 +23843,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "8f9609b7-a2d5-4ae4-9efe-2401713d6cdd")
+			(uuid "2acd768f-908c-4ab3-8092-bab8b2140f7f")
 		)
 		(fp_line
 			(start -1.5 1.25)
@@ -23841,7 +23853,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "57d2af19-0a13-4e11-9972-8aa5ab4e718e")
+			(uuid "f5b99974-5333-46ba-b8f6-e30bd8159a8f")
 		)
 		(fp_line
 			(start 1.5 1.25)
@@ -23851,7 +23863,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "54812755-0822-4831-b0ba-259763aebc7c")
+			(uuid "c18fe5e3-723b-42e2-92c9-7ec6ee261e0e")
 		)
 		(fp_line
 			(start -1.6 1.15)
@@ -23861,7 +23873,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "9b51831e-eae6-4350-a178-36f5a2dffb72")
+			(uuid "5d770a9a-9dbe-4d81-9821-7cfe111a604c")
 		)
 		(fp_line
 			(start 1.6 1.15)
@@ -23871,7 +23883,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "28193db3-dad3-4cd9-adca-0c38260824d4")
+			(uuid "02a9a521-aaa5-44e0-bb55-9ba8af7f8443")
 		)
 		(fp_line
 			(start -1.6 0.25)
@@ -23881,7 +23893,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "4fe147f1-990e-4a31-adce-cb40a903eabd")
+			(uuid "dd768e35-9bc4-4b71-8816-9f58cc7a3ece")
 		)
 		(fp_line
 			(start -1.6 -1.15)
@@ -23891,7 +23903,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "6706bb1c-f07e-4670-a89c-ebb9af19ff1e")
+			(uuid "7cc9b23f-5d6f-4a89-b38a-885a8cdde1bd")
 		)
 		(fp_line
 			(start 1.6 -1.15)
@@ -23901,7 +23913,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "af0212f3-07c6-4e10-ab29-054a93da5507")
+			(uuid "164910fa-ba83-41de-9d5c-0926535237af")
 		)
 		(fp_line
 			(start -1.5 -1.25)
@@ -23911,7 +23923,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "867363b9-1193-4db4-9c4e-c7a701de457a")
+			(uuid "bc5c27bf-5a22-4102-9b09-a07782f08085")
 		)
 		(fp_line
 			(start 1.5 -1.25)
@@ -23921,12 +23933,12 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "880ed680-5e53-4a61-be5f-7a243df111e0")
+			(uuid "cf8c860d-3bcc-4148-b6f7-43bfaedb079a")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 0 90)
 			(layer "F.Fab")
-			(uuid "d68a82fa-07ef-4827-9289-718c22f85cf6")
+			(uuid "446d1492-1c01-4387-802e-f4952e51a6e8")
 			(effects
 				(font
 					(size 0.7 0.7)
@@ -23941,7 +23953,7 @@
 			(net 133 "Net-(X1-OE)")
 			(pinfunction "OE")
 			(pintype "input")
-			(uuid "9dd9a348-016c-4ae0-9d54-3e4be253bed3")
+			(uuid "dd3c9388-9e48-4f99-9c52-16973d75111a")
 		)
 		(pad "2" smd rect
 			(at 1.2 0.95 270)
@@ -23950,7 +23962,7 @@
 			(net 1 "GND")
 			(pinfunction "GND")
 			(pintype "power_in")
-			(uuid "11f899be-4401-49a2-bf2f-c338935709df")
+			(uuid "ff33c541-34c8-483d-a9f7-32280e7ffa3d")
 		)
 		(pad "3" smd rect
 			(at 1.2 -0.95 270)
@@ -23959,7 +23971,7 @@
 			(net 135 "Net-(X1-OUT)")
 			(pinfunction "OUT")
 			(pintype "output")
-			(uuid "e36ed58f-f968-4247-8dac-e567a6544ba4")
+			(uuid "3bedf8db-a30b-4f13-b744-aff2f30d3bde")
 		)
 		(pad "4" smd rect
 			(at -1.2 -0.95 270)
@@ -23968,7 +23980,7 @@
 			(net 3 "+3V3")
 			(pinfunction "Vcc")
 			(pintype "power_in")
-			(uuid "8c32a2c0-9215-423e-96b9-b66261ef4b03")
+			(uuid "30e2efa9-3e6a-4479-a35d-737c329bb55d")
 		)
 		(model "${KICAD8_3DMODEL_DIR}/Oscillator.3dshapes/Oscillator_SMD_EuroQuartz_XO53-4Pin_5.0x3.2mm.wrl"
 			(offset
