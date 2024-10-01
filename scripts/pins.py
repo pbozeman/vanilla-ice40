@@ -105,6 +105,47 @@ sram_groups = [
 
 sram_signals = [("SRAM_CS_N", "D[0]"), ("SRAM_OE_N", "A[2]"), ("SRAM_WE_N", "G[4]")]
 
+adc_groups = [
+    (
+        "ADC_X",
+        [
+            "F[6]",
+            "F[2]",
+            "E[0]",
+            "E[4]",
+            "E[1]",
+            "E[5]",
+            "E[6]",
+            "E[2]",
+            "E[7]",
+            "E[3]",
+        ],
+    ),
+    (
+        "ADC_Y",
+        [
+            "F[4]",
+            "F[0]",
+            "F[5]",
+            "F[1]",
+            "F[3]",
+            "F[7]",
+            "L[7]",
+            "L[3]",
+            "L[6]",
+            "L[2]",
+        ],
+    ),
+]
+
+adc_signals = [
+    ("ADC_CLK_TO_ADC", "L[1]"),
+    ("ADC_CLK_TO_FPGA", "L[5]"),
+    ("ADC_RED", "I[0]"),
+    ("ADC_GRN", "L[0]"),
+    ("ADC_BLU", "L[4]"),
+]
+
 
 def b2b_pin_to_pin(pin):
     if pin <= 60:
@@ -174,6 +215,20 @@ def gen_pcf_from_groups(side: str, ice_groups):
     # all pmods
     print(ice_group_to_pcf_array(f"{side}_PMOD", [p for p in ice_pins]))
     print()
+
+    # adc
+    adc_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in adc_groups]
+
+    for s, p in adc_signals:
+        print(f"set_io {side}_{s} {base_to_p[p]}")
+
+    print()
+    for g in adc_ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
+        print()
+        print(ice_group_to_pcf_array(f"{side}_{lable}", pins))
+        print()
 
     # sram
     sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]

@@ -425,6 +425,56 @@ set_io L_PMOD[93] F5
 set_io L_PMOD[94] E4
 set_io L_PMOD[95] H6
 
+set_io L_ADC_CLK_TO_ADC E5
+set_io L_ADC_CLK_TO_FPGA F5
+set_io L_ADC_RED C3
+set_io L_ADC_GRN D3
+set_io L_ADC_BLU E6
+
+set_io L_ADC_X_01 G3
+set_io L_ADC_X_02 G4
+set_io L_ADC_X_03 N3
+set_io L_ADC_X_04 L5
+set_io L_ADC_X_05 L4
+set_io L_ADC_X_06 M3
+set_io L_ADC_X_07 K4
+set_io L_ADC_X_08 L3
+set_io L_ADC_X_09 J5
+set_io L_ADC_X_10 K3
+
+set_io L_ADC_X[0] G3
+set_io L_ADC_X[1] G4
+set_io L_ADC_X[2] N3
+set_io L_ADC_X[3] L5
+set_io L_ADC_X[4] L4
+set_io L_ADC_X[5] M3
+set_io L_ADC_X[6] K4
+set_io L_ADC_X[7] L3
+set_io L_ADC_X[8] J5
+set_io L_ADC_X[9] K3
+
+set_io L_ADC_Y_01 J4
+set_io L_ADC_Y_02 H5
+set_io L_ADC_Y_03 H3
+set_io L_ADC_Y_04 H4
+set_io L_ADC_Y_05 F3
+set_io L_ADC_Y_06 F4
+set_io L_ADC_Y_07 H6
+set_io L_ADC_Y_08 E3
+set_io L_ADC_Y_09 E4
+set_io L_ADC_Y_10 G5
+
+set_io L_ADC_Y[0] J4
+set_io L_ADC_Y[1] H5
+set_io L_ADC_Y[2] H3
+set_io L_ADC_Y[3] H4
+set_io L_ADC_Y[4] F3
+set_io L_ADC_Y[5] F4
+set_io L_ADC_Y[6] H6
+set_io L_ADC_Y[7] E3
+set_io L_ADC_Y[8] E4
+set_io L_ADC_Y[9] G5
+
 set_io L_SRAM_CS_N A1
 set_io L_SRAM_OE_N M2
 set_io L_SRAM_WE_N A7
@@ -925,6 +975,56 @@ set_io R_PMOD[92] L9
 set_io R_PMOD[93] L11
 set_io R_PMOD[94] N12
 set_io R_PMOD[95] M14
+
+set_io R_ADC_CLK_TO_ADC K9
+set_io R_ADC_CLK_TO_FPGA L11
+set_io R_ADC_RED N10
+set_io R_ADC_GRN M9
+set_io R_ADC_BLU L9
+
+set_io R_ADC_X_01 L13
+set_io R_ADC_X_02 K14
+set_io R_ADC_X_03 E13
+set_io R_ADC_X_04 E14
+set_io R_ADC_X_05 F11
+set_io R_ADC_X_06 F13
+set_io R_ADC_X_07 G13
+set_io R_ADC_X_08 F14
+set_io R_ADC_X_09 H13
+set_io R_ADC_X_10 G14
+
+set_io R_ADC_X[0] L13
+set_io R_ADC_X[1] K14
+set_io R_ADC_X[2] E13
+set_io R_ADC_X[3] E14
+set_io R_ADC_X[4] F11
+set_io R_ADC_X[5] F13
+set_io R_ADC_X[6] G13
+set_io R_ADC_X[7] F14
+set_io R_ADC_X[8] H13
+set_io R_ADC_X[9] G14
+
+set_io R_ADC_Y_01 J13
+set_io R_ADC_Y_02 H14
+set_io R_ADC_Y_03 K13
+set_io R_ADC_Y_04 J14
+set_io R_ADC_Y_05 L14
+set_io R_ADC_Y_06 M13
+set_io R_ADC_Y_07 M14
+set_io R_ADC_Y_08 P14
+set_io R_ADC_Y_09 N12
+set_io R_ADC_Y_10 K12
+
+set_io R_ADC_Y[0] J13
+set_io R_ADC_Y[1] H14
+set_io R_ADC_Y[2] K13
+set_io R_ADC_Y[3] J14
+set_io R_ADC_Y[4] L14
+set_io R_ADC_Y[5] M13
+set_io R_ADC_Y[6] M14
+set_io R_ADC_Y[7] P14
+set_io R_ADC_Y[8] N12
+set_io R_ADC_Y[9] K12
 
 set_io R_SRAM_CS_N P15
 set_io R_SRAM_OE_N D16
