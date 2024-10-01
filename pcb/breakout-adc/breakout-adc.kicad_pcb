@@ -33983,6 +33983,18 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "v0.2"
+		(at 195.6 47 0)
+		(layer "F.SilkS")
+		(uuid "b2ff4354-9616-4be8-b729-ceeb86ec0914")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "BLU"
 		(at 123.153334 63.4 0)
 		(layer "F.SilkS")
