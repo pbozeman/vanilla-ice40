@@ -52,6 +52,9 @@
 - make: all files are included in both yosys and verification.. limit them to just
   the dependencies
 - move to per top pcf files
+- there are some assumptions of running from the rtl/examples dir, e.g.
+  the pcf gen rules. update the makefile to be cwd agnostic
+- consider removing pcf files from being committed to the repo
 
 ### misc
 

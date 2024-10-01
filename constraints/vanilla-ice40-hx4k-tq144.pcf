@@ -425,6 +425,56 @@ set_io R_PMOD[93] 139
 set_io R_PMOD[94] 137
 set_io R_PMOD[95] 135
 
+set_io R_ADC_CLK_TO_ADC 141
+set_io R_ADC_CLK_TO_FPGA 139
+set_io R_ADC_RED 144
+set_io R_ADC_GRN 143
+set_io R_ADC_BLU 142
+
+set_io R_ADC_X_01 115
+set_io R_ADC_X_02 116
+set_io R_ADC_X_03 134
+set_io R_ADC_X_04 130
+set_io R_ADC_X_05 129
+set_io R_ADC_X_06 128
+set_io R_ADC_X_07 124
+set_io R_ADC_X_08 125
+set_io R_ADC_X_09 121
+set_io R_ADC_X_10 122
+
+set_io R_ADC_X[0] 115
+set_io R_ADC_X[1] 116
+set_io R_ADC_X[2] 134
+set_io R_ADC_X[3] 130
+set_io R_ADC_X[4] 129
+set_io R_ADC_X[5] 128
+set_io R_ADC_X[6] 124
+set_io R_ADC_X[7] 125
+set_io R_ADC_X[8] 121
+set_io R_ADC_X[9] 122
+
+set_io R_ADC_Y_01 119
+set_io R_ADC_Y_02 120
+set_io R_ADC_Y_03 117
+set_io R_ADC_Y_04 118
+set_io R_ADC_Y_05 114
+set_io R_ADC_Y_06 113
+set_io R_ADC_Y_07 135
+set_io R_ADC_Y_08 136
+set_io R_ADC_Y_09 137
+set_io R_ADC_Y_10 138
+
+set_io R_ADC_Y[0] 119
+set_io R_ADC_Y[1] 120
+set_io R_ADC_Y[2] 117
+set_io R_ADC_Y[3] 118
+set_io R_ADC_Y[4] 114
+set_io R_ADC_Y[5] 113
+set_io R_ADC_Y[6] 135
+set_io R_ADC_Y[7] 136
+set_io R_ADC_Y[8] 137
+set_io R_ADC_Y[9] 138
+
 set_io R_SRAM_CS_N 80
 set_io R_SRAM_OE_N 105
 set_io R_SRAM_WE_N 60
