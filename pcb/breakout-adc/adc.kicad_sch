@@ -5326,16 +5326,16 @@
 		(uuid "fd2dab04-68ab-4245-9319-d4758a19853f")
 	)
 	(no_connect
-		(at 331.47 181.61)
-		(uuid "3252f411-1d84-4626-99bd-dfc5e817885b")
+		(at 331.47 73.66)
+		(uuid "085c6126-a73e-4853-88e0-d5ccca07131a")
+	)
+	(no_connect
+		(at 331.47 71.12)
+		(uuid "0f619e4b-d611-4816-9002-a8834d59f54e")
 	)
 	(no_connect
 		(at 177.8 175.26)
 		(uuid "36e7afbf-89e2-4eb4-98ee-4629c7f6cf93")
-	)
-	(no_connect
-		(at 331.47 184.15)
-		(uuid "39e6cca8-567b-48ca-9030-8d0f7f34c268")
 	)
 	(no_connect
 		(at 331.47 189.23)
@@ -6311,6 +6311,16 @@
 	)
 	(wire
 		(pts
+			(xy 331.47 181.61) (xy 337.82 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "32f6c53d-c783-4053-b1fa-02edf0079d2e")
+	)
+	(wire
+		(pts
 			(xy 76.2 142.24) (xy 99.06 142.24)
 		)
 		(stroke
@@ -6811,6 +6821,16 @@
 	)
 	(wire
 		(pts
+			(xy 331.47 184.15) (xy 337.82 184.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "52a7365d-20b5-4726-8bf1-64cbb3040c55")
+	)
+	(wire
+		(pts
 			(xy 265.43 80.01) (xy 271.78 80.01)
 		)
 		(stroke
@@ -6958,16 +6978,6 @@
 			(type default)
 		)
 		(uuid "5b539e93-6667-4fd4-9bd0-350113201122")
-	)
-	(wire
-		(pts
-			(xy 331.47 73.66) (xy 337.82 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5bd50f8b-2e94-441a-b890-a0f8cd3a5de7")
 	)
 	(wire
 		(pts
@@ -7138,16 +7148,6 @@
 			(type default)
 		)
 		(uuid "6c785f31-4bff-4896-9b9b-264d6b579a3a")
-	)
-	(wire
-		(pts
-			(xy 331.47 71.12) (xy 337.82 71.12)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d2b7d0a-dbd3-49e4-8398-c3e4aea038dd")
 	)
 	(wire
 		(pts
@@ -9963,7 +9963,7 @@
 		(uuid "00f4faf7-8a33-44ae-a404-e6915bc09793")
 	)
 	(label "X3"
-		(at 337.82 171.45 180)
+		(at 337.82 176.53 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10007,7 +10007,7 @@
 		(uuid "0abde406-b0c6-4521-9e58-fd2ae8bf2b72")
 	)
 	(label "X7"
-		(at 337.82 124.46 180)
+		(at 337.82 129.54 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10095,7 +10095,7 @@
 		(uuid "1f184c08-3f76-4552-b06a-0cab92b1e2ba")
 	)
 	(label "X4"
-		(at 337.82 132.08 180)
+		(at 337.82 173.99 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10161,7 +10161,7 @@
 		(uuid "2789d1d5-b376-40c3-91ef-ca805a376bbf")
 	)
 	(label "X2"
-		(at 337.82 173.99 180)
+		(at 337.82 179.07 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10183,7 +10183,7 @@
 		(uuid "2babfaa5-0e22-47b0-bb21-646cd03cbc7e")
 	)
 	(label "X8"
-		(at 337.82 121.92 180)
+		(at 337.82 127 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10249,7 +10249,7 @@
 		(uuid "3a5ab796-a66d-4244-bc12-a24c8c51239a")
 	)
 	(label "X0"
-		(at 337.82 179.07 180)
+		(at 337.82 184.15 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10293,7 +10293,7 @@
 		(uuid "46c8b9d9-eef7-4cbf-a221-a85ebdc6cf15")
 	)
 	(label "X5"
-		(at 337.82 129.54 180)
+		(at 337.82 171.45 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10359,7 +10359,7 @@
 		(uuid "5ed9ba82-a3ac-4869-82c9-590add816c04")
 	)
 	(label "Y1"
-		(at 337.82 114.3 180)
+		(at 337.82 119.38 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10370,7 +10370,7 @@
 		(uuid "60dc16db-b92f-407a-8657-057bff10b532")
 	)
 	(label "Y0"
-		(at 337.82 116.84 180)
+		(at 337.82 121.92 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10524,7 +10524,7 @@
 		(uuid "88739bca-d313-4264-a341-44f1428ba3a8")
 	)
 	(label "X6"
-		(at 337.82 127 180)
+		(at 337.82 132.08 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10568,7 +10568,7 @@
 		(uuid "91638da5-a580-4abf-806d-8b62c8cba4c0")
 	)
 	(label "Y3"
-		(at 337.82 71.12 180)
+		(at 337.82 114.3 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10612,7 +10612,7 @@
 		(uuid "997a684b-4909-41fc-b6dc-232cac2be6ff")
 	)
 	(label "X1"
-		(at 337.82 176.53 180)
+		(at 337.82 181.61 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10744,7 +10744,7 @@
 		(uuid "abeb73e5-de03-4ea8-9d8b-0c738f6be540")
 	)
 	(label "X9"
-		(at 337.82 119.38 180)
+		(at 337.82 124.46 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10843,7 +10843,7 @@
 		(uuid "d0952061-ede2-4e5a-94f9-814a53108fda")
 	)
 	(label "Y2"
-		(at 337.82 73.66 180)
+		(at 337.82 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font

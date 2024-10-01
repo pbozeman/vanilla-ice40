@@ -26,7 +26,6 @@
 - X1 is a default kicad symbol and footprint. I added a pin 1 marker, but
   accidentally did so to the system footprint. Duplicate the symbol as a custom
   symbol and fix the datasheet and footprint correctly.
-- output of data buffers in schematic are not aligned with inputs
 
 ### PMOD board
 
