@@ -103,7 +103,7 @@ synth: $(addprefix $(BUILD_DIR)/,$(addsuffix .json,$(notdir $(basename $(TOP_MOD
 PCF_DIR := ../constraints
 PCF_FILE := $(PCF_DIR)/vanilla-ice40-$(DEVICE)-$(PACKAGE).pcf
 
-$(PCF_FILE): | $(PCF_DIR)
+$(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 	../scripts/pins.py $(DEVICE) > $(PCF_FILE)
 
 define pnr_rule
