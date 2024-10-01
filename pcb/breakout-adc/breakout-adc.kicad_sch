@@ -1409,7 +1409,7 @@
 					)
 				)
 			)
-			(property "Footprint" "SOT-363_DIO"
+			(property "Footprint" "D1213A:SOT-363_DIO"
 				(at 10.414 -10.668 0)
 				(effects
 					(font
@@ -1603,7 +1603,7 @@
 					)
 				)
 			)
-			(property "Footprint" "SOT-363_DIO"
+			(property "Footprint" "D1213A:SOT-363_DIO"
 				(at 10.414 -10.668 0)
 				(effects
 					(font
@@ -9064,6 +9064,126 @@
 				)
 			)
 		)
+		(symbol "power:+1V5"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+1V5"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+1V5\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+1V5_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+1V5_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "power:+3V3"
 			(power)
 			(pin_numbers hide)
@@ -9390,7 +9510,7 @@
 		(uuid "0b6b8560-6b0f-41e0-8caf-dd7174e8219f")
 	)
 	(junction
-		(at 382.27 90.17)
+		(at 382.27 110.49)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "299ea5ff-2e99-4bd4-a0fc-dc6091055781")
@@ -9420,7 +9540,7 @@
 		(uuid "681634fa-e36e-4af2-aaaa-2a140904837b")
 	)
 	(junction
-		(at 285.75 63.5)
+		(at 285.75 57.15)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "69eda150-d393-42fe-b467-9240d6d93d61")
@@ -9456,7 +9576,7 @@
 		(uuid "b4d40f72-2777-4cf5-b7a0-a6c2d4675bf7")
 	)
 	(junction
-		(at 382.27 87.63)
+		(at 382.27 107.95)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "da03c99b-1472-416e-bc02-b2e769f63515")
@@ -9765,7 +9885,7 @@
 	)
 	(wire
 		(pts
-			(xy 387.35 60.96) (xy 382.27 60.96)
+			(xy 387.35 48.26) (xy 382.27 48.26)
 		)
 		(stroke
 			(width 0)
@@ -9785,7 +9905,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 83.82) (xy 331.47 83.82)
+			(xy 316.23 85.09) (xy 332.74 85.09)
 		)
 		(stroke
 			(width 0)
@@ -9795,7 +9915,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 76.2) (xy 363.22 76.2)
+			(xy 347.98 77.47) (xy 364.49 77.47)
 		)
 		(stroke
 			(width 0)
@@ -9825,7 +9945,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 66.04) (xy 363.22 66.04)
+			(xy 347.98 67.31) (xy 364.49 67.31)
 		)
 		(stroke
 			(width 0)
@@ -9855,7 +9975,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 88.9) (xy 293.37 88.9)
+			(xy 285.75 82.55) (xy 293.37 82.55)
 		)
 		(stroke
 			(width 0)
@@ -9955,7 +10075,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 96.52) (xy 285.75 99.06)
+			(xy 285.75 90.17) (xy 285.75 92.71)
 		)
 		(stroke
 			(width 0)
@@ -9975,7 +10095,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 63.5) (xy 285.75 63.5)
+			(xy 293.37 57.15) (xy 285.75 57.15)
 		)
 		(stroke
 			(width 0)
@@ -9985,13 +10105,23 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 60.96) (xy 285.75 63.5)
+			(xy 285.75 54.61) (xy 285.75 57.15)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "23d8d640-3927-47de-be7b-f5e99a359192")
+	)
+	(wire
+		(pts
+			(xy 382.27 90.17) (xy 382.27 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26bf2b26-6d4e-4398-adbb-36c68cd9880a")
 	)
 	(wire
 		(pts
@@ -10035,7 +10165,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 87.63) (xy 387.35 87.63)
+			(xy 382.27 107.95) (xy 387.35 107.95)
 		)
 		(stroke
 			(width 0)
@@ -10055,7 +10185,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 87.63) (xy 382.27 90.17)
+			(xy 382.27 107.95) (xy 382.27 110.49)
 		)
 		(stroke
 			(width 0)
@@ -10065,7 +10195,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 58.42) (xy 331.47 58.42)
+			(xy 316.23 59.69) (xy 332.74 59.69)
 		)
 		(stroke
 			(width 0)
@@ -10085,7 +10215,7 @@
 	)
 	(wire
 		(pts
-			(xy 387.35 63.5) (xy 382.27 63.5)
+			(xy 387.35 50.8) (xy 382.27 50.8)
 		)
 		(stroke
 			(width 0)
@@ -10165,7 +10295,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 55.88) (xy 363.22 55.88)
+			(xy 347.98 57.15) (xy 364.49 57.15)
 		)
 		(stroke
 			(width 0)
@@ -10275,7 +10405,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 92.71) (xy 285.75 92.71)
+			(xy 293.37 86.36) (xy 285.75 86.36)
 		)
 		(stroke
 			(width 0)
@@ -10345,7 +10475,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 60.96) (xy 363.22 60.96)
+			(xy 347.98 62.23) (xy 364.49 62.23)
 		)
 		(stroke
 			(width 0)
@@ -10385,7 +10515,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 85.09) (xy 285.75 85.09)
+			(xy 293.37 78.74) (xy 285.75 78.74)
 		)
 		(stroke
 			(width 0)
@@ -10435,6 +10565,16 @@
 	)
 	(wire
 		(pts
+			(xy 382.27 80.01) (xy 382.27 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63bb44d0-1c99-4dd6-97d1-a302364df65c")
+	)
+	(wire
+		(pts
 			(xy 41.91 87.63) (xy 45.72 87.63)
 		)
 		(stroke
@@ -10475,7 +10615,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 71.12) (xy 331.47 71.12)
+			(xy 316.23 72.39) (xy 332.74 72.39)
 		)
 		(stroke
 			(width 0)
@@ -10515,7 +10655,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 55.88) (xy 285.75 55.88)
+			(xy 293.37 49.53) (xy 285.75 49.53)
 		)
 		(stroke
 			(width 0)
@@ -10535,7 +10675,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 63.5) (xy 363.22 63.5)
+			(xy 347.98 64.77) (xy 364.49 64.77)
 		)
 		(stroke
 			(width 0)
@@ -10552,6 +10692,16 @@
 			(type default)
 		)
 		(uuid "7311937f-fda9-47db-86de-36680b3d7411")
+	)
+	(wire
+		(pts
+			(xy 387.35 92.71) (xy 382.27 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7992689a-b36c-41b2-a8e2-5e86a377cd61")
 	)
 	(wire
 		(pts
@@ -10585,7 +10735,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 96.52) (xy 293.37 96.52)
+			(xy 285.75 90.17) (xy 293.37 90.17)
 		)
 		(stroke
 			(width 0)
@@ -10605,7 +10755,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 73.66) (xy 331.47 73.66)
+			(xy 316.23 74.93) (xy 332.74 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10705,7 +10855,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 81.28) (xy 331.47 81.28)
+			(xy 316.23 82.55) (xy 332.74 82.55)
 		)
 		(stroke
 			(width 0)
@@ -10785,7 +10935,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 76.2) (xy 331.47 76.2)
+			(xy 316.23 77.47) (xy 332.74 77.47)
 		)
 		(stroke
 			(width 0)
@@ -10805,7 +10955,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 90.17) (xy 387.35 90.17)
+			(xy 382.27 110.49) (xy 387.35 110.49)
 		)
 		(stroke
 			(width 0)
@@ -10815,7 +10965,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 58.42) (xy 382.27 60.96)
+			(xy 382.27 45.72) (xy 382.27 48.26)
 		)
 		(stroke
 			(width 0)
@@ -10875,7 +11025,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 73.66) (xy 363.22 73.66)
+			(xy 347.98 74.93) (xy 364.49 74.93)
 		)
 		(stroke
 			(width 0)
@@ -10915,7 +11065,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 71.12) (xy 363.22 71.12)
+			(xy 347.98 72.39) (xy 364.49 72.39)
 		)
 		(stroke
 			(width 0)
@@ -10935,7 +11085,7 @@
 	)
 	(wire
 		(pts
-			(xy 285.75 63.5) (xy 285.75 66.04)
+			(xy 285.75 57.15) (xy 285.75 59.69)
 		)
 		(stroke
 			(width 0)
@@ -10945,7 +11095,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 68.58) (xy 331.47 68.58)
+			(xy 316.23 69.85) (xy 332.74 69.85)
 		)
 		(stroke
 			(width 0)
@@ -10955,7 +11105,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 60.96) (xy 331.47 60.96)
+			(xy 316.23 62.23) (xy 332.74 62.23)
 		)
 		(stroke
 			(width 0)
@@ -10975,7 +11125,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 90.17) (xy 382.27 95.25)
+			(xy 382.27 110.49) (xy 382.27 115.57)
 		)
 		(stroke
 			(width 0)
@@ -10995,7 +11145,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 81.28) (xy 363.22 81.28)
+			(xy 347.98 82.55) (xy 364.49 82.55)
 		)
 		(stroke
 			(width 0)
@@ -11025,7 +11175,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 63.5) (xy 331.47 63.5)
+			(xy 316.23 64.77) (xy 332.74 64.77)
 		)
 		(stroke
 			(width 0)
@@ -11055,7 +11205,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 83.82) (xy 363.22 83.82)
+			(xy 347.98 85.09) (xy 364.49 85.09)
 		)
 		(stroke
 			(width 0)
@@ -11115,7 +11265,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 78.74) (xy 363.22 78.74)
+			(xy 347.98 80.01) (xy 364.49 80.01)
 		)
 		(stroke
 			(width 0)
@@ -11155,7 +11305,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 78.74) (xy 331.47 78.74)
+			(xy 316.23 80.01) (xy 332.74 80.01)
 		)
 		(stroke
 			(width 0)
@@ -11175,7 +11325,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 66.04) (xy 331.47 66.04)
+			(xy 316.23 67.31) (xy 332.74 67.31)
 		)
 		(stroke
 			(width 0)
@@ -11245,7 +11395,17 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 60.96) (xy 285.75 60.96)
+			(xy 387.35 82.55) (xy 382.27 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5f2cc90-4dd2-45b5-8b83-98d16ea3201c")
+	)
+	(wire
+		(pts
+			(xy 293.37 54.61) (xy 285.75 54.61)
 		)
 		(stroke
 			(width 0)
@@ -11335,7 +11495,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 58.42) (xy 363.22 58.42)
+			(xy 347.98 59.69) (xy 364.49 59.69)
 		)
 		(stroke
 			(width 0)
@@ -11355,7 +11515,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 63.5) (xy 382.27 66.04)
+			(xy 382.27 50.8) (xy 382.27 53.34)
 		)
 		(stroke
 			(width 0)
@@ -11375,7 +11535,7 @@
 	)
 	(wire
 		(pts
-			(xy 314.96 55.88) (xy 331.47 55.88)
+			(xy 316.23 57.15) (xy 332.74 57.15)
 		)
 		(stroke
 			(width 0)
@@ -11395,7 +11555,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 85.09) (xy 387.35 85.09)
+			(xy 382.27 105.41) (xy 387.35 105.41)
 		)
 		(stroke
 			(width 0)
@@ -11415,7 +11575,7 @@
 	)
 	(wire
 		(pts
-			(xy 346.71 68.58) (xy 363.22 68.58)
+			(xy 347.98 69.85) (xy 364.49 69.85)
 		)
 		(stroke
 			(width 0)
@@ -11455,7 +11615,7 @@
 	)
 	(wire
 		(pts
-			(xy 293.37 58.42) (xy 285.75 58.42)
+			(xy 293.37 52.07) (xy 285.75 52.07)
 		)
 		(stroke
 			(width 0)
@@ -11465,7 +11625,7 @@
 	)
 	(wire
 		(pts
-			(xy 382.27 85.09) (xy 382.27 87.63)
+			(xy 382.27 105.41) (xy 382.27 107.95)
 		)
 		(stroke
 			(width 0)
@@ -11601,7 +11761,7 @@
 	)
 	(text "Power Pins"
 		(exclude_from_sim no)
-		(at 387.096 48.006 0)
+		(at 387.096 35.306 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11631,6 +11791,16 @@
 		)
 		(uuid "0aaeb93f-8c01-4f4e-8abf-2a9e1cb37551")
 	)
+	(text "VCM Pins"
+		(exclude_from_sim no)
+		(at 386.588 68.326 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0bb2748b-d942-4c24-b31b-b8932f8762c9")
+	)
 	(text "L_04"
 		(exclude_from_sim no)
 		(at 127.254 171.958 0)
@@ -11643,7 +11813,7 @@
 	)
 	(text "Extra GND Pins"
 		(exclude_from_sim no)
-		(at 389.636 79.756 0)
+		(at 389.636 100.076 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11786,7 +11956,7 @@
 	)
 	(text "Digital Test Pins"
 		(exclude_from_sim no)
-		(at 341.376 47.498 0)
+		(at 342.646 48.768 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11836,7 +12006,7 @@
 	)
 	(text "X/Y Test Pins"
 		(exclude_from_sim no)
-		(at 294.894 48.006 0)
+		(at 294.894 41.656 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -11846,7 +12016,7 @@
 	)
 	(text "RGB Pins"
 		(exclude_from_sim no)
-		(at 292.608 80.01 0)
+		(at 292.608 73.66 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -12083,7 +12253,7 @@
 		(uuid "019022c3-0a87-480b-b6c4-9b7238b24ed0")
 	)
 	(label "Y0"
-		(at 346.71 78.74 0)
+		(at 347.98 80.01 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12149,7 +12319,7 @@
 		(uuid "13954e54-3da5-4333-9c1c-fd81f37eba37")
 	)
 	(label "GND"
-		(at 314.96 81.28 0)
+		(at 316.23 82.55 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12160,7 +12330,7 @@
 		(uuid "1463e600-b97f-4c7e-8302-206415ce8102")
 	)
 	(label "Y8"
-		(at 346.71 55.88 0)
+		(at 347.98 57.15 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12171,7 +12341,7 @@
 		(uuid "148b56f2-eff0-4d10-8888-00906628f0c7")
 	)
 	(label "RED_IN"
-		(at 285.75 85.09 0)
+		(at 285.75 78.74 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12226,7 +12396,7 @@
 		(uuid "2b804588-eb6f-4d26-a924-d900dbea8d7d")
 	)
 	(label "Y7"
-		(at 346.71 63.5 0)
+		(at 347.98 64.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12248,7 +12418,7 @@
 		(uuid "2e66f6b9-f370-4857-9ec9-90e77e87e68e")
 	)
 	(label "Y3"
-		(at 346.71 73.66 0)
+		(at 347.98 74.93 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12325,7 +12495,7 @@
 		(uuid "3f028080-0d86-48df-a2cb-46e68ce9e1c4")
 	)
 	(label "Y4"
-		(at 346.71 66.04 0)
+		(at 347.98 67.31 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12347,7 +12517,7 @@
 		(uuid "446e7532-d781-4a11-adb1-a6fc985619ef")
 	)
 	(label "Y6"
-		(at 346.71 60.96 0)
+		(at 347.98 62.23 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12358,7 +12528,7 @@
 		(uuid "48c7c47c-ead1-45a9-8bb9-e08f750caa8a")
 	)
 	(label "Y9"
-		(at 346.71 58.42 0)
+		(at 347.98 59.69 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12402,7 +12572,7 @@
 		(uuid "56cee250-b0da-415f-b289-2ef49de9625b")
 	)
 	(label "ADC_CLK_HDR"
-		(at 346.71 83.82 0)
+		(at 347.98 85.09 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12435,7 +12605,7 @@
 		(uuid "58c1e5d7-360f-4e87-a7fe-baf4c021375c")
 	)
 	(label "X5"
-		(at 314.96 68.58 0)
+		(at 316.23 69.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12523,7 +12693,7 @@
 		(uuid "672e4bc8-234c-4f85-8131-76ca046ddce2")
 	)
 	(label "X1"
-		(at 314.96 76.2 0)
+		(at 316.23 77.47 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12556,7 +12726,7 @@
 		(uuid "6ebf8a7b-8da4-473c-9e11-bf0584bdb7b2")
 	)
 	(label "GRN_IN"
-		(at 285.75 88.9 0)
+		(at 285.75 82.55 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12578,7 +12748,7 @@
 		(uuid "71dadfb0-9ae4-482f-97e4-17dbdac405bb")
 	)
 	(label "Y1"
-		(at 346.71 76.2 0)
+		(at 347.98 77.47 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12600,7 +12770,7 @@
 		(uuid "740da2ff-7dec-4569-9c01-ec135ae94058")
 	)
 	(label "X"
-		(at 285.75 55.88 0)
+		(at 285.75 49.53 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12699,7 +12869,7 @@
 		(uuid "83e60023-6896-460c-905e-54e48e998919")
 	)
 	(label "X8"
-		(at 314.96 55.88 0)
+		(at 316.23 57.15 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12721,7 +12891,7 @@
 		(uuid "90005c0d-1f19-4f07-b3c3-dab474f77ddb")
 	)
 	(label "X0"
-		(at 314.96 78.74 0)
+		(at 316.23 80.01 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12809,7 +12979,7 @@
 		(uuid "ae1d37a0-8d04-4f95-8d8c-a040cc602979")
 	)
 	(label "X4"
-		(at 314.96 66.04 0)
+		(at 316.23 67.31 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12831,7 +13001,7 @@
 		(uuid "b35aab2c-6674-43a0-abfa-28dc0e8b0eca")
 	)
 	(label "BLU_IN"
-		(at 285.75 92.71 0)
+		(at 285.75 86.36 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12842,7 +13012,7 @@
 		(uuid "b515c5db-dfe7-4662-b223-8ab485becace")
 	)
 	(label "ADC_CLK_HDR"
-		(at 314.96 83.82 0)
+		(at 316.23 85.09 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12853,7 +13023,7 @@
 		(uuid "bb059f87-beee-4be4-9b7c-9669dc7670d3")
 	)
 	(label "X2"
-		(at 314.96 73.66 0)
+		(at 316.23 74.93 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12864,7 +13034,7 @@
 		(uuid "c3c2a3ca-6637-43ee-b25e-1695bf577690")
 	)
 	(label "Y"
-		(at 285.75 58.42 0)
+		(at 285.75 52.07 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12886,7 +13056,7 @@
 		(uuid "c8d1a901-dd08-4900-883f-5b4929ea0919")
 	)
 	(label "X3"
-		(at 314.96 71.12 0)
+		(at 316.23 72.39 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12930,7 +13100,7 @@
 		(uuid "d1cad63f-074c-4e88-abf8-7ea6654e878d")
 	)
 	(label "GND"
-		(at 346.71 81.28 0)
+		(at 347.98 82.55 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12941,7 +13111,7 @@
 		(uuid "d5dfed47-3064-4ff4-accb-610d82af8f11")
 	)
 	(label "X9"
-		(at 314.96 58.42 0)
+		(at 316.23 59.69 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -12952,7 +13122,7 @@
 		(uuid "db606f0e-d03d-4d39-b986-176086205be3")
 	)
 	(label "Y2"
-		(at 346.71 71.12 0)
+		(at 347.98 72.39 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13018,7 +13188,7 @@
 		(uuid "e4be0b3e-bd71-4803-8d06-3e0e51b7b115")
 	)
 	(label "Y5"
-		(at 346.71 68.58 0)
+		(at 347.98 69.85 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13040,7 +13210,7 @@
 		(uuid "e75976d2-b652-49ff-ab41-3351541cb021")
 	)
 	(label "X7"
-		(at 314.96 63.5 0)
+		(at 316.23 64.77 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13051,7 +13221,7 @@
 		(uuid "ea58d443-cac2-469b-ad80-428b8bd7d1cc")
 	)
 	(label "X6"
-		(at 314.96 60.96 0)
+		(at 316.23 62.23 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -13129,7 +13299,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 392.43 63.5 0)
+		(at 392.43 50.8 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -13138,7 +13308,7 @@
 		(dnp no)
 		(uuid "01ca6b57-08b1-401a-94cf-6db3548844dc")
 		(property "Reference" "J14"
-			(at 395.224 63.246 0)
+			(at 395.224 50.546 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13146,7 +13316,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 391.795 60.96 0)
+			(at 391.795 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13155,7 +13325,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 392.43 63.5 0)
+			(at 392.43 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13164,7 +13334,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 392.43 63.5 0)
+			(at 392.43 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13173,7 +13343,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 392.43 63.5 0)
+			(at 392.43 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13182,7 +13352,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 392.43 63.5 0)
+			(at 392.43 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13204,7 +13374,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 285.75 66.04 0)
+		(at 285.75 59.69 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13214,7 +13384,7 @@
 		(fields_autoplaced yes)
 		(uuid "1914ec68-c175-4863-a224-c83c6d79c6dc")
 		(property "Reference" "#PWR0101"
-			(at 285.75 72.39 0)
+			(at 285.75 66.04 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13223,7 +13393,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 285.75 71.12 0)
+			(at 285.75 64.77 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13231,7 +13401,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 285.75 66.04 0)
+			(at 285.75 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13240,7 +13410,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 285.75 66.04 0)
+			(at 285.75 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13249,7 +13419,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 285.75 66.04 0)
+			(at 285.75 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13271,7 +13441,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 92.71 0)
+		(at 298.45 86.36 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -13280,7 +13450,7 @@
 		(dnp no)
 		(uuid "1dbbac6f-e5f6-49e9-830d-e2c08706cf93")
 		(property "Reference" "J9"
-			(at 301.244 92.202 0)
+			(at 301.244 85.852 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13288,7 +13458,7 @@
 			)
 		)
 		(property "Value" "Blue"
-			(at 297.815 90.17 0)
+			(at 297.815 83.82 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13297,7 +13467,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5117"
-			(at 298.45 92.71 0)
+			(at 298.45 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13306,7 +13476,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 92.71 0)
+			(at 298.45 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13315,7 +13485,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 92.71 0)
+			(at 298.45 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13324,7 +13494,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5117-ND"
-			(at 298.45 92.71 0)
+			(at 298.45 86.36 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13412,7 +13582,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 382.27 58.42 0)
+		(at 382.27 45.72 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13421,7 +13591,7 @@
 		(fields_autoplaced yes)
 		(uuid "34e09c23-87ed-415d-aa2a-2e9b2a9f4594")
 		(property "Reference" "#PWR0104"
-			(at 382.27 62.23 0)
+			(at 382.27 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13430,7 +13600,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 382.27 53.34 0)
+			(at 382.27 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13438,7 +13608,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 382.27 58.42 0)
+			(at 382.27 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13447,7 +13617,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 382.27 58.42 0)
+			(at 382.27 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13456,7 +13626,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 382.27 58.42 0)
+			(at 382.27 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14006,7 +14176,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 382.27 66.04 0)
+		(at 382.27 53.34 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -14016,7 +14186,7 @@
 		(fields_autoplaced yes)
 		(uuid "3aefaf09-b587-4151-9f4b-34d2646d433f")
 		(property "Reference" "#PWR0103"
-			(at 382.27 72.39 0)
+			(at 382.27 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14025,7 +14195,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 382.27 71.12 0)
+			(at 382.27 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14033,7 +14203,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 382.27 66.04 0)
+			(at 382.27 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14042,7 +14212,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 382.27 66.04 0)
+			(at 382.27 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14051,7 +14221,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 382.27 66.04 0)
+			(at 382.27 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14073,7 +14243,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 58.42 0)
+		(at 298.45 52.07 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14082,7 +14252,7 @@
 		(dnp no)
 		(uuid "3f3281c4-ecab-4af5-9a85-f8a6ea9c45bf")
 		(property "Reference" "J4"
-			(at 301.244 58.166 0)
+			(at 301.244 51.816 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14090,7 +14260,7 @@
 			)
 		)
 		(property "Value" "White"
-			(at 297.815 55.88 0)
+			(at 297.815 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14099,7 +14269,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5002"
-			(at 298.45 58.42 0)
+			(at 298.45 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14108,7 +14278,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 58.42 0)
+			(at 298.45 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14117,7 +14287,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 58.42 0)
+			(at 298.45 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14126,7 +14296,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5002-ND"
-			(at 298.45 58.42 0)
+			(at 298.45 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14148,7 +14318,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 55.88 0)
+		(at 298.45 49.53 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14157,7 +14327,7 @@
 		(dnp no)
 		(uuid "40a41769-ce23-4e6a-83e0-084282a99ba3")
 		(property "Reference" "J3"
-			(at 301.244 55.372 0)
+			(at 301.244 49.022 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14165,7 +14335,7 @@
 			)
 		)
 		(property "Value" "White"
-			(at 297.815 53.34 0)
+			(at 297.815 46.99 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14174,7 +14344,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5002"
-			(at 298.45 55.88 0)
+			(at 298.45 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14183,7 +14353,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 55.88 0)
+			(at 298.45 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14192,7 +14362,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 55.88 0)
+			(at 298.45 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14201,7 +14371,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5002-ND"
-			(at 298.45 55.88 0)
+			(at 298.45 49.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14223,7 +14393,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 96.52 0)
+		(at 298.45 90.17 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14232,7 +14402,7 @@
 		(dnp no)
 		(uuid "415c3856-31c3-47b9-86e5-a452921a6b49")
 		(property "Reference" "J10"
-			(at 301.244 96.012 0)
+			(at 301.244 89.662 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14240,7 +14410,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 297.815 93.98 0)
+			(at 297.815 87.63 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14249,7 +14419,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 298.45 96.52 0)
+			(at 298.45 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14258,7 +14428,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 96.52 0)
+			(at 298.45 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14267,7 +14437,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 96.52 0)
+			(at 298.45 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14276,7 +14446,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 298.45 96.52 0)
+			(at 298.45 90.17 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14291,6 +14461,71 @@
 			(project "breakout-adc"
 				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
 					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+1V5")
+		(at 382.27 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4c127c46-702d-44d3-bfdf-f87be2f9798a")
+		(property "Reference" "#PWR024"
+			(at 382.27 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "X_VCM"
+			(at 382.27 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 382.27 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 382.27 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+1V5\""
+			(at 382.27 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "903b40ff-36b9-4363-bc5f-16ea7a29c0c7")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "#PWR024")
 					(unit 1)
 				)
 			)
@@ -14386,7 +14621,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 285.75 99.06 0)
+		(at 285.75 92.71 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -14396,7 +14631,7 @@
 		(fields_autoplaced yes)
 		(uuid "51dd97cd-e65f-4dc4-93e1-716bdb2c37a6")
 		(property "Reference" "#PWR0102"
-			(at 285.75 105.41 0)
+			(at 285.75 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14405,7 +14640,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 285.75 104.14 0)
+			(at 285.75 97.79 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14413,7 +14648,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 285.75 99.06 0)
+			(at 285.75 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14422,7 +14657,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 285.75 99.06 0)
+			(at 285.75 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14431,7 +14666,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 285.75 99.06 0)
+			(at 285.75 92.71 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14519,7 +14754,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x12_Pin")
-		(at 336.55 68.58 0)
+		(at 337.82 69.85 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14528,7 +14763,7 @@
 		(dnp no)
 		(uuid "5a4dfb5b-c810-4774-866e-4f69dcdb49ef")
 		(property "Reference" "J11"
-			(at 325.882 52.07 0)
+			(at 327.152 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14536,7 +14771,7 @@
 			)
 		)
 		(property "Value" "Conn_02x06_Pin"
-			(at 336.296 52.07 0)
+			(at 337.566 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14545,7 +14780,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical"
-			(at 336.55 68.58 0)
+			(at 337.82 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14554,7 +14789,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 336.55 68.58 0)
+			(at 337.82 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14563,7 +14798,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x12, script generated"
-			(at 336.55 68.58 0)
+			(at 337.82 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14572,7 +14807,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "952-2125-ND"
-			(at 336.55 68.58 0)
+			(at 337.82 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14787,7 +15022,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 392.43 90.17 0)
+		(at 392.43 110.49 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14796,7 +15031,7 @@
 		(dnp no)
 		(uuid "639349d7-0b30-4eec-b8db-3eb43233bcb9")
 		(property "Reference" "J18"
-			(at 395.224 89.916 0)
+			(at 395.224 110.236 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14804,7 +15039,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 391.795 87.63 0)
+			(at 391.795 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14813,7 +15048,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 392.43 90.17 0)
+			(at 392.43 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14822,7 +15057,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 392.43 90.17 0)
+			(at 392.43 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14831,7 +15066,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 392.43 90.17 0)
+			(at 392.43 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14840,7 +15075,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 392.43 90.17 0)
+			(at 392.43 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14956,7 +15191,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 392.43 85.09 0)
+		(at 392.43 105.41 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -14965,7 +15200,7 @@
 		(dnp no)
 		(uuid "6afe3237-cb39-4477-a0cf-cf0f1e02d9ab")
 		(property "Reference" "J16"
-			(at 395.224 84.836 0)
+			(at 395.224 105.156 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14973,7 +15208,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 391.795 82.55 0)
+			(at 391.795 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14982,7 +15217,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 392.43 85.09 0)
+			(at 392.43 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14991,7 +15226,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 392.43 85.09 0)
+			(at 392.43 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15000,7 +15235,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 392.43 85.09 0)
+			(at 392.43 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15009,7 +15244,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 392.43 85.09 0)
+			(at 392.43 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15097,7 +15332,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 382.27 95.25 0)
+		(at 382.27 115.57 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
@@ -15107,7 +15342,7 @@
 		(fields_autoplaced yes)
 		(uuid "7b1344d2-1af6-4580-875f-eb241c0430f8")
 		(property "Reference" "#PWR021"
-			(at 382.27 101.6 0)
+			(at 382.27 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15116,7 +15351,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 382.27 100.33 0)
+			(at 382.27 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15124,7 +15359,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 382.27 95.25 0)
+			(at 382.27 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15133,7 +15368,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 382.27 95.25 0)
+			(at 382.27 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15142,7 +15377,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 382.27 95.25 0)
+			(at 382.27 115.57 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15188,7 +15423,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT-363_DIO"
+		(property "Footprint" "D1213A:SOT-363_DIO"
 			(at 111.76 46.99 0)
 			(effects
 				(font
@@ -15264,7 +15499,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x12_Pin")
-		(at 368.3 68.58 0)
+		(at 369.57 69.85 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -15273,7 +15508,7 @@
 		(dnp no)
 		(uuid "83090096-6e5d-436c-9747-f7750817a549")
 		(property "Reference" "J12"
-			(at 356.87 51.816 0)
+			(at 358.14 53.086 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15281,7 +15516,7 @@
 			)
 		)
 		(property "Value" "Conn_02x06_Pin"
-			(at 368.046 52.07 0)
+			(at 369.316 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15290,7 +15525,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_2x06_P2.54mm_Vertical"
-			(at 368.3 68.58 0)
+			(at 369.57 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15299,7 +15534,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 368.3 68.58 0)
+			(at 369.57 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15308,7 +15543,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x12, script generated"
-			(at 368.3 68.58 0)
+			(at 369.57 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15317,7 +15552,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "952-2125-ND"
-			(at 368.3 68.58 0)
+			(at 369.57 69.85 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16031,6 +16266,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 392.43 92.71 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9c49089d-1bff-4ced-ad93-9c6c299904cf")
+		(property "Reference" "J23"
+			(at 395.224 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Blue"
+			(at 391.795 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "keystone:KEYSTONE_5117"
+			(at 392.43 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 392.43 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 392.43 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "36-5117-ND"
+			(at 392.43 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d712711f-7c37-4301-be84-0d025af33b4d")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "J23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 111.76 59.69 0)
 		(unit 1)
@@ -16185,8 +16495,73 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+1V5")
+		(at 382.27 90.17 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b6ecf572-7793-4eca-84c4-78eab8d4b548")
+		(property "Reference" "#PWR025"
+			(at 382.27 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "Y_VCM"
+			(at 382.27 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 382.27 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 382.27 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+1V5\""
+			(at 382.27 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "91d53a19-26f4-44cc-b081-420101657085")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 392.43 87.63 0)
+		(at 392.43 107.95 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -16195,7 +16570,7 @@
 		(dnp no)
 		(uuid "b940d38a-4618-4e88-aeb5-d15ac84f96a9")
 		(property "Reference" "J17"
-			(at 395.224 87.376 0)
+			(at 395.224 107.696 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16203,7 +16578,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 391.795 85.09 0)
+			(at 391.795 105.41 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16212,7 +16587,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 392.43 87.63 0)
+			(at 392.43 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16221,7 +16596,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 392.43 87.63 0)
+			(at 392.43 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16230,7 +16605,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 392.43 87.63 0)
+			(at 392.43 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16239,7 +16614,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 392.43 87.63 0)
+			(at 392.43 107.95 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16261,7 +16636,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 85.09 0)
+		(at 298.45 78.74 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -16270,7 +16645,7 @@
 		(dnp no)
 		(uuid "c61fdd45-f286-48c4-a643-1db43238f3ad")
 		(property "Reference" "J7"
-			(at 301.244 84.582 0)
+			(at 301.244 78.232 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16278,7 +16653,7 @@
 			)
 		)
 		(property "Value" "Red"
-			(at 297.815 82.55 0)
+			(at 297.815 76.2 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16287,7 +16662,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5000"
-			(at 298.45 85.09 0)
+			(at 298.45 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16296,7 +16671,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 85.09 0)
+			(at 298.45 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16305,7 +16680,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 85.09 0)
+			(at 298.45 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16314,7 +16689,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5000-ND"
-			(at 298.45 85.09 0)
+			(at 298.45 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16336,7 +16711,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 63.5 0)
+		(at 298.45 57.15 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -16345,7 +16720,7 @@
 		(dnp no)
 		(uuid "c625982c-5f37-4060-93fc-a707e3c35757")
 		(property "Reference" "J6"
-			(at 301.244 63.246 0)
+			(at 301.244 56.896 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16353,7 +16728,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 297.815 60.96 0)
+			(at 297.815 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16362,7 +16737,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 298.45 63.5 0)
+			(at 298.45 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16371,7 +16746,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 63.5 0)
+			(at 298.45 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16380,7 +16755,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 63.5 0)
+			(at 298.45 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16389,7 +16764,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 298.45 63.5 0)
+			(at 298.45 57.15 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16434,7 +16809,7 @@
 				)
 			)
 		)
-		(property "Footprint" "SOT-363_DIO"
+		(property "Footprint" "D1213A:SOT-363_DIO"
 			(at 111.76 97.79 0)
 			(effects
 				(font
@@ -16669,7 +17044,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 88.9 0)
+		(at 298.45 82.55 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -16678,7 +17053,7 @@
 		(dnp no)
 		(uuid "dc7f2d02-e9aa-44e3-8b3c-89da47c92403")
 		(property "Reference" "J8"
-			(at 301.244 88.392 0)
+			(at 301.244 82.042 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16686,7 +17061,7 @@
 			)
 		)
 		(property "Value" "Green"
-			(at 297.815 86.36 0)
+			(at 297.815 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16695,7 +17070,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5116"
-			(at 298.45 88.9 0)
+			(at 298.45 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16704,7 +17079,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 88.9 0)
+			(at 298.45 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16713,7 +17088,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 88.9 0)
+			(at 298.45 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16722,7 +17097,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5116-ND"
-			(at 298.45 88.9 0)
+			(at 298.45 82.55 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -16932,6 +17307,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x01_Pin")
+		(at 392.43 82.55 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e7b05e89-57cb-4246-bda9-4355a85f015c")
+		(property "Reference" "J19"
+			(at 395.224 82.042 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Blue"
+			(at 391.795 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Footprint" "keystone:KEYSTONE_5117"
+			(at 392.43 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 392.43 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x01, script generated"
+			(at 392.43 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "36-5117-ND"
+			(at 392.43 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ceb567d7-f65a-4746-94d0-1a4ec29a5ee0")
+		)
+		(instances
+			(project "breakout-adc"
+				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2"
+					(reference "J19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R_Small")
 		(at 76.2 96.52 270)
 		(unit 1)
@@ -17093,7 +17543,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 392.43 60.96 0)
+		(at 392.43 48.26 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -17102,7 +17552,7 @@
 		(dnp no)
 		(uuid "ee54fd80-d10f-4d7c-920f-bc7479a91a7c")
 		(property "Reference" "J13"
-			(at 395.224 60.706 0)
+			(at 395.224 48.006 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17110,7 +17560,7 @@
 			)
 		)
 		(property "Value" "Red"
-			(at 391.795 58.42 0)
+			(at 391.795 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17119,7 +17569,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5000"
-			(at 392.43 60.96 0)
+			(at 392.43 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17128,7 +17578,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 392.43 60.96 0)
+			(at 392.43 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17137,7 +17587,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 392.43 60.96 0)
+			(at 392.43 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17146,7 +17596,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5000-ND"
-			(at 392.43 60.96 0)
+			(at 392.43 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17299,7 +17749,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x01_Pin")
-		(at 298.45 60.96 0)
+		(at 298.45 54.61 0)
 		(mirror y)
 		(unit 1)
 		(exclude_from_sim yes)
@@ -17308,7 +17758,7 @@
 		(dnp no)
 		(uuid "fb3681bc-5b0e-418b-a452-458cb6857cd4")
 		(property "Reference" "J5"
-			(at 301.244 60.706 0)
+			(at 301.244 54.356 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17316,7 +17766,7 @@
 			)
 		)
 		(property "Value" "Black"
-			(at 297.815 58.42 0)
+			(at 297.815 52.07 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17325,7 +17775,7 @@
 			)
 		)
 		(property "Footprint" "keystone:KEYSTONE_5001"
-			(at 298.45 60.96 0)
+			(at 298.45 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17334,7 +17784,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 298.45 60.96 0)
+			(at 298.45 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17343,7 +17793,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 298.45 60.96 0)
+			(at 298.45 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -17352,7 +17802,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "36-5001-ND"
-			(at 298.45 60.96 0)
+			(at 298.45 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)

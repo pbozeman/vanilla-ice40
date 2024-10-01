@@ -23,7 +23,6 @@
 
 ### ADC board
 
-- add test point for 1.5v
 - Clock (x1) is missing a pin 1 silkscreen marker
 - X1 has bad datasheet link
 - R45 and R46 do not need to be so close to the jumper block (pita to solder)
