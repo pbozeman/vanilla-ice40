@@ -13,7 +13,10 @@ module adc_y_top #(
     input wire [DATA_BITS-1:0] L_ADC_Y,
 
     output wire [7:0] R_E,
-    output wire [7:0] R_F
+    output wire [7:0] R_F,
+
+    output wire [7:0] R_C,
+    output wire [7:0] R_D
 );
 
   wire [DATA_BITS-1:0] y_data;
@@ -30,6 +33,10 @@ module adc_y_top #(
   // Output y_data on R_E and R_F
   assign R_E = y_data[0:7];
   assign R_F = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[8:9]};
+
+  // Second copy - use one for LEDs and one for logic analyzer
+  assign R_C = y_data[0:7];
+  assign R_D = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[8:9]};
 
 endmodule
 
