@@ -109,8 +109,20 @@ module sram_model #(
   end
   // verilator lint_on LATCH
 
+  reg [ADDR_BITS-1:0] oe_n_initial_addr;
   reg [ADDR_BITS-1:0] we_n_initial_addr;
   reg [DATA_BITS-1:0] we_n_initial_data;
+
+  always @(negedge oe_n) begin
+    oe_n_initial_addr <= addr;
+  end
+
+  always @(posedge oe_n) begin
+    if (oe_n_initial_addr != addr) begin
+      $display("addr changed during read");
+      $fatal;
+    end
+  end
 
   always @(negedge we_n) begin
     we_n_initial_addr <= addr;
