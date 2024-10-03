@@ -6,7 +6,7 @@
 `include "counter.v"
 
 module iter #(
-    parameter integer MAX_VALUE = 16,
+    parameter integer MAX_VALUE = 15,
     parameter WIDTH = $clog2(MAX_VALUE + 1)
 ) (
     input wire clk,

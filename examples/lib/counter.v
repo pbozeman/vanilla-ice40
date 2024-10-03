@@ -4,7 +4,7 @@
 `include "directives.v"
 
 module counter #(
-    parameter MAX_VALUE = 16,
+    parameter MAX_VALUE = 15,
     parameter WIDTH = $clog2(MAX_VALUE + 1)
 ) (
     input clk,
