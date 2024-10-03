@@ -130,7 +130,7 @@ module axi_sram_controller #(
         writing = 1'b1;
         write_done = 1'b1;
 
-        if (s_axi_bready) begin
+        if (s_axi_bready & sram_we_n) begin
           write_resp_valid = 1'b1;
           next_state = IDLE;
         end else begin
