@@ -35,7 +35,7 @@ TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Compiler and simulator
-IVERILOG := iverilog -DSIMULATOR
+IVERILOG := iverilog -Wall -Wno-timescale -DSIMULATOR
 VVP := vvp
 
 # Linter
