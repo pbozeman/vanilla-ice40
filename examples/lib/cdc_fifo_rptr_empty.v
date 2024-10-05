@@ -19,10 +19,10 @@ module cdc_fifo_rptr_empty #(
     input [ADDR_SIZE : 0] r_q2_wptr,
 
     output reg r_empty,
-    output reg [ADDR_SIZE : 0] r_ptr,
+    output reg [ADDR_SIZE : 0] r_ptr = 0,
     output wire [ADDR_SIZE-1:0] r_addr
 );
-  reg  [ADDR_SIZE:0] r_bin;
+  reg  [ADDR_SIZE:0] r_bin = 0;
   wire [ADDR_SIZE:0] r_gray_next;
   wire [ADDR_SIZE:0] r_bin_next;
 

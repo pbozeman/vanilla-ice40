@@ -19,10 +19,10 @@ module cdc_fifo_wptr_full #(
     input [ADDR_SIZE : 0] w_q2_rptr,
 
     output reg w_full,
-    output reg [ADDR_SIZE : 0] w_ptr,
+    output reg [ADDR_SIZE : 0] w_ptr = 0,
     output wire [ADDR_SIZE-1:0] w_addr
 );
-  reg  [ADDR_SIZE:0] w_bin;
+  reg  [ADDR_SIZE:0] w_bin = 0;
   wire [ADDR_SIZE:0] w_gray_next;
   wire [ADDR_SIZE:0] w_bin_next;
 
