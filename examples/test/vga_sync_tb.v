@@ -36,7 +36,6 @@ module vga_sync_tb;
     // Make sure we actually did stuff
     `ASSERT(frames == 3);
 
-    $display("Simulation end, SUCCESS!");
     $finish;
   end
 
