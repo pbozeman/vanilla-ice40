@@ -6,6 +6,7 @@
 `include "directives.v"
 
 `include "axi_sram_controller.v"
+`include "cdc_fifo.v"
 `include "vga_sram_pattern_generator.v"
 `include "vga_sram_pixel_stream.v"
 
@@ -15,6 +16,7 @@ module vga_sram #(
 ) (
     // core signals
     input wire clk,
+    input wire pixel_clk,
     input wire reset,
 
     // sram controller to io pins
@@ -112,6 +114,34 @@ module vga_sram #(
       .s_axi_bready(s_axi_bready)
   );
 
+  // signals as it comes from the sram stream
+  wire [3:0] sram_vga_red;
+  wire [3:0] sram_vga_green;
+  wire [3:0] sram_vga_blue;
+  wire sram_vga_hsync;
+  wire sram_vga_vsync;
+  wire sram_vga_data_valid;
+
+  //
+  // VGA data marshaling and unmarshaling on for going in and
+  // out of the fifo. The sram_ side is in the writer clock
+  // domain and vga_ is in the reader.
+  //
+  localparam VGA_DATA_WIDTH = 14;
+
+  wire [VGA_DATA_WIDTH-1:0] sram_vga_data;
+  wire [VGA_DATA_WIDTH-1:0] vga_data;
+
+  assign sram_vga_data = {
+    sram_vga_hsync, sram_vga_vsync, sram_vga_red, sram_vga_green, sram_vga_blue
+  };
+
+  assign vga_hsync = vga_data[13];
+  assign vga_vsync = vga_data[12];
+  assign vga_red = vga_data[11:8];
+  assign vga_green = vga_data[7:4];
+  assign vga_blue = vga_data[3:0];
+
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -129,12 +159,38 @@ module vga_sram #(
       .s_axi_rvalid(s_axi_rvalid),
       .s_axi_rready(s_axi_rready),
 
-      .vsync(vga_vsync),
-      .hsync(vga_hsync),
-      .red  (vga_red),
-      .green(vga_green),
-      .blue (vga_blue)
+      .vsync(sram_vga_vsync),
+      .hsync(sram_vga_hsync),
+      .red  (sram_vga_red),
+      .green(sram_vga_green),
+      .blue (sram_vga_blue),
+      .valid(sram_vga_data_valid)
   );
+
+  wire fifo_full;
+  wire fifo_empty;
+  wire vga_ready;
+  assign vga_ready = 1'b1;
+
+  cdc_fifo #(
+      .DATA_WIDTH(VGA_DATA_WIDTH)
+  ) fifo (
+      // Write clock domain
+      .w_clk  (clk),
+      .w_rst_n(~reset),
+      .w_inc  (sram_vga_data_valid),
+      .w_data (sram_vga_data),
+      .w_full (fifo_full),
+
+      .r_clk  (pixel_clk),
+      .r_rst_n(~reset),
+      .r_inc  (vga_ready),
+
+      // Read clock domain outputs
+      .r_empty(fifo_empty),
+      .r_data (vga_data)
+  );
+
 endmodule
 
 `endif

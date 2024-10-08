@@ -11,8 +11,8 @@ module vga_sram_tb;
   parameter AXI_ADDR_WIDTH = 20;
   parameter AXI_DATA_WIDTH = 16;
 
-  reg                       pixel_clk;
   reg                       clk;
+  reg                       pixel_clk;
   reg                       reset;
 
   // SRAM Interface
@@ -34,7 +34,8 @@ module vga_sram_tb;
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) uut (
-      .clk  (clk),
+      .clk(clk),
+      .pixel_clk(pixel_clk),
       .reset(reset),
 
       .sram_addr(sram_addr),
@@ -83,7 +84,9 @@ module vga_sram_tb;
     repeat (10) @(posedge clk);
     reset = 0;
 
-    repeat (3 * 640 * 480) @(posedge clk);
+    // Yes, this is a long time. This will get reduced and become more
+    // targeted later.
+    repeat (10 * 640 * 480) @(posedge clk);
     $finish;
   end
 

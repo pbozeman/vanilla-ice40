@@ -44,7 +44,8 @@ module vga_sram_pixel_stream #(
     output wire hsync,
     output wire [3:0] red,
     output wire [3:0] green,
-    output wire [3:0] blue
+    output wire [3:0] blue,
+    output wire valid
 );
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
@@ -179,16 +180,23 @@ module vga_sram_pixel_stream #(
   wire visible;
   assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;
 
-  reg hsync_r;
-  reg vsync_r;
-  reg [3:0] red_r;
-  reg [3:0] green_r;
-  reg [3:0] blue_r;
+  reg hsync_r = 0;
+  reg vsync_r = 0;
+  reg [3:0] red_r = 0;
+  reg [3:0] green_r = 0;
+  reg [3:0] blue_r = 0;
+  reg valid_r = 0;
 
   // TODO: double check for off by one errors on the boundary row/column
   // boundaries.
   always @(posedge clk or posedge reset) begin
     if (reset) begin
+      valid_r <= 1'b0;
+      hsync_r <= 1'b0;
+      red_r   <= 1'b0;
+      green_r <= 1'b0;
+      blue_r  <= 1'b0;
+      valid_r <= 1'b0;
     end else begin
       valid_r <= 1'b0;
 
@@ -199,6 +207,7 @@ module vga_sram_pixel_stream #(
         red_r   <= visible ? s_axi_rdata[15:12] : 4'b0000;
         green_r <= visible ? s_axi_rdata[11:8] : 4'b0000;
         blue_r  <= visible ? s_axi_rdata[7:4] : 4'b0000;
+        valid_r <= 1'b1;
       end
     end
   end
@@ -211,6 +220,8 @@ module vga_sram_pixel_stream #(
   assign red   = red_r;
   assign green = green_r;
   assign blue  = blue_r;
+
+  assign valid = valid_r;
 
 endmodule
 
