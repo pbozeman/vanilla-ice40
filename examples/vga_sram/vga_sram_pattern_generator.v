@@ -1,14 +1,18 @@
 `ifndef VGA_SRAM_PATTERN_GENERATOR_V
 `define VGA_SRAM_PATTERN_GENERATOR_V
 
+// TODO: double check for off by one errors on the boundary row/column
+// boundaries.
+
 `include "directives.v"
 
 module vga_sram_pattern_generator #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (
-    input wire clk,
-    input wire reset,
+    input  wire clk,
+    input  wire reset,
+    output wire pattern_done,
 
     // SRAM AXI-Lite Write Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] s_axi_awaddr,
@@ -49,7 +53,6 @@ module vga_sram_pattern_generator #(
   wire [AXI_ADDR_WIDTH-1:0] addr;
   wire [AXI_DATA_WIDTH-1:0] data;
 
-  wire pattern_done;
   assign pattern_done = (row == 479 && column == 639);
 
   // state machine

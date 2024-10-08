@@ -4,6 +4,7 @@
 
 `include "axi_sram_controller.v"
 `include "vga_sram_pattern_generator.v"
+`include "vga_sram_pixel_stream.v"
 
 // This is not intended to be a full test. This is just to see some wave forms
 // in the simulator.
@@ -13,6 +14,7 @@ module vga_sram_tb;
   parameter AXI_ADDR_WIDTH = 20;
   parameter AXI_DATA_WIDTH = 16;
 
+  reg                               pixel_clk;
   reg                               clk;
   reg                               reset;
 
@@ -50,12 +52,20 @@ module vga_sram_tb;
   wire                              sram_oe_n;
   wire                              sram_ce_n;
 
+  wire                              pattern_done;
+  wire                              vsync;
+  wire                              hsync;
+  wire [                       3:0] red;
+  wire [                       3:0] green;
+  wire [                       3:0] blue;
+
   vga_sram_pattern_generator #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pattern (
-      .clk  (clk),
+      .clk(clk),
       .reset(reset),
+      .pattern_done(pattern_done),
 
       .s_axi_awaddr (s_axi_awaddr),
       .s_axi_awvalid(s_axi_awvalid),
@@ -69,6 +79,30 @@ module vga_sram_tb;
       .s_axi_bresp (s_axi_bresp),
       .s_axi_bvalid(s_axi_bvalid),
       .s_axi_bready(s_axi_bready)
+  );
+
+  vga_sram_pixel_stream #(
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+  ) pixel_stream (
+      .clk  (clk),
+      .reset(reset),
+      .start(pattern_done),
+
+      .s_axi_araddr (s_axi_araddr),
+      .s_axi_arvalid(s_axi_arvalid),
+      .s_axi_arready(s_axi_arready),
+
+      .s_axi_rdata (s_axi_rdata),
+      .s_axi_rresp (s_axi_rresp),
+      .s_axi_rvalid(s_axi_rvalid),
+      .s_axi_rready(s_axi_rready),
+
+      .vsync(vsync),
+      .hsync(hsync),
+      .red  (red),
+      .green(green),
+      .blue (blue)
   );
 
   axi_sram_controller #(
@@ -114,10 +148,16 @@ module vga_sram_tb;
       .data_io(sram_data)
   );
 
-  // Clock generation
+  // 100mhz main clock (also axi clock)
   initial begin
     clk = 0;
     forever #5 clk = ~clk;
+  end
+
+  // 25mhz pixel clock
+  initial begin
+    pixel_clk = 0;
+    forever #20 pixel_clk = ~pixel_clk;
   end
 
   `TEST_SETUP(vga_sram_tb);
