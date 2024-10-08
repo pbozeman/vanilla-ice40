@@ -146,9 +146,9 @@ module vga_sram #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pixel_stream (
-      .clk  (clk),
+      .clk(clk),
       .reset(reset),
-      .start(pattern_done),
+      .enable(pattern_done & !fifo_almost_full),
 
       .s_axi_araddr (s_axi_araddr),
       .s_axi_arvalid(s_axi_arvalid),
@@ -167,20 +167,23 @@ module vga_sram #(
       .valid(sram_vga_data_valid)
   );
 
+  wire fifo_almost_full;
   wire fifo_full;
   wire fifo_empty;
   wire vga_ready;
+
   assign vga_ready = 1'b1;
 
   cdc_fifo #(
       .DATA_WIDTH(VGA_DATA_WIDTH)
   ) fifo (
       // Write clock domain
-      .w_clk  (clk),
+      .w_clk(clk),
       .w_rst_n(~reset),
-      .w_inc  (sram_vga_data_valid),
-      .w_data (sram_vga_data),
-      .w_full (fifo_full),
+      .w_inc(sram_vga_data_valid),
+      .w_data(sram_vga_data),
+      .w_full(fifo_full),
+      .w_almost_full(fifo_almost_full),
 
       .r_clk  (pixel_clk),
       .r_rst_n(~reset),

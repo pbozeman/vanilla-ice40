@@ -26,6 +26,7 @@ module cdc_fifo #(
     input wire [DATA_WIDTH-1:0] w_data,
 
     // Write clock domain output
+    output wire w_almost_full,
     output wire w_full,
 
     // Read clock domain inputs
@@ -84,6 +85,7 @@ module cdc_fifo #(
       .w_rst_n(w_rst_n),
       .w_inc(w_inc),
       .w_q2_rptr(w_q2_rptr),
+      .w_almost_full(w_almost_full),
       .w_full(w_full),
       .w_ptr(w_ptr),
       .w_addr(w_addr)

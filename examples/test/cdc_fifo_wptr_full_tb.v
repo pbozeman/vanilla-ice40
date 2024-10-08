@@ -9,6 +9,8 @@ module cdc_fifo_wptr_full_tb;
   reg w_rst_n;
   reg w_inc;
   reg [ADDR_SIZE:0] w_q2_rptr;
+
+  wire w_almost_full;
   wire w_full;
   wire [ADDR_SIZE:0] w_ptr;
   wire [ADDR_SIZE-1:0] w_addr;
@@ -20,6 +22,7 @@ module cdc_fifo_wptr_full_tb;
       .w_rst_n(w_rst_n),
       .w_inc(w_inc),
       .w_q2_rptr(w_q2_rptr),
+      .w_almost_full(w_almost_full),
       .w_full(w_full),
       .w_ptr(w_ptr),
       .w_addr(w_addr)
@@ -36,8 +39,10 @@ module cdc_fifo_wptr_full_tb;
     w_rst_n = 0;
     w_inc = 0;
     w_q2_rptr = 0;
+    @(posedge w_clk);
 
-    #10 w_rst_n = 1;
+    w_rst_n = 1;
+    @(posedge w_clk);
 
     // Test case 1: Basic increment
     repeat (4) begin
@@ -51,26 +56,38 @@ module cdc_fifo_wptr_full_tb;
     `ASSERT(w_ptr === 5'b00110)
     `ASSERT(w_addr === 4'b0100)
 
+    @(posedge w_clk);
+
     // Test case 2: Full condition
     // (read ptr grey code for F)
-    w_q2_rptr = 5'b10000;
-    repeat (32) begin
+    w_inc   = 0;
+    w_rst_n = 0;
+    @(posedge w_clk);
+    w_rst_n = 1;
+    @(negedge w_clk);
+
+    repeat (15) begin
       w_inc = 1;
       @(posedge w_clk);
     end
 
     @(negedge w_clk);
+    `ASSERT(w_almost_full === 1'b1)
+    @(posedge w_clk);
+
+    @(negedge w_clk);
+    `ASSERT(w_almost_full === 1'b0)
     `ASSERT(w_full === 1'b1)
-    `ASSERT(w_ptr === 5'b01000);
-    `ASSERT(w_addr === 4'b1111);
+    `ASSERT(w_ptr === 5'b11000);
+    `ASSERT(w_addr === 4'b0000);
 
     // Test case 3: Increment when full
     w_inc = 1;
     @(posedge w_clk);
     @(negedge w_clk);
     `ASSERT(w_full === 1'b1)
-    `ASSERT(w_ptr === 5'b01000);
-    `ASSERT(w_addr === 4'b1111);
+    `ASSERT(w_ptr === 5'b11000);
+    `ASSERT(w_addr === 4'b0000);
 
     $finish;
   end

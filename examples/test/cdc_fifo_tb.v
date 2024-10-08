@@ -10,6 +10,7 @@ module cdc_fifo_tb;
   reg w_rst_n;
   reg w_inc;
   reg [DATA_WIDTH-1:0] w_data;
+  wire w_almost_full;
   wire w_full;
 
   reg r_clk;
@@ -22,16 +23,17 @@ module cdc_fifo_tb;
       .DATA_WIDTH(DATA_WIDTH),
       .ADDR_SIZE (ADDR_SIZE)
   ) dut (
-      .w_clk  (w_clk),
+      .w_clk(w_clk),
       .w_rst_n(w_rst_n),
-      .w_inc  (w_inc),
-      .w_data (w_data),
-      .w_full (w_full),
-      .r_clk  (r_clk),
+      .w_inc(w_inc),
+      .w_data(w_data),
+      .w_almost_full(w_almost_full),
+      .w_full(w_full),
+      .r_clk(r_clk),
       .r_rst_n(r_rst_n),
-      .r_inc  (r_inc),
+      .r_inc(r_inc),
       .r_empty(r_empty),
-      .r_data (r_data)
+      .r_data(r_data)
   );
 
   `TEST_SETUP(cdc_fifo_tb)

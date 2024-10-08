@@ -26,7 +26,7 @@ module vga_sram_pixel_stream #(
 ) (
     input wire clk,
     input wire reset,
-    input wire start,
+    input wire enable,
 
     // SRAM AXI-Lite Read Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] s_axi_araddr,
@@ -79,7 +79,7 @@ module vga_sram_pixel_stream #(
     if (reset) begin
       started <= 0;
     end else begin
-      if (start && !started) begin
+      if (enable && !started) begin
         started <= 1;
       end
     end
@@ -93,7 +93,7 @@ module vga_sram_pixel_stream #(
       column <= 0;
       row <= 0;
     end else begin
-      if (read_done) begin
+      if (read_start & enable) begin
         if (column < H_WHOLE_LINE) begin
           column <= column + 1;
         end else begin
@@ -122,7 +122,7 @@ module vga_sram_pixel_stream #(
     if (!reset) begin
       case (state)
         IDLE: begin
-          if (started) begin
+          if (started && enable) begin
             read_start = 1'b1;
             next_state = READING;
           end
@@ -130,7 +130,11 @@ module vga_sram_pixel_stream #(
 
         READING: begin
           if (read_done) begin
-            read_start = 1'b1;
+            if (enable) begin
+              read_start = 1'b1;
+            end else begin
+              next_state = IDLE;
+            end
           end
         end
       endcase
