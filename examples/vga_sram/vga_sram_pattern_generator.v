@@ -4,6 +4,8 @@
 // TODO: double check for off by one errors on the boundary row/column
 // boundaries.
 
+// TODO: pass in vga screen size parameters
+
 `include "directives.v"
 
 module vga_sram_pattern_generator #(
@@ -144,12 +146,9 @@ module vga_sram_pattern_generator #(
 
   assign addr = (row * 640) + column;
 
-  assign data[15:12] = (row < 480 && column < 213) ? column : 4'b0000;
-  assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? column : 4'b0000;
-  assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? column : 4'b0000;
-  // assign data[15:12] = (row < 480 && column < 213) ? 4'b1111 : 4'b0000;
-  // assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
-  // assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
+  assign data[15:12] = (row < 480 && column < 213) ? 4'b1111 : 4'b0000;
+  assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
+  assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
   assign data[3:0] = 4'b0000;
 
 endmodule
