@@ -29,9 +29,20 @@ module cdc_fifo_mem #(
   localparam DEPTH = 1 << ADDR_SIZE;
   reg [DATA_WIDTH-1:0] mem[0:DEPTH-1];
 
+  // Added for debugging in gtkwave, although, it might be nice to pass
+  // this back out to callers. Presumably this will get optimized out
+  // in a real build.
+  reg discarded;
+
   always @(posedge w_clk) begin
-    if (w_clk_en && !w_full) begin
-      mem[w_addr] <= w_data;
+    discarded <= 1'b0;
+
+    if (w_clk_en) begin
+      if (!w_full) begin
+        mem[w_addr] <= w_data;
+      end else begin
+        discarded <= 1'b1;
+      end
     end
   end
 
