@@ -84,9 +84,13 @@ module vga_sram_tb;
     repeat (10) @(posedge clk);
     reset = 0;
 
-    // Yes, this is a long time. This will get reduced and become more
-    // targeted later.
-    repeat (10 * 640 * 480) @(posedge clk);
+    // This is for the pattern generantor
+    repeat (640 * 480) @(posedge clk);
+
+    // This is for the display.
+    // The 800 * 525 are the H_WHOLE_LINE * V_WHOLE_FRAME.
+    // TODO: make these configurable
+    repeat (3 * 800 * 525) @(posedge pixel_clk);
     $finish;
   end
 
