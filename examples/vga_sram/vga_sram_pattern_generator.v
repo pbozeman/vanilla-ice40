@@ -14,7 +14,7 @@ module vga_sram_pattern_generator #(
 ) (
     input  wire clk,
     input  wire reset,
-    output wire pattern_done,
+    output reg  pattern_done = 0,
 
     // SRAM AXI-Lite Write Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] axi_awaddr,
@@ -55,7 +55,8 @@ module vga_sram_pattern_generator #(
   wire [AXI_ADDR_WIDTH-1:0] addr;
   wire [AXI_DATA_WIDTH-1:0] data;
 
-  assign pattern_done = (row == 479 && column == 639);
+  wire done;
+  assign done = (row == 479 && column == 639);
 
   // state machine
   always @(*) begin
@@ -65,7 +66,7 @@ module vga_sram_pattern_generator #(
     if (!reset) begin
       case (state)
         IDLE: begin
-          if (!pattern_done) begin
+          if (!done) begin
             write_start = 1'b1;
             next_state  = WRITING;
           end
@@ -73,7 +74,7 @@ module vga_sram_pattern_generator #(
 
         WRITING: begin
           if (write_done) begin
-            if (!pattern_done) begin
+            if (!done) begin
               write_start = 1'b1;
             end else begin
               next_state = IDLE;
@@ -99,7 +100,7 @@ module vga_sram_pattern_generator #(
       column <= 0;
       row <= 0;
     end else begin
-      if (!pattern_done) begin
+      if (!done) begin
         if (write_done) begin
           if (column < 640) begin
             column <= column + 1;
@@ -150,6 +151,19 @@ module vga_sram_pattern_generator #(
   assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
   assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
   assign data[3:0] = 4'b0000;
+
+  // this is kinda hacky, but the idea is to not tell the caller
+  // that we are done until the sram is done too.
+  always @(posedge clk or reset) begin
+    if (reset) begin
+      pattern_done <= 0;
+    end else begin
+      if (!pattern_done) begin
+        pattern_done <= (done & write_done);
+      end
+    end
+  end
+
 
 endmodule
 
