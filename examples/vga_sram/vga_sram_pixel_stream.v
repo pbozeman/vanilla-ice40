@@ -98,7 +98,11 @@ module vga_sram_pixel_stream #(
           column <= column + 1;
         end else begin
           column <= 0;
-          row <= row + 1;
+          if (row < V_WHOLE_FRAME) begin
+            row <= row + 1;
+          end else begin
+            row <= 0;
+          end
         end
       end
     end
