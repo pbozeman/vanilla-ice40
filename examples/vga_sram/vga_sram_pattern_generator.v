@@ -17,20 +17,20 @@ module vga_sram_pattern_generator #(
     output wire pattern_done,
 
     // SRAM AXI-Lite Write Address Channel
-    output reg  [AXI_ADDR_WIDTH-1:0] s_axi_awaddr,
-    output reg                       s_axi_awvalid,
-    input  wire                      s_axi_awready,
+    output reg  [AXI_ADDR_WIDTH-1:0] axi_awaddr,
+    output reg                       axi_awvalid,
+    input  wire                      axi_awready,
 
     // SRAM AXI-Lite Write Data Channel
-    output reg  [        AXI_DATA_WIDTH-1:0] s_axi_wdata,
-    output reg  [((AXI_DATA_WIDTH+7)/8)-1:0] s_axi_wstrb,
-    output reg                               s_axi_wvalid,
-    input  wire                              s_axi_wready,
+    output reg  [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    output reg  [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    output reg                               axi_wvalid,
+    input  wire                              axi_wready,
 
     // SRAM AXI-Lite Write Response Channel
-    input  wire [1:0] s_axi_bresp,
-    input  wire       s_axi_bvalid,
-    output reg        s_axi_bready
+    input  wire [1:0] axi_bresp,
+    input  wire       axi_bvalid,
+    output reg        axi_bready
 );
 
   // The "state" management of this state machine is kinda overkill
@@ -115,30 +115,30 @@ module vga_sram_pattern_generator #(
   //
   // AXI write
   //
-  assign write_done = (s_axi_bready && s_axi_bvalid);
+  assign write_done = (axi_bready && axi_bvalid);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      s_axi_awvalid <= 1'b0;
-      s_axi_wvalid  <= 1'b0;
-      s_axi_bready  <= 1'b0;
+      axi_awvalid <= 1'b0;
+      axi_wvalid  <= 1'b0;
+      axi_bready  <= 1'b0;
     end else begin
       // We're always ready for a response
-      s_axi_bready <= 1'b1;
+      axi_bready <= 1'b1;
 
       // kick off a write, or wait to de-assert valid
       if (write_start) begin
-        s_axi_awaddr  <= addr;
-        s_axi_wdata   <= data;
-        s_axi_awvalid <= 1'b1;
-        s_axi_wvalid  <= 1'b1;
+        axi_awaddr  <= addr;
+        axi_wdata   <= data;
+        axi_awvalid <= 1'b1;
+        axi_wvalid  <= 1'b1;
       end else begin
-        if (s_axi_awready && s_axi_awvalid) begin
-          s_axi_awvalid <= 1'b0;
+        if (axi_awready && axi_awvalid) begin
+          axi_awvalid <= 1'b0;
         end
 
-        if (s_axi_wready && s_axi_wvalid) begin
-          s_axi_wvalid <= 1'b0;
+        if (axi_wready && axi_wvalid) begin
+          axi_wvalid <= 1'b0;
         end
       end
     end

@@ -29,15 +29,15 @@ module vga_sram_pixel_stream #(
     input wire enable,
 
     // SRAM AXI-Lite Read Address Channel
-    output reg  [AXI_ADDR_WIDTH-1:0] s_axi_araddr,
-    output reg                       s_axi_arvalid,
-    input  wire                      s_axi_arready,
+    output reg  [AXI_ADDR_WIDTH-1:0] axi_araddr,
+    output reg                       axi_arvalid,
+    input  wire                      axi_arready,
 
     // SRAM AXI-Lite Read Data Channel
-    input  wire [AXI_DATA_WIDTH-1:0] s_axi_rdata,
-    input  wire [               1:0] s_axi_rresp,
-    input  wire                      s_axi_rvalid,
-    output reg                       s_axi_rready,
+    input  wire [AXI_DATA_WIDTH-1:0] axi_rdata,
+    input  wire [               1:0] axi_rresp,
+    input  wire                      axi_rvalid,
+    output reg                       axi_rready,
 
     // VGA signals
     output wire vsync,
@@ -163,22 +163,22 @@ module vga_sram_pixel_stream #(
   //
   // AXI Read
   //
-  assign read_done = (s_axi_rready && s_axi_rvalid);
+  assign read_done = (axi_rready && axi_rvalid);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      s_axi_arvalid <= 1'b0;
-      s_axi_rready  <= 1'b0;
+      axi_arvalid <= 1'b0;
+      axi_rready  <= 1'b0;
     end else begin
       // We're always ready for a response
-      s_axi_rready <= 1'b1;
+      axi_rready <= 1'b1;
 
       if (read_start) begin
-        s_axi_araddr  <= pixel_addr;
-        s_axi_arvalid <= 1'b1;
+        axi_araddr  <= pixel_addr;
+        axi_arvalid <= 1'b1;
       end else begin
         if (read_done) begin
-          s_axi_arvalid <= 1'b0;
+          axi_arvalid <= 1'b0;
         end
       end
     end
@@ -216,9 +216,9 @@ module vga_sram_pixel_stream #(
         hsync_r <= (column >= H_SYNC_START && column < H_SYNC_END) ? 0 : 1;
         vsync_r <= (row >= V_SYNC_START && row < V_SYNC_END) ? 0 : 1;
 
-        red_r   <= visible ? s_axi_rdata[15:12] : 4'b0000;
-        green_r <= visible ? s_axi_rdata[11:8] : 4'b0000;
-        blue_r  <= visible ? s_axi_rdata[7:4] : 4'b0000;
+        red_r   <= visible ? axi_rdata[15:12] : 4'b0000;
+        green_r <= visible ? axi_rdata[11:8] : 4'b0000;
+        blue_r  <= visible ? axi_rdata[7:4] : 4'b0000;
         valid_r <= 1'b1;
       end
     end

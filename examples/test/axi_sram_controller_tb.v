@@ -10,31 +10,31 @@ module axi_sram_controller_tb;
   reg                       axi_resetn;
 
   // AXI-Lite Write Address Channel
-  reg  [AXI_ADDR_WIDTH-1:0] s_axi_awaddr;
-  reg                       s_axi_awvalid;
-  wire                      s_axi_awready;
+  reg  [AXI_ADDR_WIDTH-1:0] axi_awaddr;
+  reg                       axi_awvalid;
+  wire                      axi_awready;
 
   // AXI-Lite Write Data Channel
-  reg  [AXI_DATA_WIDTH-1:0] s_axi_wdata;
-  reg                       s_axi_wstrb;
-  reg                       s_axi_wvalid;
-  wire                      s_axi_wready;
+  reg  [AXI_DATA_WIDTH-1:0] axi_wdata;
+  reg                       axi_wstrb;
+  reg                       axi_wvalid;
+  wire                      axi_wready;
 
   // AXI-Lite Write Response Channel
-  wire [               1:0] s_axi_bresp;
-  wire                      s_axi_bvalid;
-  reg                       s_axi_bready;
+  wire [               1:0] axi_bresp;
+  wire                      axi_bvalid;
+  reg                       axi_bready;
 
   // AXI-Lite Read Address Channel
-  reg  [AXI_ADDR_WIDTH-1:0] s_axi_araddr;
-  reg                       s_axi_arvalid;
-  wire                      s_axi_arready;
+  reg  [AXI_ADDR_WIDTH-1:0] axi_araddr;
+  reg                       axi_arvalid;
+  wire                      axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [AXI_DATA_WIDTH-1:0] s_axi_rdata;
-  wire [               1:0] s_axi_rresp;
-  wire                      s_axi_rvalid;
-  reg                       s_axi_rready;
+  wire [AXI_DATA_WIDTH-1:0] axi_rdata;
+  wire [               1:0] axi_rresp;
+  wire                      axi_rvalid;
+  reg                       axi_rready;
 
   // SRAM Interface
   wire [AXI_ADDR_WIDTH-1:0] sram_addr;
@@ -53,23 +53,23 @@ module axi_sram_controller_tb;
   ) ctrl (
       .axi_clk(axi_clk),
       .axi_resetn(axi_resetn),
-      .s_axi_awaddr(s_axi_awaddr),
-      .s_axi_awvalid(s_axi_awvalid),
-      .s_axi_awready(s_axi_awready),
-      .s_axi_wdata(s_axi_wdata),
-      .s_axi_wstrb(s_axi_wstrb),
-      .s_axi_wvalid(s_axi_wvalid),
-      .s_axi_wready(s_axi_wready),
-      .s_axi_bresp(s_axi_bresp),
-      .s_axi_bvalid(s_axi_bvalid),
-      .s_axi_bready(s_axi_bready),
-      .s_axi_araddr(s_axi_araddr),
-      .s_axi_arvalid(s_axi_arvalid),
-      .s_axi_arready(s_axi_arready),
-      .s_axi_rdata(s_axi_rdata),
-      .s_axi_rresp(s_axi_rresp),
-      .s_axi_rvalid(s_axi_rvalid),
-      .s_axi_rready(s_axi_rready),
+      .axi_awaddr(axi_awaddr),
+      .axi_awvalid(axi_awvalid),
+      .axi_awready(axi_awready),
+      .axi_wdata(axi_wdata),
+      .axi_wstrb(axi_wstrb),
+      .axi_wvalid(axi_wvalid),
+      .axi_wready(axi_wready),
+      .axi_bresp(axi_bresp),
+      .axi_bvalid(axi_bvalid),
+      .axi_bready(axi_bready),
+      .axi_araddr(axi_araddr),
+      .axi_arvalid(axi_arvalid),
+      .axi_arready(axi_arready),
+      .axi_rdata(axi_rdata),
+      .axi_rresp(axi_rresp),
+      .axi_rvalid(axi_rvalid),
+      .axi_rready(axi_rready),
       .sram_addr(sram_addr),
       .sram_data(sram_data),
       .sram_we_n(sram_we_n),
@@ -102,17 +102,17 @@ module axi_sram_controller_tb;
 
   task reset;
     begin
-      s_axi_awaddr = 1'b0;
-      s_axi_awvalid = 1'b0;
-      s_axi_wdata = 1'b0;
-      s_axi_wstrb = 1'b0;
-      s_axi_wvalid = 1'b0;
-      s_axi_bready = 1'b0;
-      s_axi_araddr = 1'b0;
-      s_axi_arvalid = 1'b0;
-      read_data = 1'b0;
+      axi_awaddr  = 1'b0;
+      axi_awvalid = 1'b0;
+      axi_wdata   = 1'b0;
+      axi_wstrb   = 1'b0;
+      axi_wvalid  = 1'b0;
+      axi_bready  = 1'b0;
+      axi_araddr  = 1'b0;
+      axi_arvalid = 1'b0;
+      read_data   = 1'b0;
 
-      axi_resetn = 1'b0;
+      axi_resetn  = 1'b0;
       @(posedge axi_clk);
 
       axi_resetn = 1'b1;
@@ -127,28 +127,28 @@ module axi_sram_controller_tb;
 
     begin
       // addr
-      s_axi_awaddr  = addr;
-      s_axi_awvalid = 1'b1;
+      axi_awaddr  = addr;
+      axi_awvalid = 1'b1;
 
       // data
-      s_axi_wdata   = data;
-      s_axi_wvalid  = 1'b1;
+      axi_wdata   = data;
+      axi_wvalid  = 1'b1;
 
       // resp
-      s_axi_bready  = 1'b1;
+      axi_bready  = 1'b1;
 
       // clock the input
       @(posedge axi_clk);
 
       // We have to test the signals together because they can happen in the
       // same clock (and with the current implementation, they do.)
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
-      `ASSERT(s_axi_bvalid === 1'b1);
-      `ASSERT(s_axi_bresp === 2'b00);
+      `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
+      `ASSERT(axi_bvalid === 1'b1);
+      `ASSERT(axi_bresp === 2'b00);
 
-      s_axi_awvalid = 1'b0;
-      s_axi_wvalid  = 1'b0;
-      s_axi_bready  = 1'b0;
+      axi_awvalid = 1'b0;
+      axi_wvalid  = 1'b0;
+      axi_bready  = 1'b0;
     end
   endtask
 
@@ -159,21 +159,21 @@ module axi_sram_controller_tb;
 
     begin
       // setup the read
-      s_axi_araddr  = addr;
-      s_axi_arvalid = 1'b1;
-      s_axi_rready  = 1'b1;
+      axi_araddr  = addr;
+      axi_arvalid = 1'b1;
+      axi_rready  = 1'b1;
 
       // clock the input
       @(posedge axi_clk);
 
-      `WAIT_FOR_SIGNAL(s_axi_arready);
+      `WAIT_FOR_SIGNAL(axi_arready);
 
       // validate data
-      `ASSERT(s_axi_rdata === data);
+      `ASSERT(axi_rdata === data);
 
       // validate response
-      `ASSERT(s_axi_rvalid === 1'b1);
-      `ASSERT(s_axi_rresp === 2'b00);
+      `ASSERT(axi_rvalid === 1'b1);
+      `ASSERT(axi_rresp === 2'b00);
     end
   endtask
 
@@ -183,8 +183,8 @@ module axi_sram_controller_tb;
       test_line = `__LINE__;
       reset();
 
-      s_axi_awaddr  = 10'hA0;
-      s_axi_awvalid = 1'b1;
+      axi_awaddr  = 10'hA0;
+      axi_awvalid = 1'b1;
 
       // waddr should not go ready because the controller can't accept
       // another waddr until it receives a matching wdata.
@@ -192,7 +192,7 @@ module axi_sram_controller_tb;
       // clock a few times for good measure
       repeat (10) begin
         @(posedge axi_clk);
-        `ASSERT(s_axi_awready === 1'b0);
+        `ASSERT(axi_awready === 1'b0);
       end
     end
   endtask
@@ -215,41 +215,41 @@ module axi_sram_controller_tb;
 
       // setup the signals instead of calling axi_write so that we can
       // control (and test) the response ready
-      s_axi_awaddr  = 10'hC0;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h20;
-      s_axi_wvalid  = 1'b1;
-      s_axi_bready  = 1'b0;
+      axi_awaddr  = 10'hC0;
+      axi_awvalid = 1'b1;
+      axi_wdata   = 8'h20;
+      axi_wvalid  = 1'b1;
+      axi_bready  = 1'b0;
       @(posedge axi_clk);
 
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+      `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
 
-      s_axi_awvalid = 1'b0;
-      s_axi_wvalid  = 1'b0;
+      axi_awvalid = 1'b0;
+      axi_wvalid  = 1'b0;
 
       // Our response should not be available
-      `ASSERT(s_axi_bvalid === 1'b0);
-      `ASSERT(s_axi_bresp !== 2'b00);
+      `ASSERT(axi_bvalid === 1'b0);
+      `ASSERT(axi_bresp !== 2'b00);
 
       // It should not be possible to write again because
       // we are blocked on the response
-      s_axi_awaddr  = 10'hC1;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h21;
-      s_axi_wvalid  = 1'b1;
+      axi_awaddr  = 10'hC1;
+      axi_awvalid = 1'b1;
+      axi_wdata   = 8'h21;
+      axi_wvalid  = 1'b1;
 
       // Make sure a write can't start while blocked
       repeat (10) begin
         @(posedge axi_clk);
-        `ASSERT(s_axi_awready === 1'b0);
+        `ASSERT(axi_awready === 1'b0);
       end
 
       // Accept the response
-      s_axi_bready = 1'b1;
+      axi_bready = 1'b1;
       @(posedge axi_clk);
 
-      `ASSERT(s_axi_bvalid === 1'b1);
-      `ASSERT(s_axi_bresp === 2'b00);
+      `ASSERT(axi_bvalid === 1'b1);
+      `ASSERT(axi_bresp === 2'b00);
     end
   endtask
 
@@ -325,55 +325,55 @@ module axi_sram_controller_tb;
       axi_write(10'hF0, 8'h60);
 
       // setup the read
-      s_axi_araddr  = 10'hF0;
-      s_axi_arvalid = 1'b1;
-      s_axi_rready  = 1'b0;
+      axi_araddr  = 10'hF0;
+      axi_arvalid = 1'b1;
+      axi_rready  = 1'b0;
 
       // clock the input
       @(posedge axi_clk);
 
-      `WAIT_FOR_SIGNAL(s_axi_arready);
+      `WAIT_FOR_SIGNAL(axi_arready);
 
       // disable new read
-      s_axi_arvalid = 1'b0;
+      axi_arvalid = 1'b0;
 
       // validate data
-      `ASSERT(s_axi_rdata === 8'h60);
+      `ASSERT(axi_rdata === 8'h60);
 
       // Our response should not be available
-      `ASSERT(s_axi_rvalid === 1'b0);
-      `ASSERT(s_axi_rresp === 2'bxx);
+      `ASSERT(axi_rvalid === 1'b0);
+      `ASSERT(axi_rresp === 2'bxx);
 
       // It should not be possible to read again because
       // we are blocked on a response
-      s_axi_araddr  = 10'hF0;
-      s_axi_arvalid = 1'b1;
+      axi_araddr  = 10'hF0;
+      axi_arvalid = 1'b1;
 
       // Make sure a read can't start a while blocked
       repeat (10) begin
         @(posedge axi_clk);
-        `ASSERT(s_axi_arready === 1'b0);
+        `ASSERT(axi_arready === 1'b0);
       end
 
       // Similarly, we should not be able to write
-      s_axi_awaddr  = 10'hF1;
-      s_axi_awvalid = 1'b1;
-      s_axi_wdata   = 8'h61;
-      s_axi_wvalid  = 1'b1;
-      s_axi_bready  = 1'b1;
+      axi_awaddr  = 10'hF1;
+      axi_awvalid = 1'b1;
+      axi_wdata   = 8'h61;
+      axi_wvalid  = 1'b1;
+      axi_bready  = 1'b1;
 
       // Make sure a write can't start while blocked
       repeat (10) begin
         @(posedge axi_clk);
-        `ASSERT(s_axi_awready === 1'b0);
+        `ASSERT(axi_awready === 1'b0);
       end
 
       // Accept the response
-      s_axi_rready = 1'b1;
+      axi_rready = 1'b1;
       @(posedge axi_clk);
 
-      `ASSERT(s_axi_rvalid === 1'b1);
-      `ASSERT(s_axi_rresp === 2'b00);
+      `ASSERT(axi_rvalid === 1'b1);
+      `ASSERT(axi_rresp === 2'b00);
 
       // allow it to go to the next txn
       @(posedge axi_clk);
@@ -388,14 +388,14 @@ module axi_sram_controller_tb;
       // In such an implementation the master would not have to worry
       // about what order they are waiting, but since we are doing
       // timed loops and asserts in the tests, we do.
-      `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
+      `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
 
       // disable more writes
-      s_axi_awvalid = 1'b0;
-      s_axi_wvalid  = 1'b0;
+      axi_awvalid = 1'b0;
+      axi_wvalid  = 1'b0;
 
       // Then the read should clear
-      `WAIT_FOR_SIGNAL(s_axi_rvalid);
+      `WAIT_FOR_SIGNAL(axi_rvalid);
 
       // validate the write went through (and that we can read
       // after all these shenanigans)

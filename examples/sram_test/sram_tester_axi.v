@@ -30,31 +30,31 @@ module sram_tester_axi #(
     output wire sram_ce_n
 );
   // AXI-Lite Write Address Channel
-  reg  [ADDR_BITS-1:0] s_axi_awaddr;
-  reg                  s_axi_awvalid;
-  wire                 s_axi_awready;
+  reg  [ADDR_BITS-1:0] axi_awaddr;
+  reg                  axi_awvalid;
+  wire                 axi_awready;
 
   // AXI-Lite Write Data Channel
-  reg  [DATA_BITS-1:0] s_axi_wdata;
-  reg                  s_axi_wstrb;
-  reg                  s_axi_wvalid;
-  wire                 s_axi_wready;
+  reg  [DATA_BITS-1:0] axi_wdata;
+  reg                  axi_wstrb;
+  reg                  axi_wvalid;
+  wire                 axi_wready;
 
   // AXI-Lite Write Response Channel
-  wire [          1:0] s_axi_bresp;
-  wire                 s_axi_bvalid;
-  reg                  s_axi_bready;
+  wire [          1:0] axi_bresp;
+  wire                 axi_bvalid;
+  reg                  axi_bready;
 
   // AXI-Lite Read Address Channel
-  reg  [ADDR_BITS-1:0] s_axi_araddr;
-  reg                  s_axi_arvalid;
-  wire                 s_axi_arready;
+  reg  [ADDR_BITS-1:0] axi_araddr;
+  reg                  axi_arvalid;
+  wire                 axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [DATA_BITS-1:0] s_axi_rdata;
-  wire [          1:0] s_axi_rresp;
-  wire                 s_axi_rvalid;
-  reg                  s_axi_rready;
+  wire [DATA_BITS-1:0] axi_rdata;
+  wire [          1:0] axi_rresp;
+  wire                 axi_rvalid;
+  reg                  axi_rready;
 
   // Address iteration signals
   reg                  iter_addr_next;
@@ -86,23 +86,23 @@ module sram_tester_axi #(
   ) ctrl (
       .axi_clk(clk),
       .axi_resetn(~reset),
-      .s_axi_awaddr(s_axi_awaddr),
-      .s_axi_awvalid(s_axi_awvalid),
-      .s_axi_awready(s_axi_awready),
-      .s_axi_wdata(s_axi_wdata),
-      .s_axi_wstrb(s_axi_wstrb),
-      .s_axi_wvalid(s_axi_wvalid),
-      .s_axi_wready(s_axi_wready),
-      .s_axi_bresp(s_axi_bresp),
-      .s_axi_bvalid(s_axi_bvalid),
-      .s_axi_bready(s_axi_bready),
-      .s_axi_araddr(s_axi_araddr),
-      .s_axi_arvalid(s_axi_arvalid),
-      .s_axi_arready(s_axi_arready),
-      .s_axi_rdata(s_axi_rdata),
-      .s_axi_rresp(s_axi_rresp),
-      .s_axi_rvalid(s_axi_rvalid),
-      .s_axi_rready(s_axi_rready),
+      .axi_awaddr(axi_awaddr),
+      .axi_awvalid(axi_awvalid),
+      .axi_awready(axi_awready),
+      .axi_wdata(axi_wdata),
+      .axi_wstrb(axi_wstrb),
+      .axi_wvalid(axi_wvalid),
+      .axi_wready(axi_wready),
+      .axi_bresp(axi_bresp),
+      .axi_bvalid(axi_bvalid),
+      .axi_bready(axi_bready),
+      .axi_araddr(axi_araddr),
+      .axi_arvalid(axi_arvalid),
+      .axi_arready(axi_arready),
+      .axi_rdata(axi_rdata),
+      .axi_rresp(axi_rresp),
+      .axi_rvalid(axi_rvalid),
+      .axi_rready(axi_rready),
       .sram_addr(sram_addr),
       .sram_data(sram_data),
       .sram_we_n(sram_we_n),
@@ -209,30 +209,30 @@ module sram_tester_axi #(
   //
   // AXI write
   //
-  assign write_done = (s_axi_bready && s_axi_bvalid);
+  assign write_done = (axi_bready && axi_bvalid);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      s_axi_awvalid <= 1'b0;
-      s_axi_wvalid  <= 1'b0;
-      s_axi_bready  <= 1'b0;
+      axi_awvalid <= 1'b0;
+      axi_wvalid  <= 1'b0;
+      axi_bready  <= 1'b0;
     end else begin
       // We're always ready for a response
-      s_axi_bready <= 1'b1;
+      axi_bready <= 1'b1;
 
       // kick off a write, or wait to de-assert valid
       if (write_start) begin
-        s_axi_awaddr  <= iter_addr;
-        s_axi_wdata   <= pattern;
-        s_axi_awvalid <= 1'b1;
-        s_axi_wvalid  <= 1'b1;
+        axi_awaddr  <= iter_addr;
+        axi_wdata   <= pattern;
+        axi_awvalid <= 1'b1;
+        axi_wvalid  <= 1'b1;
       end else begin
-        if (s_axi_awready && s_axi_awvalid) begin
-          s_axi_awvalid <= 1'b0;
+        if (axi_awready && axi_awvalid) begin
+          axi_awvalid <= 1'b0;
         end
 
-        if (s_axi_wready && s_axi_wvalid) begin
-          s_axi_wvalid <= 1'b0;
+        if (axi_wready && axi_wvalid) begin
+          axi_wvalid <= 1'b0;
         end
       end
     end
@@ -243,24 +243,24 @@ module sram_tester_axi #(
   //
   reg [DATA_BITS-1:0] expected_data;
 
-  assign read_done = (s_axi_rready && s_axi_rvalid);
+  assign read_done = (axi_rready && axi_rvalid);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      s_axi_arvalid <= 1'b0;
-      s_axi_rready  <= 1'b0;
+      axi_arvalid <= 1'b0;
+      axi_rready  <= 1'b0;
     end else begin
       // We're always ready for a response
-      s_axi_rready <= 1'b1;
+      axi_rready <= 1'b1;
 
       // kick off a read, or wait to de-assert valid
       if (read_start) begin
-        s_axi_araddr  <= iter_addr;
-        s_axi_arvalid <= 1'b1;
+        axi_araddr <= iter_addr;
+        axi_arvalid <= 1'b1;
         expected_data <= pattern;
       end else begin
-        if (s_axi_arready && s_axi_arvalid) begin
-          s_axi_arvalid <= 1'b0;
+        if (axi_arready && axi_arvalid) begin
+          axi_arvalid <= 1'b0;
         end
       end
 
@@ -277,9 +277,9 @@ module sram_tester_axi #(
       prev_expected_data <= {DATA_BITS{1'b0}};
     end else begin
       if (read_done) begin
-        prev_read_data <= s_axi_rdata;
+        prev_read_data <= axi_rdata;
         prev_expected_data <= expected_data;
-        if (s_axi_rdata != expected_data) begin
+        if (axi_rdata != expected_data) begin
           test_pass <= 1'b0;
         end
       end

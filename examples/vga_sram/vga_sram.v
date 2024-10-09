@@ -34,31 +34,31 @@ module vga_sram #(
     output wire vga_vsync
 );
   // AXI-Lite Write Address Channel
-  wire [        AXI_ADDR_WIDTH-1:0] s_axi_awaddr;
-  wire                              s_axi_awvalid;
-  wire                              s_axi_awready;
+  wire [        AXI_ADDR_WIDTH-1:0] axi_awaddr;
+  wire                              axi_awvalid;
+  wire                              axi_awready;
 
   // AXI-Lite Write Data Channel
-  wire [        AXI_DATA_WIDTH-1:0] s_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] s_axi_wstrb;
-  wire                              s_axi_wvalid;
-  wire                              s_axi_wready;
+  wire [        AXI_DATA_WIDTH-1:0] axi_wdata;
+  wire [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb;
+  wire                              axi_wvalid;
+  wire                              axi_wready;
 
   // AXI-Lite Write Response Channel
-  wire [                       1:0] s_axi_bresp;
-  wire                              s_axi_bvalid;
-  wire                              s_axi_bready;
+  wire [                       1:0] axi_bresp;
+  wire                              axi_bvalid;
+  wire                              axi_bready;
 
   // AXI-Lite Read Address Channel
-  wire [        AXI_ADDR_WIDTH-1:0] s_axi_araddr;
-  wire                              s_axi_arvalid;
-  wire                              s_axi_arready;
+  wire [        AXI_ADDR_WIDTH-1:0] axi_araddr;
+  wire                              axi_arvalid;
+  wire                              axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [        AXI_DATA_WIDTH-1:0] s_axi_rdata;
-  wire [                       1:0] s_axi_rresp;
-  wire                              s_axi_rvalid;
-  wire                              s_axi_rready;
+  wire [        AXI_DATA_WIDTH-1:0] axi_rdata;
+  wire [                       1:0] axi_rresp;
+  wire                              axi_rvalid;
+  wire                              axi_rready;
 
   wire                              pattern_done;
 
@@ -68,23 +68,23 @@ module vga_sram #(
   ) ctrl (
       .axi_clk(clk),
       .axi_resetn(~reset),
-      .s_axi_awaddr(s_axi_awaddr),
-      .s_axi_awvalid(s_axi_awvalid),
-      .s_axi_awready(s_axi_awready),
-      .s_axi_wdata(s_axi_wdata),
-      .s_axi_wstrb(s_axi_wstrb),
-      .s_axi_wvalid(s_axi_wvalid),
-      .s_axi_wready(s_axi_wready),
-      .s_axi_bresp(s_axi_bresp),
-      .s_axi_bvalid(s_axi_bvalid),
-      .s_axi_bready(s_axi_bready),
-      .s_axi_araddr(s_axi_araddr),
-      .s_axi_arvalid(s_axi_arvalid),
-      .s_axi_arready(s_axi_arready),
-      .s_axi_rdata(s_axi_rdata),
-      .s_axi_rresp(s_axi_rresp),
-      .s_axi_rvalid(s_axi_rvalid),
-      .s_axi_rready(s_axi_rready),
+      .axi_awaddr(axi_awaddr),
+      .axi_awvalid(axi_awvalid),
+      .axi_awready(axi_awready),
+      .axi_wdata(axi_wdata),
+      .axi_wstrb(axi_wstrb),
+      .axi_wvalid(axi_wvalid),
+      .axi_wready(axi_wready),
+      .axi_bresp(axi_bresp),
+      .axi_bvalid(axi_bvalid),
+      .axi_bready(axi_bready),
+      .axi_araddr(axi_araddr),
+      .axi_arvalid(axi_arvalid),
+      .axi_arready(axi_arready),
+      .axi_rdata(axi_rdata),
+      .axi_rresp(axi_rresp),
+      .axi_rvalid(axi_rvalid),
+      .axi_rready(axi_rready),
       .sram_addr(sram_addr),
       .sram_data(sram_data),
       .sram_we_n(sram_we_n),
@@ -100,18 +100,18 @@ module vga_sram #(
       .reset(reset),
       .pattern_done(pattern_done),
 
-      .s_axi_awaddr (s_axi_awaddr),
-      .s_axi_awvalid(s_axi_awvalid),
-      .s_axi_awready(s_axi_awready),
+      .axi_awaddr (axi_awaddr),
+      .axi_awvalid(axi_awvalid),
+      .axi_awready(axi_awready),
 
-      .s_axi_wdata (s_axi_wdata),
-      .s_axi_wstrb (s_axi_wstrb),
-      .s_axi_wvalid(s_axi_wvalid),
-      .s_axi_wready(s_axi_wready),
+      .axi_wdata (axi_wdata),
+      .axi_wstrb (axi_wstrb),
+      .axi_wvalid(axi_wvalid),
+      .axi_wready(axi_wready),
 
-      .s_axi_bresp (s_axi_bresp),
-      .s_axi_bvalid(s_axi_bvalid),
-      .s_axi_bready(s_axi_bready)
+      .axi_bresp (axi_bresp),
+      .axi_bvalid(axi_bvalid),
+      .axi_bready(axi_bready)
   );
 
   // signals as it comes from the sram stream
@@ -150,14 +150,14 @@ module vga_sram #(
       .reset(reset),
       .enable(pattern_done & !fifo_almost_full),
 
-      .s_axi_araddr (s_axi_araddr),
-      .s_axi_arvalid(s_axi_arvalid),
-      .s_axi_arready(s_axi_arready),
+      .axi_araddr (axi_araddr),
+      .axi_arvalid(axi_arvalid),
+      .axi_arready(axi_arready),
 
-      .s_axi_rdata (s_axi_rdata),
-      .s_axi_rresp (s_axi_rresp),
-      .s_axi_rvalid(s_axi_rvalid),
-      .s_axi_rready(s_axi_rready),
+      .axi_rdata (axi_rdata),
+      .axi_rresp (axi_rresp),
+      .axi_rvalid(axi_rvalid),
+      .axi_rready(axi_rready),
 
       .vsync(sram_vga_vsync),
       .hsync(sram_vga_hsync),
