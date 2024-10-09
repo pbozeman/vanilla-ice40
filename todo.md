@@ -74,3 +74,9 @@
 
 change the sram data and addr ports to use _bus and/or differentiate the caller ports from the
 io on the board
+
+### SRAM VGA
+
+- don't read memory during the blanking period
+- use vga_pixel_addr, or at least the counter module. There was a wrapping
+  error in the manual iteration that wouldn't have happened if these were used.

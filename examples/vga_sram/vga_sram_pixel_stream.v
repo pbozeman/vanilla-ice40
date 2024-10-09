@@ -61,6 +61,12 @@ module vga_sram_pixel_stream #(
   reg [9:0] row = 0;
 
   // State definitions
+  //
+  // TODO: we really should have a blanking state so that we are
+  // not reading memory during the blanking period. We end up
+  // just ignoring the results, but it's potentially confusing
+  // and prevents us from doing anything with memory during
+  // the blanking period.
   localparam IDLE = 1'b0;
   localparam READING = 1'b1;
 
@@ -195,8 +201,6 @@ module vga_sram_pixel_stream #(
   reg [3:0] blue_r = 0;
   reg valid_r = 0;
 
-  // TODO: double check for off by one errors on the boundary row/column
-  // boundaries.
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       valid_r <= 1'b0;
