@@ -6,8 +6,8 @@ module axi_sram_controller_tb;
   localparam AXI_ADDR_WIDTH = 10;
   localparam AXI_DATA_WIDTH = 8;
 
-  reg                       axi_aclk;
-  reg                       axi_aresetn;
+  reg                       axi_clk;
+  reg                       axi_resetn;
 
   // AXI-Lite Write Address Channel
   reg  [AXI_ADDR_WIDTH-1:0] s_axi_awaddr;
@@ -51,8 +51,8 @@ module axi_sram_controller_tb;
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) ctrl (
-      .axi_aclk(axi_aclk),
-      .axi_aresetn(axi_aresetn),
+      .axi_clk(axi_clk),
+      .axi_resetn(axi_resetn),
       .s_axi_awaddr(s_axi_awaddr),
       .s_axi_awvalid(s_axi_awvalid),
       .s_axi_awready(s_axi_awready),
@@ -93,8 +93,8 @@ module axi_sram_controller_tb;
 
   // Clock generation
   initial begin
-    axi_aclk = 0;
-    forever #5 axi_aclk = ~axi_aclk;
+    axi_clk = 0;
+    forever #5 axi_clk = ~axi_clk;
   end
 
   `TEST_SETUP(axi_sram_controller_tb);
@@ -112,11 +112,11 @@ module axi_sram_controller_tb;
       s_axi_arvalid = 1'b0;
       read_data = 1'b0;
 
-      axi_aresetn = 1'b0;
-      @(posedge axi_aclk);
+      axi_resetn = 1'b0;
+      @(posedge axi_clk);
 
-      axi_aresetn = 1'b1;
-      @(posedge axi_aclk);
+      axi_resetn = 1'b1;
+      @(posedge axi_clk);
     end
   endtask
 
@@ -138,7 +138,7 @@ module axi_sram_controller_tb;
       s_axi_bready  = 1'b1;
 
       // clock the input
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       // We have to test the signals together because they can happen in the
       // same clock (and with the current implementation, they do.)
@@ -164,7 +164,7 @@ module axi_sram_controller_tb;
       s_axi_rready  = 1'b1;
 
       // clock the input
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       `WAIT_FOR_SIGNAL(s_axi_arready);
 
@@ -191,7 +191,7 @@ module axi_sram_controller_tb;
       //
       // clock a few times for good measure
       repeat (10) begin
-        @(posedge axi_aclk);
+        @(posedge axi_clk);
         `ASSERT(s_axi_awready === 1'b0);
       end
     end
@@ -220,7 +220,7 @@ module axi_sram_controller_tb;
       s_axi_wdata   = 8'h20;
       s_axi_wvalid  = 1'b1;
       s_axi_bready  = 1'b0;
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       `WAIT_FOR_SIGNAL(s_axi_awready && s_axi_wready);
 
@@ -240,13 +240,13 @@ module axi_sram_controller_tb;
 
       // Make sure a write can't start while blocked
       repeat (10) begin
-        @(posedge axi_aclk);
+        @(posedge axi_clk);
         `ASSERT(s_axi_awready === 1'b0);
       end
 
       // Accept the response
       s_axi_bready = 1'b1;
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       `ASSERT(s_axi_bvalid === 1'b1);
       `ASSERT(s_axi_bresp === 2'b00);
@@ -330,7 +330,7 @@ module axi_sram_controller_tb;
       s_axi_rready  = 1'b0;
 
       // clock the input
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       `WAIT_FOR_SIGNAL(s_axi_arready);
 
@@ -351,7 +351,7 @@ module axi_sram_controller_tb;
 
       // Make sure a read can't start a while blocked
       repeat (10) begin
-        @(posedge axi_aclk);
+        @(posedge axi_clk);
         `ASSERT(s_axi_arready === 1'b0);
       end
 
@@ -364,19 +364,19 @@ module axi_sram_controller_tb;
 
       // Make sure a write can't start while blocked
       repeat (10) begin
-        @(posedge axi_aclk);
+        @(posedge axi_clk);
         `ASSERT(s_axi_awready === 1'b0);
       end
 
       // Accept the response
       s_axi_rready = 1'b1;
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       `ASSERT(s_axi_rvalid === 1'b1);
       `ASSERT(s_axi_rresp === 2'b00);
 
       // allow it to go to the next txn
-      @(posedge axi_aclk);
+      @(posedge axi_clk);
 
       // Even though the read was issued first, writes have priority
       // and we need to clear it first.

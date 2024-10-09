@@ -84,8 +84,8 @@ module sram_tester_axi #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
       .AXI_DATA_WIDTH(DATA_BITS)
   ) ctrl (
-      .axi_aclk(clk),
-      .axi_aresetn(~reset),
+      .axi_clk(clk),
+      .axi_resetn(~reset),
       .s_axi_awaddr(s_axi_awaddr),
       .s_axi_awvalid(s_axi_awvalid),
       .s_axi_awready(s_axi_awready),

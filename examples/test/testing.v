@@ -21,7 +21,7 @@
     reg [8:0] cnt;                   \
     cnt = 0;                         \
     while (!(signal)) begin          \
-      @(posedge axi_aclk);           \
+      @(posedge axi_clk);            \
       cnt = cnt + 1;                 \
       `ASSERT(cnt < 10);             \
     end                              \

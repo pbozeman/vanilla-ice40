@@ -14,8 +14,8 @@ module axi_sram_controller #(
     parameter integer AXI_DATA_WIDTH = 16
 ) (
     // AXI-Lite Global Signals
-    input wire axi_aclk,
-    input wire axi_aresetn,
+    input wire axi_clk,
+    input wire axi_resetn,
 
     // AXI-Lite Write Address Channel
     input  wire [AXI_ADDR_WIDTH-1:0] s_axi_awaddr,
@@ -86,8 +86,8 @@ module axi_sram_controller #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_ctrl (
-      .clk(axi_aclk),
-      .reset(~axi_aresetn),
+      .clk(axi_clk),
+      .reset(~axi_resetn),
       .req(sram_req),
       .ready(sram_ready),
       .write_enable(sram_write_enable),
@@ -174,8 +174,8 @@ module axi_sram_controller #(
   end
 
   // state machine registration
-  always @(posedge axi_aclk or negedge axi_aresetn) begin
-    if (~axi_aresetn) begin
+  always @(posedge axi_clk or negedge axi_resetn) begin
+    if (~axi_resetn) begin
       current_state <= IDLE;
     end else begin
       current_state <= next_state;

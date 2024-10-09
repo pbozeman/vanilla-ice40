@@ -66,8 +66,8 @@ module vga_sram #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) ctrl (
-      .axi_aclk(clk),
-      .axi_aresetn(~reset),
+      .axi_clk(clk),
+      .axi_resetn(~reset),
       .s_axi_awaddr(s_axi_awaddr),
       .s_axi_awvalid(s_axi_awvalid),
       .s_axi_awready(s_axi_awready),
