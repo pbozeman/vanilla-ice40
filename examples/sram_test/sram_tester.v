@@ -14,7 +14,7 @@ module sram_tester #(
     // tester signals
     input  wire clk,
     input  wire reset,
-    output reg  test_done,
+    output reg  test_done = 0,
     output reg  test_pass = 0,
 
     // debug/output signals
@@ -51,21 +51,26 @@ module sram_tester #(
   reg [2:0] next_state;
 
   // Other registers
-  reg req;
   reg addr_reset;
   reg addr_next;
   reg last_write;
   reg last_read;
   reg pattern_next;
+  reg [DATA_BITS-1:0] pattern_prev;
   reg [DATA_BITS-1:0] pattern_custom;
   reg validate = 0;
 
   // Wires
+  wire req;
   wire ready;
   wire addr_done;
   wire pattern_reset;
   wire pattern_done;
   wire [DATA_BITS-1:0] pattern;
+
+  // This is a little janky, and ideally we would modulate this,
+  // but we're always feeding requests in this module.
+  assign req = 1'b1;
 
   // Submodule instantiations
   sram_controller #(
@@ -113,17 +118,12 @@ module sram_tester #(
   always @(*) begin
     // Default assignments
     next_state = state;
-    req = 1'b0;
-    addr_reset = 1'b0;
     addr_next = 1'b0;
     pattern_next = 1'b0;
-    test_done = 1'b0;
     pattern_custom = addr;
 
     case (state)
       START: begin
-        req = 1'b1;
-        addr_reset = 1'b0;
         next_state = WRITING;
       end
 
@@ -134,7 +134,6 @@ module sram_tester #(
 
       WRITE_HOLD: begin
         if (last_write) begin
-          addr_reset = 1'b1;
           next_state = READING;
         end else begin
           next_state = WRITING;
@@ -152,7 +151,6 @@ module sram_tester #(
             next_state = DONE;
           end else begin
             pattern_next = 1'b1;
-            addr_reset   = 1'b1;
             next_state   = WRITING;
           end
         end else begin
@@ -161,7 +159,6 @@ module sram_tester #(
       end
 
       DONE: begin
-        test_done  = 1'b1;
         next_state = START;
       end
 
@@ -211,30 +208,27 @@ module sram_tester #(
     end
   end
 
-  // state == READING
+  // read/expected registration (state == READ_HOLD)
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       last_read <= 1'b0;
-    end else begin
-      if (state == READING) begin
-        last_read <= addr_done;
-      end
-    end
-  end
-
-  // state == READ_HOLD
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      test_pass <= 1'b1;
       prev_read_data <= {DATA_BITS{1'b0}};
       prev_expected_data <= {DATA_BITS{1'b0}};
     end else begin
       if (state == READ_HOLD) begin
-        // pipeline the validation to meet timing
-        validate <= 1'b1;
+        last_read <= addr_done;
         prev_read_data <= read_data;
-        prev_expected_data <= pattern;
+        prev_expected_data <= pattern_prev;
       end
+    end
+  end
+
+  // validation flag
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      validate <= 1'b0;
+    end else begin
+      validate <= (state == READ_HOLD);
     end
   end
 
@@ -242,14 +236,31 @@ module sram_tester #(
   // (pipelined to meet timing)
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      validate  <= 1'b0;
       test_pass <= 1'b1;
     end else begin
       if (validate) begin
-        if (read_data != pattern) begin
+        if (prev_read_data != prev_expected_data) begin
           test_pass <= 1'b0;
         end
       end
+    end
+  end
+
+  // test done
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      test_done <= 1'b0;
+    end else begin
+      test_done <= (state == DONE);
+    end
+  end
+
+  // pattern_prev
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pattern_prev <= 1'b0;
+    end else begin
+      pattern_prev <= pattern;
     end
   end
 
