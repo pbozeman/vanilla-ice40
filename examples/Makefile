@@ -6,6 +6,9 @@
 DEVICE := hx8k
 PACKAGE := ct256
 
+# Clock Frequency in MHZ
+CLK_FREQ := 100
+
 # Directories
 TEST_DIR := test
 LIB_DIR := lib
@@ -108,7 +111,7 @@ $(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 
 define pnr_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@
+	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@ || rm $$@
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
