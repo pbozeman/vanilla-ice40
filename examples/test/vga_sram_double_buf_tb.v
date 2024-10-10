@@ -100,7 +100,7 @@ module vga_sram_double_buf_tb;
     forever #20 pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP(vga_sram_double_buf_tb);
+  `TEST_SETUP_SLOW(vga_sram_double_buf_tb);
 
   // Test procedure
   initial begin

@@ -76,7 +76,7 @@ module vga_sram_tb;
     forever #20 pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP(vga_sram_tb);
+  `TEST_SETUP_SLOW(vga_sram_tb);
 
   // Test procedure
   initial begin
