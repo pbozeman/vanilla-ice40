@@ -15,7 +15,7 @@ module sram_tester #(
     input  wire clk,
     input  wire reset,
     output reg  test_done,
-    output reg  test_pass,
+    output reg  test_pass = 0,
 
     // debug/output signals
     output wire [2:0] pattern_state,
@@ -58,6 +58,7 @@ module sram_tester #(
   reg last_read;
   reg pattern_next;
   reg [DATA_BITS-1:0] pattern_custom;
+  reg validate = 0;
 
   // Wires
   wire ready;
@@ -146,9 +147,7 @@ module sram_tester #(
       end
 
       READ_HOLD: begin
-        if (read_data != pattern) begin
-          next_state = HALT;
-        end else if (last_read) begin
+        if (last_read) begin
           if (pattern_done) begin
             next_state = DONE;
           end else begin
@@ -176,27 +175,77 @@ module sram_tester #(
     endcase
   end
 
-  // Sequential logic process
+  // state registration
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= START;
+    end else begin
+      if (test_pass) begin
+        state <= next_state;
+      end else begin
+        state <= HALT;
+      end
+    end
+  end
+
+  // each of the states gets its own block to help
+  // meet timing. I wouldn't think this would help
+  // compared to
+  //   if (a) .... ;
+  //   if (b) .... ;
+  // as long as 'a' and 'b' are independent,
+  // e.g. different states. I would have thought
+  // they would be automatically done in parallel,
+  // but this didn't seem to be the case.
+  //
+  // Maybe a case statement would work too.
+
+  // state == WRITING
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       last_write <= 1'b0;
+    end else begin
+      if (state == WRITING) begin
+        last_write <= addr_done;
+      end
+    end
+  end
+
+  // state == READING
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       last_read <= 1'b0;
+    end else begin
+      if (state == READING) begin
+        last_read <= addr_done;
+      end
+    end
+  end
+
+  // state == READ_HOLD
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
       test_pass <= 1'b1;
       prev_read_data <= {DATA_BITS{1'b0}};
       prev_expected_data <= {DATA_BITS{1'b0}};
     end else begin
-      state <= next_state;
-
-      if (state == WRITING) begin
-        last_write <= addr_done;
-      end else if (state == READING) begin
-        last_read <= addr_done;
-      end
-
       if (state == READ_HOLD) begin
+        // pipeline the validation to meet timing
+        validate <= 1'b1;
         prev_read_data <= read_data;
         prev_expected_data <= pattern;
+      end
+    end
+  end
+
+  // test_pass validation
+  // (pipelined to meet timing)
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      validate  <= 1'b0;
+      test_pass <= 1'b1;
+    end else begin
+      if (validate) begin
         if (read_data != pattern) begin
           test_pass <= 1'b0;
         end
