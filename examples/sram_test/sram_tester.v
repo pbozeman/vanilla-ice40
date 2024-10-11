@@ -117,7 +117,6 @@ module sram_tester #(
   always @(*) begin
     // Default assignments
     next_state = state;
-    addr_next = 1'b0;
     pattern_next = 1'b0;
     pattern_custom = addr;
 
@@ -127,7 +126,6 @@ module sram_tester #(
       end
 
       WRITING: begin
-        addr_next  = 1'b1;
         next_state = WRITE_HOLD;
       end
 
@@ -140,7 +138,6 @@ module sram_tester #(
       end
 
       READING: begin
-        addr_next  = 1'b1;
         next_state = READ_HOLD;
       end
 
@@ -219,6 +216,15 @@ module sram_tester #(
         prev_read_data <= read_data;
         prev_expected_data <= pattern_prev;
       end
+    end
+  end
+
+  // addr_next
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      addr_next <= 1'b0;
+    end else begin
+      addr_next <= (state == WRITE_HOLD || state == READ_HOLD);
     end
   end
 
