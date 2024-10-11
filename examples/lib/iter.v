@@ -11,7 +11,7 @@ module iter #(
 ) (
     input wire clk,
     input wire reset,
-    input wire next,
+    input wire inc,
     output wire [WIDTH-1:0] val,
     output wire done
 );
@@ -21,7 +21,7 @@ module iter #(
   ) i (
       .clk(clk),
       .reset(reset),
-      .enable(next),
+      .enable(inc),
       .count(val)
   );
 

@@ -57,13 +57,13 @@ module sram_tester_axi #(
   reg                  axi_rready;
 
   // Address iteration signals
-  reg                  iter_addr_next;
+  reg                  iter_addr_inc;
   wire [ADDR_BITS-1:0] iter_addr;
   wire                 iter_addr_done;
 
   // Pattern gen signals
   wire                 pattern_reset;
-  reg                  pattern_next;
+  reg                  pattern_inc;
   wire [DATA_BITS-1:0] pattern;
   wire                 pattern_done;
   reg  [DATA_BITS-1:0] pattern_custom;
@@ -115,7 +115,7 @@ module sram_tester_axi #(
   ) addr_gen (
       .clk  (clk),
       .reset(reset),
-      .next (iter_addr_next),
+      .inc  (iter_addr_inc),
       .val  (iter_addr),
       .done (iter_addr_done)
   );
@@ -125,7 +125,7 @@ module sram_tester_axi #(
   ) pattern_gen (
       .clk(clk),
       .reset(pattern_reset),
-      .next(pattern_next),
+      .inc(pattern_inc),
       .custom(pattern_custom),
       .pattern(pattern),
       .done(pattern_done),
@@ -147,7 +147,7 @@ module sram_tester_axi #(
     next_state = state;
     write_start = 1'b0;
     read_start = 1'b0;
-    iter_addr_next = 1'b0;
+    iter_addr_inc = 1'b0;
 
     if (!reset) begin
       if (!test_pass) begin
@@ -156,13 +156,13 @@ module sram_tester_axi #(
         case (state)
           START: begin
             write_start = 1'b1;
-            iter_addr_next = 1'b1;
+            iter_addr_inc = 1'b1;
             next_state = WRITING;
           end
 
           WRITING: begin
             if (write_done) begin
-              iter_addr_next = 1'b1;
+              iter_addr_inc = 1'b1;
 
               if (!last_read_write) begin
                 write_start = 1'b1;
@@ -175,14 +175,14 @@ module sram_tester_axi #(
 
           READING: begin
             if (read_done) begin
-              iter_addr_next = 1'b1;
+              iter_addr_inc = 1'b1;
 
               if (!last_read_write) begin
                 read_start = 1'b1;
               end else begin
-                write_start  = 1'b1;
-                pattern_next = 1'b1;
-                next_state   = WRITING;
+                write_start = 1'b1;
+                pattern_inc = 1'b1;
+                next_state  = WRITING;
               end
             end
           end
@@ -307,8 +307,8 @@ module sram_tester_axi #(
       if (state != next_state) begin
         last_read_write <= 0;
       end else begin
-        if (iter_addr_done & iter_addr_next) begin
-          last_read_write <= iter_addr_done & iter_addr_next;
+        if (iter_addr_done & iter_addr_inc) begin
+          last_read_write <= iter_addr_done & iter_addr_inc;
         end
       end
     end

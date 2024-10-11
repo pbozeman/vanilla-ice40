@@ -9,7 +9,7 @@ module iter_tb;
 
   reg              clk;
   reg              reset;
-  reg              next;
+  reg              inc;
   wire [WIDTH-1:0] val;
   wire             done;
 
@@ -20,7 +20,7 @@ module iter_tb;
   ) uut (
       .clk  (clk),
       .reset(reset),
-      .next (next),
+      .inc  (inc),
       .val  (val),
       .done (done)
   );
@@ -34,7 +34,7 @@ module iter_tb;
 
   initial begin
     reset = 1;
-    next = 0;
+    inc = 0;
     expected_val = 0;
     @(posedge clk);
     reset = 0;
@@ -46,7 +46,7 @@ module iter_tb;
 
     // Iterate through all values and wrap around
     repeat (MAX_VALUE + 2) begin
-      next = 1;
+      inc = 1;
       @(posedge clk);
 
       if (expected_val == MAX_VALUE) begin
@@ -55,7 +55,7 @@ module iter_tb;
         expected_val = expected_val + 1;
       end
 
-      next = 0;
+      inc = 0;
       @(posedge clk);
 
       `ASSERT(val == expected_val);

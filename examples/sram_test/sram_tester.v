@@ -51,10 +51,10 @@ module sram_tester #(
   reg [2:0] next_state;
 
   // Other registers
-  reg addr_next;
+  reg addr_inc;
   reg last_write;
   reg last_read;
-  reg pattern_next;
+  reg pattern_inc;
   reg [DATA_BITS-1:0] pattern_prev;
   reg [DATA_BITS-1:0] pattern_custom;
   reg validate = 0;
@@ -96,7 +96,7 @@ module sram_tester #(
   ) addr_gen (
       .clk  (clk),
       .reset(reset),
-      .next (addr_next),
+      .inc  (addr_inc),
       .val  (addr),
       .done (addr_done)
   );
@@ -106,7 +106,7 @@ module sram_tester #(
   ) pattern_gen (
       .clk(clk),
       .reset(pattern_reset),
-      .next(pattern_next),
+      .inc(pattern_inc),
       .custom(pattern_custom),
       .pattern(pattern),
       .done(pattern_done),
@@ -117,7 +117,7 @@ module sram_tester #(
   always @(*) begin
     // Default assignments
     next_state = state;
-    pattern_next = 1'b0;
+    pattern_inc = 1'b0;
     pattern_custom = addr;
 
     case (state)
@@ -146,8 +146,8 @@ module sram_tester #(
           if (pattern_done) begin
             next_state = DONE;
           end else begin
-            pattern_next = 1'b1;
-            next_state   = WRITING;
+            pattern_inc = 1'b1;
+            next_state  = WRITING;
           end
         end else begin
           next_state = READING;
@@ -219,12 +219,12 @@ module sram_tester #(
     end
   end
 
-  // addr_next
+  // addr_inc
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      addr_next <= 1'b0;
+      addr_inc <= 1'b0;
     end else begin
-      addr_next <= (state == WRITE_HOLD || state == READ_HOLD);
+      addr_inc <= (state == WRITE_HOLD || state == READ_HOLD);
     end
   end
 

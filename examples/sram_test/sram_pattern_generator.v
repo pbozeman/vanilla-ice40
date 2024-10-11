@@ -8,7 +8,7 @@ module sram_pattern_generator #(
 ) (
     input wire clk,
     input wire reset,
-    input wire next,
+    input wire inc,
     input wire [DATA_BITS-1:0] custom,
     output reg [DATA_BITS-1:0] pattern,
     output reg done = 1'b0,
@@ -34,15 +34,17 @@ module sram_pattern_generator #(
         PATTERN_ALTERNATING_01 = {DATA_BITS/2{2'b01}},
         PATTERN_HALF_ONES      = {DATA_BITS{1'b1}} >> (DATA_BITS / 2);
 
-  always @(posedge next or posedge reset) begin
+  always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= STATE_ALL_ZEROS;
     end else begin
-      state <= state + 1'b1;
+      if (inc) begin
+        state <= state + 1'b1;
+      end
     end
   end
 
-  always @(posedge next or posedge reset) begin
+  always @(posedge clk or posedge reset) begin
     if (reset) begin
       done <= 1'b0;
     end else begin
