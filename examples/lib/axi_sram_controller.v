@@ -44,11 +44,11 @@ module axi_sram_controller #(
     output wire                      axi_rvalid,
     input  wire                      axi_rready,
 
-    output wire [AXI_ADDR_WIDTH-1:0] sram_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram_data,
-    output wire                      sram_we_n,
-    output wire                      sram_oe_n,
-    output wire                      sram_ce_n
+    output wire [AXI_ADDR_WIDTH-1:0] sram_io_addr,
+    inout  wire [AXI_DATA_WIDTH-1:0] sram_io_data,
+    output wire                      sram_io_we_n,
+    output wire                      sram_io_oe_n,
+    output wire                      sram_io_ce_n
 );
 
   // SRAM signals
@@ -86,19 +86,19 @@ module axi_sram_controller #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_ctrl (
-      .clk(axi_clk),
-      .reset(~axi_resetn),
-      .req(sram_req),
-      .ready(sram_ready),
+      .clk         (axi_clk),
+      .reset       (~axi_resetn),
+      .req         (sram_req),
+      .ready       (sram_ready),
       .write_enable(sram_write_enable),
-      .addr(sram_addr_internal),
-      .write_data(sram_write_data),
-      .read_data(sram_read_data),
-      .addr_bus(sram_addr),
-      .data_bus_io(sram_data),
-      .we_n(sram_we_n),
-      .oe_n(sram_oe_n),
-      .ce_n(sram_ce_n)
+      .addr        (sram_addr_internal),
+      .write_data  (sram_write_data),
+      .read_data   (sram_read_data),
+      .io_addr_bus (sram_io_addr),
+      .io_data_bus (sram_io_data),
+      .io_we_n     (sram_io_we_n),
+      .io_oe_n     (sram_io_oe_n),
+      .io_ce_n     (sram_io_ce_n)
   );
 
   // state machine
@@ -130,7 +130,7 @@ module axi_sram_controller #(
         writing = 1'b1;
         write_done = 1'b1;
 
-        if (axi_bready & sram_we_n) begin
+        if (axi_bready & sram_io_we_n) begin
           write_resp_valid = 1'b1;
           next_state = IDLE;
         end else begin

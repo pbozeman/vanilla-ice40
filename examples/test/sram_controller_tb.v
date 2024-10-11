@@ -20,30 +20,30 @@ module sram_controller_tb;
   wire [ADDR_BITS-1:0] addr_read;
 
   // chip lines
-  wire [ADDR_BITS-1:0] addr_bus;
-  wire [DATA_BITS-1:0] data_bus;
-  wire we_n;
-  wire oe_n;
-  wire ce_n;
+  wire [ADDR_BITS-1:0] io_addr_bus;
+  wire [DATA_BITS-1:0] io_data_bus;
+  wire io_we_n;
+  wire io_oe_n;
+  wire io_ce_n;
 
   // Instantiate the SRAM controller
   sram_controller #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) ctrl (
-      .clk(clk),
-      .reset(reset),
-      .req(req),
-      .ready(ready),
+      .clk         (clk),
+      .reset       (reset),
+      .req         (req),
+      .ready       (ready),
       .write_enable(write_enable),
-      .addr(addr),
-      .write_data(write_data),
-      .read_data(read_data),
-      .addr_bus(addr_bus),
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .data_bus_io(data_bus),
-      .ce_n(ce_n)
+      .addr        (addr),
+      .write_data  (write_data),
+      .read_data   (read_data),
+      .io_addr_bus (io_addr_bus),
+      .io_we_n     (io_we_n),
+      .io_oe_n     (io_oe_n),
+      .io_data_bus (io_data_bus),
+      .io_ce_n     (io_ce_n)
   );
 
   // Instantiate the mocked SRAM model
@@ -51,11 +51,11 @@ module sram_controller_tb;
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .ce_n(ce_n),
-      .addr(addr_bus),
-      .data_io(data_bus)
+      .we_n   (io_we_n),
+      .oe_n   (io_oe_n),
+      .ce_n   (io_ce_n),
+      .addr   (io_addr_bus),
+      .data_io(io_data_bus)
   );
 
   // Clock generation
@@ -76,8 +76,8 @@ module sram_controller_tb;
     reset = 0;
 
     `ASSERT(ready);
-    `ASSERT(oe_n);
-    `ASSERT(we_n);
+    `ASSERT(io_oe_n);
+    `ASSERT(io_we_n);
 
     //
     // Single read/write
@@ -91,24 +91,24 @@ module sram_controller_tb;
     write_data = 8'hA1;
     @(posedge clk);
     `ASSERT(!ready);
-    `ASSERT(addr_bus === 10'h0AA);
-    `ASSERT(data_bus === 8'hA1);
-    `ASSERT(oe_n);
-    `ASSERT(!we_n);
+    `ASSERT(io_addr_bus === 10'h0AA);
+    `ASSERT(io_data_bus === 8'hA1);
+    `ASSERT(io_oe_n);
+    `ASSERT(!io_we_n);
 
     @(posedge clk);
     `ASSERT(ready);
-    `ASSERT(oe_n);
-    `ASSERT(we_n);
+    `ASSERT(io_oe_n);
+    `ASSERT(io_we_n);
 
     // Read
     write_enable = 0;
     addr = 10'h0AA;
     @(posedge clk);
     `ASSERT(!ready);
-    `ASSERT(~oe_n);
+    `ASSERT(~io_oe_n);
     @(posedge clk);
-    `ASSERT(oe_n);
+    `ASSERT(io_oe_n);
     `ASSERT(read_data === 8'hA1);
     `ASSERT(ready);
 

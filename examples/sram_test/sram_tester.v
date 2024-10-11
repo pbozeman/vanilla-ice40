@@ -23,17 +23,17 @@ module sram_tester #(
     output reg [DATA_BITS-1:0] prev_expected_data,
 
     // sram controller signals
-    output wire write_enable,
-    output wire [ADDR_BITS-1:0] addr,
-    output wire [DATA_BITS-1:0] write_data,
-    output wire [DATA_BITS-1:0] read_data,
+    output wire sram_write_enable,
+    output wire [ADDR_BITS-1:0] sram_addr,
+    output wire [DATA_BITS-1:0] sram_write_data,
+    output wire [DATA_BITS-1:0] sram_read_data,
 
     // sram controller to io pins
-    output wire [ADDR_BITS-1:0] addr_bus,
-    inout wire [DATA_BITS-1:0] data_bus,
-    output wire we_n,
-    output wire oe_n,
-    output wire ce_n
+    output wire [ADDR_BITS-1:0] sram_io_addr_bus,
+    inout wire [DATA_BITS-1:0] sram_io_data_bus,
+    output wire sram_io_we_n,
+    output wire sram_io_oe_n,
+    output wire sram_io_ce_n
 );
 
   // State definitions
@@ -76,19 +76,19 @@ module sram_tester #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram_ctrl (
-      .clk(clk),
-      .reset(reset),
-      .req(req),
-      .ready(ready),
-      .addr(addr),
-      .write_enable(write_enable),
-      .write_data(write_data),
-      .read_data(read_data),
-      .addr_bus(addr_bus),
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .data_bus_io(data_bus),
-      .ce_n(ce_n)
+      .clk         (clk),
+      .reset       (reset),
+      .req         (req),
+      .ready       (ready),
+      .addr        (sram_addr),
+      .write_enable(sram_write_enable),
+      .write_data  (sram_write_data),
+      .read_data   (sram_read_data),
+      .io_addr_bus (sram_io_addr_bus),
+      .io_we_n     (sram_io_we_n),
+      .io_oe_n     (sram_io_oe_n),
+      .io_data_bus (sram_io_data_bus),
+      .io_ce_n     (sram_io_ce_n)
   );
 
   iter #(
@@ -97,7 +97,7 @@ module sram_tester #(
       .clk  (clk),
       .reset(reset),
       .inc  (addr_inc),
-      .val  (addr),
+      .val  (sram_addr),
       .done (addr_done)
   );
 
@@ -118,7 +118,7 @@ module sram_tester #(
     // Default assignments
     next_state = state;
     pattern_inc = 1'b0;
-    pattern_custom = addr;
+    pattern_custom = sram_addr;
 
     case (state)
       START: begin
@@ -213,7 +213,7 @@ module sram_tester #(
     end else begin
       if (state == READ_HOLD) begin
         last_read <= addr_done;
-        prev_read_data <= read_data;
+        prev_read_data <= sram_read_data;
         prev_expected_data <= pattern_prev;
       end
     end
@@ -270,11 +270,11 @@ module sram_tester #(
   end
 
   // Continuous assignments
-  assign write_enable = ((state == START || state == DONE ||
+  assign sram_write_enable = ((state == START || state == DONE ||
                             state == WRITING || state == WRITE_HOLD)
                             && ~last_write);
   assign pattern_reset = (reset || state == DONE);
-  assign write_data = pattern;
+  assign sram_write_data = pattern;
 
 endmodule
 

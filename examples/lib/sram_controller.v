@@ -23,11 +23,11 @@ module sram_controller #(
     output reg  [DATA_BITS-1:0] read_data,
 
     // to/from the sram chip
-    output reg  [ADDR_BITS-1:0] addr_bus,
-    inout  wire [DATA_BITS-1:0] data_bus_io,
-    output reg                  we_n,
-    output reg                  oe_n,
-    output wire                 ce_n
+    output reg  [ADDR_BITS-1:0] io_addr_bus,
+    inout  wire [DATA_BITS-1:0] io_data_bus,
+    output reg                  io_we_n,
+    output reg                  io_oe_n,
+    output wire                 io_ce_n
 );
 
   // Reads and writes happen over 2 clock cycles.
@@ -65,9 +65,9 @@ module sram_controller #(
   // For now, we can just leave the chip always enabled. We control
   // the chip with oe_n and we_n instead. Reconsider this if we want to
   // put the chip into idle/low power mode.
-  assign ce_n = 1'b0;
+  assign io_ce_n = 1'b0;
 
-  assign data_bus_io = (next_state == WRITING || state == WRITING) ? write_data : {DATA_BITS{1'bz}};
+  assign io_data_bus = (next_state == WRITING || state == WRITING) ? write_data : {DATA_BITS{1'bz}};
 
   always @(*) begin
     next_state = state;
@@ -104,7 +104,7 @@ module sram_controller #(
   end
 
   always @(*) begin
-    addr_bus = addr;
+    io_addr_bus = addr;
   end
 
   always @(posedge clk or posedge reset) begin
@@ -117,15 +117,15 @@ module sram_controller #(
 
   always @(negedge clk) begin
     if (reset) begin
-      oe_n <= 1'b1;
-      we_n <= 1'b1;
+      io_oe_n <= 1'b1;
+      io_we_n <= 1'b1;
     end else begin
-      if (!oe_n) begin
-        read_data <= data_bus_io;
+      if (!io_oe_n) begin
+        read_data <= io_data_bus;
       end
 
-      we_n <= next_we_n;
-      oe_n <= next_oe_n;
+      io_we_n <= next_we_n;
+      io_oe_n <= next_oe_n;
     end
   end
 

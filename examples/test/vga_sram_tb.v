@@ -16,11 +16,11 @@ module vga_sram_tb;
   reg                       reset;
 
   // SRAM Interface
-  wire [AXI_ADDR_WIDTH-1:0] sram_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram_data;
-  wire                      sram_we_n;
-  wire                      sram_oe_n;
-  wire                      sram_ce_n;
+  wire [AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire [AXI_DATA_WIDTH-1:0] sram_io_data;
+  wire                      sram_io_we_n;
+  wire                      sram_io_oe_n;
+  wire                      sram_io_ce_n;
 
   // Vga signals
   wire                      vga_vsync;
@@ -34,15 +34,15 @@ module vga_sram_tb;
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) uut (
-      .clk(clk),
+      .clk      (clk),
       .pixel_clk(pixel_clk),
-      .reset(reset),
+      .reset    (reset),
 
-      .sram_addr(sram_addr),
-      .sram_data(sram_data),
-      .sram_we_n(sram_we_n),
-      .sram_oe_n(sram_oe_n),
-      .sram_ce_n(sram_ce_n),
+      .sram_io_addr(sram_io_addr),
+      .sram_io_data(sram_io_data),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n),
 
       .vga_red  (vga_red),
       .vga_green(vga_green),
@@ -57,11 +57,11 @@ module vga_sram_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram (
-      .we_n(sram_we_n),
-      .oe_n(sram_oe_n),
-      .ce_n(sram_ce_n),
-      .addr(sram_addr),
-      .data_io(sram_data)
+      .we_n   (sram_io_we_n),
+      .oe_n   (sram_io_oe_n),
+      .ce_n   (sram_io_ce_n),
+      .addr   (sram_io_addr),
+      .data_io(sram_io_data)
   );
 
   // 100mhz main clock (also axi clock)

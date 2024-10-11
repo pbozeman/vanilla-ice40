@@ -37,12 +37,12 @@ module sram_tester_top #(
   reg reset = 0;
   reg [3:0] reset_counter = 0;
 
-  wire [ADDR_BITS-1:0] addr;
-  wire [DATA_BITS-1:0] write_data;
-  wire [DATA_BITS-1:0] read_data;
+  wire [ADDR_BITS-1:0] sram_addr;
+  wire [DATA_BITS-1:0] sram_write_data;
+  wire [DATA_BITS-1:0] sram_read_data;
   wire test_done;
   wire test_pass;
-  wire write_enable;
+  wire sram_write_enable;
 
   wire [2:0] pattern_state;
   wire [DATA_BITS-1:0] prev_expected_data;
@@ -64,17 +64,17 @@ module sram_tester_top #(
       .prev_read_data(prev_read_data),
 
       // sram controller signals
-      .write_enable(write_enable),
-      .addr(addr),
-      .write_data(write_data),
-      .read_data(read_data),
+      .sram_write_enable(sram_write_enable),
+      .sram_addr(sram_addr),
+      .sram_write_data(sram_write_data),
+      .sram_read_data(sram_read_data),
 
       // sram controller to io pins
-      .addr_bus(R_SRAM_ADDR_BUS),
-      .data_bus(R_SRAM_DATA_BUS),
-      .ce_n(R_SRAM_CS_N),
-      .we_n(R_SRAM_WE_N),
-      .oe_n(R_SRAM_OE_N)
+      .sram_io_addr_bus(R_SRAM_ADDR_BUS),
+      .sram_io_data_bus(R_SRAM_DATA_BUS),
+      .sram_io_ce_n(R_SRAM_CS_N),
+      .sram_io_we_n(R_SRAM_WE_N),
+      .sram_io_oe_n(R_SRAM_OE_N)
   );
 
   wire [ADDR_BITS-1:0] addr_reversed;
@@ -84,7 +84,7 @@ module sram_tester_top #(
   bit_reverser #(
       .WIDTH(ADDR_BITS)
   ) addr_reverser (
-      .in (addr),
+      .in (sram_addr),
       .out(addr_reversed)
   );
 
@@ -120,8 +120,8 @@ module sram_tester_top #(
   // LED2 is success
   assign LED2 = test_pass;
 
-  assign R_I = (test_pass ? write_data : prev_expected_data);
-  assign R_J = (test_pass ? read_data : prev_read_data);
+  assign R_I = (test_pass ? sram_write_data : prev_expected_data);
+  assign R_J = (test_pass ? sram_read_data : prev_read_data);
 
   assign R_E[2:0] = pattern_state_reversed;
 

@@ -16,17 +16,17 @@ module sram_tester_tb ();
   wire test_done;
 
   // sram controller signals
-  wire write_enable;
-  wire [ADDR_BITS-1:0] addr;
-  wire [DATA_BITS-1:0] write_data;
-  wire [DATA_BITS-1:0] read_data;
+  wire sram_write_enable;
+  wire [ADDR_BITS-1:0] sram_addr;
+  wire [DATA_BITS-1:0] sram_write_data;
+  wire [DATA_BITS-1:0] sram_read_data;
 
   // sram controller to io pins
-  wire [ADDR_BITS-1:0] addr_bus;
-  wire [DATA_BITS-1:0] data_bus;
-  wire we_n;
-  wire oe_n;
-  wire ce_n;
+  wire [ADDR_BITS-1:0] sram_io_addr_bus;
+  wire [DATA_BITS-1:0] sram_io_data_bus;
+  wire sram_io_we_n;
+  wire sram_io_oe_n;
+  wire sram_io_ce_n;
 
   // sram tester debug signals
   wire [2:0] pattern_state;
@@ -52,17 +52,17 @@ module sram_tester_tb ();
       .prev_read_data(prev_read_data),
 
       // sram controller signals
-      .write_enable(write_enable),
-      .addr(addr),
-      .write_data(write_data),
-      .read_data(read_data),
+      .sram_write_enable(sram_write_enable),
+      .sram_addr(sram_addr),
+      .sram_write_data(sram_write_data),
+      .sram_read_data(sram_read_data),
 
       // sram controller to io pins
-      .addr_bus(addr_bus),
-      .data_bus(data_bus),
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .ce_n(ce_n)
+      .sram_io_addr_bus(sram_io_addr_bus),
+      .sram_io_data_bus(sram_io_data_bus),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n)
   );
 
   // Instantiate the mocked SRAM model
@@ -70,11 +70,11 @@ module sram_tester_tb ();
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
-      .we_n(we_n),
-      .oe_n(oe_n),
-      .ce_n(ce_n),
-      .addr(addr_bus),
-      .data_io(data_bus)
+      .we_n(sram_io_we_n),
+      .oe_n(sram_io_oe_n),
+      .ce_n(sram_io_ce_n),
+      .addr(sram_io_addr_bus),
+      .data_io(sram_io_data_bus)
   );
 
   `TEST_SETUP(sram_tester_tb);

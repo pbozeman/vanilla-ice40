@@ -23,11 +23,11 @@ module sram_tester_axi #(
     output reg [DATA_BITS-1:0] prev_expected_data,
 
     // sram controller to io pins
-    output wire [ADDR_BITS-1:0] sram_addr,
-    inout wire [DATA_BITS-1:0] sram_data,
-    output wire sram_we_n,
-    output wire sram_oe_n,
-    output wire sram_ce_n
+    output wire [ADDR_BITS-1:0] sram_io_addr,
+    inout wire [DATA_BITS-1:0] sram_io_data,
+    output wire sram_io_we_n,
+    output wire sram_io_oe_n,
+    output wire sram_io_ce_n
 );
   // AXI-Lite Write Address Channel
   reg  [ADDR_BITS-1:0] axi_awaddr;
@@ -103,11 +103,11 @@ module sram_tester_axi #(
       .axi_rresp(axi_rresp),
       .axi_rvalid(axi_rvalid),
       .axi_rready(axi_rready),
-      .sram_addr(sram_addr),
-      .sram_data(sram_data),
-      .sram_we_n(sram_we_n),
-      .sram_oe_n(sram_oe_n),
-      .sram_ce_n(sram_ce_n)
+      .sram_io_addr(sram_io_addr),
+      .sram_io_data(sram_io_data),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n)
   );
 
   iter #(

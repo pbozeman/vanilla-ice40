@@ -64,18 +64,18 @@ module vga_sram_double_buf_top #(
       .vga_vsync(vga_vsync),
 
       // sram 0 signals
-      .sram0_addr(R_SRAM_ADDR_BUS),
-      .sram0_data(R_SRAM_DATA_BUS),
-      .sram0_we_n(R_SRAM_WE_N),
-      .sram0_oe_n(R_SRAM_OE_N),
-      .sram0_ce_n(R_SRAM_CS_N),
+      .sram0_io_addr(R_SRAM_ADDR_BUS),
+      .sram0_io_data(R_SRAM_DATA_BUS),
+      .sram0_io_we_n(R_SRAM_WE_N),
+      .sram0_io_oe_n(R_SRAM_OE_N),
+      .sram0_io_ce_n(R_SRAM_CS_N),
 
       // sram 1 signals
-      .sram1_addr(L_SRAM_ADDR_BUS),
-      .sram1_data(L_SRAM_DATA_BUS),
-      .sram1_we_n(L_SRAM_WE_N),
-      .sram1_oe_n(L_SRAM_OE_N),
-      .sram1_ce_n(L_SRAM_CS_N)
+      .sram1_io_addr(L_SRAM_ADDR_BUS),
+      .sram1_io_data(L_SRAM_DATA_BUS),
+      .sram1_io_we_n(L_SRAM_WE_N),
+      .sram1_io_oe_n(L_SRAM_OE_N),
+      .sram1_io_ce_n(L_SRAM_CS_N)
   );
 
   assign LED1 = 1'bz;

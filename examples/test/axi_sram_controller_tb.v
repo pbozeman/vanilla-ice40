@@ -37,11 +37,11 @@ module axi_sram_controller_tb;
   reg                       axi_rready;
 
   // SRAM Interface
-  wire [AXI_ADDR_WIDTH-1:0] sram_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram_data;
-  wire                      sram_we_n;
-  wire                      sram_oe_n;
-  wire                      sram_ce_n;
+  wire [AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire [AXI_DATA_WIDTH-1:0] sram_io_data;
+  wire                      sram_io_we_n;
+  wire                      sram_io_oe_n;
+  wire                      sram_io_ce_n;
 
   // Variable to store read data
   reg  [AXI_DATA_WIDTH-1:0] read_data;
@@ -70,11 +70,11 @@ module axi_sram_controller_tb;
       .axi_rresp(axi_rresp),
       .axi_rvalid(axi_rvalid),
       .axi_rready(axi_rready),
-      .sram_addr(sram_addr),
-      .sram_data(sram_data),
-      .sram_we_n(sram_we_n),
-      .sram_oe_n(sram_oe_n),
-      .sram_ce_n(sram_ce_n)
+      .sram_io_addr(sram_io_addr),
+      .sram_io_data(sram_io_data),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n)
   );
 
   // Instantiate the mocked SRAM model
@@ -82,11 +82,11 @@ module axi_sram_controller_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram (
-      .we_n(sram_we_n),
-      .oe_n(sram_oe_n),
-      .ce_n(sram_ce_n),
-      .addr(sram_addr),
-      .data_io(sram_data)
+      .we_n   (sram_io_we_n),
+      .oe_n   (sram_io_oe_n),
+      .ce_n   (sram_io_ce_n),
+      .addr   (sram_io_addr),
+      .data_io(sram_io_data)
   );
 
   reg [8:0] test_line;
