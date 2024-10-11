@@ -37,10 +37,16 @@ module sram_pattern_generator #(
   always @(posedge next or posedge reset) begin
     if (reset) begin
       state <= STATE_ALL_ZEROS;
-      done  <= 1'b0;
     end else begin
-      done  <= (state == STATE_FINAL);
       state <= state + 1'b1;
+    end
+  end
+
+  always @(posedge next or posedge reset) begin
+    if (reset) begin
+      done <= 1'b0;
+    end else begin
+      done <= (state == STATE_FINAL);
     end
   end
 
