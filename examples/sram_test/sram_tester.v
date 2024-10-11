@@ -117,7 +117,6 @@ module sram_tester #(
   always @(*) begin
     // Default assignments
     next_state = state;
-    pattern_inc = 1'b0;
     pattern_custom = sram_addr;
 
     case (state)
@@ -146,8 +145,7 @@ module sram_tester #(
           if (pattern_done) begin
             next_state = DONE;
           end else begin
-            pattern_inc = 1'b1;
-            next_state  = WRITING;
+            next_state = WRITING;
           end
         end else begin
           next_state = READING;
@@ -260,6 +258,15 @@ module sram_tester #(
     end
   end
 
+  // pattern_inc
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pattern_inc <= 1'b0;
+    end else begin
+      pattern_inc <= (state == READ_HOLD && addr_done);
+    end
+  end
+
   // pattern_prev
   always @(posedge clk or posedge reset) begin
     if (reset) begin
@@ -272,7 +279,7 @@ module sram_tester #(
   // Continuous assignments
   assign sram_write_enable = ((state == START || state == DONE ||
                             state == WRITING || state == WRITE_HOLD)
-                            && ~last_write);
+                            && ~last_write) || last_read;
   assign pattern_reset = (reset || state == DONE);
   assign sram_write_data = pattern;
 
