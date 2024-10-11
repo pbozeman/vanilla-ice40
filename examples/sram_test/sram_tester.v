@@ -51,7 +51,6 @@ module sram_tester #(
   reg [2:0] next_state;
 
   // Other registers
-  reg addr_reset;
   reg addr_next;
   reg last_write;
   reg last_read;
@@ -96,7 +95,7 @@ module sram_tester #(
       .MAX_VALUE((1 << ADDR_BITS) - 1)
   ) addr_gen (
       .clk  (clk),
-      .reset(addr_reset),
+      .reset(reset),
       .next (addr_next),
       .val  (addr),
       .done (addr_done)
