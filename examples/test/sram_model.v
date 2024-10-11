@@ -113,14 +113,24 @@ module sram_model #(
   reg [ADDR_BITS-1:0] we_n_initial_addr;
   reg [DATA_BITS-1:0] we_n_initial_data;
 
+  reg reads_active = 0;
+
   always @(negedge oe_n) begin
     oe_n_initial_addr <= addr;
+    reads_active <= 1'b1;
   end
 
   always @(posedge oe_n) begin
-    if (oe_n_initial_addr != addr) begin
-      $display("addr changed during read");
-      $fatal;
+    if (reads_active) begin
+      if (oe_n_initial_addr != addr) begin
+        $display("addr changed during read, old: %h new: %h", oe_n_initial_addr, addr);
+        $fatal;
+      end
+
+      if (data_in === {DATA_BITS{1'bx}}) begin
+        $display("read from unitialized addr %h", addr);
+        $fatal;
+      end
     end
   end
 
