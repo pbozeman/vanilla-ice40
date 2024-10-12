@@ -91,6 +91,7 @@ module sram_controller_tb;
     write_data = 8'hA1;
     @(posedge clk);
     `ASSERT(!ready);
+    @(negedge clk);
     `ASSERT(io_addr_bus === 10'h0AA);
     `ASSERT(io_data_bus === 8'hA1);
     `ASSERT(io_oe_n);

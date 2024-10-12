@@ -23,7 +23,7 @@ module sram_controller #(
     output reg  [DATA_BITS-1:0] read_data,
 
     // to/from the sram chip
-    output reg  [ADDR_BITS-1:0] io_addr_bus,
+    output wire [ADDR_BITS-1:0] io_addr_bus,
     inout  wire [DATA_BITS-1:0] io_data_bus,
     output reg                  io_we_n,
     output reg                  io_oe_n,
@@ -60,31 +60,41 @@ module sram_controller #(
 
   reg ready_reg;
 
+  reg [ADDR_BITS-1:0] addr_reg = 0;
   reg [DATA_BITS-1:0] write_data_reg = 0;
+
+  reg [ADDR_BITS-1:0] addr_reg_prev = 0;
+  reg [DATA_BITS-1:0] write_data_reg_prev = 0;
 
   // For now, we can just leave the chip always enabled. We control
   // the chip with oe_n and we_n instead. Reconsider this if we want to
   // put the chip into idle/low power mode.
   assign io_ce_n = 1'b0;
 
-  assign io_data_bus = (next_state == WRITING || state == WRITING) ? write_data : {DATA_BITS{1'bz}};
+  assign io_addr_bus = addr_reg;
+  assign io_data_bus = (next_state == WRITING || state == WRITING) ? write_data_reg : {DATA_BITS{1'bz}};
 
   always @(*) begin
     next_state = state;
-    next_oe_n  = 1'b1;
-    next_we_n  = 1'b1;
-    ready_reg  = 1'b1;
+    next_oe_n = 1'b1;
+    next_we_n = 1'b1;
+    ready_reg = 1'b1;
+
+    addr_reg = addr_reg_prev;
+    write_data_reg = write_data_reg_prev;
 
     case (state)
       IDLE: begin
         if (req) begin
           ready_reg = 1'b0;
+          addr_reg  = addr;
           if (!write_enable) begin
             next_state = READING;
             next_oe_n  = 1'b0;
           end else begin
             next_state = WRITING;
-            next_we_n  = 1'b0;
+            write_data_reg = write_data;
+            next_we_n = 1'b0;
           end
         end
       end
@@ -103,16 +113,17 @@ module sram_controller #(
     endcase
   end
 
-  always @(*) begin
-    io_addr_bus = addr;
-  end
-
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= IDLE;
     end else begin
       state <= next_state;
     end
+  end
+
+  always @(posedge clk) begin
+    addr_reg_prev = addr_reg;
+    write_data_reg_prev = write_data_reg;
   end
 
   always @(negedge clk) begin
