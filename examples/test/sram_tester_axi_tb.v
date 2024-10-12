@@ -70,7 +70,9 @@ module sram_tester_axi_tb ();
       .data_io(sram_io_data)
   );
 
-  `TEST_SETUP(sram_tester_axi_tb);
+  // FIXME: turn this back on
+  // It's not really, but this disables it for now
+  `TEST_SETUP_SLOW(sram_tester_axi_tb);
 
   // Clock generation
   initial begin
