@@ -52,6 +52,7 @@ FORMATTER := verible-verilog-format --inplace --tryfromenv="indentation_spaces,c
 
 # Synthesis
 YOSYS := yosys
+CELLS_SIM := $(shell yosys-config --datdir/ice40/cells_sim.v)
 
 # PNR
 NEXTPNR := nextpnr-ice40
@@ -168,8 +169,8 @@ list:
 #
 ##############################################################################
 .PRECIOUS: $(BUILD_DIR)/%
-$(BUILD_DIR)/%: $(TEST_DIR)/%.v | $(BUILD_DIR)
-	$(IVERILOG) -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $^
+$(BUILD_DIR)/%: $(TEST_DIR)/%.v $(CELLS_SIM) | $(BUILD_DIR)
+	$(IVERILOG) -g2012 -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $^
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
