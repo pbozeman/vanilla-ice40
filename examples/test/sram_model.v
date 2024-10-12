@@ -114,6 +114,7 @@ module sram_model #(
   reg [DATA_BITS-1:0] we_n_initial_data;
 
   reg reads_active = 0;
+  reg writes_active = 0;
 
   always @(negedge oe_n) begin
     oe_n_initial_addr <= addr;
@@ -137,17 +138,20 @@ module sram_model #(
   always @(negedge we_n) begin
     we_n_initial_addr <= addr;
     we_n_initial_data <= data_io;
+    writes_active <= 1'b1;
   end
 
   always @(posedge we_n) begin
-    if (we_n_initial_addr != addr) begin
-      $display("addr changed during write");
-      $fatal;
-    end
+    if (writes_active) begin
+      if (we_n_initial_addr !== addr) begin
+        $display("addr changed during write");
+        $fatal;
+      end
 
-    if (we_n_initial_data != data_io) begin
-      $display("data changed during write");
-      $fatal;
+      if (we_n_initial_data !== data_io) begin
+        $display("data changed during write");
+        $fatal;
+      end
     end
   end
 
