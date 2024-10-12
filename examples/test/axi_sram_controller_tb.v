@@ -43,9 +43,6 @@ module axi_sram_controller_tb;
   wire                      sram_io_oe_n;
   wire                      sram_io_ce_n;
 
-  // Variable to store read data
-  reg  [AXI_DATA_WIDTH-1:0] read_data;
-
   // Instantiate the AXI SRAM controller
   axi_sram_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -89,7 +86,9 @@ module axi_sram_controller_tb;
       .data_io(sram_io_data)
   );
 
+  // verilator lint_off UNUSEDSIGNAL
   reg [8:0] test_line;
+  // verilator lint_on UNUSEDSIGNAL
 
   // Clock generation
   initial begin
@@ -110,7 +109,6 @@ module axi_sram_controller_tb;
       axi_bready  = 1'b0;
       axi_araddr  = 1'b0;
       axi_arvalid = 1'b0;
-      read_data   = 1'b0;
 
       axi_resetn  = 1'b0;
       @(posedge axi_clk);

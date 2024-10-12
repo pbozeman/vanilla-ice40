@@ -20,7 +20,7 @@ module counter_tb;
       .count (count)
   );
 
-  always begin
+  initial begin
     forever #5 clk = ~clk;
     #1000;
   end

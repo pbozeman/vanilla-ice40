@@ -10,7 +10,11 @@ module cdc_fifo_tb;
   reg                   w_rst_n;
   reg                   w_inc;
   reg  [DATA_WIDTH-1:0] w_data;
+
+  // verilator lint_off UNUSEDSIGNAL
   wire                  w_almost_full;
+  // verilator lint_on UNUSEDSIGNAL
+
   wire                  w_full;
 
   reg                   r_clk;

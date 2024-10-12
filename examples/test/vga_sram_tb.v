@@ -6,6 +6,8 @@
 // This is not intended to be a full test. This is just to see some wave forms
 // in the simulator.
 
+// verilator lint_off UNUSEDSIGNAL
+
 module vga_sram_tb;
 
   parameter AXI_ADDR_WIDTH = 20;
@@ -95,3 +97,5 @@ module vga_sram_tb;
   end
 
 endmodule
+
+// verilator lint_on UNUSEDSIGNAL

@@ -15,19 +15,26 @@ module vga_sram_pixel_stream #(
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
     parameter H_SYNC_PULSE  = 96,
+    // verilator lint_off UNUSEDPARAM
     parameter H_BACK_PORCH  = 48,
+    // verilator lint_on UNUSEDPARAM
     parameter H_WHOLE_LINE  = 800,
 
     parameter V_VISIBLE     = 480,
     parameter V_FRONT_PORCH = 10,
     parameter V_SYNC_PULSE  = 2,
+    // verilator lint_off UNUSEDPARAM
     parameter V_BACK_PORCH  = 33,
+    // verilator lint_on UNUSEDPARAM
     parameter V_WHOLE_FRAME = 525
 ) (
     input wire clk,
     input wire reset,
     input wire enable,
 
+    // TODO: enable when this is turned back on
+    // verilator lint_off UNUSEDSIGNAL
+    //
     // SRAM AXI-Lite Read Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] axi_araddr,
     output reg                       axi_arvalid,
@@ -38,6 +45,7 @@ module vga_sram_pixel_stream #(
     input  wire [               1:0] axi_rresp,
     input  wire                      axi_rvalid,
     output reg                       axi_rready,
+    // verilator lint_on UNUSEDSIGNAL
 
     // VGA signals
     output wire       vsync,

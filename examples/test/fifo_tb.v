@@ -27,7 +27,7 @@ module fifo_tb;
   );
 
   // clock generator
-  always #1 clk = ~clk;
+  always #1 clk <= ~clk;
 
   `TEST_SETUP(fifo_tb);
 

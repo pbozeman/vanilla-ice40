@@ -3,6 +3,8 @@
 
 `include "directives.v"
 
+// verilator lint_off BLKSEQ
+
 module sram_model #(
     parameter integer ADDR_BITS    = 10,
     parameter integer DATA_BITS    = 8,
@@ -24,7 +26,7 @@ module sram_model #(
 );
 
   // memory
-  reg  [DATA_BITS-1:0] sram             [0:(1 << ADDR_BITS)-1];
+  reg  [DATA_BITS-1:0] sram_mem         [0:(1 << ADDR_BITS)-1];
 
   // data read from bus
   wire [DATA_BITS-1:0] data_in;
@@ -69,7 +71,7 @@ module sram_model #(
       end else if ($realtime - last_addr_change < tAA) begin
         data_out = {DATA_BITS{BAD_DATA}};
       end else begin
-        data_out = sram[addr];
+        data_out = sram_mem[addr];
       end
     end
 
@@ -92,7 +94,7 @@ module sram_model #(
   // (Note: tAW to write_enabled is delayed.)
   //
   // However, if we try to ensure all paths in this block
-  // assign to sram[addr], thus avoiding the latch warning,
+  // assign to sram_mem[addr], thus avoiding the latch warning,
   // we create a circular dependency that iverilog can't optimize
   // and the compile at >16 bits of addr space takes forever.
   // Hence, we allow latch creation below.
@@ -101,9 +103,9 @@ module sram_model #(
   always @(*) begin
     if (write_enable) begin
       if (INJECT_ERROR && addr == {DATA_BITS{1'b1}}) begin
-        sram[addr] = {DATA_BITS{1'b1}};
+        sram_mem[addr] = {DATA_BITS{1'b1}};
       end else if (!we_n) begin
-        sram[addr] = data_in;
+        sram_mem[addr] = data_in;
       end
     end
   end
@@ -157,5 +159,6 @@ module sram_model #(
   end
 
 endmodule
+// verilator lint_on BLKSEQ
 
 `endif

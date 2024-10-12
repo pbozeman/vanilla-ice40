@@ -7,6 +7,12 @@
 `include "iter.v"
 `include "sram_pattern_generator.v"
 
+// FIXME: this is almost certainly broken and likely
+// passed because pattern_bla was undriven and still x.
+//
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
+
 module sram_tester_axi #(
     parameter integer ADDR_BITS = 20,
     parameter integer DATA_BITS = 16
@@ -62,7 +68,6 @@ module sram_tester_axi #(
   wire                 iter_addr_done;
 
   // Pattern gen signals
-  wire                 pattern_reset;
   reg                  pattern_inc;
   wire [DATA_BITS-1:0] pattern;
   wire                 pattern_done;
@@ -72,7 +77,6 @@ module sram_tester_axi #(
   localparam [2:0] START = 3'b000;
   localparam [2:0] WRITING = 3'b001;
   localparam [2:0] READING = 3'b010;
-  localparam [2:0] DONE = 3'b011;
   localparam [2:0] HALT = 3'b100;
 
   // State and next state registers
@@ -124,7 +128,7 @@ module sram_tester_axi #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
       .clk    (clk),
-      .reset  (pattern_reset),
+      .reset  (reset),
       .inc    (pattern_inc),
       .custom (pattern_custom),
       .pattern(pattern),
@@ -315,6 +319,9 @@ module sram_tester_axi #(
   end
 
 endmodule
+
+// verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
 
 `endif
 

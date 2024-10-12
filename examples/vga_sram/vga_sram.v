@@ -168,8 +168,10 @@ module vga_sram #(
   );
 
   wire fifo_almost_full;
+  // verilator lint_off UNUSEDSIGNAL
   wire fifo_full;
   wire fifo_empty;
+  // verilator lint_on UNUSEDSIGNAL
   wire vga_ready;
 
   assign vga_ready = 1'b1;

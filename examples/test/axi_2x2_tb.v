@@ -2,6 +2,9 @@
 
 `include "axi_2x2.v"
 
+// TODO: test all of the signals
+// verilator lint_off UNUSEDSIGNAL
+
 module axi_2x2_tb;
 
   parameter AXI_ADDR_WIDTH = 20;
@@ -172,3 +175,5 @@ module axi_2x2_tb;
   end
 
 endmodule
+
+// verilator lint_on UNUSEDSIGNAL

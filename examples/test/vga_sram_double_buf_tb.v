@@ -100,7 +100,7 @@ module vga_sram_double_buf_tb;
   // 100mhz main clock (also axi clock)
   initial begin
     clk = 0;
-    forever #5 clk = ~clk;
+    forever #5 clk <= ~clk;
   end
 
   // 25mhz pixel clock

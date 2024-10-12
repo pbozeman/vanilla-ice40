@@ -15,7 +15,7 @@ module vga_pixel_addr_tb;
       .row   (row)
   );
 
-  always begin
+  initial begin
     forever #5 clk = ~clk;
   end
 

@@ -123,11 +123,11 @@ module sram_controller #(
   end
 
   always @(posedge clk) begin
-    addr_reg_prev       = addr_reg;
-    write_data_reg_prev = write_data_reg;
+    addr_reg_prev       <= addr_reg;
+    write_data_reg_prev <= write_data_reg;
   end
 
-  always @(negedge clk) begin
+  always @(negedge clk or posedge reset) begin
     if (reset) begin
       io_oe_n <= 1'b1;
       io_we_n <= 1'b1;

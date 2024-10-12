@@ -55,7 +55,9 @@ module sram_tester #(
 
   // Wires
   wire                 req;
+  // verilator lint_off UNUSEDSIGNAL
   wire                 ready;
+  // verilator lint_on UNUSEDSIGNAL
   wire                 addr_done;
   wire                 pattern_reset;
   wire                 pattern_done;

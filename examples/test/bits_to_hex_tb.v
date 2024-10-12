@@ -44,7 +44,7 @@ module bits_to_hex_tb;
   );
 
   // clock generator
-  always #1 clk = ~clk;
+  always #1 clk <= ~clk;
 
   `TEST_SETUP(bits_to_hex_tb);
 

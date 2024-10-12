@@ -20,7 +20,7 @@ module cdc_sync2_tb;
   );
 
   // Clock generation
-  always #5 clk = ~clk;
+  always #5 clk <= ~clk;
 
   `TEST_SETUP(cdc_sync2_tb)
 

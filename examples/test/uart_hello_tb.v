@@ -3,6 +3,7 @@
 `include "uart_hello_top.v"
 `include "uart_tx.v"
 
+// verilator lint_off UNUSEDSIGNAL
 module uart_hello_tb;
 
   reg  clk = 1'b0;
@@ -19,7 +20,7 @@ module uart_hello_tb;
   );
 
   // clock generator
-  always #1 clk = ~clk;
+  always #1 clk <= ~clk;
 
   `TEST_SETUP(uart_hello_tb);
 
@@ -30,3 +31,4 @@ module uart_hello_tb;
 
 endmodule
 
+// verilator lint_on UNUSEDSIGNAL

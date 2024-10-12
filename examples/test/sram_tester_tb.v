@@ -3,6 +3,11 @@
 `include "sram_tester.v"
 `include "sram_model.v"
 
+// This test wires everything up and then runs the test
+// and makes sure it completes. It doesn't check signals
+// itself.
+//
+// verilator lint_off UNUSEDSIGNAL
 module sram_tester_tb ();
   // Parameters
   localparam ADDR_BITS = 4;
@@ -115,3 +120,4 @@ module sram_tester_tb ();
 
 endmodule
 
+// verilator lint_on UNUSEDSIGNAL

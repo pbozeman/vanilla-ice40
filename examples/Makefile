@@ -42,7 +42,7 @@ IVERILOG := iverilog -Wall -Wno-timescale -DSIMULATOR -DTB_EXCLUDE_SLOW
 VVP := vvp
 
 # Linter
-LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
+LINTER := verilator --lint-only --quiet -Wall --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 
 # Formatter
 #

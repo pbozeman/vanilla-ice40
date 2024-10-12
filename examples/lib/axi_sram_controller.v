@@ -24,7 +24,9 @@ module axi_sram_controller #(
 
     // AXI-Lite Write Data Channel
     input  wire [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    // verilator lint_off UNUSEDSIGNAL
     input  wire [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    // verilator lint_on UNUSEDSIGNAL
     input  wire                              axi_wvalid,
     output wire                              axi_wready,
 
@@ -57,7 +59,12 @@ module axi_sram_controller #(
   wire [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
   wire [AXI_DATA_WIDTH-1:0] sram_write_data;
   wire [AXI_DATA_WIDTH-1:0] sram_read_data;
+
+  // TODO: if we used this we wouldn't need to make timing
+  // assumptions
+  // verilator lint_off UNUSEDSIGNAL
   wire                      sram_ready;
+  // verilator lint_on UNUSEDSIGNAL
 
   // FSM states (note: writes start with 0, reads with 1 in the msb)
   localparam IDLE = 3'b000;

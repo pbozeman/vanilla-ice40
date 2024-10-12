@@ -23,12 +23,19 @@ module vga_sram_pattern_generator #(
 
     // SRAM AXI-Lite Write Data Channel
     output reg  [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    // verilator lint_off UNDRIVEN
     output reg  [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    // verilator lint_on UNDRIVEN
     output reg                               axi_wvalid,
     input  wire                              axi_wready,
 
     // SRAM AXI-Lite Write Response Channel
+    //
+    // TODO: do error checking
+    // verilator lint_off UNUSEDSIGNAL
+    //
     input  wire [1:0] axi_bresp,
+    // verilator lint_on UNUSEDSIGNAL
     input  wire       axi_bvalid,
     output reg        axi_bready
 );

@@ -32,7 +32,9 @@ module cdc_fifo_mem #(
   // Added for debugging in gtkwave, although, it might be nice to pass
   // this back out to callers. Presumably this will get optimized out
   // in a real build.
+  // verilator lint_off UNUSEDSIGNAL
   reg                  discarded;
+  // verilator lint_on UNUSEDSIGNAL
 
   always @(posedge w_clk) begin
     discarded <= 1'b0;

@@ -25,7 +25,7 @@ module vga_sync_tb;
   );
 
   // clock generator
-  always #1 clk = ~clk;
+  always #1 clk <= ~clk;
 
   `TEST_SETUP(vga_sync_tb);
 

@@ -3,6 +3,8 @@
 `include "vga_sync.v"
 `include "vga_test_01.v"
 
+// verilator lint_off UNUSEDSIGNAL
+
 module vga_test_01_tb;
 
   reg        clk = 1'b0;
@@ -35,7 +37,7 @@ module vga_test_01_tb;
   );
 
   // clock generator
-  always #1 clk = ~clk;
+  always #1 clk <= ~clk;
 
   `TEST_SETUP(vga_test_01_tb);
 
@@ -46,4 +48,6 @@ module vga_test_01_tb;
   end
 
 endmodule
+
+// verilator lint_on UNUSEDSIGNAL
 

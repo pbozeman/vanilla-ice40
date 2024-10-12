@@ -3,6 +3,7 @@
 `include "sram_tester_axi.v"
 `include "sram_model.v"
 
+// verilator lint_off UNUSEDSIGNAL
 module sram_tester_axi_tb ();
   localparam ADDR_BITS = 4;
   localparam DATA_BITS = 2;
@@ -108,4 +109,5 @@ module sram_tester_axi_tb ();
   end
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
 
