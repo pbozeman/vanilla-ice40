@@ -27,12 +27,12 @@ module cdc_fifo_mem #(
     output wire [DATA_WIDTH-1:0] r_data
 );
   localparam DEPTH = 1 << ADDR_SIZE;
-  reg [DATA_WIDTH-1:0] mem[0:DEPTH-1];
+  reg [DATA_WIDTH-1:0] mem       [0:DEPTH-1];
 
   // Added for debugging in gtkwave, although, it might be nice to pass
   // this back out to callers. Presumably this will get optimized out
   // in a real build.
-  reg discarded;
+  reg                  discarded;
 
   always @(posedge w_clk) begin
     discarded <= 1'b0;

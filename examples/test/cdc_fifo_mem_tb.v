@@ -8,25 +8,25 @@ module cdc_fifo_mem_tb;
   parameter DATA_WIDTH = 8;
   parameter ADDR_SIZE = 4;
 
-  reg w_clk;
-  reg w_clk_en;
-  reg w_full;
-  reg [ADDR_SIZE-1:0] w_addr;
-  reg [DATA_WIDTH-1:0] w_data;
-  reg [ADDR_SIZE-1:0] r_addr;
+  reg                   w_clk;
+  reg                   w_clk_en;
+  reg                   w_full;
+  reg  [ ADDR_SIZE-1:0] w_addr;
+  reg  [DATA_WIDTH-1:0] w_data;
+  reg  [ ADDR_SIZE-1:0] r_addr;
   wire [DATA_WIDTH-1:0] r_data;
 
   cdc_fifo_mem #(
       .DATA_WIDTH(DATA_WIDTH),
       .ADDR_SIZE (ADDR_SIZE)
   ) uut (
-      .w_clk(w_clk),
+      .w_clk   (w_clk),
       .w_clk_en(w_clk_en),
-      .w_full(w_full),
-      .w_addr(w_addr),
-      .w_data(w_data),
-      .r_addr(r_addr),
-      .r_data(r_data)
+      .w_full  (w_full),
+      .w_addr  (w_addr),
+      .w_data  (w_data),
+      .r_addr  (r_addr),
+      .r_data  (r_data)
   );
 
   `TEST_SETUP(cdc_fifo_mem_tb)

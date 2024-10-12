@@ -18,53 +18,47 @@ module sram_tester #(
     output reg  test_pass = 0,
 
     // debug/output signals
-    output wire [2:0] pattern_state,
-    output reg [DATA_BITS-1:0] prev_read_data,
-    output reg [DATA_BITS-1:0] prev_expected_data,
+    output wire [          2:0] pattern_state,
+    output reg  [DATA_BITS-1:0] prev_read_data,
+    output reg  [DATA_BITS-1:0] prev_expected_data,
 
     // sram controller signals
-    output wire sram_write_enable,
+    output wire                 sram_write_enable,
     output wire [ADDR_BITS-1:0] sram_addr,
     output wire [DATA_BITS-1:0] sram_write_data,
     output wire [DATA_BITS-1:0] sram_read_data,
 
     // sram controller to io pins
     output wire [ADDR_BITS-1:0] sram_io_addr_bus,
-    inout wire [DATA_BITS-1:0] sram_io_data_bus,
-    output wire sram_io_we_n,
-    output wire sram_io_oe_n,
-    output wire sram_io_ce_n
+    inout  wire [DATA_BITS-1:0] sram_io_data_bus,
+    output wire                 sram_io_we_n,
+    output wire                 sram_io_oe_n,
+    output wire                 sram_io_ce_n
 );
 
   // State definitions
-  localparam [2:0]
-        START = 3'b000,
-        WRITING = 3'b001,
-        WRITE_HOLD = 3'b010,
-        READING = 3'b011,
-        READ_HOLD = 3'b100,
-        DONE = 3'b110,
-        HALT = 3'b111;
+  localparam [2:0] START = 3'b000, WRITING = 3'b001, WRITE_HOLD = 3'b010,
+      READING = 3'b011, READ_HOLD = 3'b100, DONE = 3'b110, HALT = 3'b111;
 
   // State and next state registers
-  reg [2:0] state;
-  reg [2:0] next_state;
+  reg  [          2:0] state;
+  reg  [          2:0] next_state;
 
   // Other registers
-  reg addr_inc;
-  reg last_write;
-  reg last_read;
-  reg pattern_inc;
-  reg [DATA_BITS-1:0] pattern_prev;
-  reg [DATA_BITS-1:0] pattern_custom;
-  reg validate = 0;
+  reg                  addr_inc;
+  reg                  last_write;
+  reg                  last_read;
+  reg                  pattern_inc;
+  reg  [DATA_BITS-1:0] pattern_prev;
+  reg  [DATA_BITS-1:0] pattern_custom;
+  reg                  validate = 0;
 
   // Wires
-  wire req;
-  wire ready;
-  wire addr_done;
-  wire pattern_reset;
-  wire pattern_done;
+  wire                 req;
+  wire                 ready;
+  wire                 addr_done;
+  wire                 pattern_reset;
+  wire                 pattern_done;
   wire [DATA_BITS-1:0] pattern;
 
   // This is a little janky, and ideally we would modulate this,
@@ -104,19 +98,19 @@ module sram_tester #(
   sram_pattern_generator #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
-      .clk(clk),
-      .reset(pattern_reset),
-      .inc(pattern_inc),
-      .custom(pattern_custom),
+      .clk    (clk),
+      .reset  (pattern_reset),
+      .inc    (pattern_inc),
+      .custom (pattern_custom),
       .pattern(pattern),
-      .done(pattern_done),
-      .state(pattern_state)
+      .done   (pattern_done),
+      .state  (pattern_state)
   );
 
   // Combinational logic process
   always @(*) begin
     // Default assignments
-    next_state = state;
+    next_state     = state;
     pattern_custom = sram_addr;
 
     case (state)
@@ -205,13 +199,13 @@ module sram_tester #(
   // read/expected registration (state == READ_HOLD)
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      last_read <= 1'b0;
-      prev_read_data <= {DATA_BITS{1'b0}};
+      last_read          <= 1'b0;
+      prev_read_data     <= {DATA_BITS{1'b0}};
       prev_expected_data <= {DATA_BITS{1'b0}};
     end else begin
       if (state == READ_HOLD) begin
-        last_read <= addr_done;
-        prev_read_data <= sram_read_data;
+        last_read          <= addr_done;
+        prev_read_data     <= sram_read_data;
         prev_expected_data <= pattern_prev;
       end
     end
@@ -278,8 +272,8 @@ module sram_tester #(
 
   // Continuous assignments
   assign sram_write_enable = ((state == START || state == DONE ||
-                            state == WRITING || state == WRITE_HOLD)
-                            && ~last_write) || last_read;
+                               state == WRITING || state == WRITE_HOLD) &&
+                              ~last_write) || last_read;
   assign pattern_reset = (reset || state == DONE);
   assign sram_write_data = pattern;
 

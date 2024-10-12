@@ -52,13 +52,13 @@ module sram_controller #(
   localparam READING = 2'd1;
   localparam WRITING = 2'd2;
 
-  reg [2:0] state = 0;
+  reg [          2:0] state = 0;
 
-  reg [2:0] next_state;
-  reg next_oe_n;
-  reg next_we_n;
+  reg [          2:0] next_state;
+  reg                 next_oe_n;
+  reg                 next_we_n;
 
-  reg ready_reg;
+  reg                 ready_reg;
 
   reg [ADDR_BITS-1:0] addr_reg = 0;
   reg [DATA_BITS-1:0] write_data_reg = 0;
@@ -72,15 +72,16 @@ module sram_controller #(
   assign io_ce_n = 1'b0;
 
   assign io_addr_bus = addr_reg;
-  assign io_data_bus = (next_state == WRITING || state == WRITING) ? write_data_reg : {DATA_BITS{1'bz}};
+  assign io_data_bus = (next_state == WRITING || state == WRITING) ?
+      write_data_reg : {DATA_BITS{1'bz}};
 
   always @(*) begin
-    next_state = state;
-    next_oe_n = 1'b1;
-    next_we_n = 1'b1;
-    ready_reg = 1'b1;
+    next_state     = state;
+    next_oe_n      = 1'b1;
+    next_we_n      = 1'b1;
+    ready_reg      = 1'b1;
 
-    addr_reg = addr_reg_prev;
+    addr_reg       = addr_reg_prev;
     write_data_reg = write_data_reg_prev;
 
     case (state)
@@ -92,9 +93,9 @@ module sram_controller #(
             next_state = READING;
             next_oe_n  = 1'b0;
           end else begin
-            next_state = WRITING;
+            next_state     = WRITING;
             write_data_reg = write_data;
-            next_we_n = 1'b0;
+            next_we_n      = 1'b0;
           end
         end
       end
@@ -122,7 +123,7 @@ module sram_controller #(
   end
 
   always @(posedge clk) begin
-    addr_reg_prev = addr_reg;
+    addr_reg_prev       = addr_reg;
     write_data_reg_prev = write_data_reg;
   end
 

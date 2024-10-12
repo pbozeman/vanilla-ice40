@@ -5,27 +5,27 @@ module cdc_fifo_wptr_full_tb;
 
   parameter ADDR_SIZE = 4;
 
-  reg w_clk;
-  reg w_rst_n;
-  reg w_inc;
-  reg [ADDR_SIZE:0] w_q2_rptr;
+  reg                  w_clk;
+  reg                  w_rst_n;
+  reg                  w_inc;
+  reg  [  ADDR_SIZE:0] w_q2_rptr;
 
-  wire w_almost_full;
-  wire w_full;
-  wire [ADDR_SIZE:0] w_ptr;
+  wire                 w_almost_full;
+  wire                 w_full;
+  wire [  ADDR_SIZE:0] w_ptr;
   wire [ADDR_SIZE-1:0] w_addr;
 
   cdc_fifo_wptr_full #(
       .ADDR_SIZE(ADDR_SIZE)
   ) uut (
-      .w_clk(w_clk),
-      .w_rst_n(w_rst_n),
-      .w_inc(w_inc),
-      .w_q2_rptr(w_q2_rptr),
+      .w_clk        (w_clk),
+      .w_rst_n      (w_rst_n),
+      .w_inc        (w_inc),
+      .w_q2_rptr    (w_q2_rptr),
       .w_almost_full(w_almost_full),
-      .w_full(w_full),
-      .w_ptr(w_ptr),
-      .w_addr(w_addr)
+      .w_full       (w_full),
+      .w_ptr        (w_ptr),
+      .w_addr       (w_addr)
   );
 
   `TEST_SETUP(cdc_fifo_wptr_full_tb)
@@ -36,8 +36,8 @@ module cdc_fifo_wptr_full_tb;
   end
 
   initial begin
-    w_rst_n = 0;
-    w_inc = 0;
+    w_rst_n   = 0;
+    w_inc     = 0;
     w_q2_rptr = 0;
     @(posedge w_clk);
 

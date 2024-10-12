@@ -12,10 +12,10 @@
 module cdc_sync2 #(
     parameter WIDTH = 1
 ) (
-    input wire clk,
-    input wire rst_n,
-    input wire [WIDTH-1:0] d,
-    output reg [WIDTH-1:0] q = 0
+    input  wire             clk,
+    input  wire             rst_n,
+    input  wire [WIDTH-1:0] d,
+    output reg  [WIDTH-1:0] q = 0
 );
 
   // 1st stage ff output

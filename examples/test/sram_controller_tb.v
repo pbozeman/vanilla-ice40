@@ -7,24 +7,24 @@ module sram_controller_tb;
   localparam ADDR_BITS = 10;
   localparam DATA_BITS = 8;
 
-  reg clk;
-  reg reset;
+  reg                  clk;
+  reg                  reset;
 
-  reg req = 0;
-  wire ready;
+  reg                  req = 0;
+  wire                 ready;
 
-  reg write_enable = 0;
-  reg [ADDR_BITS-1:0] addr;
-  reg [DATA_BITS-1:0] write_data;
+  reg                  write_enable = 0;
+  reg  [ADDR_BITS-1:0] addr;
+  reg  [DATA_BITS-1:0] write_data;
   wire [DATA_BITS-1:0] read_data;
   wire [ADDR_BITS-1:0] addr_read;
 
   // chip lines
   wire [ADDR_BITS-1:0] io_addr_bus;
   wire [DATA_BITS-1:0] io_data_bus;
-  wire io_we_n;
-  wire io_oe_n;
-  wire io_ce_n;
+  wire                 io_we_n;
+  wire                 io_oe_n;
+  wire                 io_ce_n;
 
   // Instantiate the SRAM controller
   sram_controller #(
@@ -86,9 +86,9 @@ module sram_controller_tb;
     // Write
     write_enable = 1;
 
-    req = 1'b1;
-    addr = 10'h0AA;
-    write_data = 8'hA1;
+    req          = 1'b1;
+    addr         = 10'h0AA;
+    write_data   = 8'hA1;
     @(posedge clk);
     `ASSERT(!ready);
     @(negedge clk);
@@ -104,7 +104,7 @@ module sram_controller_tb;
 
     // Read
     write_enable = 0;
-    addr = 10'h0AA;
+    addr         = 10'h0AA;
     @(posedge clk);
     `ASSERT(!ready);
     `ASSERT(~io_oe_n);
@@ -120,19 +120,19 @@ module sram_controller_tb;
     write_enable = 1;
 
     // Addr 1
-    addr = 10'h101;
-    write_data = 8'h51;
+    addr         = 10'h101;
+    write_data   = 8'h51;
     @(posedge clk);
     @(posedge clk);
 
     // Addr 2
-    addr = 10'h102;
+    addr       = 10'h102;
     write_data = 8'h52;
     @(posedge clk);
     @(posedge clk);
 
     // Addr 3
-    addr = 10'h103;
+    addr       = 10'h103;
     write_data = 8'h53;
     @(posedge clk);
     @(posedge clk);
@@ -140,7 +140,7 @@ module sram_controller_tb;
     // read cycle
     write_enable = 0;
 
-    addr = 10'h101;
+    addr         = 10'h101;
     @(posedge clk);
     @(posedge clk);
     `ASSERT(read_data === 8'h51);

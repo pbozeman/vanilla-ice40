@@ -6,13 +6,13 @@ module cdc_fifo_rptr_empty_tb;
 
   parameter ADDR_SIZE = 4;
 
-  reg r_clk;
-  reg r_rst_n;
-  reg r_inc;
-  reg [ADDR_SIZE:0] r_q2_wptr;
+  reg                  r_clk;
+  reg                  r_rst_n;
+  reg                  r_inc;
+  reg  [  ADDR_SIZE:0] r_q2_wptr;
 
-  wire r_empty;
-  wire [ADDR_SIZE:0] r_ptr;
+  wire                 r_empty;
+  wire [  ADDR_SIZE:0] r_ptr;
   wire [ADDR_SIZE-1:0] r_addr;
 
   `TEST_SETUP(cdc_fifo_rptr_empty_tb)
@@ -20,13 +20,13 @@ module cdc_fifo_rptr_empty_tb;
   cdc_fifo_rptr_empty #(
       .ADDR_SIZE(ADDR_SIZE)
   ) uut (
-      .r_clk(r_clk),
-      .r_rst_n(r_rst_n),
-      .r_inc(r_inc),
+      .r_clk    (r_clk),
+      .r_rst_n  (r_rst_n),
+      .r_inc    (r_inc),
       .r_q2_wptr(r_q2_wptr),
-      .r_empty(r_empty),
-      .r_ptr(r_ptr),
-      .r_addr(r_addr)
+      .r_empty  (r_empty),
+      .r_ptr    (r_ptr),
+      .r_addr   (r_addr)
   );
 
   initial begin
@@ -35,8 +35,8 @@ module cdc_fifo_rptr_empty_tb;
   end
 
   initial begin
-    r_rst_n = 0;
-    r_inc = 0;
+    r_rst_n   = 0;
+    r_inc     = 0;
     r_q2_wptr = 0;
     @(posedge r_clk);
 

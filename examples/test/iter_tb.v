@@ -33,8 +33,8 @@ module iter_tb;
   `TEST_SETUP(iter_tb);
 
   initial begin
-    reset = 1;
-    inc = 0;
+    reset        = 1;
+    inc          = 0;
     expected_val = 0;
     @(posedge clk);
     reset = 0;

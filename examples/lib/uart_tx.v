@@ -8,12 +8,12 @@ module uart_tx #(
     parameter CLOCK_FREQ = 100_000_000,
     parameter BAUD_RATE  = 115_200
 ) (
-    input wire clk,
-    input wire reset,
-    input wire [7:0] data_i,
-    input wire tx_en_i,
-    output reg tx_ready,
-    output reg tx
+    input  wire       clk,
+    input  wire       reset,
+    input  wire [7:0] data_i,
+    input  wire       tx_en_i,
+    output reg        tx_ready,
+    output reg        tx
 );
 
   localparam CLOCKS_PER_BIT = CLOCK_FREQ / BAUD_RATE;
@@ -31,20 +31,20 @@ module uart_tx #(
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      state <= IDLE;
-      clk_count <= 0;
-      bit_index <= 0;
+      state       <= IDLE;
+      clk_count   <= 0;
+      bit_index   <= 0;
       data_buffer <= 0;
-      tx_ready <= 1;
-      tx <= 1;
+      tx_ready    <= 1;
+      tx          <= 1;
     end else begin
       case (state)
         IDLE: begin
           clk_count <= 0;
           if (tx_en_i) begin
-            tx_ready <= 0;
+            tx_ready    <= 0;
             data_buffer <= data_i;
-            state <= START;
+            state       <= START;
           end else begin
             tx_ready <= 1;
           end
@@ -57,7 +57,7 @@ module uart_tx #(
             clk_count <= clk_count + 1;
           end else begin
             clk_count <= 0;
-            state <= DATA;
+            state     <= DATA;
           end
         end
         DATA: begin
@@ -73,7 +73,7 @@ module uart_tx #(
               bit_index <= bit_index + 1;
             end else begin
               bit_index <= 0;
-              state <= STOP;
+              state     <= STOP;
             end
           end
         end
@@ -85,7 +85,7 @@ module uart_tx #(
             clk_count <= clk_count + 1;
           end else begin
             tx_ready <= 1;
-            state <= IDLE;
+            state    <= IDLE;
           end
         end
       endcase

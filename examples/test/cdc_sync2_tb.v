@@ -5,18 +5,18 @@ module cdc_sync2_tb;
 
   parameter WIDTH = 4;
 
-  reg clk;
-  reg rst_n;
-  reg [WIDTH-1:0] d;
+  reg              clk;
+  reg              rst_n;
+  reg  [WIDTH-1:0] d;
   wire [WIDTH-1:0] q;
 
   cdc_sync2 #(
       .WIDTH(WIDTH)
   ) uut (
-      .clk(clk),
+      .clk  (clk),
       .rst_n(rst_n),
-      .d(d),
-      .q(q)
+      .d    (d),
+      .q    (q)
   );
 
   // Clock generation
@@ -26,9 +26,9 @@ module cdc_sync2_tb;
 
   initial begin
     // Initialize inputs
-    clk = 0;
+    clk   = 0;
     rst_n = 0;
-    d = 0;
+    d     = 0;
 
     // Wait for global reset
     repeat (10) @(posedge clk);
@@ -62,7 +62,7 @@ module cdc_sync2_tb;
     `ASSERT(q == 4'b0000);
 
     rst_n = 1;
-    d = 4'b1111;
+    d     = 4'b1111;
     @(posedge clk);
     `ASSERT(q == 4'b0000);
 

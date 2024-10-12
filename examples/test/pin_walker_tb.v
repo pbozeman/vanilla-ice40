@@ -7,16 +7,16 @@ module pin_walker_tb;
   localparam CLOCK_FREQ_HZ = 10;
   localparam DIVISOR = 4;
 
-  reg clk = 1'b0;
-  wire [NUM_PINS-1:0] pins;
-  integer i;
+  reg                    clk = 1'b0;
+  wire    [NUM_PINS-1:0] pins;
+  integer                i;
 
-  reg [NUM_PINS-1:0] expected;
+  reg     [NUM_PINS-1:0] expected;
 
   pin_walker #(
-      .NUM_PINS(NUM_PINS),
+      .NUM_PINS     (NUM_PINS),
       .CLOCK_FREQ_HZ(CLOCK_FREQ_HZ),
-      .DIVISOR(DIVISOR)
+      .DIVISOR      (DIVISOR)
   ) uut (
       .clk (clk),
       .pins(pins)
@@ -32,7 +32,8 @@ module pin_walker_tb;
       @(posedge clk);
 
       if (i % (CLOCK_FREQ_HZ / DIVISOR) == 0) begin
-        expected = {NUM_PINS{1'b0}} | (1'b1 << ((i / (CLOCK_FREQ_HZ / DIVISOR)) % NUM_PINS));
+        expected = {NUM_PINS{1'b0}} |
+            (1'b1 << ((i / (CLOCK_FREQ_HZ / DIVISOR)) % NUM_PINS));
         `ASSERT(pins == expected);
       end
     end

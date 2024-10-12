@@ -13,9 +13,9 @@
 module cdc_fifo_wptr_full #(
     parameter ADDR_SIZE = 4
 ) (
-    input w_clk,
-    input w_rst_n,
-    input w_inc,
+    input                 w_clk,
+    input                 w_rst_n,
+    input                 w_inc,
     input [ADDR_SIZE : 0] w_q2_rptr,
 
     output reg                  w_full,
@@ -29,7 +29,7 @@ module cdc_fifo_wptr_full #(
   wire [ADDR_SIZE:0] w_gray_next_next;
 
   // Memory write-address pointer (okay to use binary to address memory)
-  assign w_addr = w_bin[ADDR_SIZE-1:0];
+  assign w_addr           = w_bin[ADDR_SIZE-1:0];
 
   //
   // Pointers
@@ -39,8 +39,8 @@ module cdc_fifo_wptr_full #(
   // that is used for almost full, but this was quick and easy
   // to understand conceptually.
   //
-  assign w_bin_next = w_bin + (w_inc & ~w_full);
-  assign w_gray_next = (w_bin_next >> 1) ^ w_bin_next;
+  assign w_bin_next       = w_bin + (w_inc & ~w_full);
+  assign w_gray_next      = (w_bin_next >> 1) ^ w_bin_next;
   assign w_gray_next_next = ((w_bin_next + 1) >> 1) ^ (w_bin_next + 1);
 
   // register next pointer values
@@ -60,22 +60,19 @@ module cdc_fifo_wptr_full #(
   wire w_full_val;
   wire w_almost_full_val;
 
-  assign w_full_val = (w_gray_next == {
-    ~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1],
-    w_q2_rptr[ADDR_SIZE-2:0]
-  });
+  assign w_full_val = (w_gray_next == {~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1],
+                                       w_q2_rptr[ADDR_SIZE-2:0]});
 
-  assign w_almost_full_val = (w_gray_next_next == {
-    ~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1],
-    w_q2_rptr[ADDR_SIZE-2:0]
-  });
+  assign w_almost_full_val = (
+      w_gray_next_next ==
+          {~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1], w_q2_rptr[ADDR_SIZE-2:0]});
 
   always @(posedge w_clk or negedge w_rst_n) begin
     if (!w_rst_n) begin
       w_full <= 1'b0;
     end else begin
       w_almost_full <= w_almost_full_val;
-      w_full <= w_full_val;
+      w_full        <= w_full_val;
     end
   end
 

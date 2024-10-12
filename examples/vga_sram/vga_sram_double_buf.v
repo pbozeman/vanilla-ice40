@@ -140,7 +140,7 @@ module vga_sram_double_buf #(
 
       // Control interface
       .switch_sel(a2x2_switch_sel),
-      .sel(a2x2_sel),
+      .sel       (a2x2_sel),
 
       // Pattern Gen
       .in0_axi_awaddr (gen_axi_awaddr),
@@ -306,9 +306,9 @@ module vga_sram_double_buf #(
   wire [3:0] sram_vga_red;
   wire [3:0] sram_vga_green;
   wire [3:0] sram_vga_blue;
-  wire sram_vga_hsync;
-  wire sram_vga_vsync;
-  wire sram_vga_data_valid;
+  wire       sram_vga_hsync;
+  wire       sram_vga_vsync;
+  wire       sram_vga_data_valid;
 
   //
   // VGA data marshaling and unmarshaling on for going in and
@@ -331,8 +331,8 @@ module vga_sram_double_buf #(
   assign vga_blue = vga_data[3:0];
 
   detect_rising rising_pattern_done (
-      .clk(clk),
-      .signal(pattern_done),
+      .clk     (clk),
+      .signal  (pattern_done),
       .detected(a2x2_switch_sel)
   );
 
@@ -344,8 +344,8 @@ module vga_sram_double_buf #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pixel_stream (
-      .clk(clk),
-      .reset(reset),
+      .clk   (clk),
+      .reset (reset),
       .enable(pattern_done & !fifo_almost_full),
 
       .axi_araddr (vga_axi_araddr),

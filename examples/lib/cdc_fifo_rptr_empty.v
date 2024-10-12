@@ -13,13 +13,13 @@
 module cdc_fifo_rptr_empty #(
     parameter ADDR_SIZE = 4
 ) (
-    input r_clk,
-    input r_rst_n,
-    input r_inc,
+    input                 r_clk,
+    input                 r_rst_n,
+    input                 r_inc,
     input [ADDR_SIZE : 0] r_q2_wptr,
 
-    output reg r_empty,
-    output reg [ADDR_SIZE : 0] r_ptr = 0,
+    output reg                  r_empty,
+    output reg  [ADDR_SIZE : 0] r_ptr = 0,
     output wire [ADDR_SIZE-1:0] r_addr
 );
   reg  [ADDR_SIZE:0] r_bin = 0;
@@ -27,13 +27,13 @@ module cdc_fifo_rptr_empty #(
   wire [ADDR_SIZE:0] r_bin_next;
 
   // Memory read-address pointer (okay to use binary to address memory)
-  assign r_addr = r_bin[ADDR_SIZE-1:0];
+  assign r_addr      = r_bin[ADDR_SIZE-1:0];
 
   //
   // Pointers
   //
   // next pointer values
-  assign r_bin_next = r_bin + (r_inc & ~r_empty);
+  assign r_bin_next  = r_bin + (r_inc & ~r_empty);
   assign r_gray_next = (r_bin_next >> 1) ^ r_bin_next;
 
   // register next pointer values

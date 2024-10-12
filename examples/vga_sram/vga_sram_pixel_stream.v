@@ -12,16 +12,16 @@ module vga_sram_pixel_stream #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
 
-    parameter H_VISIBLE = 640,
+    parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
-    parameter H_SYNC_PULSE = 96,
-    parameter H_BACK_PORCH = 48,
-    parameter H_WHOLE_LINE = 800,
+    parameter H_SYNC_PULSE  = 96,
+    parameter H_BACK_PORCH  = 48,
+    parameter H_WHOLE_LINE  = 800,
 
-    parameter V_VISIBLE = 480,
+    parameter V_VISIBLE     = 480,
     parameter V_FRONT_PORCH = 10,
-    parameter V_SYNC_PULSE = 2,
-    parameter V_BACK_PORCH = 33,
+    parameter V_SYNC_PULSE  = 2,
+    parameter V_BACK_PORCH  = 33,
     parameter V_WHOLE_FRAME = 525
 ) (
     input wire clk,
@@ -40,12 +40,12 @@ module vga_sram_pixel_stream #(
     output reg                       axi_rready,
 
     // VGA signals
-    output wire vsync,
-    output wire hsync,
+    output wire       vsync,
+    output wire       hsync,
     output wire [3:0] red,
     output wire [3:0] green,
     output wire [3:0] blue,
-    output wire valid
+    output wire       valid
 );
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
@@ -54,7 +54,7 @@ module vga_sram_pixel_stream #(
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
   // Don't start running until we are told to.
-  reg started = 0;
+  reg       started = 0;
 
   // Col/row
   reg [9:0] column = 0;
@@ -70,12 +70,12 @@ module vga_sram_pixel_stream #(
   localparam IDLE = 1'b0;
   localparam READING = 1'b1;
 
-  reg state = IDLE;
-  reg next_state;
+  reg                       state = IDLE;
+  reg                       next_state;
 
   // Read controls
-  reg read_start;
-  wire read_done;
+  reg                       read_start;
+  wire                      read_done;
   wire [AXI_ADDR_WIDTH-1:0] pixel_addr;
 
   //
@@ -97,7 +97,7 @@ module vga_sram_pixel_stream #(
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       column <= 0;
-      row <= 0;
+      row    <= 0;
     end else begin
       if (read_start & enable) begin
         if (column < H_WHOLE_LINE) begin
@@ -194,12 +194,12 @@ module vga_sram_pixel_stream #(
   wire visible;
   assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;
 
-  reg hsync_r = 0;
-  reg vsync_r = 0;
+  reg       hsync_r = 0;
+  reg       vsync_r = 0;
   reg [3:0] red_r = 0;
   reg [3:0] green_r = 0;
   reg [3:0] blue_r = 0;
-  reg valid_r = 0;
+  reg       valid_r = 0;
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin

@@ -8,23 +8,23 @@
 // defaults to industry standard 640x480@60Hz
 // http://www.tinyvga.com/vga-timing/640x480@60Hz
 module vga_sync #(
-    parameter H_VISIBLE = 640,
+    parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
-    parameter H_SYNC_PULSE = 96,
-    parameter H_BACK_PORCH = 48,
-    parameter H_WHOLE_LINE = 800,
+    parameter H_SYNC_PULSE  = 96,
+    parameter H_BACK_PORCH  = 48,
+    parameter H_WHOLE_LINE  = 800,
 
-    parameter V_VISIBLE = 480,
+    parameter V_VISIBLE     = 480,
     parameter V_FRONT_PORCH = 10,
-    parameter V_SYNC_PULSE = 2,
-    parameter V_BACK_PORCH = 33,
+    parameter V_SYNC_PULSE  = 2,
+    parameter V_BACK_PORCH  = 33,
     parameter V_WHOLE_FRAME = 525
 ) (
-    input clk,
-    input reset,
-    output visible,
-    output hsync,
-    output vsync,
+    input        clk,
+    input        reset,
+    output       visible,
+    output       hsync,
+    output       vsync,
     output [9:0] column,
     output [9:0] row
 );

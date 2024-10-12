@@ -4,8 +4,8 @@
 `include "directives.v"
 
 module sram_model #(
-    parameter integer ADDR_BITS = 10,
-    parameter integer DATA_BITS = 8,
+    parameter integer ADDR_BITS    = 10,
+    parameter integer DATA_BITS    = 8,
     parameter integer INJECT_ERROR = 0,
 
     // timings (in ns)
@@ -16,47 +16,47 @@ module sram_model #(
 
     parameter integer BAD_DATA = 1'bx
 ) (
-    input wire we_n,
-    input wire oe_n,
-    input wire ce_n,
+    input wire                 we_n,
+    input wire                 oe_n,
+    input wire                 ce_n,
     input wire [ADDR_BITS-1:0] addr,
     inout wire [DATA_BITS-1:0] data_io
 );
 
   // memory
-  reg [DATA_BITS-1:0] sram[0:(1 << ADDR_BITS)-1];
+  reg  [DATA_BITS-1:0] sram             [0:(1 << ADDR_BITS)-1];
 
   // data read from bus
   wire [DATA_BITS-1:0] data_in;
 
   // data written to bus, possibly tri-state if output not enabled
-  wire output_active;
-  reg [DATA_BITS-1:0] data_out;
+  wire                 output_active;
+  reg  [DATA_BITS-1:0] data_out;
 
 
   // Previous data for output hold time
-  reg [DATA_BITS-1:0] prev_data;
+  reg  [DATA_BITS-1:0] prev_data;
 
   // Time of last address change
-  real last_addr_change;
+  real                 last_addr_change;
 
   // Time of last OE# falling edge
-  real last_oe_fall;
+  real                 last_oe_fall;
 
   // Data signals
   assign output_active = !ce_n && !oe_n;
-  assign data_in = data_io;
-  assign data_io = output_active ? data_out : {DATA_BITS{1'bz}};
+  assign data_in       = data_io;
+  assign data_io       = output_active ? data_out : {DATA_BITS{1'bz}};
 
   // Delayed address update and data handling
   always @(addr) begin
-    prev_data = data_out;
+    prev_data        = data_out;
     last_addr_change = $realtime;
   end
 
   // Track OE# falling edge
   always @(negedge oe_n) begin
-    data_out = {DATA_BITS{1'bz}};
+    data_out     = {DATA_BITS{1'bz}};
     last_oe_fall = $realtime;
   end
 
@@ -113,18 +113,19 @@ module sram_model #(
   reg [ADDR_BITS-1:0] we_n_initial_addr;
   reg [DATA_BITS-1:0] we_n_initial_data;
 
-  reg reads_active = 0;
-  reg writes_active = 0;
+  reg                 reads_active = 0;
+  reg                 writes_active = 0;
 
   always @(negedge oe_n) begin
     oe_n_initial_addr <= addr;
-    reads_active <= 1'b1;
+    reads_active      <= 1'b1;
   end
 
   always @(posedge oe_n) begin
     if (reads_active) begin
       if (oe_n_initial_addr != addr) begin
-        $display("addr changed during read, old: %h new: %h", oe_n_initial_addr, addr);
+        $display("addr changed during read, old: %h new: %h",
+                 oe_n_initial_addr, addr);
         $fatal;
       end
 
@@ -138,7 +139,7 @@ module sram_model #(
   always @(negedge we_n) begin
     we_n_initial_addr <= addr;
     we_n_initial_data <= data_io;
-    writes_active <= 1'b1;
+    writes_active     <= 1'b1;
   end
 
   always @(posedge we_n) begin

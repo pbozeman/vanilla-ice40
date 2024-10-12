@@ -13,26 +13,26 @@ module uart_hello_top (
     output wire LED2
 );
   // Message to send
-  reg [7:0] message[0:14];
+  reg  [7:0] message         [0:14];
 
-  reg initialized = 0;
+  reg        initialized = 0;
 
-  reg [3:0] msg_index = 0;
-  reg [7:0] tx_data;
-  reg tx_send = 0;
-  wire reset = 0;
-  wire tx_ready;
+  reg  [3:0] msg_index = 0;
+  reg  [7:0] tx_data;
+  reg        tx_send = 0;
+  wire       reset = 0;
+  wire       tx_ready;
 
   uart_tx #(
       .CLOCK_FREQ(100_000_000),
       .BAUD_RATE (115_200)
   ) uart_tx_inst (
-      .clk(CLK),
-      .reset(reset),
-      .data_i(tx_data),
-      .tx_en_i(tx_send),
+      .clk     (CLK),
+      .reset   (reset),
+      .data_i  (tx_data),
+      .tx_en_i (tx_send),
       .tx_ready(tx_ready),
-      .tx(UART_TX)
+      .tx      (UART_TX)
   );
 
   always @(posedge CLK) begin

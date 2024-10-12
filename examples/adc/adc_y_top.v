@@ -8,8 +8,8 @@
 module adc_y_top #(
     parameter integer DATA_BITS = 10
 ) (
-    input wire CLK,
-    input wire L_ADC_CLK_TO_FPGA,
+    input wire                 CLK,
+    input wire                 L_ADC_CLK_TO_FPGA,
     input wire [DATA_BITS-1:0] L_ADC_Y,
 
     output wire [7:0] R_E,
@@ -24,10 +24,10 @@ module adc_y_top #(
   adc_y #(
       .DATA_BITS(DATA_BITS)
   ) adc_y_inst (
-      .clk(CLK),
-      .adc_clk(L_ADC_CLK_TO_FPGA),
+      .clk       (CLK),
+      .adc_clk   (L_ADC_CLK_TO_FPGA),
       .y_data_bus(L_ADC_Y),
-      .y_data(y_data)
+      .y_data    (y_data)
   );
 
   // Output y_data on R_E and R_F

@@ -19,12 +19,12 @@ module sram_tester_top #(
 
     // Buses
     output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
-    inout wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
+    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
     //
     // // Control signals
-    output wire R_SRAM_CS_N,
-    output wire R_SRAM_OE_N,
-    output wire R_SRAM_WE_N,
+    output wire                 R_SRAM_CS_N,
+    output wire                 R_SRAM_OE_N,
+    output wire                 R_SRAM_WE_N,
     //
     // output wire [7:0] R_E,
     // output wire [7:0] R_F,
@@ -50,9 +50,9 @@ module sram_tester_top #(
   assign R_SRAM_ADDR_BUS = L_SRAM_ADDR_BUS;
   assign R_SRAM_DATA_BUS = L_SRAM_DATA_BUS;
 
-  assign R_SRAM_CS_N = L_SRAM_CS_N;
-  assign R_SRAM_OE_N = L_SRAM_OE_N;
-  assign R_SRAM_WE_N = L_SRAM_WE_N;
+  assign R_SRAM_CS_N     = L_SRAM_CS_N;
+  assign R_SRAM_OE_N     = L_SRAM_OE_N;
+  assign R_SRAM_WE_N     = L_SRAM_WE_N;
 
   wire clk;
 
@@ -62,17 +62,17 @@ module sram_tester_top #(
   );
 
   // Internal signals
-  reg reset = 0;
-  reg [3:0] reset_counter = 0;
+  reg                  reset = 0;
+  reg  [          3:0] reset_counter = 0;
 
   wire [ADDR_BITS-1:0] sram_addr;
   wire [DATA_BITS-1:0] sram_write_data;
   wire [DATA_BITS-1:0] sram_read_data;
-  wire test_done;
-  wire test_pass;
-  wire sram_write_enable;
+  wire                 test_done;
+  wire                 test_pass;
+  wire                 sram_write_enable;
 
-  wire [2:0] pattern_state;
+  wire [          2:0] pattern_state;
   wire [DATA_BITS-1:0] prev_expected_data;
   wire [DATA_BITS-1:0] prev_read_data;
 
@@ -81,28 +81,28 @@ module sram_tester_top #(
       .DATA_BITS(DATA_BITS)
   ) tester (
       // main signals
-      .clk(CLK),
-      .reset(reset),
+      .clk      (CLK),
+      .reset    (reset),
       .test_done(test_done),
       .test_pass(test_pass),
 
       // debug signals
-      .pattern_state(pattern_state),
+      .pattern_state     (pattern_state),
       .prev_expected_data(prev_expected_data),
-      .prev_read_data(prev_read_data),
+      .prev_read_data    (prev_read_data),
 
       // sram controller signals
       .sram_write_enable(sram_write_enable),
-      .sram_addr(sram_addr),
-      .sram_write_data(sram_write_data),
-      .sram_read_data(sram_read_data),
+      .sram_addr        (sram_addr),
+      .sram_write_data  (sram_write_data),
+      .sram_read_data   (sram_read_data),
 
       // sram controller to io pins
       .sram_io_addr_bus(L_SRAM_ADDR_BUS),
       .sram_io_data_bus(L_SRAM_DATA_BUS),
-      .sram_io_ce_n(L_SRAM_CS_N),
-      .sram_io_we_n(L_SRAM_WE_N),
-      .sram_io_oe_n(L_SRAM_OE_N)
+      .sram_io_ce_n    (L_SRAM_CS_N),
+      .sram_io_we_n    (L_SRAM_WE_N),
+      .sram_io_oe_n    (L_SRAM_OE_N)
   );
 
   wire [ADDR_BITS-1:0] addr_reversed;
@@ -136,20 +136,20 @@ module sram_tester_top #(
   always @(posedge CLK) begin
     if (reset_counter < 4'd10) begin
       reset_counter <= reset_counter + 1;
-      reset <= 1;
+      reset         <= 1;
     end else begin
       reset <= 0;
     end
   end
 
   // LED1 blinks every test round (too fast to see, use a scope)
-  assign LED1 = test_done;
+  assign LED1     = test_done;
 
   // LED2 is success
-  assign LED2 = test_pass;
+  assign LED2     = test_pass;
 
-  assign R_I = (test_pass ? sram_write_data : prev_expected_data);
-  assign R_J = (test_pass ? sram_read_data : prev_read_data);
+  assign R_I      = (test_pass ? sram_write_data : prev_expected_data);
+  assign R_J      = (test_pass ? sram_read_data : prev_read_data);
 
   assign R_E[2:0] = pattern_state_reversed;
 

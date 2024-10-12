@@ -12,10 +12,10 @@ module uart_hello_tb;
   wire led2;
 
   uart_hello_top uut (
-      .CLK(clk),
+      .CLK    (clk),
       .UART_TX(tx),
-      .LED1(led1),
-      .LED2(led2)
+      .LED1   (led1),
+      .LED2   (led2)
   );
 
   // clock generator

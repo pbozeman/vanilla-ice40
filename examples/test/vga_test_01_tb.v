@@ -5,11 +5,11 @@
 
 module vga_test_01_tb;
 
-  reg clk = 1'b0;
-  reg reset = 1'b0;
-  wire visible;
-  wire hsync;
-  wire vsync;
+  reg        clk = 1'b0;
+  reg        reset = 1'b0;
+  wire       visible;
+  wire       hsync;
+  wire       vsync;
   wire [9:0] column;
   wire [9:0] row;
   wire [3:0] red;
@@ -17,21 +17,21 @@ module vga_test_01_tb;
   wire [3:0] blue;
 
   vga_sync vga_inst (
-      .clk(clk),
-      .reset(reset),
+      .clk    (clk),
+      .reset  (reset),
       .visible(visible),
-      .hsync(hsync),
-      .vsync(vsync),
-      .column(column),
-      .row(row)
+      .hsync  (hsync),
+      .vsync  (vsync),
+      .column (column),
+      .row    (row)
   );
 
   vga_test_01 vga_pattern (
       .column(column),
-      .row(row),
-      .red(red),
-      .green(green),
-      .blue(blue)
+      .row   (row),
+      .red   (red),
+      .green (green),
+      .blue  (blue)
   );
 
   // clock generator

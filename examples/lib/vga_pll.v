@@ -22,10 +22,10 @@ module vga_pll (
 
   SB_PLL40_CORE #(
       .FEEDBACK_PATH("SIMPLE"),
-      .DIVR(`PLL_DIVR),
-      .DIVF(`PLL_DIVF),
-      .DIVQ(`PLL_DIVQ),
-      .FILTER_RANGE(`PLL_FILTER_RANGE)
+      .DIVR         (`PLL_DIVR),
+      .DIVF         (`PLL_DIVF),
+      .DIVQ         (`PLL_DIVQ),
+      .FILTER_RANGE (`PLL_FILTER_RANGE)
   ) pll_inst (
       .LOCK        (pll_lock),
       .RESETB      (1'b1),
@@ -44,7 +44,7 @@ module vga_pll (
 
   SB_GB gb_inst (
       .USER_SIGNAL_TO_GLOBAL_BUFFER(clk_int),
-      .GLOBAL_BUFFER_OUTPUT(clk_o)
+      .GLOBAL_BUFFER_OUTPUT        (clk_o)
   );
 
 endmodule

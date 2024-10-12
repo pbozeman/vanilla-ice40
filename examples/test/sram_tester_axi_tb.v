@@ -39,15 +39,15 @@ module sram_tester_axi_tb ();
       .DATA_BITS(DATA_BITS)
   ) tester (
       // tester signals
-      .clk(clk),
-      .reset(reset),
+      .clk      (clk),
+      .reset    (reset),
       .test_done(test_done),
       .test_pass(test_pass),
 
       // sram tester debug signals
-      .pattern_state(pattern_state),
+      .pattern_state     (pattern_state),
       .prev_expected_data(prev_expected_data),
-      .prev_read_data(prev_read_data),
+      .prev_read_data    (prev_read_data),
 
       // sram controller to io pins
       .sram_io_addr(sram_io_addr),

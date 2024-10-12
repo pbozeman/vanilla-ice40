@@ -42,20 +42,20 @@ module vga_sram_pattern_generator #(
   localparam WRITING = 1'b1;
 
   // State and next state registers
-  reg state = IDLE;
-  reg next_state;
+  reg                       state = IDLE;
+  reg                       next_state;
 
   // Write controls
-  reg write_start;
-  wire write_done;
+  reg                       write_start;
+  wire                      write_done;
 
   // vga and mem positions
-  reg [9:0] column = 0;
-  reg [9:0] row = 0;
+  reg  [               9:0] column = 0;
+  reg  [               9:0] row = 0;
   wire [AXI_ADDR_WIDTH-1:0] addr;
   wire [AXI_DATA_WIDTH-1:0] data;
 
-  wire done;
+  wire                      done;
   assign done = (row == 479 && column == 639);
 
   // state machine
@@ -98,7 +98,7 @@ module vga_sram_pattern_generator #(
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       column <= 0;
-      row <= 0;
+      row    <= 0;
     end else begin
       if (!done) begin
         if (write_done) begin
@@ -106,7 +106,7 @@ module vga_sram_pattern_generator #(
             column <= column + 1;
           end else begin
             column <= 0;
-            row <= row + 1;
+            row    <= row + 1;
           end
         end
       end
@@ -148,8 +148,10 @@ module vga_sram_pattern_generator #(
   assign addr = (row * 640) + column;
 
   assign data[15:12] = (row < 480 && column < 213) ? 4'b1111 : 4'b0000;
-  assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? 4'b1111 : 4'b0000;
-  assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? 4'b1111 : 4'b0000;
+  assign data[11:8] = (row < 480 && column >= 213 && column < 426) ? 4'b1111 :
+      4'b0000;
+  assign data[7:4] = (row < 480 && column >= 426 && column < 640) ? 4'b1111 :
+      4'b0000;
   assign data[3:0] = 4'b0000;
 
   // this is kinda hacky, but the idea is to not tell the caller

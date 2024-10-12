@@ -3,16 +3,16 @@
 `include "vga_pixel_addr.v"
 
 module vga_pixel_addr_tb;
-  reg clk;
-  reg reset;
+  reg        clk;
+  reg        reset;
   wire [9:0] column;
   wire [9:0] row;
 
   vga_pixel_addr uut (
-      .clk(clk),
-      .reset(reset),
+      .clk   (clk),
+      .reset (reset),
       .column(column),
-      .row(row)
+      .row   (row)
   );
 
   always begin

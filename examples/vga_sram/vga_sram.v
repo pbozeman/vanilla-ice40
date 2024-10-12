@@ -21,17 +21,17 @@ module vga_sram #(
 
     // sram controller to io pins
     output wire [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout wire [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output wire sram_io_we_n,
-    output wire sram_io_oe_n,
-    output wire sram_io_ce_n,
+    inout  wire [AXI_DATA_WIDTH-1:0] sram_io_data,
+    output wire                      sram_io_we_n,
+    output wire                      sram_io_oe_n,
+    output wire                      sram_io_ce_n,
 
     // vga signals
     output wire [3:0] vga_red,
     output wire [3:0] vga_green,
     output wire [3:0] vga_blue,
-    output wire vga_hsync,
-    output wire vga_vsync
+    output wire       vga_hsync,
+    output wire       vga_vsync
 );
   // AXI-Lite Write Address Channel
   wire [        AXI_ADDR_WIDTH-1:0] axi_awaddr;
@@ -96,8 +96,8 @@ module vga_sram #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pattern (
-      .clk(clk),
-      .reset(reset),
+      .clk         (clk),
+      .reset       (reset),
       .pattern_done(pattern_done),
 
       .axi_awaddr (axi_awaddr),
@@ -118,9 +118,9 @@ module vga_sram #(
   wire [3:0] sram_vga_red;
   wire [3:0] sram_vga_green;
   wire [3:0] sram_vga_blue;
-  wire sram_vga_hsync;
-  wire sram_vga_vsync;
-  wire sram_vga_data_valid;
+  wire       sram_vga_hsync;
+  wire       sram_vga_vsync;
+  wire       sram_vga_data_valid;
 
   //
   // VGA data marshaling and unmarshaling on for going in and
@@ -146,8 +146,8 @@ module vga_sram #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pixel_stream (
-      .clk(clk),
-      .reset(reset),
+      .clk   (clk),
+      .reset (reset),
       .enable(pattern_done & !fifo_almost_full),
 
       .axi_araddr (axi_araddr),
@@ -178,11 +178,11 @@ module vga_sram #(
       .DATA_WIDTH(VGA_DATA_WIDTH)
   ) fifo (
       // Write clock domain
-      .w_clk(clk),
-      .w_rst_n(~reset),
-      .w_inc(sram_vga_data_valid),
-      .w_data(sram_vga_data),
-      .w_full(fifo_full),
+      .w_clk        (clk),
+      .w_rst_n      (~reset),
+      .w_inc        (sram_vga_data_valid),
+      .w_data       (sram_vga_data),
+      .w_full       (fifo_full),
       .w_almost_full(fifo_almost_full),
 
       .r_clk  (pixel_clk),

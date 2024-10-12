@@ -72,14 +72,14 @@ module axi_sram_controller #(
   reg [2:0] next_state = IDLE;
 
   // write state
-  reg writing;
-  reg write_done;
-  reg write_resp_valid;
+  reg       writing;
+  reg       write_done;
+  reg       write_resp_valid;
 
   // read state
-  reg reading;
-  reg read_done;
-  reg read_resp_valid;
+  reg       reading;
+  reg       read_done;
+  reg       read_resp_valid;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -103,36 +103,36 @@ module axi_sram_controller #(
 
   // state machine
   always @(*) begin
-    next_state = current_state;
+    next_state       = current_state;
 
-    writing = 1'b0;
-    write_done = 1'b0;
+    writing          = 1'b0;
+    write_done       = 1'b0;
     write_resp_valid = 1'b0;
 
-    reading = 1'b0;
-    read_done = 1'b0;
-    read_resp_valid = 1'b0;
+    reading          = 1'b0;
+    read_done        = 1'b0;
+    read_resp_valid  = 1'b0;
 
     case (current_state)
       IDLE: begin
         if (axi_awvalid && axi_wvalid) begin
           next_state = WRITE;
-          writing = 1'b1;
+          writing    = 1'b1;
         end else begin
           if (axi_arvalid) begin
             next_state = READ;
-            reading = 1'b1;
+            reading    = 1'b1;
           end
         end
       end
 
       WRITE: begin
-        writing = 1'b1;
+        writing    = 1'b1;
         write_done = 1'b1;
 
         if (axi_bready & sram_io_we_n) begin
           write_resp_valid = 1'b1;
-          next_state = IDLE;
+          next_state       = IDLE;
         end else begin
           next_state = WRITE_RESP;
         end
@@ -141,20 +141,20 @@ module axi_sram_controller #(
       WRITE_RESP: begin
         if (axi_bready) begin
           write_resp_valid = 1'b1;
-          next_state = IDLE;
+          next_state       = IDLE;
         end else begin
           next_state = WRITE_RESP;
         end
       end
 
       READ: begin
-        reading = 1'b1;
-        read_done = 1'b1;
+        reading    = 1'b1;
+        read_done  = 1'b1;
         next_state = IDLE;
 
         if (axi_rready) begin
           read_resp_valid = 1'b1;
-          next_state = IDLE;
+          next_state      = IDLE;
         end else begin
           next_state = READ_RESP;
         end
@@ -163,7 +163,7 @@ module axi_sram_controller #(
       READ_RESP: begin
         if (axi_rready) begin
           read_resp_valid = 1'b1;
-          next_state = IDLE;
+          next_state      = IDLE;
         end else begin
           next_state = READ_RESP;
         end

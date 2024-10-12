@@ -6,18 +6,18 @@ module counter_tb;
   parameter MAX_VALUE = 250;
   parameter WIDTH = 8;
 
-  reg clk;
-  reg reset;
-  reg enable;
+  reg              clk;
+  reg              reset;
+  reg              enable;
   wire [WIDTH-1:0] count;
 
   counter #(
       .MAX_VALUE(MAX_VALUE)
   ) uut (
-      .clk(clk),
-      .reset(reset),
+      .clk   (clk),
+      .reset (reset),
       .enable(enable),
-      .count(count)
+      .count (count)
   );
 
   always begin
@@ -28,8 +28,8 @@ module counter_tb;
   `TEST_SETUP(counter_tb);
 
   initial begin
-    clk = 0;
-    reset = 0;
+    clk    = 0;
+    reset  = 0;
     enable = 0;
 
     // reset should be optional

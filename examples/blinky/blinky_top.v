@@ -1,9 +1,9 @@
 `include "directives.v"
 
 module blinky_top (
-    input wire CLK,
-    output reg LED1,
-    output LED2
+    input  wire CLK,
+    output reg  LED1,
+    output      LED2
 );
 
   // 100 MHz clock
@@ -20,7 +20,7 @@ module blinky_top (
       counter <= counter + 1;
     end else begin
       counter <= 0;
-      LED1 <= ~LED1;
+      LED1    <= ~LED1;
     end
   end
 

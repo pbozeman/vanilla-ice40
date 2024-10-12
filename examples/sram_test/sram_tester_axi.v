@@ -18,16 +18,16 @@ module sram_tester_axi #(
     output reg  test_pass,
 
     // debug/output signals
-    output wire [2:0] pattern_state,
-    output reg [DATA_BITS-1:0] prev_read_data,
-    output reg [DATA_BITS-1:0] prev_expected_data,
+    output wire [          2:0] pattern_state,
+    output reg  [DATA_BITS-1:0] prev_read_data,
+    output reg  [DATA_BITS-1:0] prev_expected_data,
 
     // sram controller to io pins
     output wire [ADDR_BITS-1:0] sram_io_addr,
-    inout wire [DATA_BITS-1:0] sram_io_data,
-    output wire sram_io_we_n,
-    output wire sram_io_oe_n,
-    output wire sram_io_ce_n
+    inout  wire [DATA_BITS-1:0] sram_io_data,
+    output wire                 sram_io_we_n,
+    output wire                 sram_io_oe_n,
+    output wire                 sram_io_ce_n
 );
   // AXI-Lite Write Address Channel
   reg  [ADDR_BITS-1:0] axi_awaddr;
@@ -84,25 +84,25 @@ module sram_tester_axi #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
       .AXI_DATA_WIDTH(DATA_BITS)
   ) ctrl (
-      .axi_clk(clk),
-      .axi_resetn(~reset),
-      .axi_awaddr(axi_awaddr),
-      .axi_awvalid(axi_awvalid),
-      .axi_awready(axi_awready),
-      .axi_wdata(axi_wdata),
-      .axi_wstrb(axi_wstrb),
-      .axi_wvalid(axi_wvalid),
-      .axi_wready(axi_wready),
-      .axi_bresp(axi_bresp),
-      .axi_bvalid(axi_bvalid),
-      .axi_bready(axi_bready),
-      .axi_araddr(axi_araddr),
-      .axi_arvalid(axi_arvalid),
-      .axi_arready(axi_arready),
-      .axi_rdata(axi_rdata),
-      .axi_rresp(axi_rresp),
-      .axi_rvalid(axi_rvalid),
-      .axi_rready(axi_rready),
+      .axi_clk     (clk),
+      .axi_resetn  (~reset),
+      .axi_awaddr  (axi_awaddr),
+      .axi_awvalid (axi_awvalid),
+      .axi_awready (axi_awready),
+      .axi_wdata   (axi_wdata),
+      .axi_wstrb   (axi_wstrb),
+      .axi_wvalid  (axi_wvalid),
+      .axi_wready  (axi_wready),
+      .axi_bresp   (axi_bresp),
+      .axi_bvalid  (axi_bvalid),
+      .axi_bready  (axi_bready),
+      .axi_araddr  (axi_araddr),
+      .axi_arvalid (axi_arvalid),
+      .axi_arready (axi_arready),
+      .axi_rdata   (axi_rdata),
+      .axi_rresp   (axi_rresp),
+      .axi_rvalid  (axi_rvalid),
+      .axi_rready  (axi_rready),
       .sram_io_addr(sram_io_addr),
       .sram_io_data(sram_io_data),
       .sram_io_we_n(sram_io_we_n),
@@ -123,13 +123,13 @@ module sram_tester_axi #(
   sram_pattern_generator #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
-      .clk(clk),
-      .reset(pattern_reset),
-      .inc(pattern_inc),
-      .custom(pattern_custom),
+      .clk    (clk),
+      .reset  (pattern_reset),
+      .inc    (pattern_inc),
+      .custom (pattern_custom),
       .pattern(pattern),
-      .done(pattern_done),
-      .state(pattern_state)
+      .done   (pattern_done),
+      .state  (pattern_state)
   );
 
   reg  write_start;
@@ -144,9 +144,9 @@ module sram_tester_axi #(
   // Combinational logic process
   //
   always @(*) begin
-    next_state = state;
-    write_start = 1'b0;
-    read_start = 1'b0;
+    next_state    = state;
+    write_start   = 1'b0;
+    read_start    = 1'b0;
     iter_addr_inc = 1'b0;
 
     if (!reset) begin
@@ -155,9 +155,9 @@ module sram_tester_axi #(
       end else begin
         case (state)
           START: begin
-            write_start = 1'b1;
+            write_start   = 1'b1;
             iter_addr_inc = 1'b1;
-            next_state = WRITING;
+            next_state    = WRITING;
           end
 
           WRITING: begin
@@ -255,8 +255,8 @@ module sram_tester_axi #(
 
       // kick off a read, or wait to de-assert valid
       if (read_start) begin
-        axi_araddr <= iter_addr;
-        axi_arvalid <= 1'b1;
+        axi_araddr    <= iter_addr;
+        axi_arvalid   <= 1'b1;
         expected_data <= pattern;
       end else begin
         if (axi_arready && axi_arvalid) begin
@@ -272,12 +272,12 @@ module sram_tester_axi #(
   //
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      test_pass <= 1'b1;
-      prev_read_data <= {DATA_BITS{1'b0}};
+      test_pass          <= 1'b1;
+      prev_read_data     <= {DATA_BITS{1'b0}};
       prev_expected_data <= {DATA_BITS{1'b0}};
     end else begin
       if (read_done) begin
-        prev_read_data <= axi_rdata;
+        prev_read_data     <= axi_rdata;
         prev_expected_data <= expected_data;
         if (axi_rdata != expected_data) begin
           test_pass <= 1'b0;

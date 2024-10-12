@@ -35,14 +35,14 @@ module vga_sram_double_buf_top #(
     output wire [7:0] R_F
 );
 
-  wire reset = 0;
-  wire pixel_clk;
+  wire       reset = 0;
+  wire       pixel_clk;
 
   wire [3:0] vga_red;
   wire [3:0] vga_green;
   wire [3:0] vga_blue;
-  wire vga_hsync;
-  wire vga_vsync;
+  wire       vga_hsync;
+  wire       vga_vsync;
 
   vga_pll vga_pll_inst (
       .clk_i(CLK),
@@ -78,14 +78,14 @@ module vga_sram_double_buf_top #(
       .sram1_io_ce_n(L_SRAM_CS_N)
   );
 
-  assign LED1 = 1'bz;
-  assign LED2 = 1'bz;
+  assign LED1     = 1'bz;
+  assign LED2     = 1'bz;
 
   assign R_E[3:0] = vga_red;
   assign R_E[7:4] = vga_blue;
   assign R_F[3:0] = vga_green;
-  assign R_F[4] = vga_hsync;
-  assign R_F[5] = vga_vsync;
+  assign R_F[4]   = vga_hsync;
+  assign R_F[5]   = vga_vsync;
 
 endmodule
 `endif

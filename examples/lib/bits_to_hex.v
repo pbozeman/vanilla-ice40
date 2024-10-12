@@ -28,10 +28,10 @@
 module bits_to_hex #(
     parameter N_BITS = 32
 ) (
-    input wire clk,
-    input wire reset,
-    input wire [N_BITS-1:0] bits,
-    output reg [8*((N_BITS+3)/4)-1:0] ascii
+    input  wire                        clk,
+    input  wire                        reset,
+    input  wire [          N_BITS-1:0] bits,
+    output reg  [8*((N_BITS+3)/4)-1:0] ascii
 );
   // Calculate number of nibbles needed
   localparam N_NIBBLES = (N_BITS + 3) / 4;
@@ -58,9 +58,12 @@ module bits_to_hex #(
         // Handle partial nibbles by 0 padding them
         if (i == N_NIBBLES - 1 && (N_BITS % 4) != 0) begin
           case (N_BITS % 4)
-            1: ascii[i*8+:8] <= nibble_to_ascii({3'b000, bits[N_BITS-1:N_BITS-1]});
-            2: ascii[i*8+:8] <= nibble_to_ascii({2'b00, bits[N_BITS-1:N_BITS-2]});
-            3: ascii[i*8+:8] <= nibble_to_ascii({1'b0, bits[N_BITS-1:N_BITS-3]});
+            1:
+            ascii[i*8+:8] <= nibble_to_ascii({3'b000, bits[N_BITS-1:N_BITS-1]});
+            2:
+            ascii[i*8+:8] <= nibble_to_ascii({2'b00, bits[N_BITS-1:N_BITS-2]});
+            3:
+            ascii[i*8+:8] <= nibble_to_ascii({1'b0, bits[N_BITS-1:N_BITS-3]});
             default: ascii[i*8+:8] <= 8'd0;  // Should not occur
           endcase
         end else begin

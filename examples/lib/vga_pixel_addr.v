@@ -11,8 +11,8 @@ module vga_pixel_addr #(
     parameter H_WHOLE_LINE  = 800,
     parameter V_WHOLE_FRAME = 525
 ) (
-    input clk,
-    input reset,
+    input        clk,
+    input        reset,
     output [9:0] column,
     output [9:0] row
 );

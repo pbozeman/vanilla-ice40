@@ -4,10 +4,10 @@
 
 module bits_to_hex_tb;
 
-  reg clk = 1'b0;
-  reg reset = 1'b0;
+  reg         clk = 1'b0;
+  reg         reset = 1'b0;
 
-  reg [7:0] bits_8 = 0;
+  reg  [ 7:0] bits_8 = 0;
   wire [15:0] ascii_8;
 
   bits_to_hex #(

@@ -50,9 +50,9 @@ module vga_sram_double_buf_tb;
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) uut (
-      .clk(clk),
+      .clk      (clk),
       .pixel_clk(pixel_clk),
-      .reset(reset),
+      .reset    (reset),
 
       .sram0_addr(sram0_addr),
       .sram0_data(sram0_data),

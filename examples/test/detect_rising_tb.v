@@ -8,8 +8,8 @@ module detect_rising_tb;
   wire detected;
 
   detect_rising uut (
-      .clk(clk),
-      .signal(signal),
+      .clk     (clk),
+      .signal  (signal),
       .detected(detected)
   );
 

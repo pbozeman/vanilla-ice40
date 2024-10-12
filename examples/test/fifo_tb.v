@@ -4,26 +4,26 @@
 
 module fifo_tb;
 
-  reg clk = 1'b0;
-  reg reset = 1'b0;
-  reg write_en = 1'b0;
-  reg read_en = 1'b0;
-  reg [7:0] write_data = 8'b0;
-  wire [7:0] read_data;
-  wire empty;
-  wire full;
+  reg           clk = 1'b0;
+  reg           reset = 1'b0;
+  reg           write_en = 1'b0;
+  reg           read_en = 1'b0;
+  reg     [7:0] write_data = 8'b0;
+  wire    [7:0] read_data;
+  wire          empty;
+  wire          full;
 
-  integer i;
+  integer       i;
 
   fifo uut (
-      .clk(clk),
-      .reset(reset),
-      .write_en(write_en),
-      .read_en(read_en),
+      .clk       (clk),
+      .reset     (reset),
+      .write_en  (write_en),
+      .read_en   (read_en),
       .write_data(write_data),
-      .read_data(read_data),
-      .empty(empty),
-      .full(full)
+      .read_data (read_data),
+      .empty     (empty),
+      .full      (full)
   );
 
   // clock generator

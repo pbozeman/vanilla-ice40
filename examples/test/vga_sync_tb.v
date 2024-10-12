@@ -4,24 +4,24 @@
 
 module vga_sync_tb;
 
-  reg clk = 1'b0;
-  reg reset = 1'b0;
-  wire visible;
-  wire hsync;
-  wire vsync;
+  reg        clk = 1'b0;
+  reg        reset = 1'b0;
+  wire       visible;
+  wire       hsync;
+  wire       vsync;
   wire [9:0] column;
   wire [9:0] row;
 
-  reg [3:0] frames = 0;
+  reg  [3:0] frames = 0;
 
   vga_sync uut (
-      .clk(clk),
-      .reset(reset),
+      .clk    (clk),
+      .reset  (reset),
       .visible(visible),
-      .hsync(hsync),
-      .vsync(vsync),
-      .column(column),
-      .row(row)
+      .hsync  (hsync),
+      .vsync  (vsync),
+      .column (column),
+      .row    (row)
   );
 
   // clock generator

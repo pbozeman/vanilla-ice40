@@ -45,7 +45,10 @@ VVP := vvp
 LINTER := verilator --lint-only --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 
 # Formatter
-FORMATTER := verible-verilog-format --inplace
+#
+# TODO: these config vars are loaded from .envrc, but we should load
+# them from a common file here too.
+FORMATTER := verible-verilog-format --inplace --tryfromenv="indentation_spaces,column_limit,wrap_spaces,try_wrap_long_lines,assignment_statement_alignment,case_items_alignment,class_member_variable_alignment,distribution_items_alignment,enum_assignment_statement_alignment,formal_parameters_alignment,formal_parameters_indentation,module_net_variable_alignment,named_parameter_alignment,named_port_alignment,port_declarations_alignment,port_declarations_indentation,struct_union_members_alignment,wrap_end_else_clauses"
 
 # Synthesis
 YOSYS := yosys

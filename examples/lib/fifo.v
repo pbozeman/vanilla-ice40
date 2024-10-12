@@ -16,9 +16,9 @@ module fifo #(
     output wire                  empty,
     output wire                  full
 );
-  reg [DATA_WIDTH-1:0] fifo_mem[0:DEPTH-1];
-  reg [$clog2(DEPTH)-1:0] wr_ptr = 0;
-  reg [$clog2(DEPTH)-1:0] rd_ptr = 0;
+  reg [     DATA_WIDTH-1:0] fifo_mem       [0:DEPTH-1];
+  reg [  $clog2(DEPTH)-1:0] wr_ptr = 0;
+  reg [  $clog2(DEPTH)-1:0] rd_ptr = 0;
   reg [$clog2(DEPTH+1)-1:0] fifo_count = 0;
 
   // Write operation
@@ -27,18 +27,18 @@ module fifo #(
       wr_ptr <= 0;
     end else if (write_en && !full) begin
       fifo_mem[wr_ptr] <= write_data;
-      wr_ptr <= (wr_ptr + 1) % DEPTH;
+      wr_ptr           <= (wr_ptr + 1) % DEPTH;
     end
   end
 
   // Read operation
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      rd_ptr <= 0;
+      rd_ptr    <= 0;
       read_data <= 0;
     end else if (read_en && !empty) begin
       read_data <= fifo_mem[rd_ptr];
-      rd_ptr <= (rd_ptr + 1) % DEPTH;
+      rd_ptr    <= (rd_ptr + 1) % DEPTH;
     end
   end
 

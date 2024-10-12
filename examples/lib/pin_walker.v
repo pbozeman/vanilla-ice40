@@ -4,18 +4,18 @@
 `include "directives.v"
 
 module pin_walker #(
-    parameter integer NUM_PINS = 8,
+    parameter integer NUM_PINS      = 8,
     parameter integer CLOCK_FREQ_HZ = 100_000_000,
-    parameter integer DIVISOR = 4
+    parameter integer DIVISOR       = 4
 ) (
-    input wire clk,
+    input  wire                clk,
     output wire [NUM_PINS-1:0] pins
 );
 
   localparam DELAY = CLOCK_FREQ_HZ / DIVISOR;
 
   reg [$clog2(NUM_PINS)-1:0] pin_idx = 0;
-  reg [$clog2(DELAY)-1:0] counter = 0;
+  reg [   $clog2(DELAY)-1:0] counter = 0;
 
   always @(posedge clk) begin
     if (counter < DELAY - 1) begin

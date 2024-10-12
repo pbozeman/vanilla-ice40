@@ -150,15 +150,15 @@ module axi_2x2_tb;
     switch_sel = 1;
     @(posedge axi_clk);
     `ASSERT(sel === 1'b0)
-    switch_sel = 0;
+    switch_sel       = 0;
 
-    in0_axi_awaddr = 20'h12345;
-    in0_axi_awvalid = 1;
-    in0_axi_wdata = 16'hABCD;
-    in0_axi_wstrb = 2'b11;
-    in0_axi_wvalid = 1;
+    in0_axi_awaddr   = 20'h12345;
+    in0_axi_awvalid  = 1;
+    in0_axi_wdata    = 16'hABCD;
+    in0_axi_wstrb    = 2'b11;
+    in0_axi_wvalid   = 1;
     out0_axi_awready = 1;
-    out0_axi_wready = 1;
+    out0_axi_wready  = 1;
     @(posedge axi_clk);
     `ASSERT(out0_axi_awaddr === 20'h12345)
     `ASSERT(out0_axi_awvalid === 1'b1)
