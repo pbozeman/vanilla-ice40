@@ -63,8 +63,8 @@ ICEPACK := icepack
 ICEPROG := iceprog
 
 VCD_FILES := $(addprefix $(BUILD_DIR)/,$(addsuffix .vcd,$(TEST_BENCHES)))
-.PHONY: unit
-unit: $(VCD_FILES)
+.PHONY: quick_unit
+quick_unit: $(VCD_FILES)
 
 # Ensure build directory exists
 $(BUILD_DIR):
@@ -186,14 +186,14 @@ $(TEST_BENCHES): % : $(BUILD_DIR)/%
 	$(call run_test,$<)
 
 # Run all test benches sequentially and show summary
-all_unit: clean_logs $(TEST_BENCHES)
+unit: clean_logs $(TEST_BENCHES)
 	@echo "=============================="
 	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
 	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
 	@sed 's/^/    /' $(BUILD_DIR)/tb_failure.log
 	@echo "=============================="
 
-check: lint all_unit
+check: lint unit
 
 ##############################################################################
 #
