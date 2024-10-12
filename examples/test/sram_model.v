@@ -130,7 +130,8 @@ module sram_model #(
   always @(posedge oe_n) begin
     if (reads_active) begin
       if (oe_n_initial_addr != addr) begin
-        $display("addr changed during read, old: %h new: %h", oe_n_initial_addr, addr);
+        $display("addr changed during read, old: %h new: %h",
+                 oe_n_initial_addr, addr);
         $fatal;
       end
 

@@ -47,12 +47,12 @@ module sram_tester_top #(
     output wire [7:0] R_J
 );
 
-  assign R_SRAM_ADDR_BUS = L_SRAM_ADDR_BUS;
-  assign R_SRAM_DATA_BUS = L_SRAM_DATA_BUS;
-
-  assign R_SRAM_CS_N     = L_SRAM_CS_N;
-  assign R_SRAM_OE_N     = L_SRAM_OE_N;
-  assign R_SRAM_WE_N     = L_SRAM_WE_N;
+  // assign R_SRAM_ADDR_BUS = L_SRAM_ADDR_BUS;
+  // assign R_SRAM_DATA_BUS = L_SRAM_DATA_BUS;
+  //
+  // assign R_SRAM_CS_N     = L_SRAM_CS_N;
+  // assign R_SRAM_OE_N     = L_SRAM_OE_N;
+  // assign R_SRAM_WE_N     = L_SRAM_WE_N;
 
   wire clk;
 

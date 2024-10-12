@@ -17,6 +17,7 @@ module sram_controller_tb;
   reg  [ADDR_BITS-1:0] addr;
   reg  [DATA_BITS-1:0] write_data;
   wire [DATA_BITS-1:0] read_data;
+  wire                 read_data_valid;
 
   // chip lines
   wire [ADDR_BITS-1:0] io_addr_bus;
@@ -30,19 +31,20 @@ module sram_controller_tb;
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) ctrl (
-      .clk         (clk),
-      .reset       (reset),
-      .req         (req),
-      .ready       (ready),
-      .write_enable(write_enable),
-      .addr        (addr),
-      .write_data  (write_data),
-      .read_data   (read_data),
-      .io_addr_bus (io_addr_bus),
-      .io_we_n     (io_we_n),
-      .io_oe_n     (io_oe_n),
-      .io_data_bus (io_data_bus),
-      .io_ce_n     (io_ce_n)
+      .clk            (clk),
+      .reset          (reset),
+      .req            (req),
+      .ready          (ready),
+      .write_enable   (write_enable),
+      .addr           (addr),
+      .write_data     (write_data),
+      .read_data      (read_data),
+      .read_data_valid(read_data_valid),
+      .io_addr_bus    (io_addr_bus),
+      .io_we_n        (io_we_n),
+      .io_oe_n        (io_oe_n),
+      .io_data_bus    (io_data_bus),
+      .io_ce_n        (io_ce_n)
   );
 
   // Instantiate the mocked SRAM model
@@ -73,6 +75,7 @@ module sram_controller_tb;
     reset = 1;
     @(posedge clk);
     reset = 0;
+    @(posedge clk);
 
     `ASSERT(ready);
     `ASSERT(io_oe_n);
@@ -83,32 +86,38 @@ module sram_controller_tb;
     //
 
     // Write
+    // We have 2 register stages to get through
     write_enable = 1;
-
     req          = 1'b1;
     addr         = 10'h0AA;
     write_data   = 8'hA1;
     @(posedge clk);
+    req = 1'b0;
+    @(posedge clk);
+
     `ASSERT(!ready);
     @(negedge clk);
+    @(posedge clk);
     `ASSERT(io_addr_bus === 10'h0AA);
     `ASSERT(io_data_bus === 8'hA1);
-    `ASSERT(io_oe_n);
-    `ASSERT(!io_we_n);
-
-    @(posedge clk);
-    `ASSERT(ready);
-    `ASSERT(io_oe_n);
-    `ASSERT(io_we_n);
 
     // Read
+    `ASSERT(ready);
     write_enable = 0;
+    req          = 1'b1;
     addr         = 10'h0AA;
     @(posedge clk);
-    `ASSERT(!ready);
-    `ASSERT(~io_oe_n);
+    `ASSERT(!read_data_valid);
+    req = 1'b0;
+    `ASSERT(ready);
     @(posedge clk);
-    `ASSERT(io_oe_n);
+    `ASSERT(!read_data_valid);
+    @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(negedge clk);
+    `ASSERT(read_data_valid);
     `ASSERT(read_data === 8'hA1);
     `ASSERT(ready);
 
@@ -117,6 +126,7 @@ module sram_controller_tb;
     //
 
     write_enable = 1;
+    req          = 1'b1;
 
     // Addr 1
     addr         = 10'h101;
@@ -137,28 +147,52 @@ module sram_controller_tb;
     @(posedge clk);
 
     // read cycle
+    @(negedge clk);
+    `ASSERT(ready);
+    `ASSERT(!read_data_valid);
     write_enable = 0;
 
     addr         = 10'h101;
     @(posedge clk);
+    `ASSERT(!read_data_valid);
     @(posedge clk);
-    `ASSERT(read_data === 8'h51);
+    `ASSERT(!read_data_valid);
 
     addr = 10'h102;
     @(posedge clk);
-    @(posedge clk);
-    `ASSERT(read_data === 8'h52);
+    `ASSERT(!read_data_valid);
 
     // Note: req is set to 0
-    req  = 0;
-    addr = 10'h103;
+    req = 0;
     @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(negedge clk);
+    `ASSERT(read_data_valid);
+    `ASSERT(read_data === 8'h51);
+
+    @(posedge clk);
+    @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(negedge clk);
+    `ASSERT(read_data_valid);
     `ASSERT(read_data === 8'h52);
 
-    // go back to reading
-    req = 1;
     @(posedge clk);
+    @(negedge clk);
+    `ASSERT(!read_data_valid);
+
+    `ASSERT(ready);
+    req  = 1;
+    addr = 10'h103;
     @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(posedge clk);
+    `ASSERT(!read_data_valid);
+    @(posedge clk);
+    @(negedge clk);
+    `ASSERT(read_data_valid);
     `ASSERT(read_data === 8'h53);
 
     $finish;

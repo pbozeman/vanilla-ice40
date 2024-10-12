@@ -59,6 +59,9 @@ module axi_sram_controller #(
   wire [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
   wire [AXI_DATA_WIDTH-1:0] sram_write_data;
   wire [AXI_DATA_WIDTH-1:0] sram_read_data;
+  // verilator lint_off UNUSEDSIGNAL
+  wire                      sram_read_data_valid;
+  // verilator lint_on UNUSEDSIGNAL
 
   // TODO: if we used this we wouldn't need to make timing
   // assumptions
@@ -93,19 +96,20 @@ module axi_sram_controller #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_ctrl (
-      .clk         (axi_clk),
-      .reset       (~axi_resetn),
-      .req         (sram_req),
-      .ready       (sram_ready),
-      .write_enable(sram_write_enable),
-      .addr        (sram_addr_internal),
-      .write_data  (sram_write_data),
-      .read_data   (sram_read_data),
-      .io_addr_bus (sram_io_addr),
-      .io_data_bus (sram_io_data),
-      .io_we_n     (sram_io_we_n),
-      .io_oe_n     (sram_io_oe_n),
-      .io_ce_n     (sram_io_ce_n)
+      .clk            (axi_clk),
+      .reset          (~axi_resetn),
+      .req            (sram_req),
+      .ready          (sram_ready),
+      .write_enable   (sram_write_enable),
+      .addr           (sram_addr_internal),
+      .write_data     (sram_write_data),
+      .read_data      (sram_read_data),
+      .read_data_valid(sram_read_data_valid),
+      .io_addr_bus    (sram_io_addr),
+      .io_data_bus    (sram_io_data),
+      .io_we_n        (sram_io_we_n),
+      .io_oe_n        (sram_io_oe_n),
+      .io_ce_n        (sram_io_ce_n)
   );
 
   // state machine

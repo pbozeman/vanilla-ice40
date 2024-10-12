@@ -3,6 +3,8 @@
 
 `include "directives.v"
 
+`include "sram_io_ice40.v"
+
 module sram_controller #(
     parameter integer ADDR_BITS = 20,
     parameter integer DATA_BITS = 16
@@ -20,7 +22,8 @@ module sram_controller #(
     input  wire                 write_enable,
     input  wire [ADDR_BITS-1:0] addr,
     input  wire [DATA_BITS-1:0] write_data,
-    output reg  [DATA_BITS-1:0] read_data,
+    output wire [DATA_BITS-1:0] read_data,
+    output wire                 read_data_valid,
 
     // to/from the sram chip
     output wire [ADDR_BITS-1:0] io_addr_bus,
@@ -52,52 +55,26 @@ module sram_controller #(
   localparam READING = 2'd1;
   localparam WRITING = 2'd2;
 
-  reg [          2:0] state = 0;
+  //
+  // State
+  //
+  reg [2:0] state = 0;
+  reg [2:0] next_state = 0;
+  reg       ready_reg;
 
-  reg [          2:0] next_state;
-  reg                 next_oe_n;
-  reg                 next_we_n;
-
-  reg                 ready_reg;
-
-  reg [ADDR_BITS-1:0] addr_reg = 0;
-  reg [DATA_BITS-1:0] write_data_reg = 0;
-
-  reg [ADDR_BITS-1:0] addr_reg_prev = 0;
-  reg [DATA_BITS-1:0] write_data_reg_prev = 0;
-
-  // For now, we can just leave the chip always enabled. We control
-  // the chip with oe_n and we_n instead. Reconsider this if we want to
-  // put the chip into idle/low power mode.
-  assign io_ce_n = 1'b0;
-
-  wire write_data_active;
-  assign write_data_active = (next_state == WRITING || state == WRITING);
-
-  assign io_addr_bus = addr_reg;
-  assign io_data_bus = write_data_active ? write_data_reg : {DATA_BITS{1'bz}};
-
+  //
+  // Next state
+  //
   always @(*) begin
-    next_state     = state;
-    next_oe_n      = 1'b1;
-    next_we_n      = 1'b1;
-    ready_reg      = 1'b1;
-
-    addr_reg       = addr_reg_prev;
-    write_data_reg = write_data_reg_prev;
+    next_state = state;
 
     case (state)
       IDLE: begin
         if (req) begin
-          ready_reg = 1'b0;
-          addr_reg  = addr;
           if (!write_enable) begin
             next_state = READING;
-            next_oe_n  = 1'b0;
           end else begin
-            next_state     = WRITING;
-            write_data_reg = write_data;
-            next_we_n      = 1'b0;
+            next_state = WRITING;
           end
         end
       end
@@ -116,6 +93,9 @@ module sram_controller #(
     endcase
   end
 
+  //
+  // State registration
+  //
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= IDLE;
@@ -124,26 +104,77 @@ module sram_controller #(
     end
   end
 
-  always @(posedge clk) begin
-    addr_reg_prev       <= addr_reg;
-    write_data_reg_prev <= write_data_reg;
-  end
+  //
+  // Pad signals
+  //
+  reg [ADDR_BITS-1:0] pad_addr;
+  reg [DATA_BITS-1:0] pad_write_data;
+  reg                 pad_write_data_enable;
+  reg [DATA_BITS-1:0] pad_read_data;
+  reg                 pad_read_data_valid;
+  reg                 pad_ce_n;
+  reg                 pad_we_n;
+  reg                 pad_oe_n;
 
-  always @(negedge clk or posedge reset) begin
+  sram_io_ice40 #(
+      .ADDR_BITS(ADDR_BITS),
+      .DATA_BITS(DATA_BITS)
+  ) u_sram_io_ice40 (
+      .clk(clk),
+
+      .pad_addr             (pad_addr),
+      .pad_write_data       (pad_write_data),
+      .pad_write_data_enable(pad_write_data_enable),
+      .pad_read_data        (pad_read_data),
+      .pad_read_data_valid  (pad_read_data_valid),
+      .pad_ce_n             (pad_ce_n),
+      .pad_we_n             (pad_we_n),
+      .pad_oe_n             (pad_oe_n),
+
+      .io_addr_bus(io_addr_bus),
+      .io_data_bus(io_data_bus),
+      .io_we_n    (io_we_n),
+      .io_oe_n    (io_oe_n),
+      .io_ce_n    (io_ce_n)
+  );
+
+  //
+  // Ready
+  //
+  always @(posedge clk or posedge reset) begin
     if (reset) begin
-      io_oe_n <= 1'b1;
-      io_we_n <= 1'b1;
+      ready_reg <= 1;
     end else begin
-      if (!io_oe_n) begin
-        read_data <= io_data_bus;
-      end
-
-      io_we_n <= next_we_n;
-      io_oe_n <= next_oe_n;
+      ready_reg <= (next_state == IDLE);
     end
   end
 
-  assign ready = ready_reg;
+  //
+  // Addr/data to pad
+  //
+  always @(posedge clk) begin
+    if (next_state != IDLE) begin
+      pad_addr <= addr;
+      if (write_enable) begin
+        pad_write_data <= write_data;
+      end
+    end
+  end
+
+  //
+  // Control signals
+  //
+  always @(posedge clk) begin
+    pad_ce_n              <= 1'b0;
+    pad_write_data_enable <= (next_state == WRITING || state == WRITING);
+    pad_we_n              <= !(next_state == WRITING);
+    pad_oe_n              <= !(next_state == READING);
+  end
+
+
+  assign read_data       = pad_read_data;
+  assign read_data_valid = pad_read_data_valid;
+  assign ready           = ready_reg;
 
 endmodule
 

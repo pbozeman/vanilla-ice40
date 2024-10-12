@@ -3,6 +3,7 @@
 
 `include "directives.v"
 
+`include "delay.v"
 `include "iter.v"
 `include "sram_controller.v"
 `include "sram_pattern_generator.v"
@@ -14,7 +15,7 @@ module sram_tester #(
     // tester signals
     input  wire clk,
     input  wire reset,
-    output reg  test_done = 0,
+    output wire test_done,
     output reg  test_pass = 0,
 
     // debug/output signals
@@ -62,34 +63,32 @@ module sram_tester #(
   wire                 req;
   // verilator lint_off UNUSEDSIGNAL
   wire                 ready;
+  wire                 sram_read_data_valid;
   // verilator lint_on UNUSEDSIGNAL
   wire                 addr_done;
   wire                 pattern_reset;
   wire                 pattern_done;
   wire [DATA_BITS-1:0] pattern;
 
-  // This is a little janky, and ideally we would modulate this,
-  // but we're always feeding requests in this module.
-  assign req = 1'b1;
-
   // Submodule instantiations
   sram_controller #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram_ctrl (
-      .clk         (clk),
-      .reset       (reset),
-      .req         (req),
-      .ready       (ready),
-      .addr        (sram_addr),
-      .write_enable(sram_write_enable),
-      .write_data  (sram_write_data),
-      .read_data   (sram_read_data),
-      .io_addr_bus (sram_io_addr_bus),
-      .io_we_n     (sram_io_we_n),
-      .io_oe_n     (sram_io_oe_n),
-      .io_data_bus (sram_io_data_bus),
-      .io_ce_n     (sram_io_ce_n)
+      .clk            (clk),
+      .reset          (reset),
+      .req            (req),
+      .ready          (ready),
+      .addr           (sram_addr),
+      .write_enable   (sram_write_enable),
+      .write_data     (sram_write_data),
+      .read_data      (sram_read_data),
+      .read_data_valid(sram_read_data_valid),
+      .io_addr_bus    (sram_io_addr_bus),
+      .io_we_n        (sram_io_we_n),
+      .io_oe_n        (sram_io_oe_n),
+      .io_data_bus    (sram_io_data_bus),
+      .io_ce_n        (sram_io_ce_n)
   );
 
   iter #(
@@ -120,51 +119,53 @@ module sram_tester #(
     next_state     = state;
     pattern_custom = sram_addr;
 
-    case (state)
-      START: begin
-        next_state = WRITING;
-      end
-
-      WRITING: begin
-        next_state = WRITE_HOLD;
-      end
-
-      WRITE_HOLD: begin
-        if (last_write) begin
-          next_state = READING;
-        end else begin
+    if (!reset) begin
+      case (state)
+        START: begin
           next_state = WRITING;
         end
-      end
 
-      READING: begin
-        next_state = READ_HOLD;
-      end
+        WRITING: begin
+          next_state = WRITE_HOLD;
+        end
 
-      READ_HOLD: begin
-        if (last_read) begin
-          if (pattern_done) begin
-            next_state = DONE;
+        WRITE_HOLD: begin
+          if (last_write) begin
+            next_state = READING;
           end else begin
             next_state = WRITING;
           end
-        end else begin
-          next_state = READING;
         end
-      end
 
-      DONE: begin
-        next_state = START;
-      end
+        READING: begin
+          next_state = READ_HOLD;
+        end
 
-      HALT: begin
-        // No state change
-      end
+        READ_HOLD: begin
+          if (last_read) begin
+            if (pattern_done) begin
+              next_state = DONE;
+            end else begin
+              next_state = WRITING;
+            end
+          end else begin
+            next_state = READING;
+          end
+        end
 
-      default: begin
-        next_state = START;
-      end
-    endcase
+        DONE: begin
+          next_state = START;
+        end
+
+        HALT: begin
+          // No state change
+        end
+
+        default: begin
+          next_state = START;
+        end
+      endcase
+    end
   end
 
   // state registration
@@ -203,17 +204,38 @@ module sram_tester #(
     end
   end
 
-  // read/expected registration (state == READ_HOLD)
+  // TODO: these delays are so janky and are a symptom
+  // of poor design of the read/validation logic.
+  //
+  // TODO: Also, use ready signal instead of manual cycles
+  delay #(
+      .DELAY_CYCLES(3),
+      .WIDTH       (DATA_BITS)
+  ) prev_delay (
+      .clk(clk),
+      .in (pattern_prev),
+      .out(prev_expected_data)
+  );
+
+  reg validate_delay;
+
+  delay #(
+      .DELAY_CYCLES(1)
+  ) u_validate_delay (
+      .clk(clk),
+      .in (validate),
+      .out(validate_delay)
+  );
+
+  // last_read registration (state == READ_HOLD)
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      last_read          <= 1'b0;
-      prev_read_data     <= {DATA_BITS{1'b0}};
-      prev_expected_data <= {DATA_BITS{1'b0}};
+      last_read      <= 1'b0;
+      prev_read_data <= {DATA_BITS{1'b0}};
     end else begin
+      prev_read_data <= sram_read_data;
       if (state == READ_HOLD) begin
-        last_read          <= addr_done;
-        prev_read_data     <= sram_read_data;
-        prev_expected_data <= pattern_prev;
+        last_read <= addr_done;
       end
     end
   end
@@ -242,20 +264,11 @@ module sram_tester #(
     if (reset) begin
       test_pass <= 1'b1;
     end else begin
-      if (validate) begin
+      if (validate_delay) begin
         if (prev_read_data != prev_expected_data) begin
           test_pass <= 1'b0;
         end
       end
-    end
-  end
-
-  // test done
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      test_done <= 1'b0;
-    end else begin
-      test_done <= (state == DONE);
     end
   end
 
@@ -278,11 +291,13 @@ module sram_tester #(
   end
 
   // Continuous assignments
-  assign sram_write_enable = ((state == START || state == DONE ||
-                               state == WRITING || state == WRITE_HOLD) &&
-                              ~last_write) || last_read;
+  assign req = next_state == WRITING || next_state == READING;
+  assign
+      sram_write_enable = (next_state == WRITING || next_state == WRITE_HOLD);
   assign pattern_reset = (reset || state == DONE);
+
   assign sram_write_data = pattern;
+  assign test_done = (state == DONE);
 
 endmodule
 
