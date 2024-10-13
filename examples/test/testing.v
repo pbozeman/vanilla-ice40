@@ -29,6 +29,13 @@
    end                                        \
 `endif
 
+`define FIXME_DISABLED_TEST_SETUP(mod)           \
+   initial begin                                 \
+     #10;                                        \
+     $display({"FIXME DISABLED tb: ", `"mod`"}); \
+     $finish;                                    \
+   end                                           \
+
 `define WAIT_FOR_SIGNAL(signal)      \
   begin : wait_for_sig_`__LINE__     \
     reg [8:0] cnt;                   \
