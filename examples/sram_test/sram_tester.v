@@ -37,8 +37,13 @@ module sram_tester #(
 );
 
   // State definitions
-  localparam [2:0] START = 3'b000, WRITING = 3'b001, WRITE_HOLD = 3'b010,
-      READING = 3'b011, READ_HOLD = 3'b100, DONE = 3'b110, HALT = 3'b111;
+  localparam [2:0] START = 3'b000;
+  localparam [2:0] WRITING = 3'b001;
+  localparam [2:0] WRITE_HOLD = 3'b010;
+  localparam [2:0] READING = 3'b011;
+  localparam [2:0] READ_HOLD = 3'b100;
+  localparam [2:0] DONE = 3'b110;
+  localparam [2:0] HALT = 3'b111;
 
   // State and next state registers
   reg  [          2:0] state;
