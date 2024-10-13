@@ -6,11 +6,9 @@
 `include "bit_reverser.v"
 `include "sram_tester.v"
 
-`include "vga_pll.v"
-
 module sram_tester_top #(
-    parameter integer ADDR_BITS = 4,
-    parameter integer DATA_BITS = 2
+    parameter integer ADDR_BITS = 20,
+    parameter integer DATA_BITS = 16
 ) (
     // board signals
     input  wire CLK,
@@ -20,25 +18,11 @@ module sram_tester_top #(
     // Buses
     output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
     inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
-    //
-    // // Control signals
-    output wire                 R_SRAM_CS_N,
-    output wire                 R_SRAM_OE_N,
-    output wire                 R_SRAM_WE_N,
-    //
-    // output wire [7:0] R_E,
-    // output wire [7:0] R_F,
-    // output wire [7:0] R_H,
-    // output wire [7:0] R_I,
-    // output wire [7:0] R_J
-
-    output wire [ADDR_BITS-1:0] L_SRAM_ADDR_BUS,
-    inout  wire [DATA_BITS-1:0] L_SRAM_DATA_BUS,
 
     // Control signals
-    output wire L_SRAM_CS_N,
-    output wire L_SRAM_OE_N,
-    output wire L_SRAM_WE_N,
+    output wire R_SRAM_CS_N,
+    output wire R_SRAM_OE_N,
+    output wire R_SRAM_WE_N,
 
     output wire [7:0] R_E,
     output wire [7:0] R_F,
@@ -46,20 +30,6 @@ module sram_tester_top #(
     output wire [7:0] R_I,
     output wire [7:0] R_J
 );
-
-  // assign R_SRAM_ADDR_BUS = L_SRAM_ADDR_BUS;
-  // assign R_SRAM_DATA_BUS = L_SRAM_DATA_BUS;
-  //
-  // assign R_SRAM_CS_N     = L_SRAM_CS_N;
-  // assign R_SRAM_OE_N     = L_SRAM_OE_N;
-  // assign R_SRAM_WE_N     = L_SRAM_WE_N;
-
-  wire clk;
-
-  vga_pll vga_pll_inst (
-      .clk_i(CLK),
-      .clk_o(clk)
-  );
 
   // Internal signals
   reg                  reset = 0;
@@ -98,11 +68,11 @@ module sram_tester_top #(
       .sram_read_data   (sram_read_data),
 
       // sram controller to io pins
-      .sram_io_addr_bus(L_SRAM_ADDR_BUS),
-      .sram_io_data_bus(L_SRAM_DATA_BUS),
-      .sram_io_ce_n    (L_SRAM_CS_N),
-      .sram_io_we_n    (L_SRAM_WE_N),
-      .sram_io_oe_n    (L_SRAM_OE_N)
+      .sram_io_addr_bus(R_SRAM_ADDR_BUS),
+      .sram_io_data_bus(R_SRAM_DATA_BUS),
+      .sram_io_ce_n    (R_SRAM_CS_N),
+      .sram_io_we_n    (R_SRAM_WE_N),
+      .sram_io_oe_n    (R_SRAM_OE_N)
   );
 
   wire [ADDR_BITS-1:0] addr_reversed;
@@ -120,7 +90,7 @@ module sram_tester_top #(
   bit_reverser #(
       .WIDTH(8)
   ) data_reverser (
-      .in (L_SRAM_DATA_BUS),
+      .in (R_SRAM_DATA_BUS),
       .out(data_reversed)
   );
 
