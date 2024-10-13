@@ -71,9 +71,11 @@ module sram_controller #(
   // put the chip into idle/low power mode.
   assign io_ce_n = 1'b0;
 
+  wire write_data_active;
+  assign write_data_active = (next_state == WRITING || state == WRITING);
+
   assign io_addr_bus = addr_reg;
-  assign io_data_bus = (next_state == WRITING || state == WRITING) ?
-      write_data_reg : {DATA_BITS{1'bz}};
+  assign io_data_bus = write_data_active ? write_data_reg : {DATA_BITS{1'bz}};
 
   always @(*) begin
     next_state     = state;

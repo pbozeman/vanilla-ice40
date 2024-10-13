@@ -119,6 +119,10 @@ module sram_model #(
   reg                 writes_active = 0;
 
   always @(negedge oe_n) begin
+    if (data_io !== {DATA_BITS{1'bz}}) begin
+      $display("oe_n low while fpga driving bus");
+      $fatal;
+    end
     oe_n_initial_addr <= addr;
     reads_active      <= 1'b1;
   end
@@ -126,8 +130,7 @@ module sram_model #(
   always @(posedge oe_n) begin
     if (reads_active) begin
       if (oe_n_initial_addr != addr) begin
-        $display("addr changed during read, old: %h new: %h",
-                 oe_n_initial_addr, addr);
+        $display("addr changed during read, old: %h new: %h", oe_n_initial_addr, addr);
         $fatal;
       end
 
