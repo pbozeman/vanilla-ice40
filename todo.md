@@ -20,6 +20,8 @@
 - remove 3v3 and 1v2 voltage breakouts
 - consider signal only option to use ice boards together
 - should OE enable on the oscillator use a 1K+ resistor instead of 0R?
+- move the resistors for the LEDs to the top of the board. They made good
+  test points, and testing at the led doesn't work as well.
 
 ### ADC board
 
