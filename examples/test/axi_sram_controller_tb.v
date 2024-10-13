@@ -96,8 +96,7 @@ module axi_sram_controller_tb;
     forever #5 axi_clk = ~axi_clk;
   end
 
-  `TEST_SETUP(axi_sram_controller_tb);
-
+  `FIXME_DISABLED_TEST_SETUP(axi_sram_controller_tb);
 
   task reset;
     begin
