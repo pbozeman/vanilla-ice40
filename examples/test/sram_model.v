@@ -3,7 +3,9 @@
 
 `include "directives.v"
 
+// verilator lint_save
 // verilator lint_off BLKSEQ
+// verilator lint_off SYNCASYNCNET
 
 module sram_model #(
     parameter integer ADDR_BITS    = 10,
@@ -163,6 +165,6 @@ module sram_model #(
   end
 
 endmodule
-// verilator lint_on BLKSEQ
+// verilator lint_restore
 
 `endif
