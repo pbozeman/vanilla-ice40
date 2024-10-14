@@ -114,6 +114,8 @@ module sram_tester #(
   );
 
   // Combinational logic process
+  //
+  // TODO: reduce to just the state machine
   always @(*) begin
     // Default assignments
     next_state     = state;
@@ -245,7 +247,7 @@ module sram_tester #(
     if (reset) begin
       addr_inc <= 1'b0;
     end else begin
-      addr_inc <= (state == WRITE_HOLD || state == READ_HOLD);
+      addr_inc <= (next_state == WRITING || next_state == READING);
     end
   end
 
