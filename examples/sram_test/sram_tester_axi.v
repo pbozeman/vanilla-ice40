@@ -4,14 +4,9 @@
 `include "directives.v"
 
 `include "axi_sram_controller.v"
+`include "fifo.v"
 `include "iter.v"
 `include "sram_pattern_generator.v"
-
-// FIXME: this is almost certainly broken and likely
-// passed because pattern_bla was undriven and still x.
-//
-// verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNDRIVEN
 
 module sram_tester_axi #(
     parameter integer ADDR_BITS = 20,
@@ -20,7 +15,7 @@ module sram_tester_axi #(
     // tester signals
     input  wire clk,
     input  wire reset,
-    output reg  test_done,
+    output wire test_done,
     output reg  test_pass,
 
     // debug/output signals
@@ -36,54 +31,66 @@ module sram_tester_axi #(
     output wire                 sram_io_ce_n
 );
   // AXI-Lite Write Address Channel
-  reg  [ADDR_BITS-1:0] axi_awaddr;
-  reg                  axi_awvalid;
-  wire                 axi_awready;
+  reg  [        ADDR_BITS-1:0] axi_awaddr;
+  reg                          axi_awvalid;
+  wire                         axi_awready;
 
   // AXI-Lite Write Data Channel
-  reg  [DATA_BITS-1:0] axi_wdata;
-  reg                  axi_wstrb;
-  reg                  axi_wvalid;
-  wire                 axi_wready;
+  reg  [        DATA_BITS-1:0] axi_wdata;
+  wire [((DATA_BITS+7)/8)-1:0] axi_wstrb;
+  reg                          axi_wvalid;
+  wire                         axi_wready;
 
   // AXI-Lite Write Response Channel
-  wire [          1:0] axi_bresp;
-  wire                 axi_bvalid;
-  reg                  axi_bready;
+  // verilator lint_off UNUSEDSIGNAL
+  wire [                  1:0] axi_bresp;
+  wire                         axi_bvalid;
+  // verilator lint_on UNUSEDSIGNAL
+  reg                          axi_bready;
 
   // AXI-Lite Read Address Channel
-  reg  [ADDR_BITS-1:0] axi_araddr;
-  reg                  axi_arvalid;
-  wire                 axi_arready;
+  reg  [        ADDR_BITS-1:0] axi_araddr;
+  reg                          axi_arvalid;
+  wire                         axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [DATA_BITS-1:0] axi_rdata;
-  wire [          1:0] axi_rresp;
-  wire                 axi_rvalid;
-  reg                  axi_rready;
+  wire [        DATA_BITS-1:0] axi_rdata;
+  // verilator lint_off UNUSEDSIGNAL
+  wire [                  1:0] axi_rresp;
+  // verilator lint_on UNUSEDSIGNAL
+  wire                         axi_rvalid;
+  reg                          axi_rready;
 
-  // Address iteration signals
-  reg                  iter_addr_inc;
-  wire [ADDR_BITS-1:0] iter_addr;
-  wire                 iter_addr_done;
+  //
+  // Address iteration
+  //
+  wire                         iter_addr_inc;
+  wire [        ADDR_BITS-1:0] iter_addr;
+  wire                         iter_addr_done;
 
+  //
   // Pattern gen signals
-  reg                  pattern_inc;
-  wire [DATA_BITS-1:0] pattern;
-  wire                 pattern_done;
-  reg  [DATA_BITS-1:0] pattern_custom;
+  //
+  wire                         pattern_reset;
+  reg                          pattern_inc;
+  wire [        DATA_BITS-1:0] pattern;
+  wire                         pattern_done;
+  reg  [        DATA_BITS-1:0] pattern_custom;
 
-  // State definitions
-  localparam [2:0] START = 3'b000;
-  localparam [2:0] WRITING = 3'b001;
-  localparam [2:0] READING = 3'b010;
-  localparam [2:0] HALT = 3'b100;
+  //
+  // Fifo signals
+  //
+  reg                          fifo_write_en;
+  reg                          fifo_read_en;
+  reg  [        DATA_BITS-1:0] fifo_write_data;
+  reg  [        DATA_BITS-1:0] fifo_read_data;
+  // verilator lint_off UNUSEDSIGNAL
+  wire                         fifo_empty;
+  wire                         fifo_full;
+  // verilator lint_on UNUSEDSIGNAL
 
-  // State and next state registers
-  reg [2:0] state;
-  reg [2:0] next_state;
+  assign axi_wstrb = 2'b11;
 
-  // Instantiate the AXI SRAM controller
   axi_sram_controller #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
       .AXI_DATA_WIDTH(DATA_BITS)
@@ -128,7 +135,7 @@ module sram_tester_axi #(
       .DATA_BITS(DATA_BITS)
   ) pattern_gen (
       .clk    (clk),
-      .reset  (reset),
+      .reset  (pattern_reset),
       .inc    (pattern_inc),
       .custom (pattern_custom),
       .pattern(pattern),
@@ -136,154 +143,233 @@ module sram_tester_axi #(
       .state  (pattern_state)
   );
 
-  reg  write_start;
-  wire write_done;
-
-  reg  read_start;
-  wire read_done;
-
-  reg  last_read_write;
+  //
+  // Push the expected data through a fifo and read it out to validate.
+  // We do this because we don't know how many cycles a read may take
+  // and don't know how long to delay the expected pattern data.
+  fifo #(
+      .DEPTH     (8),
+      .DATA_WIDTH(DATA_BITS)
+  ) expected_fifo (
+      .clk       (clk),
+      .reset     (reset),
+      .write_en  (fifo_write_en),
+      .read_en   (fifo_read_en),
+      .write_data(fifo_write_data),
+      .read_data (fifo_read_data),
+      .empty     (fifo_empty),
+      .full      (fifo_full)
+  );
 
   //
-  // Combinational logic process
+  // State machine
+  //
+  localparam [2:0] START = 3'b000;
+  localparam [2:0] WRITE = 3'b001;
+  localparam [2:0] WRITE_WAIT = 3'b010;
+  localparam [2:0] READ = 3'b100;
+  localparam [2:0] READ_WAIT = 3'b101;
+  localparam [2:0] DONE = 3'b110;
+  localparam [2:0] HALT = 3'b111;
+
+  reg [2:0] state;
+  reg [2:0] next_state;
+
+  //
+  // next_state
   //
   always @(*) begin
-    next_state    = state;
-    write_start   = 1'b0;
-    read_start    = 1'b0;
-    iter_addr_inc = 1'b0;
+    next_state = state;
 
-    if (!reset) begin
-      if (!test_pass) begin
-        next_state = HALT;
-      end else begin
-        case (state)
-          START: begin
-            write_start   = 1'b1;
-            iter_addr_inc = 1'b1;
-            next_state    = WRITING;
-          end
-
-          WRITING: begin
-            if (write_done) begin
-              iter_addr_inc = 1'b1;
-
-              if (!last_read_write) begin
-                write_start = 1'b1;
-              end else begin
-                read_start = 1'b1;
-                next_state = READING;
-              end
-            end
-          end
-
-          READING: begin
-            if (read_done) begin
-              iter_addr_inc = 1'b1;
-
-              if (!last_read_write) begin
-                read_start = 1'b1;
-              end else begin
-                write_start = 1'b1;
-                pattern_inc = 1'b1;
-                next_state  = WRITING;
-              end
-            end
-          end
-
-          default: begin
-          end
-
-        endcase
+    case (state)
+      START: begin
+        next_state = WRITE;
       end
-    end
+
+      WRITE: begin
+        next_state = WRITE_WAIT;
+      end
+
+      WRITE_WAIT: begin
+        if (write_accepted) begin
+          if (writes_done) begin
+            next_state = READ;
+          end else begin
+            next_state = WRITE;
+          end
+        end
+      end
+
+      READ: begin
+        next_state = READ_WAIT;
+      end
+
+      READ_WAIT: begin
+        if (read_accepted) begin
+          if (reads_done) begin
+            if (pattern_done) begin
+              next_state = DONE;
+            end else begin
+              next_state = WRITE;
+            end
+          end else begin
+            next_state = READ;
+          end
+        end
+      end
+
+      DONE: begin
+        next_state = WRITE;
+      end
+
+      HALT: begin
+      end
+
+      default: begin
+      end
+    endcase
   end
 
   //
-  // State registration
+  // state registration
   //
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       state <= START;
     end else begin
-      state <= next_state;
+      if (test_pass) begin
+        state <= next_state;
+      end else begin
+        state <= HALT;
+      end
     end
   end
 
   //
-  // AXI write
+  // writing
   //
-  assign write_done = (axi_bready && axi_bvalid);
+  wire write_start = (state != WRITE & next_state == WRITE);
+
+  reg  write_addr_accepted;
+  reg  write_data_accepted;
+  wire write_accepted = (write_addr_accepted & write_data_accepted);
+
+  reg  last_write;
+  wire writes_done = (write_accepted & last_write);
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      axi_awvalid <= 1'b0;
-      axi_wvalid  <= 1'b0;
-      axi_bready  <= 1'b0;
-    end else begin
-      // We're always ready for a response
-      axi_bready <= 1'b1;
+      axi_awaddr          <= 0;
+      axi_awvalid         <= 1'b1;
+      axi_wdata           <= 1'b0;
+      axi_wvalid          <= 1'b0;
+      axi_bready          <= 1'b0;
 
-      // kick off a write, or wait to de-assert valid
+      write_addr_accepted <= 1'b0;
+      write_data_accepted <= 1'b0;
+
+      last_write          <= 1'b0;
+    end else begin
       if (write_start) begin
-        axi_awaddr  <= iter_addr;
-        axi_wdata   <= pattern;
-        axi_awvalid <= 1'b1;
-        axi_wvalid  <= 1'b1;
+        axi_awaddr          <= iter_addr;
+        axi_awvalid         <= 1'b1;
+        axi_wdata           <= pattern;
+        axi_wvalid          <= 1'b1;
+        axi_bready          <= 1'b1;
+
+        write_addr_accepted <= 1'b0;
+        write_data_accepted <= 1'b0;
+
+        last_write          <= iter_addr_done;
       end else begin
         if (axi_awready && axi_awvalid) begin
-          axi_awvalid <= 1'b0;
+          write_addr_accepted <= 1'b1;
+          axi_awvalid         <= 1'b0;
         end
 
         if (axi_wready && axi_wvalid) begin
-          axi_wvalid <= 1'b0;
+          write_data_accepted <= 1'b1;
+          axi_wvalid          <= 1'b0;
         end
       end
     end
   end
 
   //
-  // AXI read
+  // reading
   //
-  reg [DATA_BITS-1:0] expected_data;
+  wire read_start;
+  assign read_start = (state != READ & next_state == READ);
 
-  assign read_done = (axi_rready && axi_rvalid);
+  wire read_accepted;
+  assign read_accepted = axi_arready & axi_arvalid;
 
+  reg  last_read;
+
+  wire reads_done;
+  assign reads_done = (read_accepted & last_read);
+
+  //
+  // Start read
+  //
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      axi_arvalid <= 1'b0;
-      axi_rready  <= 1'b0;
-    end else begin
-      // We're always ready for a response
-      axi_rready <= 1'b1;
+      axi_araddr    <= 0;
+      axi_arvalid   <= 1'b0;
+      axi_rready    <= 1'b0;
 
-      // kick off a read, or wait to de-assert valid
+      last_read     <= 1'b0;
+      fifo_write_en <= 1'b0;
+    end else begin
+      fifo_write_en <= 1'b0;
+
+      // We're always ready for a response
+      axi_rready    <= 1'b1;
+
       if (read_start) begin
-        axi_araddr    <= iter_addr;
-        axi_arvalid   <= 1'b1;
-        expected_data <= pattern;
+        axi_araddr      <= iter_addr;
+        axi_arvalid     <= 1'b1;
+
+        last_read       <= iter_addr_done;
+
+        fifo_write_en   <= 1'b1;
+        fifo_write_data <= pattern;
       end else begin
-        if (axi_arready && axi_arvalid) begin
+        if (read_accepted) begin
           axi_arvalid <= 1'b0;
         end
       end
-
     end
   end
 
   //
-  // test response and debug signals
+  // read response
   //
+  reg  validate;
+  wire read_data_done = (axi_rready & axi_rvalid);
+
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      test_pass          <= 1'b1;
-      prev_read_data     <= {DATA_BITS{1'b0}};
-      prev_expected_data <= {DATA_BITS{1'b0}};
+      validate <= 1'b0;
     end else begin
-      if (read_done) begin
-        prev_read_data     <= axi_rdata;
-        prev_expected_data <= expected_data;
-        if (axi_rdata != expected_data) begin
+      validate <= 1'b0;
+
+      if (read_data_done) begin
+        validate       <= 1'b1;
+        prev_read_data <= axi_rdata;
+      end
+    end
+  end
+
+  assign fifo_read_en       = read_data_done;
+  assign prev_expected_data = fifo_read_data;
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      test_pass <= 1'b1;
+    end else begin
+      if (validate) begin
+        if (prev_expected_data != prev_read_data) begin
           test_pass <= 1'b0;
         end
       end
@@ -291,37 +377,14 @@ module sram_tester_axi #(
   end
 
   //
-  // test done
+  // Addr and pattern looping
   //
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      test_done <= 1'b0;
-    end else begin
-      test_done <= (state == READING && next_state == WRITING);
-    end
-  end
-
-  //
-  // last read/write detection
-  //
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      last_read_write <= 1'b0;
-    end else begin
-      if (state != next_state) begin
-        last_read_write <= 0;
-      end else begin
-        if (iter_addr_done & iter_addr_inc) begin
-          last_read_write <= iter_addr_done & iter_addr_inc;
-        end
-      end
-    end
-  end
+  assign iter_addr_inc  = (write_start | read_start);
+  assign pattern_reset  = (state == DONE | reset);
+  assign pattern_inc    = (state == READ_WAIT & iter_addr_done);
+  assign pattern_custom = iter_addr;
+  assign test_done      = (state == DONE);
 
 endmodule
 
-// verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNDRIVEN
-
 `endif
-

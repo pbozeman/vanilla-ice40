@@ -63,6 +63,7 @@ module sram_tester #(
   wire                 req;
   // verilator lint_off UNUSEDSIGNAL
   wire                 ready;
+  wire                 sram_write_done;
   wire                 sram_read_data_valid;
   // verilator lint_on UNUSEDSIGNAL
   wire                 addr_done;
@@ -82,6 +83,7 @@ module sram_tester #(
       .addr           (sram_addr),
       .write_enable   (sram_write_enable),
       .write_data     (sram_write_data),
+      .write_done     (sram_write_done),
       .read_data      (sram_read_data),
       .read_data_valid(sram_read_data_valid),
       .io_addr_bus    (sram_io_addr_bus),

@@ -16,6 +16,9 @@ module sram_controller_tb;
   reg                  write_enable = 0;
   reg  [ADDR_BITS-1:0] addr;
   reg  [DATA_BITS-1:0] write_data;
+  // verilator lint_off UNUSEDSIGNAL
+  wire                 write_done;
+  // verilator lint_on UNUSEDSIGNAL
   wire [DATA_BITS-1:0] read_data;
   wire                 read_data_valid;
 
@@ -38,6 +41,7 @@ module sram_controller_tb;
       .write_enable   (write_enable),
       .addr           (addr),
       .write_data     (write_data),
+      .write_done     (write_done),
       .read_data      (read_data),
       .read_data_valid(read_data_valid),
       .io_addr_bus    (io_addr_bus),

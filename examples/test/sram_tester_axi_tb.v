@@ -20,15 +20,13 @@ module sram_tester_axi_tb ();
   wire [         DATA_BITS-1:0] prev_expected_data;
   wire [         DATA_BITS-1:0] prev_read_data;
 
+  //
   // SRAM Interface
   wire [         ADDR_BITS-1:0] sram_io_addr;
   wire [         DATA_BITS-1:0] sram_io_data;
   wire                          sram_io_we_n;
   wire                          sram_io_oe_n;
   wire                          sram_io_ce_n;
-
-  // Variable to store read data
-  reg  [         DATA_BITS-1:0] read_data;
 
   // Unit test signals
   reg  [$clog2(MAX_CYCLES)-1:0] timeout_counter = 0;
@@ -70,7 +68,7 @@ module sram_tester_axi_tb ();
       .data_io(sram_io_data)
   );
 
-  `FIXME_DISABLED_TEST_SETUP(sram_tester_axi_tb);
+  `TEST_SETUP(sram_tester_axi_tb);
 
   // Clock generation
   initial begin
@@ -97,8 +95,6 @@ module sram_tester_axi_tb ();
 
   initial begin
     reset = 1;
-    @(posedge clk);
-    @(posedge clk);
     @(posedge clk);
     reset = 0;
 

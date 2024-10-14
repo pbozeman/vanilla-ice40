@@ -110,6 +110,7 @@ module sram_tester_tb ();
   initial begin
     reset = 1;
     @(posedge clk);
+    @(posedge clk);
     reset = 0;
 
     wait (done_counter == 2 || timeout_counter == MAX_CYCLES - 1);

@@ -58,13 +58,10 @@ module axi_sram_controller #(
   wire                      sram_write_enable;
   wire [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
   wire [AXI_DATA_WIDTH-1:0] sram_write_data;
+  wire                      sram_write_done;
   wire [AXI_DATA_WIDTH-1:0] sram_read_data;
-  // verilator lint_off UNUSEDSIGNAL
   wire                      sram_read_data_valid;
-  // verilator lint_on UNUSEDSIGNAL
 
-  // TODO: if we used this we wouldn't need to make timing
-  // assumptions
   // verilator lint_off UNUSEDSIGNAL
   wire                      sram_ready;
   // verilator lint_on UNUSEDSIGNAL
@@ -82,14 +79,10 @@ module axi_sram_controller #(
   reg [2:0] next_state = IDLE;
 
   // write state
-  reg       writing;
-  reg       write_done;
-  reg       write_resp_valid;
+  reg       axi_bvalid_reg = 0;
 
   // read state
-  reg       reading;
-  reg       read_done;
-  reg       read_resp_valid;
+  reg       axi_rvalid_reg = 0;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -103,6 +96,7 @@ module axi_sram_controller #(
       .write_enable   (sram_write_enable),
       .addr           (sram_addr_internal),
       .write_data     (sram_write_data),
+      .write_done     (sram_write_done),
       .read_data      (sram_read_data),
       .read_data_valid(sram_read_data_valid),
       .io_addr_bus    (sram_io_addr),
@@ -114,36 +108,22 @@ module axi_sram_controller #(
 
   // state machine
   always @(*) begin
-    next_state       = current_state;
-
-    writing          = 1'b0;
-    write_done       = 1'b0;
-    write_resp_valid = 1'b0;
-
-    reading          = 1'b0;
-    read_done        = 1'b0;
-    read_resp_valid  = 1'b0;
+    next_state = current_state;
 
     case (current_state)
       IDLE: begin
         if (axi_awvalid && axi_wvalid) begin
           next_state = WRITE;
-          writing    = 1'b1;
         end else begin
           if (axi_arvalid) begin
             next_state = READ;
-            reading    = 1'b1;
           end
         end
       end
 
       WRITE: begin
-        writing    = 1'b1;
-        write_done = 1'b1;
-
-        if (axi_bready & sram_io_we_n) begin
-          write_resp_valid = 1'b1;
-          next_state       = IDLE;
+        if (sram_write_done & axi_bready) begin
+          next_state = IDLE;
         end else begin
           next_state = WRITE_RESP;
         end
@@ -151,21 +131,17 @@ module axi_sram_controller #(
 
       WRITE_RESP: begin
         if (axi_bready) begin
-          write_resp_valid = 1'b1;
-          next_state       = IDLE;
+          next_state = IDLE;
         end else begin
           next_state = WRITE_RESP;
         end
       end
 
       READ: begin
-        reading    = 1'b1;
-        read_done  = 1'b1;
         next_state = IDLE;
 
         if (axi_rready) begin
-          read_resp_valid = 1'b1;
-          next_state      = IDLE;
+          next_state = IDLE;
         end else begin
           next_state = READ_RESP;
         end
@@ -173,8 +149,7 @@ module axi_sram_controller #(
 
       READ_RESP: begin
         if (axi_rready) begin
-          read_resp_valid = 1'b1;
-          next_state      = IDLE;
+          next_state = IDLE;
         end else begin
           next_state = READ_RESP;
         end
@@ -193,22 +168,68 @@ module axi_sram_controller #(
     end
   end
 
+  //
+  // axi_bvalid
+  //
+  reg prev_axi_bready = 0;
+
+  always @(posedge axi_clk or negedge axi_resetn) begin
+    if (~axi_resetn) begin
+      axi_bvalid_reg  <= 1'b0;
+      prev_axi_bready <= 1'b0;
+    end else begin
+      prev_axi_bready <= axi_bready;
+      if (sram_write_done) begin
+        axi_bvalid_reg <= 1'b1;
+      end else begin
+        if ((axi_bready || prev_axi_bready) && axi_bvalid_reg) begin
+          axi_bvalid_reg <= 1'b0;
+        end
+      end
+    end
+  end
+
+  //
+  // axi_rvalid
+  //
+  // TODO: this is wonky. Go back and figure out if this
+  // needs to be this way, and add a comment as to why.
+  reg prev_sram_read_data_valid = 0;
+  reg prev_axi_rready = 0;
+
+  always @(posedge axi_clk or negedge axi_resetn) begin
+    if (~axi_resetn) begin
+      axi_rvalid_reg            <= 1'b0;
+      prev_sram_read_data_valid <= 1'b0;
+      prev_axi_rready           <= 1'b0;
+    end else begin
+      if (!prev_sram_read_data_valid & sram_read_data_valid) begin
+        axi_rvalid_reg <= sram_read_data_valid;
+      end
+
+      if ((axi_rready || prev_axi_rready) && axi_rvalid_reg) begin
+        axi_rvalid_reg <= 1'b0;
+      end
+    end
+  end
+
   // write channels
-  assign axi_awready = write_done;
-  assign axi_wready = write_done;
-  assign axi_bvalid = write_resp_valid;
-  assign axi_bresp = (write_resp_valid ? RESP_OK : 2'bxx);
+  assign axi_awready = (next_state == WRITE);
+  assign axi_wready = (next_state == WRITE);
+  assign axi_bvalid = axi_bvalid_reg;
+  assign axi_bresp = (axi_bvalid ? RESP_OK : 2'bxx);
 
   // read channels
-  assign axi_arready = read_done;
-  assign axi_rdata = (reading ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
-  assign axi_rvalid = read_resp_valid;
-  assign axi_rresp = (read_resp_valid ? RESP_OK : 2'bxx);
+  assign axi_arready = (current_state == READ);
+  assign axi_rvalid = axi_rvalid_reg;
+  assign axi_rdata = (axi_rvalid ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
+  assign axi_rresp = (axi_rvalid ? RESP_OK : 2'bxx);
 
-  assign sram_write_enable = writing;
-  assign sram_addr_internal = (writing ? axi_awaddr : axi_araddr);
-  assign sram_write_data = (writing ? axi_wdata : {AXI_DATA_WIDTH{1'bx}});
-  assign sram_req = (writing || reading);
+  assign sram_write_enable = (next_state == WRITE);
+  assign sram_addr_internal = (next_state == WRITE ? axi_awaddr : axi_araddr);
+  assign sram_write_data = (next_state == WRITE ?
+                            axi_wdata : {AXI_DATA_WIDTH{1'bx}});
+  assign sram_req = (next_state == WRITE || next_state == READ);
 
 endmodule
 

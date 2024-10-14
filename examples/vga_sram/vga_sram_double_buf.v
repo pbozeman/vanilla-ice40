@@ -125,7 +125,6 @@ module vga_sram_double_buf #(
   wire                              a2x2_sel;
   wire                              pattern_done;
 
-
   // unused
   assign gen_axi_arvalid = 1'b0;
   assign vga_axi_awvalid = 1'b0;
@@ -282,25 +281,25 @@ module vga_sram_double_buf #(
   // FIXME: commenting this out obviously breaks the module, but
   // it doesn't meet timing.
   //
-  // vga_sram_pattern_generator #(
-  //     .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
-  //     .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  // ) pattern (
-  //     .clk(clk),
-  //     .reset(reset),
-  //     .pattern_done(pattern_done),
-  //
-  //     .axi_awaddr (gen_axi_awaddr),
-  //     .axi_awvalid(gen_axi_awvalid),
-  //     .axi_awready(gen_axi_awready),
-  //     .axi_wdata  (gen_axi_wdata),
-  //     .axi_wstrb  (gen_axi_wstrb),
-  //     .axi_wvalid (gen_axi_wvalid),
-  //     .axi_wready (gen_axi_wready),
-  //     .axi_bresp  (gen_axi_bresp),
-  //     .axi_bvalid (gen_axi_bvalid),
-  //     .axi_bready (gen_axi_bready)
-  // );
+  vga_sram_pattern_generator #(
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+  ) pattern (
+      .clk         (clk),
+      .reset       (reset),
+      .pattern_done(pattern_done),
+
+      .axi_awaddr (gen_axi_awaddr),
+      .axi_awvalid(gen_axi_awvalid),
+      .axi_awready(gen_axi_awready),
+      .axi_wdata  (gen_axi_wdata),
+      .axi_wstrb  (gen_axi_wstrb),
+      .axi_wvalid (gen_axi_wvalid),
+      .axi_wready (gen_axi_wready),
+      .axi_bresp  (gen_axi_bresp),
+      .axi_bvalid (gen_axi_bvalid),
+      .axi_bready (gen_axi_bready)
+  );
 
   // signals as it comes from the sram stream
   wire [3:0] sram_vga_red;

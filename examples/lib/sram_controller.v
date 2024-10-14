@@ -22,6 +22,7 @@ module sram_controller #(
     input  wire                 write_enable,
     input  wire [ADDR_BITS-1:0] addr,
     input  wire [DATA_BITS-1:0] write_data,
+    output wire                 write_done,
     output wire [DATA_BITS-1:0] read_data,
     output wire                 read_data_valid,
 
@@ -171,23 +172,11 @@ module sram_controller #(
     pad_oe_n              <= !(next_state == READING);
   end
 
-  reg read_data_valid_next;
-  always @(*) begin
-    read_data_valid_next = pad_read_data_valid;
-  end
-
-  reg read_data_valid_reg;
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      read_data_valid_reg <= 1'b0;
-    end else begin
-      read_data_valid_reg <= read_data_valid_next;
-    end
-  end
-
   assign read_data       = pad_read_data;
   assign read_data_valid = pad_read_data_valid;
   assign ready           = ready_reg;
+
+  assign write_done      = (state == WRITING);
 
 endmodule
 

@@ -96,7 +96,25 @@ module axi_sram_controller_tb;
     forever #5 axi_clk = ~axi_clk;
   end
 
-  `FIXME_DISABLED_TEST_SETUP(axi_sram_controller_tb);
+  `TEST_SETUP(axi_sram_controller_tb);
+
+  always @(posedge axi_clk) begin
+    if (axi_arvalid & axi_arready) begin
+      axi_arvalid <= 1'b0;
+    end
+  end
+
+  always @(posedge axi_clk) begin
+    if (axi_awvalid & axi_awready) begin
+      axi_awvalid <= 1'b0;
+    end
+  end
+
+  always @(posedge axi_clk) begin
+    if (axi_wvalid & axi_wready) begin
+      axi_wvalid <= 1'b0;
+    end
+  end
 
   task reset;
     begin
@@ -137,15 +155,10 @@ module axi_sram_controller_tb;
       // clock the input
       @(posedge axi_clk);
 
-      // We have to test the signals together because they can happen in the
-      // same clock (and with the current implementation, they do.)
-      `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
-      `ASSERT(axi_bvalid === 1'b1);
+      `WAIT_FOR_SIGNAL(axi_bvalid);
       `ASSERT(axi_bresp === 2'b00);
 
-      axi_awvalid = 1'b0;
-      axi_wvalid  = 1'b0;
-      axi_bready  = 1'b0;
+      axi_bready = 1'b0;
     end
   endtask
 
@@ -164,12 +177,12 @@ module axi_sram_controller_tb;
       @(posedge axi_clk);
 
       `WAIT_FOR_SIGNAL(axi_arready);
+      `WAIT_FOR_SIGNAL(axi_rvalid);
 
       // validate data
       `ASSERT(axi_rdata === data);
 
       // validate response
-      `ASSERT(axi_rvalid === 1'b1);
       `ASSERT(axi_rresp === 2'b00);
     end
   endtask
@@ -201,6 +214,7 @@ module axi_sram_controller_tb;
       reset();
 
       axi_write(10'hB0, 8'h10);
+      #100;
     end
   endtask
 
@@ -221,13 +235,6 @@ module axi_sram_controller_tb;
 
       `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
 
-      axi_awvalid = 1'b0;
-      axi_wvalid  = 1'b0;
-
-      // Our response should not be available
-      `ASSERT(axi_bvalid === 1'b0);
-      `ASSERT(axi_bresp !== 2'b00);
-
       // It should not be possible to write again because
       // we are blocked on the response
       axi_awaddr  = 10'hC1;
@@ -241,12 +248,15 @@ module axi_sram_controller_tb;
         `ASSERT(axi_awready === 1'b0);
       end
 
+      `ASSERT(axi_bvalid === 1'b1);
+      `ASSERT(axi_bresp === 2'b00);
+
       // Accept the response
       axi_bready = 1'b1;
       @(posedge axi_clk);
 
-      `ASSERT(axi_bvalid === 1'b1);
-      `ASSERT(axi_bresp === 2'b00);
+      `ASSERT(axi_bvalid === 1'b0);
+      `ASSERT(axi_bresp === 2'bxx);
     end
   endtask
 
@@ -329,17 +339,15 @@ module axi_sram_controller_tb;
       // clock the input
       @(posedge axi_clk);
 
-      `WAIT_FOR_SIGNAL(axi_arready);
-
-      // disable new read
-      axi_arvalid = 1'b0;
-
-      // validate data
-      `ASSERT(axi_rdata === 8'h60);
-
       // Our response should not be available
+      `ASSERT(axi_rdata === 8'bxx);
       `ASSERT(axi_rvalid === 1'b0);
       `ASSERT(axi_rresp === 2'bxx);
+
+      `WAIT_FOR_SIGNAL(axi_rvalid);
+
+      `ASSERT(axi_rresp === 2'b00);
+      `ASSERT(axi_rdata === 8'h60);
 
       // It should not be possible to read again because
       // we are blocked on a response
@@ -351,6 +359,10 @@ module axi_sram_controller_tb;
         @(posedge axi_clk);
         `ASSERT(axi_arready === 1'b0);
       end
+
+      `ASSERT(axi_rvalid);
+      `ASSERT(axi_rresp === 2'b00);
+      `ASSERT(axi_rdata === 8'h60);
 
       // Similarly, we should not be able to write
       axi_awaddr  = 10'hF1;
@@ -368,28 +380,10 @@ module axi_sram_controller_tb;
       // Accept the response
       axi_rready = 1'b1;
       @(posedge axi_clk);
-
-      `ASSERT(axi_rvalid === 1'b1);
-      `ASSERT(axi_rresp === 2'b00);
+      `ASSERT(!axi_rvalid);
 
       // allow it to go to the next txn
       @(posedge axi_clk);
-
-      // Even though the read was issued first, writes have priority
-      // and we need to clear it first.
-      //
-      // This is an implementation detail that is annoying to have
-      // baked in as an assumption in this test. A real axi
-      // master should have always blocks running concurrently
-      // so that the valid lines are lowered when ready goes high.
-      // In such an implementation the master would not have to worry
-      // about what order they are waiting, but since we are doing
-      // timed loops and asserts in the tests, we do.
-      `WAIT_FOR_SIGNAL(axi_awready && axi_wready);
-
-      // disable more writes
-      axi_awvalid = 1'b0;
-      axi_wvalid  = 1'b0;
 
       // Then the read should clear
       `WAIT_FOR_SIGNAL(axi_rvalid);
