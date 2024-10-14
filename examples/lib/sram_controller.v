@@ -171,6 +171,19 @@ module sram_controller #(
     pad_oe_n              <= !(next_state == READING);
   end
 
+  reg read_data_valid_next;
+  always @(*) begin
+    read_data_valid_next = pad_read_data_valid;
+  end
+
+  reg read_data_valid_reg;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      read_data_valid_reg <= 1'b0;
+    end else begin
+      read_data_valid_reg <= read_data_valid_next;
+    end
+  end
 
   assign read_data       = pad_read_data;
   assign read_data_valid = pad_read_data_valid;
