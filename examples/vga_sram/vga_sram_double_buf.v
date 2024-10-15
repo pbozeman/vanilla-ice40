@@ -321,7 +321,7 @@ module vga_sram_double_buf #(
       .axi_bready (gen_axi_bready)
   );
 
-  // signals as it comes from the sram stream
+  // signals as they come from the sram stream
   wire [3:0] sram_vga_red;
   wire [3:0] sram_vga_green;
   wire [3:0] sram_vga_blue;
