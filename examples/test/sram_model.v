@@ -8,9 +8,10 @@
 // verilator lint_off SYNCASYNCNET
 
 module sram_model #(
-    parameter integer ADDR_BITS    = 10,
-    parameter integer DATA_BITS    = 8,
-    parameter integer INJECT_ERROR = 0,
+    parameter integer ADDR_BITS                 = 10,
+    parameter integer DATA_BITS                 = 8,
+    parameter integer UNINITIALIZED_READS_FATAL = 1,
+    parameter integer INJECT_ERROR              = 0,
 
     // timings (in ns)
     parameter real tAA  = 10,   // Address Access Time
@@ -137,7 +138,7 @@ module sram_model #(
         $fatal;
       end
 
-      if (data_in === {DATA_BITS{1'bx}}) begin
+      if (UNINITIALIZED_READS_FATAL && data_in === {DATA_BITS{1'bx}}) begin
         $display("read from unitialized addr %h", addr);
         $fatal;
       end
