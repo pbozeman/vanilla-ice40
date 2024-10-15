@@ -37,7 +37,7 @@ module vga_test_01_tb;
   );
 
   // clock generator
-  always #1 clk <= ~clk;
+  always #20 clk <= ~clk;
 
   `TEST_SETUP(vga_test_01_tb);
 
