@@ -174,10 +174,10 @@ $(BUILD_DIR)/%: $(TEST_DIR)/%.v $(CELLS_SIM) | $(BUILD_DIR)
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
-	@$(VVP) $^
+	@$(VVP) $^ +SKIP_SLOW_TESTS=1
 
 define run_test
-	@$(VVP) $1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "make $(notdir $1)" >> $(BUILD_DIR)/tb_failure.log
+	@$(VVP) $1 +SKIP_SLOW_TESTS=1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "make $(notdir $1)" >> $(BUILD_DIR)/tb_failure.log
 endef
 
 # General rule for running each test bench

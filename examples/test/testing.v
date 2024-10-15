@@ -16,18 +16,21 @@
      $dumpvars(0, mod);                       \
    end
 
-`define TEST_SETUP_SLOW(mod)                  \
-   initial begin                              \
-     $dumpfile({".build/", `"mod`", ".vcd"}); \
-     $dumpvars(0, mod);                       \
-   end                                        \
-`ifdef TB_EXCLUDE_SLOW                        \
-   initial begin                              \
-     #10;                                     \
-     $display({"SKIPED slow tb: ", `"mod`"}); \
-     $finish;                                 \
-   end                                        \
-`endif
+`define TEST_SETUP_SLOW(mod)                                 \
+   initial begin                                             \
+     $dumpfile({".build/", `"mod`", ".vcd"});                \
+     $dumpvars(1, mod);                                      \
+   end                                                       \
+   reg skip_slow_tests;                                      \
+   initial begin                                             \
+     if ($value$plusargs("SKIP_SLOW_TESTS=%b", skip_slow_tests)) begin \
+       if (skip_slow_tests) begin                            \
+         #10;                                                \
+         $display({"SKIPPED slow tb: ", `"mod`"});           \
+         $finish;                                            \
+       end                                                   \
+     end                                                     \
+   end
 
 `define FIXME_DISABLED_TEST_SETUP(mod)           \
    initial begin                                 \
