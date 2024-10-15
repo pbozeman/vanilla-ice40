@@ -267,8 +267,6 @@ module sram_tester_axi #(
 
       write_addr_accepted <= 1'b0;
       write_data_accepted <= 1'b0;
-
-      last_write          <= 1'b0;
     end else begin
       if (write_start) begin
         axi_awaddr          <= iter_addr;
@@ -279,8 +277,6 @@ module sram_tester_axi #(
 
         write_addr_accepted <= 1'b0;
         write_data_accepted <= 1'b0;
-
-        last_write          <= iter_addr_done;
       end else begin
         if (axi_awready && axi_awvalid) begin
           write_addr_accepted <= 1'b1;
@@ -291,6 +287,16 @@ module sram_tester_axi #(
           write_data_accepted <= 1'b1;
           axi_wvalid          <= 1'b0;
         end
+      end
+    end
+  end
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      last_write <= 1'b0;
+    end else begin
+      if (write_start) begin
+        last_write <= iter_addr_done;
       end
     end
   end
