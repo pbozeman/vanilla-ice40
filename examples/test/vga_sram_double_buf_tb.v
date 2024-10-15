@@ -1,16 +1,12 @@
 `include "testing.v"
 
-// This is not intended to be a full test. This is just to see some wave forms
-// in the simulator.
-
-// FIXME: this shouldn't be wrapping the include files.
-// revisit this. (sram_double_buf isn't really ready)
-//
-// verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNDRIVEN
 `include "sram_model.v"
 `include "vga_sram_double_buf.v"
 
+// This is not intended to be a full test. This is just to see some wave forms
+// in the simulator.
+//
+// verilator lint_off UNUSEDSIGNAL
 module vga_sram_double_buf_tb;
 
   parameter AXI_ADDR_WIDTH = 20;

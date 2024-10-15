@@ -36,6 +36,8 @@ module vga_sram_double_buf_top #(
 );
 
   wire       reset = 0;
+  reg  [3:0] reset_counter = 0;
+
   wire       pixel_clk;
 
   wire [3:0] vga_red;
@@ -77,6 +79,16 @@ module vga_sram_double_buf_top #(
       .sram1_io_oe_n(L_SRAM_OE_N),
       .sram1_io_ce_n(L_SRAM_CS_N)
   );
+
+  // 10 clock reset
+  always @(posedge CLK) begin
+    if (reset_counter < 100'd10) begin
+      reset_counter <= reset_counter + 1;
+      reset         <= 1;
+    end else begin
+      reset <= 0;
+    end
+  end
 
   assign LED1     = 1'bz;
   assign LED2     = 1'bz;

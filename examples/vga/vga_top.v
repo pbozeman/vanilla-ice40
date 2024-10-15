@@ -41,7 +41,6 @@ module vga_top (
     output wire `VGA_HSYNC,
     output wire `VGA_VSYNC
 );
-
   wire reset = 0;
   wire visible;
 

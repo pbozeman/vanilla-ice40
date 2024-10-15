@@ -43,43 +43,57 @@ module vga_sram_double_buf #(
     output wire       vga_hsync,
     output wire       vga_vsync
 );
+  //
   // Pixel Pattern Gen
+  //
   wire [        AXI_ADDR_WIDTH-1:0] gen_axi_awaddr;
   wire                              gen_axi_awvalid;
   wire                              gen_axi_awready;
   wire [        AXI_DATA_WIDTH-1:0] gen_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] gen_axi_wstrb;
   wire                              gen_axi_wvalid;
   wire                              gen_axi_wready;
-  wire [                       1:0] gen_axi_bresp;
-  wire                              gen_axi_bvalid;
   wire                              gen_axi_bready;
-  wire [        AXI_ADDR_WIDTH-1:0] gen_axi_araddr;
   wire                              gen_axi_arvalid;
+
+  // We only write with the pixel gen, and we don't
+  // check for write errors.
+  // verilator lint_off UNUSEDSIGNAL
+  wire [        AXI_ADDR_WIDTH-1:0] gen_axi_araddr;
   wire                              gen_axi_arready;
   wire [        AXI_DATA_WIDTH-1:0] gen_axi_rdata;
-  wire [                       1:0] gen_axi_rresp;
   wire                              gen_axi_rvalid;
   wire                              gen_axi_rready;
+  wire [((AXI_DATA_WIDTH+7)/8)-1:0] gen_axi_wstrb;
+  wire [                       1:0] gen_axi_bresp;
+  wire                              gen_axi_bvalid;
+  wire [                       1:0] gen_axi_rresp;
+  // verilator lint_on UNUSEDSIGNAL
 
+  //
   // VGA
-  wire [        AXI_ADDR_WIDTH-1:0] vga_axi_awaddr;
-  wire                              vga_axi_awvalid;
-  wire                              vga_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] vga_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] vga_axi_wstrb;
-  wire                              vga_axi_wvalid;
-  wire                              vga_axi_wready;
-  wire [                       1:0] vga_axi_bresp;
-  wire                              vga_axi_bvalid;
-  wire                              vga_axi_bready;
+  //
   wire [        AXI_ADDR_WIDTH-1:0] vga_axi_araddr;
   wire                              vga_axi_arvalid;
   wire                              vga_axi_arready;
   wire [        AXI_DATA_WIDTH-1:0] vga_axi_rdata;
-  wire [                       1:0] vga_axi_rresp;
   wire                              vga_axi_rvalid;
   wire                              vga_axi_rready;
+  wire                              vga_axi_awvalid;
+  wire                              vga_axi_wvalid;
+
+  // We only read on the VGA side, and we don't check for
+  // read errors.
+  // verilator lint_off UNUSEDSIGNAL
+  wire [        AXI_ADDR_WIDTH-1:0] vga_axi_awaddr;
+  wire                              vga_axi_awready;
+  wire [        AXI_DATA_WIDTH-1:0] vga_axi_wdata;
+  wire                              vga_axi_wready;
+  wire                              vga_axi_bready;
+  wire [((AXI_DATA_WIDTH+7)/8)-1:0] vga_axi_wstrb;
+  wire [                       1:0] vga_axi_bresp;
+  wire                              vga_axi_bvalid;
+  wire [                       1:0] vga_axi_rresp;
+  // verilator lint_on UNUSEDSIGNAL
 
   // SRAM 0
   wire [        AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
@@ -120,13 +134,24 @@ module vga_sram_double_buf #(
   wire                              sram1_axi_rready;
 
   wire                              a2x2_switch_sel;
+  // verilator lint_off UNUSEDSIGNAL
   wire                              a2x2_sel;
+  // verilator lint_on UNUSEDSIGNAL
   wire                              pattern_done;
 
   // unused
   assign gen_axi_arvalid = 1'b0;
+  assign gen_axi_araddr  = 0;
+  assign gen_axi_rready  = 1'b0;
+
   assign vga_axi_awvalid = 1'b0;
+  assign vga_axi_awaddr  = 0;
   assign vga_axi_wvalid  = 1'b0;
+  assign vga_axi_wdata   = 0;
+  assign vga_axi_bready  = 1'b0;
+  assign vga_axi_wstrb   = 2'b11;
+
+  assign a2x2_switch_sel = 1'b0;
 
   axi_2x2 #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -324,11 +349,11 @@ module vga_sram_double_buf #(
   assign vga_green = vga_data[7:4];
   assign vga_blue = vga_data[3:0];
 
-  detect_rising rising_pattern_done (
-      .clk     (clk),
-      .signal  (pattern_done),
-      .detected(a2x2_switch_sel)
-  );
+  // detect_rising rising_pattern_done (
+  //     .clk     (clk),
+  //     .signal  (pattern_done),
+  //     .detected(a2x2_switch_sel)
+  // );
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -355,8 +380,11 @@ module vga_sram_double_buf #(
   );
 
   wire fifo_almost_full;
+  // verilator lint_off UNUSEDSIGNAL
   wire fifo_full;
   wire fifo_empty;
+  // verilator lint_on UNUSEDSIGNAL
+
   wire vga_ready;
 
   assign vga_ready = 1'b1;
