@@ -330,10 +330,6 @@ module vga_sram_double_buf #(
       .detected(a2x2_switch_sel)
   );
 
-  // always @(posedge clk) begin
-  //   if (pattern_done)
-  // end
-
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
