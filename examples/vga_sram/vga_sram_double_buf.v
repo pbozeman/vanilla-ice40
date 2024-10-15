@@ -1,8 +1,6 @@
 `ifndef VGA_SRAM_DOUBLE_BUF_V
 `define VGA_SRAM_DOUBLE_BUF_V
 
-// FIXME: see comment below. This doesn't meet timing.
-
 `include "directives.v"
 
 // Quick poc of the how double buffering will work using
@@ -278,9 +276,6 @@ module vga_sram_double_buf #(
       .sram_io_ce_n(sram1_io_ce_n)
   );
 
-  // FIXME: commenting this out obviously breaks the module, but
-  // it doesn't meet timing.
-  //
   vga_sram_pattern_generator #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
