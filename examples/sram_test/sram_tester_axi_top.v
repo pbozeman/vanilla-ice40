@@ -35,7 +35,6 @@ module sram_tester_axi_top #(
   reg                  reset = 0;
   reg  [          3:0] reset_counter = 0;
 
-  wire [ADDR_BITS-1:0] sram_addr;
   wire [DATA_BITS-1:0] sram_write_data;
   wire [DATA_BITS-1:0] sram_read_data;
   wire                 test_done;
@@ -45,6 +44,8 @@ module sram_tester_axi_top #(
   wire [          2:0] pattern_state;
   wire [DATA_BITS-1:0] prev_expected_data;
   wire [DATA_BITS-1:0] prev_read_data;
+
+  wire [ADDR_BITS-1:0] iter_addr;
 
   sram_tester_axi #(
       .ADDR_BITS(ADDR_BITS),
@@ -60,6 +61,7 @@ module sram_tester_axi_top #(
       .pattern_state     (pattern_state),
       .prev_expected_data(prev_expected_data),
       .prev_read_data    (prev_read_data),
+      .iter_addr         (iter_addr),
 
       // sram controller to io pins
       .sram_io_addr(R_SRAM_ADDR_BUS),
@@ -69,23 +71,21 @@ module sram_tester_axi_top #(
       .sram_io_oe_n(R_SRAM_OE_N)
   );
 
+  // The addr leds are not in sync with the data, but I just want to see that
+  // they are moving. The first pipeline is needed to meet timing.
+  wire [ADDR_BITS-1:0] addr_pipeline;
   wire [ADDR_BITS-1:0] addr_reversed;
-  wire [DATA_BITS-1:0] data_reversed;
+
+  always @(posedge CLK) begin
+    addr_pipeline <= iter_addr;
+  end
 
   // Reverse the entire address
   bit_reverser #(
       .WIDTH(ADDR_BITS)
   ) addr_reverser (
-      .in (sram_addr),
+      .in (addr_pipeline),
       .out(addr_reversed)
-  );
-
-  // Reverse the data
-  bit_reverser #(
-      .WIDTH(8)
-  ) data_reverser (
-      .in (R_SRAM_DATA_BUS),
-      .out(data_reversed)
   );
 
   wire [2:0] pattern_state_reversed;

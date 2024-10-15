@@ -19,6 +19,7 @@ module sram_tester_axi_tb ();
   wire [                   2:0] pattern_state;
   wire [         DATA_BITS-1:0] prev_expected_data;
   wire [         DATA_BITS-1:0] prev_read_data;
+  wire [         ADDR_BITS-1:0] iter_addr;
 
   //
   // SRAM Interface
@@ -47,6 +48,7 @@ module sram_tester_axi_tb ();
       .pattern_state     (pattern_state),
       .prev_expected_data(prev_expected_data),
       .prev_read_data    (prev_read_data),
+      .iter_addr         (iter_addr),
 
       // sram controller to io pins
       .sram_io_addr(sram_io_addr),

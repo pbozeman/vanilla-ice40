@@ -22,6 +22,7 @@ module sram_tester_axi #(
     output wire [          2:0] pattern_state,
     output reg  [DATA_BITS-1:0] prev_read_data,
     output reg  [DATA_BITS-1:0] prev_expected_data,
+    output reg  [ADDR_BITS-1:0] iter_addr,
 
     // sram controller to io pins
     output wire [ADDR_BITS-1:0] sram_io_addr,
@@ -65,7 +66,6 @@ module sram_tester_axi #(
   // Address iteration
   //
   wire                         iter_addr_inc;
-  wire [        ADDR_BITS-1:0] iter_addr;
   wire                         iter_addr_done;
 
   //
