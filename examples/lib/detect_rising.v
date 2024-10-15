@@ -1,7 +1,7 @@
 `ifndef DETECT_RISING_V
 `define DETECT_RISING_V
 
-// `include "directives.v"
+`include "directives.v"
 
 module detect_rising (
     input  wire clk,
