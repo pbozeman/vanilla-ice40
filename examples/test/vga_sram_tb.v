@@ -51,7 +51,6 @@ module vga_sram_tb;
       .vga_blue (vga_blue),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync)
-
   );
 
   // Instantiate the mocked SRAM model
