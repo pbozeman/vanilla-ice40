@@ -151,11 +151,14 @@ module vga_sram #(
   assign vga_blue = vga_data[3:0];
 
   // FIXME: remove column/row
+  //
+  // verilator lint_off UNUSEDSIGNAL
   wire [9:0] vga_column = vga_data[33:24];
   wire [9:0] vga_row = vga_data[23:14];
 
   wire [9:0] column;
   wire [9:0] row;
+  // verilator lint_on UNUSEDSIGNAL
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
