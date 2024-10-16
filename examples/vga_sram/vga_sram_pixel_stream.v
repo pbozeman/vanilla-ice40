@@ -185,13 +185,12 @@ module vga_sram_pixel_stream #(
         axi_araddr  <= pixel_addr;
         axi_arvalid <= 1'b1;
       end else begin
-        if (read_done) begin
+        if (axi_arready & axi_arvalid) begin
           axi_arvalid <= 1'b0;
         end
       end
     end
   end
-
 
   //
   // Pixel outputs
