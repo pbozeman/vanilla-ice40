@@ -53,7 +53,11 @@ module vga_sram_pixel_stream #(
     output wire [3:0] red,
     output wire [3:0] green,
     output wire [3:0] blue,
-    output wire       valid
+    output wire       valid,
+
+    // FIXME: remove column/row
+    output reg [9:0] column = 0,
+    output reg [9:0] row = 0
 );
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
@@ -62,11 +66,8 @@ module vga_sram_pixel_stream #(
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
   // Don't start running until we are told to.
-  reg       started = 0;
+  reg started = 0;
 
-  // Col/row
-  reg [9:0] column = 0;
-  reg [9:0] row = 0;
 
   // State definitions
   //

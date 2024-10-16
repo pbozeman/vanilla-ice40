@@ -127,13 +127,21 @@ module vga_sram #(
   // out of the fifo. The sram_ side is in the writer clock
   // domain and vga_ is in the reader.
   //
-  localparam VGA_DATA_WIDTH = 14;
+  // FIXME: remove the +20 for column/row
+  localparam VGA_DATA_WIDTH = 14 + 20;
 
   wire [VGA_DATA_WIDTH-1:0] sram_vga_data;
   wire [VGA_DATA_WIDTH-1:0] vga_data;
 
+  // FIXME: remove column/row
   assign sram_vga_data = {
-    sram_vga_hsync, sram_vga_vsync, sram_vga_red, sram_vga_green, sram_vga_blue
+    column,
+    row,
+    sram_vga_hsync,
+    sram_vga_vsync,
+    sram_vga_red,
+    sram_vga_green,
+    sram_vga_blue
   };
 
   assign vga_hsync = vga_data[13];
@@ -141,6 +149,13 @@ module vga_sram #(
   assign vga_red = vga_data[11:8];
   assign vga_green = vga_data[7:4];
   assign vga_blue = vga_data[3:0];
+
+  // FIXME: remove column/row
+  wire [9:0] vga_column = vga_data[33:24];
+  wire [9:0] vga_row = vga_data[23:14];
+
+  wire [9:0] column;
+  wire [9:0] row;
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -164,7 +179,11 @@ module vga_sram #(
       .red  (sram_vga_red),
       .green(sram_vga_green),
       .blue (sram_vga_blue),
-      .valid(sram_vga_data_valid)
+      .valid(sram_vga_data_valid),
+
+      // FIXME: remove column/row
+      .column(column),
+      .row   (row)
   );
 
   wire fifo_almost_full;
