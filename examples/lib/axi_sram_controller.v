@@ -192,8 +192,9 @@ module axi_sram_controller #(
   //
   // axi_rvalid
   //
-  // TODO: this is wonky. Go back and figure out if this
-  // needs to be this way, and add a comment as to why.
+  // Look for the rising edge of sram_read_data_valid and
+  // register that so that we can clear axi_rvalid without
+  // it getting reset by the sram controller.
   reg prev_sram_read_data_valid = 0;
   reg prev_axi_rready = 0;
 
@@ -203,6 +204,9 @@ module axi_sram_controller #(
       prev_sram_read_data_valid <= 1'b0;
       prev_axi_rready           <= 1'b0;
     end else begin
+      prev_sram_read_data_valid <= sram_read_data_valid;
+      prev_axi_rready           <= axi_rready;
+
       if (!prev_sram_read_data_valid & sram_read_data_valid) begin
         axi_rvalid_reg <= sram_read_data_valid;
       end
