@@ -355,12 +355,6 @@ module vga_sram_double_buf #(
   //     .detected(a2x2_switch_sel)
   // );
 
-  // FIXME: remove
-  // verilator lint_off UNUSEDSIGNAL
-  wire [9:0] column;
-  wire [9:0] row;
-  // verilator lint_on UNUSEDSIGNAL
-
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -382,10 +376,7 @@ module vga_sram_double_buf #(
       .red  (sram_vga_red),
       .green(sram_vga_green),
       .blue (sram_vga_blue),
-      .valid(sram_vga_data_valid),
-
-      .column(column),
-      .row   (row)
+      .valid(sram_vga_data_valid)
   );
 
   wire fifo_almost_full;

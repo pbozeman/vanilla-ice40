@@ -126,22 +126,13 @@ module vga_sram #(
   // VGA data marshaling and unmarshaling on for going in and
   // out of the fifo. The sram_ side is in the writer clock
   // domain and vga_ is in the reader.
-  //
-  // FIXME: remove the +20 for column/row
-  localparam VGA_DATA_WIDTH = 14 + 20;
+  localparam VGA_DATA_WIDTH = 14;
 
   wire [VGA_DATA_WIDTH-1:0] sram_vga_data;
   wire [VGA_DATA_WIDTH-1:0] vga_data;
 
-  // FIXME: remove column/row
   assign sram_vga_data = {
-    column,
-    row,
-    sram_vga_hsync,
-    sram_vga_vsync,
-    sram_vga_red,
-    sram_vga_green,
-    sram_vga_blue
+    sram_vga_hsync, sram_vga_vsync, sram_vga_red, sram_vga_green, sram_vga_blue
   };
 
   assign vga_hsync = vga_data[13];
@@ -149,16 +140,6 @@ module vga_sram #(
   assign vga_red = vga_data[11:8];
   assign vga_green = vga_data[7:4];
   assign vga_blue = vga_data[3:0];
-
-  // FIXME: remove column/row
-  //
-  // verilator lint_off UNUSEDSIGNAL
-  wire [9:0] vga_column = vga_data[33:24];
-  wire [9:0] vga_row = vga_data[23:14];
-
-  wire [9:0] column;
-  wire [9:0] row;
-  // verilator lint_on UNUSEDSIGNAL
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -182,11 +163,7 @@ module vga_sram #(
       .red  (sram_vga_red),
       .green(sram_vga_green),
       .blue (sram_vga_blue),
-      .valid(sram_vga_data_valid),
-
-      // FIXME: remove column/row
-      .column(column),
-      .row   (row)
+      .valid(sram_vga_data_valid)
   );
 
   wire fifo_almost_full;
@@ -198,8 +175,21 @@ module vga_sram #(
 
   assign vga_ready = 1'b1;
 
+  // While we avoided knowledge of the pipeline delays in most places, we
+  // don't here. We need to make sure we generate almost full at least N+1
+  // entries, where N is the number of reads that can be pipelined in
+  // the pixel stream. Note: this is because the axi sram controller
+  // will just start dropping pipelined responses if axi_rready is not
+  // high. It seemed silly to add a fifo to buffer sram responses there, but
+  // it might be a sign that axi lite isn't appropriate for the pipelined
+  // sram controller, and it really isn't possible to apply backpressure to
+  // responses via rready.
+  //
+  // TODO: see comment above and decide how to do this properly. I'm fine
+  // with this for now though.
   cdc_fifo #(
-      .DATA_WIDTH(VGA_DATA_WIDTH)
+      .DATA_WIDTH     (VGA_DATA_WIDTH),
+      .ALMOST_FULL_BUF(5)
   ) fifo (
       // Write clock domain
       .w_clk        (clk),

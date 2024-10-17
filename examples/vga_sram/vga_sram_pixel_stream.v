@@ -32,9 +32,6 @@ module vga_sram_pixel_stream #(
     input wire reset,
     input wire enable,
 
-    // TODO: enable when this is turned back on
-    // verilator lint_off UNUSEDSIGNAL
-    //
     // SRAM AXI-Lite Read Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] axi_araddr,
     output reg                       axi_arvalid,
@@ -42,10 +39,11 @@ module vga_sram_pixel_stream #(
 
     // SRAM AXI-Lite Read Data Channel
     input  wire [AXI_DATA_WIDTH-1:0] axi_rdata,
+    // verilator lint_off UNUSEDSIGNAL
     input  wire [               1:0] axi_rresp,
+    // verilator lint_on UNUSEDSIGNAL
     input  wire                      axi_rvalid,
     output reg                       axi_rready,
-    // verilator lint_on UNUSEDSIGNAL
 
     // VGA signals
     output wire       vsync,
@@ -53,11 +51,8 @@ module vga_sram_pixel_stream #(
     output wire [3:0] red,
     output wire [3:0] green,
     output wire [3:0] blue,
-    output wire       valid,
+    output wire       valid
 
-    // FIXME: remove column/row
-    output reg [9:0] column = 0,
-    output reg [9:0] row = 0
 );
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
@@ -76,15 +71,14 @@ module vga_sram_pixel_stream #(
   // just ignoring the results, but it's potentially confusing
   // and prevents us from doing anything with memory during
   // the blanking period.
-  localparam IDLE = 1'b0;
-  localparam READING = 1'b1;
+  localparam [1:0] IDLE = 2'b00;
+  localparam [1:0] READ = 2'b01;
+  localparam [1:0] READ_WAIT = 2'b10;
 
-  reg                       state = IDLE;
-  reg                       next_state;
+  reg  [               1:0] state;
+  reg  [               1:0] next_state;
 
   // Read controls
-  reg                       read_start;
-  wire                      read_done;
   wire [AXI_ADDR_WIDTH-1:0] pixel_addr;
 
   //
@@ -94,29 +88,32 @@ module vga_sram_pixel_stream #(
     if (reset) begin
       started <= 0;
     end else begin
-      if (enable && !started) begin
+      if (enable & !started) begin
         started <= 1;
       end
     end
   end
 
   //
-  // row/column
+  // read row/column
   //
+  reg [9:0] read_column;
+  reg [9:0] read_row;
+
   always @(posedge clk or posedge reset) begin
     if (reset) begin
-      column <= 0;
-      row    <= 0;
+      read_column <= 0;
+      read_row    <= 0;
     end else begin
-      if (read_start & enable) begin
-        if (column < H_WHOLE_LINE) begin
-          column <= column + 1;
+      if (read_start) begin
+        if (read_column < H_WHOLE_LINE) begin
+          read_column <= read_column + 1;
         end else begin
-          column <= 0;
-          if (row < V_WHOLE_FRAME) begin
-            row <= row + 1;
+          read_column <= 0;
+          if (read_row < V_WHOLE_FRAME) begin
+            read_row <= read_row + 1;
           end else begin
-            row <= 0;
+            read_row <= 0;
           end
         end
       end
@@ -126,38 +123,38 @@ module vga_sram_pixel_stream #(
   // We're reading non-visible "pixels" too during the blanking periods,
   // but we don't forward them and it's harmless. Considering
   // complicating the state machine to not read the non-pixels.
-  assign pixel_addr = (row * H_VISIBLE) + column;
+  assign pixel_addr = (read_row * H_VISIBLE) + read_column;
 
   //
   // State machine
   //
-  // (brought in as boiler plate.. this can probably be removed as this is so
-  // simple)
-  //
   always @(*) begin
     next_state = state;
-    read_start = 1'b0;
 
-    if (!reset) begin
-      case (state)
-        IDLE: begin
-          if (started && enable) begin
-            read_start = 1'b1;
-            next_state = READING;
+    case (state)
+      IDLE: begin
+        if (started & enable) begin
+          next_state = READ;
+        end
+      end
+
+      READ: begin
+        next_state = READ_WAIT;
+      end
+
+      READ_WAIT: begin
+        if (read_accepted) begin
+          if (enable) begin
+            next_state = READ;
+          end else begin
+            next_state = IDLE;
           end
         end
+      end
 
-        READING: begin
-          if (read_done) begin
-            if (enable) begin
-              read_start = 1'b1;
-            end else begin
-              next_state = IDLE;
-            end
-          end
-        end
-      endcase
-    end
+      default: begin
+      end
+    endcase
   end
 
   // state registration
@@ -172,22 +169,57 @@ module vga_sram_pixel_stream #(
   //
   // AXI Read
   //
-  assign read_done = (axi_rready && axi_rvalid);
+  wire read_start;
+  assign read_start = (state != READ & next_state == READ);
+
+  wire read_accepted;
+  assign read_accepted = axi_arready & axi_arvalid;
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       axi_arvalid <= 1'b0;
       axi_rready  <= 1'b0;
     end else begin
-      // We're always ready for a response
       axi_rready <= 1'b1;
 
       if (read_start) begin
         axi_araddr  <= pixel_addr;
         axi_arvalid <= 1'b1;
       end else begin
-        if (axi_arready & axi_arvalid) begin
+        if (read_accepted) begin
           axi_arvalid <= 1'b0;
+        end
+      end
+    end
+  end
+
+  //
+  // vga pixel position. Note, this lags the column/row
+  // used for reading above. While we might happen to know
+  // the timing of the sram used, I didn't want to bake that
+  // assumption in and have an N clock shift register.
+  //
+  // I don't have good intuition if this uses less resources than
+  // using a fifo to pass the row/column used for the read.
+  //
+  reg [9:0] vga_column = 0;
+  reg [9:0] vga_row = 0;
+
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      vga_column <= 0;
+      vga_row    <= 0;
+    end else begin
+      if (read_done) begin
+        if (vga_column < H_WHOLE_LINE) begin
+          vga_column <= vga_column + 1;
+        end else begin
+          vga_column <= 0;
+          if (vga_row < V_WHOLE_FRAME) begin
+            vga_row <= vga_row + 1;
+          end else begin
+            vga_row <= 0;
+          end
         end
       end
     end
@@ -200,14 +232,21 @@ module vga_sram_pixel_stream #(
   // are in sync.
   //
   wire visible;
-  assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;
+  assign visible = (vga_column < H_VISIBLE && vga_row < V_VISIBLE) ? 1 : 0;
 
-  reg       hsync_r = 0;
-  reg       vsync_r = 0;
-  reg [3:0] red_r = 0;
-  reg [3:0] green_r = 0;
-  reg [3:0] blue_r = 0;
-  reg       valid_r = 0;
+  reg        hsync_r = 0;
+  reg        vsync_r = 0;
+  reg  [3:0] red_r = 0;
+  reg  [3:0] green_r = 0;
+  reg  [3:0] blue_r = 0;
+  reg        valid_r = 0;
+
+  wire       read_done;
+  assign read_done = (axi_rready & axi_rvalid);
+
+  // verilator lint_off UNUSEDSIGNAL
+  wire [3:0] unused_axi_rdata = axi_rdata[3:0];
+  // verilator lint_on UNUSEDSIGNAL
 
   always @(posedge clk or posedge reset) begin
     if (reset) begin
@@ -221,12 +260,13 @@ module vga_sram_pixel_stream #(
       valid_r <= 1'b0;
 
       if (read_done) begin
-        hsync_r <= (column >= H_SYNC_START && column < H_SYNC_END) ? 0 : 1;
-        vsync_r <= (row >= V_SYNC_START && row < V_SYNC_END) ? 0 : 1;
+        hsync_r <= (vga_column >= H_SYNC_START && vga_column < H_SYNC_END) ? 0 :
+            1;
+        vsync_r <= (vga_row >= V_SYNC_START && vga_row < V_SYNC_END) ? 0 : 1;
 
-        red_r   <= visible ? axi_rdata[15:12] : 4'b0000;
+        red_r <= visible ? axi_rdata[15:12] : 4'b0000;
         green_r <= visible ? axi_rdata[11:8] : 4'b0000;
-        blue_r  <= visible ? axi_rdata[7:4] : 4'b0000;
+        blue_r <= visible ? axi_rdata[7:4] : 4'b0000;
         valid_r <= 1'b1;
       end
     end
