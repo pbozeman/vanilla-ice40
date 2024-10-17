@@ -21,6 +21,7 @@ module sram_io_ice40 #(
     parameter integer DATA_BITS = 16
 ) (
     input wire clk,
+    input wire reset,
 
     // to/from the ice40 pad
     input  wire [ADDR_BITS-1:0] pad_addr,
@@ -41,8 +42,6 @@ module sram_io_ice40 #(
 );
 
 `ifndef LINTING
-
-  `define UNUSED_LOW 1'b0
 
   //
   // cs_n (posedge)
@@ -72,8 +71,21 @@ module sram_io_ice40 #(
   reg        pad_we_n_p2;
   wire [1:0] pad_we_n_ddr;
 
-  always @(posedge clk) pad_we_n_p1 <= pad_we_n;
-  always @(negedge clk) pad_we_n_p2 <= pad_we_n_p1;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pad_we_n_p1 <= 1'b1;
+    end else begin
+      pad_we_n_p1 <= pad_we_n;
+    end
+  end
+
+  always @(negedge clk or posedge reset) begin
+    if (reset) begin
+      pad_we_n_p2 <= 1'b1;
+    end else begin
+      pad_we_n_p2 <= pad_we_n_p1;
+    end
+  end
 
   assign pad_we_n_ddr = {pad_we_n_p2, pad_we_n_p1};
 
@@ -100,8 +112,21 @@ module sram_io_ice40 #(
   reg        pad_oe_n_p2;
   wire [1:0] pad_oe_n_ddr;
 
-  always @(posedge clk) pad_oe_n_p1 <= pad_oe_n;
-  always @(negedge clk) pad_oe_n_p2 <= pad_oe_n_p1;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pad_oe_n_p1 <= 1'b1;
+    end else begin
+      pad_oe_n_p1 <= pad_oe_n;
+    end
+  end
+
+  always @(negedge clk or posedge reset) begin
+    if (reset) begin
+      pad_oe_n_p2 <= 1'b1;
+    end else begin
+      pad_oe_n_p2 <= pad_oe_n_p1;
+    end
+  end
 
   assign pad_oe_n_ddr = {pad_oe_n_p2, pad_oe_n_p1};
 

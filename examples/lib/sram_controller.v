@@ -121,7 +121,8 @@ module sram_controller #(
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) u_sram_io_ice40 (
-      .clk(clk),
+      .clk  (clk),
+      .reset(reset),
 
       .pad_addr             (pad_addr),
       .pad_write_data       (pad_write_data),
