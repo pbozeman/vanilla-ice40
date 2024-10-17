@@ -28,7 +28,7 @@ module vga_sram_top #(
     output wire [7:0] R_F
 );
 
-  wire       reset = 0;
+  reg        reset = 0;
   reg  [3:0] reset_counter = 0;
 
   wire       pixel_clk;
@@ -67,11 +67,11 @@ module vga_sram_top #(
 
   // 10 clock reset
   always @(posedge CLK) begin
-    if (reset_counter < 100'd10) begin
+    if (reset_counter < 4'b1111) begin
       reset_counter <= reset_counter + 1;
-      reset         <= 1;
+      reset         <= 1'b1;
     end else begin
-      reset <= 0;
+      reset <= 1'b0;
     end
   end
 
