@@ -9,7 +9,7 @@
 `include "axi_2x2.v"
 `include "axi_sram_controller.v"
 `include "cdc_fifo.v"
-// `include "detect_rising.v"
+`include "detect_rising.v"
 `include "vga_sram_pattern_generator.v"
 `include "vga_sram_pixel_stream.v"
 
@@ -150,8 +150,6 @@ module vga_sram_double_buf #(
   assign vga_axi_wdata   = 0;
   assign vga_axi_bready  = 1'b0;
   assign vga_axi_wstrb   = 2'b11;
-
-  assign a2x2_switch_sel = 1'b0;
 
   axi_2x2 #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -349,11 +347,11 @@ module vga_sram_double_buf #(
   assign vga_green = vga_data[7:4];
   assign vga_blue = vga_data[3:0];
 
-  // detect_rising rising_pattern_done (
-  //     .clk     (clk),
-  //     .signal  (pattern_done),
-  //     .detected(a2x2_switch_sel)
-  // );
+  detect_rising rising_pattern_done (
+      .clk     (clk),
+      .signal  (pattern_done),
+      .detected(a2x2_switch_sel)
+  );
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -390,7 +388,8 @@ module vga_sram_double_buf #(
   assign vga_ready = 1'b1;
 
   cdc_fifo #(
-      .DATA_WIDTH(VGA_DATA_WIDTH)
+      .DATA_WIDTH     (VGA_DATA_WIDTH),
+      .ALMOST_FULL_BUF(5)
   ) fifo (
       // Write clock domain
       .w_clk        (clk),
