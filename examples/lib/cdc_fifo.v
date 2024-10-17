@@ -16,8 +16,9 @@
 //
 
 module cdc_fifo #(
-    parameter DATA_WIDTH = 8,
-    parameter ADDR_SIZE  = 4
+    parameter DATA_WIDTH      = 8,
+    parameter ADDR_SIZE       = 4,
+    parameter ALMOST_FULL_BUF = 1
 ) (
     // Write clock domain inputs
     input wire                  w_clk,
@@ -80,7 +81,10 @@ module cdc_fifo #(
       .r_addr   (r_addr)
   );
 
-  cdc_fifo_wptr_full #(ADDR_SIZE) wptr_full (
+  cdc_fifo_wptr_full #(
+      .ADDR_SIZE      (ADDR_SIZE),
+      .ALMOST_FULL_BUF(ALMOST_FULL_BUF)
+  ) wptr_full (
       .w_clk        (w_clk),
       .w_rst_n      (w_rst_n),
       .w_inc        (w_inc),

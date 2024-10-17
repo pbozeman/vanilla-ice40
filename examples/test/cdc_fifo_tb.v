@@ -24,8 +24,9 @@ module cdc_fifo_tb;
   wire [DATA_WIDTH-1:0] r_data;
 
   cdc_fifo #(
-      .DATA_WIDTH(DATA_WIDTH),
-      .ADDR_SIZE (ADDR_SIZE)
+      .DATA_WIDTH     (DATA_WIDTH),
+      .ADDR_SIZE      (ADDR_SIZE),
+      .ALMOST_FULL_BUF(4)
   ) dut (
       .w_clk        (w_clk),
       .w_rst_n      (w_rst_n),
@@ -111,6 +112,18 @@ module cdc_fifo_tb;
     `ASSERT(r_empty === 1'b1)
 
     // TODO: more complicated randomized/stress testing
+
+    // Add more data after wrap around
+    r_inc = 0;
+    w_inc = 1;
+    val   = 100;
+    repeat (15) begin
+      w_data = val;
+      val    = val + 1;
+      @(posedge w_clk);
+      @(negedge w_clk);
+      `ASSERT(w_full === 1'b0)
+    end
 
     $finish;
   end

@@ -72,11 +72,15 @@ module cdc_fifo_wptr_full_tb;
     end
 
     @(negedge w_clk);
+    `ASSERT(w_almost_full === 1'b0)
+    @(posedge w_clk);
+
+    @(negedge w_clk);
     `ASSERT(w_almost_full === 1'b1)
     @(posedge w_clk);
 
     @(negedge w_clk);
-    `ASSERT(w_almost_full === 1'b0)
+    `ASSERT(w_almost_full === 1'b1)
     `ASSERT(w_full === 1'b1)
     `ASSERT(w_ptr === 5'b11000);
     `ASSERT(w_addr === 4'b0000);

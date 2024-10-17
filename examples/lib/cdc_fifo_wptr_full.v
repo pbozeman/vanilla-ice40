@@ -3,6 +3,15 @@
 
 `include "directives.v"
 
+// This is for almost full. The Cummings paper (and this module)
+// compares the gray codes directly to determine the full flag. However,
+// I am not smart enough to figure out how to do a range based almost
+// full check.. ie. I want it to be true when the w_ptr is N elements
+// close to the r_ptr. < and > don't work on gray codes, so this
+// module converts the read ptr to binary for the comparison.
+//
+`include "gray_to_bin.v"
+
 //
 // From:
 // http://www.sunburst-design.com/papers/CummingsSNUG2002SJ_FIFO1.pdf
@@ -11,7 +20,8 @@
 //
 
 module cdc_fifo_wptr_full #(
-    parameter ADDR_SIZE = 4
+    parameter ADDR_SIZE       = 4,
+    parameter ALMOST_FULL_BUF = 1
 ) (
     input                 w_clk,
     input                 w_rst_n,
@@ -26,22 +36,17 @@ module cdc_fifo_wptr_full #(
   reg  [ADDR_SIZE:0] w_bin = 0;
   wire [ADDR_SIZE:0] w_bin_next;
   wire [ADDR_SIZE:0] w_gray_next;
-  wire [ADDR_SIZE:0] w_gray_next_next;
 
   // Memory write-address pointer (okay to use binary to address memory)
-  assign w_addr           = w_bin[ADDR_SIZE-1:0];
+  assign w_addr      = w_bin[ADDR_SIZE-1:0];
 
   //
   // Pointers
   //
   // next pointer values
-  // Note: there is probably a better way of doing the grey_next_next
-  // that is used for almost full, but this was quick and easy
-  // to understand conceptually.
   //
-  assign w_bin_next       = w_bin + (w_inc & ~w_full);
-  assign w_gray_next      = (w_bin_next >> 1) ^ w_bin_next;
-  assign w_gray_next_next = ((w_bin_next + 1) >> 1) ^ (w_bin_next + 1);
+  assign w_bin_next  = w_bin + (w_inc & ~w_full);
+  assign w_gray_next = (w_bin_next >> 1) ^ w_bin_next;
 
   // register next pointer values
   always @(posedge w_clk or negedge w_rst_n) begin
@@ -58,15 +63,30 @@ module cdc_fifo_wptr_full #(
   // Full
   //
   wire w_full_val;
-  wire w_almost_full_val;
-
   assign w_full_val = (w_gray_next == {~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1],
                                        w_q2_rptr[ADDR_SIZE-2:0]});
 
-  assign w_almost_full_val = (
-      w_gray_next_next ==
-          {~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1], w_q2_rptr[ADDR_SIZE-2:0]});
+  //
+  // Almost Full
+  //
 
+  wire [ADDR_SIZE:0] w_r_bin;
+  gray_to_bin #(
+      .WIDTH(ADDR_SIZE + 1)
+  ) rg2b (
+      .gray(w_q2_rptr),
+      .bin (w_r_bin)
+  );
+
+  wire [ADDR_SIZE:0] w_slots_used;
+  assign w_slots_used = w_bin - w_r_bin;
+
+
+  localparam ALMOST_FULL_SLOTS = (1 << ADDR_SIZE) - ALMOST_FULL_BUF;
+  wire w_almost_full_val;
+  assign w_almost_full_val = w_slots_used >= ALMOST_FULL_SLOTS;
+
+  // Register full flags
   always @(posedge w_clk or negedge w_rst_n) begin
     if (!w_rst_n) begin
       w_full <= 1'b0;
