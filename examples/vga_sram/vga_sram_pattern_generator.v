@@ -113,7 +113,11 @@ module vga_sram_pattern_generator #(
             column <= column + 1;
           end else begin
             column <= 0;
-            row    <= row + 1;
+            if (row < 480) begin
+              row <= row + 1;
+            end else begin
+              row <= 0;
+            end
           end
         end
       end

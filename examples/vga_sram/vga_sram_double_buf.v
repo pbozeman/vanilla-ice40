@@ -9,6 +9,7 @@
 `include "axi_2x2.v"
 `include "axi_sram_controller.v"
 `include "cdc_fifo.v"
+`include "detect_falling.v"
 `include "detect_rising.v"
 `include "vga_sram_pattern_generator.v"
 `include "vga_sram_pixel_stream.v"
@@ -304,7 +305,7 @@ module vga_sram_double_buf #(
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pattern (
       .clk         (clk),
-      .reset       (reset),
+      .reset       (reset | a2x2_switch_sel),
       .pattern_done(pattern_done),
 
       .axi_awaddr (gen_axi_awaddr),
@@ -347,11 +348,37 @@ module vga_sram_double_buf #(
   assign vga_green = vga_data[7:4];
   assign vga_blue = vga_data[3:0];
 
+  // The first switch is on first_pattern_done since the pixel generator
+  // is not running before that. Once it's running, we trigger when
+  // we are in the vertical blanking. (We could expose a frame done signal, as
+  // it's actually a little ahead of vsync, but this is fine.
+  wire posedge_first_pattern_done;
   detect_rising rising_pattern_done (
       .clk     (clk),
-      .signal  (pattern_done),
-      .detected(a2x2_switch_sel)
+      .signal  (first_pattern_done),
+      .detected(posedge_first_pattern_done)
   );
+
+  wire negedge_sram_vga_vsync;
+  detect_falling falling_sram_vga_vsync (
+      .clk     (clk),
+      .signal  (sram_vga_vsync),
+      .detected(negedge_sram_vga_vsync)
+  );
+
+  assign
+      a2x2_switch_sel = (posedge_first_pattern_done | negedge_sram_vga_vsync);
+
+  reg first_pattern_done = 1'b0;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      first_pattern_done <= 1'b0;
+    end else begin
+      if (!first_pattern_done) begin
+        first_pattern_done <= pattern_done;
+      end
+    end
+  end
 
   vga_sram_pixel_stream #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -359,7 +386,7 @@ module vga_sram_double_buf #(
   ) pixel_stream (
       .clk   (clk),
       .reset (reset),
-      .enable(pattern_done & !fifo_almost_full),
+      .enable(first_pattern_done & !fifo_almost_full),
 
       .axi_araddr (vga_axi_araddr),
       .axi_arvalid(vga_axi_arvalid),
