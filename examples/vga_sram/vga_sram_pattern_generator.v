@@ -62,8 +62,10 @@ module vga_sram_pattern_generator #(
   wire [AXI_ADDR_WIDTH-1:0] addr;
   wire [AXI_DATA_WIDTH-1:0] data;
 
+  // row/col is for the upcoming write, so we are done when we
+  // have written row 479 column 639
   wire                      done;
-  assign done = (row == 479 && column == 639);
+  assign done = (row == 480 && column == 0);
 
   // state machine
   always @(*) begin
