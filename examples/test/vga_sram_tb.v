@@ -55,9 +55,8 @@ module vga_sram_tb;
 
   // Instantiate the mocked SRAM model
   sram_model #(
-      .ADDR_BITS                (AXI_ADDR_WIDTH),
-      .DATA_BITS                (AXI_DATA_WIDTH),
-      .UNINITIALIZED_READS_FATAL(0)
+      .ADDR_BITS(AXI_ADDR_WIDTH),
+      .DATA_BITS(AXI_DATA_WIDTH)
   ) sram (
       .we_n   (sram_io_we_n),
       .oe_n   (sram_io_oe_n),

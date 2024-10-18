@@ -68,9 +68,8 @@ module vga_sram_double_buf_tb;
 
   // Instantiate the mocked SRAM model
   sram_model #(
-      .ADDR_BITS                (AXI_ADDR_WIDTH),
-      .DATA_BITS                (AXI_DATA_WIDTH),
-      .UNINITIALIZED_READS_FATAL(0)
+      .ADDR_BITS(AXI_ADDR_WIDTH),
+      .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_0 (
       .we_n   (sram0_io_we_n),
       .oe_n   (sram0_io_oe_n),
@@ -80,9 +79,8 @@ module vga_sram_double_buf_tb;
   );
 
   sram_model #(
-      .ADDR_BITS                (AXI_ADDR_WIDTH),
-      .DATA_BITS                (AXI_DATA_WIDTH),
-      .UNINITIALIZED_READS_FATAL(0)
+      .ADDR_BITS(AXI_ADDR_WIDTH),
+      .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_1 (
       .we_n   (sram1_io_we_n),
       .oe_n   (sram1_io_oe_n),
