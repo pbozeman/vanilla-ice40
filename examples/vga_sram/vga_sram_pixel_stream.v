@@ -231,8 +231,8 @@ module vga_sram_pixel_stream #(
   // Register them all at the same time so that all the signals
   // are in sync.
   //
-  wire visible;
-  assign visible = (vga_column < H_VISIBLE && vga_row < V_VISIBLE) ? 1 : 0;
+  wire vga_visible;
+  assign vga_visible = (vga_column < H_VISIBLE && vga_row < V_VISIBLE) ? 1 : 0;
 
   reg        hsync_r = 0;
   reg        vsync_r = 0;
@@ -264,9 +264,9 @@ module vga_sram_pixel_stream #(
             1;
         vsync_r <= (vga_row >= V_SYNC_START && vga_row < V_SYNC_END) ? 0 : 1;
 
-        red_r <= visible ? axi_rdata[15:12] : 4'b0000;
-        green_r <= visible ? axi_rdata[11:8] : 4'b0000;
-        blue_r <= visible ? axi_rdata[7:4] : 4'b0000;
+        red_r <= vga_visible ? axi_rdata[15:12] : 4'b0000;
+        green_r <= vga_visible ? axi_rdata[11:8] : 4'b0000;
+        blue_r <= vga_visible ? axi_rdata[7:4] : 4'b0000;
         valid_r <= 1'b1;
       end
     end
