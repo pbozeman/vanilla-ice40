@@ -75,11 +75,11 @@ module vga_sram_pixel_stream #(
   localparam [1:0] READ = 2'b01;
   localparam [1:0] READ_WAIT = 2'b10;
 
-  reg  [               1:0] state;
-  reg  [               1:0] next_state;
+  reg [               1:0] state;
+  reg [               1:0] next_state;
 
   // Read controls
-  wire [AXI_ADDR_WIDTH-1:0] pixel_addr;
+  reg [AXI_ADDR_WIDTH-1:0] pixel_addr = 0;
 
   //
   // started
@@ -120,10 +120,38 @@ module vga_sram_pixel_stream #(
     end
   end
 
-  // We're reading non-visible "pixels" too during the blanking periods,
-  // but we don't forward them and it's harmless. Considering
-  // complicating the state machine to not read the non-pixels.
-  assign pixel_addr = (read_row * H_VISIBLE) + read_column;
+  //
+  // read addr
+  //
+  // an older version of this file did
+  //
+  //   assign pixel_addr = (read_row * H_VISIBLE) + read_column;
+  //
+  // but that requires a multiply. While smaller code, the multiply
+  // is much more expensive to synthesize.
+  //
+  // Note: we hold the pixel addr as the last visible pixel during
+  // the horizontal blanking period, and reset to 0 during the
+  // vertical blanking. We continue to read those pixels despite throwing
+  // away the value when we return vga data to the caller. I made a few
+  // attempts as creating a pixel_visible signal and using it to not
+  // issue reads during the blanking period, but those attempts
+  // violated timing. So, I left it like this for now.
+  //
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pixel_addr <= 0;
+    end else begin
+      if (read_start) begin
+        if (read_column < H_VISIBLE) begin
+          pixel_addr <= pixel_addr + 1;
+        end
+      end
+      if (read_row >= V_VISIBLE) begin
+        pixel_addr <= 0;
+      end
+    end
+  end
 
   //
   // State machine
@@ -131,10 +159,17 @@ module vga_sram_pixel_stream #(
   always @(*) begin
     next_state = state;
 
+    // While I prefer to do other logic outside the state machine,
+    // this would require looking at state and next_state. Looking at
+    // the results of next_state push us over timing, when instead,
+    // we can just emit the signal here.
+    read_start = 0;
+
     case (state)
       IDLE: begin
         if (started & enable) begin
           next_state = READ;
+          read_start = 1'b1;
         end
       end
 
@@ -146,6 +181,7 @@ module vga_sram_pixel_stream #(
         if (read_accepted) begin
           if (enable) begin
             next_state = READ;
+            read_start = 1'b1;
           end else begin
             next_state = IDLE;
           end
@@ -169,8 +205,7 @@ module vga_sram_pixel_stream #(
   //
   // AXI Read
   //
-  wire read_start;
-  assign read_start = (state != READ & next_state == READ);
+  reg  read_start;
 
   wire read_accepted;
   assign read_accepted = axi_arready & axi_arvalid;
