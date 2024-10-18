@@ -19,7 +19,7 @@
 `define TEST_SETUP_SLOW(mod)                                 \
    initial begin                                             \
      $dumpfile({".build/", `"mod`", ".vcd"});                \
-     $dumpvars(3, mod);                                      \
+     $dumpvars(4, mod);                                      \
    end                                                       \
    reg skip_slow_tests;                                      \
    initial begin                                             \
