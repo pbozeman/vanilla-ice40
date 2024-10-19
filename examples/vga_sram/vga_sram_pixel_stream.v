@@ -60,10 +60,6 @@ module vga_sram_pixel_stream #(
   localparam V_SYNC_START = V_VISIBLE + V_FRONT_PORCH;
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
-  // Don't start running until we are told to.
-  reg started = 0;
-
-
   // State definitions
   //
   // TODO: we really should have a blanking state so that we are
@@ -81,20 +77,7 @@ module vga_sram_pixel_stream #(
   // Read controls
   reg [AXI_ADDR_WIDTH-1:0] pixel_addr = 0;
 
-  //
-  // started
-  //
-  always @(posedge clk or posedge reset) begin
-    if (reset) begin
-      started <= 0;
-    end else begin
-      if (enable & !started) begin
-        started <= 1;
-      end
-    end
-  end
-
-  reg enabled = 1'b0;
+  reg                      enabled = 1'b0;
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       enabled <= 1'b0;
@@ -176,7 +159,7 @@ module vga_sram_pixel_stream #(
 
     case (state)
       IDLE: begin
-        if (started & enabled) begin
+        if (enabled) begin
           next_state = READ;
           read_start = 1'b1;
         end
