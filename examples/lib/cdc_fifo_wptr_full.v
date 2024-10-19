@@ -49,7 +49,7 @@ module cdc_fifo_wptr_full #(
   assign w_gray_next = (w_bin_next >> 1) ^ w_bin_next;
 
   // register next pointer values
-  always @(posedge w_clk or negedge w_rst_n) begin
+  always @(posedge w_clk) begin
     if (!w_rst_n) begin
       w_bin <= 0;
       w_ptr <= 0;
@@ -87,7 +87,7 @@ module cdc_fifo_wptr_full #(
   assign w_almost_full_val = w_slots_used >= ALMOST_FULL_SLOTS;
 
   // Register full flags
-  always @(posedge w_clk or negedge w_rst_n) begin
+  always @(posedge w_clk) begin
     if (!w_rst_n) begin
       w_full <= 1'b0;
     end else begin

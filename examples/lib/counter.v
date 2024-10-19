@@ -17,7 +17,7 @@ module counter #(
     count = {WIDTH{1'b0}};
   end
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       count <= 0;
     end else if (enable) begin

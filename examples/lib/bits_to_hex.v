@@ -47,7 +47,7 @@ module bits_to_hex #(
     end
   endfunction
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       for (i = 0; i < N_NIBBLES; i = i + 1) begin
         ascii[i*8+:8] <= 8'd0;

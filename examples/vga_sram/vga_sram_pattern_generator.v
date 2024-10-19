@@ -95,7 +95,7 @@ module vga_sram_pattern_generator #(
   end
 
   // state registration
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
     end else begin
@@ -104,7 +104,7 @@ module vga_sram_pattern_generator #(
   end
 
   // row/column
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       column <= 0;
       row    <= 0;
@@ -131,7 +131,7 @@ module vga_sram_pattern_generator #(
   //
   assign write_done = (axi_bready && axi_bvalid);
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       axi_awvalid <= 1'b0;
       axi_wvalid  <= 1'b0;
@@ -169,7 +169,7 @@ module vga_sram_pattern_generator #(
 
   // this is kinda hacky, but the idea is to not tell the caller
   // that we are done until the sram is done too.
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pattern_done <= 0;
     end else begin

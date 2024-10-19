@@ -37,8 +37,10 @@ module iter_tb;
     inc          = 0;
     expected_val = 0;
     @(posedge clk);
+    @(negedge clk);
     reset = 0;
     @(posedge clk);
+    @(negedge clk);
 
     // Test initial state
     `ASSERT(val == 0);
@@ -48,6 +50,7 @@ module iter_tb;
     repeat (MAX_VALUE + 2) begin
       inc = 1;
       @(posedge clk);
+      @(negedge clk);
 
       if (expected_val == MAX_VALUE) begin
         expected_val = 0;
@@ -57,6 +60,7 @@ module iter_tb;
 
       inc = 0;
       @(posedge clk);
+      @(negedge clk);
 
       `ASSERT(val == expected_val);
       if (val == MAX_VALUE) begin
@@ -70,8 +74,10 @@ module iter_tb;
     // Test reset
     reset = 1;
     @(posedge clk);
+    @(negedge clk);
     reset = 0;
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(val == 0);
     `ASSERT(done == 0);
 

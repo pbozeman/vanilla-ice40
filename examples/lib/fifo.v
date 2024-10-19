@@ -22,7 +22,7 @@ module fifo #(
   reg [$clog2(DEPTH+1)-1:0] fifo_count = 0;
 
   // Write operation
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       wr_ptr <= 0;
     end else if (write_en && !full) begin
@@ -32,7 +32,7 @@ module fifo #(
   end
 
   // Read operation
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       rd_ptr    <= 0;
       read_data <= 0;
@@ -43,7 +43,7 @@ module fifo #(
   end
 
   // FIFO count management
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       fifo_count <= 0;
     end else begin

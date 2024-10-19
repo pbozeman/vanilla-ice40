@@ -173,7 +173,7 @@ module sram_tester #(
   end
 
   // state registration
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       state <= START;
     end else begin
@@ -198,7 +198,7 @@ module sram_tester #(
   // Maybe a case statement would work too.
 
   // state == WRITING
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       last_write <= 1'b0;
     end else begin
@@ -232,7 +232,7 @@ module sram_tester #(
   );
 
   // last_read registration (state == READ_HOLD)
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       last_read      <= 1'b0;
       prev_read_data <= {DATA_BITS{1'b0}};
@@ -245,7 +245,7 @@ module sram_tester #(
   end
 
   // addr_inc
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       addr_inc <= 1'b0;
     end else begin
@@ -254,7 +254,7 @@ module sram_tester #(
   end
 
   // validation flag
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       validate <= 1'b0;
     end else begin
@@ -264,7 +264,7 @@ module sram_tester #(
 
   // test_pass validation
   // (pipelined to meet timing)
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       test_pass <= 1'b1;
     end else begin
@@ -277,7 +277,7 @@ module sram_tester #(
   end
 
   // pattern_inc
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pattern_inc <= 1'b0;
     end else begin
@@ -286,7 +286,7 @@ module sram_tester #(
   end
 
   // pattern_prev
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pattern_prev <= 1'b0;
     end else begin

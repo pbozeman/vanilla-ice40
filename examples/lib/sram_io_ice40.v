@@ -71,7 +71,7 @@ module sram_io_ice40 #(
   reg        pad_we_n_p2;
   wire [1:0] pad_we_n_ddr;
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pad_we_n_p1 <= 1'b1;
     end else begin
@@ -79,7 +79,7 @@ module sram_io_ice40 #(
     end
   end
 
-  always @(negedge clk or posedge reset) begin
+  always @(negedge clk) begin
     if (reset) begin
       pad_we_n_p2 <= 1'b1;
     end else begin
@@ -112,7 +112,7 @@ module sram_io_ice40 #(
   reg        pad_oe_n_p2;
   wire [1:0] pad_oe_n_ddr;
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pad_oe_n_p1 <= 1'b1;
     end else begin
@@ -120,7 +120,7 @@ module sram_io_ice40 #(
     end
   end
 
-  always @(negedge clk or posedge reset) begin
+  always @(negedge clk) begin
     if (reset) begin
       pad_oe_n_p2 <= 1'b1;
     end else begin

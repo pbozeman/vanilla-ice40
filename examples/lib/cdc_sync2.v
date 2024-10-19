@@ -21,7 +21,7 @@ module cdc_sync2 #(
   // 1st stage ff output
   reg [WIDTH-1:0] q1 = 0;
 
-  always @(posedge clk or negedge rst_n) begin
+  always @(posedge clk) begin
     if (!rst_n) begin
       q  <= 0;
       q1 <= 0;

@@ -15,6 +15,7 @@ module delay #(
   reg     [WIDTH-1:0] shift_reg[DELAY_CYCLES-1:0];
 
   integer             i;
+
   always @(posedge clk) begin
     shift_reg[0] <= in;
     for (i = 1; i < DELAY_CYCLES; i = i + 1) begin

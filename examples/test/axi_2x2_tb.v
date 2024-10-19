@@ -140,18 +140,24 @@ module axi_2x2_tb;
     out1_axi_rvalid  = 0;
 
     @(posedge axi_clk);
+    @(negedge axi_clk);
+
     axi_rst_n = 1;
     @(posedge axi_clk);
+    @(negedge axi_clk);
 
     switch_sel = 1;
     @(posedge axi_clk);
+    @(negedge axi_clk);
     `ASSERT(sel === 1'b1)
     switch_sel = 0;
     @(posedge axi_clk);
+    @(negedge axi_clk);
     `ASSERT(sel === 1'b1)
 
     switch_sel = 1;
     @(posedge axi_clk);
+    @(negedge axi_clk);
     `ASSERT(sel === 1'b0)
     switch_sel       = 0;
 
@@ -163,6 +169,7 @@ module axi_2x2_tb;
     out0_axi_awready = 1;
     out0_axi_wready  = 1;
     @(posedge axi_clk);
+    @(negedge axi_clk);
     `ASSERT(out0_axi_awaddr === 20'h12345)
     `ASSERT(out0_axi_awvalid === 1'b1)
     `ASSERT(out0_axi_wdata === 16'hABCD)

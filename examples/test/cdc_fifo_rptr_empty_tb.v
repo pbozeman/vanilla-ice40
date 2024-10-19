@@ -39,6 +39,7 @@ module cdc_fifo_rptr_empty_tb;
     r_inc     = 0;
     r_q2_wptr = 0;
     @(posedge r_clk);
+    @(negedge r_clk);
 
     r_rst_n = 1;
     @(posedge r_clk);

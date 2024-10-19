@@ -92,7 +92,7 @@ module axi_2x2 #(
 );
 
   // Selection logic
-  always @(posedge axi_clk or negedge axi_rst_n) begin
+  always @(posedge axi_clk) begin
     if (!axi_rst_n) begin
       sel <= 0;
     end else if (switch_sel) begin

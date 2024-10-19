@@ -160,7 +160,7 @@ module axi_sram_controller #(
   end
 
   // state machine registration
-  always @(posedge axi_clk or negedge axi_resetn) begin
+  always @(posedge axi_clk) begin
     if (~axi_resetn) begin
       current_state <= IDLE;
     end else begin
@@ -173,7 +173,7 @@ module axi_sram_controller #(
   //
   reg prev_axi_bready = 0;
 
-  always @(posedge axi_clk or negedge axi_resetn) begin
+  always @(posedge axi_clk) begin
     if (~axi_resetn) begin
       axi_bvalid_reg  <= 1'b0;
       prev_axi_bready <= 1'b0;
@@ -198,7 +198,7 @@ module axi_sram_controller #(
   reg prev_sram_read_data_valid = 0;
   reg prev_axi_rready = 0;
 
-  always @(posedge axi_clk or negedge axi_resetn) begin
+  always @(posedge axi_clk) begin
     if (~axi_resetn) begin
       axi_rvalid_reg            <= 1'b0;
       prev_sram_read_data_valid <= 1'b0;

@@ -57,7 +57,7 @@ module bits_to_hex_tb;
     //
     bits_8 = 0;
     @(posedge clk);
-
+    @(negedge clk);
     `ASSERT(ascii_8 == "00");
 
     //
@@ -65,7 +65,7 @@ module bits_to_hex_tb;
     //
     bits_8 = 10;
     @(posedge clk);
-
+    @(negedge clk);
     `ASSERT(ascii_8 == "0A");
 
     //
@@ -73,7 +73,7 @@ module bits_to_hex_tb;
     //
     bits_8 = 255;
     @(posedge clk);
-
+    @(negedge clk);
     `ASSERT(ascii_8 == "FF");
 
     //
@@ -81,7 +81,7 @@ module bits_to_hex_tb;
     //
     bits_7 = 127;
     @(posedge clk);
-
+    @(negedge clk);
     `ASSERT(ascii_7 == "7F");
 
     //
@@ -89,7 +89,7 @@ module bits_to_hex_tb;
     //
     bits_64 = 64'hAAAAAAAAAAAAAAAA;
     @(posedge clk);
-
+    @(negedge clk);
     `ASSERT(ascii_64 == "AAAAAAAAAAAAAAAA");
 
     $finish;

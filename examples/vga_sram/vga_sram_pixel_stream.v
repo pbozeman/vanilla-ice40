@@ -78,7 +78,7 @@ module vga_sram_pixel_stream #(
   reg [AXI_ADDR_WIDTH-1:0] pixel_addr = 0;
 
   reg                      enabled = 1'b0;
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       enabled <= 1'b0;
     end else begin
@@ -92,7 +92,7 @@ module vga_sram_pixel_stream #(
   reg [9:0] read_column;
   reg [9:0] read_row;
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       read_column <= 0;
       read_row    <= 0;
@@ -122,7 +122,7 @@ module vga_sram_pixel_stream #(
   // but that requires a multiply. While smaller code, the multiply
   // is much more expensive to synthesize.
   //
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pixel_addr <= 0;
     end else begin
@@ -138,7 +138,7 @@ module vga_sram_pixel_stream #(
   end
 
   reg pixel_visible = 1'b0;
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       pixel_visible <= 1'b0;
     end else begin
@@ -197,7 +197,7 @@ module vga_sram_pixel_stream #(
   end
 
   // state registration
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
     end else begin
@@ -213,7 +213,7 @@ module vga_sram_pixel_stream #(
   wire read_accepted;
   assign read_accepted = axi_arready & axi_arvalid;
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       axi_arvalid <= 1'b0;
       axi_rready  <= 1'b0;
@@ -243,7 +243,7 @@ module vga_sram_pixel_stream #(
   reg [9:0] vga_column = 0;
   reg [9:0] vga_row = 0;
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       vga_column <= 0;
       vga_row    <= 0;
@@ -286,7 +286,7 @@ module vga_sram_pixel_stream #(
   wire [3:0] unused_axi_rdata = axi_rdata[3:0];
   // verilator lint_on UNUSEDSIGNAL
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       valid_r <= 1'b0;
       hsync_r <= 1'b0;

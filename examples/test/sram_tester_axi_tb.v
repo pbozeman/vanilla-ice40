@@ -80,7 +80,7 @@ module sram_tester_axi_tb ();
   end
 
   // Timeout counter logic
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       timeout_counter <= 0;
     end else begin
@@ -89,7 +89,7 @@ module sram_tester_axi_tb ();
     end
   end
 
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (test_done) begin
       done_counter <= done_counter + 1;
     end
@@ -98,6 +98,7 @@ module sram_tester_axi_tb ();
   initial begin
     reset = 1;
     @(posedge clk);
+    @(negedge clk);
     reset = 0;
 
     wait (done_counter == 2 || timeout_counter == MAX_CYCLES - 1);

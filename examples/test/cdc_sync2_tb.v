@@ -33,25 +33,33 @@ module cdc_sync2_tb;
     // Wait for global reset
     repeat (10) @(posedge clk);
     rst_n = 1;
+    @(posedge clk);
+    @(negedge clk);
 
     // Test case 1: Normal operation
     @(posedge clk);
+    @(negedge clk);
     d = 4'b1010;
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b0000);
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b1010);
 
     // Test case 2: Changing input
     @(posedge clk);
+    @(negedge clk);
     d = 4'b0101;
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b1010);
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b0101);
 
     // Test case 3: Reset operation
@@ -59,14 +67,17 @@ module cdc_sync2_tb;
     rst_n = 0;
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b0000);
 
     rst_n = 1;
     d     = 4'b1111;
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b0000);
 
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(q == 4'b1111);
 
     // Test case 4: Rapid input changes

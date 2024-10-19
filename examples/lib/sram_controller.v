@@ -97,7 +97,7 @@ module sram_controller #(
   //
   // State registration
   //
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
     end else begin
@@ -143,7 +143,7 @@ module sram_controller #(
   //
   // Ready
   //
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       ready_reg <= 1;
     end else begin

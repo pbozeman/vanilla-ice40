@@ -370,7 +370,7 @@ module vga_sram_double_buf #(
       a2x2_switch_sel = (posedge_first_pattern_done | negedge_sram_vga_vsync);
 
   reg first_pattern_done = 1'b0;
-  always @(posedge clk or posedge reset) begin
+  always @(posedge clk) begin
     if (reset) begin
       first_pattern_done <= 1'b0;
     end else begin

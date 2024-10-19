@@ -129,9 +129,11 @@ module axi_sram_controller_tb;
 
       axi_resetn  = 1'b0;
       @(posedge axi_clk);
+      @(negedge axi_clk);
 
       axi_resetn = 1'b1;
       @(posedge axi_clk);
+      @(negedge axi_clk);
     end
   endtask
 
@@ -254,6 +256,7 @@ module axi_sram_controller_tb;
       // Accept the response
       axi_bready = 1'b1;
       @(posedge axi_clk);
+      @(negedge axi_clk);
 
       `ASSERT(axi_bvalid === 1'b0);
       `ASSERT(axi_bresp === 2'bxx);
@@ -380,6 +383,7 @@ module axi_sram_controller_tb;
       // Accept the response
       axi_rready = 1'b1;
       @(posedge axi_clk);
+      @(negedge axi_clk);
       `ASSERT(!axi_rvalid);
 
       // allow it to go to the next txn

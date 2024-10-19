@@ -43,6 +43,7 @@ module fifo_tb;
     write_en   = 1'b0;
     write_data = 8'h00;
     @(posedge clk);
+    @(negedge clk);
 
     `ASSERT(empty);
     `ASSERT(!full);
@@ -55,6 +56,7 @@ module fifo_tb;
     write_en   = 1'b1;
     write_data = 8'hA5;
     @(posedge clk);
+    @(negedge clk);
 
     `ASSERT(!empty);
     `ASSERT(!full);
@@ -63,17 +65,21 @@ module fifo_tb;
     write_en   = 1'b0;
     write_data = 8'h00;
     @(posedge clk);
+    @(negedge clk);
 
     // `ASSERT(!empty);
     `ASSERT(!full);
 
     @(posedge clk);
+    @(negedge clk);
 
     // `ASSERT(!empty);
     `ASSERT(!full);
 
     read_en = 1'b1;
     @(posedge clk);
+    @(negedge clk);
+
     `ASSERT(empty);
     `ASSERT(!full);
     `ASSERT(read_data == 8'hA5);
@@ -91,6 +97,7 @@ module fifo_tb;
       write_en   = 1'b1;
       write_data = i;
       @(posedge clk);
+      @(negedge clk);
       `ASSERT(!empty);
       `ASSERT(!full);
     end
@@ -99,22 +106,26 @@ module fifo_tb;
     write_en   = 1'b1;
     write_data = 8'h0F;
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(full);
 
     // clock a value that shouldn't get included
     write_data = 8'hAA;
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(full);
 
     // clear write
     write_en   = 1'b0;
     write_data = 8'h00;
     @(posedge clk);
+    @(negedge clk);
 
     // read all but 1 back
     for (i = 0; i < 15; i = i + 1) begin
       read_en = 1'b1;
       @(posedge clk);
+      @(negedge clk);
       `ASSERT(!empty);
       `ASSERT(!full);
       `ASSERT(read_data == i);
@@ -123,6 +134,7 @@ module fifo_tb;
     // read final byte
     read_en = 1'b1;
     @(posedge clk);
+    @(negedge clk);
     `ASSERT(empty);
     `ASSERT(!full);
     `ASSERT(read_data == 8'h0F);

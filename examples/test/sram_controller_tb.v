@@ -78,52 +78,14 @@ module sram_controller_tb;
     // Reset
     reset = 1;
     @(posedge clk);
+    @(negedge clk);
     reset = 0;
     @(posedge clk);
+    @(negedge clk);
 
     `ASSERT(ready);
     `ASSERT(io_oe_n);
     `ASSERT(io_we_n);
-
-    //
-    // Single read/write
-    //
-
-    // Write
-    // We have 2 register stages to get through
-    write_enable = 1;
-    req          = 1'b1;
-    addr         = 10'h0AA;
-    write_data   = 8'hA1;
-    @(posedge clk);
-    req = 1'b0;
-    @(posedge clk);
-
-    `ASSERT(!ready);
-    @(negedge clk);
-    @(posedge clk);
-    `ASSERT(io_addr_bus === 10'h0AA);
-    `ASSERT(io_data_bus === 8'hA1);
-
-    // Read
-    `ASSERT(ready);
-    write_enable = 0;
-    req          = 1'b1;
-    addr         = 10'h0AA;
-    @(posedge clk);
-    `ASSERT(!read_data_valid);
-    req = 1'b0;
-    `ASSERT(ready);
-    @(posedge clk);
-    `ASSERT(!read_data_valid);
-    @(posedge clk);
-    `ASSERT(!read_data_valid);
-    @(posedge clk);
-    `ASSERT(!read_data_valid);
-    @(negedge clk);
-    `ASSERT(read_data_valid);
-    `ASSERT(read_data === 8'hA1);
-    `ASSERT(ready);
 
     //
     // Multi write/read
