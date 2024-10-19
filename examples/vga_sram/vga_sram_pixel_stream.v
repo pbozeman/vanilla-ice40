@@ -97,7 +97,7 @@ module vga_sram_pixel_stream #(
       read_column <= 0;
       read_row    <= 0;
     end else begin
-      if (read_start) begin
+      if (pixel_inc) begin
         if (read_column < H_WHOLE_LINE) begin
           read_column <= read_column + 1;
         end else begin
@@ -122,19 +122,11 @@ module vga_sram_pixel_stream #(
   // but that requires a multiply. While smaller code, the multiply
   // is much more expensive to synthesize.
   //
-  // Note: we hold the pixel addr as the last visible pixel during
-  // the horizontal blanking period, and reset to 0 during the
-  // vertical blanking. We continue to read those pixels despite throwing
-  // away the value when we return vga data to the caller. I made a few
-  // attempts as creating a pixel_visible signal and using it to not
-  // issue reads during the blanking period, but those attempts
-  // violated timing. So, I left it like this for now.
-  //
   always @(posedge clk or posedge reset) begin
     if (reset) begin
       pixel_addr <= 0;
     end else begin
-      if (read_start) begin
+      if (pixel_inc) begin
         if (read_column < H_VISIBLE) begin
           pixel_addr <= pixel_addr + 1;
         end
@@ -144,6 +136,20 @@ module vga_sram_pixel_stream #(
       end
     end
   end
+
+  reg pixel_visible = 1'b0;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      pixel_visible <= 1'b0;
+    end else begin
+      pixel_visible <= 1'b0;
+      if (read_column < H_VISIBLE & read_row < V_VISIBLE) begin
+        pixel_visible <= 1'b1;
+      end
+    end
+  end
+
+  reg pixel_inc;
 
   //
   // State machine
@@ -156,12 +162,16 @@ module vga_sram_pixel_stream #(
     // the results of next_state push us over timing, when instead,
     // we can just emit the signal here.
     read_start = 0;
+    pixel_inc  = 0;
 
     case (state)
       IDLE: begin
         if (enabled) begin
-          next_state = READ;
-          read_start = 1'b1;
+          pixel_inc = 1'b1;
+          if (pixel_visible) begin
+            next_state = READ;
+            read_start = 1'b1;
+          end
         end
       end
 
@@ -171,7 +181,8 @@ module vga_sram_pixel_stream #(
 
       READ_WAIT: begin
         if (read_accepted) begin
-          if (enabled) begin
+          pixel_inc = 1'b1;
+          if (enabled & pixel_visible) begin
             next_state = READ;
             read_start = 1'b1;
           end else begin
