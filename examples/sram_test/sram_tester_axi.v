@@ -179,11 +179,14 @@ module sram_tester_axi #(
   // next_state
   //
   always @(*) begin
-    next_state = state;
+    next_state  = state;
+    write_start = 1'b0;
+    read_start  = 1'b0;
 
     case (state)
       START: begin
-        next_state = WRITE;
+        next_state  = WRITE;
+        write_start = 1'b1;
       end
 
       WRITE: begin
@@ -194,8 +197,10 @@ module sram_tester_axi #(
         if (write_accepted) begin
           if (writes_done) begin
             next_state = READ;
+            read_start = 1'b1;
           end else begin
-            next_state = WRITE;
+            next_state  = WRITE;
+            write_start = 1'b1;
           end
         end
       end
@@ -210,16 +215,19 @@ module sram_tester_axi #(
             if (pattern_done) begin
               next_state = DONE;
             end else begin
-              next_state = WRITE;
+              next_state  = WRITE;
+              write_start = 1'b1;
             end
           end else begin
             next_state = READ;
+            read_start = 1'b1;
           end
         end
       end
 
       DONE: begin
-        next_state = WRITE;
+        next_state  = WRITE;
+        write_start = 1'b1;
       end
 
       HALT: begin
@@ -248,7 +256,7 @@ module sram_tester_axi #(
   //
   // writing
   //
-  wire write_start = (state != WRITE & next_state == WRITE);
+  reg  write_start;
 
   reg  write_addr_accepted;
   reg  write_data_accepted;
@@ -304,8 +312,7 @@ module sram_tester_axi #(
   //
   // reading
   //
-  wire read_start;
-  assign read_start = (state != READ & next_state == READ);
+  reg  read_start;
 
   wire read_accepted;
   assign read_accepted = axi_arready & axi_arvalid;
