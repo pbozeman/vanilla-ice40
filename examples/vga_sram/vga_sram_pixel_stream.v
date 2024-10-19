@@ -94,6 +94,15 @@ module vga_sram_pixel_stream #(
     end
   end
 
+  reg enabled = 1'b0;
+  always @(posedge clk or posedge reset) begin
+    if (reset) begin
+      enabled <= 1'b0;
+    end else begin
+      enabled <= enable;
+    end
+  end
+
   //
   // read row/column
   //
@@ -167,7 +176,7 @@ module vga_sram_pixel_stream #(
 
     case (state)
       IDLE: begin
-        if (started & enable) begin
+        if (started & enabled) begin
           next_state = READ;
           read_start = 1'b1;
         end
@@ -179,7 +188,7 @@ module vga_sram_pixel_stream #(
 
       READ_WAIT: begin
         if (read_accepted) begin
-          if (enable) begin
+          if (enabled) begin
             next_state = READ;
             read_start = 1'b1;
           end else begin
