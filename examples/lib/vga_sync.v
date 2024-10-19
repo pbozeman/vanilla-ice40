@@ -24,13 +24,13 @@ module vga_sync #(
     // verilator lint_on UNUSEDPARAM
     parameter V_WHOLE_FRAME = 525
 ) (
-    input        clk,
-    input        reset,
-    output       visible,
-    output       hsync,
-    output       vsync,
-    output [9:0] column,
-    output [9:0] row
+    input  wire       clk,
+    input  wire       reset,
+    output wire       visible,
+    output wire       hsync,
+    output wire       vsync,
+    output wire [9:0] column,
+    output wire [9:0] row
 );
 
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
@@ -40,10 +40,10 @@ module vga_sync #(
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
   vga_pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
-      clk,
-      reset,
-      column,
-      row
+      .clk   (clk),
+      .reset (reset),
+      .column(column),
+      .row   (row)
   );
 
   assign visible = (column < H_VISIBLE && row < V_VISIBLE) ? 1 : 0;

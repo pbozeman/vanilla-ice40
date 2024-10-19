@@ -7,10 +7,10 @@ module counter #(
     parameter MAX_VALUE = 15,
     parameter WIDTH     = $clog2(MAX_VALUE + 1)
 ) (
-    input                  clk,
-    input                  reset,
-    input                  enable,
-    output reg [WIDTH-1:0] count
+    input  wire             clk,
+    input  wire             reset,
+    input  wire             enable,
+    output reg  [WIDTH-1:0] count
 );
 
   initial begin
