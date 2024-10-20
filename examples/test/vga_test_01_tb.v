@@ -18,9 +18,13 @@ module vga_test_01_tb;
   wire [3:0] green;
   wire [3:0] blue;
 
+  // TODO: add enable tests
+  wire       enable = 1'b1;
+
   vga_sync vga_inst (
       .clk    (clk),
       .reset  (reset),
+      .enable (enable),
       .visible(visible),
       .hsync  (hsync),
       .vsync  (vsync),

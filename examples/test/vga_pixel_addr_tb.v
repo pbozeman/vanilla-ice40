@@ -8,9 +8,13 @@ module vga_pixel_addr_tb;
   wire [9:0] column;
   wire [9:0] row;
 
+  // TODO: add enable tests
+  wire       enable = 1'b1;
+
   vga_pixel_addr uut (
       .clk   (clk),
       .reset (reset),
+      .enable(enable),
       .column(column),
       .row   (row)
   );

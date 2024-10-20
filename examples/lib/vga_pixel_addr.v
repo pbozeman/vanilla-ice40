@@ -13,11 +13,10 @@ module vga_pixel_addr #(
 ) (
     input  wire       clk,
     input  wire       reset,
+    input  wire       enable,
     output wire [9:0] column,
     output wire [9:0] row
 );
-
-  localparam enable = 1'b1;
 
   counter #(H_WHOLE_LINE - 1) h_counter (
       .clk   (clk),
@@ -29,7 +28,7 @@ module vga_pixel_addr #(
   counter #(V_WHOLE_FRAME - 1) v_counter (
       .clk   (clk),
       .reset (reset),
-      .enable(column == H_WHOLE_LINE - 1),
+      .enable(enable & (column == H_WHOLE_LINE - 1)),
       .count (row)
   );
 

@@ -14,9 +14,13 @@ module vga_sync_tb;
 
   reg  [3:0] frames = 0;
 
+  // TODO: add enable tests
+  wire       enable = 1'b1;
+
   vga_sync uut (
       .clk    (clk),
       .reset  (reset),
+      .enable (enable),
       .visible(visible),
       .hsync  (hsync),
       .vsync  (vsync),

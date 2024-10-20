@@ -26,6 +26,7 @@ module vga_sync #(
 ) (
     input  wire       clk,
     input  wire       reset,
+    input  wire       enable,
     output wire       visible,
     output wire       hsync,
     output wire       vsync,
@@ -42,6 +43,7 @@ module vga_sync #(
   vga_pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
       .clk   (clk),
       .reset (reset),
+      .enable(enable),
       .column(column),
       .row   (row)
   );
