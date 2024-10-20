@@ -2,9 +2,14 @@
 `define VGA_SRAM_PIXEL_STREAM_V
 
 // This runs in the axi clock domain and is expected to be bridged
-// via a fifo to a module pushing bits to the vga
+// via a fifo to a module pushing bits to the vga.
 
 `include "directives.v"
+
+`include "counter.v"
+`include "delay.v"
+`include "fifo.v"
+`include "vga_sync.v"
 
 // defaults to industry standard 640x480@60Hz
 // http://www.tinyvga.com/vga-timing/640x480@60Hz
@@ -15,17 +20,13 @@ module vga_sram_pixel_stream #(
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
     parameter H_SYNC_PULSE  = 96,
-    // verilator lint_off UNUSEDPARAM
     parameter H_BACK_PORCH  = 48,
-    // verilator lint_on UNUSEDPARAM
     parameter H_WHOLE_LINE  = 800,
 
     parameter V_VISIBLE     = 480,
     parameter V_FRONT_PORCH = 10,
     parameter V_SYNC_PULSE  = 2,
-    // verilator lint_off UNUSEDPARAM
     parameter V_BACK_PORCH  = 33,
-    // verilator lint_on UNUSEDPARAM
     parameter V_WHOLE_FRAME = 525
 ) (
     input wire clk,
@@ -41,8 +42,8 @@ module vga_sram_pixel_stream #(
     input  wire [AXI_DATA_WIDTH-1:0] axi_rdata,
     // verilator lint_off UNUSEDSIGNAL
     input  wire [               1:0] axi_rresp,
-    // verilator lint_on UNUSEDSIGNAL
     input  wire                      axi_rvalid,
+    // verilator lint_on UNUSEDSIGNAL
     output reg                       axi_rready,
 
     // VGA signals
@@ -54,30 +55,13 @@ module vga_sram_pixel_stream #(
     output wire       valid
 
 );
-  localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
-  localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
+  localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE;
 
-  localparam V_SYNC_START = V_VISIBLE + V_FRONT_PORCH;
-  localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
-
-  // State definitions
   //
-  // TODO: we really should have a blanking state so that we are
-  // not reading memory during the blanking period. We end up
-  // just ignoring the results, but it's potentially confusing
-  // and prevents us from doing anything with memory during
-  // the blanking period.
-  localparam [1:0] IDLE = 2'b00;
-  localparam [1:0] READ = 2'b01;
-  localparam [1:0] READ_WAIT = 2'b10;
-
-  reg [               1:0] state;
-  reg [               1:0] next_state;
-
-  // Read controls
-  reg [AXI_ADDR_WIDTH-1:0] pixel_addr = 0;
-
-  reg                      enabled = 1'b0;
+  // Enable comes in on a wire and is potentially
+  // expensive. Pipeline it.
+  //
+  reg enabled = 1'b0;
   always @(posedge clk) begin
     if (reset) begin
       enabled <= 1'b0;
@@ -86,89 +70,86 @@ module vga_sram_pixel_stream #(
     end
   end
 
-  //
-  // read row/column
-  //
-  reg [9:0] read_column;
-  reg [9:0] read_row;
+  wire fb_pixel_visible;
+  wire fb_pixel_hsync;
+  wire fb_pixel_vsync;
+  wire [AXI_ADDR_WIDTH-1:0] fb_pixel_addr;
 
-  always @(posedge clk) begin
-    if (reset) begin
-      read_column <= 0;
-      read_row    <= 0;
-    end else begin
-      if (pixel_inc) begin
-        if (read_column < H_WHOLE_LINE) begin
-          read_column <= read_column + 1;
-        end else begin
-          read_column <= 0;
-          if (read_row < V_WHOLE_FRAME) begin
-            read_row <= read_row + 1;
-          end else begin
-            read_row <= 0;
-          end
-        end
-      end
-    end
-  end
+  // verilator lint_off UNUSEDSIGNAL
+  wire [9:0] fb_pixel_column;
+  wire [9:0] fb_pixel_row;
+  // verilator lint_on UNUSEDSIGNAL
+
+  // In this context, fb_pixel_visible is the previous value.
+  // Keep generating pixels in the non-visible area as long
+  // as we are enabled. Otherwise, we need to wait for our
+  // reads to get registered before we clobber them.
+  wire fb_pixel_inc = (read_start | (!fb_pixel_visible & enabled));
+
+  vga_sync #(
+      .H_VISIBLE    (H_VISIBLE),
+      .H_FRONT_PORCH(H_FRONT_PORCH),
+      .H_SYNC_PULSE (H_SYNC_PULSE),
+      .H_BACK_PORCH (H_BACK_PORCH),
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+      .V_VISIBLE    (V_VISIBLE),
+      .V_FRONT_PORCH(V_FRONT_PORCH),
+      .V_SYNC_PULSE (V_SYNC_PULSE),
+      .V_BACK_PORCH (V_BACK_PORCH),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) sync (
+      .clk    (clk),
+      .reset  (reset),
+      .enable (fb_pixel_inc),
+      .visible(fb_pixel_visible),
+      .hsync  (fb_pixel_hsync),
+      .vsync  (fb_pixel_vsync),
+      .column (fb_pixel_column),
+      .row    (fb_pixel_row)
+  );
+
+  // we only increment the pixel fb addr for actual visible
+  // pixels that we do reads on
+  counter #(
+      .MAX_VALUE(MAX_PIXEL_ADDR),
+      .WIDTH    (AXI_ADDR_WIDTH)
+  ) fb_pixel_counter (
+      .clk   (clk),
+      .reset (reset),
+      .enable(read_start),
+      .count (fb_pixel_addr)
+  );
 
   //
-  // read addr
+  // Read flags for reading from frame buffer
   //
-  // an older version of this file did
-  //
-  //   assign pixel_addr = (read_row * H_VISIBLE) + read_column;
-  //
-  // but that requires a multiply. While smaller code, the multiply
-  // is much more expensive to synthesize.
-  //
-  always @(posedge clk) begin
-    if (reset) begin
-      pixel_addr <= 0;
-    end else begin
-      if (pixel_inc) begin
-        if (read_column < H_VISIBLE) begin
-          pixel_addr <= pixel_addr + 1;
-        end
-      end
-      if (read_row >= V_VISIBLE) begin
-        pixel_addr <= 0;
-      end
-    end
-  end
+  reg  read_start;
+  wire read_accepted = axi_arready & axi_arvalid;
+  wire read_done = axi_rready & axi_rvalid;
 
-  reg pixel_visible = 1'b0;
-  always @(posedge clk) begin
-    if (reset) begin
-      pixel_visible <= 1'b0;
-    end else begin
-      pixel_visible <= 1'b0;
-      if (read_column < H_VISIBLE & read_row < V_VISIBLE) begin
-        pixel_visible <= 1'b1;
-      end
-    end
-  end
+  //
+  // State definitions
+  //
+  localparam [1:0] IDLE = 2'b00;
+  localparam [1:0] READ = 2'b01;
+  localparam [1:0] READ_WAIT = 2'b10;
 
-  reg pixel_inc;
+  reg [1:0] state;
+  reg [1:0] next_state;
 
   //
   // State machine
   //
   always @(*) begin
     next_state = state;
-
-    // While I prefer to do other logic outside the state machine,
-    // this would require looking at state and next_state. Looking at
-    // the results of next_state push us over timing, when instead,
-    // we can just emit the signal here.
-    read_start = 0;
-    pixel_inc  = 0;
+    read_start = 1'b0;
 
     case (state)
       IDLE: begin
         if (enabled) begin
-          pixel_inc = 1'b1;
-          if (pixel_visible) begin
+          // We just stay in the idle state during the blanking
+          // periods.
+          if (fb_pixel_visible) begin
             next_state = READ;
             read_start = 1'b1;
           end
@@ -181,8 +162,7 @@ module vga_sram_pixel_stream #(
 
       READ_WAIT: begin
         if (read_accepted) begin
-          pixel_inc = 1'b1;
-          if (enabled & pixel_visible) begin
+          if (enabled & fb_pixel_visible) begin
             next_state = READ;
             read_start = 1'b1;
           end else begin
@@ -193,6 +173,7 @@ module vga_sram_pixel_stream #(
 
       default: begin
       end
+
     endcase
   end
 
@@ -208,20 +189,23 @@ module vga_sram_pixel_stream #(
   //
   // AXI Read
   //
-  reg  read_start;
+  always @(posedge clk) begin
+    if (read_start) begin
+      axi_araddr <= fb_pixel_addr;
+    end
+  end
 
-  wire read_accepted;
-  assign read_accepted = axi_arready & axi_arvalid;
+  always @(posedge clk) begin
+    if (reset) begin
+      axi_rready <= 1'b1;
+    end
+  end
 
   always @(posedge clk) begin
     if (reset) begin
       axi_arvalid <= 1'b0;
-      axi_rready  <= 1'b0;
     end else begin
-      axi_rready <= 1'b1;
-
       if (read_start) begin
-        axi_araddr  <= pixel_addr;
         axi_arvalid <= 1'b1;
       end else begin
         if (read_accepted) begin
@@ -232,94 +216,119 @@ module vga_sram_pixel_stream #(
   end
 
   //
-  // vga pixel position. Note, this lags the column/row
-  // used for reading above. While we might happen to know
-  // the timing of the sram used, I didn't want to bake that
-  // assumption in and have an N clock shift register.
+  // Send the metadata we computed about the pixel through
+  // a fifo to be matched with it's pixel value from the
+  // frame buffer.
   //
-  // I don't have good intuition if this uses less resources than
-  // using a fifo to pass the row/column used for the read.
+  // One alternative to this would be a shift register,
+  // but that requires us to know the pipeline size
+  // of the axi stream.
   //
-  reg [9:0] vga_column = 0;
-  reg [9:0] vga_row = 0;
+  localparam PIXEL_CONTEXT_WIDTH = 3;
+  wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_send;
+  wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_recv;
 
-  always @(posedge clk) begin
-    if (reset) begin
-      vga_column <= 0;
-      vga_row    <= 0;
-    end else begin
-      if (read_done) begin
-        if (vga_column < H_WHOLE_LINE) begin
-          vga_column <= vga_column + 1;
-        end else begin
-          vga_column <= 0;
-          if (vga_row < V_WHOLE_FRAME) begin
-            vga_row <= vga_row + 1;
-          end else begin
-            vga_row <= 0;
-          end
-        end
-      end
-    end
-  end
+  // marshal the pixel metadata for the fifo
+  assign pixel_context_send = {
+    fb_pixel_visible, fb_pixel_vsync, fb_pixel_hsync
+  };
 
-  //
-  // Pixel outputs
-  //
-  // Register them all at the same time so that all the signals
-  // are in sync.
-  //
-  wire vga_visible;
-  assign vga_visible = (vga_column < H_VISIBLE && vga_row < V_VISIBLE) ? 1 : 0;
+  // the receiver signals
+  wire pixel_visible;
+  wire pixel_vsync;
+  wire pixel_hsync;
+  wire pixel_valid;
 
-  reg        hsync_r = 0;
-  reg        vsync_r = 0;
-  reg  [3:0] red_r = 0;
-  reg  [3:0] green_r = 0;
-  reg  [3:0] blue_r = 0;
-  reg        valid_r = 0;
-
-  wire       read_done;
-  assign read_done = (axi_rready & axi_rvalid);
-
+  wire fifo_empty;
   // verilator lint_off UNUSEDSIGNAL
-  wire [3:0] unused_axi_rdata = axi_rdata[3:0];
+  wire fifo_full;
   // verilator lint_on UNUSEDSIGNAL
 
+  wire pixel_inc = !fifo_empty & (read_done | !fb_pixel_visible);
+
+  fifo #(
+      .DATA_WIDTH(PIXEL_CONTEXT_WIDTH)
+  ) fb_fifo (
+      .clk       (clk),
+      .reset     (reset),
+      .write_en  (fb_pixel_inc),
+      .read_en   (pixel_inc),
+      .write_data(pixel_context_send),
+      .read_data (pixel_context_recv),
+      .empty     (fifo_empty),
+      .full      (fifo_full)
+  );
+
+  // Delay pixel_inc by 1 because pixel_context_recv comes
+  // 1 clock after the inc. Otherwise, we interpret one
+  // clock early, which is especially bad at the start (and the end).
+  //
+  // TODO: the sync fifo interface should be better and operate more
+  // like the aysnc fifo does in that the data is valid, if not empty,
+  // and inc takes you to the next one.
+
+  wire pixel_inc_p1;
+  delay u_pixel_p1 (
+      .clk(clk),
+      .in (pixel_inc),
+      .out(pixel_inc_p1)
+  );
+
+  // unmarshal the pixel metadata to send to the caller
+  assign pixel_visible = pixel_context_recv[2];
+  assign pixel_vsync   = pixel_context_recv[1];
+  assign pixel_hsync   = pixel_context_recv[0];
+  assign pixel_valid   = pixel_inc_p1;
+
+  reg                      pixel_hsync_r;
+  reg                      pixel_vsync_r;
+  reg                      pixel_visible_r;
+  reg [AXI_DATA_WIDTH-1:0] pixel_data_r;
+  reg                      pixel_valid_r;
+
+  // The pixel data from the fifo won't be valid for awhile, so set
+  // the important bits. hsync/vsync so the monitor won't try to interpret
+  // data, and so that high
+
   always @(posedge clk) begin
     if (reset) begin
-      valid_r <= 1'b0;
-      hsync_r <= 1'b0;
-      red_r   <= 1'b0;
-      green_r <= 1'b0;
-      blue_r  <= 1'b0;
-      valid_r <= 1'b0;
+      pixel_hsync_r   <= 1'b1;
+      pixel_vsync_r   <= 1'b1;
+      pixel_visible_r <= 1'b1;
     end else begin
-      valid_r <= 1'b0;
-
-      if (read_done) begin
-        hsync_r <= (vga_column >= H_SYNC_START && vga_column < H_SYNC_END) ? 0 :
-            1;
-        vsync_r <= (vga_row >= V_SYNC_START && vga_row < V_SYNC_END) ? 0 : 1;
-
-        red_r <= vga_visible ? axi_rdata[15:12] : 4'b0000;
-        green_r <= vga_visible ? axi_rdata[11:8] : 4'b0000;
-        blue_r <= vga_visible ? axi_rdata[7:4] : 4'b0000;
-        valid_r <= 1'b1;
+      if (pixel_valid) begin
+        pixel_hsync_r   <= pixel_hsync;
+        pixel_vsync_r   <= pixel_vsync;
+        pixel_visible_r <= pixel_visible;
       end
     end
   end
 
-  // vga signal
-  assign hsync = hsync_r;
-  assign vsync = vsync_r;
+  always @(posedge clk) begin
+    pixel_valid_r <= pixel_inc;
 
-  // colors
-  assign red   = red_r;
-  assign green = green_r;
-  assign blue  = blue_r;
+    if (read_done) begin
+      pixel_data_r <= axi_rdata;
+    end
+  end
 
-  assign valid = valid_r;
+  //
+  // vga signal to caller
+  //
+  assign hsync = pixel_hsync_r;
+  assign vsync = pixel_vsync_r;
+
+  //
+  // colors to caller
+  //
+  assign red   = pixel_visible_r ? pixel_data_r[15:12] : 4'b0000;
+  assign green = pixel_visible_r ? pixel_data_r[11:8] : 4'b0000;
+  assign blue  = pixel_visible_r ? pixel_data_r[7:4] : 4'b0000;
+  assign valid = pixel_valid_r;
+
+  // verilator lint_off UNUSEDSIGNAL
+  wire [3:0] unused_rdata = pixel_data_r[3:0];
+  // verilator lint_on UNUSEDSIGNAL
 
 endmodule
 

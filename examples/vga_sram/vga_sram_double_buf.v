@@ -416,7 +416,8 @@ module vga_sram_double_buf #(
 
   cdc_fifo #(
       .DATA_WIDTH     (VGA_DATA_WIDTH),
-      .ALMOST_FULL_BUF(5)
+      .ADDR_SIZE      (4),
+      .ALMOST_FULL_BUF(8)
   ) fifo (
       // Write clock domain
       .w_clk        (clk),

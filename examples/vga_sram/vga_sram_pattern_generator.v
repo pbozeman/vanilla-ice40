@@ -14,7 +14,7 @@ module vga_sram_pattern_generator #(
 ) (
     input  wire clk,
     input  wire reset,
-    output reg  pattern_done = 0,
+    output reg  pattern_done,
 
     // SRAM AXI-Lite Write Address Channel
     output reg  [AXI_ADDR_WIDTH-1:0] axi_awaddr,
@@ -57,15 +57,12 @@ module vga_sram_pattern_generator #(
   wire                      write_done;
 
   // vga and mem positions
-  reg  [               9:0] column = 0;
-  reg  [               9:0] row = 0;
+  reg  [               9:0] column;
+  reg  [               9:0] row;
   wire [AXI_ADDR_WIDTH-1:0] addr;
   wire [AXI_DATA_WIDTH-1:0] data;
 
-  // row/col is for the upcoming write, so we are done when we
-  // have written row 479 column 639
-  wire                      done;
-  assign done = (row == 480 && column == 0);
+  reg                       done;
 
   // state machine
   always @(*) begin
@@ -108,18 +105,17 @@ module vga_sram_pattern_generator #(
     if (reset) begin
       column <= 0;
       row    <= 0;
+      done   <= 1'b0;
     end else begin
-      if (!done) begin
-        if (write_done) begin
-          if (column < 640) begin
-            column <= column + 1;
+      if (write_done) begin
+        if (column < 640) begin
+          column <= column + 1;
+        end else begin
+          column <= 0;
+          if (row < 480) begin
+            row <= row + 1;
           end else begin
-            column <= 0;
-            if (row < 480) begin
-              row <= row + 1;
-            end else begin
-              row <= 0;
-            end
+            done <= 1'b1;
           end
         end
       end
