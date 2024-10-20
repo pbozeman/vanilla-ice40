@@ -5,7 +5,7 @@
 
 module counter #(
     parameter MAX_VALUE = 15,
-    parameter WIDTH     = $clog2(MAX_VALUE + 1)
+    parameter WIDTH     = $clog2(MAX_VALUE)
 ) (
     input  wire             clk,
     input  wire             reset,
