@@ -52,6 +52,7 @@ module vga_top (
   wire [3:0] blue;
 
   wire vga_clk;
+  wire enable = 1'b1;
 
   vga_pll vga_pll_inst (
       .clk_i(CLK),
@@ -61,6 +62,7 @@ module vga_top (
   vga_sync vga_inst (
       .clk(vga_clk),
       .reset(reset),
+      .enable(enable),
       .visible(visible),
       .hsync(`VGA_HSYNC),
       .vsync(`VGA_VSYNC),
