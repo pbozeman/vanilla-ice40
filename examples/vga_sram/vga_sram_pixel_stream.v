@@ -55,7 +55,7 @@ module vga_sram_pixel_stream #(
     output wire       valid
 
 );
-  localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE;
+  localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE - 1;
 
   //
   // Enable comes in on a wire and is potentially

@@ -108,11 +108,11 @@ module vga_sram_pattern_generator #(
       done   <= 1'b0;
     end else begin
       if (write_done) begin
-        if (column < 640) begin
+        if (column < 639) begin
           column <= column + 1;
         end else begin
           column <= 0;
-          if (row < 480) begin
+          if (row < 479) begin
             row <= row + 1;
           end else begin
             done <= 1'b1;
