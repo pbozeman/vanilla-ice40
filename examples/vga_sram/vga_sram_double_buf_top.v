@@ -1,4 +1,3 @@
-
 `ifndef VGA_SRAM_DOUBLE_BUF_TOP_V
 `define VGA_SRAM_DOUBLE_BUF_TOP_V
 
