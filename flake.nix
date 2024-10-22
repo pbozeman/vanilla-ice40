@@ -21,6 +21,7 @@
           verilator
           verilog
           yosys
+          xdot
         ];
 
         # Conditionally add verible if the system is not Darwin
