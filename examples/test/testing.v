@@ -46,6 +46,10 @@
      $finish;                                    \
    end                                           \
 
+`define TICK(clk)  \
+   @(posedge clk); \
+   #1;
+
 `define WAIT_FOR_SIGNAL(signal)      \
   begin : wait_for_sig_`__LINE__     \
     reg [8:0] cnt;                   \
