@@ -66,7 +66,7 @@ module gfx_line #(
   reg                      movy;
 
   always @(*) begin
-    if (2 * err >= dy) begin
+    if ((err << 1) >= dy) begin
       movx = 1'b1;
       movy = 1'b0;
     end else begin
