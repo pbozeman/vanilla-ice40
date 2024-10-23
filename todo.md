@@ -48,9 +48,12 @@
 
 ### Project structure
 
+- rename examples to rtl
+- start moving modules into groups directories in lib
+- move unit tests with the lib
+
 ### make
 
-- add yosys compilation
 - make: all files are included in both yosys and verification.. limit them to just
   the dependencies
 - move to per top pcf files
@@ -82,3 +85,14 @@ io on the board
 - don't read memory during the blanking period
 - use vga_pixel_addr, or at least the counter module. There was a wrapping
   error in the manual iteration that wouldn't have happened if these were used.
+
+### Style
+
+- move to system verilog, but decide on what conventions to use
+- rename _controller to_ctrl
+- use initial_reset in top modules
+- use TICK in unit tests
+- use ASSERT_EQ in unit tests where applicable
+- switch to axi stream for flow control in relevant modules
+- move to standardized module instantiation names
+- decide on standardize _WIDTH/BITS parameter names
