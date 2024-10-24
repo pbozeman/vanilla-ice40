@@ -69,26 +69,24 @@ module vga_sram_pattern_generator #(
     next_state  = state;
     write_start = 1'b0;
 
-    if (!reset) begin
-      case (state)
-        IDLE: begin
+    case (state)
+      IDLE: begin
+        if (!done) begin
+          write_start = 1'b1;
+          next_state  = WRITING;
+        end
+      end
+
+      WRITING: begin
+        if (write_done) begin
           if (!done) begin
             write_start = 1'b1;
-            next_state  = WRITING;
+          end else begin
+            next_state = IDLE;
           end
         end
-
-        WRITING: begin
-          if (write_done) begin
-            if (!done) begin
-              write_start = 1'b1;
-            end else begin
-              next_state = IDLE;
-            end
-          end
-        end
-      endcase
-    end
+      end
+    endcase
   end
 
   // state registration
