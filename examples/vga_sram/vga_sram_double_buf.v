@@ -4,10 +4,9 @@
 `include "directives.v"
 
 // Quick poc of the how double buffering will work using
-// the axi 2x2. (The content isn't changing yet.)
+// the axi 2x2.
 
-`include "axi_2x2.v"
-`include "axi_sram_controller.v"
+`include "axi_sram_dbuf_controller.v"
 `include "cdc_fifo.v"
 `include "detect_falling.v"
 `include "detect_rising.v"
@@ -54,20 +53,10 @@ module vga_sram_double_buf #(
   wire                              gen_axi_wvalid;
   wire                              gen_axi_wready;
   wire                              gen_axi_bready;
-  wire                              gen_axi_arvalid;
-
-  // We only write with the pixel gen, and we don't
-  // check for write errors.
-  // verilator lint_off UNUSEDSIGNAL
-  wire [        AXI_ADDR_WIDTH-1:0] gen_axi_araddr;
-  wire                              gen_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] gen_axi_rdata;
-  wire                              gen_axi_rvalid;
-  wire                              gen_axi_rready;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] gen_axi_wstrb;
-  wire [                       1:0] gen_axi_bresp;
   wire                              gen_axi_bvalid;
-  wire [                       1:0] gen_axi_rresp;
+  wire [((AXI_DATA_WIDTH+7)/8)-1:0] gen_axi_wstrb;
+  // verilator lint_off UNUSEDSIGNAL
+  wire [                       1:0] gen_axi_bresp;
   // verilator lint_on UNUSEDSIGNAL
 
   //
@@ -79,225 +68,59 @@ module vga_sram_double_buf #(
   wire [        AXI_DATA_WIDTH-1:0] vga_axi_rdata;
   wire                              vga_axi_rvalid;
   wire                              vga_axi_rready;
-  wire                              vga_axi_awvalid;
-  wire                              vga_axi_wvalid;
-
-  // We only read on the VGA side, and we don't check for
-  // read errors.
   // verilator lint_off UNUSEDSIGNAL
-  wire [        AXI_ADDR_WIDTH-1:0] vga_axi_awaddr;
-  wire                              vga_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] vga_axi_wdata;
-  wire                              vga_axi_wready;
-  wire                              vga_axi_bready;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] vga_axi_wstrb;
-  wire [                       1:0] vga_axi_bresp;
-  wire                              vga_axi_bvalid;
   wire [                       1:0] vga_axi_rresp;
   // verilator lint_on UNUSEDSIGNAL
 
-  // SRAM 0
-  wire [        AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
-  wire                              sram0_axi_awvalid;
-  wire                              sram0_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] sram0_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram0_axi_wstrb;
-  wire                              sram0_axi_wvalid;
-  wire                              sram0_axi_wready;
-  wire [                       1:0] sram0_axi_bresp;
-  wire                              sram0_axi_bvalid;
-  wire                              sram0_axi_bready;
-  wire [        AXI_ADDR_WIDTH-1:0] sram0_axi_araddr;
-  wire                              sram0_axi_arvalid;
-  wire                              sram0_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] sram0_axi_rdata;
-  wire [                       1:0] sram0_axi_rresp;
-  wire                              sram0_axi_rvalid;
-  wire                              sram0_axi_rready;
-
-  // SRAM 1
-  wire [        AXI_ADDR_WIDTH-1:0] sram1_axi_awaddr;
-  wire                              sram1_axi_awvalid;
-  wire                              sram1_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] sram1_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram1_axi_wstrb;
-  wire                              sram1_axi_wvalid;
-  wire                              sram1_axi_wready;
-  wire [                       1:0] sram1_axi_bresp;
-  wire                              sram1_axi_bvalid;
-  wire                              sram1_axi_bready;
-  wire [        AXI_ADDR_WIDTH-1:0] sram1_axi_araddr;
-  wire                              sram1_axi_arvalid;
-  wire                              sram1_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] sram1_axi_rdata;
-  wire [                       1:0] sram1_axi_rresp;
-  wire                              sram1_axi_rvalid;
-  wire                              sram1_axi_rready;
-
-  wire                              a2x2_switch_sel;
-  // verilator lint_off UNUSEDSIGNAL
-  wire                              a2x2_sel;
-  // verilator lint_on UNUSEDSIGNAL
+  // control signals
+  wire                              mem_switch;
   wire                              pattern_done;
 
-  // unused
-  assign gen_axi_arvalid = 1'b0;
-  assign gen_axi_araddr  = 0;
-  assign gen_axi_rready  = 1'b0;
-
-  assign vga_axi_awvalid = 1'b0;
-  assign vga_axi_awaddr  = 0;
-  assign vga_axi_wvalid  = 1'b0;
-  assign vga_axi_wdata   = 0;
-  assign vga_axi_bready  = 1'b0;
-  assign vga_axi_wstrb   = 2'b11;
-
-  axi_2x2 #(
+  axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) dbuf (
-      .axi_clk  (clk),
-      .axi_rst_n(~reset),
+  ) axi_sram_dbuf_controller_inst (
+      // core signals
+      .clk  (clk),
+      .reset(reset),
 
-      // Control interface
-      .switch_sel(a2x2_switch_sel),
-      .sel       (a2x2_sel),
+      // switch producer/consumer to alternate sram
+      .switch(mem_switch),
 
-      // Pattern Gen
-      .in0_axi_awaddr (gen_axi_awaddr),
-      .in0_axi_awvalid(gen_axi_awvalid),
-      .in0_axi_awready(gen_axi_awready),
-      .in0_axi_wdata  (gen_axi_wdata),
-      .in0_axi_wstrb  (gen_axi_wstrb),
-      .in0_axi_wvalid (gen_axi_wvalid),
-      .in0_axi_wready (gen_axi_wready),
-      .in0_axi_bresp  (gen_axi_bresp),
-      .in0_axi_bvalid (gen_axi_bvalid),
-      .in0_axi_bready (gen_axi_bready),
-      .in0_axi_araddr (gen_axi_araddr),
-      .in0_axi_arvalid(gen_axi_arvalid),
-      .in0_axi_arready(gen_axi_arready),
-      .in0_axi_rdata  (gen_axi_rdata),
-      .in0_axi_rresp  (gen_axi_rresp),
-      .in0_axi_rvalid (gen_axi_rvalid),
-      .in0_axi_rready (gen_axi_rready),
+      // producer interface
+      .prod_axi_awaddr (gen_axi_awaddr),
+      .prod_axi_awvalid(gen_axi_awvalid),
+      .prod_axi_awready(gen_axi_awready),
+      .prod_axi_wdata  (gen_axi_wdata),
+      .prod_axi_wvalid (gen_axi_wvalid),
+      .prod_axi_wready (gen_axi_wready),
+      .prod_axi_wstrb  (gen_axi_wstrb),
+      .prod_axi_bready (gen_axi_bready),
+      .prod_axi_bvalid (gen_axi_bvalid),
+      .prod_axi_bresp  (gen_axi_bresp),
 
-      // VGA
-      .in1_axi_awaddr (vga_axi_awaddr),
-      .in1_axi_awvalid(vga_axi_awvalid),
-      .in1_axi_awready(vga_axi_awready),
-      .in1_axi_wdata  (vga_axi_wdata),
-      .in1_axi_wstrb  (vga_axi_wstrb),
-      .in1_axi_wvalid (vga_axi_wvalid),
-      .in1_axi_wready (vga_axi_wready),
-      .in1_axi_bresp  (vga_axi_bresp),
-      .in1_axi_bvalid (vga_axi_bvalid),
-      .in1_axi_bready (vga_axi_bready),
-      .in1_axi_araddr (vga_axi_araddr),
-      .in1_axi_arvalid(vga_axi_arvalid),
-      .in1_axi_arready(vga_axi_arready),
-      .in1_axi_rdata  (vga_axi_rdata),
-      .in1_axi_rresp  (vga_axi_rresp),
-      .in1_axi_rvalid (vga_axi_rvalid),
-      .in1_axi_rready (vga_axi_rready),
+      // consumer interface
+      .cons_axi_araddr (vga_axi_araddr),
+      .cons_axi_arvalid(vga_axi_arvalid),
+      .cons_axi_arready(vga_axi_arready),
+      .cons_axi_rdata  (vga_axi_rdata),
+      .cons_axi_rvalid (vga_axi_rvalid),
+      .cons_axi_rready (vga_axi_rready),
+      .cons_axi_rresp  (vga_axi_rresp),
 
-      // SRAM 0
-      .out0_axi_awaddr (sram0_axi_awaddr),
-      .out0_axi_awvalid(sram0_axi_awvalid),
-      .out0_axi_awready(sram0_axi_awready),
-      .out0_axi_wdata  (sram0_axi_wdata),
-      .out0_axi_wstrb  (sram0_axi_wstrb),
-      .out0_axi_wvalid (sram0_axi_wvalid),
-      .out0_axi_wready (sram0_axi_wready),
-      .out0_axi_bresp  (sram0_axi_bresp),
-      .out0_axi_bvalid (sram0_axi_bvalid),
-      .out0_axi_bready (sram0_axi_bready),
-      .out0_axi_araddr (sram0_axi_araddr),
-      .out0_axi_arvalid(sram0_axi_arvalid),
-      .out0_axi_arready(sram0_axi_arready),
-      .out0_axi_rdata  (sram0_axi_rdata),
-      .out0_axi_rresp  (sram0_axi_rresp),
-      .out0_axi_rvalid (sram0_axi_rvalid),
-      .out0_axi_rready (sram0_axi_rready),
+      // sram0 controller to io pins
+      .sram0_io_addr(sram0_io_addr),
+      .sram0_io_data(sram0_io_data),
+      .sram0_io_we_n(sram0_io_we_n),
+      .sram0_io_oe_n(sram0_io_oe_n),
+      .sram0_io_ce_n(sram0_io_ce_n),
 
-      // SRAM 1
-      .out1_axi_awaddr (sram1_axi_awaddr),
-      .out1_axi_awvalid(sram1_axi_awvalid),
-      .out1_axi_awready(sram1_axi_awready),
-      .out1_axi_wdata  (sram1_axi_wdata),
-      .out1_axi_wstrb  (sram1_axi_wstrb),
-      .out1_axi_wvalid (sram1_axi_wvalid),
-      .out1_axi_wready (sram1_axi_wready),
-      .out1_axi_bresp  (sram1_axi_bresp),
-      .out1_axi_bvalid (sram1_axi_bvalid),
-      .out1_axi_bready (sram1_axi_bready),
-      .out1_axi_araddr (sram1_axi_araddr),
-      .out1_axi_arvalid(sram1_axi_arvalid),
-      .out1_axi_arready(sram1_axi_arready),
-      .out1_axi_rdata  (sram1_axi_rdata),
-      .out1_axi_rresp  (sram1_axi_rresp),
-      .out1_axi_rvalid (sram1_axi_rvalid),
-      .out1_axi_rready (sram1_axi_rready)
-  );
-
-  axi_sram_controller #(
-      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
-      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) ctrl_0 (
-      .axi_clk     (clk),
-      .axi_resetn  (~reset),
-      .axi_awaddr  (sram0_axi_awaddr),
-      .axi_awvalid (sram0_axi_awvalid),
-      .axi_awready (sram0_axi_awready),
-      .axi_wdata   (sram0_axi_wdata),
-      .axi_wstrb   (sram0_axi_wstrb),
-      .axi_wvalid  (sram0_axi_wvalid),
-      .axi_wready  (sram0_axi_wready),
-      .axi_bresp   (sram0_axi_bresp),
-      .axi_bvalid  (sram0_axi_bvalid),
-      .axi_bready  (sram0_axi_bready),
-      .axi_araddr  (sram0_axi_araddr),
-      .axi_arvalid (sram0_axi_arvalid),
-      .axi_arready (sram0_axi_arready),
-      .axi_rdata   (sram0_axi_rdata),
-      .axi_rresp   (sram0_axi_rresp),
-      .axi_rvalid  (sram0_axi_rvalid),
-      .axi_rready  (sram0_axi_rready),
-      .sram_io_addr(sram0_io_addr),
-      .sram_io_data(sram0_io_data),
-      .sram_io_we_n(sram0_io_we_n),
-      .sram_io_oe_n(sram0_io_oe_n),
-      .sram_io_ce_n(sram0_io_ce_n)
-  );
-
-  axi_sram_controller #(
-      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
-      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) ctrl_1 (
-      .axi_clk     (clk),
-      .axi_resetn  (~reset),
-      .axi_awaddr  (sram1_axi_awaddr),
-      .axi_awvalid (sram1_axi_awvalid),
-      .axi_awready (sram1_axi_awready),
-      .axi_wdata   (sram1_axi_wdata),
-      .axi_wstrb   (sram1_axi_wstrb),
-      .axi_wvalid  (sram1_axi_wvalid),
-      .axi_wready  (sram1_axi_wready),
-      .axi_bresp   (sram1_axi_bresp),
-      .axi_bvalid  (sram1_axi_bvalid),
-      .axi_bready  (sram1_axi_bready),
-      .axi_araddr  (sram1_axi_araddr),
-      .axi_arvalid (sram1_axi_arvalid),
-      .axi_arready (sram1_axi_arready),
-      .axi_rdata   (sram1_axi_rdata),
-      .axi_rresp   (sram1_axi_rresp),
-      .axi_rvalid  (sram1_axi_rvalid),
-      .axi_rready  (sram1_axi_rready),
-      .sram_io_addr(sram1_io_addr),
-      .sram_io_data(sram1_io_data),
-      .sram_io_we_n(sram1_io_we_n),
-      .sram_io_oe_n(sram1_io_oe_n),
-      .sram_io_ce_n(sram1_io_ce_n)
+      // sram1 controller to io pins
+      .sram1_io_addr(sram1_io_addr),
+      .sram1_io_data(sram1_io_data),
+      .sram1_io_we_n(sram1_io_we_n),
+      .sram1_io_oe_n(sram1_io_oe_n),
+      .sram1_io_ce_n(sram1_io_ce_n)
   );
 
   vga_sram_pattern_generator #(
@@ -305,7 +128,7 @@ module vga_sram_double_buf #(
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) pattern (
       .clk         (clk),
-      .reset       (reset | a2x2_switch_sel),
+      .reset       (reset | mem_switch),
       .pattern_done(pattern_done),
 
       .axi_awaddr (gen_axi_awaddr),
@@ -366,8 +189,7 @@ module vga_sram_double_buf #(
       .detected(negedge_sram_vga_vsync)
   );
 
-  assign
-      a2x2_switch_sel = (posedge_first_pattern_done | negedge_sram_vga_vsync);
+  assign mem_switch = (posedge_first_pattern_done | negedge_sram_vga_vsync);
 
   reg first_pattern_done = 1'b0;
   always @(posedge clk) begin
