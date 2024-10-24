@@ -86,6 +86,12 @@ io on the board
 - use vga_pixel_addr, or at least the counter module. There was a wrapping
   error in the manual iteration that wouldn't have happened if these were used.
 
+### axi
+
+- add a tb for axi_sram_dbuf_controller
+- data signals are not always multiple of 8 bit values in these designs. Decide if
+  this is an issue or not.
+
 ### Style
 
 - move to system verilog, but decide on what conventions to use
