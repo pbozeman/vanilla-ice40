@@ -102,3 +102,5 @@ io on the board
 - switch to axi stream for flow control in relevant modules
 - move to standardized module instantiation names
 - decide on standardize _WIDTH/BITS parameter names
+- there is a mix of usage of state, current_state. pick one
+- pick if next_ goes at the front or the end
