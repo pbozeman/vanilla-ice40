@@ -7,14 +7,25 @@
 `include "gfx_test_pattern.v"
 
 module gfx_demo #(
-    parameter VGA_WIDTH  = 640,
-    parameter VGA_HEIGHT = 480
+    parameter VGA_WIDTH      = 640,
+    parameter VGA_HEIGHT     = 480,
+    parameter PIXEL_BITS     = 12,
+    parameter AXI_ADDR_WIDTH = 20,
+    parameter AXI_DATA_WIDTH = 16
 ) (
     input wire clk,
     input wire reset,
 
-    output wire [FB_X_BITS-1:0] x,
-    output wire [FB_Y_BITS-1:0] y
+    output wire [ FB_X_BITS-1:0] x,
+    output wire [ FB_Y_BITS-1:0] y,
+    output wire [PIXEL_BITS-1:0] color,
+
+    // sram0 controller to io pins
+    output wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
+    inout  wire [AXI_DATA_WIDTH-1:0] sram0_io_data,
+    output wire                      sram0_io_we_n,
+    output wire                      sram0_io_oe_n,
+    output wire                      sram0_io_ce_n
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
@@ -29,7 +40,7 @@ module gfx_demo #(
       .enable(enable),
       .x     (x),
       .y     (y),
-      // .color(color),
+      .color (color),
       .valid (valid),
       .last  (last)
   );

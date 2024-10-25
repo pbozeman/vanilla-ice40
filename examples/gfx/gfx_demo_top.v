@@ -8,12 +8,21 @@
 
 module gfx_demo_top #(
     parameter VGA_WIDTH  = 640,
-    parameter VGA_HEIGHT = 480
+    parameter VGA_HEIGHT = 480,
+    parameter ADDR_BITS  = 20,
+    parameter DATA_BITS  = 16
 ) (
     // board signals
     input  wire CLK,
     output wire LED1,
     output wire LED2,
+
+    // sram 0
+    output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
+    output wire                 R_SRAM_CS_N,
+    output wire                 R_SRAM_OE_N,
+    output wire                 R_SRAM_WE_N,
 
     output wire [7:0] R_E,
     output wire [7:0] R_F,
@@ -34,11 +43,21 @@ module gfx_demo_top #(
       .reset(reset)
   );
 
-  gfx_demo u_demo (
+  gfx_demo #(
+      .AXI_ADDR_WIDTH(ADDR_BITS),
+      .AXI_DATA_WIDTH(DATA_BITS)
+  ) u_demo (
       .clk  (CLK),
       .reset(reset),
       .x    (x),
-      .y    (y)
+      .y    (y),
+
+      // sram 0 signals
+      .sram0_io_addr(R_SRAM_ADDR_BUS),
+      .sram0_io_data(R_SRAM_DATA_BUS),
+      .sram0_io_we_n(R_SRAM_WE_N),
+      .sram0_io_oe_n(R_SRAM_OE_N),
+      .sram0_io_ce_n(R_SRAM_CS_N)
   );
 
   assign LED1     = 1'bz;
