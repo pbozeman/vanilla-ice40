@@ -105,8 +105,7 @@ module gfx_demo_tb;
 
     // This is for the display.
     // The 800 * 525 are the H_WHOLE_LINE * V_WHOLE_FRAME.
-    // // TODO: make these configurable
-    // repeat (3 * 800 * 525) @(posedge pixel_clk);
+    repeat (3 * 800 * 525) @(posedge pixel_clk);
     $finish;
   end
 
