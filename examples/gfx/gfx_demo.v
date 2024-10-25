@@ -5,6 +5,8 @@
 `include "directives.v"
 
 `include "axi_sram_dbuf_controller.v"
+`include "delay.v"
+`include "detect_falling.v"
 `include "detect_rising.v"
 `include "fb_writer.v"
 `include "gfx_test_pattern.v"
@@ -256,18 +258,28 @@ module gfx_demo #(
   // gfx engine wants todo.
   //
 
-  // Track when the first frame is done
-  // The _p1 lets the final item get written before switching.
-  reg gfx_last_p1;
-  reg gfx_ready = 1'b0;
+  // Track when the first frame is done and use it to switch the first time
+  //
+  // TODO: This is a bit of a hack. The writer may say they are done, but there
+  // might be writes in flight. If so, we can't switch. Work this into the
+  // switcher, or give the writers a way to track writes, or something.
+  // For now, just make it work while the basic functionality is fleshed out.
+  wire gfx_last_d;
+  delay #(
+      .DELAY_CYCLES(4)
+  ) delay_inst (
+      .clk(clk),
+      .in (gfx_last),
+      .out(gfx_last_d)
+  );
+
+  reg gfx_ready;
   always @(posedge clk) begin
     if (reset) begin
-      gfx_last_p1 <= 1'b0;
-      gfx_ready   <= 1'b0;
+      gfx_ready <= 1'b0;
     end else begin
-      gfx_last_p1 <= gfx_last;
       if (!gfx_ready) begin
-        gfx_ready <= gfx_last_p1;
+        gfx_ready <= gfx_last_d;
       end
     end
   end
@@ -279,7 +291,14 @@ module gfx_demo #(
       .detected(posedge_gfx_ready)
   );
 
-  assign mem_switch    = (posedge_gfx_ready);  // | negedge_sram_vga_vsync);
+  wire negedge_vsync;
+  detect_falling falling_sram_vga_vsync (
+      .clk     (clk),
+      .signal  (vga_fb_vsync),
+      .detected(negedge_vsync)
+  );
+
+  assign mem_switch    = posedge_gfx_ready | negedge_vsync;
   assign vga_fb_enable = gfx_ready;
 
 endmodule

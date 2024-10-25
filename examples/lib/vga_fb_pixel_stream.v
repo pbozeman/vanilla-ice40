@@ -10,7 +10,6 @@
 `include "vga_sync.v"
 
 // verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNDRIVEN
 // verilator lint_off UNUSEDPARAM
 module vga_fb_pixel_stream #(
     parameter PIXEL_BITS = 12,
@@ -321,7 +320,6 @@ module vga_fb_pixel_stream #(
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNDRIVEN
 // verilator lint_on UNUSEDPARAM
 
 `endif
