@@ -10,7 +10,7 @@ module gfx_test_pattern #(
 ) (
     input  wire                  clk,
     input  wire                  reset,
-    input  wire                  enable,
+    input  wire                  inc,
     output reg  [ FB_X_BITS-1:0] x,
     output reg  [ FB_Y_BITS-1:0] y,
     output reg  [PIXEL_BITS-1:0] color,
@@ -30,27 +30,22 @@ module gfx_test_pattern #(
     last = (x == MAX_X & y == MAX_Y);
   end
 
-  always @(posedge clk) begin
-    if (reset) begin
-      x     <= 0;
-      y     <= 0;
-      valid <= 0;
-      last  <= 0;
-    end else begin
-      if (enable) begin
-        valid <= 1;
+  reg [FB_X_BITS-1:0] next_x;
+  reg [FB_Y_BITS-1:0] next_y;
 
-        if (x == MAX_X) begin
-          x <= 0;
-          if (y == MAX_Y) begin
-            y <= 0;
-          end else begin
-            y <= y + 1;
-          end
-        end else begin
-          x <= x + 1;
-        end
+  always @(*) begin
+    next_x = x;
+    next_y = y;
+
+    if (x == MAX_X) begin
+      next_x = 0;
+      if (y == MAX_Y) begin
+        next_y = 0;
+      end else begin
+        next_y = y + 1;
       end
+    end else begin
+      next_x = x + 1;
     end
   end
 
@@ -63,8 +58,19 @@ module gfx_test_pattern #(
   assign blu = x >= 426 ? {COLOR_BITS{1'b1}} : {COLOR_BITS{1'b0}};
 
   always @(posedge clk) begin
-    if (enable) begin
+    if (reset) begin
+      x     <= 0;
+      y     <= 0;
+      valid <= 1'b1;
       color <= {red, grn, blu};
+    end else begin
+      valid <= 1'b0;
+      if (inc) begin
+        x     <= next_x;
+        y     <= next_y;
+        color <= {red, grn, blu};
+        valid <= 1'b1;
+      end
     end
   end
 

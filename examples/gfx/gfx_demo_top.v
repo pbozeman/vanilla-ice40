@@ -35,8 +35,7 @@ module gfx_demo_top #(
 
   reg                 reset;
 
-  reg [FB_X_BITS-1:0] x;
-  reg [FB_Y_BITS-1:0] y;
+  reg [ADDR_BITS-1:0] addr;
 
   initial_reset u_initial_reset (
       .clk  (CLK),
@@ -49,8 +48,7 @@ module gfx_demo_top #(
   ) u_demo (
       .clk  (CLK),
       .reset(reset),
-      .x    (x),
-      .y    (y),
+      .addr (addr),
 
       // sram 0 signals
       .sram0_io_addr(R_SRAM_ADDR_BUS),
@@ -63,13 +61,8 @@ module gfx_demo_top #(
   assign LED1     = 1'bz;
   assign LED2     = 1'bz;
 
-  assign R_E[7:0] = x[0:8];
-  assign R_F[7:6] = x[9:10];
-  assign R_F[5:0] = 6'b000000;
-
-  assign R_H[7:0] = y[0:8];
-  assign R_I[7:6] = y[9:10];
-  assign R_I[5:0] = 6'b000000;
+  assign R_E[7:0] = addr[19:12];
+  assign R_F[7:6] = addr[11:3];
 
 endmodule
 

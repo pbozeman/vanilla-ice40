@@ -5,6 +5,7 @@
 `include "directives.v"
 
 `include "axi_sram_dbuf_controller.v"
+`include "fb_writer.v"
 `include "gfx_test_pattern.v"
 
 module gfx_demo #(
@@ -17,9 +18,8 @@ module gfx_demo #(
     input wire clk,
     input wire reset,
 
-    output wire [ FB_X_BITS-1:0] x,
-    output wire [ FB_Y_BITS-1:0] y,
-    output wire [PIXEL_BITS-1:0] color,
+    output wire [AXI_ADDR_WIDTH-1:0] addr,
+    output wire [    PIXEL_BITS-1:0] color,
 
     // sram0 controller to io pins
     output wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
@@ -64,6 +64,7 @@ module gfx_demo #(
   wire [                       1:0] disp_axi_rresp;
 
   wire                              mem_switch;
+  assign mem_switch = 1'b0;
 
   axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -116,45 +117,78 @@ module gfx_demo #(
   wire [ FB_X_BITS-1:0] gfx_x;
   wire [ FB_Y_BITS-1:0] gfx_y;
   wire [PIXEL_BITS-1:0] gfx_color;
-  reg                   gfx_enable;
+  wire                  gfx_inc;
   wire                  gfx_last;
   wire                  gfx_valid;
 
   // TODO: rename u_pat
   gfx_test_pattern u_pat (
-      .clk   (clk),
-      .reset (reset),
-      .enable(gfx_enable),
-      .x     (gfx_x),
-      .y     (gfx_y),
-      .color (gfx_color),
-      .valid (gfx_valid),
-      .last  (gfx_last)
+      .clk  (clk),
+      .reset(reset),
+      .inc  (gfx_inc),
+      .x    (gfx_x),
+      .y    (gfx_y),
+      .color(gfx_color),
+      .valid(gfx_valid),
+      .last (gfx_last)
   );
 
-  // enable gfx
+  // fb writer axi flow control signals
+  reg                       fb_axi_tvalid;
+  wire                      fb_axi_tready;
+
+  // and the data that goes with them
+  reg  [AXI_ADDR_WIDTH-1:0] fb_addr;
+  reg  [    PIXEL_BITS-1:0] fb_color;
+
+  fb_writer #(
+      .PIXEL_BITS    (PIXEL_BITS),
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+  ) fb_writer_inst (
+      .clk  (clk),
+      .reset(reset),
+
+      .axi_tvalid(fb_axi_tvalid),
+      .axi_tready(fb_axi_tready),
+
+      .addr (fb_addr),
+      .color(fb_color),
+
+      .sram_axi_awaddr (gfx_axi_awaddr),
+      .sram_axi_awvalid(gfx_axi_awvalid),
+      .sram_axi_awready(gfx_axi_awready),
+      .sram_axi_wdata  (gfx_axi_wdata),
+      .sram_axi_wstrb  (gfx_axi_wstrb),
+      .sram_axi_wvalid (gfx_axi_wvalid),
+      .sram_axi_wready (gfx_axi_wready),
+      .sram_axi_bvalid (gfx_axi_bvalid),
+      .sram_axi_bready (gfx_axi_bready),
+      .sram_axi_bresp  (gfx_axi_bresp)
+  );
+
+  wire [AXI_ADDR_WIDTH-1:0] gfx_addr;
+  assign gfx_inc  = (fb_axi_tready & fb_axi_tvalid);
+  assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
+
+  // fb writer data
   always @(posedge clk) begin
     if (reset) begin
-      gfx_enable <= 1'b1;
+      fb_axi_tvalid <= 1'b0;
+    end else begin
+      if (gfx_valid) begin
+        fb_addr       <= gfx_addr;
+        fb_color      <= gfx_color;
+        fb_axi_tvalid <= 1'b1;
+      end else begin
+        if (fb_axi_tvalid & fb_axi_tready) begin
+          fb_axi_tvalid <= 1'b0;
+        end
+      end
     end
   end
 
-  // fb signals
-  //
-  // pipeline from the gfx to help with timing.
-  // TODO: verify if this was needed.
-  reg [ FB_X_BITS-1:0] fb_x;
-  reg [ FB_Y_BITS-1:0] fb_y;
-  reg [PIXEL_BITS-1:0] fb_color;
-
-  always @(posedge clk) begin
-    fb_x     <= gfx_x;
-    fb_y     <= gfx_y;
-    fb_color <= gfx_color;
-  end
-
-  assign x     = fb_x;
-  assign y     = fb_y;
+  assign addr  = fb_addr;
   assign color = fb_color;
 
 endmodule
