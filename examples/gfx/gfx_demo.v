@@ -5,10 +5,12 @@
 `include "directives.v"
 
 `include "axi_sram_dbuf_controller.v"
+`include "detect_rising.v"
 `include "fb_writer.v"
 `include "gfx_test_pattern.v"
 `include "vga_fb_pixel_stream.v"
 
+// verilator lint_off UNUSEDSIGNAL
 module gfx_demo #(
     parameter VGA_WIDTH      = 640,
     parameter VGA_HEIGHT     = 480,
@@ -65,7 +67,6 @@ module gfx_demo #(
   wire [                       1:0] disp_axi_rresp;
 
   wire                              mem_switch;
-  assign mem_switch = 1'b0;
 
   axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -189,14 +190,13 @@ module gfx_demo #(
     end
   end
 
-
   //
   // VGA pixel stream
   //
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   // control signals
-  reg                       vga_fb_enable;
+  wire                      vga_fb_enable;
   wire                      vga_fb_valid;
 
   // sync signals
@@ -239,6 +239,48 @@ module gfx_demo #(
   assign addr  = xxx_addr;
   assign color = fbw_color;
 
+  //
+  // FB double buffer switching logic
+  //
+  // At startup, we wait for the gfx engine to prepare a frame and then
+  // we enable the pixel stream. This let's us get a clean signal
+  // on the first frame, rather than displaying whatever random stuff
+  // is in memory. (Displaying a frame of gunk is probably fine in normal
+  // use, but clearing the display or setting a test pattern for the first
+  // frame is helpful when looking at signal output with a logic analyzer or
+  // scope.)
+  //
+  // Right now the first frame is just gfx_done from the pattern gen,
+  // but later this should be the result of some sort of gfx or fb init
+  // module.
+  //
+  // After the first frame, we switch during vsync, regardless of what the
+  // gfx engine wants todo.
+  //
+
+  // Track when the first frame is done
+  reg gfx_ready = 1'b0;
+  always @(posedge clk) begin
+    if (reset) begin
+      gfx_ready <= 1'b0;
+    end else begin
+      if (!gfx_ready) begin
+        gfx_ready <= gfx_last;
+      end
+    end
+  end
+
+  wire posedge_gfx_ready;
+  detect_rising rising_pattern_done (
+      .clk     (clk),
+      .signal  (gfx_ready),
+      .detected(posedge_gfx_ready)
+  );
+
+  assign mem_switch    = (posedge_gfx_ready);  // | negedge_sram_vga_vsync);
+  assign vga_fb_enable = gfx_ready;
+
 endmodule
+// verilator lint_on UNUSEDSIGNAL
 
 `endif

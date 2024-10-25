@@ -9,6 +9,9 @@
 // `include "counter.v"
 `include "vga_sync.v"
 
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
+// verilator lint_off UNUSEDPARAM
 module vga_fb_pixel_stream #(
     parameter PIXEL_BITS = 12,
 
@@ -29,7 +32,10 @@ module vga_fb_pixel_stream #(
 ) (
     input wire clk,
     input wire reset,
-    input wire enable,
+
+    // stream signals
+    input  wire enable,
+    output wire valid,
 
     // sync signals
     output wire vsync,
@@ -39,8 +45,6 @@ module vga_fb_pixel_stream #(
     output wire [COLOR_BITS-1:0] red,
     output wire [COLOR_BITS-1:0] grn,
     output wire [COLOR_BITS-1:0] blu,
-
-    output wire valid,
 
     output wire [AXI_ADDR_WIDTH-1:0] xxx_addr,
 
@@ -53,28 +57,25 @@ module vga_fb_pixel_stream #(
     input  wire                      sram_axi_arready,
     input  wire [AXI_DATA_WIDTH-1:0] sram_axi_rdata,
     output reg                       sram_axi_rready,
-    // verilator lint_off UNUSEDSIGNAL
     input  wire [               1:0] sram_axi_rresp,
     input  wire                      sram_axi_rvalid
-    // verilator lint_on UNUSEDSIGNAL
 );
+  localparam FB_X_BITS = $clog2(H_WHOLE_LINE);
+  localparam FB_Y_BITS = $clog2(V_WHOLE_FRAME);
+
   localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE - 1;
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   wire fb_pixel_visible;
   wire fb_pixel_hsync;
   wire fb_pixel_vsync;
-  wire [AXI_ADDR_WIDTH-1:0] fb_pixel_addr;
-
-  // verilator lint_off UNUSEDSIGNAL
-  wire [9:0] fb_pixel_column;
-  wire [9:0] fb_pixel_row;
-  // verilator lint_on UNUSEDSIGNAL
+  wire [FB_X_BITS-1:0] fb_pixel_column;
+  wire [FB_Y_BITS-1:0] fb_pixel_row;
 
   // In this context, fb_pixel_visible is the previous value. Keep generating
   // pixels in the non-visible area as long as we are enabled. Otherwise,
   // we need to wait for our reads to get registered before we clobber them.
-  wire fb_pixel_inc = (read_start | (!fb_pixel_visible & enable));
+  wire fb_pixel_inc = enable;  //(read_start | (!fb_pixel_visible & enable));
 
   vga_sync #(
       .H_VISIBLE    (H_VISIBLE),
@@ -98,10 +99,20 @@ module vga_fb_pixel_stream #(
       .row    (fb_pixel_row)
   );
 
+  reg  [AXI_ADDR_WIDTH-1:0] fb_pixel_addr;
+  wire [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
+
   // This was measured to be faster than a counter. When registering the
   // final outputs just before sending them (to pipeline the addr calc),
   // multiply was achieving 145Mhz maxf while the counter was 112 maxf.
-  assign fb_pixel_addr = (H_VISIBLE * fb_pixel_row + fb_pixel_column);
+  // (After adding more logic to this module, maxf dropped to 130ish, but adding
+  // more pipelining can get it back, which isn't really worth doing since
+  // we are meeting timing by a wide margin.
+  assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row) + fb_pixel_column;
+
+  assign hsync              = fb_pixel_hsync;
+  assign vsync              = fb_pixel_vsync;
+  assign xxx_addr           = fb_pixel_addr_calc;
 
   wire read_start;
   assign read_start = 1'b1;
@@ -110,20 +121,10 @@ module vga_fb_pixel_stream #(
     sram_axi_araddr = fb_pixel_addr;
   end
 
-  reg                      final_vsync;
-  reg                      final_hsync;
-  reg [AXI_ADDR_WIDTH-1:0] final_xxx_addr;
-
-  always @(posedge clk) begin
-    final_vsync    <= fb_pixel_vsync;
-    final_hsync    <= fb_pixel_hsync;
-    final_xxx_addr <= fb_pixel_addr;
-  end
-
-  assign hsync    = final_hsync;
-  assign vsync    = final_vsync;
-  assign xxx_addr = final_xxx_addr;
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
+// verilator lint_on UNUSEDPARAM
 
 `endif
