@@ -65,7 +65,7 @@ module gfx_test_pattern #(
       color <= {red, grn, blu};
     end else begin
       valid <= 1'b0;
-      if (inc) begin
+      if (!done & inc) begin
         x     <= next_x;
         y     <= next_y;
         color <= {red, grn, blu};
@@ -73,6 +73,18 @@ module gfx_test_pattern #(
       end
     end
   end
+
+  reg done;
+  always @(posedge clk) begin
+    if (reset) begin
+      done <= 1'b0;
+    end else begin
+      if (!done) begin
+        done <= last;
+      end
+    end
+  end
+
 
 endmodule
 
