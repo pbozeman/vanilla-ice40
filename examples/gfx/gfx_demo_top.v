@@ -1,15 +1,12 @@
-`ifndef GFX_TOP_V
-`define GFX_TOP_V
-
-// Super basic hello world of a line.
-// Output coordinates to io pins, no display, for now.
+`ifndef GFX_DEMO_TOP_V
+`define GFX_DEMO_TOP_V
 
 `include "directives.v"
 
 `include "initial_reset.v"
-`include "gfx_line.v"
+`include "gfx_demo.v"
 
-module gfx_top #(
+module gfx_demo_top #(
     parameter VGA_WIDTH  = 640,
     parameter VGA_HEIGHT = 480
 ) (
@@ -29,42 +26,20 @@ module gfx_top #(
 
   reg                 reset;
 
-  reg                 enable;
-  reg                 start;
-  reg [FB_X_BITS-1:0] x0;
-  reg [FB_Y_BITS-1:0] y0;
-  reg [FB_X_BITS-1:0] x1;
-  reg [FB_Y_BITS-1:0] y1;
-
   reg [FB_X_BITS-1:0] x;
   reg [FB_Y_BITS-1:0] y;
-  reg                 done;
 
   initial_reset u_initial_reset (
       .clk  (CLK),
       .reset(reset)
   );
 
-  gfx_line u_line (
+  gfx_demo u_demo (
       .clk  (CLK),
       .reset(reset),
-      .start(start),
-      .x0   (x0),
-      .y0   (y0),
-      .x1   (x1),
-      .y1   (y1),
       .x    (x),
-      .y    (y),
-      .done (done)
+      .y    (y)
   );
-
-  always @(posedge CLK) begin
-    x0    <= 10;
-    y0    <= 10;
-    x1    <= 100;
-    y1    <= 100;
-    start <= 1'b1;
-  end
 
   assign LED1     = 1'bz;
   assign LED2     = 1'bz;
