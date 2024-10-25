@@ -7,6 +7,7 @@
 `include "axi_sram_dbuf_controller.v"
 `include "fb_writer.v"
 `include "gfx_test_pattern.v"
+`include "vga_fb_pixel_stream.v"
 
 module gfx_demo #(
     parameter VGA_WIDTH      = 640,
@@ -134,12 +135,12 @@ module gfx_demo #(
   );
 
   // fb writer axi flow control signals
-  reg                       fb_axi_tvalid;
-  wire                      fb_axi_tready;
+  reg                       fbw_axi_tvalid;
+  wire                      fbw_axi_tready;
 
   // and the data that goes with them
-  reg  [AXI_ADDR_WIDTH-1:0] fb_addr;
-  reg  [    PIXEL_BITS-1:0] fb_color;
+  reg  [AXI_ADDR_WIDTH-1:0] fbw_addr;
+  reg  [    PIXEL_BITS-1:0] fbw_color;
 
   fb_writer #(
       .PIXEL_BITS    (PIXEL_BITS),
@@ -149,11 +150,11 @@ module gfx_demo #(
       .clk  (clk),
       .reset(reset),
 
-      .axi_tvalid(fb_axi_tvalid),
-      .axi_tready(fb_axi_tready),
+      .axi_tvalid(fbw_axi_tvalid),
+      .axi_tready(fbw_axi_tready),
 
-      .addr (fb_addr),
-      .color(fb_color),
+      .addr (fbw_addr),
+      .color(fbw_color),
 
       .sram_axi_awaddr (gfx_axi_awaddr),
       .sram_axi_awvalid(gfx_axi_awvalid),
@@ -168,28 +169,75 @@ module gfx_demo #(
   );
 
   wire [AXI_ADDR_WIDTH-1:0] gfx_addr;
-  assign gfx_inc  = (fb_axi_tready & fb_axi_tvalid);
+  assign gfx_inc  = (fbw_axi_tready & fbw_axi_tvalid);
   assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
 
   // fb writer data
   always @(posedge clk) begin
     if (reset) begin
-      fb_axi_tvalid <= 1'b0;
+      fbw_axi_tvalid <= 1'b0;
     end else begin
       if (gfx_valid) begin
-        fb_addr       <= gfx_addr;
-        fb_color      <= gfx_color;
-        fb_axi_tvalid <= 1'b1;
+        fbw_addr       <= gfx_addr;
+        fbw_color      <= gfx_color;
+        fbw_axi_tvalid <= 1'b1;
       end else begin
-        if (fb_axi_tvalid & fb_axi_tready) begin
-          fb_axi_tvalid <= 1'b0;
+        if (fbw_axi_tvalid & fbw_axi_tready) begin
+          fbw_axi_tvalid <= 1'b0;
         end
       end
     end
   end
 
-  assign addr  = fb_addr;
-  assign color = fb_color;
+
+  //
+  // VGA pixel stream
+  //
+  localparam COLOR_BITS = PIXEL_BITS / 3;
+
+  // control signals
+  reg                       vga_fb_enable;
+  wire                      vga_fb_valid;
+
+  // sync signals
+  wire                      vga_fb_vsync;
+  wire                      vga_fb_hsync;
+
+  // color signals
+  wire [    COLOR_BITS-1:0] vga_fb_red;
+  wire [    COLOR_BITS-1:0] vga_fb_grn;
+  wire [    COLOR_BITS-1:0] vga_fb_blu;
+
+  wire [AXI_ADDR_WIDTH-1:0] xxx_addr;
+
+  vga_fb_pixel_stream #(
+      .PIXEL_BITS    (PIXEL_BITS),
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+  ) vga_fb_pixel_stream_inst (
+      .clk   (clk),
+      .reset (reset),
+      .enable(vga_fb_enable),
+      .valid (vga_fb_valid),
+      .hsync (vga_fb_hsync),
+      .vsync (vga_fb_vsync),
+      .red   (vga_fb_red),
+      .grn   (vga_fb_grn),
+      .blu   (vga_fb_blu),
+
+      .sram_axi_araddr (disp_axi_araddr),
+      .sram_axi_arvalid(disp_axi_arvalid),
+      .sram_axi_arready(disp_axi_arready),
+      .sram_axi_rdata  (disp_axi_rdata),
+      .sram_axi_rready (disp_axi_rready),
+      .sram_axi_rresp  (disp_axi_rresp),
+      .sram_axi_rvalid (disp_axi_rvalid),
+
+      .xxx_addr(xxx_addr)
+  );
+
+  assign addr  = xxx_addr;
+  assign color = fbw_color;
 
 endmodule
 

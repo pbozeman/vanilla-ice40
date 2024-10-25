@@ -30,24 +30,21 @@ module fb_writer #(
     output reg  [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
     output reg                               sram_axi_wvalid,
     input  wire                              sram_axi_wready,
+    output reg                               sram_axi_bready,
     // verilator lint_off UNUSEDSIGNAL
     input  wire                              sram_axi_bvalid,
-    // verilator lint_on UNUSEDSIGNAL
-    output reg                               sram_axi_bready,
-
-    // verilator lint_off UNUSEDSIGNAL
-    input wire [1:0] sram_axi_bresp
+    input  wire [                       1:0] sram_axi_bresp
     // verilator lint_on UNUSEDSIGNAL
 );
   // State definitions
-  localparam IDLE = 2'b00;
-  localparam WRITING = 2'b01;
+  localparam IDLE = 1'b0;
+  localparam WRITING = 1'b1;
 
   // State and next state registers
-  reg [1:0] state = IDLE;
-  reg [1:0] next_state;
+  reg state = IDLE;
+  reg next_state;
 
-  reg       write_start;
+  reg write_start;
 
   // state machine
   always @(*) begin
