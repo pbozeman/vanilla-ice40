@@ -24,15 +24,17 @@ module vga_sync #(
     // verilator lint_on UNUSEDPARAM
     parameter V_WHOLE_FRAME = 525
 ) (
-    input  wire       clk,
-    input  wire       reset,
-    input  wire       enable,
-    output wire       visible,
-    output wire       hsync,
-    output wire       vsync,
-    output wire [9:0] column,
-    output wire [9:0] row
+    input  wire                   clk,
+    input  wire                   reset,
+    input  wire                   enable,
+    output wire                   visible,
+    output wire                   hsync,
+    output wire                   vsync,
+    output wire [COLUMN_BITS-1:0] column,
+    output wire [   ROW_BITS-1:0] row
 );
+  localparam COLUMN_BITS = $clog2(H_WHOLE_LINE);
+  localparam ROW_BITS = $clog2(V_WHOLE_FRAME);
 
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
