@@ -6,7 +6,7 @@
 
 `include "directives.v"
 
-// `include "counter.v"
+`include "fifo.v"
 `include "vga_sync.v"
 
 // verilator lint_off UNUSEDSIGNAL
@@ -45,8 +45,6 @@ module vga_fb_pixel_stream #(
     output wire [COLOR_BITS-1:0] red,
     output wire [COLOR_BITS-1:0] grn,
     output wire [COLOR_BITS-1:0] blu,
-
-    output wire [AXI_ADDR_WIDTH-1:0] xxx_addr,
 
     //
     // The AXI interface backing the frame buffer.
@@ -221,9 +219,105 @@ module vga_fb_pixel_stream #(
     end
   end
 
-  assign hsync    = fb_pixel_hsync_p1;
-  assign vsync    = fb_pixel_vsync_p1;
-  assign xxx_addr = fb_pixel_addr_p1;
+
+  // Send the metadata we computed about the pixel through a fifo to be
+  // matched with it's pixel value from the frame buffer.
+  //
+  // An alternative to this would be a shift register, but that requires
+  // us to know the pipeline size of the axi stream.
+  localparam PIXEL_CONTEXT_WIDTH = 2;
+  wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_send;
+  wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_recv;
+
+  // marshal the pixel metadata for the fifo
+  assign pixel_context_send = {fb_pixel_vsync_p1, fb_pixel_hsync_p1};
+
+  wire fifo_empty;
+  wire fifo_full;
+
+  wire pixel_inc = !fifo_empty & (read_done | !fb_pixel_visible_p1);
+
+  fifo #(
+      .DATA_WIDTH(PIXEL_CONTEXT_WIDTH)
+  ) fb_fifo (
+      .clk       (clk),
+      .reset     (reset),
+      .write_en  (fb_pixel_inc),
+      .read_en   (pixel_inc),
+      .write_data(pixel_context_send),
+      .read_data (pixel_context_recv),
+      .empty     (fifo_empty),
+      .full      (fifo_full)
+  );
+
+  // Delay pixel_inc by 1 because pixel_context_recv comes
+  // 1 clock after the inc. Otherwise, we interpret one
+  // clock early, which is especially bad at the start (and the end).
+  //
+  // TODO: the sync fifo interface should be better and operate more
+  // like the aysnc fifo does in that the data is valid, if not empty,
+  // and inc takes you to the next one.
+
+  reg pixel_inc_p1;
+  always @(posedge clk) begin
+    if (reset) begin
+      pixel_inc_p1 <= 1'b0;
+    end else begin
+      pixel_inc_p1 <= pixel_inc;
+    end
+  end
+
+  // unmarshal the pixel metadata to send to the caller
+  wire fifo_pixel_vsync;
+  wire fifo_pixel_hsync;
+  wire fifo_pixel_valid;
+
+  assign fifo_pixel_vsync = pixel_context_recv[1];
+  assign fifo_pixel_hsync = pixel_context_recv[0];
+  assign fifo_pixel_valid = pixel_inc_p1;
+
+  reg                      pixel_hsync;
+  reg                      pixel_vsync;
+  reg [AXI_DATA_WIDTH-1:0] pixel_data;
+  reg                      pixel_valid;
+
+  // The pixel data from the fifo won't be valid for awhile, so set
+  // the important bits. hsync/vsync so the monitor won't try to interpret
+  // data.
+  always @(posedge clk) begin
+    if (reset) begin
+      pixel_hsync <= 1'b1;
+      pixel_vsync <= 1'b1;
+    end else begin
+      if (fifo_pixel_valid) begin
+        pixel_hsync <= fifo_pixel_hsync;
+        pixel_vsync <= fifo_pixel_vsync;
+      end
+    end
+  end
+
+  always @(posedge clk) begin
+    if (reset) begin
+      pixel_data  <= 0;
+      pixel_valid <= 0;
+    end else begin
+      pixel_valid <= pixel_inc;
+
+      if (read_done) begin
+        pixel_data <= sram_axi_rdata;
+      end
+    end
+  end
+
+  // It's kinda annoying that we padded the bottom back at the start, but
+  // here we are.
+  // TODO: change use of fb to pad the top, not the bottom
+  wire [AXI_DATA_WIDTH-PIXEL_BITS:0] u_pixel;
+
+  assign hsync                    = pixel_hsync;
+  assign vsync                    = pixel_vsync;
+  assign {red, grn, blu, u_pixel} = pixel_data;
+  assign valid                    = pixel_valid;
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

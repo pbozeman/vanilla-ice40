@@ -231,12 +231,10 @@ module gfx_demo #(
       .sram_axi_rdata  (disp_axi_rdata),
       .sram_axi_rready (disp_axi_rready),
       .sram_axi_rresp  (disp_axi_rresp),
-      .sram_axi_rvalid (disp_axi_rvalid),
-
-      .xxx_addr(xxx_addr)
+      .sram_axi_rvalid (disp_axi_rvalid)
   );
 
-  assign addr  = xxx_addr;
+  assign addr  = {vga_fb_red, vga_fb_grn, vga_fb_blu};
   assign color = fbw_color;
 
   //
