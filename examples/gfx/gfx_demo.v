@@ -259,13 +259,17 @@ module gfx_demo #(
   //
 
   // Track when the first frame is done
+  // The _p1 lets the final item get written before switching.
+  reg gfx_last_p1;
   reg gfx_ready = 1'b0;
   always @(posedge clk) begin
     if (reset) begin
-      gfx_ready <= 1'b0;
+      gfx_last_p1 <= 1'b0;
+      gfx_ready   <= 1'b0;
     end else begin
+      gfx_last_p1 <= gfx_last;
       if (!gfx_ready) begin
-        gfx_ready <= gfx_last;
+        gfx_ready <= gfx_last_p1;
       end
     end
   end
