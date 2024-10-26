@@ -1,0 +1,101 @@
+`include "testing.v"
+
+`include "gfx_demo.v"
+`include "sram_model.v"
+
+// This is not intended to be a full test. This is just to see some wave forms
+// in the simulator.
+//
+// verilator lint_off UNUSEDSIGNAL
+module gfx_demo_tb;
+  // localparam VGA_WIDTH = 640;
+  // localparam VGA_HEIGHT = 480;
+  localparam PIXEL_BITS = 12;
+
+  localparam AXI_ADDR_WIDTH = 20;
+  localparam AXI_DATA_WIDTH = 16;
+
+  localparam COLOR_BITS = PIXEL_BITS / 3;
+
+  reg                       clk;
+  reg                       pixel_clk;
+  reg                       reset;
+
+  wire [AXI_ADDR_WIDTH-1:0] addr;
+  wire [    PIXEL_BITS-1:0] color;
+
+  // SRAM 0
+  wire [AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire [AXI_DATA_WIDTH-1:0] sram_io_data;
+  wire                      sram_io_we_n;
+  wire                      sram_io_oe_n;
+  wire                      sram_io_ce_n;
+
+  wire [    COLOR_BITS-1:0] vga_red;
+  wire [    COLOR_BITS-1:0] vga_grn;
+  wire [    COLOR_BITS-1:0] vga_blu;
+  wire                      vga_hsync;
+  wire                      vga_vsync;
+
+  gfx_demo uut (
+      .clk      (clk),
+      .pixel_clk(pixel_clk),
+      .reset    (reset),
+
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
+      .vga_hsync(vga_hsync),
+      .vga_vsync(vga_vsync),
+
+      .sram_io_addr(sram_io_addr),
+      .sram_io_data(sram_io_data),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n)
+  );
+
+  // Instantiate the mocked SRAM model
+  sram_model #(
+      .ADDR_BITS(AXI_ADDR_WIDTH),
+      .DATA_BITS(AXI_DATA_WIDTH)
+  ) sram_0 (
+      .we_n   (sram_io_we_n),
+      .oe_n   (sram_io_oe_n),
+      .ce_n   (sram_io_ce_n),
+      .addr   (sram_io_addr),
+      .data_io(sram_io_data)
+  );
+
+  // 100mhz main clock (also axi clock)
+  initial begin
+    clk = 0;
+    forever #5 clk = ~clk;
+  end
+
+  // 25mhz pixel clock
+  initial begin
+    pixel_clk = 0;
+    forever #20 pixel_clk = ~pixel_clk;
+  end
+
+  `TEST_SETUP_SLOW(gfx_demo_tb);
+
+  // Test procedure
+  initial begin
+    reset = 1;
+    repeat (10) @(posedge clk);
+    reset = 0;
+
+    // This is for the pattern generator (2x because of the sram, +100 to see
+    // into the next frame)
+    repeat (2 * 640 * 480 + 100) @(posedge clk);
+
+    // This is for the display.
+    // The 800 * 525 are the H_WHOLE_LINE * V_WHOLE_FRAME.
+    repeat (3 * 800 * 525) @(posedge pixel_clk);
+    $finish;
+  end
+
+endmodule
+// verilator lint_on UNUSEDSIGNAL
