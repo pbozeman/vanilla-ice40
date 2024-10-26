@@ -224,12 +224,14 @@ module vga_fb_pixel_stream #(
   //
   // An alternative to this would be a shift register, but that requires
   // us to know the pipeline size of the axi stream.
-  localparam PIXEL_CONTEXT_WIDTH = 2;
+  localparam PIXEL_CONTEXT_WIDTH = 3;
   wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_send;
   wire [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_recv;
 
   // marshal the pixel metadata for the fifo
-  assign pixel_context_send = {fb_pixel_vsync_p1, fb_pixel_hsync_p1};
+  assign pixel_context_send = {
+    fb_pixel_visible, fb_pixel_vsync_p1, fb_pixel_hsync_p1
+  };
 
   wire fifo_empty;
   wire fifo_full;
@@ -267,14 +269,18 @@ module vga_fb_pixel_stream #(
   end
 
   // unmarshal the pixel metadata to send to the caller
+  wire fifo_pixel_visible;
   wire fifo_pixel_vsync;
   wire fifo_pixel_hsync;
   wire fifo_pixel_valid;
 
-  assign fifo_pixel_vsync = pixel_context_recv[1];
-  assign fifo_pixel_hsync = pixel_context_recv[0];
-  assign fifo_pixel_valid = pixel_inc_p1;
+  assign fifo_pixel_visible = pixel_context_recv[2];
+  assign fifo_pixel_vsync   = pixel_context_recv[1];
+  assign fifo_pixel_hsync   = pixel_context_recv[0];
 
+  assign fifo_pixel_valid   = pixel_inc_p1;
+
+  reg                      pixel_visible;
   reg                      pixel_hsync;
   reg                      pixel_vsync;
   reg [AXI_DATA_WIDTH-1:0] pixel_data;
@@ -289,8 +295,9 @@ module vga_fb_pixel_stream #(
       pixel_vsync <= 1'b1;
     end else begin
       if (fifo_pixel_valid) begin
-        pixel_hsync <= fifo_pixel_hsync;
-        pixel_vsync <= fifo_pixel_vsync;
+        pixel_visible <= fifo_pixel_visible;
+        pixel_hsync   <= fifo_pixel_hsync;
+        pixel_vsync   <= fifo_pixel_vsync;
       end
     end
   end
@@ -311,12 +318,15 @@ module vga_fb_pixel_stream #(
   // It's kinda annoying that we padded the bottom back at the start, but
   // here we are.
   // TODO: change use of fb to pad the top, not the bottom
-  wire [AXI_DATA_WIDTH-PIXEL_BITS:0] u_pixel;
+  wire [AXI_DATA_WIDTH-PIXEL_BITS-1:0] u_pixel;
+
+  // the data to use when the pixel is not visible
+  reg  [             AXI_DATA_WIDTH:0] blank_pixel = 0;
 
   assign hsync                    = pixel_hsync;
   assign vsync                    = pixel_vsync;
-  assign {red, grn, blu, u_pixel} = pixel_data;
   assign valid                    = pixel_valid;
+  assign {red, grn, blu, u_pixel} = pixel_visible ? pixel_data : blank_pixel;
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

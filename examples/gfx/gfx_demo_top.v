@@ -3,12 +3,14 @@
 
 `include "directives.v"
 
-`include "initial_reset.v"
 `include "gfx_demo.v"
+`include "initial_reset.v"
+`include "vga_pll.v"
 
 module gfx_demo_top #(
     parameter VGA_WIDTH  = 640,
     parameter VGA_HEIGHT = 480,
+    parameter PIXEL_BITS = 12,
     parameter ADDR_BITS  = 20,
     parameter DATA_BITS  = 16
 ) (
@@ -25,17 +27,26 @@ module gfx_demo_top #(
     output wire                 R_SRAM_WE_N,
 
     output wire [7:0] R_E,
-    output wire [7:0] R_F,
-
-    output wire [7:0] R_H,
-    output wire [7:0] R_I
+    output wire [7:0] R_F
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
 
-  reg                 reset;
+  localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  reg [ADDR_BITS-1:0] addr;
+  reg                   reset;
+
+  wire [COLOR_BITS-1:0] vga_red;
+  wire [COLOR_BITS-1:0] vga_grn;
+  wire [COLOR_BITS-1:0] vga_blu;
+  wire                  vga_hsync;
+  wire                  vga_vsync;
+
+  wire                  pixel_clk;
+  vga_pll vga_pll_inst (
+      .clk_i(CLK),
+      .clk_o(pixel_clk)
+  );
 
   initial_reset u_initial_reset (
       .clk  (CLK),
@@ -46,9 +57,16 @@ module gfx_demo_top #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
       .AXI_DATA_WIDTH(DATA_BITS)
   ) u_demo (
-      .clk  (CLK),
-      .reset(reset),
-      .addr (addr),
+      .clk      (CLK),
+      .pixel_clk(pixel_clk),
+      .reset    (reset),
+
+      // vga signals
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
+      .vga_hsync(vga_hsync),
+      .vga_vsync(vga_vsync),
 
       // sram 0 signals
       .sram0_io_addr(R_SRAM_ADDR_BUS),
@@ -61,8 +79,12 @@ module gfx_demo_top #(
   assign LED1     = 1'bz;
   assign LED2     = 1'bz;
 
-  assign R_E[7:0] = addr[19:12];
-  assign R_F[7:6] = addr[11:3];
+  // digilent vga pmod pinout
+  assign R_E[3:0] = vga_red;
+  assign R_E[7:4] = vga_blu;
+  assign R_F[3:0] = vga_grn;
+  assign R_F[4]   = vga_hsync;
+  assign R_F[5]   = vga_vsync;
 
 endmodule
 

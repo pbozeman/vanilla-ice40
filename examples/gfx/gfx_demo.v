@@ -5,6 +5,7 @@
 `include "directives.v"
 
 `include "axi_sram_dbuf_controller.v"
+`include "cdc_fifo.v"
 `include "delay.v"
 `include "detect_falling.v"
 `include "detect_rising.v"
@@ -21,10 +22,15 @@ module gfx_demo #(
     parameter AXI_DATA_WIDTH = 16
 ) (
     input wire clk,
+    input wire pixel_clk,
     input wire reset,
 
-    output wire [AXI_ADDR_WIDTH-1:0] addr,
-    output wire [    PIXEL_BITS-1:0] color,
+    // vga signals
+    output wire [COLOR_BITS-1:0] vga_red,
+    output wire [COLOR_BITS-1:0] vga_grn,
+    output wire [COLOR_BITS-1:0] vga_blu,
+    output wire                  vga_hsync,
+    output wire                  vga_vsync,
 
     // sram0 controller to io pins
     output wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
@@ -42,6 +48,7 @@ module gfx_demo #(
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
+  localparam COLOR_BITS = PIXEL_BITS / 3;
 
   //
   // gfx axi writter
@@ -128,7 +135,7 @@ module gfx_demo #(
   // TODO: rename u_pat
   gfx_test_pattern u_pat (
       .clk  (clk),
-      .reset(reset),
+      .reset(reset | mem_switch),
       .inc  (gfx_inc),
       .x    (gfx_x),
       .y    (gfx_y),
@@ -195,7 +202,6 @@ module gfx_demo #(
   //
   // VGA pixel stream
   //
-  localparam COLOR_BITS = PIXEL_BITS / 3;
 
   // control signals
   wire                      vga_fb_enable;
@@ -236,8 +242,60 @@ module gfx_demo #(
       .sram_axi_rvalid (disp_axi_rvalid)
   );
 
-  assign addr  = {vga_fb_red, vga_fb_grn, vga_fb_blu};
-  assign color = fbw_color;
+  //
+  // CDC over to the VGA output clock domain
+  //
+
+  // fifo control signals
+  wire fifo_almost_full;
+  // verilator lint_off UNUSEDSIGNAL
+  wire fifo_full;
+  wire fifo_empty;
+  // verilator lint_on UNUSEDSIGNAL
+  wire fifo_r_inc;
+
+  // on the vga side, it's just always reading
+  assign fifo_r_inc = 1'b1;
+
+  //
+  // VGA data marshaling and unmarshaling on for going in and out of the fifo.
+  //
+  // fifo_fb_ comes from the frame buffer and is in the writer clock domain.
+  // fifo_vga_ is used by the vga side and is in the reader clock domain.
+  //
+  localparam VGA_DATA_WIDTH = 14;
+
+  wire [VGA_DATA_WIDTH-1:0] fifo_fb_data;
+  wire [VGA_DATA_WIDTH-1:0] fifo_vga_data;
+
+  assign fifo_fb_data = {
+    vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
+  };
+
+  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
+
+  // ship it
+  cdc_fifo #(
+      .DATA_WIDTH     (VGA_DATA_WIDTH),
+      .ADDR_SIZE      (4),
+      .ALMOST_FULL_BUF(8)
+  ) fifo (
+      // Write clock domain
+      .w_clk        (clk),
+      .w_rst_n      (~reset),
+      .w_inc        (vga_fb_valid),
+      .w_data       (fifo_fb_data),
+      .w_full       (fifo_full),
+      .w_almost_full(fifo_almost_full),
+
+      .r_clk  (pixel_clk),
+      .r_rst_n(~reset),
+      .r_inc  (fifo_r_inc),
+
+      // Read clock domain outputs
+      .r_empty(fifo_empty),
+      .r_data (fifo_vga_data)
+  );
 
   //
   // FB double buffer switching logic
@@ -299,7 +357,7 @@ module gfx_demo #(
   );
 
   assign mem_switch    = posedge_gfx_ready | negedge_vsync;
-  assign vga_fb_enable = gfx_ready;
+  assign vga_fb_enable = gfx_ready & !fifo_almost_full;
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

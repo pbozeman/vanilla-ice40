@@ -12,8 +12,10 @@ module gfx_demo_tb;
   // localparam VGA_HEIGHT = 480;
   localparam PIXEL_BITS = 12;
 
-  parameter AXI_ADDR_WIDTH = 20;
-  parameter AXI_DATA_WIDTH = 16;
+  localparam AXI_ADDR_WIDTH = 20;
+  localparam AXI_DATA_WIDTH = 16;
+
+  localparam COLOR_BITS = PIXEL_BITS / 3;
 
   reg                       clk;
   reg                       pixel_clk;
@@ -36,11 +38,22 @@ module gfx_demo_tb;
   wire                      sram1_io_oe_n;
   wire                      sram1_io_ce_n;
 
+  wire [    COLOR_BITS-1:0] vga_red;
+  wire [    COLOR_BITS-1:0] vga_grn;
+  wire [    COLOR_BITS-1:0] vga_blu;
+  wire                      vga_hsync;
+  wire                      vga_vsync;
+
   gfx_demo uut (
-      .clk  (clk),
-      .reset(reset),
-      .addr (addr),
-      .color(color),
+      .clk      (clk),
+      .pixel_clk(pixel_clk),
+      .reset    (reset),
+
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
+      .vga_hsync(vga_hsync),
+      .vga_vsync(vga_vsync),
 
       .sram0_io_addr(sram0_io_addr),
       .sram0_io_data(sram0_io_data),
