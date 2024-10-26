@@ -106,17 +106,38 @@ module axi_sram_controller #(
       .io_ce_n        (sram_io_ce_n)
   );
 
+  // flip read/write priority every other cycle
+  reg rw_pri = 0;
+  always @(posedge axi_clk) begin
+    if (sram_req) begin
+      rw_pri <= ~rw_pri;
+    end
+  end
+
   // state machine
   always @(*) begin
     next_state = current_state;
 
     case (current_state)
       IDLE: begin
-        if (axi_awvalid && axi_wvalid) begin
-          next_state = WRITE;
+        // don't let readers/writers starve each other
+        if (rw_pri) begin
+          // prioritize writes
+          if (axi_awvalid && axi_wvalid) begin
+            next_state = WRITE;
+          end else begin
+            if (axi_arvalid) begin
+              next_state = READ;
+            end
+          end
         end else begin
+          // prioritize reads
           if (axi_arvalid) begin
             next_state = READ;
+          end else begin
+            if (axi_awvalid && axi_wvalid) begin
+              next_state = WRITE;
+            end
           end
         end
       end
