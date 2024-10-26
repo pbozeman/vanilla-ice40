@@ -1,5 +1,5 @@
-`ifndef GFX_DEMO_V
-`define GFX_DEMO_V
+`ifndef GFX_DEMO_DBUF_V
+`define GFX_DEMO_DBUF_V
 
 
 `include "directives.v"
@@ -14,7 +14,7 @@
 `include "vga_fb_pixel_stream.v"
 
 // verilator lint_off UNUSEDSIGNAL
-module gfx_demo #(
+module gfx_demo_dbuf #(
     parameter VGA_WIDTH      = 640,
     parameter VGA_HEIGHT     = 480,
     parameter PIXEL_BITS     = 12,
@@ -132,8 +132,7 @@ module gfx_demo #(
   wire                  gfx_last;
   wire                  gfx_valid;
 
-  // TODO: rename u_pat
-  gfx_test_pattern u_pat (
+  gfx_test_pattern gfx_inst (
       .clk  (clk),
       .reset(reset | mem_switch),
       .inc  (gfx_inc),
@@ -194,6 +193,7 @@ module gfx_demo #(
       end else begin
         if (fbw_axi_tvalid & fbw_axi_tready) begin
           fbw_axi_tvalid <= 1'b0;
+
         end
       end
     end

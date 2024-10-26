@@ -1,13 +1,13 @@
-`ifndef GFX_DEMO_TOP_V
-`define GFX_DEMO_TOP_V
+`ifndef GFX_DEMO_DBUF_TOP_V
+`define GFX_DEMO_DBUF_TOP_V
 
 `include "directives.v"
 
-`include "gfx_demo.v"
+`include "gfx_demo_dbuf.v"
 `include "initial_reset.v"
 `include "vga_pll.v"
 
-module gfx_demo_top #(
+module gfx_demo_dbuf_top #(
     parameter VGA_WIDTH  = 640,
     parameter VGA_HEIGHT = 480,
     parameter PIXEL_BITS = 12,
@@ -25,6 +25,13 @@ module gfx_demo_top #(
     output wire                 R_SRAM_CS_N,
     output wire                 R_SRAM_OE_N,
     output wire                 R_SRAM_WE_N,
+
+    // sram 1 buses
+    output wire [ADDR_BITS-1:0] L_SRAM_ADDR_BUS,
+    inout  wire [DATA_BITS-1:0] L_SRAM_DATA_BUS,
+    output wire                 L_SRAM_CS_N,
+    output wire                 L_SRAM_OE_N,
+    output wire                 L_SRAM_WE_N,
 
     output wire [7:0] R_E,
     output wire [7:0] R_F
@@ -53,7 +60,7 @@ module gfx_demo_top #(
       .reset(reset)
   );
 
-  gfx_demo #(
+  gfx_demo_dbuf #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
       .AXI_DATA_WIDTH(DATA_BITS)
   ) u_demo (
@@ -73,7 +80,14 @@ module gfx_demo_top #(
       .sram0_io_data(R_SRAM_DATA_BUS),
       .sram0_io_we_n(R_SRAM_WE_N),
       .sram0_io_oe_n(R_SRAM_OE_N),
-      .sram0_io_ce_n(R_SRAM_CS_N)
+      .sram0_io_ce_n(R_SRAM_CS_N),
+
+      // sram 1 signals
+      .sram1_io_addr(L_SRAM_ADDR_BUS),
+      .sram1_io_data(L_SRAM_DATA_BUS),
+      .sram1_io_we_n(L_SRAM_WE_N),
+      .sram1_io_oe_n(L_SRAM_OE_N),
+      .sram1_io_ce_n(L_SRAM_CS_N)
   );
 
   assign LED1     = 1'bz;

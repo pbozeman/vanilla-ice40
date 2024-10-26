@@ -1,13 +1,13 @@
 `include "testing.v"
 
-`include "gfx_demo.v"
+`include "gfx_demo_dbuf.v"
 `include "sram_model.v"
 
 // This is not intended to be a full test. This is just to see some wave forms
 // in the simulator.
 //
 // verilator lint_off UNUSEDSIGNAL
-module gfx_demo_tb;
+module gfx_demo_dbuf_tb;
   // localparam VGA_WIDTH = 640;
   // localparam VGA_HEIGHT = 480;
   localparam PIXEL_BITS = 12;
@@ -44,7 +44,7 @@ module gfx_demo_tb;
   wire                      vga_hsync;
   wire                      vga_vsync;
 
-  gfx_demo uut (
+  gfx_demo_dbuf uut (
       .clk      (clk),
       .pixel_clk(pixel_clk),
       .reset    (reset),
@@ -104,7 +104,7 @@ module gfx_demo_tb;
     forever #20 pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP_SLOW(gfx_demo_tb);
+  `TEST_SETUP_SLOW(gfx_demo_dbuf_tb);
 
   // Test procedure
   initial begin
