@@ -37,15 +37,28 @@ module gfx_test_pattern #(
     next_x = x;
     next_y = y;
 
-    if (x == MAX_X) begin
+    if (reset) begin
+      // This reset block is to reset the color. I tried doing it in the
+      // sync block, but that didn't pass timing. This is a work around,
+      // although potentially it just nudges nextpnr into a different layout.
+      // It seems silly to do this here.
       next_x = 0;
-      if (y == MAX_Y) begin
-        next_y = 0;
-      end else begin
-        next_y = y + 1;
-      end
+      next_y = 0;
     end else begin
-      next_x = x + 1;
+      // if the inc check gets removed, move the color calc
+      // into the non-comb block
+      if (inc) begin
+        if (x == MAX_X) begin
+          next_x = 0;
+          if (y == MAX_Y) begin
+            next_y = 0;
+          end else begin
+            next_y = y + 1;
+          end
+        end else begin
+          next_x = x + 1;
+        end
+      end
     end
   end
 
@@ -53,25 +66,30 @@ module gfx_test_pattern #(
   wire [COLOR_BITS-1:0] grn;
   wire [COLOR_BITS-1:0] blu;
 
-  assign red = x < 213 ? {COLOR_BITS{1'b1}} : {COLOR_BITS{1'b0}};
-  assign grn = x >= 213 && x < 426 ? {COLOR_BITS{1'b1}} : {COLOR_BITS{1'b0}};
-  assign blu = x >= 426 ? {COLOR_BITS{1'b1}} : {COLOR_BITS{1'b0}};
+  localparam color_on = {COLOR_BITS{1'b1}};
+  localparam color_off = {COLOR_BITS{1'b0}};
+
+  assign red = x < 213 ? color_on : color_off;
+  assign grn = next_x >= 213 && next_x < 426 ? color_on : color_off;
+  assign blu = next_x >= 426 ? color_on : color_off;
 
   always @(posedge clk) begin
     if (reset) begin
       x     <= 0;
       y     <= 0;
       valid <= 1'b1;
-      color <= {red, grn, blu};
     end else begin
       valid <= 1'b0;
       if (!done & inc) begin
         x     <= next_x;
         y     <= next_y;
-        color <= {red, grn, blu};
         valid <= 1'b1;
       end
     end
+  end
+
+  always @(posedge clk) begin
+    color <= {red, grn, blu};
   end
 
   reg done;
@@ -84,7 +102,6 @@ module gfx_test_pattern #(
       end
     end
   end
-
 
 endmodule
 
