@@ -1,11 +1,11 @@
-`ifndef ADC_Y_TOP_V
-`define ADC_Y_TOP_V
+`ifndef ADC_XY_TOP_V
+`define ADC_XY_TOP_V
 
 `include "directives.v"
 
-`include "adc_y.v"
+`include "adc_xy.v"
 
-module adc_y_top #(
+module adc_xy_top #(
     parameter integer DATA_BITS = 10
 ) (
     input wire                 CLK,
@@ -21,9 +21,9 @@ module adc_y_top #(
 
   wire [DATA_BITS-1:0] y_data;
 
-  adc_y #(
+  adc_xy #(
       .DATA_BITS(DATA_BITS)
-  ) adc_y_inst (
+  ) adc_xy_inst (
       .clk       (CLK),
       .adc_clk   (L_ADC_CLK_TO_FPGA),
       .y_data_bus(L_ADC_Y),

@@ -1,5 +1,5 @@
-`ifndef ADC_Y_V
-`define ADC_Y_V
+`ifndef ADC_XY_V
+`define ADC_XY_V
 
 `include "directives.v"
 
@@ -7,7 +7,7 @@
 
 // For now, just pass the results through to some
 // io pins and test with a logic analyzer or scope
-module adc_y #(
+module adc_xy #(
     parameter DATA_BITS = 10
 ) (
     input wire clk,
