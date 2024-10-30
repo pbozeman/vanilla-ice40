@@ -1,9 +1,10 @@
 `ifndef GFX_DEMO_V
 `define GFX_DEMO_V
 
-
 `include "directives.v"
 
+`include "delay.v"
+`include "gfx_test_pattern.v"
 `include "gfx_vga.v"
 
 // verilator lint_off UNUSEDSIGNAL
