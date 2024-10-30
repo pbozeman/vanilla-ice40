@@ -21,11 +21,10 @@
           verilator
           verilog
           yosys
-          xdot
         ];
 
         # Conditionally add verible if the system is not Darwin
-        buildInputs = baseBuildInputs ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.verible ];
+        buildInputs = baseBuildInputs ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.verible pkgs.xdot ];
       in
       {
         devShell = pkgs.mkShell {
