@@ -4,6 +4,7 @@
 `include "directives.v"
 
 `include "adc_xy.v"
+`include "initial_reset.v"
 
 module adc_xy_top #(
     parameter integer DATA_BITS = 10
@@ -11,6 +12,7 @@ module adc_xy_top #(
     input wire                 CLK,
     input wire                 L_ADC_CLK_TO_FPGA,
     input wire [DATA_BITS-1:0] L_ADC_Y,
+    input wire [DATA_BITS-1:0] L_ADC_X,
 
     output wire [7:0] R_E,
     output wire [7:0] R_F,
@@ -19,15 +21,26 @@ module adc_xy_top #(
     output wire [7:0] R_I
 );
 
+  reg                  reset;
+
   wire [DATA_BITS-1:0] y_data;
+  wire [DATA_BITS-1:0] x_data;
 
   adc_xy #(
       .DATA_BITS(DATA_BITS)
   ) adc_xy_inst (
-      .clk       (CLK),
-      .adc_clk   (L_ADC_CLK_TO_FPGA),
-      .y_data_bus(L_ADC_Y),
-      .y_data    (y_data)
+      .clk      (CLK),
+      .reset    (reset),
+      .adc_clk  (L_ADC_CLK_TO_FPGA),
+      .adc_x_bus(L_ADC_X),
+      .adc_y_bus(L_ADC_Y),
+      .adc_x    (x_data),
+      .adc_y    (y_data)
+  );
+
+  initial_reset initial_reset_inst (
+      .clk  (CLK),
+      .reset(reset)
   );
 
   // Output y_data on R_E and R_F
