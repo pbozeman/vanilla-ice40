@@ -101,7 +101,11 @@ module gfx_test_pattern #(
   end
 
   always @(posedge clk) begin
-    valid <= 1'b1;
+    if (reset) begin
+      valid <= 1'b1;
+    end else begin
+      valid <= !done;
+    end
   end
 
 endmodule
