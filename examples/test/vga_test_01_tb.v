@@ -42,8 +42,11 @@ module vga_test_01_tb;
       .blue  (blue)
   );
 
-  // clock generator
-  always #20 clk <= ~clk;
+  // mode specific clock
+  initial begin
+    clk = 0;
+    forever #`VGA_MODE_TB_PIXEL_CLK clk = ~clk;
+  end
 
   `TEST_SETUP(vga_test_01_tb);
 

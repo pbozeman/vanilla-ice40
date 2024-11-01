@@ -24,6 +24,7 @@
   `define VGA_MODE_V_BACK_PORCH   29
   `define VGA_MODE_V_WHOLE_FRAME  806
 
+  `define VGA_MODE_TB_PIXEL_CLK 7.69
 `else
 `ifdef VGA_MODE_640_480_60
   // icepll -i 100 -o 25
@@ -44,6 +45,8 @@
   `define VGA_MODE_V_SYNC_PULSE   2
   `define VGA_MODE_V_BACK_PORCH   33
   `define VGA_MODE_V_WHOLE_FRAME  525
+
+  `define VGA_MODE_TB_PIXEL_CLK 20
 `else
   // There's no `error, so this will have to do
   `include "bad or missing VGA_MODE_ define (consider this an error directive)"

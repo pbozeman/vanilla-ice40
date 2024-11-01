@@ -97,10 +97,10 @@ module gfx_demo_dbuf_tb;
     forever #5 clk = ~clk;
   end
 
-  // 25mhz pixel clock
+  // mode specific pixel clock
   initial begin
     pixel_clk = 0;
-    forever #20 pixel_clk = ~pixel_clk;
+    forever #`VGA_MODE_TB_PIXEL_CLK pixel_clk = ~pixel_clk;
   end
 
   `TEST_SETUP_SLOW(gfx_demo_dbuf_tb);
