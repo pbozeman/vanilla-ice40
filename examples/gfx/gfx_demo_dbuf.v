@@ -188,15 +188,20 @@ module gfx_demo_dbuf #(
       fbw_axi_tvalid <= 1'b0;
     end else begin
       if (gfx_valid) begin
-        fbw_addr       <= gfx_addr;
-        fbw_color      <= gfx_color;
         fbw_axi_tvalid <= 1'b1;
       end else begin
         if (fbw_axi_tvalid & fbw_axi_tready) begin
           fbw_axi_tvalid <= 1'b0;
-
         end
       end
+    end
+  end
+
+  // fb writer data
+  always @(posedge clk) begin
+    if (gfx_valid) begin
+      fbw_color <= gfx_color;
+      fbw_addr  <= gfx_addr;
     end
   end
 
@@ -332,14 +337,10 @@ module gfx_demo_dbuf #(
       .out(gfx_last_d)
   );
 
-  reg gfx_ready;
+  reg gfx_ready = 0;
   always @(posedge clk) begin
-    if (reset) begin
-      gfx_ready <= 1'b0;
-    end else begin
-      if (!gfx_ready) begin
-        gfx_ready <= gfx_last_d;
-      end
+    if (!gfx_ready) begin
+      gfx_ready <= gfx_last_d;
     end
   end
 

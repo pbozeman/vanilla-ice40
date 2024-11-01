@@ -157,7 +157,6 @@ module gfx_vga #(
       fbw_axi_tvalid <= 1'b0;
     end else begin
       if (gfx_valid) begin
-        fbw_addr       <= gfx_addr;
         fbw_color      <= gfx_color;
         fbw_axi_tvalid <= 1'b1;
       end else begin
@@ -165,6 +164,12 @@ module gfx_vga #(
           fbw_axi_tvalid <= 1'b0;
         end
       end
+    end
+  end
+
+  always @(posedge clk) begin
+    if (gfx_valid) begin
+      fbw_addr <= gfx_addr;
     end
   end
 
