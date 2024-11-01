@@ -19,10 +19,10 @@ module vga_pll (
 
   SB_PLL40_CORE #(
       .FEEDBACK_PATH("SIMPLE"),
-      .DIVR         (`VGA_PLL_DIVR),
-      .DIVF         (`VGA_PLL_DIVF),
-      .DIVQ         (`VGA_PLL_DIVQ),
-      .FILTER_RANGE (`VGA_PLL_FILTER_RANGE)
+      .DIVR         (`VGA_MODE_PLL_DIVR),
+      .DIVF         (`VGA_MODE_PLL_DIVF),
+      .DIVQ         (`VGA_MODE_PLL_DIVQ),
+      .FILTER_RANGE (`VGA_MODE_PLL_FILTER_RANGE)
   ) pll_inst (
       .LOCK        (pll_lock),
       .RESETB      (1'b1),
