@@ -25,6 +25,7 @@
   `define VGA_MODE_V_WHOLE_FRAME  806
 
 `else
+`ifdef VGA_MODE_640_480_60
   // icepll -i 100 -o 25
   `define VGA_MODE_PLL_DIVR (4'd0)
   `define VGA_MODE_PLL_DIVF (7'd7)
@@ -43,6 +44,11 @@
   `define VGA_MODE_V_SYNC_PULSE   2
   `define VGA_MODE_V_BACK_PORCH   33
   `define VGA_MODE_V_WHOLE_FRAME  525
+`else
+  // There's no `error, so this will have to do
+  `include "bad or missing VGA_MODE_ define (consider this an error directive)"
+`endif
+
 `endif
 // verilog_format: on
 

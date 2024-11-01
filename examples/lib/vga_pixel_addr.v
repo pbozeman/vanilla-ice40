@@ -4,12 +4,11 @@
 `include "directives.v"
 
 `include "counter.v"
+`include "vga_mode.v"
 
-// defaults to 640x480
-// http://www.tinyvga.com/vga-timing/640x480@60Hz
 module vga_pixel_addr #(
-    parameter H_WHOLE_LINE  = 800,
-    parameter V_WHOLE_FRAME = 525
+    parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
+    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME
 ) (
     input  wire                   clk,
     input  wire                   reset,

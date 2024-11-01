@@ -1,10 +1,11 @@
 `include "testing.v"
 
 `include "fb_addr.v"
+`include "vga_mode.v"
 
 module fb_addr_tb;
-  localparam FB_WIDTH = 640;
-  localparam FB_HEIGHT = 480;
+  localparam FB_WIDTH = `VGA_MODE_H_VISIBLE;
+  localparam FB_HEIGHT = `VGA_MODE_V_VISIBLE;
   localparam ADDR_BITS = 20;
   localparam FB_X_BITS = $clog2(FB_WIDTH);
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
@@ -45,12 +46,12 @@ module fb_addr_tb;
     fb_x = 0;
     fb_y = 1;
     `TICK(clk);
-    `ASSERT_EQ(fb_addr, 640);
+    `ASSERT_EQ(fb_addr, FB_WIDTH);
 
     fb_x = 1;
     fb_y = 1;
     `TICK(clk);
-    `ASSERT_EQ(fb_addr, 641);
+    `ASSERT_EQ(fb_addr, FB_WIDTH + 1);
 
     $finish;
   end

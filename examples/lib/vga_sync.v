@@ -3,26 +3,25 @@
 
 `include "directives.v"
 
+`include "vga_mode.v"
 `include "vga_pixel_addr.v"
 
-// defaults to industry standard 640x480@60Hz
-// http://www.tinyvga.com/vga-timing/640x480@60Hz
 module vga_sync #(
-    parameter H_VISIBLE     = 640,
-    parameter H_FRONT_PORCH = 16,
-    parameter H_SYNC_PULSE  = 96,
+    parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
+    parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
+    parameter H_SYNC_PULSE  = `VGA_MODE_H_SYNC_PULSE,
     // verilator lint_off UNUSEDPARAM
-    parameter H_BACK_PORCH  = 48,
+    parameter H_BACK_PORCH  = `VGA_MODE_H_BACK_PORCH,
     // verilator lint_on UNUSEDPARAM
-    parameter H_WHOLE_LINE  = 800,
+    parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
 
-    parameter V_VISIBLE     = 480,
-    parameter V_FRONT_PORCH = 10,
-    parameter V_SYNC_PULSE  = 2,
+    parameter V_VISIBLE     = `VGA_MODE_V_VISIBLE,
+    parameter V_FRONT_PORCH = `VGA_MODE_V_FRONT_PORCH,
+    parameter V_SYNC_PULSE  = `VGA_MODE_V_SYNC_PULSE,
     // verilator lint_off UNUSEDPARAM
-    parameter V_BACK_PORCH  = 33,
+    parameter V_BACK_PORCH  = `VGA_MODE_V_BACK_PORCH,
     // verilator lint_on UNUSEDPARAM
-    parameter V_WHOLE_FRAME = 525
+    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME
 ) (
     input  wire                   clk,
     input  wire                   reset,

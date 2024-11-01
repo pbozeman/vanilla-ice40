@@ -3,9 +3,11 @@
 
 `include "directives.v"
 
+`include "vga_mode.v"
+
 module gfx_clear #(
-    parameter FB_WIDTH   = 640,
-    parameter FB_HEIGHT  = 480,
+    parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
+    parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12
 ) (
     input  wire                  clk,

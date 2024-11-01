@@ -1,5 +1,8 @@
 `include "testing.v"
 
+// maybe check the other modes sometime, but this should be fine.
+`ifdef VGA_MODE_640_480_60
+
 `include "vga_pixel_addr.v"
 
 module vga_pixel_addr_tb;
@@ -74,4 +77,8 @@ module vga_pixel_addr_tb;
     $finish;
   end
 endmodule
+`else
+module vga_pixel_addr_tb;
+endmodule
+`endif
 

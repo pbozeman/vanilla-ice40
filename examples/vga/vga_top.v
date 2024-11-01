@@ -41,11 +41,14 @@ module vga_top (
     output wire `VGA_HSYNC,
     output wire `VGA_VSYNC
 );
+  localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
+  localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
+
   wire reset = 0;
   wire visible;
 
-  wire [9:0] column;
-  wire [9:0] row;
+  wire [COLUMN_BITS-1:0] column;
+  wire [ROW_BITS-1:0] row;
 
   wire [3:0] red;
   wire [3:0] green;

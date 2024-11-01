@@ -3,9 +3,11 @@
 
 `include "directives.v"
 
+`include "vga_mode.v"
+
 module gfx_test_pattern #(
-    parameter FB_WIDTH   = 640,
-    parameter FB_HEIGHT  = 480,
+    parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
+    parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12
 ) (
     input  wire                  clk,
@@ -69,9 +71,15 @@ module gfx_test_pattern #(
   localparam color_on = {COLOR_BITS{1'b1}};
   localparam color_off = {COLOR_BITS{1'b0}};
 
-  assign red = next_x < 213 ? color_on : color_off;
-  assign grn = next_x >= 213 && next_x < 426 ? color_on : color_off;
-  assign blu = next_x >= 426 ? color_on : color_off;
+  localparam THIRD_SCREEN = `VGA_MODE_H_VISIBLE / 3;
+  localparam RED_END = THIRD_SCREEN;
+  localparam GRN_START = RED_END;
+  localparam GRN_END = THIRD_SCREEN * 2;
+  localparam BLU_START = GRN_END;
+
+  assign red = next_x < RED_END ? color_on : color_off;
+  assign grn = next_x >= GRN_START && next_x < GRN_END ? color_on : color_off;
+  assign blu = next_x >= BLU_START ? color_on : color_off;
 
   always @(posedge clk) begin
     if (reset) begin

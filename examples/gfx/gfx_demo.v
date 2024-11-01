@@ -6,11 +6,12 @@
 `include "delay.v"
 `include "gfx_test_pattern.v"
 `include "gfx_vga.v"
+`include "vga_mode.v"
 
 // verilator lint_off UNUSEDSIGNAL
 module gfx_demo #(
-    parameter VGA_WIDTH      = 640,
-    parameter VGA_HEIGHT     = 480,
+    parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
+    parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16

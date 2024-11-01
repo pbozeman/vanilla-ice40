@@ -2,14 +2,13 @@
 
 `include "gfx_demo.v"
 `include "sram_model.v"
+`include "vga_mode.v"
 
 // This is not intended to be a full test. This is just to see some wave forms
 // in the simulator.
 //
 // verilator lint_off UNUSEDSIGNAL
 module gfx_demo_tb;
-  // localparam VGA_WIDTH = 640;
-  // localparam VGA_HEIGHT = 480;
   localparam PIXEL_BITS = 12;
 
   localparam AXI_ADDR_WIDTH = 20;
@@ -87,13 +86,15 @@ module gfx_demo_tb;
     repeat (10) @(posedge clk);
     reset = 0;
 
-    // This is for the pattern generator (2x because of the sram, +100 to see
-    // into the next frame)
-    repeat (2 * 640 * 480 + 100) @(posedge clk);
+    repeat (2 * `VGA_MODE_H_VISIBLE * `VGA_MODE_V_VISIBLE + 100) begin
+      @(posedge clk);
+    end
 
     // This is for the display.
-    // The 800 * 525 are the H_WHOLE_LINE * V_WHOLE_FRAME.
-    repeat (3 * 800 * 525) @(posedge pixel_clk);
+    repeat (3 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME) begin
+      @(posedge pixel_clk);
+    end
+
     $finish;
   end
 

@@ -1,9 +1,10 @@
 `include "testing.v"
 `include "gfx_line.v"
+`include "vga_mode.v"
 
 module gfx_line_tb;
-  parameter FB_WIDTH = 640;
-  parameter FB_HEIGHT = 480;
+  localparam FB_WIDTH = `VGA_MODE_H_VISIBLE;
+  localparam FB_HEIGHT = `VGA_MODE_V_VISIBLE;
   localparam FB_X_BITS = $clog2(FB_WIDTH);
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
 

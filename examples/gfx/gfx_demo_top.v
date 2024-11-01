@@ -5,11 +5,12 @@
 
 `include "gfx_demo.v"
 `include "initial_reset.v"
+`include "vga_mode.v"
 `include "vga_pll.v"
 
 module gfx_demo_top #(
-    parameter VGA_WIDTH  = 640,
-    parameter VGA_HEIGHT = 480,
+    parameter VGA_WIDTH  = `VGA_MODE_H_VISIBLE,
+    parameter VGA_HEIGHT = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12,
     parameter ADDR_BITS  = 20,
     parameter DATA_BITS  = 16

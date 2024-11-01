@@ -6,6 +6,9 @@
 DEVICE := hx8k
 PACKAGE := ct256
 
+VGA_MODE := "640_480_60"
+# VGA_MODE := "1024_768_60"
+
 # Clock Frequency in MHZ
 CLK_FREQ := 100
 
@@ -38,11 +41,11 @@ TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Compiler and simulator
-IVERILOG := iverilog -Wall -Wno-portbind -Wno-timescale -DSIMULATOR -DTB_EXCLUDE_SLOW
+IVERILOG := iverilog -Wall -Wno-portbind -Wno-timescale -DVGA_MODE_$(VGA_MODE) -DSIMULATOR -DTB_EXCLUDE_SLOW
 VVP := vvp
 
 # Linter
-LINTER := verilator -DLINTING=1 --lint-only --quiet -Wall --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
+LINTER := verilator -DLINTING=1 -DVGA_MODE_$(VGA_MODE) --lint-only --quiet -Wall --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
 
 # Formatter
 #
@@ -93,7 +96,7 @@ endef
 
 define synth_rule
 $(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) | $(BUILD_DIR)
-	$(YOSYS) -E $(BUILD_DIR)/$(notdir $(basename $(1))).dep -p '$(call YOSYS_CMD,$(1))'
+	$(YOSYS) -DVGA_MODE_$(VGA_MODE) -E $(BUILD_DIR)/$(notdir $(basename $(1))).dep -p '$(call YOSYS_CMD,$(1))'
 	cat $(BUILD_DIR)/$(notdir $(basename $(1))).dep | tr ' ' '\n' | grep -v '^/' | tr '\n' ' ' | awk '{$$$$1=$$$$1":"; print}' > $(BUILD_DIR)/$(notdir $(basename $(1))).d
 endef
 

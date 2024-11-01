@@ -1,5 +1,8 @@
 `include "testing.v"
 
+// maybe check the other modes sometime, but this should be fine.
+`ifdef VGA_MODE_640_480_60
+`include "vga_mode.v"
 `include "vga_sync.v"
 
 module vga_sync_tb;
@@ -35,9 +38,12 @@ module vga_sync_tb;
 
   initial begin
     // 3 frames
-    repeat (3 * 800 * 600) @(posedge clk);
+    repeat (3 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME) begin
+      @(posedge clk);
+    end
 
     // Make sure we actually did stuff
+    @(negedge clk);
     `ASSERT(frames == 3);
 
     $finish;
@@ -75,3 +81,8 @@ module vga_sync_tb;
     end
   end
 endmodule
+`else
+module vga_sync_tb;
+endmodule
+
+`endif

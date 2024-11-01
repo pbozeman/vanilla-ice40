@@ -10,11 +10,12 @@
 `include "axi_sram_controller.v"
 `include "cdc_fifo.v"
 `include "fb_writer.v"
+`include "vga_mode.v"
 `include "vga_fb_pixel_stream.v"
 
 module gfx_vga #(
-    parameter VGA_WIDTH      = 640,
-    parameter VGA_HEIGHT     = 480,
+    parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
+    parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
