@@ -95,7 +95,7 @@ write_json $$@
 endef
 
 define synth_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) | $(BUILD_DIR)
+$(BUILD_DIR)/$(notdir $(basename $(1))).json: $(1) Makefile | $(BUILD_DIR)
 	$(YOSYS) -DVGA_MODE_$(VGA_MODE) -E $(BUILD_DIR)/$(notdir $(basename $(1))).dep -p '$(call YOSYS_CMD,$(1))'
 	cat $(BUILD_DIR)/$(notdir $(basename $(1))).dep | tr ' ' '\n' | grep -v '^/' | tr '\n' ' ' | awk '{$$$$1=$$$$1":"; print}' > $(BUILD_DIR)/$(notdir $(basename $(1))).d
 endef
@@ -172,8 +172,8 @@ list:
 #
 ##############################################################################
 .PRECIOUS: $(BUILD_DIR)/%
-$(BUILD_DIR)/%: $(TEST_DIR)/%.v $(CELLS_SIM) | $(BUILD_DIR)
-	$(IVERILOG) -g2012 -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $^
+$(BUILD_DIR)/%: $(TEST_DIR)/%.v $(CELLS_SIM) Makefile | $(BUILD_DIR)
+	$(IVERILOG) -g2012 -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $(filter-out Makefile,$^)
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
