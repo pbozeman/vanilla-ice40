@@ -11,12 +11,14 @@ module vga_pixel_addr #(
     parameter H_WHOLE_LINE  = 800,
     parameter V_WHOLE_FRAME = 525
 ) (
-    input  wire       clk,
-    input  wire       reset,
-    input  wire       enable,
-    output wire [9:0] column,
-    output wire [9:0] row
+    input  wire                   clk,
+    input  wire                   reset,
+    input  wire                   enable,
+    output wire [COLUMN_BITS-1:0] column,
+    output wire [   ROW_BITS-1:0] row
 );
+  localparam COLUMN_BITS = $clog2(H_WHOLE_LINE);
+  localparam ROW_BITS = $clog2(V_WHOLE_FRAME);
 
   counter #(H_WHOLE_LINE - 1) h_counter (
       .clk   (clk),
