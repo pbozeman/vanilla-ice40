@@ -6,11 +6,11 @@
 `include "vga_mode.sv"
 
 module vga_test_01 (
-    input       [COLUMN_BITS-1:0] column,
-    input       [   ROW_BITS-1:0] row,
-    output wire [            3:0] green,
-    output wire [            3:0] red,
-    output wire [            3:0] blue
+    input        [COLUMN_BITS-1:0] column,
+    input        [   ROW_BITS-1:0] row,
+    output logic [            3:0] green,
+    output logic [            3:0] red,
+    output logic [            3:0] blue
 );
   localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
   localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);

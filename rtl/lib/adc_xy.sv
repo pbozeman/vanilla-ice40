@@ -11,27 +11,27 @@
 module adc_xy #(
     parameter DATA_BITS = 10
 ) (
-    input wire clk,
-    input wire adc_clk,
-    input wire reset,
+    input logic clk,
+    input logic adc_clk,
+    input logic reset,
 
-    input wire [DATA_BITS-1:0] adc_x_bus,
-    input wire [DATA_BITS-1:0] adc_y_bus,
+    input logic [DATA_BITS-1:0] adc_x_bus,
+    input logic [DATA_BITS-1:0] adc_y_bus,
 
-    output wire [DATA_BITS-1:0] adc_x,
-    output wire [DATA_BITS-1:0] adc_y
+    output logic [DATA_BITS-1:0] adc_x,
+    output logic [DATA_BITS-1:0] adc_y
 );
   localparam FIFO_WIDTH = DATA_BITS * 2;
 
-  wire                  w_rst_n;
-  wire                  w_inc;
-  wire                  w_full;
-  wire [FIFO_WIDTH-1:0] w_data;
+  logic                  w_rst_n;
+  logic                  w_inc;
+  logic                  w_full;
+  logic [FIFO_WIDTH-1:0] w_data;
 
-  wire                  r_rst_n;
-  wire                  r_inc;
-  wire                  r_empty;
-  wire [FIFO_WIDTH-1:0] r_data;
+  logic                  r_rst_n;
+  logic                  r_inc;
+  logic                  r_empty;
+  logic [FIFO_WIDTH-1:0] r_data;
 
   assign w_data         = {adc_x_bus, adc_y_bus};
   assign {adc_x, adc_y} = r_data;

@@ -17,118 +17,118 @@ module axi_sram_dbuf_controller #(
     parameter AXI_DATA_WIDTH = 16
 ) (
     // core signals
-    input wire clk,
-    input wire reset,
+    input logic clk,
+    input logic reset,
 
     // switch producer/consumer to alternate sram
-    input wire switch,
+    input logic switch,
 
     // producer interface
-    input  wire [        AXI_ADDR_WIDTH-1:0] prod_axi_awaddr,
-    input  wire                              prod_axi_awvalid,
-    output wire                              prod_axi_awready,
-    input  wire [        AXI_DATA_WIDTH-1:0] prod_axi_wdata,
-    input  wire                              prod_axi_wvalid,
-    input  wire [((AXI_DATA_WIDTH+7)/8)-1:0] prod_axi_wstrb,
-    output wire                              prod_axi_wready,
-    input  wire                              prod_axi_bready,
-    output wire                              prod_axi_bvalid,
-    output wire [                       1:0] prod_axi_bresp,
+    input  logic [        AXI_ADDR_WIDTH-1:0] prod_axi_awaddr,
+    input  logic                              prod_axi_awvalid,
+    output logic                              prod_axi_awready,
+    input  logic [        AXI_DATA_WIDTH-1:0] prod_axi_wdata,
+    input  logic                              prod_axi_wvalid,
+    input  logic [((AXI_DATA_WIDTH+7)/8)-1:0] prod_axi_wstrb,
+    output logic                              prod_axi_wready,
+    input  logic                              prod_axi_bready,
+    output logic                              prod_axi_bvalid,
+    output logic [                       1:0] prod_axi_bresp,
 
     // consumer interface
-    input  wire [AXI_ADDR_WIDTH-1:0] cons_axi_araddr,
-    input  wire                      cons_axi_arvalid,
-    output wire                      cons_axi_arready,
-    output wire [AXI_DATA_WIDTH-1:0] cons_axi_rdata,
-    output wire                      cons_axi_rvalid,
-    input  wire                      cons_axi_rready,
-    output wire [               1:0] cons_axi_rresp,
+    input  logic [AXI_ADDR_WIDTH-1:0] cons_axi_araddr,
+    input  logic                      cons_axi_arvalid,
+    output logic                      cons_axi_arready,
+    output logic [AXI_DATA_WIDTH-1:0] cons_axi_rdata,
+    output logic                      cons_axi_rvalid,
+    input  logic                      cons_axi_rready,
+    output logic [               1:0] cons_axi_rresp,
 
     // sram0 controller to io pins
-    output wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram0_io_data,
-    output wire                      sram0_io_we_n,
-    output wire                      sram0_io_oe_n,
-    output wire                      sram0_io_ce_n,
+    output logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data,
+    output logic                      sram0_io_we_n,
+    output logic                      sram0_io_oe_n,
+    output logic                      sram0_io_ce_n,
 
     // sram1 controller to io pins
-    output wire [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram1_io_data,
-    output wire                      sram1_io_we_n,
-    output wire                      sram1_io_oe_n,
-    output wire                      sram1_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data,
+    output logic                      sram1_io_we_n,
+    output logic                      sram1_io_oe_n,
+    output logic                      sram1_io_ce_n
 );
   //
   // Internal producer signals
   //
-  wire                              prod_axi_arvalid;
+  logic                              prod_axi_arvalid;
 
   // verilator lint_off UNUSEDSIGNAL
-  wire [        AXI_ADDR_WIDTH-1:0] prod_axi_araddr;
-  wire                              prod_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] prod_axi_rdata;
-  wire                              prod_axi_rvalid;
-  wire                              prod_axi_rready;
-  wire [                       1:0] prod_axi_rresp;
+  logic [        AXI_ADDR_WIDTH-1:0] prod_axi_araddr;
+  logic                              prod_axi_arready;
+  logic [        AXI_DATA_WIDTH-1:0] prod_axi_rdata;
+  logic                              prod_axi_rvalid;
+  logic                              prod_axi_rready;
+  logic [                       1:0] prod_axi_rresp;
   // verilator lint_on UNUSEDSIGNAL
 
   //
   // Internal consumer signals
   //
-  wire                              cons_axi_awvalid;
-  wire                              cons_axi_wvalid;
+  logic                              cons_axi_awvalid;
+  logic                              cons_axi_wvalid;
 
   // verilator lint_off UNUSEDSIGNAL
-  wire [        AXI_ADDR_WIDTH-1:0] cons_axi_awaddr;
-  wire                              cons_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] cons_axi_wdata;
-  wire                              cons_axi_wready;
-  wire                              cons_axi_bready;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] cons_axi_wstrb;
-  wire [                       1:0] cons_axi_bresp;
-  wire                              cons_axi_bvalid;
+  logic [        AXI_ADDR_WIDTH-1:0] cons_axi_awaddr;
+  logic                              cons_axi_awready;
+  logic [        AXI_DATA_WIDTH-1:0] cons_axi_wdata;
+  logic                              cons_axi_wready;
+  logic                              cons_axi_bready;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0] cons_axi_wstrb;
+  logic [                       1:0] cons_axi_bresp;
+  logic                              cons_axi_bvalid;
   // verilator lint_on UNUSEDSIGNAL
 
   // SRAM 0
-  wire [        AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
-  wire                              sram0_axi_awvalid;
-  wire                              sram0_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] sram0_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram0_axi_wstrb;
-  wire                              sram0_axi_wvalid;
-  wire                              sram0_axi_wready;
-  wire [                       1:0] sram0_axi_bresp;
-  wire                              sram0_axi_bvalid;
-  wire                              sram0_axi_bready;
-  wire [        AXI_ADDR_WIDTH-1:0] sram0_axi_araddr;
-  wire                              sram0_axi_arvalid;
-  wire                              sram0_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] sram0_axi_rdata;
-  wire [                       1:0] sram0_axi_rresp;
-  wire                              sram0_axi_rvalid;
-  wire                              sram0_axi_rready;
+  logic [        AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
+  logic                              sram0_axi_awvalid;
+  logic                              sram0_axi_awready;
+  logic [        AXI_DATA_WIDTH-1:0] sram0_axi_wdata;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0] sram0_axi_wstrb;
+  logic                              sram0_axi_wvalid;
+  logic                              sram0_axi_wready;
+  logic [                       1:0] sram0_axi_bresp;
+  logic                              sram0_axi_bvalid;
+  logic                              sram0_axi_bready;
+  logic [        AXI_ADDR_WIDTH-1:0] sram0_axi_araddr;
+  logic                              sram0_axi_arvalid;
+  logic                              sram0_axi_arready;
+  logic [        AXI_DATA_WIDTH-1:0] sram0_axi_rdata;
+  logic [                       1:0] sram0_axi_rresp;
+  logic                              sram0_axi_rvalid;
+  logic                              sram0_axi_rready;
 
   // SRAM 1
-  wire [        AXI_ADDR_WIDTH-1:0] sram1_axi_awaddr;
-  wire                              sram1_axi_awvalid;
-  wire                              sram1_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] sram1_axi_wdata;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram1_axi_wstrb;
-  wire                              sram1_axi_wvalid;
-  wire                              sram1_axi_wready;
-  wire [                       1:0] sram1_axi_bresp;
-  wire                              sram1_axi_bvalid;
-  wire                              sram1_axi_bready;
-  wire [        AXI_ADDR_WIDTH-1:0] sram1_axi_araddr;
-  wire                              sram1_axi_arvalid;
-  wire                              sram1_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] sram1_axi_rdata;
-  wire [                       1:0] sram1_axi_rresp;
-  wire                              sram1_axi_rvalid;
-  wire                              sram1_axi_rready;
+  logic [        AXI_ADDR_WIDTH-1:0] sram1_axi_awaddr;
+  logic                              sram1_axi_awvalid;
+  logic                              sram1_axi_awready;
+  logic [        AXI_DATA_WIDTH-1:0] sram1_axi_wdata;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0] sram1_axi_wstrb;
+  logic                              sram1_axi_wvalid;
+  logic                              sram1_axi_wready;
+  logic [                       1:0] sram1_axi_bresp;
+  logic                              sram1_axi_bvalid;
+  logic                              sram1_axi_bready;
+  logic [        AXI_ADDR_WIDTH-1:0] sram1_axi_araddr;
+  logic                              sram1_axi_arvalid;
+  logic                              sram1_axi_arready;
+  logic [        AXI_DATA_WIDTH-1:0] sram1_axi_rdata;
+  logic [                       1:0] sram1_axi_rresp;
+  logic                              sram1_axi_rvalid;
+  logic                              sram1_axi_rready;
 
   // verilator lint_off UNUSEDSIGNAL
-  wire                              a2x2_sel;
+  logic                              a2x2_sel;
   // verilator lint_on UNUSEDSIGNAL
 
   // set bits for unused channels

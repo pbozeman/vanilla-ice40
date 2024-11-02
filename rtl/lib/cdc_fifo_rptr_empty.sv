@@ -18,13 +18,13 @@ module cdc_fifo_rptr_empty #(
     input                 r_inc,
     input [ADDR_SIZE : 0] r_q2_wptr,
 
-    output reg                  r_empty,
-    output reg  [ADDR_SIZE : 0] r_ptr = 0,
-    output wire [ADDR_SIZE-1:0] r_addr
+    output logic                 r_empty,
+    output logic [ADDR_SIZE : 0] r_ptr = 0,
+    output logic [ADDR_SIZE-1:0] r_addr
 );
-  reg  [ADDR_SIZE:0] r_bin = 0;
-  wire [ADDR_SIZE:0] r_gray_next;
-  wire [ADDR_SIZE:0] r_bin_next;
+  logic [ADDR_SIZE:0] r_bin = 0;
+  logic [ADDR_SIZE:0] r_gray_next;
+  logic [ADDR_SIZE:0] r_bin_next;
 
   // Memory read-address pointer (okay to use binary to address memory)
   assign r_addr      = r_bin[ADDR_SIZE-1:0];
@@ -52,7 +52,7 @@ module cdc_fifo_rptr_empty #(
   //
   // FIFO empty when the next r_ptr == synchronized w_ptr or on reset
   //
-  wire r_empty_val;
+  logic r_empty_val;
   assign r_empty_val = (r_gray_next == r_q2_wptr);
 
   always @(posedge r_clk) begin

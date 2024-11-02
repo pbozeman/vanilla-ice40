@@ -7,18 +7,18 @@
 
 module vga_sync_tb;
 
-  reg        clk = 1'b0;
-  reg        reset = 1'b0;
-  wire       visible;
-  wire       hsync;
-  wire       vsync;
-  wire [9:0] column;
-  wire [9:0] row;
+  logic       clk = 1'b0;
+  logic       reset = 1'b0;
+  logic       visible;
+  logic       hsync;
+  logic       vsync;
+  logic [9:0] column;
+  logic [9:0] row;
 
-  reg  [3:0] frames = 0;
+  logic [3:0] frames = 0;
 
   // TODO: add enable tests
-  wire       enable = 1'b1;
+  logic       enable = 1'b1;
 
   vga_sync uut (
       .clk    (clk),

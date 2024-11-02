@@ -7,13 +7,13 @@ module iter_tb;
   parameter MAX_VALUE = 10;
   parameter WIDTH = $clog2(MAX_VALUE + 1);
 
-  reg              clk;
-  reg              reset;
-  reg              inc;
-  wire [WIDTH-1:0] val;
-  wire             done;
+  logic             clk;
+  logic             reset;
+  logic             inc;
+  logic [WIDTH-1:0] val;
+  logic             done;
 
-  reg  [WIDTH-1:0] expected_val;
+  logic [WIDTH-1:0] expected_val;
 
   iter #(
       .MAX_VALUE(MAX_VALUE)

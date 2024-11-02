@@ -21,32 +21,32 @@ module sram_model #(
 
     parameter integer BAD_DATA = 1'bx
 ) (
-    input wire                 we_n,
-    input wire                 oe_n,
-    input wire                 ce_n,
-    input wire [ADDR_BITS-1:0] addr,
-    inout wire [DATA_BITS-1:0] data_io
+    input logic                 we_n,
+    input logic                 oe_n,
+    input logic                 ce_n,
+    input logic [ADDR_BITS-1:0] addr,
+    inout logic [DATA_BITS-1:0] data_io
 );
 
   // memory
-  reg  [DATA_BITS-1:0] sram_mem         [0:(1 << ADDR_BITS)-1];
+  logic [DATA_BITS-1:0] sram_mem         [0:(1 << ADDR_BITS)-1];
 
   // data read from bus
-  wire [DATA_BITS-1:0] data_in;
+  logic [DATA_BITS-1:0] data_in;
 
   // data written to bus, possibly tri-state if output not enabled
-  wire                 output_active;
-  reg  [DATA_BITS-1:0] data_out;
+  logic                 output_active;
+  logic [DATA_BITS-1:0] data_out;
 
 
   // Previous data for output hold time
-  reg  [DATA_BITS-1:0] prev_data;
+  logic [DATA_BITS-1:0] prev_data;
 
   // Time of last address change
-  real                 last_addr_change;
+  real                  last_addr_change;
 
   // Time of last OE# falling edge
-  real                 last_oe_fall;
+  real                  last_oe_fall;
 
   // Data signals
   assign output_active = !ce_n && !oe_n;
@@ -82,7 +82,7 @@ module sram_model #(
   end
 
   // Write operation
-  reg write_enable = 0;
+  logic write_enable = 0;
 
   always @(we_n, ce_n, addr) begin
     if (!we_n && !ce_n) begin
@@ -114,12 +114,12 @@ module sram_model #(
   end
   // verilator lint_on LATCH
 
-  reg [ADDR_BITS-1:0] oe_n_initial_addr;
-  reg [ADDR_BITS-1:0] we_n_initial_addr;
-  reg [DATA_BITS-1:0] we_n_initial_data;
+  logic [ADDR_BITS-1:0] oe_n_initial_addr;
+  logic [ADDR_BITS-1:0] we_n_initial_addr;
+  logic [DATA_BITS-1:0] we_n_initial_data;
 
-  reg                 reads_active = 0;
-  reg                 writes_active = 0;
+  logic                 reads_active = 0;
+  logic                 writes_active = 0;
 
   always @(negedge oe_n) begin
     if (data_io !== {DATA_BITS{1'bz}}) begin

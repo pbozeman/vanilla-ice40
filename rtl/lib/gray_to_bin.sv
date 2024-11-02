@@ -6,8 +6,8 @@
 module gray_to_bin #(
     parameter WIDTH = 4
 ) (
-    input  wire [WIDTH-1:0] gray,
-    output wire [WIDTH-1:0] bin
+    input  logic [WIDTH-1:0] gray,
+    output logic [WIDTH-1:0] bin
 );
 
   genvar i;

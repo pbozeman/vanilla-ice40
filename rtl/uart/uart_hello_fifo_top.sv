@@ -7,31 +7,31 @@
 `include "uart_tx.sv"
 
 module uart_hello_fifo_top (
-    input  wire CLK,
-    output wire UART_TX,
+    input  logic CLK,
+    output logic UART_TX,
 
-    output wire LED1,
-    output wire LED2
+    output logic LED1,
+    output logic LED2
 );
-  wire       reset = 0;
-  reg        initialized = 0;
+  logic       reset = 0;
+  logic       initialized = 0;
 
   // Message to send
-  reg  [7:0] message           [0:14];
-  reg  [3:0] msg_index = 0;
+  logic [7:0] message           [0:14];
+  logic [3:0] msg_index = 0;
 
   // UART signal
-  wire       tx_ready;
+  logic       tx_ready;
 
   // FIFO signals
-  reg  [7:0] fifo_write_data;
-  reg        fifo_write_en = 0;
+  logic [7:0] fifo_write_data;
+  logic       fifo_write_en = 0;
 
-  wire [7:0] fifo_read_data;
-  wire       fifo_read_en;
+  logic [7:0] fifo_read_data;
+  logic       fifo_read_en;
 
-  wire       fifo_empty;
-  wire       fifo_full;
+  logic       fifo_empty;
+  logic       fifo_full;
 
   // UART transmitter instantiation
   uart_tx #(

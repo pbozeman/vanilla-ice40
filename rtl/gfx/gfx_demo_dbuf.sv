@@ -22,30 +22,30 @@ module gfx_demo_dbuf #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (
-    input wire clk,
-    input wire pixel_clk,
-    input wire reset,
+    input logic clk,
+    input logic pixel_clk,
+    input logic reset,
 
     // vga signals
-    output wire [COLOR_BITS-1:0] vga_red,
-    output wire [COLOR_BITS-1:0] vga_grn,
-    output wire [COLOR_BITS-1:0] vga_blu,
-    output wire                  vga_hsync,
-    output wire                  vga_vsync,
+    output logic [COLOR_BITS-1:0] vga_red,
+    output logic [COLOR_BITS-1:0] vga_grn,
+    output logic [COLOR_BITS-1:0] vga_blu,
+    output logic                  vga_hsync,
+    output logic                  vga_vsync,
 
     // sram0 controller to io pins
-    output wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram0_io_data,
-    output wire                      sram0_io_we_n,
-    output wire                      sram0_io_oe_n,
-    output wire                      sram0_io_ce_n,
+    output logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data,
+    output logic                      sram0_io_we_n,
+    output logic                      sram0_io_oe_n,
+    output logic                      sram0_io_ce_n,
 
     // sram1 controller to io pins
-    output wire [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram1_io_data,
-    output wire                      sram1_io_we_n,
-    output wire                      sram1_io_oe_n,
-    output wire                      sram1_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data,
+    output logic                      sram1_io_we_n,
+    output logic                      sram1_io_oe_n,
+    output logic                      sram1_io_ce_n
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
@@ -54,29 +54,29 @@ module gfx_demo_dbuf #(
   //
   // gfx axi writter
   //
-  wire [        AXI_ADDR_WIDTH-1:0] gfx_axi_awaddr;
-  wire                              gfx_axi_awvalid;
-  wire                              gfx_axi_awready;
-  wire [        AXI_DATA_WIDTH-1:0] gfx_axi_wdata;
-  wire                              gfx_axi_wvalid;
-  wire                              gfx_axi_wready;
-  wire                              gfx_axi_bready;
-  wire                              gfx_axi_bvalid;
-  wire [((AXI_DATA_WIDTH+7)/8)-1:0] gfx_axi_wstrb;
-  wire [                       1:0] gfx_axi_bresp;
+  logic [        AXI_ADDR_WIDTH-1:0] gfx_axi_awaddr;
+  logic                              gfx_axi_awvalid;
+  logic                              gfx_axi_awready;
+  logic [        AXI_DATA_WIDTH-1:0] gfx_axi_wdata;
+  logic                              gfx_axi_wvalid;
+  logic                              gfx_axi_wready;
+  logic                              gfx_axi_bready;
+  logic                              gfx_axi_bvalid;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0] gfx_axi_wstrb;
+  logic [                       1:0] gfx_axi_bresp;
 
   //
   // disp axi reader
   //
-  wire [        AXI_ADDR_WIDTH-1:0] disp_axi_araddr;
-  wire                              disp_axi_arvalid;
-  wire                              disp_axi_arready;
-  wire [        AXI_DATA_WIDTH-1:0] disp_axi_rdata;
-  wire                              disp_axi_rvalid;
-  wire                              disp_axi_rready;
-  wire [                       1:0] disp_axi_rresp;
+  logic [        AXI_ADDR_WIDTH-1:0] disp_axi_araddr;
+  logic                              disp_axi_arvalid;
+  logic                              disp_axi_arready;
+  logic [        AXI_DATA_WIDTH-1:0] disp_axi_rdata;
+  logic                              disp_axi_rvalid;
+  logic                              disp_axi_rready;
+  logic [                       1:0] disp_axi_rresp;
 
-  wire                              mem_switch;
+  logic                              mem_switch;
 
   axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -126,12 +126,12 @@ module gfx_demo_dbuf #(
   );
 
   // gfx signals
-  wire [ FB_X_BITS-1:0] gfx_x;
-  wire [ FB_Y_BITS-1:0] gfx_y;
-  wire [PIXEL_BITS-1:0] gfx_color;
-  wire                  gfx_inc;
-  wire                  gfx_last;
-  wire                  gfx_valid;
+  logic [ FB_X_BITS-1:0] gfx_x;
+  logic [ FB_Y_BITS-1:0] gfx_y;
+  logic [PIXEL_BITS-1:0] gfx_color;
+  logic                  gfx_inc;
+  logic                  gfx_last;
+  logic                  gfx_valid;
 
   gfx_test_pattern gfx_inst (
       .clk  (clk),
@@ -145,12 +145,12 @@ module gfx_demo_dbuf #(
   );
 
   // fb writer axi flow control signals
-  reg                       fbw_axi_tvalid;
-  wire                      fbw_axi_tready;
+  logic                      fbw_axi_tvalid;
+  logic                      fbw_axi_tready;
 
   // and the data that goes with them
-  reg  [AXI_ADDR_WIDTH-1:0] fbw_addr;
-  reg  [    PIXEL_BITS-1:0] fbw_color;
+  logic [AXI_ADDR_WIDTH-1:0] fbw_addr;
+  logic [    PIXEL_BITS-1:0] fbw_color;
 
   fb_writer #(
       .PIXEL_BITS    (PIXEL_BITS),
@@ -178,7 +178,7 @@ module gfx_demo_dbuf #(
       .sram_axi_bresp  (gfx_axi_bresp)
   );
 
-  wire [AXI_ADDR_WIDTH-1:0] gfx_addr;
+  logic [AXI_ADDR_WIDTH-1:0] gfx_addr;
   assign gfx_inc  = (fbw_axi_tready & fbw_axi_tvalid);
   assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
 
@@ -210,19 +210,19 @@ module gfx_demo_dbuf #(
   //
 
   // control signals
-  wire                      vga_fb_enable;
-  wire                      vga_fb_valid;
+  logic                      vga_fb_enable;
+  logic                      vga_fb_valid;
 
   // sync signals
-  wire                      vga_fb_vsync;
-  wire                      vga_fb_hsync;
+  logic                      vga_fb_vsync;
+  logic                      vga_fb_hsync;
 
   // color signals
-  wire [    COLOR_BITS-1:0] vga_fb_red;
-  wire [    COLOR_BITS-1:0] vga_fb_grn;
-  wire [    COLOR_BITS-1:0] vga_fb_blu;
+  logic [    COLOR_BITS-1:0] vga_fb_red;
+  logic [    COLOR_BITS-1:0] vga_fb_grn;
+  logic [    COLOR_BITS-1:0] vga_fb_blu;
 
-  wire [AXI_ADDR_WIDTH-1:0] xxx_addr;
+  logic [AXI_ADDR_WIDTH-1:0] xxx_addr;
 
   vga_fb_pixel_stream #(
       .PIXEL_BITS    (PIXEL_BITS),
@@ -253,12 +253,12 @@ module gfx_demo_dbuf #(
   //
 
   // fifo control signals
-  wire fifo_almost_full;
+  logic fifo_almost_full;
   // verilator lint_off UNUSEDSIGNAL
-  wire fifo_full;
-  wire fifo_empty;
+  logic fifo_full;
+  logic fifo_empty;
   // verilator lint_on UNUSEDSIGNAL
-  wire fifo_r_inc;
+  logic fifo_r_inc;
 
   // on the vga side, it's just always reading
   assign fifo_r_inc = 1'b1;
@@ -271,8 +271,8 @@ module gfx_demo_dbuf #(
   //
   localparam VGA_DATA_WIDTH = 14;
 
-  wire [VGA_DATA_WIDTH-1:0] fifo_fb_data;
-  wire [VGA_DATA_WIDTH-1:0] fifo_vga_data;
+  logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
+  logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
   assign fifo_fb_data = {
     vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
@@ -328,7 +328,7 @@ module gfx_demo_dbuf #(
   // might be writes in flight. If so, we can't switch. Work this into the
   // switcher, or give the writers a way to track writes, or something.
   // For now, just make it work while the basic functionality is fleshed out.
-  wire gfx_last_d;
+  logic gfx_last_d;
   delay #(
       .DELAY_CYCLES(4)
   ) delay_inst (
@@ -337,21 +337,21 @@ module gfx_demo_dbuf #(
       .out(gfx_last_d)
   );
 
-  reg gfx_ready = 0;
+  logic gfx_ready = 0;
   always @(posedge clk) begin
     if (!gfx_ready) begin
       gfx_ready <= gfx_last_d;
     end
   end
 
-  wire posedge_gfx_ready;
+  logic posedge_gfx_ready;
   detect_rising rising_pattern_done (
       .clk     (clk),
       .signal  (gfx_ready),
       .detected(posedge_gfx_ready)
   );
 
-  wire negedge_vsync;
+  logic negedge_vsync;
   detect_falling falling_sram_vga_vsync (
       .clk     (clk),
       .signal  (vga_fb_vsync),

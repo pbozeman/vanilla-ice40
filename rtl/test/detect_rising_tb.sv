@@ -3,9 +3,9 @@
 
 module detect_rising_tb;
 
-  reg  clk;
-  reg  signal;
-  wire detected;
+  logic clk;
+  logic signal;
+  logic detected;
 
   detect_rising uut (
       .clk     (clk),

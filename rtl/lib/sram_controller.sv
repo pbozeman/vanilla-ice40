@@ -10,28 +10,28 @@ module sram_controller #(
     parameter integer DATA_BITS = 16
 ) (
     // to/from the caller
-    input wire clk,
-    input wire reset,
+    input logic clk,
+    input logic reset,
 
     // initiate a request
-    input wire req,
+    input logic req,
 
     // the controller/sram is ready to take a request
-    output wire ready,
+    output logic ready,
 
-    input  wire                 write_enable,
-    input  wire [ADDR_BITS-1:0] addr,
-    input  wire [DATA_BITS-1:0] write_data,
-    output wire                 write_done,
-    output wire [DATA_BITS-1:0] read_data,
-    output wire                 read_data_valid,
+    input  logic                 write_enable,
+    input  logic [ADDR_BITS-1:0] addr,
+    input  logic [DATA_BITS-1:0] write_data,
+    output logic                 write_done,
+    output logic [DATA_BITS-1:0] read_data,
+    output logic                 read_data_valid,
 
     // to/from the sram chip
-    output wire [ADDR_BITS-1:0] io_addr_bus,
-    inout  wire [DATA_BITS-1:0] io_data_bus,
-    output wire                 io_we_n,
-    output wire                 io_oe_n,
-    output wire                 io_ce_n
+    output logic [ADDR_BITS-1:0] io_addr_bus,
+    inout  wire  [DATA_BITS-1:0] io_data_bus,
+    output logic                 io_we_n,
+    output logic                 io_oe_n,
+    output logic                 io_ce_n
 );
 
   // Reads and writes happen over 2 clock cycles.
@@ -59,9 +59,9 @@ module sram_controller #(
   //
   // State
   //
-  reg [2:0] state = 0;
-  reg [2:0] next_state = 0;
-  reg       ready_reg;
+  logic [2:0] state = 0;
+  logic [2:0] next_state = 0;
+  logic       ready_reg;
 
   //
   // Next state
@@ -108,14 +108,14 @@ module sram_controller #(
   //
   // Pad signals
   //
-  reg  [ADDR_BITS-1:0] pad_addr;
-  reg  [DATA_BITS-1:0] pad_write_data;
-  reg                  pad_write_data_enable;
-  wire [DATA_BITS-1:0] pad_read_data;
-  wire                 pad_read_data_valid;
-  reg                  pad_ce_n;
-  reg                  pad_we_n;
-  reg                  pad_oe_n;
+  logic [ADDR_BITS-1:0] pad_addr;
+  logic [DATA_BITS-1:0] pad_write_data;
+  logic                 pad_write_data_enable;
+  logic [DATA_BITS-1:0] pad_read_data;
+  logic                 pad_read_data_valid;
+  logic                 pad_ce_n;
+  logic                 pad_we_n;
+  logic                 pad_oe_n;
 
   sram_io_ice40 #(
       .ADDR_BITS(ADDR_BITS),

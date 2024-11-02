@@ -9,7 +9,7 @@
 // Usage:
 //    Declare ascii in the instantiating module as follows:
 //    localparam SIZE = (N_BITS + 3) / 4;
-//    reg [7:0] ascii[SIZE-1:0];
+//    logic [7:0] ascii[SIZE-1:0];
 //
 // The expression (N_BITS + 3) / 4 is used to ensure rounding up when the total
 // number of bits isn't a multiple of 4. Adding 3 before dividing by 4
@@ -28,10 +28,10 @@
 module bits_to_hex #(
     parameter N_BITS = 32
 ) (
-    input  wire                        clk,
-    input  wire                        reset,
-    input  wire [          N_BITS-1:0] bits,
-    output reg  [8*((N_BITS+3)/4)-1:0] ascii
+    input  logic                        clk,
+    input  logic                        reset,
+    input  logic [          N_BITS-1:0] bits,
+    output logic [8*((N_BITS+3)/4)-1:0] ascii
 );
   // Calculate number of nibbles needed
   localparam N_NIBBLES = (N_BITS + 3) / 4;

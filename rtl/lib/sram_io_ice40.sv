@@ -20,25 +20,25 @@ module sram_io_ice40 #(
     parameter integer ADDR_BITS = 20,
     parameter integer DATA_BITS = 16
 ) (
-    input wire clk,
-    input wire reset,
+    input logic clk,
+    input logic reset,
 
     // to/from the ice40 pad
-    input  wire [ADDR_BITS-1:0] pad_addr,
-    input  wire [DATA_BITS-1:0] pad_write_data,
-    input  wire                 pad_write_data_enable,
-    output reg  [DATA_BITS-1:0] pad_read_data,
-    output reg                  pad_read_data_valid,
-    input  wire                 pad_ce_n,
-    input  wire                 pad_we_n,
-    input  wire                 pad_oe_n,
+    input  logic [ADDR_BITS-1:0] pad_addr,
+    input  logic [DATA_BITS-1:0] pad_write_data,
+    input  logic                 pad_write_data_enable,
+    output logic [DATA_BITS-1:0] pad_read_data,
+    output logic                 pad_read_data_valid,
+    input  logic                 pad_ce_n,
+    input  logic                 pad_we_n,
+    input  logic                 pad_oe_n,
 
     // to/from the sram chip
-    output wire [ADDR_BITS-1:0] io_addr_bus,
-    inout  wire [DATA_BITS-1:0] io_data_bus,
-    output wire                 io_we_n,
-    output wire                 io_oe_n,
-    output wire                 io_ce_n
+    output logic [ADDR_BITS-1:0] io_addr_bus,
+    inout  wire  [DATA_BITS-1:0] io_data_bus,
+    output logic                 io_we_n,
+    output logic                 io_oe_n,
+    output logic                 io_ce_n
 );
 
 `ifndef LINTING
@@ -67,9 +67,9 @@ module sram_io_ice40 #(
   //                 rising and falling clock edges.
   // PIN_TYPE[1:0] = Simple input pin (D_IN_0)
   //
-  reg        pad_we_n_p1;
-  reg        pad_we_n_p2;
-  wire [1:0] pad_we_n_ddr;
+  logic       pad_we_n_p1;
+  logic       pad_we_n_p2;
+  logic [1:0] pad_we_n_ddr;
 
   always @(posedge clk) begin
     if (reset) begin
@@ -108,9 +108,9 @@ module sram_io_ice40 #(
   //                 rising and falling clock edges.
   // PIN_TYPE[1:0] = Simple input pin (D_IN_0)
   //
-  reg        pad_oe_n_p1;
-  reg        pad_oe_n_p2;
-  wire [1:0] pad_oe_n_ddr;
+  logic       pad_oe_n_p1;
+  logic       pad_oe_n_p2;
+  logic [1:0] pad_oe_n_ddr;
 
   always @(posedge clk) begin
     if (reset) begin
@@ -167,8 +167,8 @@ module sram_io_ice40 #(
   //                 and falling clock edges. Use the D_IN_0
   //                 and D_IN_1 pins for DDR operation.
   //
-  wire [DATA_BITS-1:0] pad_read_data_p0;
-  wire [DATA_BITS-1:0] pad_read_data_p1;
+  logic [DATA_BITS-1:0] pad_read_data_p0;
+  logic [DATA_BITS-1:0] pad_read_data_p1;
 
   SB_IO #(
       .PIN_TYPE   (6'b1101_00),
@@ -188,7 +188,7 @@ module sram_io_ice40 #(
   );
 
   // non-neg version
-  reg pad_oe_p2 = 1'b0;
+  logic pad_oe_p2 = 1'b0;
 
   always @(posedge clk) begin
     if (pad_oe_p2) begin

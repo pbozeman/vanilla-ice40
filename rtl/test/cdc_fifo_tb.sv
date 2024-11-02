@@ -6,22 +6,22 @@ module cdc_fifo_tb;
   parameter DATA_WIDTH = 8;
   parameter ADDR_SIZE = 4;
 
-  reg                   w_clk;
-  reg                   w_rst_n;
-  reg                   w_inc;
-  reg  [DATA_WIDTH-1:0] w_data;
+  logic                  w_clk;
+  logic                  w_rst_n;
+  logic                  w_inc;
+  logic [DATA_WIDTH-1:0] w_data;
 
   // verilator lint_off UNUSEDSIGNAL
-  wire                  w_almost_full;
+  logic                  w_almost_full;
   // verilator lint_on UNUSEDSIGNAL
 
-  wire                  w_full;
+  logic                  w_full;
 
-  reg                   r_clk;
-  reg                   r_rst_n;
-  reg                   r_inc;
-  wire                  r_empty;
-  wire [DATA_WIDTH-1:0] r_data;
+  logic                  r_clk;
+  logic                  r_rst_n;
+  logic                  r_inc;
+  logic                  r_empty;
+  logic [DATA_WIDTH-1:0] r_data;
 
   cdc_fifo #(
       .DATA_WIDTH     (DATA_WIDTH),
@@ -55,7 +55,7 @@ module cdc_fifo_tb;
     forever #7 r_clk = ~r_clk;
   end
 
-  reg [7:0] val;
+  logic [7:0] val;
 
   // Test scenario
   initial begin

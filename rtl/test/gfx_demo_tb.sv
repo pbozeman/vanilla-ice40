@@ -16,25 +16,25 @@ module gfx_demo_tb;
 
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  reg                       clk;
-  reg                       pixel_clk;
-  reg                       reset;
+  logic                      clk;
+  logic                      pixel_clk;
+  logic                      reset;
 
-  wire [AXI_ADDR_WIDTH-1:0] addr;
-  wire [    PIXEL_BITS-1:0] color;
+  logic [AXI_ADDR_WIDTH-1:0] addr;
+  logic [    PIXEL_BITS-1:0] color;
 
   // SRAM 0
-  wire [AXI_ADDR_WIDTH-1:0] sram_io_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram_io_data;
-  wire                      sram_io_we_n;
-  wire                      sram_io_oe_n;
-  wire                      sram_io_ce_n;
+  logic [AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram_io_data;
+  logic                      sram_io_we_n;
+  logic                      sram_io_oe_n;
+  logic                      sram_io_ce_n;
 
-  wire [    COLOR_BITS-1:0] vga_red;
-  wire [    COLOR_BITS-1:0] vga_grn;
-  wire [    COLOR_BITS-1:0] vga_blu;
-  wire                      vga_hsync;
-  wire                      vga_vsync;
+  logic [    COLOR_BITS-1:0] vga_red;
+  logic [    COLOR_BITS-1:0] vga_grn;
+  logic [    COLOR_BITS-1:0] vga_blu;
+  logic                      vga_hsync;
+  logic                      vga_vsync;
 
   gfx_demo uut (
       .clk      (clk),

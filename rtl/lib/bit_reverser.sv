@@ -6,8 +6,8 @@
 module bit_reverser #(
     parameter WIDTH = 8
 ) (
-    input  wire [WIDTH-1:0] in,
-    output wire [WIDTH-1:0] out
+    input  logic [WIDTH-1:0] in,
+    output logic [WIDTH-1:0] out
 );
 
   genvar i;

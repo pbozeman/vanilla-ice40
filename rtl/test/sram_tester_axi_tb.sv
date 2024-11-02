@@ -10,28 +10,28 @@ module sram_tester_axi_tb ();
   localparam MAX_CYCLES = 50000;
 
   // Signals
-  reg                           clk;
-  reg                           reset;
-  wire                          test_pass;
-  wire                          test_done;
+  logic                          clk;
+  logic                          reset;
+  logic                          test_pass;
+  logic                          test_done;
 
   // sram tester debug signals
-  wire [                   2:0] pattern_state;
-  wire [         DATA_BITS-1:0] prev_expected_data;
-  wire [         DATA_BITS-1:0] prev_read_data;
-  wire [         ADDR_BITS-1:0] iter_addr;
+  logic [                   2:0] pattern_state;
+  logic [         DATA_BITS-1:0] prev_expected_data;
+  logic [         DATA_BITS-1:0] prev_read_data;
+  logic [         ADDR_BITS-1:0] iter_addr;
 
   //
   // SRAM Interface
-  wire [         ADDR_BITS-1:0] sram_io_addr;
-  wire [         DATA_BITS-1:0] sram_io_data;
-  wire                          sram_io_we_n;
-  wire                          sram_io_oe_n;
-  wire                          sram_io_ce_n;
+  logic [         ADDR_BITS-1:0] sram_io_addr;
+  wire  [         DATA_BITS-1:0] sram_io_data;
+  logic                          sram_io_we_n;
+  logic                          sram_io_oe_n;
+  logic                          sram_io_ce_n;
 
   // Unit test signals
-  reg  [$clog2(MAX_CYCLES)-1:0] timeout_counter = 0;
-  reg  [                   1:0] done_counter = 0;
+  logic [$clog2(MAX_CYCLES)-1:0] timeout_counter = 0;
+  logic [                   1:0] done_counter = 0;
 
   // Instantiate the AXI SRAM controller
   sram_tester_axi #(

@@ -1,9 +1,9 @@
 `include "directives.sv"
 
 module blinky_top (
-    input  wire CLK,
-    output reg  LED1,
-    output      LED2
+    input  logic CLK,
+    output logic LED1,
+    output       LED2
 );
 
   // 100 MHz clock
@@ -13,7 +13,7 @@ module blinky_top (
   parameter HALF_SEC_COUNT = CLK_FREQ / 2;
 
   // 27-bit counter to hold counts up to 50 million
-  reg [26:0] counter;
+  logic [26:0] counter;
 
   always @(posedge CLK) begin
     if (counter < HALF_SEC_COUNT - 1) begin

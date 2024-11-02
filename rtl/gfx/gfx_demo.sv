@@ -16,38 +16,38 @@ module gfx_demo #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (
-    input wire clk,
-    input wire pixel_clk,
-    input wire reset,
+    input logic clk,
+    input logic pixel_clk,
+    input logic reset,
 
     // vga signals
-    output wire [COLOR_BITS-1:0] vga_red,
-    output wire [COLOR_BITS-1:0] vga_grn,
-    output wire [COLOR_BITS-1:0] vga_blu,
-    output wire                  vga_hsync,
-    output wire                  vga_vsync,
+    output logic [COLOR_BITS-1:0] vga_red,
+    output logic [COLOR_BITS-1:0] vga_grn,
+    output logic [COLOR_BITS-1:0] vga_blu,
+    output logic                  vga_hsync,
+    output logic                  vga_vsync,
 
     // sram0 controller to io pins
-    output wire [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output wire                      sram_io_we_n,
-    output wire                      sram_io_oe_n,
-    output wire                      sram_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram_io_data,
+    output logic                      sram_io_we_n,
+    output logic                      sram_io_oe_n,
+    output logic                      sram_io_ce_n
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   // gfx signals
-  wire [ FB_X_BITS-1:0] gfx_x;
-  wire [ FB_Y_BITS-1:0] gfx_y;
-  wire [PIXEL_BITS-1:0] gfx_color;
-  wire                  gfx_inc;
-  wire                  gfx_last;
-  wire                  gfx_valid;
-  wire                  gfx_ready;
+  logic [ FB_X_BITS-1:0] gfx_x;
+  logic [ FB_Y_BITS-1:0] gfx_y;
+  logic [PIXEL_BITS-1:0] gfx_color;
+  logic                  gfx_inc;
+  logic                  gfx_last;
+  logic                  gfx_valid;
+  logic                  gfx_ready;
 
-  reg                   vga_enable;
+  logic                  vga_enable;
 
   gfx_test_pattern gfx_inst (
       .clk  (clk),

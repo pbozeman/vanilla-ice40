@@ -7,12 +7,12 @@ module delay #(
     parameter DELAY_CYCLES = 1,
     parameter WIDTH        = 1
 ) (
-    input  wire             clk,
-    input  wire [WIDTH-1:0] in,
-    output reg  [WIDTH-1:0] out
+    input  logic             clk,
+    input  logic [WIDTH-1:0] in,
+    output logic [WIDTH-1:0] out
 );
 
-  reg     [WIDTH-1:0] shift_reg[DELAY_CYCLES-1:0];
+  logic   [WIDTH-1:0] shift_reg[DELAY_CYCLES-1:0];
 
   integer             i;
 

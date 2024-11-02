@@ -13,28 +13,28 @@ module sram_tester #(
     parameter integer DATA_BITS = 16
 ) (
     // tester signals
-    input  wire clk,
-    input  wire reset,
-    output wire test_done,
-    output reg  test_pass = 0,
+    input  logic clk,
+    input  logic reset,
+    output logic test_done,
+    output logic test_pass = 0,
 
     // debug/output signals
-    output wire [          2:0] pattern_state,
-    output reg  [DATA_BITS-1:0] prev_read_data,
-    output reg  [DATA_BITS-1:0] prev_expected_data,
+    output logic [          2:0] pattern_state,
+    output logic [DATA_BITS-1:0] prev_read_data,
+    output logic [DATA_BITS-1:0] prev_expected_data,
 
     // sram controller signals
-    output wire                 sram_write_enable,
-    output wire [ADDR_BITS-1:0] sram_addr,
-    output wire [DATA_BITS-1:0] sram_write_data,
-    output wire [DATA_BITS-1:0] sram_read_data,
+    output logic                 sram_write_enable,
+    output logic [ADDR_BITS-1:0] sram_addr,
+    output logic [DATA_BITS-1:0] sram_write_data,
+    output logic [DATA_BITS-1:0] sram_read_data,
 
     // sram controller to io pins
-    output wire [ADDR_BITS-1:0] sram_io_addr_bus,
-    inout  wire [DATA_BITS-1:0] sram_io_data_bus,
-    output wire                 sram_io_we_n,
-    output wire                 sram_io_oe_n,
-    output wire                 sram_io_ce_n
+    output logic [ADDR_BITS-1:0] sram_io_addr_bus,
+    inout  wire  [DATA_BITS-1:0] sram_io_data_bus,
+    output logic                 sram_io_we_n,
+    output logic                 sram_io_oe_n,
+    output logic                 sram_io_ce_n
 );
 
   // State definitions
@@ -47,29 +47,29 @@ module sram_tester #(
   localparam [2:0] HALT = 3'b111;
 
   // State and next state registers
-  reg  [          2:0] state;
-  reg  [          2:0] next_state;
+  logic [          2:0] state;
+  logic [          2:0] next_state;
 
   // Other registers
-  reg                  addr_inc;
-  reg                  last_write;
-  reg                  last_read;
-  reg                  pattern_inc;
-  reg  [DATA_BITS-1:0] pattern_prev;
-  reg  [DATA_BITS-1:0] pattern_custom;
-  reg                  validate = 0;
+  logic                 addr_inc;
+  logic                 last_write;
+  logic                 last_read;
+  logic                 pattern_inc;
+  logic [DATA_BITS-1:0] pattern_prev;
+  logic [DATA_BITS-1:0] pattern_custom;
+  logic                 validate = 0;
 
   // Wires
-  wire                 req;
+  logic                 req;
   // verilator lint_off UNUSEDSIGNAL
-  wire                 ready;
-  wire                 sram_write_done;
-  wire                 sram_read_data_valid;
+  logic                 ready;
+  logic                 sram_write_done;
+  logic                 sram_read_data_valid;
   // verilator lint_on UNUSEDSIGNAL
-  wire                 addr_done;
-  wire                 pattern_reset;
-  wire                 pattern_done;
-  wire [DATA_BITS-1:0] pattern;
+  logic                 addr_done;
+  logic                 pattern_reset;
+  logic                 pattern_done;
+  logic [DATA_BITS-1:0] pattern;
 
   // Submodule instantiations
   sram_controller #(
@@ -221,7 +221,7 @@ module sram_tester #(
       .out(prev_expected_data)
   );
 
-  reg validate_delay;
+  logic validate_delay;
 
   delay #(
       .DELAY_CYCLES(1)

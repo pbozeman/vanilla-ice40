@@ -9,32 +9,32 @@ module gfx_line #(
     parameter FB_WIDTH  = `VGA_MODE_H_VISIBLE,
     parameter FB_HEIGHT = `VGA_MODE_V_VISIBLE
 ) (
-    input wire clk,
-    input wire reset,
-    input wire enable,
+    input logic clk,
+    input logic reset,
+    input logic enable,
 
-    input wire                 start,
-    input wire [FB_X_BITS-1:0] x0,
-    input wire [FB_Y_BITS-1:0] y0,
-    input wire [FB_X_BITS-1:0] x1,
-    input wire [FB_Y_BITS-1:0] y1,
+    input logic                 start,
+    input logic [FB_X_BITS-1:0] x0,
+    input logic [FB_Y_BITS-1:0] y0,
+    input logic [FB_X_BITS-1:0] x1,
+    input logic [FB_Y_BITS-1:0] y1,
 
-    output reg [FB_X_BITS-1:0] x,
-    output reg [FB_Y_BITS-1:0] y,
-    output reg                 done
+    output logic [FB_X_BITS-1:0] x,
+    output logic [FB_Y_BITS-1:0] y,
+    output logic                 done
 );
   localparam FB_X_BITS = $clog2(FB_WIDTH);
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
   localparam CORD_BITS = (FB_X_BITS > FB_Y_BITS) ? FB_X_BITS : FB_Y_BITS;
 
-  reg [FB_X_BITS-1:0] xa;
-  reg [FB_Y_BITS-1:0] ya;
+  logic [FB_X_BITS-1:0] xa;
+  logic [FB_Y_BITS-1:0] ya;
 
-  reg [FB_X_BITS-1:0] xb;
-  reg [FB_Y_BITS-1:0] yb;
+  logic [FB_X_BITS-1:0] xb;
+  logic [FB_Y_BITS-1:0] yb;
 
-  reg [FB_X_BITS-1:0] x_end;
-  reg [FB_Y_BITS-1:0] y_end;
+  logic [FB_X_BITS-1:0] x_end;
+  logic [FB_Y_BITS-1:0] y_end;
 
   //
   // Normalize the direction of the line drawing from top to bottom.
@@ -56,16 +56,16 @@ module gfx_line #(
   end
 
   // is the line going left to right?
-  reg                      left_to_right;
+  logic                      left_to_right;
 
   // error values (signed, so not -1 on the upper bit pos)
-  reg signed [CORD_BITS:0] err;
-  reg signed [CORD_BITS:0] dx;
-  reg signed [CORD_BITS:0] dy;
+  logic signed [CORD_BITS:0] err;
+  logic signed [CORD_BITS:0] dx;
+  logic signed [CORD_BITS:0] dy;
 
   // which direction do we go in the next step
-  reg                      movx;
-  reg                      movy;
+  logic                      movx;
+  logic                      movy;
 
   always @(*) begin
     if ((err << 1) >= dy) begin
@@ -83,7 +83,7 @@ module gfx_line #(
   localparam INIT_1 = 2'b10;
   localparam DRAW = 2'b11;
 
-  reg [1:0] state;
+  logic [1:0] state;
 
   // Pipeline the calculation of the constants used by the algorithm.
   //

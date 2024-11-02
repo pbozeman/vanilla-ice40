@@ -8,13 +8,13 @@ module cdc_fifo_mem_tb;
   parameter DATA_WIDTH = 8;
   parameter ADDR_SIZE = 4;
 
-  reg                   w_clk;
-  reg                   w_clk_en;
-  reg                   w_full;
-  reg  [ ADDR_SIZE-1:0] w_addr;
-  reg  [DATA_WIDTH-1:0] w_data;
-  reg  [ ADDR_SIZE-1:0] r_addr;
-  wire [DATA_WIDTH-1:0] r_data;
+  logic                  w_clk;
+  logic                  w_clk_en;
+  logic                  w_full;
+  logic [ ADDR_SIZE-1:0] w_addr;
+  logic [DATA_WIDTH-1:0] w_data;
+  logic [ ADDR_SIZE-1:0] r_addr;
+  logic [DATA_WIDTH-1:0] r_data;
 
   cdc_fifo_mem #(
       .DATA_WIDTH(DATA_WIDTH),

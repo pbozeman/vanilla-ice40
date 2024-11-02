@@ -8,17 +8,17 @@ module gfx_line_tb;
   localparam FB_X_BITS = $clog2(FB_WIDTH);
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
 
-  reg                  clk;
-  reg                  reset;
-  reg                  enable;
-  reg                  start;
-  reg  [FB_X_BITS-1:0] x0;
-  reg  [FB_Y_BITS-1:0] y0;
-  reg  [FB_X_BITS-1:0] x1;
-  reg  [FB_Y_BITS-1:0] y1;
-  wire [FB_X_BITS-1:0] x;
-  wire [FB_Y_BITS-1:0] y;
-  wire                 done;
+  logic                 clk;
+  logic                 reset;
+  logic                 enable;
+  logic                 start;
+  logic [FB_X_BITS-1:0] x0;
+  logic [FB_Y_BITS-1:0] y0;
+  logic [FB_X_BITS-1:0] x1;
+  logic [FB_Y_BITS-1:0] y1;
+  logic [FB_X_BITS-1:0] x;
+  logic [FB_Y_BITS-1:0] y;
+  logic                 done;
 
   gfx_line #(
       .FB_WIDTH (FB_WIDTH),

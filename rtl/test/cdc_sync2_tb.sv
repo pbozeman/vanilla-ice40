@@ -5,10 +5,10 @@ module cdc_sync2_tb;
 
   parameter WIDTH = 4;
 
-  reg              clk;
-  reg              rst_n;
-  reg  [WIDTH-1:0] d;
-  wire [WIDTH-1:0] q;
+  logic             clk;
+  logic             rst_n;
+  logic [WIDTH-1:0] d;
+  logic [WIDTH-1:0] q;
 
   cdc_sync2 #(
       .WIDTH(WIDTH)

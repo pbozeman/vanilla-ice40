@@ -9,11 +9,11 @@ module iter #(
     parameter integer MAX_VALUE = 15,
     parameter         WIDTH     = $clog2(MAX_VALUE)
 ) (
-    input  wire             clk,
-    input  wire             reset,
-    input  wire             inc,
-    output wire [WIDTH-1:0] val,
-    output wire             done
+    input  logic             clk,
+    input  logic             reset,
+    input  logic             inc,
+    output logic [WIDTH-1:0] val,
+    output logic             done
 );
 
   counter #(

@@ -21,31 +21,31 @@ module cdc_fifo #(
     parameter ALMOST_FULL_BUF = 1
 ) (
     // Write clock domain inputs
-    input wire                  w_clk,
-    input wire                  w_rst_n,
-    input wire                  w_inc,
-    input wire [DATA_WIDTH-1:0] w_data,
+    input logic                  w_clk,
+    input logic                  w_rst_n,
+    input logic                  w_inc,
+    input logic [DATA_WIDTH-1:0] w_data,
 
     // Write clock domain output
-    output wire w_almost_full,
-    output wire w_full,
+    output logic w_almost_full,
+    output logic w_full,
 
     // Read clock domain inputs
-    input wire r_clk,
-    input wire r_rst_n,
-    input wire r_inc,
+    input logic r_clk,
+    input logic r_rst_n,
+    input logic r_inc,
 
     // Read clock domain outputs
-    output wire                  r_empty,
-    output wire [DATA_WIDTH-1:0] r_data
+    output logic                  r_empty,
+    output logic [DATA_WIDTH-1:0] r_data
 );
-  wire [ADDR_SIZE-1:0] w_addr;
-  wire [ADDR_SIZE-1:0] r_addr;
+  logic [ADDR_SIZE-1:0] w_addr;
+  logic [ADDR_SIZE-1:0] r_addr;
 
-  wire [  ADDR_SIZE:0] w_ptr;
-  wire [  ADDR_SIZE:0] r_ptr;
-  wire [  ADDR_SIZE:0] w_q2_rptr;
-  wire [  ADDR_SIZE:0] r_q2_wptr;
+  logic [  ADDR_SIZE:0] w_ptr;
+  logic [  ADDR_SIZE:0] r_ptr;
+  logic [  ADDR_SIZE:0] w_q2_rptr;
+  logic [  ADDR_SIZE:0] r_q2_wptr;
 
   cdc_sync2 #(ADDR_SIZE + 1) sync_r2w (
       .clk  (w_clk),

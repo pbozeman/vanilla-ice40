@@ -11,41 +11,41 @@ module sram_tester_axi_top #(
     parameter integer DATA_BITS = 16
 ) (
     // board signals
-    input  wire CLK,
-    output wire LED1,
-    output wire LED2,
+    input  logic CLK,
+    output logic LED1,
+    output logic LED2,
 
     // Buses
-    output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
-    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
+    output logic [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire  [DATA_BITS-1:0] R_SRAM_DATA_BUS,
 
     // Control signals
-    output wire R_SRAM_CS_N,
-    output wire R_SRAM_OE_N,
-    output wire R_SRAM_WE_N,
+    output logic R_SRAM_CS_N,
+    output logic R_SRAM_OE_N,
+    output logic R_SRAM_WE_N,
 
-    output wire [7:0] R_E,
-    output wire [7:0] R_F,
-    output wire [7:0] R_H,
-    output wire [7:0] R_I,
-    output wire [7:0] R_J
+    output logic [7:0] R_E,
+    output logic [7:0] R_F,
+    output logic [7:0] R_H,
+    output logic [7:0] R_I,
+    output logic [7:0] R_J
 );
 
   // Internal signals
-  reg                  reset = 0;
-  reg  [          3:0] reset_counter = 0;
+  logic                 reset = 0;
+  logic [          3:0] reset_counter = 0;
 
-  wire [DATA_BITS-1:0] sram_write_data;
-  wire [DATA_BITS-1:0] sram_read_data;
-  wire                 test_done;
-  wire                 test_pass;
-  wire                 sram_write_enable;
+  logic [DATA_BITS-1:0] sram_write_data;
+  logic [DATA_BITS-1:0] sram_read_data;
+  logic                 test_done;
+  logic                 test_pass;
+  logic                 sram_write_enable;
 
-  wire [          2:0] pattern_state;
-  wire [DATA_BITS-1:0] prev_expected_data;
-  wire [DATA_BITS-1:0] prev_read_data;
+  logic [          2:0] pattern_state;
+  logic [DATA_BITS-1:0] prev_expected_data;
+  logic [DATA_BITS-1:0] prev_read_data;
 
-  wire [ADDR_BITS-1:0] iter_addr;
+  logic [ADDR_BITS-1:0] iter_addr;
 
   sram_tester_axi #(
       .ADDR_BITS(ADDR_BITS),
@@ -73,8 +73,8 @@ module sram_tester_axi_top #(
 
   // The addr leds are not in sync with the data, but I just want to see that
   // they are moving. The first pipeline is needed to meet timing.
-  wire [ADDR_BITS-1:0] addr_pipeline;
-  wire [ADDR_BITS-1:0] addr_reversed;
+  logic [ADDR_BITS-1:0] addr_pipeline;
+  logic [ADDR_BITS-1:0] addr_reversed;
 
   always @(posedge CLK) begin
     addr_pipeline <= iter_addr;
@@ -88,7 +88,7 @@ module sram_tester_axi_top #(
       .out(addr_reversed)
   );
 
-  wire [2:0] pattern_state_reversed;
+  logic [2:0] pattern_state_reversed;
   bit_reverser #(
       .WIDTH(3)
   ) pattern_state_reverser (

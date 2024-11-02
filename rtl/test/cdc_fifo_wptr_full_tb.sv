@@ -5,15 +5,15 @@ module cdc_fifo_wptr_full_tb;
 
   parameter ADDR_SIZE = 4;
 
-  reg                  w_clk;
-  reg                  w_rst_n;
-  reg                  w_inc;
-  reg  [  ADDR_SIZE:0] w_q2_rptr;
+  logic                 w_clk;
+  logic                 w_rst_n;
+  logic                 w_inc;
+  logic [  ADDR_SIZE:0] w_q2_rptr;
 
-  wire                 w_almost_full;
-  wire                 w_full;
-  wire [  ADDR_SIZE:0] w_ptr;
-  wire [ADDR_SIZE-1:0] w_addr;
+  logic                 w_almost_full;
+  logic                 w_full;
+  logic [  ADDR_SIZE:0] w_ptr;
+  logic [ADDR_SIZE-1:0] w_addr;
 
   cdc_fifo_wptr_full #(
       .ADDR_SIZE(ADDR_SIZE)

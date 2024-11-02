@@ -13,80 +13,80 @@ module sram_tester_axi #(
     parameter integer DATA_BITS = 16
 ) (
     // tester signals
-    input  wire clk,
-    input  wire reset,
-    output wire test_done,
-    output reg  test_pass,
+    input  logic clk,
+    input  logic reset,
+    output logic test_done,
+    output logic test_pass,
 
     // debug/output signals
-    output wire [          2:0] pattern_state,
-    output reg  [DATA_BITS-1:0] prev_read_data,
-    output reg  [DATA_BITS-1:0] prev_expected_data,
-    output reg  [ADDR_BITS-1:0] iter_addr,
+    output logic [          2:0] pattern_state,
+    output logic [DATA_BITS-1:0] prev_read_data,
+    output logic [DATA_BITS-1:0] prev_expected_data,
+    output logic [ADDR_BITS-1:0] iter_addr,
 
     // sram controller to io pins
-    output wire [ADDR_BITS-1:0] sram_io_addr,
-    inout  wire [DATA_BITS-1:0] sram_io_data,
-    output wire                 sram_io_we_n,
-    output wire                 sram_io_oe_n,
-    output wire                 sram_io_ce_n
+    output logic [ADDR_BITS-1:0] sram_io_addr,
+    inout  wire  [DATA_BITS-1:0] sram_io_data,
+    output logic                 sram_io_we_n,
+    output logic                 sram_io_oe_n,
+    output logic                 sram_io_ce_n
 );
   // AXI-Lite Write Address Channel
-  reg  [        ADDR_BITS-1:0] axi_awaddr;
-  reg                          axi_awvalid;
-  wire                         axi_awready;
+  logic [        ADDR_BITS-1:0] axi_awaddr;
+  logic                         axi_awvalid;
+  logic                         axi_awready;
 
   // AXI-Lite Write Data Channel
-  reg  [        DATA_BITS-1:0] axi_wdata;
-  wire [((DATA_BITS+7)/8)-1:0] axi_wstrb;
-  reg                          axi_wvalid;
-  wire                         axi_wready;
+  logic [        DATA_BITS-1:0] axi_wdata;
+  logic [((DATA_BITS+7)/8)-1:0] axi_wstrb;
+  logic                         axi_wvalid;
+  logic                         axi_wready;
 
   // AXI-Lite Write Response Channel
   // verilator lint_off UNUSEDSIGNAL
-  wire [                  1:0] axi_bresp;
-  wire                         axi_bvalid;
+  logic [                  1:0] axi_bresp;
+  logic                         axi_bvalid;
   // verilator lint_on UNUSEDSIGNAL
-  reg                          axi_bready;
+  logic                         axi_bready;
 
   // AXI-Lite Read Address Channel
-  reg  [        ADDR_BITS-1:0] axi_araddr;
-  reg                          axi_arvalid;
-  wire                         axi_arready;
+  logic [        ADDR_BITS-1:0] axi_araddr;
+  logic                         axi_arvalid;
+  logic                         axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [        DATA_BITS-1:0] axi_rdata;
+  logic [        DATA_BITS-1:0] axi_rdata;
   // verilator lint_off UNUSEDSIGNAL
-  wire [                  1:0] axi_rresp;
+  logic [                  1:0] axi_rresp;
   // verilator lint_on UNUSEDSIGNAL
-  wire                         axi_rvalid;
-  reg                          axi_rready;
+  logic                         axi_rvalid;
+  logic                         axi_rready;
 
   //
   // Address iteration
   //
-  wire                         iter_addr_inc;
-  wire                         iter_addr_done;
+  logic                         iter_addr_inc;
+  logic                         iter_addr_done;
 
   //
   // Pattern gen signals
   //
-  wire                         pattern_reset;
-  reg                          pattern_inc;
-  wire [        DATA_BITS-1:0] pattern;
-  wire                         pattern_done;
-  reg  [        DATA_BITS-1:0] pattern_custom;
+  logic                         pattern_reset;
+  logic                         pattern_inc;
+  logic [        DATA_BITS-1:0] pattern;
+  logic                         pattern_done;
+  logic [        DATA_BITS-1:0] pattern_custom;
 
   //
   // Fifo signals
   //
-  reg                          fifo_write_en;
-  reg                          fifo_read_en;
-  reg  [        DATA_BITS-1:0] fifo_write_data;
-  reg  [        DATA_BITS-1:0] fifo_read_data;
+  logic                         fifo_write_en;
+  logic                         fifo_read_en;
+  logic [        DATA_BITS-1:0] fifo_write_data;
+  logic [        DATA_BITS-1:0] fifo_read_data;
   // verilator lint_off UNUSEDSIGNAL
-  wire                         fifo_empty;
-  wire                         fifo_full;
+  logic                         fifo_empty;
+  logic                         fifo_full;
   // verilator lint_on UNUSEDSIGNAL
 
   assign axi_wstrb = 2'b11;
@@ -172,8 +172,8 @@ module sram_tester_axi #(
   localparam [2:0] DONE = 3'b110;
   localparam [2:0] HALT = 3'b111;
 
-  reg [2:0] state;
-  reg [2:0] next_state;
+  logic [2:0] state;
+  logic [2:0] next_state;
 
   //
   // next_state
@@ -256,14 +256,17 @@ module sram_tester_axi #(
   //
   // writing
   //
-  reg  write_start;
+  logic write_start;
 
-  reg  write_addr_accepted;
-  reg  write_data_accepted;
-  wire write_accepted = (write_addr_accepted & write_data_accepted);
+  logic write_addr_accepted;
+  logic write_data_accepted;
+  logic write_accepted;
 
-  reg  last_write;
-  wire writes_done = (write_accepted & last_write);
+  logic last_write;
+  logic writes_done;
+
+  assign write_accepted = (write_addr_accepted & write_data_accepted);
+  assign writes_done    = (write_accepted & last_write);
 
   always @(posedge clk) begin
     if (reset) begin
@@ -312,14 +315,14 @@ module sram_tester_axi #(
   //
   // reading
   //
-  reg  read_start;
+  logic read_start;
 
-  wire read_accepted;
+  logic read_accepted;
   assign read_accepted = axi_arready & axi_arvalid;
 
-  reg  last_read;
+  logic last_read;
 
-  wire reads_done;
+  logic reads_done;
   assign reads_done = (read_accepted & last_read);
 
   //
@@ -358,8 +361,10 @@ module sram_tester_axi #(
   //
   // read response
   //
-  reg  validate;
-  wire read_data_done = (axi_rready & axi_rvalid);
+  logic validate;
+  logic read_data_done;
+
+  assign read_data_done = (axi_rready & axi_rvalid);
 
   always @(posedge clk) begin
     if (reset) begin

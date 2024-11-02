@@ -16,34 +16,34 @@ module gfx_demo_top #(
     parameter DATA_BITS  = 16
 ) (
     // board signals
-    input  wire CLK,
-    output wire LED1,
-    output wire LED2,
+    input  logic CLK,
+    output logic LED1,
+    output logic LED2,
 
     // sram 0
-    output wire [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
-    inout  wire [DATA_BITS-1:0] R_SRAM_DATA_BUS,
-    output wire                 R_SRAM_CS_N,
-    output wire                 R_SRAM_OE_N,
-    output wire                 R_SRAM_WE_N,
+    output logic [ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire  [DATA_BITS-1:0] R_SRAM_DATA_BUS,
+    output logic                 R_SRAM_CS_N,
+    output logic                 R_SRAM_OE_N,
+    output logic                 R_SRAM_WE_N,
 
-    output wire [7:0] R_E,
-    output wire [7:0] R_F
+    output logic [7:0] R_E,
+    output logic [7:0] R_F
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
 
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  reg                   reset;
+  logic                  reset;
 
-  wire [COLOR_BITS-1:0] vga_red;
-  wire [COLOR_BITS-1:0] vga_grn;
-  wire [COLOR_BITS-1:0] vga_blu;
-  wire                  vga_hsync;
-  wire                  vga_vsync;
+  logic [COLOR_BITS-1:0] vga_red;
+  logic [COLOR_BITS-1:0] vga_grn;
+  logic [COLOR_BITS-1:0] vga_blu;
+  logic                  vga_hsync;
+  logic                  vga_vsync;
 
-  wire                  pixel_clk;
+  logic                  pixel_clk;
   vga_pll vga_pll_inst (
       .clk_i(CLK),
       .clk_o(pixel_clk)

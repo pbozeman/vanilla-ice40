@@ -5,8 +5,8 @@ module gray_to_bin_tb;
 
   parameter WIDTH = 4;
 
-  reg  [WIDTH-1:0] gray;
-  wire [WIDTH-1:0] bin;
+  logic [WIDTH-1:0] gray;
+  logic [WIDTH-1:0] bin;
 
   gray_to_bin #(
       .WIDTH(WIDTH)
@@ -17,7 +17,7 @@ module gray_to_bin_tb;
 
   `TEST_SETUP(gray_to_bin_tb)
 
-  reg clk;
+  logic clk;
 
   initial begin
     clk = 0;

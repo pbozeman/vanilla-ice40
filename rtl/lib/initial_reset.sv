@@ -6,10 +6,10 @@
 module initial_reset #(
     parameter CYCLES = 15
 ) (
-    input  wire clk,
-    output reg  reset
+    input  logic clk,
+    output logic reset
 );
-  reg [$clog2(CYCLES)-1:0] reset_counter = 0;
+  logic [$clog2(CYCLES)-1:0] reset_counter = 0;
 
   always @(posedge clk) begin
     if (reset_counter < CYCLES) begin

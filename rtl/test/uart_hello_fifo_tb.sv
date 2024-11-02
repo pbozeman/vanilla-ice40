@@ -5,11 +5,11 @@
 // verilator lint_off UNUSEDSIGNAL
 module uart_hello_fifo_tb;
 
-  reg  clk = 1'b0;
-  reg  reset = 1'b0;
-  wire tx;
-  wire led1;
-  wire led2;
+  logic clk = 1'b0;
+  logic reset = 1'b0;
+  logic tx;
+  logic led1;
+  logic led2;
 
   uart_hello_fifo_top uut (
       .CLK    (clk),

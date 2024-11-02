@@ -7,11 +7,11 @@ module pin_walker_tb;
   localparam CLOCK_FREQ_HZ = 10;
   localparam DIVISOR = 4;
 
-  reg                    clk = 1'b0;
-  wire    [NUM_PINS-1:0] pins;
+  logic                  clk = 1'b0;
+  logic   [NUM_PINS-1:0] pins;
   integer                i;
 
-  reg     [NUM_PINS-1:0] expected;
+  logic   [NUM_PINS-1:0] expected;
 
   pin_walker #(
       .NUM_PINS     (NUM_PINS),

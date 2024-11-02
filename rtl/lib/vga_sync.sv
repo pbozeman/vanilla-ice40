@@ -26,14 +26,14 @@ module vga_sync #(
     localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
     localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)
 ) (
-    input  wire                   clk,
-    input  wire                   reset,
-    input  wire                   enable,
-    output wire                   visible,
-    output wire                   hsync,
-    output wire                   vsync,
-    output wire [COLUMN_BITS-1:0] column,
-    output wire [   ROW_BITS-1:0] row
+    input  logic                   clk,
+    input  logic                   reset,
+    input  logic                   enable,
+    output logic                   visible,
+    output logic                   hsync,
+    output logic                   vsync,
+    output logic [COLUMN_BITS-1:0] column,
+    output logic [   ROW_BITS-1:0] row
 );
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;

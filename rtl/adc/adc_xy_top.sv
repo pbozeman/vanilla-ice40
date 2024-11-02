@@ -9,22 +9,22 @@
 module adc_xy_top #(
     parameter integer DATA_BITS = 10
 ) (
-    input wire                 CLK,
-    input wire                 L_ADC_CLK_TO_FPGA,
-    input wire [DATA_BITS-1:0] L_ADC_Y,
-    input wire [DATA_BITS-1:0] L_ADC_X,
+    input logic                 CLK,
+    input logic                 L_ADC_CLK_TO_FPGA,
+    input logic [DATA_BITS-1:0] L_ADC_Y,
+    input logic [DATA_BITS-1:0] L_ADC_X,
 
-    output wire [7:0] R_E,
-    output wire [7:0] R_F,
+    output logic [7:0] R_E,
+    output logic [7:0] R_F,
 
-    output wire [7:0] R_H,
-    output wire [7:0] R_I
+    output logic [7:0] R_H,
+    output logic [7:0] R_I
 );
 
-  reg                  reset;
+  logic                 reset;
 
-  wire [DATA_BITS-1:0] y_data;
-  wire [DATA_BITS-1:0] x_data;
+  logic [DATA_BITS-1:0] y_data;
+  logic [DATA_BITS-1:0] x_data;
 
   adc_xy #(
       .DATA_BITS(DATA_BITS)

@@ -28,7 +28,7 @@
      $dumpfile({".build/", `"mod`", ".vcd"});                \
      $dumpvars(4, mod);                                      \
    end                                                       \
-   reg skip_slow_tests;                                      \
+   logic skip_slow_tests;                                      \
    initial begin                                             \
      if ($value$plusargs("SKIP_SLOW_TESTS=%b", skip_slow_tests)) begin \
        if (skip_slow_tests) begin                            \
@@ -52,7 +52,7 @@
 
 `define WAIT_FOR_SIGNAL(signal)      \
   begin : wait_for_sig_`__LINE__     \
-    reg [8:0] cnt;                   \
+    logic [8:0] cnt;                   \
     cnt = 0;                         \
     while (!(signal)) begin          \
       @(posedge axi_clk);            \

@@ -16,32 +16,32 @@ module gfx_demo_dbuf_tb;
 
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  reg                       clk;
-  reg                       pixel_clk;
-  reg                       reset;
+  logic                      clk;
+  logic                      pixel_clk;
+  logic                      reset;
 
-  wire [AXI_ADDR_WIDTH-1:0] addr;
-  wire [    PIXEL_BITS-1:0] color;
+  logic [AXI_ADDR_WIDTH-1:0] addr;
+  logic [    PIXEL_BITS-1:0] color;
 
   // SRAM 0
-  wire [AXI_ADDR_WIDTH-1:0] sram0_io_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram0_io_data;
-  wire                      sram0_io_we_n;
-  wire                      sram0_io_oe_n;
-  wire                      sram0_io_ce_n;
+  logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data;
+  logic                      sram0_io_we_n;
+  logic                      sram0_io_oe_n;
+  logic                      sram0_io_ce_n;
 
   // SRAM 1
-  wire [AXI_ADDR_WIDTH-1:0] sram1_io_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram1_io_data;
-  wire                      sram1_io_we_n;
-  wire                      sram1_io_oe_n;
-  wire                      sram1_io_ce_n;
+  logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data;
+  logic                      sram1_io_we_n;
+  logic                      sram1_io_oe_n;
+  logic                      sram1_io_ce_n;
 
-  wire [    COLOR_BITS-1:0] vga_red;
-  wire [    COLOR_BITS-1:0] vga_grn;
-  wire [    COLOR_BITS-1:0] vga_blu;
-  wire                      vga_hsync;
-  wire                      vga_vsync;
+  logic [    COLOR_BITS-1:0] vga_red;
+  logic [    COLOR_BITS-1:0] vga_grn;
+  logic [    COLOR_BITS-1:0] vga_blu;
+  logic                      vga_hsync;
+  logic                      vga_vsync;
 
   gfx_demo_dbuf uut (
       .clk      (clk),

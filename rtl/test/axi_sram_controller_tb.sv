@@ -6,42 +6,42 @@ module axi_sram_controller_tb;
   localparam AXI_ADDR_WIDTH = 10;
   localparam AXI_DATA_WIDTH = 8;
 
-  reg                       axi_clk;
-  reg                       axi_resetn;
+  logic                      axi_clk;
+  logic                      axi_resetn;
 
   // AXI-Lite Write Address Channel
-  reg  [AXI_ADDR_WIDTH-1:0] axi_awaddr;
-  reg                       axi_awvalid;
-  wire                      axi_awready;
+  logic [AXI_ADDR_WIDTH-1:0] axi_awaddr;
+  logic                      axi_awvalid;
+  logic                      axi_awready;
 
   // AXI-Lite Write Data Channel
-  reg  [AXI_DATA_WIDTH-1:0] axi_wdata;
-  reg                       axi_wstrb;
-  reg                       axi_wvalid;
-  wire                      axi_wready;
+  logic [AXI_DATA_WIDTH-1:0] axi_wdata;
+  logic                      axi_wstrb;
+  logic                      axi_wvalid;
+  logic                      axi_wready;
 
   // AXI-Lite Write Response Channel
-  wire [               1:0] axi_bresp;
-  wire                      axi_bvalid;
-  reg                       axi_bready;
+  logic [               1:0] axi_bresp;
+  logic                      axi_bvalid;
+  logic                      axi_bready;
 
   // AXI-Lite Read Address Channel
-  reg  [AXI_ADDR_WIDTH-1:0] axi_araddr;
-  reg                       axi_arvalid;
-  wire                      axi_arready;
+  logic [AXI_ADDR_WIDTH-1:0] axi_araddr;
+  logic                      axi_arvalid;
+  logic                      axi_arready;
 
   // AXI-Lite Read Data Channel
-  wire [AXI_DATA_WIDTH-1:0] axi_rdata;
-  wire [               1:0] axi_rresp;
-  wire                      axi_rvalid;
-  reg                       axi_rready;
+  logic [AXI_DATA_WIDTH-1:0] axi_rdata;
+  logic [               1:0] axi_rresp;
+  logic                      axi_rvalid;
+  logic                      axi_rready;
 
   // SRAM Interface
-  wire [AXI_ADDR_WIDTH-1:0] sram_io_addr;
-  wire [AXI_DATA_WIDTH-1:0] sram_io_data;
-  wire                      sram_io_we_n;
-  wire                      sram_io_oe_n;
-  wire                      sram_io_ce_n;
+  logic [AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram_io_data;
+  logic                      sram_io_we_n;
+  logic                      sram_io_oe_n;
+  logic                      sram_io_ce_n;
 
   // Instantiate the AXI SRAM controller
   axi_sram_controller #(
@@ -87,7 +87,7 @@ module axi_sram_controller_tb;
   );
 
   // verilator lint_off UNUSEDSIGNAL
-  reg [8:0] test_line;
+  logic [8:0] test_line;
   // verilator lint_on UNUSEDSIGNAL
 
   // Clock generation

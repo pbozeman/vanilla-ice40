@@ -3,7 +3,7 @@
 `include "sram_tester.sv"
 `include "sram_model.sv"
 
-// This test wires everything up and then runs the test
+// This test logics everything up and then runs the test
 // and makes sure it completes. It doesn't check signals
 // itself.
 //
@@ -15,31 +15,31 @@ module sram_tester_tb ();
   localparam MAX_CYCLES = 50000;
 
   // Signals
-  reg                           clk;
-  reg                           reset;
-  wire                          test_pass;
-  wire                          test_done;
+  logic                          clk;
+  logic                          reset;
+  logic                          test_pass;
+  logic                          test_done;
 
   // sram controller signals
-  wire                          sram_write_enable;
-  wire [         ADDR_BITS-1:0] sram_addr;
-  wire [         DATA_BITS-1:0] sram_write_data;
-  wire [         DATA_BITS-1:0] sram_read_data;
+  logic                          sram_write_enable;
+  logic [         ADDR_BITS-1:0] sram_addr;
+  logic [         DATA_BITS-1:0] sram_write_data;
+  logic [         DATA_BITS-1:0] sram_read_data;
 
   // sram controller to io pins
-  wire [         ADDR_BITS-1:0] sram_io_addr_bus;
-  wire [         DATA_BITS-1:0] sram_io_data_bus;
-  wire                          sram_io_we_n;
-  wire                          sram_io_oe_n;
-  wire                          sram_io_ce_n;
+  logic [         ADDR_BITS-1:0] sram_io_addr_bus;
+  wire  [         DATA_BITS-1:0] sram_io_data_bus;
+  logic                          sram_io_we_n;
+  logic                          sram_io_oe_n;
+  logic                          sram_io_ce_n;
 
   // sram tester debug signals
-  wire [                   2:0] pattern_state;
-  wire [         DATA_BITS-1:0] prev_expected_data;
-  wire [         DATA_BITS-1:0] prev_read_data;
+  logic [                   2:0] pattern_state;
+  logic [         DATA_BITS-1:0] prev_expected_data;
+  logic [         DATA_BITS-1:0] prev_read_data;
 
-  reg  [$clog2(MAX_CYCLES)-1:0] timeout_counter = 0;
-  reg  [                   1:0] done_counter = 0;
+  logic [$clog2(MAX_CYCLES)-1:0] timeout_counter = 0;
+  logic [                   1:0] done_counter = 0;
 
   sram_tester #(
       .ADDR_BITS(ADDR_BITS),

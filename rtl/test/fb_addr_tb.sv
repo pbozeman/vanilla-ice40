@@ -10,10 +10,10 @@ module fb_addr_tb;
   localparam FB_X_BITS = $clog2(FB_WIDTH);
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
 
-  reg                 clk = 0;
-  reg [FB_X_BITS-1:0] fb_x;
-  reg [FB_Y_BITS-1:0] fb_y;
-  reg [ADDR_BITS-1:0] fb_addr;
+  logic                 clk = 0;
+  logic [FB_X_BITS-1:0] fb_x;
+  logic [FB_Y_BITS-1:0] fb_y;
+  logic [ADDR_BITS-1:0] fb_addr;
 
   fb_addr #(
       .FB_WIDTH (FB_WIDTH),

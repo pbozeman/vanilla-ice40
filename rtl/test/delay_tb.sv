@@ -6,9 +6,9 @@ module delay_tb;
 
   parameter DELAY_CYCLES = 3;
 
-  reg  clk;
-  reg  in;
-  wire out;
+  logic clk;
+  logic in;
+  logic out;
 
   delay #(
       .DELAY_CYCLES(DELAY_CYCLES)

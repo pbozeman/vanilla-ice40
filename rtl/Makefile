@@ -96,7 +96,7 @@ $(PCF_DIR):
 #
 ##############################################################################
 define YOSYS_CMD
-read_verilog -I$(LIB_DIR) -I$(dir $(1)) $1;\
+read_verilog -sv -I$(LIB_DIR) -I$(dir $(1)) $1;\
 synth_ice40 -top $(notdir $(basename $(1))); \
 write_json $$@
 endef

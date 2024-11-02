@@ -5,7 +5,7 @@
 `include "sram_controller.sv"
 
 // Note: wstrb is ignored as the boards with the sram chips
-// I use have the ub and lb pins hard wired to enable.
+// I use have the ub and lb pins hard logicd to enable.
 //
 // TODO: come back and implement wstrb, and/or consider setting
 // an error in the resp if they are used.
@@ -14,56 +14,56 @@ module axi_sram_controller #(
     parameter integer AXI_DATA_WIDTH = 16
 ) (
     // AXI-Lite Global Signals
-    input wire axi_clk,
-    input wire axi_resetn,
+    input logic axi_clk,
+    input logic axi_resetn,
 
     // AXI-Lite Write Address Channel
-    input  wire [AXI_ADDR_WIDTH-1:0] axi_awaddr,
-    input  wire                      axi_awvalid,
-    output wire                      axi_awready,
+    input  logic [AXI_ADDR_WIDTH-1:0] axi_awaddr,
+    input  logic                      axi_awvalid,
+    output logic                      axi_awready,
 
     // AXI-Lite Write Data Channel
-    input  wire [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    input  logic [        AXI_DATA_WIDTH-1:0] axi_wdata,
     // verilator lint_off UNUSEDSIGNAL
-    input  wire [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    input  logic [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
     // verilator lint_on UNUSEDSIGNAL
-    input  wire                              axi_wvalid,
-    output wire                              axi_wready,
+    input  logic                              axi_wvalid,
+    output logic                              axi_wready,
 
     // AXI-Lite Write Response Channel
-    output wire [1:0] axi_bresp,
-    output wire       axi_bvalid,
-    input  wire       axi_bready,
+    output logic [1:0] axi_bresp,
+    output logic       axi_bvalid,
+    input  logic       axi_bready,
 
     // AXI-Lite Read Address Channel
-    input  wire [AXI_ADDR_WIDTH-1:0] axi_araddr,
-    input  wire                      axi_arvalid,
-    output wire                      axi_arready,
+    input  logic [AXI_ADDR_WIDTH-1:0] axi_araddr,
+    input  logic                      axi_arvalid,
+    output logic                      axi_arready,
 
     // AXI-Lite Read Data Channel
-    output wire [AXI_DATA_WIDTH-1:0] axi_rdata,
-    output wire [               1:0] axi_rresp,
-    output wire                      axi_rvalid,
-    input  wire                      axi_rready,
+    output logic [AXI_DATA_WIDTH-1:0] axi_rdata,
+    output logic [               1:0] axi_rresp,
+    output logic                      axi_rvalid,
+    input  logic                      axi_rready,
 
-    output wire [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout  wire [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output wire                      sram_io_we_n,
-    output wire                      sram_io_oe_n,
-    output wire                      sram_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram_io_data,
+    output logic                      sram_io_we_n,
+    output logic                      sram_io_oe_n,
+    output logic                      sram_io_ce_n
 );
 
   // SRAM signals
-  wire                      sram_req;
-  wire                      sram_write_enable;
-  wire [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
-  wire [AXI_DATA_WIDTH-1:0] sram_write_data;
-  wire                      sram_write_done;
-  wire [AXI_DATA_WIDTH-1:0] sram_read_data;
-  wire                      sram_read_data_valid;
+  logic                      sram_req;
+  logic                      sram_write_enable;
+  logic [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
+  logic [AXI_DATA_WIDTH-1:0] sram_write_data;
+  logic                      sram_write_done;
+  logic [AXI_DATA_WIDTH-1:0] sram_read_data;
+  logic                      sram_read_data_valid;
 
   // verilator lint_off UNUSEDSIGNAL
-  wire                      sram_ready;
+  logic                      sram_ready;
   // verilator lint_on UNUSEDSIGNAL
 
   // FSM states (note: writes start with 0, reads with 1 in the msb)
@@ -75,14 +75,14 @@ module axi_sram_controller #(
 
   localparam RESP_OK = 2'b00;
 
-  reg [2:0] current_state = IDLE;
-  reg [2:0] next_state = IDLE;
+  logic [2:0] current_state = IDLE;
+  logic [2:0] next_state = IDLE;
 
   // write state
-  reg       axi_bvalid_reg = 0;
+  logic       axi_bvalid_reg = 0;
 
   // read state
-  reg       axi_rvalid_reg = 0;
+  logic       axi_rvalid_reg = 0;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -107,7 +107,7 @@ module axi_sram_controller #(
   );
 
   // flip read/write priority every other cycle
-  reg rw_pri = 0;
+  logic rw_pri = 0;
   always @(posedge axi_clk) begin
     if (sram_req) begin
       rw_pri <= ~rw_pri;
@@ -192,7 +192,7 @@ module axi_sram_controller #(
   //
   // axi_bvalid
   //
-  reg prev_axi_bready = 0;
+  logic prev_axi_bready = 0;
 
   always @(posedge axi_clk) begin
     if (~axi_resetn) begin
@@ -216,8 +216,8 @@ module axi_sram_controller #(
   // Look for the rising edge of sram_read_data_valid and
   // register that so that we can clear axi_rvalid without
   // it getting reset by the sram controller.
-  reg prev_sram_read_data_valid = 0;
-  reg prev_axi_rready = 0;
+  logic prev_sram_read_data_valid = 0;
+  logic prev_axi_rready = 0;
 
   always @(posedge axi_clk) begin
     if (~axi_resetn) begin

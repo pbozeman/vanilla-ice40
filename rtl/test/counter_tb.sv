@@ -6,10 +6,10 @@ module counter_tb;
   parameter MAX_VALUE = 250;
   parameter WIDTH = 8;
 
-  reg              clk;
-  reg              reset;
-  reg              enable;
-  wire [WIDTH-1:0] count;
+  logic             clk;
+  logic             reset;
+  logic             enable;
+  logic [WIDTH-1:0] count;
 
   counter #(
       .MAX_VALUE(MAX_VALUE)

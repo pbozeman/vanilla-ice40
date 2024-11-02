@@ -8,14 +8,14 @@
 `ifndef SIMULATOR
 
 module vga_pll (
-    input  wire clk_i,
-    output wire clk_o
+    input  logic clk_i,
+    output logic clk_o
 );
 
-  wire pll_lock;
+  logic pll_lock;
 
   // intermediate clock, see global buffer comment below
-  wire clk_int;
+  logic clk_int;
 
   SB_PLL40_CORE #(
       .FEEDBACK_PATH("SIMPLE"),

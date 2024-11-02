@@ -12,14 +12,14 @@
 module cdc_sync2 #(
     parameter WIDTH = 1
 ) (
-    input  wire             clk,
-    input  wire             rst_n,
-    input  wire [WIDTH-1:0] d,
-    output reg  [WIDTH-1:0] q = 0
+    input  logic             clk,
+    input  logic             rst_n,
+    input  logic [WIDTH-1:0] d,
+    output logic [WIDTH-1:0] q = 0
 );
 
   // 1st stage ff output
-  reg [WIDTH-1:0] q1 = 0;
+  logic [WIDTH-1:0] q1 = 0;
 
   always @(posedge clk) begin
     if (!rst_n) begin

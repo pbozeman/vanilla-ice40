@@ -6,14 +6,14 @@ module cdc_fifo_rptr_empty_tb;
 
   parameter ADDR_SIZE = 4;
 
-  reg                  r_clk;
-  reg                  r_rst_n;
-  reg                  r_inc;
-  reg  [  ADDR_SIZE:0] r_q2_wptr;
+  logic                 r_clk;
+  logic                 r_rst_n;
+  logic                 r_inc;
+  logic [  ADDR_SIZE:0] r_q2_wptr;
 
-  wire                 r_empty;
-  wire [  ADDR_SIZE:0] r_ptr;
-  wire [ADDR_SIZE-1:0] r_addr;
+  logic                 r_empty;
+  logic [  ADDR_SIZE:0] r_ptr;
+  logic [ADDR_SIZE-1:0] r_addr;
 
   `TEST_SETUP(cdc_fifo_rptr_empty_tb)
 

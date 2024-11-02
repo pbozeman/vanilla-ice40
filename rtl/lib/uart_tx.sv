@@ -8,12 +8,12 @@ module uart_tx #(
     parameter CLOCK_FREQ = 100_000_000,
     parameter BAUD_RATE  = 115_200
 ) (
-    input  wire       clk,
-    input  wire       reset,
-    input  wire [7:0] data_i,
-    input  wire       tx_en_i,
-    output reg        tx_ready,
-    output reg        tx
+    input  logic       clk,
+    input  logic       reset,
+    input  logic [7:0] data_i,
+    input  logic       tx_en_i,
+    output logic       tx_ready,
+    output logic       tx
 );
 
   localparam CLOCKS_PER_BIT = CLOCK_FREQ / BAUD_RATE;
@@ -24,10 +24,10 @@ module uart_tx #(
   localparam DATA = 2'b10;
   localparam STOP = 2'b11;
 
-  reg [ 1:0] state = IDLE;
-  reg [13:0] clk_count = 0;
-  reg [ 2:0] bit_index = 0;
-  reg [ 7:0] data_buffer = 0;
+  logic [ 1:0] state = IDLE;
+  logic [13:0] clk_count = 0;
+  logic [ 2:0] bit_index = 0;
+  logic [ 7:0] data_buffer = 0;
 
   always @(posedge clk) begin
     if (reset) begin

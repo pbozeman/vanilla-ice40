@@ -6,13 +6,13 @@
 `include "vga_pixel_addr.sv"
 
 module vga_pixel_addr_tb;
-  reg        clk;
-  reg        reset;
-  wire [9:0] column;
-  wire [9:0] row;
+  logic       clk;
+  logic       reset;
+  logic [9:0] column;
+  logic [9:0] row;
 
   // TODO: add enable tests
-  wire       enable = 1'b1;
+  logic       enable = 1'b1;
 
   vga_pixel_addr uut (
       .clk   (clk),

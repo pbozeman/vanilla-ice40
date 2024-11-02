@@ -6,13 +6,13 @@
 module sram_pattern_generator #(
     parameter integer DATA_BITS = 16
 ) (
-    input  wire                 clk,
-    input  wire                 reset,
-    input  wire                 inc,
-    input  wire [DATA_BITS-1:0] custom,
-    output reg  [DATA_BITS-1:0] pattern,
-    output reg                  done = 1'b0,
-    output reg  [          2:0] state = 3'b000
+    input  logic                 clk,
+    input  logic                 reset,
+    input  logic                 inc,
+    input  logic [DATA_BITS-1:0] custom,
+    output logic [DATA_BITS-1:0] pattern,
+    output logic                 done = 1'b0,
+    output logic [          2:0] state = 3'b000
 );
 
   // State constants

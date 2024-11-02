@@ -23,39 +23,39 @@
 `define VGA_VSYNC R_F_06
 
 module vga_top (
-    input  wire CLK,
-    output wire LED1,
-    output wire LED2,
-    output wire `VGA_RED_0,
-    output wire `VGA_RED_1,
-    output wire `VGA_RED_2,
-    output wire `VGA_RED_3,
-    output wire `VGA_BLUE_0,
-    output wire `VGA_BLUE_1,
-    output wire `VGA_BLUE_2,
-    output wire `VGA_BLUE_3,
-    output wire `VGA_GREEN_0,
-    output wire `VGA_GREEN_1,
-    output wire `VGA_GREEN_2,
-    output wire `VGA_GREEN_3,
-    output wire `VGA_HSYNC,
-    output wire `VGA_VSYNC
+    input  logic CLK,
+    output logic LED1,
+    output logic LED2,
+    output logic `VGA_RED_0,
+    output logic `VGA_RED_1,
+    output logic `VGA_RED_2,
+    output logic `VGA_RED_3,
+    output logic `VGA_BLUE_0,
+    output logic `VGA_BLUE_1,
+    output logic `VGA_BLUE_2,
+    output logic `VGA_BLUE_3,
+    output logic `VGA_GREEN_0,
+    output logic `VGA_GREEN_1,
+    output logic `VGA_GREEN_2,
+    output logic `VGA_GREEN_3,
+    output logic `VGA_HSYNC,
+    output logic `VGA_VSYNC
 );
   localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
   localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
 
-  wire reset = 0;
-  wire visible;
+  logic reset = 0;
+  logic visible;
 
-  wire [COLUMN_BITS-1:0] column;
-  wire [ROW_BITS-1:0] row;
+  logic [COLUMN_BITS-1:0] column;
+  logic [ROW_BITS-1:0] row;
 
-  wire [3:0] red;
-  wire [3:0] green;
-  wire [3:0] blue;
+  logic [3:0] red;
+  logic [3:0] green;
+  logic [3:0] blue;
 
-  wire vga_clk;
-  wire enable = 1'b1;
+  logic vga_clk;
+  logic enable = 1'b1;
 
   vga_pll vga_pll_inst (
       .clk_i(CLK),

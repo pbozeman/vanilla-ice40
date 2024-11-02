@@ -4,20 +4,20 @@
 
 module fifo_interleaved_tb;
 
-  reg           clk = 1'b0;
-  reg           reset = 1'b0;
-  reg           write_en = 1'b0;
-  reg           read_en = 1'b0;
-  reg     [7:0] write_data = 8'b0;
-  wire    [7:0] read_data;
-  wire          empty;
-  wire          full;
+  logic         clk = 1'b0;
+  logic         reset = 1'b0;
+  logic         write_en = 1'b0;
+  logic         read_en = 1'b0;
+  logic   [7:0] write_data = 8'b0;
+  logic   [7:0] read_data;
+  logic         empty;
+  logic         full;
 
   integer       i;
 
   // for the interleaved test
-  reg     [7:0] next_write_val;
-  reg     [7:0] next_read_val;
+  logic   [7:0] next_write_val;
+  logic   [7:0] next_read_val;
 
   fifo uut (
       .clk       (clk),

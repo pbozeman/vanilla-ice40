@@ -4,11 +4,11 @@
 
 module bits_to_hex_tb;
 
-  reg         clk = 1'b0;
-  reg         reset = 1'b0;
+  logic        clk = 1'b0;
+  logic        reset = 1'b0;
 
-  reg  [ 7:0] bits_8 = 0;
-  wire [15:0] ascii_8;
+  logic [ 7:0] bits_8 = 0;
+  logic [15:0] ascii_8;
 
   bits_to_hex #(
       .N_BITS(8)
@@ -19,8 +19,8 @@ module bits_to_hex_tb;
       .ascii(ascii_8)
   );
 
-  reg  [ 6:0] bits_7 = 0;
-  wire [15:0] ascii_7;
+  logic [ 6:0] bits_7 = 0;
+  logic [15:0] ascii_7;
 
   bits_to_hex #(
       .N_BITS(7)
@@ -31,8 +31,8 @@ module bits_to_hex_tb;
       .ascii(ascii_7)
   );
 
-  reg  [ 63:0] bits_64 = 0;
-  wire [127:0] ascii_64;
+  logic [ 63:0] bits_64 = 0;
+  logic [127:0] ascii_64;
 
   bits_to_hex #(
       .N_BITS(64)

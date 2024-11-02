@@ -16,35 +16,35 @@ module adc_xy_vga_top #(
     parameter SRAM_DATA_BITS = 16,
     parameter ADC_DATA_BITS  = 10
 ) (
-    input wire                     CLK,
-    input wire                     L_ADC_CLK_TO_FPGA,
-    input wire [ADC_DATA_BITS-1:0] L_ADC_Y,
-    input wire [ADC_DATA_BITS-1:0] L_ADC_X,
+    input logic                     CLK,
+    input logic                     L_ADC_CLK_TO_FPGA,
+    input logic [ADC_DATA_BITS-1:0] L_ADC_Y,
+    input logic [ADC_DATA_BITS-1:0] L_ADC_X,
 
     // sram 0
-    output wire [SRAM_ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
-    inout  wire [SRAM_DATA_BITS-1:0] R_SRAM_DATA_BUS,
-    output wire                      R_SRAM_CS_N,
-    output wire                      R_SRAM_OE_N,
-    output wire                      R_SRAM_WE_N,
+    output logic [SRAM_ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
+    inout  wire  [SRAM_DATA_BITS-1:0] R_SRAM_DATA_BUS,
+    output logic                      R_SRAM_CS_N,
+    output logic                      R_SRAM_OE_N,
+    output logic                      R_SRAM_WE_N,
 
-    output wire [7:0] R_E,
-    output wire [7:0] R_F
+    output logic [7:0] R_E,
+    output logic [7:0] R_F
 );
   localparam FB_X_BITS = $clog2(VGA_WIDTH);
   localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
 
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  wire                  reset;
+  logic                  reset;
 
-  wire [COLOR_BITS-1:0] vga_red;
-  wire [COLOR_BITS-1:0] vga_grn;
-  wire [COLOR_BITS-1:0] vga_blu;
-  wire                  vga_hsync;
-  wire                  vga_vsync;
+  logic [COLOR_BITS-1:0] vga_red;
+  logic [COLOR_BITS-1:0] vga_grn;
+  logic [COLOR_BITS-1:0] vga_blu;
+  logic                  vga_hsync;
+  logic                  vga_vsync;
 
-  wire                  pixel_clk;
+  logic                  pixel_clk;
   vga_pll vga_pll_inst (
       .clk_i(CLK),
       .clk_o(pixel_clk)

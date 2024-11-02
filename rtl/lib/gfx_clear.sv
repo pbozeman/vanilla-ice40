@@ -14,14 +14,14 @@ module gfx_clear #(
     localparam FB_X_BITS = $clog2(FB_WIDTH),
     localparam FB_Y_BITS = $clog2(FB_HEIGHT)
 ) (
-    input  wire                  clk,
-    input  wire                  reset,
-    input  wire                  inc,
-    output reg  [ FB_X_BITS-1:0] x,
-    output reg  [ FB_Y_BITS-1:0] y,
-    output reg  [PIXEL_BITS-1:0] color,
-    output reg                   valid,
-    output reg                   last
+    input  logic                  clk,
+    input  logic                  reset,
+    input  logic                  inc,
+    output logic [ FB_X_BITS-1:0] x,
+    output logic [ FB_Y_BITS-1:0] y,
+    output logic [PIXEL_BITS-1:0] color,
+    output logic                  valid,
+    output logic                  last
 );
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
@@ -32,8 +32,8 @@ module gfx_clear #(
     last = (x == MAX_X & y == MAX_Y);
   end
 
-  reg [FB_X_BITS-1:0] next_x;
-  reg [FB_Y_BITS-1:0] next_y;
+  logic [FB_X_BITS-1:0] next_x;
+  logic [FB_Y_BITS-1:0] next_y;
 
   always @(*) begin
     next_x = x;
@@ -73,7 +73,7 @@ module gfx_clear #(
     end
   end
 
-  reg done;
+  logic done;
   always @(posedge clk) begin
     if (reset) begin
       done <= 1'b0;

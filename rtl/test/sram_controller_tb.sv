@@ -7,27 +7,27 @@ module sram_controller_tb;
   localparam ADDR_BITS = 10;
   localparam DATA_BITS = 8;
 
-  reg                  clk;
-  reg                  reset;
+  logic                 clk;
+  logic                 reset;
 
-  reg                  req = 0;
-  wire                 ready;
+  logic                 req = 0;
+  logic                 ready;
 
-  reg                  write_enable = 0;
-  reg  [ADDR_BITS-1:0] addr;
-  reg  [DATA_BITS-1:0] write_data;
+  logic                 write_enable = 0;
+  logic [ADDR_BITS-1:0] addr;
+  logic [DATA_BITS-1:0] write_data;
   // verilator lint_off UNUSEDSIGNAL
-  wire                 write_done;
+  logic                 write_done;
   // verilator lint_on UNUSEDSIGNAL
-  wire [DATA_BITS-1:0] read_data;
-  wire                 read_data_valid;
+  logic [DATA_BITS-1:0] read_data;
+  logic                 read_data_valid;
 
   // chip lines
-  wire [ADDR_BITS-1:0] io_addr_bus;
-  wire [DATA_BITS-1:0] io_data_bus;
-  wire                 io_we_n;
-  wire                 io_oe_n;
-  wire                 io_ce_n;
+  logic [ADDR_BITS-1:0] io_addr_bus;
+  wire  [DATA_BITS-1:0] io_data_bus;
+  logic                 io_we_n;
+  logic                 io_oe_n;
+  logic                 io_ce_n;
 
   // Instantiate the SRAM controller
   sram_controller #(

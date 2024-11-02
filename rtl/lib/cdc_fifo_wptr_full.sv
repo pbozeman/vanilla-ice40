@@ -28,14 +28,14 @@ module cdc_fifo_wptr_full #(
     input                 w_inc,
     input [ADDR_SIZE : 0] w_q2_rptr,
 
-    output reg                  w_full,
-    output reg                  w_almost_full,
-    output reg  [ADDR_SIZE : 0] w_ptr = 0,
-    output wire [ADDR_SIZE-1:0] w_addr
+    output logic                 w_full,
+    output logic                 w_almost_full,
+    output logic [ADDR_SIZE : 0] w_ptr = 0,
+    output logic [ADDR_SIZE-1:0] w_addr
 );
-  reg  [ADDR_SIZE:0] w_bin = 0;
-  wire [ADDR_SIZE:0] w_bin_next;
-  wire [ADDR_SIZE:0] w_gray_next;
+  logic [ADDR_SIZE:0] w_bin = 0;
+  logic [ADDR_SIZE:0] w_bin_next;
+  logic [ADDR_SIZE:0] w_gray_next;
 
   // Memory write-address pointer (okay to use binary to address memory)
   assign w_addr      = w_bin[ADDR_SIZE-1:0];
@@ -62,7 +62,7 @@ module cdc_fifo_wptr_full #(
   //
   // Full
   //
-  wire w_full_val;
+  logic w_full_val;
   assign w_full_val = (w_gray_next == {~w_q2_rptr[ADDR_SIZE:ADDR_SIZE-1],
                                        w_q2_rptr[ADDR_SIZE-2:0]});
 
@@ -70,7 +70,7 @@ module cdc_fifo_wptr_full #(
   // Almost Full
   //
 
-  wire [ADDR_SIZE:0] w_r_bin;
+  logic [ADDR_SIZE:0] w_r_bin;
   gray_to_bin #(
       .WIDTH(ADDR_SIZE + 1)
   ) rg2b (
@@ -78,12 +78,12 @@ module cdc_fifo_wptr_full #(
       .bin (w_r_bin)
   );
 
-  wire [ADDR_SIZE:0] w_slots_used;
+  logic [ADDR_SIZE:0] w_slots_used;
   assign w_slots_used = w_bin - w_r_bin;
 
 
   localparam ALMOST_FULL_SLOTS = (1 << ADDR_SIZE) - ALMOST_FULL_BUF;
-  wire w_almost_full_val;
+  logic w_almost_full_val;
   assign w_almost_full_val = w_slots_used >= ALMOST_FULL_SLOTS;
 
   // Register full flags

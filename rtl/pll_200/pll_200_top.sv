@@ -3,12 +3,12 @@
 `include "pll_200.sv"
 
 module pll_200_top (
-    input  wire CLK,
-    output reg  LED1,
-    output reg  LED2
+    input  logic CLK,
+    output logic LED1,
+    output logic LED2
 );
 
-  wire clk_200;
+  logic clk_200;
 
   pll_200 pll_200_inst (
       .clk_i(CLK),

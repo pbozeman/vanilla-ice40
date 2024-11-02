@@ -16,33 +16,33 @@ module fb_writer #(
     // clock. But, keep the signal, just in case we ever do.
     //
     // verilator lint_off UNUSEDSIGNAL
-    input wire clk,
-    input wire reset,
+    input logic clk,
+    input logic reset,
     // verilator lint_on UNUSEDSIGNAL
 
     // axi stream handshake for the pixel
-    input  wire axi_tvalid,
-    output wire axi_tready,
+    input  logic axi_tvalid,
+    output logic axi_tready,
 
     // pixel
-    input wire [AXI_ADDR_WIDTH-1:0] addr,
-    input wire [    PIXEL_BITS-1:0] color,
+    input logic [AXI_ADDR_WIDTH-1:0] addr,
+    input logic [    PIXEL_BITS-1:0] color,
 
     //
     // The AXI interface backing the frame buffer.
     // This module is the master.
     //
-    output wire [        AXI_ADDR_WIDTH-1:0] sram_axi_awaddr,
-    output wire                              sram_axi_awvalid,
-    input  wire                              sram_axi_awready,
-    output wire [        AXI_DATA_WIDTH-1:0] sram_axi_wdata,
-    output wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
-    output wire                              sram_axi_wvalid,
-    input  wire                              sram_axi_wready,
-    output wire                              sram_axi_bready,
+    output logic [        AXI_ADDR_WIDTH-1:0] sram_axi_awaddr,
+    output logic                              sram_axi_awvalid,
+    input  logic                              sram_axi_awready,
+    output logic [        AXI_DATA_WIDTH-1:0] sram_axi_wdata,
+    output logic [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
+    output logic                              sram_axi_wvalid,
+    input  logic                              sram_axi_wready,
+    output logic                              sram_axi_bready,
     // verilator lint_off UNUSEDSIGNAL
-    input  wire                              sram_axi_bvalid,
-    input  wire [                       1:0] sram_axi_bresp
+    input  logic                              sram_axi_bvalid,
+    input  logic [                       1:0] sram_axi_bresp
     // verilator lint_on UNUSEDSIGNAL
 );
 

@@ -4,11 +4,11 @@
 `include "directives.sv"
 
 module detect_rising (
-    input  wire clk,
-    input  wire signal,
-    output wire detected
+    input  logic clk,
+    input  logic signal,
+    output logic detected
 );
-  reg signal_prev = 0;
+  logic signal_prev = 0;
   assign detected = signal & ~signal_prev;
 
   always @(posedge clk) begin

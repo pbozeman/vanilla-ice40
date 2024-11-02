@@ -6,11 +6,11 @@
 // TODO: add tests for this.
 
 module detect_falling (
-    input  wire clk,
-    input  wire signal,
-    output wire detected
+    input  logic clk,
+    input  logic signal,
+    output logic detected
 );
-  reg signal_prev = 0;
+  logic signal_prev = 0;
   assign detected = signal_prev & ~signal;
 
   always @(posedge clk) begin

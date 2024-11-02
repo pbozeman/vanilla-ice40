@@ -6,22 +6,22 @@
 `include "uart_tx.sv"
 
 module uart_hello_top (
-    input  wire CLK,
-    output wire UART_TX,
+    input  logic CLK,
+    output logic UART_TX,
 
-    output wire LED1,
-    output wire LED2
+    output logic LED1,
+    output logic LED2
 );
   // Message to send
-  reg  [7:0] message         [0:14];
+  logic [7:0] message         [0:14];
 
-  reg        initialized = 0;
+  logic       initialized = 0;
 
-  reg  [3:0] msg_index = 0;
-  reg  [7:0] tx_data;
-  reg        tx_send = 0;
-  wire       reset = 0;
-  wire       tx_ready;
+  logic [3:0] msg_index = 0;
+  logic [7:0] tx_data;
+  logic       tx_send = 0;
+  logic       reset = 0;
+  logic       tx_ready;
 
   uart_tx #(
       .CLOCK_FREQ(100_000_000),

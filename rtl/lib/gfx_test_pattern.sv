@@ -10,14 +10,14 @@ module gfx_test_pattern #(
     parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12
 ) (
-    input  wire                  clk,
-    input  wire                  reset,
-    input  wire                  inc,
-    output reg  [ FB_X_BITS-1:0] x,
-    output reg  [ FB_Y_BITS-1:0] y,
-    output reg  [PIXEL_BITS-1:0] color,
-    output reg                   valid,
-    output reg                   last
+    input  logic                  clk,
+    input  logic                  reset,
+    input  logic                  inc,
+    output logic [ FB_X_BITS-1:0] x,
+    output logic [ FB_Y_BITS-1:0] y,
+    output logic [PIXEL_BITS-1:0] color,
+    output logic                  valid,
+    output logic                  last
 );
 
   // Frame buffer coordinate width calculations
@@ -32,8 +32,8 @@ module gfx_test_pattern #(
     last = (x == MAX_X & y == MAX_Y);
   end
 
-  reg [FB_X_BITS-1:0] next_x;
-  reg [FB_Y_BITS-1:0] next_y;
+  logic [FB_X_BITS-1:0] next_x;
+  logic [FB_Y_BITS-1:0] next_y;
 
   always @(*) begin
     next_x = x;
@@ -64,9 +64,9 @@ module gfx_test_pattern #(
     end
   end
 
-  wire [COLOR_BITS-1:0] red;
-  wire [COLOR_BITS-1:0] grn;
-  wire [COLOR_BITS-1:0] blu;
+  logic [COLOR_BITS-1:0] red;
+  logic [COLOR_BITS-1:0] grn;
+  logic [COLOR_BITS-1:0] blu;
 
   localparam color_on = {COLOR_BITS{1'b1}};
   localparam color_off = {COLOR_BITS{1'b0}};
@@ -97,7 +97,7 @@ module gfx_test_pattern #(
     color <= {red, grn, blu};
   end
 
-  reg done;
+  logic done;
   always @(posedge clk) begin
     if (reset) begin
       done <= 1'b0;
