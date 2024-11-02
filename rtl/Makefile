@@ -30,21 +30,21 @@ DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
 TOP_DIRS := $(filter-out $(TEST_DIR)/, $(DIRS))
 
 # Top modules
-TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.v))
+TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv))
 
 ifneq ($(DEVICE),hx8k)
-  TOP_MODULES := $(filter-out %left_top.v %both_top.v, $(TOP_MODULES))
+  TOP_MODULES := $(filter-out %left_top.sv %both_top.sv, $(TOP_MODULES))
 endif
 
 # Test benches
-TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.v)))
+TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.sv)))
 
 # Files that have feature not supported by verible
-VERIBLE_EXCLUDE := vga/vga_top.v
+VERIBLE_EXCLUDE := vga/vga_top.sv
 
 # Source files
-SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*.v)))
-TB_LIB_SRC = $(filter-out test/%_tb.v, $(wildcard $(TEST_DIR)/*.v))
+SRC := $(filter-out $(VERIBLE_EXCLUDE), $(foreach dir,$(DIRS),$(wildcard $(dir)*.sv)))
+TB_LIB_SRC = $(filter-out test/%_tb.sv, $(wildcard $(TEST_DIR)/*.sv))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Compiler and simulator
@@ -179,7 +179,7 @@ list:
 #
 ##############################################################################
 .PRECIOUS: $(BUILD_DIR)/%
-$(BUILD_DIR)/%: $(TEST_DIR)/%.v $(CELLS_SIM) Makefile | $(BUILD_DIR)
+$(BUILD_DIR)/%: $(TEST_DIR)/%.sv $(CELLS_SIM) Makefile | $(BUILD_DIR)
 	$(IVERILOG) -g2012 -M $(@).dep $(foreach dir,$(DIRS), -I$(dir)) -I$(TEST_DIR)/ -o $@ $(filter-out Makefile,$^)
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
@@ -214,7 +214,7 @@ check: lint unit
 .PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
 lint: $(addprefix lint_, $(TEST_BENCHES))
 
-LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).v
+LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).sv
 define lint_rule
 lint_$(1):
 	@echo "make lint $1"
@@ -230,7 +230,7 @@ $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
 ##############################################################################
 .PHONY: format
 format:
-	$(FORMATTER) $(ALL_SRC) $(TEST_DIR)/*.v
+	$(FORMATTER) $(ALL_SRC) $(TEST_DIR)/*.sv
 
 ##############################################################################
 #

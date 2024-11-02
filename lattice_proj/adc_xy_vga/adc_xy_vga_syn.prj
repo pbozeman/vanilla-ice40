@@ -7,7 +7,7 @@
 
 
 
-add_file -verilog -lib work "../../rtl/adc/adc_xy_vga_top.v" 
+add_file -verilog -lib work "../../rtl/adc/adc_xy_vga_top.sv" 
 #implementation: "adc_xy_vga_Implmnt"
 impl -add adc_xy_vga_Implmnt -type fpga
 
