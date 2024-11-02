@@ -48,7 +48,6 @@
 
 ### Project structure
 
-- rename examples to rtl
 - start moving modules into groups directories in lib
 - move unit tests with the lib
 

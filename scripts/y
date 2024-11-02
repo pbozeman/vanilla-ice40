@@ -2,7 +2,7 @@
 
 CMD=$(basename "$0")
 TOP=$(dirname $(readlink -f "$0"))
-RTL_LIB="$TOP/../examples/lib"
+RTL_LIB="$TOP/../rtl/lib"
 
 echo $RTL_LIB
 

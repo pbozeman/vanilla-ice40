@@ -76,7 +76,7 @@ to Icecube2.
 
 ## Makefile Targets
 
-The Makefile in the examples dir works for both hx4k and hx8k boards, but
+The Makefile in the rtl dir works for both hx4k and hx8k boards, but
 one needs to change the DEVICE and PACKAGE at the top of the file based on
 the board in use.
 

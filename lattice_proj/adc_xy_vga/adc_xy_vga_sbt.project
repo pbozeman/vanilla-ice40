@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=adc_xy_vga
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../examples/adc/adc_xy_vga_top.v=work
+ProjectVFiles=../../rtl/adc/adc_xy_vga_top.v=work
 ProjectCFiles=
 CurImplementation=adc_xy_vga_Implmnt
 Implementations=adc_xy_vga_Implmnt
