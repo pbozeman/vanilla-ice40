@@ -35,7 +35,7 @@ module uart_hello_top (
       .tx      (UART_TX)
   );
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (!initialized) begin
       message[0]  <= "H";
       message[1]  <= "e";

@@ -15,7 +15,7 @@ module blinky_top (
   // 27-bit counter to hold counts up to 50 million
   logic [26:0] counter;
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (counter < HALF_SEC_COUNT - 1) begin
       counter <= counter + 1;
     end else begin

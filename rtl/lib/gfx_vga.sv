@@ -152,7 +152,7 @@ module gfx_vga #(
   assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
 
   // fb writer data
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     // icecube2 crashes if we set this on reset.
     // TODO: see if there is a workaround, in the mean time,
     // the value is set to 0 above during bootup.
@@ -165,7 +165,7 @@ module gfx_vga #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (gfx_valid) begin
       fbw_color <= gfx_color;
       fbw_addr  <= gfx_addr;

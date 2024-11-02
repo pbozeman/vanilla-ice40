@@ -103,7 +103,7 @@ module adc_xy_vga #(
       .adc_y    (adc_y)
   );
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     // Temporary work around for the fact that our signal is 0 to 1024 while our
     // fb is 640x480. Just get something on the screen as a POC.
     gfx_adc_x <= adc_x >> 2;

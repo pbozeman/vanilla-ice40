@@ -121,7 +121,7 @@ module vga_fb_pixel_stream #(
   logic [     FB_Y_BITS-1:0] fb_pixel_row_p1;
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_p1;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       enable_p1 <= 1'b0;
     end else begin
@@ -129,7 +129,7 @@ module vga_fb_pixel_stream #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     fb_pixel_visible_p1 <= fb_pixel_visible;
     fb_pixel_hsync_p1   <= fb_pixel_hsync;
     fb_pixel_vsync_p1   <= fb_pixel_vsync;
@@ -156,7 +156,7 @@ module vga_fb_pixel_stream #(
   assign read_done     = sram_axi_rready & sram_axi_rvalid;
 
   // state machine
-  always @(*) begin
+  always_comb begin
     next_state = state;
     read_start = 1'b0;
 
@@ -185,7 +185,7 @@ module vga_fb_pixel_stream #(
   end
 
   // state registration
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
     end else begin
@@ -196,7 +196,7 @@ module vga_fb_pixel_stream #(
   //
   // AXI Read
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       sram_axi_arvalid <= 1'b0;
     end else begin
@@ -210,13 +210,13 @@ module vga_fb_pixel_stream #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (read_start) begin
       sram_axi_araddr <= fb_pixel_addr_p1;
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       sram_axi_rready <= 1'b1;
     end
@@ -265,7 +265,7 @@ module vga_fb_pixel_stream #(
   // and inc takes you to the next one.
 
   logic pixel_inc_p1;
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       pixel_inc_p1 <= 1'b0;
     end else begin
@@ -294,7 +294,7 @@ module vga_fb_pixel_stream #(
   // The pixel data from the fifo won't be valid for awhile, so set
   // the important bits. hsync/vsync so the monitor won't try to interpret
   // data.
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       pixel_hsync <= 1'b1;
       pixel_vsync <= 1'b1;
@@ -307,7 +307,7 @@ module vga_fb_pixel_stream #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       pixel_data  <= 0;
       pixel_valid <= 0;

@@ -27,7 +27,7 @@ module sram_pattern_generator #(
       DATA_BITS / 2{2'b10}}, PATTERN_ALTERNATING_01 = {DATA_BITS / 2{2'b01}},
       PATTERN_HALF_ONES = {DATA_BITS{1'b1}} >> (DATA_BITS / 2);
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state <= STATE_ALL_ZEROS;
     end else begin
@@ -37,7 +37,7 @@ module sram_pattern_generator #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       done <= 1'b0;
     end else begin
@@ -45,7 +45,7 @@ module sram_pattern_generator #(
     end
   end
 
-  always @(*) begin
+  always_comb begin
     case (state)
       STATE_ALL_ZEROS:      pattern = PATTERN_ALL_ZEROS;
       STATE_ALL_ONES:       pattern = PATTERN_ALL_ONES;

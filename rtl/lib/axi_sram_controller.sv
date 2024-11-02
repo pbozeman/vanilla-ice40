@@ -76,7 +76,7 @@ module axi_sram_controller #(
   localparam RESP_OK = 2'b00;
 
   logic [2:0] current_state = IDLE;
-  logic [2:0] next_state = IDLE;
+  logic [2:0] next_state;
 
   // write state
   logic       axi_bvalid_reg = 0;
@@ -108,14 +108,14 @@ module axi_sram_controller #(
 
   // flip read/write priority every other cycle
   logic rw_pri = 0;
-  always @(posedge axi_clk) begin
+  always_ff @(posedge axi_clk) begin
     if (sram_req) begin
       rw_pri <= ~rw_pri;
     end
   end
 
   // state machine
-  always @(*) begin
+  always_comb begin
     next_state = current_state;
 
     case (current_state)
@@ -181,7 +181,7 @@ module axi_sram_controller #(
   end
 
   // state machine registration
-  always @(posedge axi_clk) begin
+  always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
       current_state <= IDLE;
     end else begin
@@ -194,7 +194,7 @@ module axi_sram_controller #(
   //
   logic prev_axi_bready = 0;
 
-  always @(posedge axi_clk) begin
+  always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
       axi_bvalid_reg  <= 1'b0;
       prev_axi_bready <= 1'b0;
@@ -219,7 +219,7 @@ module axi_sram_controller #(
   logic prev_sram_read_data_valid = 0;
   logic prev_axi_rready = 0;
 
-  always @(posedge axi_clk) begin
+  always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
       axi_rvalid_reg            <= 1'b0;
       prev_sram_read_data_valid <= 1'b0;

@@ -28,14 +28,14 @@ module gfx_test_pattern #(
   localparam MAX_X = FB_WIDTH - 1;
   localparam MAX_Y = FB_HEIGHT - 1;
 
-  always @(*) begin
+  always_comb begin
     last = (x == MAX_X & y == MAX_Y);
   end
 
   logic [FB_X_BITS-1:0] next_x;
   logic [FB_Y_BITS-1:0] next_y;
 
-  always @(*) begin
+  always_comb begin
     next_x = x;
     next_y = y;
 
@@ -81,7 +81,7 @@ module gfx_test_pattern #(
   assign grn = next_x >= GRN_START && next_x < GRN_END ? color_on : color_off;
   assign blu = next_x >= BLU_START ? color_on : color_off;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       x <= 0;
       y <= 0;
@@ -93,12 +93,12 @@ module gfx_test_pattern #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     color <= {red, grn, blu};
   end
 
   logic done;
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       done <= 1'b0;
     end else begin
@@ -108,7 +108,7 @@ module gfx_test_pattern #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       valid <= 1'b1;
     end else begin

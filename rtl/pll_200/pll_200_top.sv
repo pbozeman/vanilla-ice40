@@ -15,11 +15,11 @@ module pll_200_top (
       .clk_o(clk_200)
   );
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     LED1 <= ~LED1;
   end
 
-  always @(posedge clk_200) begin
+  always_ff @(posedge clk_200) begin
     LED2 <= ~LED2;
   end
 

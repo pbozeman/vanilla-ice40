@@ -183,7 +183,7 @@ module gfx_demo_dbuf #(
   assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
 
   // fb writer data
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       fbw_axi_tvalid <= 1'b0;
     end else begin
@@ -198,7 +198,7 @@ module gfx_demo_dbuf #(
   end
 
   // fb writer data
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (gfx_valid) begin
       fbw_color <= gfx_color;
       fbw_addr  <= gfx_addr;
@@ -338,7 +338,7 @@ module gfx_demo_dbuf #(
   );
 
   logic gfx_ready = 0;
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (!gfx_ready) begin
       gfx_ready <= gfx_last_d;
     end

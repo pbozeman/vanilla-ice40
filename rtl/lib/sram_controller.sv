@@ -60,13 +60,13 @@ module sram_controller #(
   // State
   //
   logic [2:0] state = 0;
-  logic [2:0] next_state = 0;
+  logic [2:0] next_state;
   logic       ready_reg;
 
   //
   // Next state
   //
-  always @(*) begin
+  always_comb begin
     next_state = state;
 
     case (state)
@@ -97,7 +97,7 @@ module sram_controller #(
   //
   // State registration
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
     end else begin
@@ -143,7 +143,7 @@ module sram_controller #(
   //
   // Ready
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       ready_reg <= 1;
     end else begin
@@ -154,7 +154,7 @@ module sram_controller #(
   //
   // Addr/data to pad
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (next_state != IDLE) begin
       pad_addr <= addr;
       if (write_enable) begin
@@ -166,7 +166,7 @@ module sram_controller #(
   //
   // Control signals
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     pad_ce_n              <= 1'b0;
     pad_write_data_enable <= (next_state == WRITING || state == WRITING);
     pad_we_n              <= !(next_state == WRITING);

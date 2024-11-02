@@ -71,7 +71,7 @@ module sram_io_ice40 #(
   logic       pad_we_n_p2;
   logic [1:0] pad_we_n_ddr;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       pad_we_n_p1 <= 1'b1;
     end else begin
@@ -112,7 +112,7 @@ module sram_io_ice40 #(
   logic       pad_oe_n_p2;
   logic [1:0] pad_oe_n_ddr;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       pad_oe_n_p1 <= 1'b1;
     end else begin
@@ -190,7 +190,7 @@ module sram_io_ice40 #(
   // non-neg version
   logic pad_oe_p2 = 1'b0;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (pad_oe_p2) begin
       pad_read_data       <= pad_read_data_p1;
       pad_read_data_valid <= 1'b1;

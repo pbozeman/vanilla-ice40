@@ -76,7 +76,7 @@ module sram_tester_axi_top #(
   logic [ADDR_BITS-1:0] addr_pipeline;
   logic [ADDR_BITS-1:0] addr_reversed;
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     addr_pipeline <= iter_addr;
   end
 
@@ -97,7 +97,7 @@ module sram_tester_axi_top #(
   );
 
   // 10 clock reset
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (reset_counter < 4'd10) begin
       reset_counter <= reset_counter + 1;
       reset         <= 1;

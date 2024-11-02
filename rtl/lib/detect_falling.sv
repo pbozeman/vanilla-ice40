@@ -13,7 +13,7 @@ module detect_falling (
   logic signal_prev = 0;
   assign detected = signal_prev & ~signal;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     signal_prev <= signal;
   end
 

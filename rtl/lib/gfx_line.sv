@@ -41,7 +41,7 @@ module gfx_line #(
   // This is because Breshenham's algorithm doesn't produce symmetrical
   // results from the other direction.
   //
-  always @(*) begin
+  always_comb begin
     if (y0 > y1) begin
       xa = {1'b0, x1};
       xb = {1'b0, x0};
@@ -67,7 +67,7 @@ module gfx_line #(
   logic                      movx;
   logic                      movy;
 
-  always @(*) begin
+  always_comb begin
     if ((err << 1) >= dy) begin
       movx = 1'b1;
       movy = 1'b0;
@@ -90,7 +90,7 @@ module gfx_line #(
   // See: https://projectf.io/posts/lines-and-triangles/
   // for a discussion of why.
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state <= IDLE;
       done  <= 1'b0;

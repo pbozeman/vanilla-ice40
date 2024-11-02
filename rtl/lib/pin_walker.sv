@@ -17,7 +17,7 @@ module pin_walker #(
   logic [$clog2(NUM_PINS)-1:0] pin_idx = 0;
   logic [   $clog2(DELAY)-1:0] counter = 0;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (counter < DELAY - 1) begin
       counter <= counter + 1;
     end else begin

@@ -103,7 +103,7 @@ module sram_tester_top #(
   );
 
   // 10 clock reset
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (reset_counter < 4'd10) begin
       reset_counter <= reset_counter + 1;
       reset         <= 1;

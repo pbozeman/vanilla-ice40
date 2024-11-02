@@ -63,7 +63,7 @@ module uart_hello_fifo_top (
   // Continuous assignment for fifo_read_en
   assign fifo_read_en = tx_ready && !fifo_empty;
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (!initialized) begin
       message[0]    <= "H";
       message[1]    <= "e";
@@ -85,7 +85,7 @@ module uart_hello_fifo_top (
     end
   end
 
-  always @(posedge CLK) begin
+  always_ff @(posedge CLK) begin
     if (initialized && msg_index < 15 && !fifo_full) begin
       fifo_write_data <= message[msg_index];
       msg_index       <= msg_index + 1;

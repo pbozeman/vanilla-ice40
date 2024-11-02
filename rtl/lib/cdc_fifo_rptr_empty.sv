@@ -37,7 +37,7 @@ module cdc_fifo_rptr_empty #(
   assign r_gray_next = (r_bin_next >> 1) ^ r_bin_next;
 
   // register next pointer values
-  always @(posedge r_clk) begin
+  always_ff @(posedge r_clk) begin
     if (!r_rst_n) begin
       r_bin <= 0;
       r_ptr <= 0;
@@ -55,7 +55,7 @@ module cdc_fifo_rptr_empty #(
   logic r_empty_val;
   assign r_empty_val = (r_gray_next == r_q2_wptr);
 
-  always @(posedge r_clk) begin
+  always_ff @(posedge r_clk) begin
     if (!r_rst_n) begin
       r_empty <= 1'b1;
     end else begin

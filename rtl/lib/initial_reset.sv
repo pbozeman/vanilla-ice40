@@ -11,7 +11,7 @@ module initial_reset #(
 );
   logic [$clog2(CYCLES)-1:0] reset_counter = 0;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset_counter < CYCLES) begin
       reset_counter <= reset_counter + 1;
       reset         <= 1'b1;

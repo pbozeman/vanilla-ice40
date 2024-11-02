@@ -178,7 +178,7 @@ module sram_tester_axi #(
   //
   // next_state
   //
-  always @(*) begin
+  always_comb begin
     next_state  = state;
     write_start = 1'b0;
     read_start  = 1'b0;
@@ -241,7 +241,7 @@ module sram_tester_axi #(
   //
   // state registration
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state <= START;
     end else begin
@@ -268,7 +268,7 @@ module sram_tester_axi #(
   assign write_accepted = (write_addr_accepted & write_data_accepted);
   assign writes_done    = (write_accepted & last_write);
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       axi_awaddr          <= 0;
       axi_awvalid         <= 1'b1;
@@ -302,7 +302,7 @@ module sram_tester_axi #(
     end
   end
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       last_write <= 1'b0;
     end else begin
@@ -328,7 +328,7 @@ module sram_tester_axi #(
   //
   // Start read
   //
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       axi_araddr    <= 0;
       axi_arvalid   <= 1'b0;
@@ -366,7 +366,7 @@ module sram_tester_axi #(
 
   assign read_data_done = (axi_rready & axi_rvalid);
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       validate <= 1'b0;
     end else begin
@@ -382,7 +382,7 @@ module sram_tester_axi #(
   assign fifo_read_en       = read_data_done;
   assign prev_expected_data = fifo_read_data;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       test_pass <= 1'b1;
     end else begin

@@ -29,7 +29,7 @@ module uart_tx #(
   logic [ 2:0] bit_index = 0;
   logic [ 7:0] data_buffer = 0;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     if (reset) begin
       state       <= IDLE;
       clk_count   <= 0;

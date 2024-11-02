@@ -20,7 +20,7 @@ module fb_addr #(
 
   // Maybe come back and pipeline this later and add other features like
   // offsets and oob/clip detection.
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     addr <= (FB_WIDTH * y + x);
   end
 

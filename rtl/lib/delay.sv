@@ -16,7 +16,7 @@ module delay #(
 
   integer             i;
 
-  always @(posedge clk) begin
+  always_ff @(posedge clk) begin
     shift_reg[0] <= in;
     for (i = 1; i < DELAY_CYCLES; i = i + 1) begin
       shift_reg[i] <= shift_reg[i-1];

@@ -36,7 +36,7 @@ module cdc_fifo_mem #(
   logic                  discarded;
   // verilator lint_on UNUSEDSIGNAL
 
-  always @(posedge w_clk) begin
+  always_ff @(posedge w_clk) begin
     discarded <= 1'b0;
 
     if (w_clk_en) begin
