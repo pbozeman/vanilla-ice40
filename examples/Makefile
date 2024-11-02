@@ -122,7 +122,7 @@ $(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 
 define pnr_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@ || mv $$@ $$@.sav
+	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@ || (mv $$@ $$@.sav && echo failed: $$@)
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
