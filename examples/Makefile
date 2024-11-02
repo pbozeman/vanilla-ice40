@@ -12,7 +12,7 @@ PACKAGE := ct256
 VGA_MODE := "640_480_60"
 # VGA_MODE := "800_600_60"
 
-# VGA_MODE 1024_768 is won't currently work because the pixel clock is too fast
+# VGA_MODE 1024_768 won't currently work because the pixel clock is too fast
 # for the sram.
 #VGA_MODE := "1024_768_60"
 
