@@ -3,6 +3,15 @@
 
 `include "directives.v"
 
+// When compliling with yosys we pass in the vga mode
+// from the command line. There isn't a convenient
+// way to do this in icecube2 that can easily be changed
+// in all the projects, so set a VGA mode here.
+`ifndef SYNTH_YOSYS
+//`define VGA_MODE_640_480_60 1
+`define VGA_MODE_800_600_60 1
+`endif
+
 // verilog_format: off
 `ifdef VGA_MODE_1024_768_60
   // the pixel clock is too fast for sram, as the sram is currently used
