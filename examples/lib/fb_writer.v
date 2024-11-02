@@ -36,10 +36,10 @@ module fb_writer #(
     output wire                              sram_axi_awvalid,
     input  wire                              sram_axi_awready,
     output wire [        AXI_DATA_WIDTH-1:0] sram_axi_wdata,
-    output reg  [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
+    output wire [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
     output wire                              sram_axi_wvalid,
     input  wire                              sram_axi_wready,
-    output reg                               sram_axi_bready,
+    output wire                              sram_axi_bready,
     // verilator lint_off UNUSEDSIGNAL
     input  wire                              sram_axi_bvalid,
     input  wire [                       1:0] sram_axi_bresp

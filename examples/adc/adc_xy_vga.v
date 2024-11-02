@@ -15,7 +15,11 @@ module adc_xy_vga #(
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
     parameter AXI_ADDR_WIDTH = 20,
-    parameter AXI_DATA_WIDTH = 16
+    parameter AXI_DATA_WIDTH = 16,
+
+    localparam FB_X_BITS  = $clog2(VGA_WIDTH),
+    localparam FB_Y_BITS  = $clog2(VGA_HEIGHT),
+    localparam COLOR_BITS = PIXEL_BITS / 3
 ) (
     input wire clk,
     input wire adc_clk,
@@ -40,10 +44,6 @@ module adc_xy_vga #(
     output wire                      sram_io_oe_n,
     output wire                      sram_io_ce_n
 );
-  localparam FB_X_BITS = $clog2(VGA_WIDTH);
-  localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
-  localparam COLOR_BITS = PIXEL_BITS / 3;
-
   // adc signals
   wire [ADC_DATA_BITS-1:0] adc_x;
   wire [ADC_DATA_BITS-1:0] adc_y;
@@ -67,7 +67,7 @@ module adc_xy_vga #(
   wire                     gfx_valid;
   wire                     gfx_ready;
 
-  reg                      vga_enable;
+  wire                     vga_enable;
 
   //
   // clear screen before adc output

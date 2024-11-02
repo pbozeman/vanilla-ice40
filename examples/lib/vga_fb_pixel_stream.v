@@ -28,7 +28,12 @@ module vga_fb_pixel_stream #(
     parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
 
     parameter AXI_ADDR_WIDTH = 20,
-    parameter AXI_DATA_WIDTH = 16
+    parameter AXI_DATA_WIDTH = 16,
+
+    localparam FB_X_BITS      = $clog2(H_WHOLE_LINE),
+    localparam FB_Y_BITS      = $clog2(V_WHOLE_FRAME),
+    localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE - 1,
+    localparam COLOR_BITS     = PIXEL_BITS / 3
 ) (
     input wire clk,
     input wire reset,
@@ -58,12 +63,6 @@ module vga_fb_pixel_stream #(
     input  wire [               1:0] sram_axi_rresp,
     input  wire                      sram_axi_rvalid
 );
-  localparam FB_X_BITS = $clog2(H_WHOLE_LINE);
-  localparam FB_Y_BITS = $clog2(V_WHOLE_FRAME);
-
-  localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE - 1;
-  localparam COLOR_BITS = PIXEL_BITS / 3;
-
   wire fb_pixel_visible;
   wire fb_pixel_hsync;
   wire fb_pixel_vsync;

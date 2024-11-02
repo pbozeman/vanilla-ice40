@@ -8,7 +8,10 @@
 
 module vga_pixel_addr #(
     parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
-    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME
+    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
+
+    localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
+    localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)
 ) (
     input  wire                   clk,
     input  wire                   reset,
@@ -16,9 +19,6 @@ module vga_pixel_addr #(
     output wire [COLUMN_BITS-1:0] column,
     output wire [   ROW_BITS-1:0] row
 );
-  localparam COLUMN_BITS = $clog2(H_WHOLE_LINE);
-  localparam ROW_BITS = $clog2(V_WHOLE_FRAME);
-
   counter #(H_WHOLE_LINE - 1) h_counter (
       .clk   (clk),
       .reset (reset),

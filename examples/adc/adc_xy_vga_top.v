@@ -36,7 +36,7 @@ module adc_xy_vga_top #(
 
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  reg                   reset;
+  wire                  reset;
 
   wire [COLOR_BITS-1:0] vga_red;
   wire [COLOR_BITS-1:0] vga_grn;

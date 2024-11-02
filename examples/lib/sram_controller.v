@@ -29,8 +29,8 @@ module sram_controller #(
     // to/from the sram chip
     output wire [ADDR_BITS-1:0] io_addr_bus,
     inout  wire [DATA_BITS-1:0] io_data_bus,
-    output reg                  io_we_n,
-    output reg                  io_oe_n,
+    output wire                 io_we_n,
+    output wire                 io_oe_n,
     output wire                 io_ce_n
 );
 
@@ -108,14 +108,14 @@ module sram_controller #(
   //
   // Pad signals
   //
-  reg [ADDR_BITS-1:0] pad_addr;
-  reg [DATA_BITS-1:0] pad_write_data;
-  reg                 pad_write_data_enable;
-  reg [DATA_BITS-1:0] pad_read_data;
-  reg                 pad_read_data_valid;
-  reg                 pad_ce_n;
-  reg                 pad_we_n;
-  reg                 pad_oe_n;
+  reg  [ADDR_BITS-1:0] pad_addr;
+  reg  [DATA_BITS-1:0] pad_write_data;
+  reg                  pad_write_data_enable;
+  wire [DATA_BITS-1:0] pad_read_data;
+  wire                 pad_read_data_valid;
+  reg                  pad_ce_n;
+  reg                  pad_we_n;
+  reg                  pad_oe_n;
 
   sram_io_ice40 #(
       .ADDR_BITS(ADDR_BITS),

@@ -21,7 +21,10 @@ module vga_sync #(
     // verilator lint_off UNUSEDPARAM
     parameter V_BACK_PORCH  = `VGA_MODE_V_BACK_PORCH,
     // verilator lint_on UNUSEDPARAM
-    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME
+    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
+
+    localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
+    localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)
 ) (
     input  wire                   clk,
     input  wire                   reset,
@@ -32,9 +35,6 @@ module vga_sync #(
     output wire [COLUMN_BITS-1:0] column,
     output wire [   ROW_BITS-1:0] row
 );
-  localparam COLUMN_BITS = $clog2(H_WHOLE_LINE);
-  localparam ROW_BITS = $clog2(V_WHOLE_FRAME);
-
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
   localparam H_SYNC_END = H_SYNC_START + H_SYNC_PULSE;
 

@@ -8,7 +8,11 @@
 module gfx_clear #(
     parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
     parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS = 12
+    parameter PIXEL_BITS = 12,
+
+    // Frame buffer coordinate width calculations
+    localparam FB_X_BITS = $clog2(FB_WIDTH),
+    localparam FB_Y_BITS = $clog2(FB_HEIGHT)
 ) (
     input  wire                  clk,
     input  wire                  reset,
@@ -19,9 +23,6 @@ module gfx_clear #(
     output reg                   valid,
     output reg                   last
 );
-  // Frame buffer coordinate width calculations
-  localparam FB_X_BITS = $clog2(FB_WIDTH);
-  localparam FB_Y_BITS = $clog2(FB_HEIGHT);
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   localparam MAX_X = FB_WIDTH - 1;

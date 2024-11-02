@@ -18,7 +18,11 @@ module gfx_vga #(
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
     parameter AXI_ADDR_WIDTH = 20,
-    parameter AXI_DATA_WIDTH = 16
+    parameter AXI_DATA_WIDTH = 16,
+
+    localparam FB_X_BITS  = $clog2(VGA_WIDTH),
+    localparam FB_Y_BITS  = $clog2(VGA_HEIGHT),
+    localparam COLOR_BITS = PIXEL_BITS / 3
 ) (
     input wire clk,
     input wire pixel_clk,
@@ -46,10 +50,6 @@ module gfx_vga #(
     output wire                      sram_io_oe_n,
     output wire                      sram_io_ce_n
 );
-  localparam FB_X_BITS = $clog2(VGA_WIDTH);
-  localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
-  localparam COLOR_BITS = PIXEL_BITS / 3;
-
   //
   // gfx axi writter
   //
@@ -115,7 +115,7 @@ module gfx_vga #(
   assign gfx_ready = fbw_axi_tready;
 
   // fb writer axi flow control signals
-  reg                       fbw_axi_tvalid;
+  reg                       fbw_axi_tvalid = 0;
   wire                      fbw_axi_tready;
 
   // and the data that goes with them
@@ -153,23 +153,22 @@ module gfx_vga #(
 
   // fb writer data
   always @(posedge clk) begin
-    if (reset) begin
-      fbw_axi_tvalid <= 1'b0;
+    // icecube2 crashes if we set this on reset.
+    // TODO: see if there is a workaround, in the mean time,
+    // the value is set to 0 above during bootup.
+    if (gfx_valid) begin
+      fbw_axi_tvalid <= 1'b1;
     end else begin
-      if (gfx_valid) begin
-        fbw_color      <= gfx_color;
-        fbw_axi_tvalid <= 1'b1;
-      end else begin
-        if (fbw_axi_tvalid & fbw_axi_tready) begin
-          fbw_axi_tvalid <= 1'b0;
-        end
+      if (fbw_axi_tvalid & fbw_axi_tready) begin
+        fbw_axi_tvalid <= 1'b0;
       end
     end
   end
 
   always @(posedge clk) begin
     if (gfx_valid) begin
-      fbw_addr <= gfx_addr;
+      fbw_color <= gfx_color;
+      fbw_addr  <= gfx_addr;
     end
   end
 
@@ -178,7 +177,7 @@ module gfx_vga #(
   //
 
   // control signals
-  reg                   vga_fb_enable;
+  wire                  vga_fb_enable;
   wire                  vga_fb_valid;
 
   // sync signals
@@ -252,8 +251,8 @@ module gfx_vga #(
   // ship it
   cdc_fifo #(
       .DATA_WIDTH     (VGA_DATA_WIDTH),
-      .ADDR_SIZE      (4),
-      .ALMOST_FULL_BUF(8)
+      .ADDR_SIZE      (3),
+      .ALMOST_FULL_BUF(4)
   ) fifo (
       // Write clock domain
       .w_clk        (clk),
