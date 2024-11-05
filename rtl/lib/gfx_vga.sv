@@ -251,8 +251,8 @@ module gfx_vga #(
   // ship it
   cdc_fifo #(
       .DATA_WIDTH     (VGA_DATA_WIDTH),
-      .ADDR_SIZE      (3),
-      .ALMOST_FULL_BUF(4)
+      .ADDR_SIZE      (4),
+      .ALMOST_FULL_BUF(8)
   ) fifo (
       // Write clock domain
       .w_clk        (clk),
