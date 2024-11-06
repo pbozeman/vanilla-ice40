@@ -6,8 +6,6 @@ from dataclasses import dataclass
 
 from boards import hx4k, hx8k
 
-# TODO: remove -nowarn from key pins, e.g. CLK, LED1/2, etc
-
 # This script generates pcf files for the vanilla ice peripheral boards.
 #
 # It is easier to transcribe the mappings for each level rather than try to
@@ -180,12 +178,12 @@ def groups_to_pins(groups):
 
 def ice_group_to_pcf_pin(label, pins, width=2):
     return "\n".join(
-        f"set_io -nowarn {label}_{i+1:0{width}} {pin}" for i, pin in enumerate(pins)
+        f"set_io {label}_{i+1:0{width}} {pin}" for i, pin in enumerate(pins)
     )
 
 
 def ice_group_to_pcf_array(label, pins):
-    return "\n".join(f"set_io -nowarn {label}[{i}] {pin}" for i, pin in enumerate(pins))
+    return "\n".join(f"set_io {label}[{i}] {pin}" for i, pin in enumerate(pins))
 
 
 def gen_pcf_from_groups(side: str, ice_groups):
@@ -222,7 +220,7 @@ def gen_pcf_from_groups(side: str, ice_groups):
     adc_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in adc_groups]
 
     for s, p in adc_signals:
-        print(f"set_io -nowarn {side}_{s} {base_to_p[p]}")
+        print(f"set_io {side}_{s} {base_to_p[p]}")
 
     print()
     for g in adc_ice_groups:
@@ -236,7 +234,7 @@ def gen_pcf_from_groups(side: str, ice_groups):
     sram_ice_groups = [(l, base_group_to_ice_group(p)) for l, p in sram_groups]
 
     for s, p in sram_signals:
-        print(f"set_io -nowarn {side}_{s} {base_to_p[p]}")
+        print(f"set_io {side}_{s} {base_to_p[p]}")
 
     print()
     for g in sram_ice_groups:
@@ -275,7 +273,7 @@ def gen_right_pcf(pin_config):
 
 def gen_pcf(pin_config):
     for s, p in pin_config.signals:
-        print(f"set_io -nowarn {s} {pin_config.logical_pin_to_phys[p]}")
+        print(f"set_io {s} {pin_config.logical_pin_to_phys[p]}")
     print()
 
     if pin_config.left_pin_to_logical:

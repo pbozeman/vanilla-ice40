@@ -1,557 +1,557 @@
-set_io -nowarn CLK 21
-set_io -nowarn LED1 1
-set_io -nowarn LED2 2
-set_io -nowarn UART_RX 3
-set_io -nowarn UART_TX 4
+set_io CLK 21
+set_io LED1 1
+set_io LED2 2
+set_io UART_RX 3
+set_io UART_TX 4
 
-set_io -nowarn R_A_01 112
-set_io -nowarn R_A_02 107
-set_io -nowarn R_A_03 105
-set_io -nowarn R_A_04 102
-set_io -nowarn R_A_05 110
-set_io -nowarn R_A_06 106
-set_io -nowarn R_A_07 104
-set_io -nowarn R_A_08 101
+set_io R_A_01 112
+set_io R_A_02 107
+set_io R_A_03 105
+set_io R_A_04 102
+set_io R_A_05 110
+set_io R_A_06 106
+set_io R_A_07 104
+set_io R_A_08 101
 
-set_io -nowarn R_A[0] 112
-set_io -nowarn R_A[1] 107
-set_io -nowarn R_A[2] 105
-set_io -nowarn R_A[3] 102
-set_io -nowarn R_A[4] 110
-set_io -nowarn R_A[5] 106
-set_io -nowarn R_A[6] 104
-set_io -nowarn R_A[7] 101
+set_io R_A[0] 112
+set_io R_A[1] 107
+set_io R_A[2] 105
+set_io R_A[3] 102
+set_io R_A[4] 110
+set_io R_A[5] 106
+set_io R_A[6] 104
+set_io R_A[7] 101
 
-set_io -nowarn R_B_01 99
-set_io -nowarn R_B_02 97
-set_io -nowarn R_B_03 95
-set_io -nowarn R_B_04 93
-set_io -nowarn R_B_05 98
-set_io -nowarn R_B_06 96
-set_io -nowarn R_B_07 94
-set_io -nowarn R_B_08 91
+set_io R_B_01 99
+set_io R_B_02 97
+set_io R_B_03 95
+set_io R_B_04 93
+set_io R_B_05 98
+set_io R_B_06 96
+set_io R_B_07 94
+set_io R_B_08 91
 
-set_io -nowarn R_B[0] 99
-set_io -nowarn R_B[1] 97
-set_io -nowarn R_B[2] 95
-set_io -nowarn R_B[3] 93
-set_io -nowarn R_B[4] 98
-set_io -nowarn R_B[5] 96
-set_io -nowarn R_B[6] 94
-set_io -nowarn R_B[7] 91
+set_io R_B[0] 99
+set_io R_B[1] 97
+set_io R_B[2] 95
+set_io R_B[3] 93
+set_io R_B[4] 98
+set_io R_B[5] 96
+set_io R_B[6] 94
+set_io R_B[7] 91
 
-set_io -nowarn R_C_01 90
-set_io -nowarn R_C_02 87
-set_io -nowarn R_C_03 84
-set_io -nowarn R_C_04 82
-set_io -nowarn R_C_05 88
-set_io -nowarn R_C_06 85
-set_io -nowarn R_C_07 83
-set_io -nowarn R_C_08 81
+set_io R_C_01 90
+set_io R_C_02 87
+set_io R_C_03 84
+set_io R_C_04 82
+set_io R_C_05 88
+set_io R_C_06 85
+set_io R_C_07 83
+set_io R_C_08 81
 
-set_io -nowarn R_C[0] 90
-set_io -nowarn R_C[1] 87
-set_io -nowarn R_C[2] 84
-set_io -nowarn R_C[3] 82
-set_io -nowarn R_C[4] 88
-set_io -nowarn R_C[5] 85
-set_io -nowarn R_C[6] 83
-set_io -nowarn R_C[7] 81
+set_io R_C[0] 90
+set_io R_C[1] 87
+set_io R_C[2] 84
+set_io R_C[3] 82
+set_io R_C[4] 88
+set_io R_C[5] 85
+set_io R_C[6] 83
+set_io R_C[7] 81
 
-set_io -nowarn R_D_01 80
-set_io -nowarn R_D_02 78
-set_io -nowarn R_D_03 75
-set_io -nowarn R_D_04 73
-set_io -nowarn R_D_05 79
-set_io -nowarn R_D_06 76
-set_io -nowarn R_D_07 74
-set_io -nowarn R_D_08 62
+set_io R_D_01 80
+set_io R_D_02 78
+set_io R_D_03 75
+set_io R_D_04 73
+set_io R_D_05 79
+set_io R_D_06 76
+set_io R_D_07 74
+set_io R_D_08 62
 
-set_io -nowarn R_D[0] 80
-set_io -nowarn R_D[1] 78
-set_io -nowarn R_D[2] 75
-set_io -nowarn R_D[3] 73
-set_io -nowarn R_D[4] 79
-set_io -nowarn R_D[5] 76
-set_io -nowarn R_D[6] 74
-set_io -nowarn R_D[7] 62
+set_io R_D[0] 80
+set_io R_D[1] 78
+set_io R_D[2] 75
+set_io R_D[3] 73
+set_io R_D[4] 79
+set_io R_D[5] 76
+set_io R_D[6] 74
+set_io R_D[7] 62
 
-set_io -nowarn R_E_01 134
-set_io -nowarn R_E_02 129
-set_io -nowarn R_E_03 125
-set_io -nowarn R_E_04 122
-set_io -nowarn R_E_05 130
-set_io -nowarn R_E_06 128
-set_io -nowarn R_E_07 124
-set_io -nowarn R_E_08 121
+set_io R_E_01 134
+set_io R_E_02 129
+set_io R_E_03 125
+set_io R_E_04 122
+set_io R_E_05 130
+set_io R_E_06 128
+set_io R_E_07 124
+set_io R_E_08 121
 
-set_io -nowarn R_E[0] 134
-set_io -nowarn R_E[1] 129
-set_io -nowarn R_E[2] 125
-set_io -nowarn R_E[3] 122
-set_io -nowarn R_E[4] 130
-set_io -nowarn R_E[5] 128
-set_io -nowarn R_E[6] 124
-set_io -nowarn R_E[7] 121
+set_io R_E[0] 134
+set_io R_E[1] 129
+set_io R_E[2] 125
+set_io R_E[3] 122
+set_io R_E[4] 130
+set_io R_E[5] 128
+set_io R_E[6] 124
+set_io R_E[7] 121
 
-set_io -nowarn R_F_01 120
-set_io -nowarn R_F_02 118
-set_io -nowarn R_F_03 116
-set_io -nowarn R_F_04 114
-set_io -nowarn R_F_05 119
-set_io -nowarn R_F_06 117
-set_io -nowarn R_F_07 115
-set_io -nowarn R_F_08 113
+set_io R_F_01 120
+set_io R_F_02 118
+set_io R_F_03 116
+set_io R_F_04 114
+set_io R_F_05 119
+set_io R_F_06 117
+set_io R_F_07 115
+set_io R_F_08 113
 
-set_io -nowarn R_F[0] 120
-set_io -nowarn R_F[1] 118
-set_io -nowarn R_F[2] 116
-set_io -nowarn R_F[3] 114
-set_io -nowarn R_F[4] 119
-set_io -nowarn R_F[5] 117
-set_io -nowarn R_F[6] 115
-set_io -nowarn R_F[7] 113
+set_io R_F[0] 120
+set_io R_F[1] 118
+set_io R_F[2] 116
+set_io R_F[3] 114
+set_io R_F[4] 119
+set_io R_F[5] 117
+set_io R_F[6] 115
+set_io R_F[7] 113
 
-set_io -nowarn R_G_01 61
-set_io -nowarn R_G_02 56
-set_io -nowarn R_G_03 52
-set_io -nowarn R_G_04 48
-set_io -nowarn R_G_05 60
-set_io -nowarn R_G_06 55
-set_io -nowarn R_G_07 49
-set_io -nowarn R_G_08 47
+set_io R_G_01 61
+set_io R_G_02 56
+set_io R_G_03 52
+set_io R_G_04 48
+set_io R_G_05 60
+set_io R_G_06 55
+set_io R_G_07 49
+set_io R_G_08 47
 
-set_io -nowarn R_G[0] 61
-set_io -nowarn R_G[1] 56
-set_io -nowarn R_G[2] 52
-set_io -nowarn R_G[3] 48
-set_io -nowarn R_G[4] 60
-set_io -nowarn R_G[5] 55
-set_io -nowarn R_G[6] 49
-set_io -nowarn R_G[7] 47
+set_io R_G[0] 61
+set_io R_G[1] 56
+set_io R_G[2] 52
+set_io R_G[3] 48
+set_io R_G[4] 60
+set_io R_G[5] 55
+set_io R_G[6] 49
+set_io R_G[7] 47
 
-set_io -nowarn R_H_01 45
-set_io -nowarn R_H_02 43
-set_io -nowarn R_H_03 41
-set_io -nowarn R_H_04 38
-set_io -nowarn R_H_05 44
-set_io -nowarn R_H_06 42
-set_io -nowarn R_H_07 39
-set_io -nowarn R_H_08 37
+set_io R_H_01 45
+set_io R_H_02 43
+set_io R_H_03 41
+set_io R_H_04 38
+set_io R_H_05 44
+set_io R_H_06 42
+set_io R_H_07 39
+set_io R_H_08 37
 
-set_io -nowarn R_H[0] 45
-set_io -nowarn R_H[1] 43
-set_io -nowarn R_H[2] 41
-set_io -nowarn R_H[3] 38
-set_io -nowarn R_H[4] 44
-set_io -nowarn R_H[5] 42
-set_io -nowarn R_H[6] 39
-set_io -nowarn R_H[7] 37
+set_io R_H[0] 45
+set_io R_H[1] 43
+set_io R_H[2] 41
+set_io R_H[3] 38
+set_io R_H[4] 44
+set_io R_H[5] 42
+set_io R_H[6] 39
+set_io R_H[7] 37
 
-set_io -nowarn R_I_01 144
-set_io -nowarn R_I_02 8
-set_io -nowarn R_I_03 10
-set_io -nowarn R_I_04 12
-set_io -nowarn R_I_05 7
-set_io -nowarn R_I_06 9
-set_io -nowarn R_I_07 11
-set_io -nowarn R_I_08 15
+set_io R_I_01 144
+set_io R_I_02 8
+set_io R_I_03 10
+set_io R_I_04 12
+set_io R_I_05 7
+set_io R_I_06 9
+set_io R_I_07 11
+set_io R_I_08 15
 
-set_io -nowarn R_I[0] 144
-set_io -nowarn R_I[1] 8
-set_io -nowarn R_I[2] 10
-set_io -nowarn R_I[3] 12
-set_io -nowarn R_I[4] 7
-set_io -nowarn R_I[5] 9
-set_io -nowarn R_I[6] 11
-set_io -nowarn R_I[7] 15
+set_io R_I[0] 144
+set_io R_I[1] 8
+set_io R_I[2] 10
+set_io R_I[3] 12
+set_io R_I[4] 7
+set_io R_I[5] 9
+set_io R_I[6] 11
+set_io R_I[7] 15
 
-set_io -nowarn R_J_01 25
-set_io -nowarn R_J_02 28
-set_io -nowarn R_J_03 31
-set_io -nowarn R_J_04 33
-set_io -nowarn R_J_05 26
-set_io -nowarn R_J_06 29
-set_io -nowarn R_J_07 32
-set_io -nowarn R_J_08 34
+set_io R_J_01 25
+set_io R_J_02 28
+set_io R_J_03 31
+set_io R_J_04 33
+set_io R_J_05 26
+set_io R_J_06 29
+set_io R_J_07 32
+set_io R_J_08 34
 
-set_io -nowarn R_J[0] 25
-set_io -nowarn R_J[1] 28
-set_io -nowarn R_J[2] 31
-set_io -nowarn R_J[3] 33
-set_io -nowarn R_J[4] 26
-set_io -nowarn R_J[5] 29
-set_io -nowarn R_J[6] 32
-set_io -nowarn R_J[7] 34
+set_io R_J[0] 25
+set_io R_J[1] 28
+set_io R_J[2] 31
+set_io R_J[3] 33
+set_io R_J[4] 26
+set_io R_J[5] 29
+set_io R_J[6] 32
+set_io R_J[7] 34
 
-set_io -nowarn R_K_01 24
-set_io -nowarn R_K_02 22
-set_io -nowarn R_K_03 19
-set_io -nowarn R_K_04 17
-set_io -nowarn R_K_05 23
-set_io -nowarn R_K_06 20
-set_io -nowarn R_K_07 18
-set_io -nowarn R_K_08 16
+set_io R_K_01 24
+set_io R_K_02 22
+set_io R_K_03 19
+set_io R_K_04 17
+set_io R_K_05 23
+set_io R_K_06 20
+set_io R_K_07 18
+set_io R_K_08 16
 
-set_io -nowarn R_K[0] 24
-set_io -nowarn R_K[1] 22
-set_io -nowarn R_K[2] 19
-set_io -nowarn R_K[3] 17
-set_io -nowarn R_K[4] 23
-set_io -nowarn R_K[5] 20
-set_io -nowarn R_K[6] 18
-set_io -nowarn R_K[7] 16
+set_io R_K[0] 24
+set_io R_K[1] 22
+set_io R_K[2] 19
+set_io R_K[3] 17
+set_io R_K[4] 23
+set_io R_K[5] 20
+set_io R_K[6] 18
+set_io R_K[7] 16
 
-set_io -nowarn R_L_01 143
-set_io -nowarn R_L_02 141
-set_io -nowarn R_L_03 138
-set_io -nowarn R_L_04 136
-set_io -nowarn R_L_05 142
-set_io -nowarn R_L_06 139
-set_io -nowarn R_L_07 137
-set_io -nowarn R_L_08 135
+set_io R_L_01 143
+set_io R_L_02 141
+set_io R_L_03 138
+set_io R_L_04 136
+set_io R_L_05 142
+set_io R_L_06 139
+set_io R_L_07 137
+set_io R_L_08 135
 
-set_io -nowarn R_L[0] 143
-set_io -nowarn R_L[1] 141
-set_io -nowarn R_L[2] 138
-set_io -nowarn R_L[3] 136
-set_io -nowarn R_L[4] 142
-set_io -nowarn R_L[5] 139
-set_io -nowarn R_L[6] 137
-set_io -nowarn R_L[7] 135
+set_io R_L[0] 143
+set_io R_L[1] 141
+set_io R_L[2] 138
+set_io R_L[3] 136
+set_io R_L[4] 142
+set_io R_L[5] 139
+set_io R_L[6] 137
+set_io R_L[7] 135
 
-set_io -nowarn R_PMOD_A[0] 112
-set_io -nowarn R_PMOD_A[1] 107
-set_io -nowarn R_PMOD_A[2] 105
-set_io -nowarn R_PMOD_A[3] 102
-set_io -nowarn R_PMOD_A[4] 110
-set_io -nowarn R_PMOD_A[5] 106
-set_io -nowarn R_PMOD_A[6] 104
-set_io -nowarn R_PMOD_A[7] 101
+set_io R_PMOD_A[0] 112
+set_io R_PMOD_A[1] 107
+set_io R_PMOD_A[2] 105
+set_io R_PMOD_A[3] 102
+set_io R_PMOD_A[4] 110
+set_io R_PMOD_A[5] 106
+set_io R_PMOD_A[6] 104
+set_io R_PMOD_A[7] 101
 
-set_io -nowarn R_PMOD_B[0] 99
-set_io -nowarn R_PMOD_B[1] 97
-set_io -nowarn R_PMOD_B[2] 95
-set_io -nowarn R_PMOD_B[3] 93
-set_io -nowarn R_PMOD_B[4] 98
-set_io -nowarn R_PMOD_B[5] 96
-set_io -nowarn R_PMOD_B[6] 94
-set_io -nowarn R_PMOD_B[7] 91
+set_io R_PMOD_B[0] 99
+set_io R_PMOD_B[1] 97
+set_io R_PMOD_B[2] 95
+set_io R_PMOD_B[3] 93
+set_io R_PMOD_B[4] 98
+set_io R_PMOD_B[5] 96
+set_io R_PMOD_B[6] 94
+set_io R_PMOD_B[7] 91
 
-set_io -nowarn R_PMOD_C[0] 90
-set_io -nowarn R_PMOD_C[1] 87
-set_io -nowarn R_PMOD_C[2] 84
-set_io -nowarn R_PMOD_C[3] 82
-set_io -nowarn R_PMOD_C[4] 88
-set_io -nowarn R_PMOD_C[5] 85
-set_io -nowarn R_PMOD_C[6] 83
-set_io -nowarn R_PMOD_C[7] 81
+set_io R_PMOD_C[0] 90
+set_io R_PMOD_C[1] 87
+set_io R_PMOD_C[2] 84
+set_io R_PMOD_C[3] 82
+set_io R_PMOD_C[4] 88
+set_io R_PMOD_C[5] 85
+set_io R_PMOD_C[6] 83
+set_io R_PMOD_C[7] 81
 
-set_io -nowarn R_PMOD_D[0] 80
-set_io -nowarn R_PMOD_D[1] 78
-set_io -nowarn R_PMOD_D[2] 75
-set_io -nowarn R_PMOD_D[3] 73
-set_io -nowarn R_PMOD_D[4] 79
-set_io -nowarn R_PMOD_D[5] 76
-set_io -nowarn R_PMOD_D[6] 74
-set_io -nowarn R_PMOD_D[7] 62
+set_io R_PMOD_D[0] 80
+set_io R_PMOD_D[1] 78
+set_io R_PMOD_D[2] 75
+set_io R_PMOD_D[3] 73
+set_io R_PMOD_D[4] 79
+set_io R_PMOD_D[5] 76
+set_io R_PMOD_D[6] 74
+set_io R_PMOD_D[7] 62
 
-set_io -nowarn R_PMOD_E[0] 134
-set_io -nowarn R_PMOD_E[1] 129
-set_io -nowarn R_PMOD_E[2] 125
-set_io -nowarn R_PMOD_E[3] 122
-set_io -nowarn R_PMOD_E[4] 130
-set_io -nowarn R_PMOD_E[5] 128
-set_io -nowarn R_PMOD_E[6] 124
-set_io -nowarn R_PMOD_E[7] 121
+set_io R_PMOD_E[0] 134
+set_io R_PMOD_E[1] 129
+set_io R_PMOD_E[2] 125
+set_io R_PMOD_E[3] 122
+set_io R_PMOD_E[4] 130
+set_io R_PMOD_E[5] 128
+set_io R_PMOD_E[6] 124
+set_io R_PMOD_E[7] 121
 
-set_io -nowarn R_PMOD_F[0] 120
-set_io -nowarn R_PMOD_F[1] 118
-set_io -nowarn R_PMOD_F[2] 116
-set_io -nowarn R_PMOD_F[3] 114
-set_io -nowarn R_PMOD_F[4] 119
-set_io -nowarn R_PMOD_F[5] 117
-set_io -nowarn R_PMOD_F[6] 115
-set_io -nowarn R_PMOD_F[7] 113
+set_io R_PMOD_F[0] 120
+set_io R_PMOD_F[1] 118
+set_io R_PMOD_F[2] 116
+set_io R_PMOD_F[3] 114
+set_io R_PMOD_F[4] 119
+set_io R_PMOD_F[5] 117
+set_io R_PMOD_F[6] 115
+set_io R_PMOD_F[7] 113
 
-set_io -nowarn R_PMOD_G[0] 61
-set_io -nowarn R_PMOD_G[1] 56
-set_io -nowarn R_PMOD_G[2] 52
-set_io -nowarn R_PMOD_G[3] 48
-set_io -nowarn R_PMOD_G[4] 60
-set_io -nowarn R_PMOD_G[5] 55
-set_io -nowarn R_PMOD_G[6] 49
-set_io -nowarn R_PMOD_G[7] 47
+set_io R_PMOD_G[0] 61
+set_io R_PMOD_G[1] 56
+set_io R_PMOD_G[2] 52
+set_io R_PMOD_G[3] 48
+set_io R_PMOD_G[4] 60
+set_io R_PMOD_G[5] 55
+set_io R_PMOD_G[6] 49
+set_io R_PMOD_G[7] 47
 
-set_io -nowarn R_PMOD_H[0] 45
-set_io -nowarn R_PMOD_H[1] 43
-set_io -nowarn R_PMOD_H[2] 41
-set_io -nowarn R_PMOD_H[3] 38
-set_io -nowarn R_PMOD_H[4] 44
-set_io -nowarn R_PMOD_H[5] 42
-set_io -nowarn R_PMOD_H[6] 39
-set_io -nowarn R_PMOD_H[7] 37
+set_io R_PMOD_H[0] 45
+set_io R_PMOD_H[1] 43
+set_io R_PMOD_H[2] 41
+set_io R_PMOD_H[3] 38
+set_io R_PMOD_H[4] 44
+set_io R_PMOD_H[5] 42
+set_io R_PMOD_H[6] 39
+set_io R_PMOD_H[7] 37
 
-set_io -nowarn R_PMOD_I[0] 144
-set_io -nowarn R_PMOD_I[1] 8
-set_io -nowarn R_PMOD_I[2] 10
-set_io -nowarn R_PMOD_I[3] 12
-set_io -nowarn R_PMOD_I[4] 7
-set_io -nowarn R_PMOD_I[5] 9
-set_io -nowarn R_PMOD_I[6] 11
-set_io -nowarn R_PMOD_I[7] 15
+set_io R_PMOD_I[0] 144
+set_io R_PMOD_I[1] 8
+set_io R_PMOD_I[2] 10
+set_io R_PMOD_I[3] 12
+set_io R_PMOD_I[4] 7
+set_io R_PMOD_I[5] 9
+set_io R_PMOD_I[6] 11
+set_io R_PMOD_I[7] 15
 
-set_io -nowarn R_PMOD_J[0] 25
-set_io -nowarn R_PMOD_J[1] 28
-set_io -nowarn R_PMOD_J[2] 31
-set_io -nowarn R_PMOD_J[3] 33
-set_io -nowarn R_PMOD_J[4] 26
-set_io -nowarn R_PMOD_J[5] 29
-set_io -nowarn R_PMOD_J[6] 32
-set_io -nowarn R_PMOD_J[7] 34
+set_io R_PMOD_J[0] 25
+set_io R_PMOD_J[1] 28
+set_io R_PMOD_J[2] 31
+set_io R_PMOD_J[3] 33
+set_io R_PMOD_J[4] 26
+set_io R_PMOD_J[5] 29
+set_io R_PMOD_J[6] 32
+set_io R_PMOD_J[7] 34
 
-set_io -nowarn R_PMOD_K[0] 24
-set_io -nowarn R_PMOD_K[1] 22
-set_io -nowarn R_PMOD_K[2] 19
-set_io -nowarn R_PMOD_K[3] 17
-set_io -nowarn R_PMOD_K[4] 23
-set_io -nowarn R_PMOD_K[5] 20
-set_io -nowarn R_PMOD_K[6] 18
-set_io -nowarn R_PMOD_K[7] 16
+set_io R_PMOD_K[0] 24
+set_io R_PMOD_K[1] 22
+set_io R_PMOD_K[2] 19
+set_io R_PMOD_K[3] 17
+set_io R_PMOD_K[4] 23
+set_io R_PMOD_K[5] 20
+set_io R_PMOD_K[6] 18
+set_io R_PMOD_K[7] 16
 
-set_io -nowarn R_PMOD_L[0] 143
-set_io -nowarn R_PMOD_L[1] 141
-set_io -nowarn R_PMOD_L[2] 138
-set_io -nowarn R_PMOD_L[3] 136
-set_io -nowarn R_PMOD_L[4] 142
-set_io -nowarn R_PMOD_L[5] 139
-set_io -nowarn R_PMOD_L[6] 137
-set_io -nowarn R_PMOD_L[7] 135
+set_io R_PMOD_L[0] 143
+set_io R_PMOD_L[1] 141
+set_io R_PMOD_L[2] 138
+set_io R_PMOD_L[3] 136
+set_io R_PMOD_L[4] 142
+set_io R_PMOD_L[5] 139
+set_io R_PMOD_L[6] 137
+set_io R_PMOD_L[7] 135
 
-set_io -nowarn R_PMOD[0] 112
-set_io -nowarn R_PMOD[1] 107
-set_io -nowarn R_PMOD[2] 105
-set_io -nowarn R_PMOD[3] 102
-set_io -nowarn R_PMOD[4] 110
-set_io -nowarn R_PMOD[5] 106
-set_io -nowarn R_PMOD[6] 104
-set_io -nowarn R_PMOD[7] 101
-set_io -nowarn R_PMOD[8] 99
-set_io -nowarn R_PMOD[9] 97
-set_io -nowarn R_PMOD[10] 95
-set_io -nowarn R_PMOD[11] 93
-set_io -nowarn R_PMOD[12] 98
-set_io -nowarn R_PMOD[13] 96
-set_io -nowarn R_PMOD[14] 94
-set_io -nowarn R_PMOD[15] 91
-set_io -nowarn R_PMOD[16] 90
-set_io -nowarn R_PMOD[17] 87
-set_io -nowarn R_PMOD[18] 84
-set_io -nowarn R_PMOD[19] 82
-set_io -nowarn R_PMOD[20] 88
-set_io -nowarn R_PMOD[21] 85
-set_io -nowarn R_PMOD[22] 83
-set_io -nowarn R_PMOD[23] 81
-set_io -nowarn R_PMOD[24] 80
-set_io -nowarn R_PMOD[25] 78
-set_io -nowarn R_PMOD[26] 75
-set_io -nowarn R_PMOD[27] 73
-set_io -nowarn R_PMOD[28] 79
-set_io -nowarn R_PMOD[29] 76
-set_io -nowarn R_PMOD[30] 74
-set_io -nowarn R_PMOD[31] 62
-set_io -nowarn R_PMOD[32] 134
-set_io -nowarn R_PMOD[33] 129
-set_io -nowarn R_PMOD[34] 125
-set_io -nowarn R_PMOD[35] 122
-set_io -nowarn R_PMOD[36] 130
-set_io -nowarn R_PMOD[37] 128
-set_io -nowarn R_PMOD[38] 124
-set_io -nowarn R_PMOD[39] 121
-set_io -nowarn R_PMOD[40] 120
-set_io -nowarn R_PMOD[41] 118
-set_io -nowarn R_PMOD[42] 116
-set_io -nowarn R_PMOD[43] 114
-set_io -nowarn R_PMOD[44] 119
-set_io -nowarn R_PMOD[45] 117
-set_io -nowarn R_PMOD[46] 115
-set_io -nowarn R_PMOD[47] 113
-set_io -nowarn R_PMOD[48] 61
-set_io -nowarn R_PMOD[49] 56
-set_io -nowarn R_PMOD[50] 52
-set_io -nowarn R_PMOD[51] 48
-set_io -nowarn R_PMOD[52] 60
-set_io -nowarn R_PMOD[53] 55
-set_io -nowarn R_PMOD[54] 49
-set_io -nowarn R_PMOD[55] 47
-set_io -nowarn R_PMOD[56] 45
-set_io -nowarn R_PMOD[57] 43
-set_io -nowarn R_PMOD[58] 41
-set_io -nowarn R_PMOD[59] 38
-set_io -nowarn R_PMOD[60] 44
-set_io -nowarn R_PMOD[61] 42
-set_io -nowarn R_PMOD[62] 39
-set_io -nowarn R_PMOD[63] 37
-set_io -nowarn R_PMOD[64] 144
-set_io -nowarn R_PMOD[65] 8
-set_io -nowarn R_PMOD[66] 10
-set_io -nowarn R_PMOD[67] 12
-set_io -nowarn R_PMOD[68] 7
-set_io -nowarn R_PMOD[69] 9
-set_io -nowarn R_PMOD[70] 11
-set_io -nowarn R_PMOD[71] 15
-set_io -nowarn R_PMOD[72] 25
-set_io -nowarn R_PMOD[73] 28
-set_io -nowarn R_PMOD[74] 31
-set_io -nowarn R_PMOD[75] 33
-set_io -nowarn R_PMOD[76] 26
-set_io -nowarn R_PMOD[77] 29
-set_io -nowarn R_PMOD[78] 32
-set_io -nowarn R_PMOD[79] 34
-set_io -nowarn R_PMOD[80] 24
-set_io -nowarn R_PMOD[81] 22
-set_io -nowarn R_PMOD[82] 19
-set_io -nowarn R_PMOD[83] 17
-set_io -nowarn R_PMOD[84] 23
-set_io -nowarn R_PMOD[85] 20
-set_io -nowarn R_PMOD[86] 18
-set_io -nowarn R_PMOD[87] 16
-set_io -nowarn R_PMOD[88] 143
-set_io -nowarn R_PMOD[89] 141
-set_io -nowarn R_PMOD[90] 138
-set_io -nowarn R_PMOD[91] 136
-set_io -nowarn R_PMOD[92] 142
-set_io -nowarn R_PMOD[93] 139
-set_io -nowarn R_PMOD[94] 137
-set_io -nowarn R_PMOD[95] 135
+set_io R_PMOD[0] 112
+set_io R_PMOD[1] 107
+set_io R_PMOD[2] 105
+set_io R_PMOD[3] 102
+set_io R_PMOD[4] 110
+set_io R_PMOD[5] 106
+set_io R_PMOD[6] 104
+set_io R_PMOD[7] 101
+set_io R_PMOD[8] 99
+set_io R_PMOD[9] 97
+set_io R_PMOD[10] 95
+set_io R_PMOD[11] 93
+set_io R_PMOD[12] 98
+set_io R_PMOD[13] 96
+set_io R_PMOD[14] 94
+set_io R_PMOD[15] 91
+set_io R_PMOD[16] 90
+set_io R_PMOD[17] 87
+set_io R_PMOD[18] 84
+set_io R_PMOD[19] 82
+set_io R_PMOD[20] 88
+set_io R_PMOD[21] 85
+set_io R_PMOD[22] 83
+set_io R_PMOD[23] 81
+set_io R_PMOD[24] 80
+set_io R_PMOD[25] 78
+set_io R_PMOD[26] 75
+set_io R_PMOD[27] 73
+set_io R_PMOD[28] 79
+set_io R_PMOD[29] 76
+set_io R_PMOD[30] 74
+set_io R_PMOD[31] 62
+set_io R_PMOD[32] 134
+set_io R_PMOD[33] 129
+set_io R_PMOD[34] 125
+set_io R_PMOD[35] 122
+set_io R_PMOD[36] 130
+set_io R_PMOD[37] 128
+set_io R_PMOD[38] 124
+set_io R_PMOD[39] 121
+set_io R_PMOD[40] 120
+set_io R_PMOD[41] 118
+set_io R_PMOD[42] 116
+set_io R_PMOD[43] 114
+set_io R_PMOD[44] 119
+set_io R_PMOD[45] 117
+set_io R_PMOD[46] 115
+set_io R_PMOD[47] 113
+set_io R_PMOD[48] 61
+set_io R_PMOD[49] 56
+set_io R_PMOD[50] 52
+set_io R_PMOD[51] 48
+set_io R_PMOD[52] 60
+set_io R_PMOD[53] 55
+set_io R_PMOD[54] 49
+set_io R_PMOD[55] 47
+set_io R_PMOD[56] 45
+set_io R_PMOD[57] 43
+set_io R_PMOD[58] 41
+set_io R_PMOD[59] 38
+set_io R_PMOD[60] 44
+set_io R_PMOD[61] 42
+set_io R_PMOD[62] 39
+set_io R_PMOD[63] 37
+set_io R_PMOD[64] 144
+set_io R_PMOD[65] 8
+set_io R_PMOD[66] 10
+set_io R_PMOD[67] 12
+set_io R_PMOD[68] 7
+set_io R_PMOD[69] 9
+set_io R_PMOD[70] 11
+set_io R_PMOD[71] 15
+set_io R_PMOD[72] 25
+set_io R_PMOD[73] 28
+set_io R_PMOD[74] 31
+set_io R_PMOD[75] 33
+set_io R_PMOD[76] 26
+set_io R_PMOD[77] 29
+set_io R_PMOD[78] 32
+set_io R_PMOD[79] 34
+set_io R_PMOD[80] 24
+set_io R_PMOD[81] 22
+set_io R_PMOD[82] 19
+set_io R_PMOD[83] 17
+set_io R_PMOD[84] 23
+set_io R_PMOD[85] 20
+set_io R_PMOD[86] 18
+set_io R_PMOD[87] 16
+set_io R_PMOD[88] 143
+set_io R_PMOD[89] 141
+set_io R_PMOD[90] 138
+set_io R_PMOD[91] 136
+set_io R_PMOD[92] 142
+set_io R_PMOD[93] 139
+set_io R_PMOD[94] 137
+set_io R_PMOD[95] 135
 
-set_io -nowarn R_ADC_CLK_TO_ADC 141
-set_io -nowarn R_ADC_CLK_TO_FPGA 139
-set_io -nowarn R_ADC_RED 144
-set_io -nowarn R_ADC_GRN 143
-set_io -nowarn R_ADC_BLU 142
+set_io R_ADC_CLK_TO_ADC 141
+set_io R_ADC_CLK_TO_FPGA 139
+set_io R_ADC_RED 144
+set_io R_ADC_GRN 143
+set_io R_ADC_BLU 142
 
-set_io -nowarn R_ADC_X_01 115
-set_io -nowarn R_ADC_X_02 116
-set_io -nowarn R_ADC_X_03 134
-set_io -nowarn R_ADC_X_04 130
-set_io -nowarn R_ADC_X_05 129
-set_io -nowarn R_ADC_X_06 128
-set_io -nowarn R_ADC_X_07 124
-set_io -nowarn R_ADC_X_08 125
-set_io -nowarn R_ADC_X_09 121
-set_io -nowarn R_ADC_X_10 122
+set_io R_ADC_X_01 115
+set_io R_ADC_X_02 116
+set_io R_ADC_X_03 134
+set_io R_ADC_X_04 130
+set_io R_ADC_X_05 129
+set_io R_ADC_X_06 128
+set_io R_ADC_X_07 124
+set_io R_ADC_X_08 125
+set_io R_ADC_X_09 121
+set_io R_ADC_X_10 122
 
-set_io -nowarn R_ADC_X[0] 115
-set_io -nowarn R_ADC_X[1] 116
-set_io -nowarn R_ADC_X[2] 134
-set_io -nowarn R_ADC_X[3] 130
-set_io -nowarn R_ADC_X[4] 129
-set_io -nowarn R_ADC_X[5] 128
-set_io -nowarn R_ADC_X[6] 124
-set_io -nowarn R_ADC_X[7] 125
-set_io -nowarn R_ADC_X[8] 121
-set_io -nowarn R_ADC_X[9] 122
+set_io R_ADC_X[0] 115
+set_io R_ADC_X[1] 116
+set_io R_ADC_X[2] 134
+set_io R_ADC_X[3] 130
+set_io R_ADC_X[4] 129
+set_io R_ADC_X[5] 128
+set_io R_ADC_X[6] 124
+set_io R_ADC_X[7] 125
+set_io R_ADC_X[8] 121
+set_io R_ADC_X[9] 122
 
-set_io -nowarn R_ADC_Y_01 119
-set_io -nowarn R_ADC_Y_02 120
-set_io -nowarn R_ADC_Y_03 117
-set_io -nowarn R_ADC_Y_04 118
-set_io -nowarn R_ADC_Y_05 114
-set_io -nowarn R_ADC_Y_06 113
-set_io -nowarn R_ADC_Y_07 135
-set_io -nowarn R_ADC_Y_08 136
-set_io -nowarn R_ADC_Y_09 137
-set_io -nowarn R_ADC_Y_10 138
+set_io R_ADC_Y_01 119
+set_io R_ADC_Y_02 120
+set_io R_ADC_Y_03 117
+set_io R_ADC_Y_04 118
+set_io R_ADC_Y_05 114
+set_io R_ADC_Y_06 113
+set_io R_ADC_Y_07 135
+set_io R_ADC_Y_08 136
+set_io R_ADC_Y_09 137
+set_io R_ADC_Y_10 138
 
-set_io -nowarn R_ADC_Y[0] 119
-set_io -nowarn R_ADC_Y[1] 120
-set_io -nowarn R_ADC_Y[2] 117
-set_io -nowarn R_ADC_Y[3] 118
-set_io -nowarn R_ADC_Y[4] 114
-set_io -nowarn R_ADC_Y[5] 113
-set_io -nowarn R_ADC_Y[6] 135
-set_io -nowarn R_ADC_Y[7] 136
-set_io -nowarn R_ADC_Y[8] 137
-set_io -nowarn R_ADC_Y[9] 138
+set_io R_ADC_Y[0] 119
+set_io R_ADC_Y[1] 120
+set_io R_ADC_Y[2] 117
+set_io R_ADC_Y[3] 118
+set_io R_ADC_Y[4] 114
+set_io R_ADC_Y[5] 113
+set_io R_ADC_Y[6] 135
+set_io R_ADC_Y[7] 136
+set_io R_ADC_Y[8] 137
+set_io R_ADC_Y[9] 138
 
-set_io -nowarn R_SRAM_CS_N 80
-set_io -nowarn R_SRAM_OE_N 105
-set_io -nowarn R_SRAM_WE_N 60
+set_io R_SRAM_CS_N 80
+set_io R_SRAM_OE_N 105
+set_io R_SRAM_WE_N 60
 
-set_io -nowarn R_SRAM_ADDR_BUS_01 81
-set_io -nowarn R_SRAM_ADDR_BUS_02 82
-set_io -nowarn R_SRAM_ADDR_BUS_03 83
-set_io -nowarn R_SRAM_ADDR_BUS_04 84
-set_io -nowarn R_SRAM_ADDR_BUS_05 85
-set_io -nowarn R_SRAM_ADDR_BUS_06 112
-set_io -nowarn R_SRAM_ADDR_BUS_07 110
-set_io -nowarn R_SRAM_ADDR_BUS_08 107
-set_io -nowarn R_SRAM_ADDR_BUS_09 106
-set_io -nowarn R_SRAM_ADDR_BUS_10 94
-set_io -nowarn R_SRAM_ADDR_BUS_11 93
-set_io -nowarn R_SRAM_ADDR_BUS_12 91
-set_io -nowarn R_SRAM_ADDR_BUS_13 90
-set_io -nowarn R_SRAM_ADDR_BUS_14 88
-set_io -nowarn R_SRAM_ADDR_BUS_15 87
-set_io -nowarn R_SRAM_ADDR_BUS_16 48
-set_io -nowarn R_SRAM_ADDR_BUS_17 49
-set_io -nowarn R_SRAM_ADDR_BUS_18 52
-set_io -nowarn R_SRAM_ADDR_BUS_19 55
-set_io -nowarn R_SRAM_ADDR_BUS_20 56
+set_io R_SRAM_ADDR_BUS_01 81
+set_io R_SRAM_ADDR_BUS_02 82
+set_io R_SRAM_ADDR_BUS_03 83
+set_io R_SRAM_ADDR_BUS_04 84
+set_io R_SRAM_ADDR_BUS_05 85
+set_io R_SRAM_ADDR_BUS_06 112
+set_io R_SRAM_ADDR_BUS_07 110
+set_io R_SRAM_ADDR_BUS_08 107
+set_io R_SRAM_ADDR_BUS_09 106
+set_io R_SRAM_ADDR_BUS_10 94
+set_io R_SRAM_ADDR_BUS_11 93
+set_io R_SRAM_ADDR_BUS_12 91
+set_io R_SRAM_ADDR_BUS_13 90
+set_io R_SRAM_ADDR_BUS_14 88
+set_io R_SRAM_ADDR_BUS_15 87
+set_io R_SRAM_ADDR_BUS_16 48
+set_io R_SRAM_ADDR_BUS_17 49
+set_io R_SRAM_ADDR_BUS_18 52
+set_io R_SRAM_ADDR_BUS_19 55
+set_io R_SRAM_ADDR_BUS_20 56
 
-set_io -nowarn R_SRAM_ADDR_BUS[0] 81
-set_io -nowarn R_SRAM_ADDR_BUS[1] 82
-set_io -nowarn R_SRAM_ADDR_BUS[2] 83
-set_io -nowarn R_SRAM_ADDR_BUS[3] 84
-set_io -nowarn R_SRAM_ADDR_BUS[4] 85
-set_io -nowarn R_SRAM_ADDR_BUS[5] 112
-set_io -nowarn R_SRAM_ADDR_BUS[6] 110
-set_io -nowarn R_SRAM_ADDR_BUS[7] 107
-set_io -nowarn R_SRAM_ADDR_BUS[8] 106
-set_io -nowarn R_SRAM_ADDR_BUS[9] 94
-set_io -nowarn R_SRAM_ADDR_BUS[10] 93
-set_io -nowarn R_SRAM_ADDR_BUS[11] 91
-set_io -nowarn R_SRAM_ADDR_BUS[12] 90
-set_io -nowarn R_SRAM_ADDR_BUS[13] 88
-set_io -nowarn R_SRAM_ADDR_BUS[14] 87
-set_io -nowarn R_SRAM_ADDR_BUS[15] 48
-set_io -nowarn R_SRAM_ADDR_BUS[16] 49
-set_io -nowarn R_SRAM_ADDR_BUS[17] 52
-set_io -nowarn R_SRAM_ADDR_BUS[18] 55
-set_io -nowarn R_SRAM_ADDR_BUS[19] 56
+set_io R_SRAM_ADDR_BUS[0] 81
+set_io R_SRAM_ADDR_BUS[1] 82
+set_io R_SRAM_ADDR_BUS[2] 83
+set_io R_SRAM_ADDR_BUS[3] 84
+set_io R_SRAM_ADDR_BUS[4] 85
+set_io R_SRAM_ADDR_BUS[5] 112
+set_io R_SRAM_ADDR_BUS[6] 110
+set_io R_SRAM_ADDR_BUS[7] 107
+set_io R_SRAM_ADDR_BUS[8] 106
+set_io R_SRAM_ADDR_BUS[9] 94
+set_io R_SRAM_ADDR_BUS[10] 93
+set_io R_SRAM_ADDR_BUS[11] 91
+set_io R_SRAM_ADDR_BUS[12] 90
+set_io R_SRAM_ADDR_BUS[13] 88
+set_io R_SRAM_ADDR_BUS[14] 87
+set_io R_SRAM_ADDR_BUS[15] 48
+set_io R_SRAM_ADDR_BUS[16] 49
+set_io R_SRAM_ADDR_BUS[17] 52
+set_io R_SRAM_ADDR_BUS[18] 55
+set_io R_SRAM_ADDR_BUS[19] 56
 
-set_io -nowarn R_SRAM_DATA_BUS_01 79
-set_io -nowarn R_SRAM_DATA_BUS_02 78
-set_io -nowarn R_SRAM_DATA_BUS_03 76
-set_io -nowarn R_SRAM_DATA_BUS_04 75
-set_io -nowarn R_SRAM_DATA_BUS_05 74
-set_io -nowarn R_SRAM_DATA_BUS_06 73
-set_io -nowarn R_SRAM_DATA_BUS_07 62
-set_io -nowarn R_SRAM_DATA_BUS_08 61
-set_io -nowarn R_SRAM_DATA_BUS_09 95
-set_io -nowarn R_SRAM_DATA_BUS_10 96
-set_io -nowarn R_SRAM_DATA_BUS_11 97
-set_io -nowarn R_SRAM_DATA_BUS_12 98
-set_io -nowarn R_SRAM_DATA_BUS_13 99
-set_io -nowarn R_SRAM_DATA_BUS_14 101
-set_io -nowarn R_SRAM_DATA_BUS_15 102
-set_io -nowarn R_SRAM_DATA_BUS_16 104
+set_io R_SRAM_DATA_BUS_01 79
+set_io R_SRAM_DATA_BUS_02 78
+set_io R_SRAM_DATA_BUS_03 76
+set_io R_SRAM_DATA_BUS_04 75
+set_io R_SRAM_DATA_BUS_05 74
+set_io R_SRAM_DATA_BUS_06 73
+set_io R_SRAM_DATA_BUS_07 62
+set_io R_SRAM_DATA_BUS_08 61
+set_io R_SRAM_DATA_BUS_09 95
+set_io R_SRAM_DATA_BUS_10 96
+set_io R_SRAM_DATA_BUS_11 97
+set_io R_SRAM_DATA_BUS_12 98
+set_io R_SRAM_DATA_BUS_13 99
+set_io R_SRAM_DATA_BUS_14 101
+set_io R_SRAM_DATA_BUS_15 102
+set_io R_SRAM_DATA_BUS_16 104
 
-set_io -nowarn R_SRAM_DATA_BUS[0] 79
-set_io -nowarn R_SRAM_DATA_BUS[1] 78
-set_io -nowarn R_SRAM_DATA_BUS[2] 76
-set_io -nowarn R_SRAM_DATA_BUS[3] 75
-set_io -nowarn R_SRAM_DATA_BUS[4] 74
-set_io -nowarn R_SRAM_DATA_BUS[5] 73
-set_io -nowarn R_SRAM_DATA_BUS[6] 62
-set_io -nowarn R_SRAM_DATA_BUS[7] 61
-set_io -nowarn R_SRAM_DATA_BUS[8] 95
-set_io -nowarn R_SRAM_DATA_BUS[9] 96
-set_io -nowarn R_SRAM_DATA_BUS[10] 97
-set_io -nowarn R_SRAM_DATA_BUS[11] 98
-set_io -nowarn R_SRAM_DATA_BUS[12] 99
-set_io -nowarn R_SRAM_DATA_BUS[13] 101
-set_io -nowarn R_SRAM_DATA_BUS[14] 102
-set_io -nowarn R_SRAM_DATA_BUS[15] 104
+set_io R_SRAM_DATA_BUS[0] 79
+set_io R_SRAM_DATA_BUS[1] 78
+set_io R_SRAM_DATA_BUS[2] 76
+set_io R_SRAM_DATA_BUS[3] 75
+set_io R_SRAM_DATA_BUS[4] 74
+set_io R_SRAM_DATA_BUS[5] 73
+set_io R_SRAM_DATA_BUS[6] 62
+set_io R_SRAM_DATA_BUS[7] 61
+set_io R_SRAM_DATA_BUS[8] 95
+set_io R_SRAM_DATA_BUS[9] 96
+set_io R_SRAM_DATA_BUS[10] 97
+set_io R_SRAM_DATA_BUS[11] 98
+set_io R_SRAM_DATA_BUS[12] 99
+set_io R_SRAM_DATA_BUS[13] 101
+set_io R_SRAM_DATA_BUS[14] 102
+set_io R_SRAM_DATA_BUS[15] 104
 
