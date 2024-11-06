@@ -84,8 +84,10 @@ module gfx_clear #(
     end
   end
 
+  logic done_p1;
   always_ff @(posedge clk) begin
-    valid <= !done;
+    done_p1 <= done;
+    valid   <= !done_p1;
   end
 
 endmodule
