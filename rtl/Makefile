@@ -19,6 +19,11 @@ VGA_MODE := "640_480_60"
 # Clock Frequency in MHZ
 CLK_FREQ := 100
 
+# these are files that we can't build with yosys/nextpnr and only
+# work with icecube2. nextprn just can't always (or ever) do
+# place and route that meets timing, but icecube2 can.
+TOP_IGNORE := adc/adc_xy_vga_top.sv
+
 # Directories
 TEST_DIR := test
 LIB_DIR := lib
@@ -30,7 +35,7 @@ DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
 TOP_DIRS := $(filter-out $(TEST_DIR)/, $(DIRS))
 
 # Top modules
-TOP_MODULES := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv))
+TOP_MODULES := $(filter-out $(TOP_IGNORE), $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv)))
 
 ifneq ($(DEVICE),hx8k)
   TOP_MODULES := $(filter-out %left_top.sv %both_top.sv, $(TOP_MODULES))
