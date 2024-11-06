@@ -5,7 +5,7 @@ ProjectName=adc_xy_vga
 Vendor=SiliconBlue
 Synthesis=synplify
 ProjectVFiles=../../rtl/adc/adc_xy_vga_top.sv=work
-ProjectCFiles=
+ProjectCFiles=../../constraints/vanilla-ice40-clock.sdc
 CurImplementation=adc_xy_vga_Implmnt
 Implementations=adc_xy_vga_Implmnt
 StartFromSynthesis=yes
