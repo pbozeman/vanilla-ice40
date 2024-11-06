@@ -167,8 +167,13 @@ module gfx_vga #(
 
   always_ff @(posedge clk) begin
     if (gfx_valid) begin
+      fbw_addr <= gfx_addr;
+    end
+  end
+
+  always_ff @(posedge clk) begin
+    if (gfx_valid) begin
       fbw_color <= gfx_color;
-      fbw_addr  <= gfx_addr;
     end
   end
 
