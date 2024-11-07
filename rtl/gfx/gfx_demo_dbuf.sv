@@ -19,6 +19,7 @@ module gfx_demo_dbuf #(
     parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
+    parameter META_BITS      = 4,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (
@@ -30,6 +31,7 @@ module gfx_demo_dbuf #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
+    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -210,19 +212,18 @@ module gfx_demo_dbuf #(
   //
 
   // control signals
-  logic                      vga_fb_enable;
-  logic                      vga_fb_valid;
+  logic                  vga_fb_enable;
+  logic                  vga_fb_valid;
 
   // sync signals
-  logic                      vga_fb_vsync;
-  logic                      vga_fb_hsync;
+  logic                  vga_fb_vsync;
+  logic                  vga_fb_hsync;
 
   // color signals
-  logic [    COLOR_BITS-1:0] vga_fb_red;
-  logic [    COLOR_BITS-1:0] vga_fb_grn;
-  logic [    COLOR_BITS-1:0] vga_fb_blu;
-
-  logic [AXI_ADDR_WIDTH-1:0] xxx_addr;
+  logic [COLOR_BITS-1:0] vga_fb_red;
+  logic [COLOR_BITS-1:0] vga_fb_grn;
+  logic [COLOR_BITS-1:0] vga_fb_blu;
+  logic [ META_BITS-1:0] vga_fb_meta;
 
   vga_fb_pixel_stream #(
       .PIXEL_BITS    (PIXEL_BITS),
@@ -238,6 +239,7 @@ module gfx_demo_dbuf #(
       .red   (vga_fb_red),
       .grn   (vga_fb_grn),
       .blu   (vga_fb_blu),
+      .meta  (vga_fb_meta),
 
       .sram_axi_araddr (disp_axi_araddr),
       .sram_axi_arvalid(disp_axi_arvalid),
@@ -278,7 +280,8 @@ module gfx_demo_dbuf #(
     vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
   };
 
-  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
+  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu, vga_meta} =
+      fifo_vga_data;
 
   // ship it
   cdc_fifo #(

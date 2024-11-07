@@ -14,6 +14,7 @@
 // verilator lint_off UNUSEDPARAM
 module vga_fb_pixel_stream #(
     parameter PIXEL_BITS = 12,
+    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
     parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
@@ -50,6 +51,7 @@ module vga_fb_pixel_stream #(
     output logic [COLOR_BITS-1:0] red,
     output logic [COLOR_BITS-1:0] grn,
     output logic [COLOR_BITS-1:0] blu,
+    output logic [ META_BITS-1:0] meta,
 
     //
     // The AXI interface backing the frame buffer.
@@ -320,18 +322,13 @@ module vga_fb_pixel_stream #(
     end
   end
 
-  // It's kinda annoying that we padded the bottom back at the start, but
-  // here we are.
-  // TODO: change use of fb to pad the top, not the bottom
-  logic [AXI_DATA_WIDTH-PIXEL_BITS-1:0] u_pixel;
-
   // the data to use when the pixel is not visible
-  logic [             AXI_DATA_WIDTH:0] blank_pixel = 0;
+  logic [AXI_DATA_WIDTH:0] blank_pixel = 0;
 
-  assign hsync                    = pixel_hsync;
-  assign vsync                    = pixel_vsync;
-  assign valid                    = pixel_valid;
-  assign {red, grn, blu, u_pixel} = pixel_visible ? pixel_data : blank_pixel;
+  assign hsync                 = pixel_hsync;
+  assign vsync                 = pixel_vsync;
+  assign valid                 = pixel_valid;
+  assign {red, grn, blu, meta} = pixel_visible ? pixel_data : blank_pixel;
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

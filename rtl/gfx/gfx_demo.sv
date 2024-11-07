@@ -13,6 +13,7 @@ module gfx_demo #(
     parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
+    parameter META_BITS      = 4,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (
@@ -24,6 +25,7 @@ module gfx_demo #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
+    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -42,6 +44,7 @@ module gfx_demo #(
   logic [ FB_X_BITS-1:0] gfx_x;
   logic [ FB_Y_BITS-1:0] gfx_y;
   logic [PIXEL_BITS-1:0] gfx_color;
+  logic [ META_BITS-1:0] gfx_meta;
   logic                  gfx_inc;
   logic                  gfx_last;
   logic                  gfx_valid;
@@ -60,6 +63,9 @@ module gfx_demo #(
       .last (gfx_last)
   );
 
+  // TODO: use this
+  assign gfx_meta = '0;
+
   gfx_vga #(
       .VGA_WIDTH     (VGA_WIDTH),
       .VGA_HEIGHT    (VGA_HEIGHT),
@@ -74,6 +80,7 @@ module gfx_demo #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
+      .gfx_meta (gfx_meta),
       .gfx_valid(gfx_valid),
       .gfx_ready(gfx_ready),
 
@@ -82,6 +89,7 @@ module gfx_demo #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
+      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
