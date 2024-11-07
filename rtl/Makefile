@@ -22,7 +22,7 @@ CLK_FREQ := 100
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
-# TOP_IGNORE := adc/adc_xy_vga_top.sv
+TOP_IGNORE := adc/adc_xy_vga_top.sv
 
 # Directories
 TEST_DIR := test
@@ -58,6 +58,9 @@ VVP := vvp
 
 # Linter
 LINTER := verilator -DLINTING=1 -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) --lint-only --quiet -Wall --timing --Wno-WIDTHEXPAND --Wno-WIDTHTRUNC
+
+# Add top module names (without directory prefix and .sv suffix)
+TOP_MODULE_NAMES := $(notdir $(basename $(TOP_MODULES)))
 
 # Formatter
 #
@@ -216,17 +219,26 @@ check: lint unit
 # Linting
 #
 ##############################################################################
-.PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES))
-lint: $(addprefix lint_, $(TEST_BENCHES))
+.PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES))
+lint: $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES))
 
-LINT_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).sv
-define lint_rule
+LINT_TB_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).sv
+define lint_tb_rule
 lint_$(1):
 	@echo "make lint $1"
-	@$(LINT_CMD) || (echo $(LINT_CMD); exit 1)
+	@$(LINT_TB_CMD) || (echo $(LINT_TB_CMD); exit 1)
 endef
 
-$(foreach tb,$(TEST_BENCHES),$(eval $(call lint_rule,$(tb))))
+$(foreach tb,$(TEST_BENCHES),$(eval $(call lint_tb_rule,$(tb))))
+
+LINT_TOP_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(filter %/$(1).sv,$(TOP_MODULES))
+define lint_top_rule
+lint_$(1):
+	@echo "make lint $1"
+	@$(LINT_TOP_CMD) || (echo $(LINT_TOP_CMD); exit 1)
+endef
+
+$(foreach top,$(TOP_MODULE_NAMES),$(eval $(call lint_top_rule,$(top))))
 
 ##############################################################################
 #

@@ -23,8 +23,10 @@ module adc_xy_top #(
 
   logic                 reset;
 
+  // verilator lint_off UNUSEDSIGNAL
   logic [DATA_BITS-1:0] y_data;
   logic [DATA_BITS-1:0] x_data;
+  // verilator lint_on UNUSEDSIGNAL
 
   adc_xy #(
       .DATA_BITS(DATA_BITS)
@@ -44,12 +46,12 @@ module adc_xy_top #(
   );
 
   // Output y_data on R_E and R_F
-  assign R_E = y_data[0:7];
-  assign R_F = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[8:9]};
+  assign R_E = y_data[7:0];
+  assign R_F = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[9:8]};
 
   // Second copy - use one for LEDs and one for logic analyzer
-  assign R_H = y_data[0:7];
-  assign R_I = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[8:9]};
+  assign R_H = y_data[7:0];
+  assign R_I = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, y_data[9:8]};
 
 endmodule
 

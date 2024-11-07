@@ -8,10 +8,14 @@
 `include "vga_mode.sv"
 `include "vga_pll.sv"
 
+// verilator lint_save
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNUSEDPARAM
 module gfx_demo_top #(
     parameter VGA_WIDTH  = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12,
+    parameter META_BITS  = 4,
     parameter ADDR_BITS  = 20,
     parameter DATA_BITS  = 16
 ) (
@@ -40,6 +44,7 @@ module gfx_demo_top #(
   logic [COLOR_BITS-1:0] vga_red;
   logic [COLOR_BITS-1:0] vga_grn;
   logic [COLOR_BITS-1:0] vga_blu;
+  logic [ META_BITS-1:0] vga_meta;
   logic                  vga_hsync;
   logic                  vga_vsync;
 
@@ -66,6 +71,7 @@ module gfx_demo_top #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
+      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
@@ -86,7 +92,10 @@ module gfx_demo_top #(
   assign R_F[3:0] = vga_grn;
   assign R_F[4]   = vga_hsync;
   assign R_F[5]   = vga_vsync;
+  assign R_F[6]   = 1'bz;
+  assign R_F[7]   = 1'bz;
 
 endmodule
+// verilator lint_restore
 
 `endif

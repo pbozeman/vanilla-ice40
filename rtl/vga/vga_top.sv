@@ -45,7 +45,10 @@ module vga_top (
   localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
 
   logic reset = 0;
+
+  // verilator lint_off UNUSEDSIGNAL
   logic visible;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic [COLUMN_BITS-1:0] column;
   logic [ROW_BITS-1:0] row;

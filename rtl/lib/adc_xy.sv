@@ -25,13 +25,18 @@ module adc_xy #(
 
   logic                  w_rst_n;
   logic                  w_inc;
-  logic                  w_full;
   logic [FIFO_WIDTH-1:0] w_data;
+  // verilator lint_off UNUSEDSIGNAL
+  logic                  w_full;
+  logic                  w_almost_full;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic                  r_rst_n;
   logic                  r_inc;
-  logic                  r_empty;
   logic [FIFO_WIDTH-1:0] r_data;
+  // verilator lint_off UNUSEDSIGNAL
+  logic                  r_empty;
+  // verilator lint_on UNUSEDSIGNAL
 
   assign w_data         = {adc_x_bus, adc_y_bus};
   assign {adc_x, adc_y} = r_data;
@@ -41,16 +46,17 @@ module adc_xy #(
   // for the reader at some point and let some results buffer up in the
   // fifo. For now, just send it.
   cdc_fifo #(FIFO_WIDTH) fifo (
-      .w_clk  (adc_clk),
-      .w_rst_n(w_rst_n),
-      .w_inc  (w_inc),
-      .w_data (w_data),
-      .w_full (w_full),
-      .r_clk  (clk),
-      .r_rst_n(r_rst_n),
-      .r_inc  (r_inc),
-      .r_empty(r_empty),
-      .r_data (r_data)
+      .w_clk        (adc_clk),
+      .w_rst_n      (w_rst_n),
+      .w_inc        (w_inc),
+      .w_data       (w_data),
+      .w_full       (w_full),
+      .w_almost_full(w_almost_full),
+      .r_clk        (clk),
+      .r_rst_n      (r_rst_n),
+      .r_inc        (r_inc),
+      .r_empty      (r_empty),
+      .r_data       (r_data)
   );
 
   assign w_rst_n = ~reset;

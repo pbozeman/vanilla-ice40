@@ -7,11 +7,13 @@
 
 `ifndef SIMULATOR
 
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
 module vga_pll (
     input  logic clk_i,
     output logic clk_o
 );
-
+`ifndef LINTING
   logic pll_lock;
 
   // intermediate clock, see global buffer comment below
@@ -43,8 +45,11 @@ module vga_pll (
       .USER_SIGNAL_TO_GLOBAL_BUFFER(clk_int),
       .GLOBAL_BUFFER_OUTPUT        (clk_o)
   );
+`endif
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
 
 `endif
 `endif

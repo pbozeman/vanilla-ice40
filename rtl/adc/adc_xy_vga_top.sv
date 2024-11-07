@@ -12,6 +12,7 @@ module adc_xy_vga_top #(
     parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
+    parameter META_BITS      = 4,
     parameter SRAM_ADDR_BITS = 20,
     parameter SRAM_DATA_BITS = 16,
     parameter ADC_DATA_BITS  = 10
@@ -31,9 +32,6 @@ module adc_xy_vga_top #(
     output logic [7:0] R_E,
     output logic [7:0] R_F
 );
-  localparam FB_X_BITS = $clog2(VGA_WIDTH);
-  localparam FB_Y_BITS = $clog2(VGA_HEIGHT);
-
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   logic                  reset;
@@ -41,6 +39,9 @@ module adc_xy_vga_top #(
   logic [COLOR_BITS-1:0] vga_red;
   logic [COLOR_BITS-1:0] vga_grn;
   logic [COLOR_BITS-1:0] vga_blu;
+  // verilator lint_off UNUSEDSIGNAL
+  logic [ META_BITS-1:0] vga_meta;
+  // verilator lint_on UNUSEDSIGNAL
   logic                  vga_hsync;
   logic                  vga_vsync;
 
@@ -76,6 +77,7 @@ module adc_xy_vga_top #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
+      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
@@ -94,6 +96,8 @@ module adc_xy_vga_top #(
   assign R_F[3:0] = vga_grn;
   assign R_F[4]   = vga_hsync;
   assign R_F[5]   = vga_vsync;
+  assign R_F[6]   = 1'bz;
+  assign R_F[7]   = 1'bz;
 
 endmodule
 

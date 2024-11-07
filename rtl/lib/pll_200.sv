@@ -11,10 +11,13 @@
 `define PLL_DIVQ (3'd2)
 `define PLL_FILTER_RANGE (3'd5)
 
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
 module pll_200 (
     input  logic clk_i,
     output logic clk_o
 );
+`ifndef LINTING
 
   logic pll_lock;
 
@@ -47,8 +50,11 @@ module pll_200 (
       .USER_SIGNAL_TO_GLOBAL_BUFFER(clk_int),
       .GLOBAL_BUFFER_OUTPUT        (clk_o)
   );
+`endif
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
 
 `endif
 `endif

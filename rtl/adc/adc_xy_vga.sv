@@ -14,6 +14,7 @@ module adc_xy_vga #(
     parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
+    parameter META_BITS      = 4,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
 
@@ -34,6 +35,7 @@ module adc_xy_vga #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
+    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -56,14 +58,16 @@ module adc_xy_vga #(
   logic [    FB_Y_BITS-1:0] clr_y;
   logic [   PIXEL_BITS-1:0] clr_color;
   logic                     clr_valid;
-  logic                     clr_ready;
+  // verilator lint_off UNUSEDSIGNAL
   logic                     clr_last;
+  // verilator lint_on UNUSEDSIGNAL
   logic                     clr_inc;
 
   // gfx signals
   logic [    FB_X_BITS-1:0] gfx_x;
   logic [    FB_Y_BITS-1:0] gfx_y;
   logic [   PIXEL_BITS-1:0] gfx_color;
+  logic [    META_BITS-1:0] gfx_meta;
   logic                     gfx_valid;
   logic                     gfx_ready;
 
@@ -103,18 +107,21 @@ module adc_xy_vga #(
       .adc_y    (adc_y)
   );
 
+  // Temporary work around for the fact that our signal is 0 to 1024 while our
+  // fb is 640x480. Just get something on the screen as a POC.
   always_ff @(posedge clk) begin
-    // Temporary work around for the fact that our signal is 0 to 1024 while our
-    // fb is 640x480. Just get something on the screen as a POC.
-    gfx_adc_x <= adc_x >> 2;
-    gfx_adc_y <= adc_y >> 2;
+    gfx_adc_x <= adc_x >> 1;
   end
 
+  always_ff @(posedge clk) begin
+    gfx_adc_y <= adc_y >> 1;
+  end
 
   // output mux
   assign gfx_x     = clr_valid ? clr_x : gfx_adc_x;
   assign gfx_y     = clr_valid ? clr_y : gfx_adc_y;
   assign gfx_color = clr_valid ? clr_color : {PIXEL_BITS{1'b1}};
+  assign gfx_meta  = '0;
   assign gfx_valid = 1'b1;
 
   //
@@ -135,6 +142,7 @@ module adc_xy_vga #(
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
       .gfx_valid(gfx_valid),
+      .gfx_meta (gfx_meta),
       .gfx_ready(gfx_ready),
 
       .vga_enable(vga_enable),
@@ -142,6 +150,7 @@ module adc_xy_vga #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
+      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

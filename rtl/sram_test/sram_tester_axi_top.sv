@@ -35,15 +35,14 @@ module sram_tester_axi_top #(
   logic                 reset = 0;
   logic [          3:0] reset_counter = 0;
 
-  logic [DATA_BITS-1:0] sram_write_data;
-  logic [DATA_BITS-1:0] sram_read_data;
   logic                 test_done;
   logic                 test_pass;
-  logic                 sram_write_enable;
 
   logic [          2:0] pattern_state;
+  // verilator lint_off UNUSEDSIGNAL
   logic [DATA_BITS-1:0] prev_expected_data;
   logic [DATA_BITS-1:0] prev_read_data;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic [ADDR_BITS-1:0] iter_addr;
 
@@ -112,8 +111,8 @@ module sram_tester_axi_top #(
   // LED2 is success
   assign LED2     = test_pass;
 
-  assign R_I      = (test_pass ? sram_write_data : prev_expected_data);
-  assign R_J      = (test_pass ? sram_read_data : prev_read_data);
+  assign R_I      = prev_expected_data;
+  assign R_J      = prev_read_data;
 
   assign R_E[2:0] = pattern_state_reversed;
 

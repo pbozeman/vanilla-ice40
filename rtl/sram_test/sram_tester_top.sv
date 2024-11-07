@@ -40,7 +40,9 @@ module sram_tester_top #(
   logic [DATA_BITS-1:0] sram_read_data;
   logic                 test_done;
   logic                 test_pass;
+  // verilator lint_off UNUSEDSIGNAL
   logic                 sram_write_enable;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic [          2:0] pattern_state;
   logic [DATA_BITS-1:0] prev_expected_data;
@@ -76,7 +78,6 @@ module sram_tester_top #(
   );
 
   logic [ADDR_BITS-1:0] addr_reversed;
-  logic [DATA_BITS-1:0] data_reversed;
 
   // Reverse the entire address
   bit_reverser #(
@@ -84,14 +85,6 @@ module sram_tester_top #(
   ) addr_reverser (
       .in (sram_addr),
       .out(addr_reversed)
-  );
-
-  // Reverse the data
-  bit_reverser #(
-      .WIDTH(8)
-  ) data_reverser (
-      .in (R_SRAM_DATA_BUS),
-      .out(data_reversed)
   );
 
   logic [2:0] pattern_state_reversed;
