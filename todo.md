@@ -91,6 +91,15 @@ io on the board
 - data signals are not always multiple of 8 bit values in these designs. Decide if
   this is an issue or not.
 
+### adc vga
+
+- use double buffering. Even 800x600 doesn't work with a single sram because
+it's running at a 40mhz pixel clock and is trying to share an sram module that
+takes 2 clocks per op to complete due to setup and hold times. That means we
+are effectively writting/reading at 50mhz. When there is a reader and writer both contending for the sram, the bw of both is reduce to 25mhz, making 640x480 the
+max we can do. Double buffering will bring this up to 50mhz, which is enough
+for 800x600's 40mhz. 1024x768 will need pipelining/interleaving on top of this.
+
 ### Style
 
 - move to system verilog, but decide on what conventions to use
