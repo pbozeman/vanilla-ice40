@@ -1,29 +1,24 @@
-`ifndef GFX_VGA_V
-`define GFX_VGA_V
+`ifndef GFX_VGA_DBUF_V
+`define GFX_VGA_DBUF_V
 
 //
-// Single FB GFX display
+// Double buffer FB GFX display
 //
-// A large amount of this file is shared with the gfx_vga_dbuf version. See
-// the TODO there about a potential refactor.
+// TODO: there is a large chunk of this copied from the single buffer version.
+// If that version continues to exist, then refactor both to share a common
+// module. At a quick glance the correct axi controller could be instantiated,
+// and the gfx_axi_* and disp_axi_* signals passed to the common module.
 
 `include "directives.sv"
 
-`include "axi_sram_controller.sv"
+`include "axi_sram_dbuf_controller.sv"
 `include "cdc_fifo.sv"
+`include "detect_falling.sv"
 `include "fb_writer.sv"
 `include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
 
-// meta bits are extra metadata that can be associated with the pixel. It
-// might have been better to just the pixel be gfx_pixel_data rather than
-// splitting color out and later. If that was (or later, is) done, then
-// the vga_rgb lines should be separated out by the caller and we should
-// only be passing gfx_pixel_data through this module. But, the interface is
-// in flux, so let's just do the simple thing first when adding in the
-// meta_bits, for now. (The initial use case is using them for intensity
-// in simulating fade of a vector display.)
-module gfx_vga #(
+module gfx_vga_dbuf #(
     parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS     = 12,
@@ -38,6 +33,8 @@ module gfx_vga #(
     input logic clk,
     input logic pixel_clk,
     input logic reset,
+
+    input logic mem_switch,
 
     // gfx signals
     input  logic [ FB_X_BITS-1:0] gfx_x,
@@ -58,11 +55,18 @@ module gfx_vga #(
     output logic                  vga_vsync,
 
     // sram0 controller to io pins
-    output logic [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout  wire  [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output logic                      sram_io_we_n,
-    output logic                      sram_io_oe_n,
-    output logic                      sram_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data,
+    output logic                      sram0_io_we_n,
+    output logic                      sram0_io_oe_n,
+    output logic                      sram0_io_ce_n,
+
+    // sram1 controller to io pins
+    output logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data,
+    output logic                      sram1_io_we_n,
+    output logic                      sram1_io_oe_n,
+    output logic                      sram1_io_ce_n
 );
   //
   // gfx axi writter
@@ -89,41 +93,51 @@ module gfx_vga #(
   logic                              disp_axi_rready;
   logic [                       1:0] disp_axi_rresp;
 
-  axi_sram_controller #(
+  axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) axi_sram_controller_inst (
+  ) axi_sram_dbuf_controller_inst (
       // core signals
-      .axi_clk   (clk),
-      .axi_resetn(~reset),
+      .clk  (clk),
+      .reset(reset),
+
+      // switch producer/consumer to alternate sram
+      .switch(mem_switch),
 
       // producer interface
-      .axi_awaddr (gfx_axi_awaddr),
-      .axi_awvalid(gfx_axi_awvalid),
-      .axi_awready(gfx_axi_awready),
-      .axi_wdata  (gfx_axi_wdata),
-      .axi_wvalid (gfx_axi_wvalid),
-      .axi_wready (gfx_axi_wready),
-      .axi_wstrb  (gfx_axi_wstrb),
-      .axi_bready (gfx_axi_bready),
-      .axi_bvalid (gfx_axi_bvalid),
-      .axi_bresp  (gfx_axi_bresp),
+      .prod_axi_awaddr (gfx_axi_awaddr),
+      .prod_axi_awvalid(gfx_axi_awvalid),
+      .prod_axi_awready(gfx_axi_awready),
+      .prod_axi_wdata  (gfx_axi_wdata),
+      .prod_axi_wvalid (gfx_axi_wvalid),
+      .prod_axi_wready (gfx_axi_wready),
+      .prod_axi_wstrb  (gfx_axi_wstrb),
+      .prod_axi_bready (gfx_axi_bready),
+      .prod_axi_bvalid (gfx_axi_bvalid),
+      .prod_axi_bresp  (gfx_axi_bresp),
 
       // consumer interface
-      .axi_araddr (disp_axi_araddr),
-      .axi_arvalid(disp_axi_arvalid),
-      .axi_arready(disp_axi_arready),
-      .axi_rdata  (disp_axi_rdata),
-      .axi_rvalid (disp_axi_rvalid),
-      .axi_rready (disp_axi_rready),
-      .axi_rresp  (disp_axi_rresp),
+      .cons_axi_araddr (disp_axi_araddr),
+      .cons_axi_arvalid(disp_axi_arvalid),
+      .cons_axi_arready(disp_axi_arready),
+      .cons_axi_rdata  (disp_axi_rdata),
+      .cons_axi_rvalid (disp_axi_rvalid),
+      .cons_axi_rready (disp_axi_rready),
+      .cons_axi_rresp  (disp_axi_rresp),
 
-      // sram controller to io pins
-      .sram_io_addr(sram_io_addr),
-      .sram_io_data(sram_io_data),
-      .sram_io_we_n(sram_io_we_n),
-      .sram_io_oe_n(sram_io_oe_n),
-      .sram_io_ce_n(sram_io_ce_n)
+      // sram0 controller to io pins
+      .sram0_io_addr(sram0_io_addr),
+      .sram0_io_data(sram0_io_data),
+      .sram0_io_we_n(sram0_io_we_n),
+      .sram0_io_oe_n(sram0_io_oe_n),
+      .sram0_io_ce_n(sram0_io_ce_n),
+
+      // sram1 controller to io pins
+      .sram1_io_addr(sram1_io_addr),
+      .sram1_io_data(sram1_io_data),
+      .sram1_io_we_n(sram1_io_we_n),
+      .sram1_io_oe_n(sram1_io_oe_n),
+      .sram1_io_ce_n(sram1_io_ce_n)
   );
 
   assign gfx_ready = fbw_axi_tready;
@@ -208,7 +222,6 @@ module gfx_vga #(
   logic [COLOR_BITS-1:0] vga_fb_grn;
   logic [COLOR_BITS-1:0] vga_fb_blu;
   logic [ META_BITS-1:0] vga_fb_meta;
-
 
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
