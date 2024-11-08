@@ -10,8 +10,6 @@
 `include "vga_mode.sv"
 `include "vga_sync.sv"
 
-// verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNUSEDPARAM
 module vga_fb_pixel_stream #(
     parameter PIXEL_BITS = 12,
     parameter META_BITS  = 4,
@@ -31,10 +29,9 @@ module vga_fb_pixel_stream #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
 
-    localparam FB_X_BITS      = $clog2(H_WHOLE_LINE),
-    localparam FB_Y_BITS      = $clog2(V_WHOLE_FRAME),
-    localparam MAX_PIXEL_ADDR = H_VISIBLE * V_VISIBLE - 1,
-    localparam COLOR_BITS     = PIXEL_BITS / 3
+    localparam FB_X_BITS  = $clog2(H_WHOLE_LINE),
+    localparam FB_Y_BITS  = $clog2(V_WHOLE_FRAME),
+    localparam COLOR_BITS = PIXEL_BITS / 3
 ) (
     input logic clk,
     input logic reset,
@@ -62,7 +59,9 @@ module vga_fb_pixel_stream #(
     input  logic                      sram_axi_arready,
     input  logic [AXI_DATA_WIDTH-1:0] sram_axi_rdata,
     output logic                      sram_axi_rready,
+    // verilator lint_off UNUSEDSIGNAL
     input  logic [               1:0] sram_axi_rresp,
+    // verilator lint_on UNUSEDSIGNAL
     input  logic                      sram_axi_rvalid
 );
   logic                 fb_pixel_visible;
@@ -98,7 +97,6 @@ module vga_fb_pixel_stream #(
       .row    (fb_pixel_row)
   );
 
-  logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr;
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
 
   // This was measured to be faster than a counter. When registering the
@@ -119,8 +117,6 @@ module vga_fb_pixel_stream #(
   logic                      fb_pixel_visible_p1;
   logic                      fb_pixel_hsync_p1;
   logic                      fb_pixel_vsync_p1;
-  logic [     FB_X_BITS-1:0] fb_pixel_column_p1;
-  logic [     FB_Y_BITS-1:0] fb_pixel_row_p1;
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_p1;
 
   always_ff @(posedge clk) begin
@@ -135,8 +131,6 @@ module vga_fb_pixel_stream #(
     fb_pixel_visible_p1 <= fb_pixel_visible;
     fb_pixel_hsync_p1   <= fb_pixel_hsync;
     fb_pixel_vsync_p1   <= fb_pixel_vsync;
-    fb_pixel_column_p1  <= fb_pixel_column;
-    fb_pixel_row_p1     <= fb_pixel_row;
     fb_pixel_addr_p1    <= fb_pixel_addr_calc;
   end
 
@@ -240,7 +234,9 @@ module vga_fb_pixel_stream #(
   };
 
   logic fifo_empty;
+  // verilator lint_off UNUSEDSIGNAL
   logic fifo_full;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic pixel_inc;
   assign pixel_inc = !fifo_empty & (read_done | !fb_pixel_visible_p1);
@@ -332,7 +328,5 @@ module vga_fb_pixel_stream #(
   assign {red, grn, blu, meta} = pixel_visible ? pixel_data : blank_pixel;
 
 endmodule
-// verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNUSEDPARAM
 
 `endif
