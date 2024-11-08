@@ -44,6 +44,7 @@ module gfx_vga #(
     input  logic [ META_BITS-1:0] gfx_meta,
     input  logic                  gfx_valid,
     output logic                  gfx_ready,
+    output logic                  gfx_vsync,
 
     // vga signals
     input  logic                  vga_enable,
@@ -233,6 +234,9 @@ module gfx_vga #(
       .sram_axi_rresp  (disp_axi_rresp),
       .sram_axi_rvalid (disp_axi_rvalid)
   );
+
+  // pass vsync back to the gfx caller in case they need it
+  assign gfx_vsync = vga_fb_vsync;
 
   //
   // CDC over to the VGA output clock domain

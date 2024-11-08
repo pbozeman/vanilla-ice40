@@ -49,6 +49,7 @@ module gfx_demo #(
   logic                  gfx_last;
   logic                  gfx_valid;
   logic                  gfx_ready;
+  logic                  gfx_vsync;
 
   logic                  vga_enable;
 
@@ -83,6 +84,7 @@ module gfx_demo #(
       .gfx_meta (gfx_meta),
       .gfx_valid(gfx_valid),
       .gfx_ready(gfx_ready),
+      .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),
 

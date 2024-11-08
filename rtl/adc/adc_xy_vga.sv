@@ -5,6 +5,7 @@
 
 `include "adc_xy.sv"
 `include "delay.sv"
+`include "detect_falling.sv"
 `include "gfx_clear.sv"
 `include "gfx_vga.sv"
 `include "vga_mode.sv"
@@ -17,6 +18,7 @@ module adc_xy_vga #(
     parameter META_BITS      = 4,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
+    parameter P_FRAMES       = 4,
 
     localparam FB_X_BITS  = $clog2(VGA_WIDTH),
     localparam FB_Y_BITS  = $clog2(VGA_HEIGHT),
@@ -46,6 +48,8 @@ module adc_xy_vga #(
     output logic                      sram_io_oe_n,
     output logic                      sram_io_ce_n
 );
+  localparam P_FRAME_BITS = $clog2(P_FRAMES);
+
   // adc signals
   logic [ADC_DATA_BITS-1:0] adc_x;
   logic [ADC_DATA_BITS-1:0] adc_y;
@@ -70,6 +74,7 @@ module adc_xy_vga #(
   logic [    META_BITS-1:0] gfx_meta;
   logic                     gfx_valid;
   logic                     gfx_ready;
+  logic                     gfx_vsync;
 
   logic                     vga_enable;
 
@@ -111,10 +116,31 @@ module adc_xy_vga #(
   // fb is 640x480. Just get something on the screen as a POC.
   always_ff @(posedge clk) begin
     gfx_adc_x <= adc_x >> 1;
+    gfx_adc_y <= adc_y >> 1;
   end
 
+  // Persistence
+  logic                    gfx_new_frame;
+  logic [P_FRAME_BITS-1:0] gfx_frame;
+
+  detect_falling gfx_vsync_falling_inst (
+      .clk     (clk),
+      .signal  (gfx_vsync),
+      .detected(gfx_new_frame)
+  );
+
   always_ff @(posedge clk) begin
-    gfx_adc_y <= adc_y >> 1;
+    if (reset) begin
+      gfx_frame <= 0;
+    end else begin
+      if (gfx_new_frame) begin
+        if (gfx_frame < P_FRAMES) begin
+          gfx_frame <= gfx_frame + 1;
+        end else begin
+          gfx_frame <= 0;
+        end
+      end
+    end
   end
 
   // output mux
@@ -123,6 +149,10 @@ module adc_xy_vga #(
   assign gfx_color = clr_valid ? clr_color : {PIXEL_BITS{1'b1}};
   assign gfx_meta  = '0;
   assign gfx_valid = 1'b1;
+
+  logic [COLOR_BITS-1:0] vga_raw_red;
+  logic [COLOR_BITS-1:0] vga_raw_grn;
+  logic [COLOR_BITS-1:0] vga_raw_blu;
 
   //
   // vga
@@ -144,12 +174,13 @@ module adc_xy_vga #(
       .gfx_valid(gfx_valid),
       .gfx_meta (gfx_meta),
       .gfx_ready(gfx_ready),
+      .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),
 
-      .vga_red  (vga_red),
-      .vga_grn  (vga_grn),
-      .vga_blu  (vga_blu),
+      .vga_red  (vga_raw_red),
+      .vga_grn  (vga_raw_grn),
+      .vga_blu  (vga_raw_blu),
       .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
@@ -160,6 +191,34 @@ module adc_xy_vga #(
       .sram_io_oe_n(sram_io_oe_n),
       .sram_io_ce_n(sram_io_ce_n)
   );
+
+  // vga side frame/persistence tracking
+  logic                    vga_new_frame;
+  logic [P_FRAME_BITS-1:0] vga_frame;
+
+  detect_falling vga_vsync_falling_inst (
+      .clk     (pixel_clk),
+      .signal  (vga_vsync),
+      .detected(vga_new_frame)
+  );
+
+  always_ff @(posedge pixel_clk) begin
+    if (reset) begin
+      vga_frame <= 0;
+    end else begin
+      if (vga_new_frame) begin
+        if (vga_frame < P_FRAMES) begin
+          vga_frame <= vga_frame + 1;
+        end else begin
+          vga_frame <= 0;
+        end
+      end
+    end
+  end
+
+  assign vga_red = vga_raw_red;
+  assign vga_grn = vga_raw_grn;
+  assign vga_blu = vga_raw_blu;
 
   // Give the gfx side some time to start laying down pixels before
   // we stream them to the display.
