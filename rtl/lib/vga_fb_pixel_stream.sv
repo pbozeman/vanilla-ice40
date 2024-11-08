@@ -246,7 +246,8 @@ module vga_fb_pixel_stream #(
   assign pixel_inc = !fifo_empty & (read_done | !fb_pixel_visible_p1);
 
   fifo #(
-      .DATA_WIDTH(PIXEL_CONTEXT_WIDTH)
+      .DATA_WIDTH(PIXEL_CONTEXT_WIDTH),
+      .DEPTH     (4)
   ) fb_fifo (
       .clk       (clk),
       .reset     (reset),
