@@ -91,9 +91,12 @@ module cdc_fifo_wptr_full #(
     if (!w_rst_n) begin
       w_full <= 1'b0;
     end else begin
-      w_almost_full <= w_almost_full_val;
-      w_full        <= w_full_val;
+      w_full <= w_full_val;
     end
+  end
+
+  always_ff @(posedge w_clk) begin
+    w_almost_full <= w_almost_full_val;
   end
 
 endmodule
