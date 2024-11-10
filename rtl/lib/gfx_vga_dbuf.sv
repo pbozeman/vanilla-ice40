@@ -13,7 +13,7 @@
 
 `include "axi_sram_dbuf_controller.sv"
 `include "cdc_fifo.sv"
-`include "detect_falling.sv"
+`include "detect_rising.sv"
 `include "fb_writer.sv"
 `include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
@@ -93,6 +93,8 @@ module gfx_vga_dbuf #(
   logic                              disp_axi_rready;
   logic [                       1:0] disp_axi_rresp;
 
+  logic                              negedge_switching;
+
   axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -102,7 +104,7 @@ module gfx_vga_dbuf #(
       .reset(reset),
 
       // switch producer/consumer to alternate sram
-      .switch(mem_switch),
+      .switch(negedge_switching),
 
       // producer interface
       .prod_axi_awaddr (gfx_axi_awaddr),
@@ -140,7 +142,42 @@ module gfx_vga_dbuf #(
       .sram1_io_ce_n(sram1_io_ce_n)
   );
 
-  assign gfx_ready = fbw_axi_tready;
+  // hold switching for 8 cycles to let writes finish
+  logic       switching = 0;
+  logic [2:0] switch_count = 0;
+  logic       posedge_mem_switch;
+
+  detect_rising detect_rising_mem_switch_inst (
+      .clk     (clk),
+      .signal  (mem_switch),
+      .detected(posedge_mem_switch)
+  );
+
+  always_ff @(posedge clk) begin
+    if (posedge_mem_switch && switch_count == 0) begin
+      switch_count <= 0;
+      switching    <= 1'b1;
+    end else begin
+      if (switching) begin
+        if (switch_count < 3'b111) begin
+          switch_count <= switch_count + 1;
+        end else begin
+          switch_count <= 0;
+          switching    <= 1'b0;
+        end
+      end
+    end
+  end
+
+  detect_falling detect_falling_switching (
+      .clk     (clk),
+      .signal  (mem_switch),
+      .detected(negedge_switching)
+  );
+
+  always_comb begin
+    gfx_ready = (fbw_axi_tready && !switching);
+  end
 
   // fb writer axi flow control signals
   logic                            fbw_axi_tvalid = 0;
@@ -187,7 +224,7 @@ module gfx_vga_dbuf #(
     if (gfx_valid) begin
       fbw_axi_tvalid <= 1'b1;
     end else begin
-      if (fbw_axi_tvalid & fbw_axi_tready) begin
+      if (fbw_axi_tvalid && fbw_axi_tready) begin
         fbw_axi_tvalid <= 1'b0;
       end
     end
@@ -279,12 +316,20 @@ module gfx_vga_dbuf #(
   logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
   logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
-  assign fifo_fb_data = {
-    vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu, vga_fb_meta
-  };
+  always_comb begin
+    fifo_fb_data = {
+      vga_fb_hsync,
+      vga_fb_vsync,
+      vga_fb_red,
+      vga_fb_grn,
+      vga_fb_blu,
+      vga_fb_meta
+    };
+  end
 
-  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu, vga_meta} =
-      fifo_vga_data;
+  always_comb begin
+    {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu, vga_meta} = fifo_vga_data;
+  end
 
   // ship it
   cdc_fifo #(
