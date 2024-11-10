@@ -6,6 +6,7 @@
 
 `include "delay.sv"
 `include "detect_rising.sv"
+`include "detect_falling.sv"
 `include "gfx_test_pattern.sv"
 `include "gfx_vga_dbuf.sv"
 `include "vga_mode.sv"
