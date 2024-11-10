@@ -26,10 +26,6 @@ module gfx_clear #(
   localparam MAX_X = FB_WIDTH - 1;
   localparam MAX_Y = FB_HEIGHT - 1;
 
-  always_comb begin
-    last = (x == MAX_X & y == MAX_Y);
-  end
-
   logic [FB_X_BITS-1:0] next_x;
   logic [FB_Y_BITS-1:0] next_y;
 
@@ -54,13 +50,25 @@ module gfx_clear #(
   always_ff @(posedge clk) begin
     if (reset) begin
       x <= 0;
-      y <= 0;
     end else begin
       if (!done & inc) begin
         x <= next_x;
+      end
+    end
+  end
+
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      y <= 0;
+    end else begin
+      if (!done & inc) begin
         y <= next_y;
       end
     end
+  end
+
+  always_ff @(posedge clk) begin
+    last <= (x == MAX_X && y == MAX_Y);
   end
 
   always_ff @(posedge clk) begin
@@ -84,8 +92,12 @@ module gfx_clear #(
 
   logic done_p1;
   always_ff @(posedge clk) begin
-    done_p1 <= done;
-    valid   <= !done_p1;
+    if (reset) begin
+      done_p1 <= 1'b0;
+    end else begin
+      done_p1 <= done;
+      valid   <= !done_p1;
+    end
   end
 
 endmodule
