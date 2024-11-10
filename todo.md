@@ -90,6 +90,8 @@ io on the board
 - add a tb for axi_sram_dbuf_controller
 - data signals are not always multiple of 8 bit values in these designs. Decide if
   this is an issue or not.
+- rename axi modules to bla_axi instead of axi_bla, with the exception of modules
+  that specifically do axi managment like the axi_2x2
 
 ### adc vga
 

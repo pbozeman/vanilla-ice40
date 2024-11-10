@@ -29,6 +29,13 @@ module adc_xy_vga_top #(
     output logic                      R_SRAM_OE_N,
     output logic                      R_SRAM_WE_N,
 
+    // sram 1
+    output logic [SRAM_ADDR_BITS-1:0] L_SRAM_ADDR_BUS,
+    inout  wire  [SRAM_DATA_BITS-1:0] L_SRAM_DATA_BUS,
+    output logic                      L_SRAM_CS_N,
+    output logic                      L_SRAM_OE_N,
+    output logic                      L_SRAM_WE_N,
+
     output logic [7:0] R_E,
     output logic [7:0] R_F
 );
@@ -81,12 +88,19 @@ module adc_xy_vga_top #(
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
-      // sram signals
-      .sram_io_addr(R_SRAM_ADDR_BUS),
-      .sram_io_data(R_SRAM_DATA_BUS),
-      .sram_io_we_n(R_SRAM_WE_N),
-      .sram_io_oe_n(R_SRAM_OE_N),
-      .sram_io_ce_n(R_SRAM_CS_N)
+      // sram 0 signals
+      .sram0_io_addr(R_SRAM_ADDR_BUS),
+      .sram0_io_data(R_SRAM_DATA_BUS),
+      .sram0_io_we_n(R_SRAM_WE_N),
+      .sram0_io_oe_n(R_SRAM_OE_N),
+      .sram0_io_ce_n(R_SRAM_CS_N),
+
+      // sram 1 signals
+      .sram1_io_addr(L_SRAM_ADDR_BUS),
+      .sram1_io_data(L_SRAM_DATA_BUS),
+      .sram1_io_we_n(L_SRAM_WE_N),
+      .sram1_io_oe_n(L_SRAM_OE_N),
+      .sram1_io_ce_n(L_SRAM_CS_N)
   );
 
 

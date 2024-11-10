@@ -3,11 +3,11 @@
 
 `include "directives.sv"
 
-`include "adc_xy.sv"
-`include "delay.sv"
+`include "adc_xy_axi.sv"
 `include "detect_falling.sv"
+`include "detect_rising.sv"
 `include "gfx_clear.sv"
-`include "gfx_vga.sv"
+`include "gfx_vga_dbuf.sv"
 `include "vga_mode.sv"
 
 module adc_xy_vga #(
@@ -42,11 +42,18 @@ module adc_xy_vga #(
     output logic                  vga_vsync,
 
     // sram0 controller to io pins
-    output logic [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout  wire  [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output logic                      sram_io_we_n,
-    output logic                      sram_io_oe_n,
-    output logic                      sram_io_ce_n
+    output logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data,
+    output logic                      sram0_io_we_n,
+    output logic                      sram0_io_oe_n,
+    output logic                      sram0_io_ce_n,
+
+    // sram1 controller to io pins
+    output logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr,
+    inout  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data,
+    output logic                      sram1_io_we_n,
+    output logic                      sram1_io_oe_n,
+    output logic                      sram1_io_ce_n
 );
   localparam P_FRAME_BITS = $clog2(P_FRAMES);
 
@@ -77,9 +84,16 @@ module adc_xy_vga #(
   logic                     gfx_vsync;
 
   logic                     vga_enable;
+  logic                     mem_switch;
+  logic                     posedge_first_mem_switch;
 
   //
   // clear screen before adc output
+  //
+  // the first_mem_switch is a bit weird here.
+  //
+  // TODO: add gfx init signals and/or a mem clear that gets run
+  // on the sram at startup
   //
   assign clr_inc = (clr_valid & gfx_ready);
   gfx_clear #(
@@ -88,7 +102,7 @@ module adc_xy_vga #(
       .PIXEL_BITS(PIXEL_BITS)
   ) gfx_clear_inst (
       .clk  (clk),
-      .reset(reset),
+      .reset(reset | posedge_first_mem_switch),
       .inc  (clr_inc),
       .x    (clr_x),
       .y    (clr_y),
@@ -100,11 +114,16 @@ module adc_xy_vga #(
   //
   // adc
   //
-  adc_xy #(
+  logic adc_tvalid;
+  logic adc_tready = gfx_ready;
+
+  adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
-  ) adc_xy_inst (
+  ) adc_xy_axi_inst (
       .clk      (clk),
       .reset    (reset),
+      .tvalid   (adc_tvalid),
+      .tready   (adc_tready),
       .adc_clk  (adc_clk),
       .adc_x_bus(adc_x_bus),
       .adc_y_bus(adc_y_bus),
@@ -148,7 +167,7 @@ module adc_xy_vga #(
   assign gfx_y     = clr_valid ? clr_y : gfx_adc_y;
   assign gfx_color = clr_valid ? clr_color : {PIXEL_BITS{1'b1}};
   assign gfx_meta  = '0;
-  assign gfx_valid = 1'b1;
+  assign gfx_valid = clr_valid || adc_tvalid;
 
   logic [COLOR_BITS-1:0] vga_raw_red;
   logic [COLOR_BITS-1:0] vga_raw_grn;
@@ -157,16 +176,18 @@ module adc_xy_vga #(
   //
   // vga
   //
-  gfx_vga #(
+  gfx_vga_dbuf #(
       .VGA_WIDTH     (VGA_WIDTH),
       .VGA_HEIGHT    (VGA_HEIGHT),
       .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) gfx_vga_inst (
+  ) gfx_vga_dbuf_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
       .reset    (reset),
+
+      .mem_switch(mem_switch),
 
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
@@ -185,11 +206,17 @@ module adc_xy_vga #(
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
-      .sram_io_addr(sram_io_addr),
-      .sram_io_data(sram_io_data),
-      .sram_io_we_n(sram_io_we_n),
-      .sram_io_oe_n(sram_io_oe_n),
-      .sram_io_ce_n(sram_io_ce_n)
+      .sram0_io_addr(sram0_io_addr),
+      .sram0_io_data(sram0_io_data),
+      .sram0_io_we_n(sram0_io_we_n),
+      .sram0_io_oe_n(sram0_io_oe_n),
+      .sram0_io_ce_n(sram0_io_ce_n),
+
+      .sram1_io_addr(sram1_io_addr),
+      .sram1_io_data(sram1_io_data),
+      .sram1_io_we_n(sram1_io_we_n),
+      .sram1_io_oe_n(sram1_io_oe_n),
+      .sram1_io_ce_n(sram1_io_ce_n)
   );
 
   // vga side frame/persistence tracking
@@ -220,15 +247,48 @@ module adc_xy_vga #(
   assign vga_grn = vga_raw_grn;
   assign vga_blu = vga_raw_blu;
 
-  // Give the gfx side some time to start laying down pixels before
-  // we stream them to the display.
-  delay #(
-      .DELAY_CYCLES(8)
-  ) vga_fb_delay (
-      .clk(clk),
-      .in (~reset),
-      .out(vga_enable)
+  //
+  // Wait for the system to fill the first fb before we start reading,
+  // otherwise, we will be displaying from uninitialized memory.
+  //
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      vga_enable <= 1'b0;
+    end else begin
+      if (!vga_enable) begin
+        vga_enable <= clr_last;
+      end
+    end
+  end
+
+  logic first_mem_switch;
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      first_mem_switch <= 0;
+    end else begin
+      if (!first_mem_switch) begin
+        first_mem_switch <= clr_last;
+      end
+    end
+  end
+
+  detect_rising detect_rising_first_mem_switch_inst (
+      .clk     (clk),
+      .signal  (first_mem_switch),
+      .detected(posedge_first_mem_switch)
   );
+
+  //
+  // FB double buffer switching logic
+  //
+  logic negedge_vsync;
+  detect_falling falling_sram_vga_vsync (
+      .clk     (clk),
+      .signal  (gfx_vsync),
+      .detected(negedge_vsync)
+  );
+
+  assign mem_switch = vga_enable ? negedge_vsync : clr_last;
 
 endmodule
 `endif

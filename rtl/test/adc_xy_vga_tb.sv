@@ -32,22 +32,39 @@ module adc_xy_vga_tb;
   logic                      vga_hsync;
   logic                      vga_vsync;
 
-  logic [AXI_ADDR_WIDTH-1:0] sram_io_addr;
-  wire  [AXI_DATA_WIDTH-1:0] sram_io_data;
-  logic                      sram_io_we_n;
-  logic                      sram_io_oe_n;
-  logic                      sram_io_ce_n;
+  logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data;
+  logic                      sram0_io_we_n;
+  logic                      sram0_io_oe_n;
+  logic                      sram0_io_ce_n;
+
+  logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr;
+  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data;
+  logic                      sram1_io_we_n;
+  logic                      sram1_io_oe_n;
+  logic                      sram1_io_ce_n;
 
   // Instantiate the mocked SRAM model
   sram_model #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_0 (
-      .we_n   (sram_io_we_n),
-      .oe_n   (sram_io_oe_n),
-      .ce_n   (sram_io_ce_n),
-      .addr   (sram_io_addr),
-      .data_io(sram_io_data)
+      .we_n   (sram0_io_we_n),
+      .oe_n   (sram0_io_oe_n),
+      .ce_n   (sram0_io_ce_n),
+      .addr   (sram0_io_addr),
+      .data_io(sram0_io_data)
+  );
+
+  sram_model #(
+      .ADDR_BITS(AXI_ADDR_WIDTH),
+      .DATA_BITS(AXI_DATA_WIDTH)
+  ) sram_1 (
+      .we_n   (sram1_io_we_n),
+      .oe_n   (sram1_io_oe_n),
+      .ce_n   (sram1_io_ce_n),
+      .addr   (sram1_io_addr),
+      .data_io(sram1_io_data)
   );
 
   adc_xy_vga #(
@@ -71,11 +88,17 @@ module adc_xy_vga_tb;
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
-      .sram_io_addr(sram_io_addr),
-      .sram_io_data(sram_io_data),
-      .sram_io_we_n(sram_io_we_n),
-      .sram_io_oe_n(sram_io_oe_n),
-      .sram_io_ce_n(sram_io_ce_n)
+      .sram0_io_addr(sram0_io_addr),
+      .sram0_io_data(sram0_io_data),
+      .sram0_io_we_n(sram0_io_we_n),
+      .sram0_io_oe_n(sram0_io_oe_n),
+      .sram0_io_ce_n(sram0_io_ce_n),
+
+      .sram1_io_addr(sram1_io_addr),
+      .sram1_io_data(sram1_io_data),
+      .sram1_io_we_n(sram1_io_we_n),
+      .sram1_io_oe_n(sram1_io_oe_n),
+      .sram1_io_ce_n(sram1_io_ce_n)
   );
 
   counter #(
@@ -122,7 +145,7 @@ module adc_xy_vga_tb;
     repeat (10) @(posedge clk);
     reset = 0;
 
-    repeat (3 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME + 100) begin
+    repeat (4 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME + 100) begin
       @(posedge pixel_clk);
     end
 
