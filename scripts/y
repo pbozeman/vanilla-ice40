@@ -12,4 +12,4 @@ else
     YOSYS_CMD=$CMD
 fi
 
-yosys -p "read_verilog -I$RTL_LIB $1; synth_ice40; $YOSYS_CMD"
+yosys -p "read_verilog -sv -I$RTL_LIB $1; synth_ice40; $YOSYS_CMD"
