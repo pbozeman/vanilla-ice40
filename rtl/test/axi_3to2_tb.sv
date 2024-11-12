@@ -226,6 +226,18 @@ module axi_3to2_tb;
   // Test setup
   `TEST_SETUP(axi_3to2_tb)
 
+  logic in0_write_accepted;
+  assign in0_write_accepted = (in0_axi_awvalid && in0_axi_awready &&
+                               in0_axi_wvalid && in0_axi_wready);
+
+  logic in1_write_accepted;
+  assign in1_write_accepted = (in1_axi_awvalid && in1_axi_awready &&
+                               in1_axi_wvalid && in1_axi_wready);
+
+  logic in2_write_accepted;
+  assign in2_write_accepted = (in2_axi_awvalid && in2_axi_awready &&
+                               in2_axi_wvalid && in2_axi_wready);
+
   task reset;
     begin
       @(posedge axi_clk);
@@ -436,11 +448,124 @@ module axi_3to2_tb;
     end
   endtask
 
+  task test_back_to_back_multi_source_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // First write from in0 to even address
+      in0_axi_awaddr  = 20'h1000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      // Second write from in1 to even address. Since it's a different channel,
+      // we do not need to wait for the txn to complete.
+      in1_axi_awaddr  = 20'h2000;
+      in1_axi_awvalid = 1'b1;
+      in1_axi_wdata   = 16'hBEEF;
+      in1_axi_wstrb   = 2'b11;
+      in1_axi_wvalid  = 1'b1;
+      in1_axi_bready  = 1'b1;
+
+      // Wait for both AW and W channels to complete
+      `WAIT_FOR_SIGNAL(in0_write_accepted);
+
+      // Check first transaction grant and signals
+      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      // Check second transaction got the grant
+      // It should arrive in a single clock. If this assert fails
+      // because latency was added, fix the latency.
+      `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
+
+      // Wait for both AW and W channels to complete
+      `WAIT_FOR_SIGNAL(in1_write_accepted);
+
+      // Third write from in2
+      in2_axi_awaddr  = 20'h3000;
+      in2_axi_awvalid = 1'b1;
+      in2_axi_wdata   = 16'hCAFE;
+      in2_axi_wstrb   = 2'b11;
+      in2_axi_wvalid  = 1'b1;
+      in2_axi_bready  = 1'b1;
+
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      // Check third transaction got the grant
+      // See above re timing.
+      `ASSERT_EQ(uut.out0_grant, 2);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h3000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hCAFE);
+
+      // Wait for both AW and W channels to complete
+      `WAIT_FOR_SIGNAL(in2_write_accepted);
+    end
+  endtask
+
+  task test_back_to_back_single_source_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // First write from in0 to even address
+      in0_axi_awaddr  = 20'h1000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      // Wait for both AW and W channels to complete
+      `WAIT_FOR_SIGNAL(in0_write_accepted);
+
+      // Check first transaction grant and signals
+      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+
+      // Wait for B channel to complete (bresp)
+      // `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      @(posedge axi_clk);
+
+      // Second write from same source (in0)
+      in0_axi_awaddr  = 20'h2000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hBEEF;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      // Wait for both AW and W channels to complete
+      `WAIT_FOR_SIGNAL(in0_write_accepted);
+
+      // Check second transaction grant and signals
+      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
+
+      // Wait for B channel to complete
+      // `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+    end
+  endtask
+
   initial begin
     test_awaddr_grant_even();
     test_awaddr_grant_even_pri();
     test_mux_even();
     test_write_even();
+    test_back_to_back_multi_source_write();
+    test_back_to_back_single_source_write();
 
     #100;
     $finish;

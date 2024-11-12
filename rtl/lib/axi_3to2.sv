@@ -3,12 +3,16 @@
 
 `include "directives.sv"
 
+`include "txn_done.sv"
+
 // AXI-Lite interconnect with 3 managers and 2 subordinates.
 //
 // Managers are selected with priority encoding, with 0 as the
-// highest pri and 2 as the lowest.
+// highest pri and 2 as the lowest, but, if anyone else is waiting
+// for the grant, the current holder will give it up.
 //
 // Subordinates are routed with even addresses to 0 and odd to 1.
+//
 // verilator lint_off UNUSEDSIGNAL
 // verilator lint_off UNDRIVEN
 module axi_3to2 #(
@@ -152,29 +156,104 @@ module axi_3to2 #(
 
   // The grants. Set to CHANNEL_IDLE if no grant is active.
   localparam CHANNEL_IDLE = 2'b11;
+  logic [1:0] next_out0_grant;
   logic [1:0] out0_grant;
-  logic [1:0] out1_grant;
+  logic       out0_idle;
+
+  // axi handshake status (they go high in the same clock the transaction
+  // occurs in, but are also registered)
+  logic       out0_awdone;
+  logic       out0_wdone;
+  // verilator lint_off UNOPTFLAT
+  logic       out0_write_accepted;
+  // verilator lint_on UNOPTFLAT
+  logic       out0_write_completed;
 
   assign out0_dst_waddr = {
     ~in2_axi_awaddr[0], ~in1_axi_awaddr[0], ~in0_axi_awaddr[0]
   };
 
   assign out0_greq = all_axi_awvalid & out0_dst_waddr;
+  assign out0_idle = out0_grant == CHANNEL_IDLE;
+
+  txn_done out0_awdone_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .valid(out0_axi_awvalid),
+      .ready(out0_axi_awready),
+      .clear(out0_write_accepted),
+      .done (out0_awdone)
+  );
+
+  txn_done out0_wdone_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .valid(out0_axi_wvalid),
+      .ready(out0_axi_wready),
+      .clear(out0_write_accepted),
+      .done (out0_wdone)
+  );
+
+  assign out0_write_accepted = out0_awdone && out0_wdone;
+
+  // Masks for blocking current grant holder from requesting again
+  localparam [2:0] MASK_IDLE = 3'b111;
+  localparam [2:0] MASK_0 = 3'b110;
+  localparam [2:0] MASK_1 = 3'b101;
+  localparam [2:0] MASK_2 = 3'b011;
+
+  //
+  // out0 grant
+  //
+  always_comb begin
+    logic [2:0] masked_greq;
+    logic [2:0] mask;
+
+    // mask out the current txn
+    masked_greq     = '0;
+    next_out0_grant = out0_grant;
+
+    if (out0_write_accepted || out0_idle) begin
+      // First mask out current requester and check for others
+      if (out0_idle) begin
+        mask = MASK_IDLE;
+      end else begin
+        case (out0_grant)
+          2'd0:    mask = MASK_0;
+          2'd1:    mask = MASK_1;
+          2'd2:    mask = MASK_2;
+          default: mask = MASK_IDLE;
+        endcase
+      end
+
+      // Apply mask to grant requests
+      masked_greq = out0_greq & mask;
+
+      // Priority encoder for next grant - check other requesters first
+      if (masked_greq & 3'b001) begin
+        next_out0_grant = 0;
+      end else if (masked_greq & 3'b010) begin
+        next_out0_grant = 1;
+      end else if (masked_greq & 3'b100) begin
+        next_out0_grant = 2;
+      end else begin
+        // If no other requests, keep current requester.
+        // This prevents a pipeline bubble from transitioning
+        // back through idle before starting the next txn.
+        if (!out0_idle && out0_greq[out0_grant]) begin
+          next_out0_grant = out0_grant;
+        end else begin
+          next_out0_grant = CHANNEL_IDLE;
+        end
+      end
+    end
+  end
 
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
       out0_grant <= CHANNEL_IDLE;
     end else begin
-      // TODO: release grant
-
-      if (out0_grant == CHANNEL_IDLE) begin
-        out0_grant <= CHANNEL_IDLE;
-        case (1'b1)
-          out0_greq[0]: out0_grant <= 0;
-          out0_greq[1]: out0_grant <= 1;
-          out0_greq[2]: out0_grant <= 2;
-        endcase
-      end
+      out0_grant <= next_out0_grant;
     end
   end
 
