@@ -265,6 +265,14 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       axi_resetn = 1'b1;
       @(posedge axi_clk);
+
+      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
+      `ASSERT_EQ(out0_axi_awaddr, '0);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b0);
+      `ASSERT_EQ(out0_axi_wdata, '0);
+      `ASSERT_EQ(out0_axi_wstrb, '0);
+      `ASSERT_EQ(out0_axi_wvalid, 1'b0);
+      `ASSERT_EQ(out0_axi_bready, 1'b0);
     end
   endtask
 
@@ -319,14 +327,34 @@ module axi_3to2_tb;
       test_line = `__LINE__;
       reset();
 
-      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
-
       in0_axi_awaddr  = 20'hA000;
       in0_axi_awvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
       `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
+
+      reset();
+      in1_axi_awaddr  = 20'hB000;
+      in1_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hB000);
+
+      reset();
+      in2_axi_awaddr  = 20'hC000;
+      in2_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.out0_grant, 2);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hC000);
     end
   endtask
 
@@ -335,8 +363,6 @@ module axi_3to2_tb;
       test_line = `__LINE__;
       reset();
 
-      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
-
       in0_axi_awaddr  = 20'hA000;
       in0_axi_awvalid = 1'b1;
       in1_axi_awaddr  = 20'hB000;
@@ -344,9 +370,10 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
       `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
 
       reset();
-      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
 
       in1_axi_awaddr  = 20'hB000;
       in1_axi_awvalid = 1'b1;
@@ -355,12 +382,40 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
       `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hB000);
+    end
+  endtask
+
+  task test_mux_even;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'hA000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b10;
+      in0_axi_wvalid  = 1'b0;
+      in0_axi_bready  = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
+      `ASSERT_EQ(out0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+      `ASSERT_EQ(out0_axi_wstrb, 2'b10);
+      `ASSERT_EQ(out0_axi_wvalid, 1'b0);
+      `ASSERT_EQ(out0_axi_bready, 1'b1);
     end
   endtask
 
   initial begin
     test_awaddr_grant_even();
     test_awaddr_grant_even_pri();
+    test_mux_even();
 
     #100;
     $finish;

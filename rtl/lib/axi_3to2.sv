@@ -119,10 +119,30 @@ module axi_3to2 #(
   // at the highest index, and holds 0s for CHANNEL_IDLE. This is how
   // 1'b0 are sent back for the relevant ready signals back to the managers
   // when they don't have a grant.
-  logic [3:0] axi_awvalid;
+  logic [3:0][AXI_ADDR_WIDTH-1:0] all_axi_awaddr;
+  logic [3:0]                     all_axi_awvalid;
+  logic [3:0][AXI_DATA_WIDTH-1:0] all_axi_wdata;
+  logic [3:0][AXI_STRB_WIDTH-1:0] all_axi_wstrb;
+  logic [3:0]                     all_axi_wvalid;
+  logic [3:0]                     all_axi_bready;
 
-  assign axi_awvalid = {
-    {AXI_ADDR_WIDTH{1'b0}}, in2_axi_awvalid, in1_axi_awvalid, in0_axi_awvalid
+  assign all_axi_awaddr = {
+    {AXI_ADDR_WIDTH{1'b0}}, in2_axi_awaddr, in1_axi_awaddr, in0_axi_awaddr
+  };
+  assign all_axi_awvalid = {
+    1'b0, in2_axi_awvalid, in1_axi_awvalid, in0_axi_awvalid
+  };
+  assign all_axi_wdata = {
+    {AXI_DATA_WIDTH{1'b0}}, in2_axi_wdata, in1_axi_wdata, in0_axi_wdata
+  };
+  assign all_axi_wstrb = {
+    {AXI_STRB_WIDTH{1'b0}}, in2_axi_wstrb, in1_axi_wstrb, in0_axi_wstrb
+  };
+  assign all_axi_wvalid = {
+    1'b0, in2_axi_wvalid, in1_axi_wvalid, in0_axi_wvalid
+  };
+  assign all_axi_bready = {
+    1'b0, in2_axi_bready, in1_axi_bready, in0_axi_bready
   };
 
   // outN_dst_waddr: manager addr is to be routed to subordinate N
@@ -139,7 +159,7 @@ module axi_3to2 #(
     ~in2_axi_awaddr[0], ~in1_axi_awaddr[0], ~in0_axi_awaddr[0]
   };
 
-  assign out0_greq = axi_awvalid & out0_dst_waddr;
+  assign out0_greq = all_axi_awvalid & out0_dst_waddr;
 
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
@@ -157,6 +177,16 @@ module axi_3to2 #(
       end
     end
   end
+
+  //
+  // out0 mux
+  //
+  assign out0_axi_awaddr  = all_axi_awaddr[out0_grant];
+  assign out0_axi_awvalid = all_axi_awvalid[out0_grant];
+  assign out0_axi_wdata   = all_axi_wdata[out0_grant];
+  assign out0_axi_wstrb   = all_axi_wstrb[out0_grant];
+  assign out0_axi_wvalid  = all_axi_wvalid[out0_grant];
+  assign out0_axi_bready  = all_axi_bready[out0_grant];
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL
