@@ -9,6 +9,8 @@
 // highest pri and 2 as the lowest.
 //
 // Subordinates are routed with even addresses to 0 and odd to 1.
+// verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
 module axi_3to2 #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
@@ -112,7 +114,52 @@ module axi_3to2 #(
     input  logic                      out1_axi_rvalid,
     output logic                      out1_axi_rready
 );
+  // Concatenate the inputs. We will later index into these concatenated
+  // buses for muxing based on the grants. There is one extra position
+  // at the highest index, and holds 0s for CHANNEL_IDLE. This is how
+  // 1'b0 are sent back for the relevant ready signals back to the managers
+  // when they don't have a grant.
+  logic [3:0] axi_awvalid;
+
+  assign axi_awvalid = {
+    {AXI_ADDR_WIDTH{1'b0}}, in2_axi_awvalid, in1_axi_awvalid, in0_axi_awvalid
+  };
+
+  // outN_dst_waddr: manager addr is to be routed to subordinate N
+  // outN_greq: manager is requesting a grant to subordinate N
+  logic [2:0] out0_dst_waddr;
+  logic [2:0] out0_greq;
+
+  // The grants. Set to CHANNEL_IDLE if no grant is active.
+  localparam CHANNEL_IDLE = 2'b11;
+  logic [1:0] out0_grant;
+  logic [1:0] out1_grant;
+
+  assign out0_dst_waddr = {
+    ~in2_axi_awaddr[0], ~in1_axi_awaddr[0], ~in0_axi_awaddr[0]
+  };
+
+  assign out0_greq = axi_awvalid & out0_dst_waddr;
+
+  always_ff @(posedge axi_clk) begin
+    if (~axi_resetn) begin
+      out0_grant <= CHANNEL_IDLE;
+    end else begin
+      // TODO: release grant
+
+      if (out0_grant == CHANNEL_IDLE) begin
+        out0_grant <= CHANNEL_IDLE;
+        case (1'b1)
+          out0_greq[0]: out0_grant <= 0;
+          out0_greq[1]: out0_grant <= 1;
+          out0_greq[2]: out0_grant <= 2;
+        endcase
+      end
+    end
+  end
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
 
 `endif

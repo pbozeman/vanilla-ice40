@@ -4,6 +4,7 @@
 `include "sram_model.sv"
 
 // verilator lint_off UNUSEDSIGNAL
+// verilator lint_off UNDRIVEN
 module axi_3to2_tb;
   localparam AXI_ADDR_WIDTH = 20;
   localparam AXI_DATA_WIDTH = 16;
@@ -121,12 +122,6 @@ module axi_3to2_tb;
   logic                      sram1_io_oe_n;
   logic                      sram1_io_ce_n;
 
-  // Clock generation
-  initial begin
-    axi_clk = 0;
-    forever #5 axi_clk = ~axi_clk;
-  end
-
   axi_3to2 #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -218,17 +213,158 @@ module axi_3to2_tb;
       .data_io(sram1_io_data)
   );
 
+  // verilator lint_off UNUSEDSIGNAL
+  logic [8:0] test_line;
+  // verilator lint_on UNUSEDSIGNAL
+
+  // Clock generation
+  initial begin
+    axi_clk = 0;
+    forever #5 axi_clk = ~axi_clk;
+  end
+
   // Test setup
   `TEST_SETUP(axi_3to2_tb)
 
-  initial begin
-    axi_resetn = 0;
-    @(posedge axi_clk);
-    @(posedge axi_clk);
-    axi_resetn = 1;
-    @(posedge axi_clk);
+  task reset;
+    begin
+      @(posedge axi_clk);
+      axi_resetn = 1'b0;
+      @(posedge axi_clk);
 
+      in0_axi_awaddr  = 0;
+      in0_axi_awvalid = 0;
+      in0_axi_wdata   = 0;
+      in0_axi_wstrb   = 0;
+      in0_axi_wvalid  = 0;
+      in0_axi_bready  = 0;
+      in0_axi_araddr  = 0;
+      in0_axi_arvalid = 0;
+      in0_axi_rready  = 0;
+
+      in1_axi_awaddr  = 0;
+      in1_axi_awvalid = 0;
+      in1_axi_wdata   = 0;
+      in1_axi_wstrb   = 0;
+      in1_axi_wvalid  = 0;
+      in1_axi_bready  = 0;
+      in1_axi_araddr  = 0;
+      in1_axi_arvalid = 0;
+      in1_axi_rready  = 0;
+
+      in2_axi_awaddr  = 0;
+      in2_axi_awvalid = 0;
+      in2_axi_wdata   = 0;
+      in2_axi_wstrb   = 0;
+      in2_axi_wvalid  = 0;
+      in2_axi_bready  = 0;
+      in2_axi_araddr  = 0;
+      in2_axi_arvalid = 0;
+      in2_axi_rready  = 0;
+
+      @(posedge axi_clk);
+      axi_resetn = 1'b1;
+      @(posedge axi_clk);
+    end
+  endtask
+
+  //
+  // auto clear write transactions
+  //
+  always @(posedge axi_clk) begin
+    if (in0_axi_awvalid && in0_axi_awready) begin
+      in0_axi_awvalid <= 0;
+    end
+
+    if (in0_axi_wvalid && in0_axi_wready) begin
+      in0_axi_wvalid <= 0;
+    end
+
+    if (in1_axi_awvalid && in1_axi_awready) begin
+      in1_axi_awvalid <= 0;
+    end
+
+    if (in1_axi_wvalid && in1_axi_wready) begin
+      in1_axi_wvalid <= 0;
+    end
+
+    if (in2_axi_awvalid && in2_axi_awready) begin
+      in2_axi_awvalid <= 0;
+    end
+
+    if (in2_axi_wvalid && in2_axi_wready) begin
+      in2_axi_wvalid <= 0;
+    end
+  end
+
+  //
+  // auto clear read transactions
+  //
+  always @(posedge axi_clk) begin
+    if (in0_axi_arvalid && in0_axi_arready) begin
+      in0_axi_arvalid <= 0;
+    end
+
+    if (in1_axi_arvalid && in1_axi_arready) begin
+      in1_axi_arvalid <= 0;
+    end
+
+    if (in2_axi_arvalid && in2_axi_arready) begin
+      in2_axi_arvalid <= 0;
+    end
+  end
+
+  task test_awaddr_grant_even;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
+
+      in0_axi_awaddr  = 20'hA000;
+      in0_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.out0_grant, 0);
+    end
+  endtask
+
+  task test_awaddr_grant_even_pri;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
+
+      in0_axi_awaddr  = 20'hA000;
+      in0_axi_awvalid = 1'b1;
+      in1_axi_awaddr  = 20'hB000;
+      in1_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+      `ASSERT_EQ(uut.out0_grant, 0);
+
+      reset();
+      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
+
+      in1_axi_awaddr  = 20'hB000;
+      in1_axi_awvalid = 1'b1;
+      in2_axi_awaddr  = 20'hC000;
+      in2_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+      `ASSERT_EQ(uut.out0_grant, 1);
+    end
+  endtask
+
+  initial begin
+    test_awaddr_grant_even();
+    test_awaddr_grant_even_pri();
+
+    #100;
     $finish;
   end
 endmodule
 // verilator lint_on UNUSEDSIGNAL
+// verilator lint_on UNDRIVEN
