@@ -45,7 +45,10 @@ module adc_xy #(
   // to stop for us. On the other hand, we might want to have an enable
   // for the reader at some point and let some results buffer up in the
   // fifo. For now, just send it.
-  cdc_fifo #(FIFO_WIDTH) fifo (
+  cdc_fifo #(
+      .DATA_WIDTH(FIFO_WIDTH),
+      .ADDR_SIZE (2)
+  ) fifo (
       .w_clk        (adc_clk),
       .w_rst_n      (w_rst_n),
       .w_inc        (w_inc),
