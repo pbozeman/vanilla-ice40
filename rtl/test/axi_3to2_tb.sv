@@ -412,10 +412,35 @@ module axi_3to2_tb;
     end
   endtask
 
+  task test_write_even;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'hA000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b10;
+      in0_axi_wvalid  = 1'b1;
+
+      // Note: bready is low, so the full transaction won't complete,
+      // but the request initiation should
+      in0_axi_bready  = 1'b0;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(in0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(in0_axi_awready, 1'b1);
+      `ASSERT_EQ(in0_axi_wvalid, 1'b1);
+      `ASSERT_EQ(in0_axi_wready, 1'b1);
+    end
+  endtask
+
   initial begin
     test_awaddr_grant_even();
     test_awaddr_grant_even_pri();
     test_mux_even();
+    test_write_even();
 
     #100;
     $finish;

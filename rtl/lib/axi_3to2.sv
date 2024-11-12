@@ -188,6 +188,42 @@ module axi_3to2 #(
   assign out0_axi_wvalid  = all_axi_wvalid[out0_grant];
   assign out0_axi_bready  = all_axi_bready[out0_grant];
 
+  // out0 A and W ready mux
+  always_comb begin
+    in0_axi_awready = '0;
+    in0_axi_wready  = '0;
+    in0_axi_bresp   = '0;
+    in0_axi_bvalid  = '0;
+    in1_axi_awready = '0;
+    in1_axi_wready  = '0;
+    in1_axi_bresp   = '0;
+    in1_axi_bvalid  = '0;
+    in2_axi_awready = '0;
+    in2_axi_wready  = '0;
+    in2_axi_bresp   = '0;
+    in2_axi_bvalid  = '0;
+
+    case (out0_grant)
+      2'd0: begin
+        in0_axi_awready = out0_axi_awready;
+        in0_axi_wready  = out0_axi_wready;
+      end
+
+      2'd1: begin
+        in1_axi_awready = out0_axi_awready;
+        in1_axi_wready  = out0_axi_wready;
+      end
+
+      2'd2: begin
+        in2_axi_awready = out0_axi_awready;
+        in2_axi_wready  = out0_axi_wready;
+      end
+
+      default: begin
+      end
+    endcase
+  end
+
 endmodule
 // verilator lint_on UNUSEDSIGNAL
 // verilator lint_on UNDRIVEN
