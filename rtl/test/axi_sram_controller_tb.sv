@@ -133,7 +133,6 @@ module axi_sram_controller_tb;
 
       axi_resetn = 1'b1;
       @(posedge axi_clk);
-      @(negedge axi_clk);
     end
   endtask
 
@@ -161,6 +160,27 @@ module axi_sram_controller_tb;
       `ASSERT(axi_bresp === 2'b00);
 
       axi_bready = 1'b0;
+    end
+  endtask
+
+  task axi_write_fast;
+    input [AXI_ADDR_WIDTH-1:0] addr;
+    input [AXI_DATA_WIDTH-1:0] data;
+
+    begin
+      // addr
+      axi_awaddr  = addr;
+      axi_awvalid = 1'b1;
+
+      // data
+      axi_wdata   = data;
+      axi_wvalid  = 1'b1;
+
+      // resp
+      axi_bready  = 1'b1;
+
+      `WAIT_FOR_SIGNAL(axi_awready);
+      @(posedge axi_clk);
     end
   endtask
 
@@ -275,6 +295,18 @@ module axi_sram_controller_tb;
     end
   endtask
 
+  task test_multi_write_fast;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      axi_write_fast(10'hD0, 8'h30);
+      axi_write_fast(10'hD1, 8'h31);
+      axi_write_fast(10'hD2, 8'h32);
+
+      #100;
+    end
+  endtask
 
   task test_read_write;
     begin
@@ -410,6 +442,9 @@ module axi_sram_controller_tb;
     test_read_write_multi();
     test_read_write_interleved();
     test_read_delay_resp();
+
+    test_multi_write_fast();
+    #100;
 
     $finish;
   end
