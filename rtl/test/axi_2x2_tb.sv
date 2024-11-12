@@ -11,7 +11,7 @@ module axi_2x2_tb;
   parameter AXI_DATA_WIDTH = 16;
 
   logic                              axi_clk;
-  logic                              axi_rst_n;
+  logic                              axi_resetn;
   logic                              switch_sel;
   logic                              sel;
 
@@ -102,7 +102,7 @@ module axi_2x2_tb;
   end
 
   initial begin
-    axi_rst_n        = 0;
+    axi_resetn       = 0;
     switch_sel       = 0;
     in0_axi_awaddr   = 0;
     in0_axi_awvalid  = 0;
@@ -142,7 +142,7 @@ module axi_2x2_tb;
     @(posedge axi_clk);
     @(negedge axi_clk);
 
-    axi_rst_n = 1;
+    axi_resetn = 1;
     @(posedge axi_clk);
     @(negedge axi_clk);
 

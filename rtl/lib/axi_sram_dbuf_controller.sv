@@ -147,8 +147,8 @@ module axi_sram_dbuf_controller #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) dbuf (
-      .axi_clk  (clk),
-      .axi_rst_n(~reset),
+      .axi_clk   (clk),
+      .axi_resetn(~reset),
 
       // Control interface
       .switch_sel(switch),

@@ -8,7 +8,7 @@ module axi_2x2 #(
     parameter AXI_DATA_WIDTH = 16
 ) (
     input logic axi_clk,
-    input logic axi_rst_n,
+    input logic axi_resetn,
 
     // Control interface
     input  logic switch_sel,
@@ -93,7 +93,7 @@ module axi_2x2 #(
 
   // Selection logic
   always_ff @(posedge axi_clk) begin
-    if (!axi_rst_n) begin
+    if (!axi_resetn) begin
       sel <= 0;
     end else if (switch_sel) begin
       sel <= ~sel;
