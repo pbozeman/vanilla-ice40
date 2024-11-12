@@ -219,6 +219,10 @@ module axi_sram_controller #(
   logic prev_sram_read_data_valid = 0;
   logic prev_axi_rready = 0;
 
+  logic rising_sram_read_data_valid;
+  assign rising_sram_read_data_valid = (!prev_sram_read_data_valid &
+                                        sram_read_data_valid);
+
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
       axi_rvalid_reg            <= 1'b0;
@@ -228,7 +232,7 @@ module axi_sram_controller #(
       prev_sram_read_data_valid <= sram_read_data_valid;
       prev_axi_rready           <= axi_rready;
 
-      if (!prev_sram_read_data_valid & sram_read_data_valid) begin
+      if (rising_sram_read_data_valid) begin
         axi_rvalid_reg <= sram_read_data_valid;
       end
 
@@ -246,7 +250,7 @@ module axi_sram_controller #(
 
   // read channels
   assign axi_arready = (current_state == READ);
-  assign axi_rvalid = axi_rvalid_reg;
+  assign axi_rvalid = (rising_sram_read_data_valid || axi_rvalid_reg);
   assign axi_rdata = (axi_rvalid ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
   assign axi_rresp = (axi_rvalid ? RESP_OK : 2'bxx);
 
