@@ -92,6 +92,8 @@ io on the board
   this is an issue or not.
 - rename axi modules to bla_axi instead of axi_bla, with the exception of modules
   that specifically do axi managment like the axi_2x2
+- use the tnx_done detector to track handshakes, especially when needing to
+  combine A and W which may not happen at the same time
 
 ### adc vga
 
