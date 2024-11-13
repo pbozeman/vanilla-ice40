@@ -3,6 +3,7 @@
 
 `include "directives.sv"
 
+`include "sync_fifo.sv"
 `include "txn_done.sv"
 
 // AXI-Lite interconnect with 3 managers and 2 subordinates.
@@ -12,6 +13,9 @@
 // for the grant, the current holder will give it up.
 //
 // Subordinates are routed with even addresses to 0 and odd to 1.
+//
+// TODO: implement out0 read arb and muxes.
+// TODO: implement out1 arb and muxes.
 //
 // verilator lint_off UNUSEDSIGNAL
 // verilator lint_off UNDRIVEN
@@ -155,9 +159,15 @@ module axi_3to2 #(
   logic [2:0] out0_greq;
 
   // The grants. Set to CHANNEL_IDLE if no grant is active.
+  //
+  // out0_grant contains the index into the granted manager.
+  // out0_resp contains the index into the granted manager for responses
+  //
+  // Managing these separately allows for pipe lining across managers.
   localparam CHANNEL_IDLE = 2'b11;
   logic [1:0] next_out0_grant;
   logic [1:0] out0_grant;
+  logic [1:0] out0_resp;
   logic       out0_idle;
 
   // axi handshake status (they go high in the same clock the transaction
@@ -194,7 +204,8 @@ module axi_3to2 #(
       .done (out0_wdone)
   );
 
-  assign out0_write_accepted = out0_awdone && out0_wdone;
+  assign out0_write_accepted  = out0_awdone && out0_wdone;
+  assign out0_write_completed = out0_axi_bready && out0_axi_bvalid;
 
   // Masks for blocking current grant holder from requesting again
   localparam [2:0] MASK_IDLE = 3'b111;
@@ -258,29 +269,22 @@ module axi_3to2 #(
   end
 
   //
-  // out0 mux
+  // out0 AW and W mux
   //
   assign out0_axi_awaddr  = all_axi_awaddr[out0_grant];
   assign out0_axi_awvalid = all_axi_awvalid[out0_grant];
   assign out0_axi_wdata   = all_axi_wdata[out0_grant];
   assign out0_axi_wstrb   = all_axi_wstrb[out0_grant];
   assign out0_axi_wvalid  = all_axi_wvalid[out0_grant];
-  assign out0_axi_bready  = all_axi_bready[out0_grant];
 
   // out0 A and W ready mux
   always_comb begin
     in0_axi_awready = '0;
     in0_axi_wready  = '0;
-    in0_axi_bresp   = '0;
-    in0_axi_bvalid  = '0;
     in1_axi_awready = '0;
     in1_axi_wready  = '0;
-    in1_axi_bresp   = '0;
-    in1_axi_bvalid  = '0;
     in2_axi_awready = '0;
     in2_axi_wready  = '0;
-    in2_axi_bresp   = '0;
-    in2_axi_bvalid  = '0;
 
     case (out0_grant)
       2'd0: begin
@@ -296,6 +300,70 @@ module axi_3to2 #(
       2'd2: begin
         in2_axi_awready = out0_axi_awready;
         in2_axi_wready  = out0_axi_wready;
+      end
+
+      default: begin
+      end
+    endcase
+  end
+
+  logic [2:0] out0_fifo_w_data;
+  logic       out0_fifo_w_inc;
+
+  logic [2:0] out0_fifo_r_data;
+  logic       out0_fifo_r_inc;
+
+  logic       out0_fifo_r_empty;
+  // verilator lint_off UNUSEDSIGNAL
+  logic       out0_fifo_w_full;
+  // verilator lint_on UNUSEDSIGNAL
+
+  assign out0_fifo_w_data = out0_grant;
+  assign out0_fifo_w_inc  = out0_write_accepted;
+  assign out0_fifo_r_inc  = out0_write_completed;
+
+  assign out0_resp        = out0_fifo_r_empty ? CHANNEL_IDLE : out0_fifo_r_data;
+
+  // I tried to figure out a way to just set the out0_resp register when
+  // txn's are accepted, but I couldn't figure it out. When heavy pipelining
+  // and grant ordering was happening, I kept losing track of responses.
+  // A fifo clearly works, although, there may be some more optimal way
+  // of doing this.
+  sync_fifo #(
+      .DATA_WIDTH(3),
+      .ADDR_SIZE (3)
+  ) out0_resp_fifo (
+      .clk    (axi_clk),
+      .rst_n  (axi_resetn),
+      .w_inc  (out0_fifo_w_inc),
+      .w_data (out0_fifo_w_data),
+      .w_full (out0_fifo_w_full),
+      .r_inc  (out0_fifo_r_inc),
+      .r_data (out0_fifo_r_data),
+      .r_empty(out0_fifo_r_empty)
+  );
+
+  //
+  // out0 B mux
+  //
+  assign out0_axi_bready = all_axi_bready[out0_resp];
+
+  always_comb begin
+    in0_axi_bvalid = '0;
+    in1_axi_bvalid = '0;
+    in2_axi_bvalid = '0;
+
+    case (out0_resp)
+      2'd0: begin
+        in0_axi_bvalid = out0_axi_bvalid;
+      end
+
+      2'd1: begin
+        in1_axi_bvalid = out0_axi_bvalid;
+      end
+
+      2'd2: begin
+        in2_axi_bvalid = out0_axi_bvalid;
       end
 
       default: begin

@@ -1,4 +1,5 @@
 `include "testing.sv"
+
 `include "axi_3to2.sv"
 `include "axi_sram_controller.sv"
 `include "sram_model.sv"
@@ -408,7 +409,7 @@ module axi_3to2_tb;
       in0_axi_awvalid = 1'b1;
       in0_axi_wdata   = 16'hDEAD;
       in0_axi_wstrb   = 2'b10;
-      in0_axi_wvalid  = 1'b0;
+      in0_axi_wvalid  = 1'b1;
       in0_axi_bready  = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
@@ -418,8 +419,12 @@ module axi_3to2_tb;
       `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+      `ASSERT_EQ(out0_axi_wvalid, 1'b1);
       `ASSERT_EQ(out0_axi_wstrb, 2'b10);
-      `ASSERT_EQ(out0_axi_wvalid, 1'b0);
+
+      `ASSERT_EQ(out0_axi_bready, 1'b0);
+      `WAIT_FOR_SIGNAL(in0_write_accepted);
+      @(negedge axi_clk);
       `ASSERT_EQ(out0_axi_bready, 1'b1);
     end
   endtask
@@ -434,10 +439,7 @@ module axi_3to2_tb;
       in0_axi_wdata   = 16'hDEAD;
       in0_axi_wstrb   = 2'b10;
       in0_axi_wvalid  = 1'b1;
-
-      // Note: bready is low, so the full transaction won't complete,
-      // but the request initiation should
-      in0_axi_bready  = 1'b0;
+      in0_axi_bready  = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
@@ -445,6 +447,8 @@ module axi_3to2_tb;
       `ASSERT_EQ(in0_axi_awready, 1'b1);
       `ASSERT_EQ(in0_axi_wvalid, 1'b1);
       `ASSERT_EQ(in0_axi_wready, 1'b1);
+
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
     end
   endtask
 
@@ -513,6 +517,40 @@ module axi_3to2_tb;
     end
   endtask
 
+  task test_back_to_back_multi_source_write_bvalid;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // queue them all up and then wait for their bvalids
+
+      in0_axi_awaddr  = 20'h1000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      in1_axi_awaddr  = 20'h2000;
+      in1_axi_awvalid = 1'b1;
+      in1_axi_wdata   = 16'hBEEF;
+      in1_axi_wstrb   = 2'b11;
+      in1_axi_wvalid  = 1'b1;
+      in1_axi_bready  = 1'b1;
+
+      in2_axi_awaddr  = 20'h3000;
+      in2_axi_awvalid = 1'b1;
+      in2_axi_wdata   = 16'hCAFE;
+      in2_axi_wstrb   = 2'b11;
+      in2_axi_wvalid  = 1'b1;
+      in2_axi_bready  = 1'b1;
+
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in1_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in2_axi_bvalid);
+    end
+  endtask
+
   task test_back_to_back_single_source_write;
     begin
       test_line = `__LINE__;
@@ -535,7 +573,7 @@ module axi_3to2_tb;
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
 
       // Wait for B channel to complete (bresp)
-      // `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
       @(posedge axi_clk);
 
       // Second write from same source (in0)
@@ -555,7 +593,7 @@ module axi_3to2_tb;
       `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
 
       // Wait for B channel to complete
-      // `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
     end
   endtask
 
@@ -565,6 +603,7 @@ module axi_3to2_tb;
     test_mux_even();
     test_write_even();
     test_back_to_back_multi_source_write();
+    test_back_to_back_multi_source_write_bvalid();
     test_back_to_back_single_source_write();
 
     #100;
