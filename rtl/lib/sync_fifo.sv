@@ -1,4 +1,5 @@
-`ifndef SYNC_FIFO_V `define SYNC_FIFO_V
+`ifndef SYNC_FIFO_V
+`define SYNC_FIFO_V
 
 `include "directives.sv"
 
