@@ -279,7 +279,7 @@ module axi_3to2_tb;
       axi_resetn = 1'b1;
       @(posedge axi_clk);
 
-      `ASSERT_EQ(uut.out0_grant, uut.CHANNEL_IDLE);
+      `ASSERT_EQ(uut.wg0_grant, uut.CHANNEL_IDLE);
       `ASSERT_EQ(out0_axi_awaddr, '0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b0);
       `ASSERT_EQ(out0_axi_wdata, '0);
@@ -345,7 +345,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
 
@@ -355,7 +355,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(uut.wg0_grant, 1);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hB000);
 
@@ -365,7 +365,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.out0_grant, 2);
+      `ASSERT_EQ(uut.wg0_grant, 2);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hC000);
     end
@@ -382,7 +382,7 @@ module axi_3to2_tb;
       in1_axi_awvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
 
@@ -394,7 +394,7 @@ module axi_3to2_tb;
       in2_axi_awvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(uut.wg0_grant, 1);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hB000);
     end
@@ -414,7 +414,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'hA000);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
@@ -478,7 +478,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check first transaction grant and signals
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
 
@@ -488,7 +488,7 @@ module axi_3to2_tb;
       // Check second transaction got the grant
       // It should arrive in a single clock. If this assert fails
       // because latency was added, fix the latency.
-      `ASSERT_EQ(uut.out0_grant, 1);
+      `ASSERT_EQ(uut.wg0_grant, 1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
       `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
 
@@ -508,7 +508,7 @@ module axi_3to2_tb;
 
       // Check third transaction got the grant
       // See above re timing.
-      `ASSERT_EQ(uut.out0_grant, 2);
+      `ASSERT_EQ(uut.wg0_grant, 2);
       `ASSERT_EQ(out0_axi_awaddr, 20'h3000);
       `ASSERT_EQ(out0_axi_wdata, 16'hCAFE);
 
@@ -568,7 +568,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check first transaction grant and signals
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
 
@@ -588,7 +588,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check second transaction grant and signals
-      `ASSERT_EQ(uut.out0_grant, 0);
+      `ASSERT_EQ(uut.wg0_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
       `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
 
