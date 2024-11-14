@@ -3,6 +3,7 @@
 
 `include "directives.sv"
 `include "sram_controller.sv"
+`include "sticky_bit.sv"
 
 // Note: wstrb is ignored as the boards with the sram chips
 // I use have the ub and lb pins hard logicd to enable.
@@ -79,10 +80,10 @@ module axi_sram_controller #(
   logic [2:0] next_state;
 
   // write state
-  logic       axi_bvalid_reg = 0;
+  logic       axi_bvalid_reg;
 
   // read state
-  logic       axi_rvalid_reg = 0;
+  logic       axi_rvalid_reg;
 
   // Instantiate SRAM controller
   sram_controller #(
@@ -192,55 +193,32 @@ module axi_sram_controller #(
   //
   // axi_bvalid
   //
-  logic prev_axi_bready = 0;
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      axi_bvalid_reg  <= 1'b0;
-      prev_axi_bready <= 1'b0;
-    end else begin
-      prev_axi_bready <= axi_bready;
-      if (sram_write_done) begin
-        axi_bvalid_reg <= 1'b1;
-      end else begin
-        if ((axi_bready || prev_axi_bready) && axi_bvalid_reg) begin
-          axi_bvalid_reg <= 1'b0;
-        end
-      end
-    end
-  end
+  // Remember sram_write_done in case the caller isn't ready.
+  // The sram_controller only asserts it for 1 cycle.
+  //
+  sticky_bit sticky_sram_bvalid_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .in   (sram_write_done),
+      .out  (axi_bvalid_reg),
+      .clear(axi_bvalid && axi_bready)
+  );
 
   //
   // axi_rvalid
   //
-  // Look for the rising edge of sram_read_data_valid and
-  // register that so that we can clear axi_rvalid without
-  // it getting reset by the sram controller.
-  logic prev_sram_read_data_valid = 0;
-  logic prev_axi_rready = 0;
-
-  logic rising_sram_read_data_valid;
-  assign rising_sram_read_data_valid = (!prev_sram_read_data_valid &
-                                        sram_read_data_valid);
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      axi_rvalid_reg            <= 1'b0;
-      prev_sram_read_data_valid <= 1'b0;
-      prev_axi_rready           <= 1'b0;
-    end else begin
-      prev_sram_read_data_valid <= sram_read_data_valid;
-      prev_axi_rready           <= axi_rready;
-
-      if (rising_sram_read_data_valid) begin
-        axi_rvalid_reg <= sram_read_data_valid;
-      end
-
-      if ((axi_rready || prev_axi_rready) && axi_rvalid_reg) begin
-        axi_rvalid_reg <= 1'b0;
-      end
-    end
-  end
+  // Remember sram_read_data_valid in case the caller isn't ready.
+  // The sram_controller only asserts it for 1 cycle.
+  //
+  // The actual data is latched already.
+  //
+  sticky_bit sticky_sram_rvalid_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .in   (sram_read_data_valid),
+      .out  (axi_rvalid_reg),
+      .clear(axi_rvalid_reg && axi_rready)
+  );
 
   // write channels
   assign axi_awready = (next_state == WRITE);
@@ -250,7 +228,7 @@ module axi_sram_controller #(
 
   // read channels
   assign axi_arready = (current_state == READ);
-  assign axi_rvalid = (rising_sram_read_data_valid || axi_rvalid_reg);
+  assign axi_rvalid = axi_rvalid_reg;
   assign axi_rdata = (axi_rvalid ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
   assign axi_rresp = (axi_rvalid ? RESP_OK : 2'bxx);
 
