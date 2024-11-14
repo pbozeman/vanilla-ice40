@@ -4,7 +4,7 @@
 `include "directives.sv"
 
 `include "sync_fifo.sv"
-`include "txn_done.sv"
+`include "sticky_bit.sv"
 
 // AXI-Lite interconnect with 3 managers and 2 subordinates.
 //
@@ -210,13 +210,7 @@ module axi_arbitrated_mux #(
   logic [1:0] rg_grant;
   logic [1:0] rg_resp;
 
-  // Write accepted is used to clear the registered done signals, but is also
-  // the result of those signals. Tell the linter that we, hopefully, know what
-  // we are doing. This might need to be revisited under icecube2.
-  // verilator lint_off UNOPTFLAT
   logic       wg_txn_accepted;
-  // verilator lint_on UNOPTFLAT
-  //
   logic       wg_txn_completed;
   logic       rg_txn_accepted;
   logic       rg_txn_completed;
@@ -230,22 +224,20 @@ module axi_arbitrated_mux #(
   assign wg_greq = in_axi_awvalid[2:0] & wg_addr;
   assign rg_greq = in_axi_arvalid[2:0] & rg_addr;
 
-  txn_done wg_awdone_inst (
+  sticky_bit sticky_awdone (
       .clk  (axi_clk),
       .reset(~axi_resetn),
-      .valid(out_axi_awvalid),
-      .ready(out_axi_awready),
-      .clear(wg_txn_accepted),
-      .done (wg_awdone)
+      .in   (out_axi_awvalid && out_axi_awready),
+      .out  (wg_awdone),
+      .clear(wg_txn_accepted)
   );
 
-  txn_done wg_wdone_inst (
+  sticky_bit sticky_wdone (
       .clk  (axi_clk),
       .reset(~axi_resetn),
-      .valid(out_axi_wvalid),
-      .ready(out_axi_wready),
-      .clear(wg_txn_accepted),
-      .done (wg_wdone)
+      .in   (out_axi_wvalid && out_axi_wready),
+      .out  (wg_wdone),
+      .clear(wg_txn_accepted)
   );
 
   assign wg_txn_accepted  = wg_awdone && wg_wdone;
