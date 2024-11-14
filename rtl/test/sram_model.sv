@@ -31,9 +31,6 @@ module sram_model #(
   // memory
   logic [DATA_BITS-1:0] sram_mem         [0:(1 << ADDR_BITS)-1];
 
-  // data read from bus
-  logic [DATA_BITS-1:0] data_in;
-
   // data written to bus, possibly tri-state if output not enabled
   logic                 output_active;
   logic [DATA_BITS-1:0] data_out;
@@ -50,7 +47,6 @@ module sram_model #(
 
   // Data signals
   assign output_active = !ce_n && !oe_n;
-  assign data_in       = data_io;
   assign data_io       = output_active ? data_out : {DATA_BITS{1'bz}};
 
   // Delayed address update and data handling
@@ -74,7 +70,16 @@ module sram_model #(
       end else if ($realtime - last_addr_change < tAA) begin
         data_out = {DATA_BITS{BAD_DATA}};
       end else begin
-        data_out = sram_mem[addr];
+        if (sram_mem[addr] === {DATA_BITS{1'bx}}) begin
+          if (UNINITIALIZED_READS_FATAL) begin
+            $display("read from unitialized addr %h", addr);
+            $fatal;
+          end else begin
+            data_out = addr;
+          end
+        end else begin
+          data_out = sram_mem[addr];
+        end
       end
     end
 
@@ -108,7 +113,7 @@ module sram_model #(
       if (INJECT_ERROR && addr == {DATA_BITS{1'b1}}) begin
         sram_mem[addr] = {DATA_BITS{1'b1}};
       end else if (!we_n) begin
-        sram_mem[addr] = data_in;
+        sram_mem[addr] = data_io;
       end
     end
   end
@@ -135,11 +140,6 @@ module sram_model #(
       if (oe_n_initial_addr != addr) begin
         $display("addr changed during read, old: %h new: %h",
                  oe_n_initial_addr, addr);
-        $fatal;
-      end
-
-      if (UNINITIALIZED_READS_FATAL && data_in === {DATA_BITS{1'bx}}) begin
-        $display("read from unitialized addr %h", addr);
         $fatal;
       end
     end
