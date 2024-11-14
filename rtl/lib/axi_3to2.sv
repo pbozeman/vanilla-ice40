@@ -26,16 +26,14 @@
 //
 // Subordinates are routed with even addresses to 0 and odd to 1.
 //
-// TODO: implement out0 read arb and muxes.
 // TODO: implement out1 arb and muxes.
-//
 
 //
 // common arbiter module for reads and writes
+//
 // TODO: parameterize the number of managers and move this to it's own file.
 // Ensure that the mask values remain as constants after being parameterized.
-//
-
+// verilator lint_off DECLFILENAME
 module axi_arbiter (
     input logic axi_clk,
     input logic axi_resetn,
@@ -152,8 +150,8 @@ module axi_arbiter (
       .r_data (fifo_r_data),
       .r_empty(fifo_r_empty)
   );
-
 endmodule
+// verilator lint_on DECLFILENAME
 
 //
 //
@@ -275,6 +273,9 @@ module axi_3to2 #(
   logic [3:0][AXI_STRB_WIDTH-1:0] all_axi_wstrb;
   logic [3:0]                     all_axi_wvalid;
   logic [3:0]                     all_axi_bready;
+  logic [3:0][AXI_ADDR_WIDTH-1:0] all_axi_araddr;
+  logic [3:0]                     all_axi_arvalid;
+  logic [3:0]                     all_axi_rready;
 
   assign all_axi_awaddr = {
     {AXI_ADDR_WIDTH{1'b0}}, in2_axi_awaddr, in1_axi_awaddr, in0_axi_awaddr
@@ -294,38 +295,61 @@ module axi_3to2 #(
   assign all_axi_bready = {
     1'b0, in2_axi_bready, in1_axi_bready, in0_axi_bready
   };
+  assign all_axi_araddr = {
+    {AXI_ADDR_WIDTH{1'b0}}, in2_axi_araddr, in1_axi_araddr, in0_axi_araddr
+  };
+  assign all_axi_arvalid = {
+    1'b0, in2_axi_arvalid, in1_axi_arvalid, in0_axi_arvalid
+  };
+  assign all_axi_rready = {
+    1'b0, in2_axi_rready, in1_axi_rready, in0_axi_rready
+  };
 
-  // outN_dst_waddr: manager addr is to be routed to subordinate N
-  // outN_greq: manager is requesting a grant to subordinate N
+  // dst_waddr: manager addr is to be routed to subordinate
+  // greq: manager is requesting a grant to subordinate
   logic [2:0] wg0_addr;
   logic [2:0] wg0_greq;
 
+  logic [2:0] rg0_addr;
+  logic [2:0] rg0_greq;
+
   // The grants. Set to CHANNEL_IDLE if no grant is active.
   //
-  // wg0_grant contains the index into the granted manager.
-  // wg0_resp contains the index into the granted manager for responses
+  // grant contains the index into the granted manager.
+  // resp contains the index into the granted manager for responses
   //
   // Managing these separately allows for pipe lining across managers.
-  logic [1:0] next_wg0_grant;
   logic [1:0] wg0_grant;
   logic [1:0] wg0_resp;
-  logic       wg0_idle;
 
-  // axi handshake status (they go high in the same clock the transaction
-  // occurs in, but are also registered)
+  logic [1:0] rg0_grant;
+  logic [1:0] rg0_resp;
+
+  // axi AW/W handshake status (they go high in the same clock the transaction
+  // occurs in, but are also registered so they can be both checked for
+  // completion even if not in the same clock cycle)
   logic       wg0_awdone;
   logic       wg0_wdone;
   // verilator lint_off UNOPTFLAT
+  // write accepted is used to clear the registered done signals, but is also
+  // the result of those signals. Tell the linter that we, hopefully, know what
+  // we are doing.
   logic       wg0_txn_accepted;
   // verilator lint_on UNOPTFLAT
   logic       wg0_txn_completed;
 
+  logic       rg0_txn_accepted;
+  logic       rg0_txn_completed;
+
   assign wg0_addr = {
     ~in2_axi_awaddr[0], ~in1_axi_awaddr[0], ~in0_axi_awaddr[0]
   };
-
   assign wg0_greq = all_axi_awvalid & wg0_addr;
-  assign wg0_idle = wg0_grant == CHANNEL_IDLE;
+
+  assign rg0_addr = {
+    ~in2_axi_araddr[0], ~in1_axi_araddr[0], ~in0_axi_araddr[0]
+  };
+  assign rg0_greq = all_axi_arvalid & rg0_addr;
 
   txn_done wg0_awdone_inst (
       .clk  (axi_clk),
@@ -346,7 +370,10 @@ module axi_3to2 #(
   );
 
   assign wg0_txn_accepted  = wg0_awdone && wg0_wdone;
-  assign wg0_txn_completed = out0_axi_bready && out0_axi_bvalid;
+  assign wg0_txn_completed = out0_axi_bvalid && out0_axi_bready;
+
+  assign rg0_txn_accepted  = out0_axi_arvalid && out0_axi_arready;
+  assign rg0_txn_completed = out0_axi_rvalid && out0_axi_rready;
 
   axi_arbiter wg0_arbiter_inst (
       .axi_clk         (axi_clk),
@@ -358,6 +385,16 @@ module axi_3to2 #(
       .active_response (wg0_resp)
   );
 
+  axi_arbiter rg0_arbiter_inst (
+      .axi_clk         (axi_clk),
+      .axi_resetn      (axi_resetn),
+      .requesting_grant(rg0_greq),
+      .txn_accepted    (rg0_txn_accepted),
+      .txn_completed   (rg0_txn_completed),
+      .active_request  (rg0_grant),
+      .active_response (rg0_resp)
+  );
+
   //
   // out0 AW and W mux
   //
@@ -367,7 +404,6 @@ module axi_3to2 #(
   assign out0_axi_wstrb   = all_axi_wstrb[wg0_grant];
   assign out0_axi_wvalid  = all_axi_wvalid[wg0_grant];
 
-  // out0 A and W ready mux
   always_comb begin
     in0_axi_awready = '0;
     in0_axi_wready  = '0;
@@ -418,6 +454,75 @@ module axi_3to2 #(
 
       2'd2: begin
         in2_axi_bvalid = out0_axi_bvalid;
+      end
+
+      default: begin
+      end
+    endcase
+  end
+
+  //
+  // out0 AR valid mux
+  //
+  assign out0_axi_araddr  = all_axi_araddr[rg0_grant];
+  assign out0_axi_arvalid = all_axi_arvalid[rg0_grant];
+
+  always_comb begin
+    in0_axi_arready = '0;
+    in1_axi_arready = '0;
+    in2_axi_arready = '0;
+
+    case (rg0_grant)
+      2'd0: begin
+        in0_axi_arready = out0_axi_arready;
+      end
+
+      2'd1: begin
+        in1_axi_arready = out0_axi_arready;
+      end
+
+      2'd2: begin
+        in2_axi_arready = out0_axi_arready;
+      end
+
+      default: begin
+      end
+    endcase
+  end
+
+  //
+  // out0 R mux
+  //
+  assign out0_axi_rready = all_axi_rready[rg0_resp];
+
+  always_comb begin
+    in0_axi_rvalid = '0;
+    in0_axi_rdata  = '0;
+    in0_axi_rresp  = '0;
+    in1_axi_rvalid = '0;
+    in1_axi_rdata  = '0;
+    in1_axi_rresp  = '0;
+    in2_axi_rvalid = '0;
+    in2_axi_rdata  = '0;
+    in2_axi_rresp  = '0;
+
+    case (rg0_resp)
+      2'd0: begin
+        in0_axi_rvalid = out0_axi_rvalid;
+        in0_axi_rdata  = out0_axi_rdata;
+        in0_axi_rresp  = out0_axi_rresp;
+      end
+
+      2'd1: begin
+        in1_axi_rvalid = out0_axi_rvalid;
+        in1_axi_rdata  = out0_axi_rdata;
+        in1_axi_rresp  = out0_axi_rresp;
+      end
+
+      2'd2: begin
+        in2_axi_rvalid = out0_axi_rvalid;
+        in2_axi_rdata  = out0_axi_rdata;
+        in2_axi_rresp  = out0_axi_rresp;
       end
 
       default: begin
