@@ -29,6 +29,134 @@
 // TODO: implement out0 read arb and muxes.
 // TODO: implement out1 arb and muxes.
 //
+
+//
+// common arbiter module for reads and writes
+// TODO: parameterize the number of managers and move this to it's own file.
+// Ensure that the mask values remain as constants after being parameterized.
+//
+
+module axi_arbiter (
+    input logic axi_clk,
+    input logic axi_resetn,
+
+    // bitmask of managers requesting a grant
+    input logic [2:0] requesting_grant,
+
+    // the request grant is released on tnx_accepted,
+    // and the response grant is released on txn_completed
+    input logic txn_accepted,
+    input logic txn_completed,
+
+    // the active_request and response container the manager granted
+    // the respective bus. (The holder of the response grant previosly
+    // held the active_request. This enables pipelining.)
+    output logic [1:0] active_request,
+    output logic [1:0] active_response
+);
+  localparam CHANNEL_IDLE = 2'b11;
+
+  // Masks for blocking current grant holder from requesting again
+  localparam [2:0] MASK_IDLE = 3'b111;
+  localparam [2:0] MASK_0 = 3'b110;
+  localparam [2:0] MASK_1 = 3'b101;
+  localparam [2:0] MASK_2 = 3'b011;
+
+  logic [1:0] next_grant;
+  logic       idle;
+
+  assign idle = active_request == CHANNEL_IDLE;
+
+  always_comb begin
+    logic [2:0] masked_greq;
+    logic [2:0] mask;
+
+    // mask out the current txn
+    masked_greq = '0;
+    next_grant  = active_request;
+
+    if (txn_accepted || idle) begin
+      // First mask out current requester and check for others
+      if (idle) begin
+        mask = MASK_IDLE;
+      end else begin
+        case (active_request)
+          2'd0:    mask = MASK_0;
+          2'd1:    mask = MASK_1;
+          2'd2:    mask = MASK_2;
+          default: mask = MASK_IDLE;
+        endcase
+      end
+
+      // Apply mask to grant requests
+      masked_greq = requesting_grant & mask;
+
+      // Priority encoder for next grant - check other requesters first
+      if (masked_greq & 3'b001) begin
+        next_grant = 0;
+      end else if (masked_greq & 3'b010) begin
+        next_grant = 1;
+      end else if (masked_greq & 3'b100) begin
+        next_grant = 2;
+      end else begin
+        // If no other requests, keep current requester.
+        // This prevents a pipeline bubble from transitioning
+        // back through idle before starting the next txn.
+        if (!idle && requesting_grant[active_request]) begin
+          next_grant = active_request;
+        end else begin
+          next_grant = CHANNEL_IDLE;
+        end
+      end
+    end
+  end
+
+  always_ff @(posedge axi_clk) begin
+    if (~axi_resetn) begin
+      active_request <= CHANNEL_IDLE;
+    end else begin
+      active_request <= next_grant;
+    end
+  end
+
+  //
+  // fifo for passing the request grant into the response phase
+  //
+  logic [2:0] fifo_w_data;
+  logic       fifo_w_inc;
+
+  logic [2:0] fifo_r_data;
+  logic       fifo_r_inc;
+
+  logic       fifo_r_empty;
+  // verilator lint_off UNUSEDSIGNAL
+  logic       fifo_w_full;
+  // verilator lint_on UNUSEDSIGNAL
+
+  assign fifo_w_data     = active_request;
+  assign fifo_w_inc      = txn_accepted;
+  assign fifo_r_inc      = txn_completed;
+
+  assign active_response = fifo_r_empty ? CHANNEL_IDLE : fifo_r_data;
+
+  sync_fifo #(
+      .DATA_WIDTH(3),
+      .ADDR_SIZE (3)
+  ) wg0_resp_fifo (
+      .clk    (axi_clk),
+      .rst_n  (axi_resetn),
+      .w_inc  (fifo_w_inc),
+      .w_data (fifo_w_data),
+      .w_full (fifo_w_full),
+      .r_inc  (fifo_r_inc),
+      .r_data (fifo_r_data),
+      .r_empty(fifo_r_empty)
+  );
+
+endmodule
+
+//
+//
 // verilator lint_off UNUSEDSIGNAL
 // verilator lint_off UNDRIVEN
 module axi_3to2 #(
@@ -134,6 +262,8 @@ module axi_3to2 #(
     input  logic                      out1_axi_rvalid,
     output logic                      out1_axi_rready
 );
+  localparam CHANNEL_IDLE = 2'b11;
+
   // Concatenate the inputs. We will later index into these concatenated
   // buses for muxing based on the grants. There is one extra position
   // at the highest index, and holds 0s for CHANNEL_IDLE. This is how
@@ -176,7 +306,6 @@ module axi_3to2 #(
   // wg0_resp contains the index into the granted manager for responses
   //
   // Managing these separately allows for pipe lining across managers.
-  localparam CHANNEL_IDLE = 2'b11;
   logic [1:0] next_wg0_grant;
   logic [1:0] wg0_grant;
   logic [1:0] wg0_resp;
@@ -219,66 +348,15 @@ module axi_3to2 #(
   assign wg0_txn_accepted  = wg0_awdone && wg0_wdone;
   assign wg0_txn_completed = out0_axi_bready && out0_axi_bvalid;
 
-  // Masks for blocking current grant holder from requesting again
-  localparam [2:0] MASK_IDLE = 3'b111;
-  localparam [2:0] MASK_0 = 3'b110;
-  localparam [2:0] MASK_1 = 3'b101;
-  localparam [2:0] MASK_2 = 3'b011;
-
-  //
-  // out0 grant
-  //
-  always_comb begin
-    logic [2:0] masked_greq;
-    logic [2:0] mask;
-
-    // mask out the current txn
-    masked_greq    = '0;
-    next_wg0_grant = wg0_grant;
-
-    if (wg0_txn_accepted || wg0_idle) begin
-      // First mask out current requester and check for others
-      if (wg0_idle) begin
-        mask = MASK_IDLE;
-      end else begin
-        case (wg0_grant)
-          2'd0:    mask = MASK_0;
-          2'd1:    mask = MASK_1;
-          2'd2:    mask = MASK_2;
-          default: mask = MASK_IDLE;
-        endcase
-      end
-
-      // Apply mask to grant requests
-      masked_greq = wg0_greq & mask;
-
-      // Priority encoder for next grant - check other requesters first
-      if (masked_greq & 3'b001) begin
-        next_wg0_grant = 0;
-      end else if (masked_greq & 3'b010) begin
-        next_wg0_grant = 1;
-      end else if (masked_greq & 3'b100) begin
-        next_wg0_grant = 2;
-      end else begin
-        // If no other requests, keep current requester.
-        // This prevents a pipeline bubble from transitioning
-        // back through idle before starting the next txn.
-        if (!wg0_idle && wg0_greq[wg0_grant]) begin
-          next_wg0_grant = wg0_grant;
-        end else begin
-          next_wg0_grant = CHANNEL_IDLE;
-        end
-      end
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      wg0_grant <= CHANNEL_IDLE;
-    end else begin
-      wg0_grant <= next_wg0_grant;
-    end
-  end
+  axi_arbiter wg0_arbiter_inst (
+      .axi_clk         (axi_clk),
+      .axi_resetn      (axi_resetn),
+      .requesting_grant(wg0_greq),
+      .txn_accepted    (wg0_txn_accepted),
+      .txn_completed   (wg0_txn_completed),
+      .active_request  (wg0_grant),
+      .active_response (wg0_resp)
+  );
 
   //
   // out0 AW and W mux
@@ -318,42 +396,6 @@ module axi_3to2 #(
       end
     endcase
   end
-
-  logic [2:0] wg0_fifo_w_data;
-  logic       wg0_fifo_w_inc;
-
-  logic [2:0] wg0_fifo_r_data;
-  logic       wg0_fifo_r_inc;
-
-  logic       wg0_fifo_r_empty;
-  // verilator lint_off UNUSEDSIGNAL
-  logic       wg0_fifo_w_full;
-  // verilator lint_on UNUSEDSIGNAL
-
-  assign wg0_fifo_w_data = wg0_grant;
-  assign wg0_fifo_w_inc  = wg0_txn_accepted;
-  assign wg0_fifo_r_inc  = wg0_txn_completed;
-
-  assign wg0_resp        = wg0_fifo_r_empty ? CHANNEL_IDLE : wg0_fifo_r_data;
-
-  // I tried to figure out a way to just set the wg0_resp register when
-  // txn's are accepted, but I couldn't figure it out. When heavy pipelining
-  // and grant ordering was happening, I kept losing track of responses.
-  // A fifo clearly works, although, there may be some more optimal way
-  // of doing this.
-  sync_fifo #(
-      .DATA_WIDTH(3),
-      .ADDR_SIZE (3)
-  ) wg0_resp_fifo (
-      .clk    (axi_clk),
-      .rst_n  (axi_resetn),
-      .w_inc  (wg0_fifo_w_inc),
-      .w_data (wg0_fifo_w_data),
-      .w_full (wg0_fifo_w_full),
-      .r_inc  (wg0_fifo_r_inc),
-      .r_data (wg0_fifo_r_data),
-      .r_empty(wg0_fifo_r_empty)
-  );
 
   //
   // out0 B mux
