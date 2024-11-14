@@ -293,7 +293,7 @@ module axi_3to2_tb;
       axi_resetn = 1'b1;
       @(posedge axi_clk);
 
-      `ASSERT_EQ(uut.wg0_grant, uut.CHANNEL_IDLE);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, '1);
       `ASSERT_EQ(out0_axi_awaddr, '0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b0);
       `ASSERT_EQ(out0_axi_wdata, '0);
@@ -359,7 +359,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
 
@@ -369,7 +369,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.wg0_grant, 1);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 1);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
 
@@ -379,7 +379,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.wg0_grant, 2);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 2);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h3000);
     end
@@ -396,7 +396,7 @@ module axi_3to2_tb;
       in1_axi_awvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
 
@@ -408,7 +408,7 @@ module axi_3to2_tb;
       in2_axi_awvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.wg0_grant, 1);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 1);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
     end
@@ -428,7 +428,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
       `ASSERT_EQ(out0_axi_awvalid, 1'b1);
@@ -492,7 +492,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check first transaction grant and signals
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
 
@@ -502,7 +502,7 @@ module axi_3to2_tb;
       // Check second transaction got the grant
       // It should arrive in a single clock. If this assert fails
       // because latency was added, fix the latency.
-      `ASSERT_EQ(uut.wg0_grant, 1);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 1);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
       `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
 
@@ -522,7 +522,7 @@ module axi_3to2_tb;
 
       // Check third transaction got the grant
       // See above re timing.
-      `ASSERT_EQ(uut.wg0_grant, 2);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 2);
       `ASSERT_EQ(out0_axi_awaddr, 20'h3000);
       `ASSERT_EQ(out0_axi_wdata, 16'hCAFE);
 
@@ -582,7 +582,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check first transaction grant and signals
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
       `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
 
@@ -602,7 +602,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_write_accepted);
 
       // Check second transaction grant and signals
-      `ASSERT_EQ(uut.wg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
       `ASSERT_EQ(out0_axi_awaddr, 20'h2000);
       `ASSERT_EQ(out0_axi_wdata, 16'hBEEF);
 
@@ -622,7 +622,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.rg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 0);
       `ASSERT_EQ(out0_axi_arvalid, 1'b1);
       `ASSERT_EQ(out0_axi_araddr, 20'hA000);
 
@@ -633,7 +633,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.rg0_grant, 1);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 1);
       `ASSERT_EQ(out0_axi_arvalid, 1'b1);
       `ASSERT_EQ(out0_axi_araddr, 20'hB000);
 
@@ -644,7 +644,7 @@ module axi_3to2_tb;
       @(posedge axi_clk);
       @(negedge axi_clk);
 
-      `ASSERT_EQ(uut.rg0_grant, 2);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 2);
       `ASSERT_EQ(out0_axi_arvalid, 1'b1);
       `ASSERT_EQ(out0_axi_araddr, 20'hC000);
     end
@@ -661,7 +661,7 @@ module axi_3to2_tb;
       in1_axi_arvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.rg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 0);
       `ASSERT_EQ(out0_axi_arvalid, 1'b1);
       `ASSERT_EQ(out0_axi_araddr, 20'hA000);
 
@@ -673,7 +673,7 @@ module axi_3to2_tb;
       in2_axi_arvalid = 1'b1;
       @(posedge axi_clk);
       @(negedge axi_clk);
-      `ASSERT_EQ(uut.rg0_grant, 1);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 1);
       `ASSERT_EQ(out0_axi_arvalid, 1'b1);
       `ASSERT_EQ(out0_axi_araddr, 20'hB000);
     end
@@ -743,7 +743,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_read_accepted);
 
       // Check first transaction grant and signals
-      `ASSERT_EQ(uut.rg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 0);
       `ASSERT_EQ(out0_axi_araddr, 20'hA000);
 
       // Wait for data phase to complete
@@ -759,7 +759,7 @@ module axi_3to2_tb;
       `WAIT_FOR_SIGNAL(in0_read_accepted);
 
       // Check second transaction grant and signals
-      `ASSERT_EQ(uut.rg0_grant, 0);
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 0);
       `ASSERT_EQ(out0_axi_araddr, 20'hB000);
 
       // Wait for data phase to complete
@@ -767,7 +767,222 @@ module axi_3to2_tb;
     end
   endtask
 
+  task test_awaddr_grant_odd;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'h1001;
+      in0_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, 0);
+      `ASSERT_EQ(out1_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out1_axi_awaddr, 20'h1001);
+
+      reset();
+      in1_axi_awaddr  = 20'h2001;
+      in1_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, 1);
+      `ASSERT_EQ(out1_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out1_axi_awaddr, 20'h2001);
+
+      reset();
+      in2_axi_awaddr  = 20'h3001;
+      in2_axi_awvalid = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, 2);
+      `ASSERT_EQ(out1_axi_awvalid, 1'b1);
+      `ASSERT_EQ(out1_axi_awaddr, 20'h3001);
+    end
+  endtask
+
+  task test_write_odd;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'h1001;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b10;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(in0_axi_awvalid, 1'b1);
+      `ASSERT_EQ(in0_axi_awready, 1'b1);
+      `ASSERT_EQ(in0_axi_wvalid, 1'b1);
+      `ASSERT_EQ(in0_axi_wready, 1'b1);
+
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+    end
+  endtask
+
+  task test_back_to_back_multi_source_write_odd;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'h1001;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      in1_axi_awaddr  = 20'h2001;
+      in1_axi_awvalid = 1'b1;
+      in1_axi_wdata   = 16'hBEEF;
+      in1_axi_wstrb   = 2'b11;
+      in1_axi_wvalid  = 1'b1;
+      in1_axi_bready  = 1'b1;
+
+      in2_axi_awaddr  = 20'h3001;
+      in2_axi_awvalid = 1'b1;
+      in2_axi_wdata   = 16'hCAFE;
+      in2_axi_wstrb   = 2'b11;
+      in2_axi_wvalid  = 1'b1;
+      in2_axi_bready  = 1'b1;
+
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in1_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in2_axi_bvalid);
+    end
+  endtask
+
+  task test_read_odd;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_araddr  = 20'hA001;
+      in0_axi_arvalid = 1'b1;
+      in0_axi_rready  = 1'b1;
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(in0_axi_arvalid, 1'b1);
+      `WAIT_FOR_SIGNAL(out1_axi_rvalid);
+      `ASSERT_EQ(in0_axi_rvalid, 1'b1);
+      `ASSERT_EQ(in0_axi_rdata, 16'hA001);
+    end
+  endtask
+
+  task test_back_to_back_multi_source_read_odd;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // First read from in0
+      in0_axi_araddr  = 20'hA001;
+      in0_axi_arvalid = 1'b1;
+      in0_axi_rready  = 1'b1;
+
+      // Second read from in1
+      in1_axi_araddr  = 20'hB001;
+      in1_axi_arvalid = 1'b1;
+      in1_axi_rready  = 1'b1;
+
+      // Third read from in2
+      in2_axi_araddr  = 20'hC001;
+      in2_axi_arvalid = 1'b1;
+      in2_axi_rready  = 1'b1;
+
+      // Wait for data phase completions
+      `WAIT_FOR_SIGNAL(in0_axi_rvalid);
+      `ASSERT_EQ(in0_axi_rdata, 16'hA001);
+
+      `WAIT_FOR_SIGNAL(in1_axi_rvalid);
+      `ASSERT_EQ(in1_axi_rdata, 16'hB001);
+
+      `WAIT_FOR_SIGNAL(in2_axi_rvalid);
+      `ASSERT_EQ(in2_axi_rdata, 16'hC001);
+    end
+  endtask
+
+  task test_simultaneous_even_odd_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // Write to even address from in0
+      in0_axi_awaddr  = 20'h1000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      // Simultaneous write to odd address from in1
+      in1_axi_awaddr  = 20'h2001;
+      in1_axi_awvalid = 1'b1;
+      in1_axi_wdata   = 16'hBEEF;
+      in1_axi_wstrb   = 2'b11;
+      in1_axi_wvalid  = 1'b1;
+      in1_axi_bready  = 1'b1;
+
+      // Both should be granted immediately since they go to different subordinates
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, 1);
+      `ASSERT_EQ(out1_axi_awaddr, 20'h2001);
+      `ASSERT_EQ(out1_axi_wdata, 16'hBEEF);
+
+      // Wait for both to complete
+      `WAIT_FOR_SIGNAL(in0_axi_bvalid);
+      `WAIT_FOR_SIGNAL(in1_axi_bvalid);
+    end
+  endtask
+
+  task test_simultaneous_even_odd_read;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      // Read from even address using in0
+      in0_axi_araddr  = 20'hA000;
+      in0_axi_arvalid = 1'b1;
+      in0_axi_rready  = 1'b1;
+
+      // Simultaneous read from odd address using in1
+      in1_axi_araddr  = 20'hB001;
+      in1_axi_arvalid = 1'b1;
+      in1_axi_rready  = 1'b1;
+
+      // Both should be granted immediately since they go to different subordinates
+      @(posedge axi_clk);
+      @(negedge axi_clk);
+
+      `ASSERT_EQ(uut.sub0_mux.rg_grant, 0);
+      `ASSERT_EQ(out0_axi_araddr, 20'hA000);
+
+      `ASSERT_EQ(uut.sub1_mux.rg_grant, 1);
+      `ASSERT_EQ(out1_axi_araddr, 20'hB001);
+
+      // Wait for both reads to complete
+      `WAIT_FOR_SIGNAL(in0_axi_rvalid);
+      `ASSERT_EQ(in0_axi_rdata, 16'hA000);
+
+      `WAIT_FOR_SIGNAL(in1_axi_rvalid);
+      `ASSERT_EQ(in1_axi_rdata, 16'hB001);
+    end
+  endtask
+
   initial begin
+    // Even / subordinate 0 tests
     test_awaddr_grant_even();
     test_awaddr_grant_even_pri();
     test_write_mux_even();
@@ -781,6 +996,17 @@ module axi_3to2_tb;
     test_read_even();
     test_back_to_back_multi_source_read();
     test_back_to_back_single_source_read();
+
+    // Odd / subordinate 1 tests
+    test_awaddr_grant_odd();
+    test_write_odd();
+    test_back_to_back_multi_source_write_odd();
+    test_read_odd();
+    test_back_to_back_multi_source_read_odd();
+
+    // Mixed subordinate tests
+    test_simultaneous_even_odd_write();
+    test_simultaneous_even_odd_read();
 
     #100;
     $finish;

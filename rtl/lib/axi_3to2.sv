@@ -26,14 +26,14 @@
 //
 // Subordinates are routed with even addresses to 0 and odd to 1.
 //
-// TODO: implement out1 arb and muxes.
+
+// TODO: parameterize the number of managers and subordinates in the modules
+// and move them to their own files.
+// verilator lint_off DECLFILENAME
 
 //
 // common arbiter module for reads and writes
 //
-// TODO: parameterize the number of managers and move this to it's own file.
-// Ensure that the mask values remain as constants after being parameterized.
-// verilator lint_off DECLFILENAME
 module axi_arbiter (
     input logic axi_clk,
     input logic axi_resetn,
@@ -151,12 +151,180 @@ module axi_arbiter (
       .r_empty(fifo_r_empty)
   );
 endmodule
-// verilator lint_on DECLFILENAME
 
-//
-//
-// verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNDRIVEN
+module axi_arbitrated_mux #(
+    parameter AXI_ADDR_WIDTH = 20,
+    parameter AXI_DATA_WIDTH = 16,
+    parameter AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8
+) (
+    input logic axi_clk,
+    input logic axi_resetn,
+
+    // Concatenated manager input ports
+    input logic [3:0][AXI_ADDR_WIDTH-1:0] in_axi_awaddr,
+    input logic [3:0]                     in_axi_awvalid,
+    input logic [3:0][AXI_DATA_WIDTH-1:0] in_axi_wdata,
+    input logic [3:0][AXI_STRB_WIDTH-1:0] in_axi_wstrb,
+    input logic [3:0]                     in_axi_wvalid,
+    input logic [3:0]                     in_axi_bready,
+    input logic [3:0][AXI_ADDR_WIDTH-1:0] in_axi_araddr,
+    input logic [3:0]                     in_axi_arvalid,
+    input logic [3:0]                     in_axi_rready,
+
+    // Concatenated manager output ports
+    output logic [2:0]                     in_axi_awready,
+    output logic [2:0]                     in_axi_wready,
+    output logic [2:0]                     in_axi_bvalid,
+    output logic [2:0][               1:0] in_axi_bresp,
+    output logic [2:0]                     in_axi_arready,
+    output logic [2:0]                     in_axi_rvalid,
+    output logic [2:0][AXI_DATA_WIDTH-1:0] in_axi_rdata,
+    output logic [2:0][               1:0] in_axi_rresp,
+
+    // Subordinate select
+    input logic [2:0] wg_addr,
+    input logic [2:0] rg_addr,
+
+    // Subordinate interface
+    output logic [AXI_ADDR_WIDTH-1:0] out_axi_awaddr,
+    output logic                      out_axi_awvalid,
+    input  logic                      out_axi_awready,
+    output logic [AXI_DATA_WIDTH-1:0] out_axi_wdata,
+    output logic [AXI_STRB_WIDTH-1:0] out_axi_wstrb,
+    output logic                      out_axi_wvalid,
+    input  logic                      out_axi_wready,
+    input  logic [               1:0] out_axi_bresp,
+    input  logic                      out_axi_bvalid,
+    output logic                      out_axi_bready,
+    output logic [AXI_ADDR_WIDTH-1:0] out_axi_araddr,
+    output logic                      out_axi_arvalid,
+    input  logic                      out_axi_arready,
+    input  logic [AXI_DATA_WIDTH-1:0] out_axi_rdata,
+    input  logic [               1:0] out_axi_rresp,
+    input  logic                      out_axi_rvalid,
+    output logic                      out_axi_rready
+);
+  // Grants
+  logic [1:0] wg_grant;
+  logic [1:0] wg_resp;
+  logic [1:0] rg_grant;
+  logic [1:0] rg_resp;
+
+  // Write accepted is used to clear the registered done signals, but is also
+  // the result of those signals. Tell the linter that we, hopefully, know what
+  // we are doing. This might need to be revisited under icecube2.
+  // verilator lint_off UNOPTFLAT
+  logic       wg_txn_accepted;
+  // verilator lint_on UNOPTFLAT
+  //
+  logic       wg_txn_completed;
+  logic       rg_txn_accepted;
+  logic       rg_txn_completed;
+
+  logic       wg_awdone;
+  logic       wg_wdone;
+
+  logic [2:0] wg_greq;
+  logic [2:0] rg_greq;
+
+  assign wg_greq = in_axi_awvalid[2:0] & wg_addr;
+  assign rg_greq = in_axi_arvalid[2:0] & rg_addr;
+
+  txn_done wg_awdone_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .valid(out_axi_awvalid),
+      .ready(out_axi_awready),
+      .clear(wg_txn_accepted),
+      .done (wg_awdone)
+  );
+
+  txn_done wg_wdone_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .valid(out_axi_wvalid),
+      .ready(out_axi_wready),
+      .clear(wg_txn_accepted),
+      .done (wg_wdone)
+  );
+
+  assign wg_txn_accepted  = wg_awdone && wg_wdone;
+  assign wg_txn_completed = out_axi_bvalid && out_axi_bready;
+
+  assign rg_txn_accepted  = out_axi_arvalid && out_axi_arready;
+  assign rg_txn_completed = out_axi_rvalid && out_axi_rready;
+
+  axi_arbiter wg_arbiter_inst (
+      .axi_clk         (axi_clk),
+      .axi_resetn      (axi_resetn),
+      .requesting_grant(wg_greq),
+      .txn_accepted    (wg_txn_accepted),
+      .txn_completed   (wg_txn_completed),
+      .active_request  (wg_grant),
+      .active_response (wg_resp)
+  );
+
+  axi_arbiter rg_arbiter_inst (
+      .axi_clk         (axi_clk),
+      .axi_resetn      (axi_resetn),
+      .requesting_grant(rg_greq),
+      .txn_accepted    (rg_txn_accepted),
+      .txn_completed   (rg_txn_completed),
+      .active_request  (rg_grant),
+      .active_response (rg_resp)
+  );
+
+  assign out_axi_awaddr  = in_axi_awaddr[wg_grant];
+  assign out_axi_awvalid = in_axi_awvalid[wg_grant];
+  assign out_axi_wdata   = in_axi_wdata[wg_grant];
+  assign out_axi_wstrb   = in_axi_wstrb[wg_grant];
+  assign out_axi_wvalid  = in_axi_wvalid[wg_grant];
+  assign out_axi_bready  = in_axi_bready[wg_resp];
+  assign out_axi_araddr  = in_axi_araddr[rg_grant];
+  assign out_axi_arvalid = in_axi_arvalid[rg_grant];
+  assign out_axi_rready  = in_axi_rready[rg_resp];
+
+  always_comb begin
+    in_axi_awready = '0;
+    in_axi_wready  = '0;
+
+    if (wg_grant != 2'b11) begin
+      in_axi_awready[wg_grant] = out_axi_awready;
+      in_axi_wready[wg_grant]  = out_axi_wready;
+    end
+  end
+
+  always_comb begin
+    in_axi_bvalid = '0;
+    in_axi_bresp  = '0;
+
+    if (wg_resp != 2'b11) begin
+      in_axi_bvalid[wg_resp] = out_axi_bvalid;
+      in_axi_bresp[wg_resp]  = out_axi_bresp;
+    end
+  end
+
+  always_comb begin
+    in_axi_arready = '0;
+
+    if (rg_grant != 2'b11) begin
+      in_axi_arready[rg_grant] = out_axi_arready;
+    end
+  end
+
+  always_comb begin
+    in_axi_rvalid = '0;
+    in_axi_rdata  = '0;
+    in_axi_rresp  = '0;
+
+    if (rg_resp != 2'b11) begin
+      in_axi_rvalid[rg_resp] = out_axi_rvalid;
+      in_axi_rdata[rg_resp]  = out_axi_rdata;
+      in_axi_rresp[rg_resp]  = out_axi_rresp;
+    end
+  end
+endmodule
+
 module axi_3to2 #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
@@ -260,278 +428,216 @@ module axi_3to2 #(
     input  logic                      out1_axi_rvalid,
     output logic                      out1_axi_rready
 );
-  localparam CHANNEL_IDLE = 2'b11;
+  //
+  // Concatenate the inputs from the managers
+  //
+  logic [3:0][AXI_ADDR_WIDTH-1:0] in_axi_awaddr;
+  logic [3:0]                     in_axi_awvalid;
+  logic [3:0][AXI_DATA_WIDTH-1:0] in_axi_wdata;
+  logic [3:0][AXI_STRB_WIDTH-1:0] in_axi_wstrb;
+  logic [3:0]                     in_axi_wvalid;
+  logic [3:0]                     in_axi_bready;
+  logic [3:0][AXI_ADDR_WIDTH-1:0] in_axi_araddr;
+  logic [3:0]                     in_axi_arvalid;
+  logic [3:0]                     in_axi_rready;
 
-  // Concatenate the inputs. We will later index into these concatenated
-  // buses for muxing based on the grants. There is one extra position
-  // at the highest index, and holds 0s for CHANNEL_IDLE. This is how
-  // 1'b0 are sent back for the relevant ready signals back to the managers
-  // when they don't have a grant.
-  logic [3:0][AXI_ADDR_WIDTH-1:0] all_axi_awaddr;
-  logic [3:0]                     all_axi_awvalid;
-  logic [3:0][AXI_DATA_WIDTH-1:0] all_axi_wdata;
-  logic [3:0][AXI_STRB_WIDTH-1:0] all_axi_wstrb;
-  logic [3:0]                     all_axi_wvalid;
-  logic [3:0]                     all_axi_bready;
-  logic [3:0][AXI_ADDR_WIDTH-1:0] all_axi_araddr;
-  logic [3:0]                     all_axi_arvalid;
-  logic [3:0]                     all_axi_rready;
-
-  assign all_axi_awaddr = {
+  assign in_axi_awaddr = {
     {AXI_ADDR_WIDTH{1'b0}}, in2_axi_awaddr, in1_axi_awaddr, in0_axi_awaddr
   };
-  assign all_axi_awvalid = {
+  assign in_axi_awvalid = {
     1'b0, in2_axi_awvalid, in1_axi_awvalid, in0_axi_awvalid
   };
-  assign all_axi_wdata = {
+  assign in_axi_wdata = {
     {AXI_DATA_WIDTH{1'b0}}, in2_axi_wdata, in1_axi_wdata, in0_axi_wdata
   };
-  assign all_axi_wstrb = {
+  assign in_axi_wstrb = {
     {AXI_STRB_WIDTH{1'b0}}, in2_axi_wstrb, in1_axi_wstrb, in0_axi_wstrb
   };
-  assign all_axi_wvalid = {
-    1'b0, in2_axi_wvalid, in1_axi_wvalid, in0_axi_wvalid
-  };
-  assign all_axi_bready = {
-    1'b0, in2_axi_bready, in1_axi_bready, in0_axi_bready
-  };
-  assign all_axi_araddr = {
+  assign in_axi_wvalid = {1'b0, in2_axi_wvalid, in1_axi_wvalid, in0_axi_wvalid};
+  assign in_axi_bready = {1'b0, in2_axi_bready, in1_axi_bready, in0_axi_bready};
+  assign in_axi_araddr = {
     {AXI_ADDR_WIDTH{1'b0}}, in2_axi_araddr, in1_axi_araddr, in0_axi_araddr
   };
-  assign all_axi_arvalid = {
+  assign in_axi_arvalid = {
     1'b0, in2_axi_arvalid, in1_axi_arvalid, in0_axi_arvalid
   };
-  assign all_axi_rready = {
-    1'b0, in2_axi_rready, in1_axi_rready, in0_axi_rready
-  };
+  assign in_axi_rready = {1'b0, in2_axi_rready, in1_axi_rready, in0_axi_rready};
 
-  // dst_waddr: manager addr is to be routed to subordinate
-  // greq: manager is requesting a grant to subordinate
+  //
+  // Muxed subordinate output back to the managers
+  //
+  logic [2:0]                     out0_in_axi_awready;
+  logic [2:0]                     out0_in_axi_wready;
+  logic [2:0]                     out0_in_axi_bvalid;
+  logic [2:0][               1:0] out0_in_axi_bresp;
+  logic [2:0]                     out0_in_axi_arready;
+  logic [2:0]                     out0_in_axi_rvalid;
+  logic [2:0][AXI_DATA_WIDTH-1:0] out0_in_axi_rdata;
+  logic [2:0][               1:0] out0_in_axi_rresp;
+
+  logic [2:0]                     out1_in_axi_awready;
+  logic [2:0]                     out1_in_axi_wready;
+  logic [2:0]                     out1_in_axi_bvalid;
+  logic [2:0][               1:0] out1_in_axi_bresp;
+  logic [2:0]                     out1_in_axi_arready;
+  logic [2:0]                     out1_in_axi_rvalid;
+  logic [2:0][AXI_DATA_WIDTH-1:0] out1_in_axi_rdata;
+  logic [2:0][               1:0] out1_in_axi_rresp;
+
+  // Connect ready signals back to managers, combining both muxes
+  assign in0_axi_awready = out0_in_axi_awready[0] | out1_in_axi_awready[0];
+  assign in1_axi_awready = out0_in_axi_awready[1] | out1_in_axi_awready[1];
+  assign in2_axi_awready = out0_in_axi_awready[2] | out1_in_axi_awready[2];
+
+  assign in0_axi_wready = out0_in_axi_wready[0] | out1_in_axi_wready[0];
+  assign in1_axi_wready = out0_in_axi_wready[1] | out1_in_axi_wready[1];
+  assign in2_axi_wready = out0_in_axi_wready[2] | out1_in_axi_wready[2];
+
+  // Response signals back to managers
+  assign in0_axi_bvalid = out0_in_axi_bvalid[0] | out1_in_axi_bvalid[0];
+  assign in1_axi_bvalid = out0_in_axi_bvalid[1] | out1_in_axi_bvalid[1];
+  assign in2_axi_bvalid = out0_in_axi_bvalid[2] | out1_in_axi_bvalid[2];
+
+  assign in0_axi_bresp = out0_in_axi_bresp[0] | out1_in_axi_bresp[0];
+  assign in1_axi_bresp = out0_in_axi_bresp[1] | out1_in_axi_bresp[1];
+  assign in2_axi_bresp = out0_in_axi_bresp[2] | out1_in_axi_bresp[2];
+
+  assign in0_axi_arready = out0_in_axi_arready[0] | out1_in_axi_arready[0];
+  assign in1_axi_arready = out0_in_axi_arready[1] | out1_in_axi_arready[1];
+  assign in2_axi_arready = out0_in_axi_arready[2] | out1_in_axi_arready[2];
+
+  assign in0_axi_rvalid = out0_in_axi_rvalid[0] | out1_in_axi_rvalid[0];
+  assign in1_axi_rvalid = out0_in_axi_rvalid[1] | out1_in_axi_rvalid[1];
+  assign in2_axi_rvalid = out0_in_axi_rvalid[2] | out1_in_axi_rvalid[2];
+
+  // Route read data and responses from the active mux
+  assign in0_axi_rdata = (out0_in_axi_rvalid[0] ? out0_in_axi_rdata[0] :
+                          out1_in_axi_rdata[0]);
+  assign in1_axi_rdata = (out0_in_axi_rvalid[1] ? out0_in_axi_rdata[1] :
+                          out1_in_axi_rdata[1]);
+  assign in2_axi_rdata = (out0_in_axi_rvalid[2] ? out0_in_axi_rdata[2] :
+                          out1_in_axi_rdata[2]);
+
+  assign in0_axi_rresp = (out0_in_axi_rvalid[0] ? out0_in_axi_rresp[0] :
+                          out1_in_axi_rresp[0]);
+  assign in1_axi_rresp = (out0_in_axi_rvalid[1] ? out0_in_axi_rresp[1] :
+                          out1_in_axi_rresp[1]);
+  assign in2_axi_rresp = (out0_in_axi_rvalid[2] ? out0_in_axi_rresp[2] :
+                          out1_in_axi_rresp[2]);
+
+  //
+  // Address routing
+  //
   logic [2:0] wg0_addr;
-  logic [2:0] wg0_greq;
-
   logic [2:0] rg0_addr;
-  logic [2:0] rg0_greq;
+  logic [2:0] wg1_addr;
+  logic [2:0] rg1_addr;
 
-  // The grants. Set to CHANNEL_IDLE if no grant is active.
-  //
-  // grant contains the index into the granted manager.
-  // resp contains the index into the granted manager for responses
-  //
-  // Managing these separately allows for pipe lining across managers.
-  logic [1:0] wg0_grant;
-  logic [1:0] wg0_resp;
-
-  logic [1:0] rg0_grant;
-  logic [1:0] rg0_resp;
-
-  // axi AW/W handshake status (they go high in the same clock the transaction
-  // occurs in, but are also registered so they can be both checked for
-  // completion even if not in the same clock cycle)
-  logic       wg0_awdone;
-  logic       wg0_wdone;
-  // verilator lint_off UNOPTFLAT
-  // write accepted is used to clear the registered done signals, but is also
-  // the result of those signals. Tell the linter that we, hopefully, know what
-  // we are doing.
-  logic       wg0_txn_accepted;
-  // verilator lint_on UNOPTFLAT
-  logic       wg0_txn_completed;
-
-  logic       rg0_txn_accepted;
-  logic       rg0_txn_completed;
-
+  // even to wg0/rg0
   assign wg0_addr = {
     ~in2_axi_awaddr[0], ~in1_axi_awaddr[0], ~in0_axi_awaddr[0]
   };
-  assign wg0_greq = all_axi_awvalid & wg0_addr;
-
   assign rg0_addr = {
     ~in2_axi_araddr[0], ~in1_axi_araddr[0], ~in0_axi_araddr[0]
   };
-  assign rg0_greq = all_axi_arvalid & rg0_addr;
 
-  txn_done wg0_awdone_inst (
-      .clk  (axi_clk),
-      .reset(~axi_resetn),
-      .valid(out0_axi_awvalid),
-      .ready(out0_axi_awready),
-      .clear(wg0_txn_accepted),
-      .done (wg0_awdone)
+  // odd to wg1/rg1
+  assign wg1_addr = {in2_axi_awaddr[0], in1_axi_awaddr[0], in0_axi_awaddr[0]};
+  assign rg1_addr = {in2_axi_araddr[0], in1_axi_araddr[0], in0_axi_araddr[0]};
+
+  // Instantiate mux for subordinate 0 (even addresses)
+  axi_arbitrated_mux #(
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
+      .AXI_STRB_WIDTH(AXI_STRB_WIDTH)
+  ) sub0_mux (
+      .axi_clk        (axi_clk),
+      .axi_resetn     (axi_resetn),
+      .in_axi_awaddr  (in_axi_awaddr),
+      .in_axi_awvalid (in_axi_awvalid),
+      .in_axi_wdata   (in_axi_wdata),
+      .in_axi_wstrb   (in_axi_wstrb),
+      .in_axi_wvalid  (in_axi_wvalid),
+      .in_axi_bready  (in_axi_bready),
+      .in_axi_araddr  (in_axi_araddr),
+      .in_axi_arvalid (in_axi_arvalid),
+      .in_axi_rready  (in_axi_rready),
+      .wg_addr        (wg0_addr),
+      .rg_addr        (rg0_addr),
+      .in_axi_awready (out0_in_axi_awready),
+      .in_axi_wready  (out0_in_axi_wready),
+      .in_axi_bvalid  (out0_in_axi_bvalid),
+      .in_axi_bresp   (out0_in_axi_bresp),
+      .in_axi_arready (out0_in_axi_arready),
+      .in_axi_rvalid  (out0_in_axi_rvalid),
+      .in_axi_rdata   (out0_in_axi_rdata),
+      .in_axi_rresp   (out0_in_axi_rresp),
+      .out_axi_awaddr (out0_axi_awaddr),
+      .out_axi_awvalid(out0_axi_awvalid),
+      .out_axi_awready(out0_axi_awready),
+      .out_axi_wdata  (out0_axi_wdata),
+      .out_axi_wstrb  (out0_axi_wstrb),
+      .out_axi_wvalid (out0_axi_wvalid),
+      .out_axi_wready (out0_axi_wready),
+      .out_axi_bresp  (out0_axi_bresp),
+      .out_axi_bvalid (out0_axi_bvalid),
+      .out_axi_bready (out0_axi_bready),
+      .out_axi_araddr (out0_axi_araddr),
+      .out_axi_arvalid(out0_axi_arvalid),
+      .out_axi_arready(out0_axi_arready),
+      .out_axi_rdata  (out0_axi_rdata),
+      .out_axi_rresp  (out0_axi_rresp),
+      .out_axi_rvalid (out0_axi_rvalid),
+      .out_axi_rready (out0_axi_rready)
   );
 
-  txn_done wg0_wdone_inst (
-      .clk  (axi_clk),
-      .reset(~axi_resetn),
-      .valid(out0_axi_wvalid),
-      .ready(out0_axi_wready),
-      .clear(wg0_txn_accepted),
-      .done (wg0_wdone)
+  // Instantiate mux for subordinate 1 (odd addresses)
+  axi_arbitrated_mux #(
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
+      .AXI_STRB_WIDTH(AXI_STRB_WIDTH)
+  ) sub1_mux (
+      .axi_clk        (axi_clk),
+      .axi_resetn     (axi_resetn),
+      .in_axi_awaddr  (in_axi_awaddr),
+      .in_axi_awvalid (in_axi_awvalid),
+      .in_axi_wdata   (in_axi_wdata),
+      .in_axi_wstrb   (in_axi_wstrb),
+      .in_axi_wvalid  (in_axi_wvalid),
+      .in_axi_bready  (in_axi_bready),
+      .in_axi_araddr  (in_axi_araddr),
+      .in_axi_arvalid (in_axi_arvalid),
+      .in_axi_rready  (in_axi_rready),
+      .wg_addr        (wg1_addr),
+      .rg_addr        (rg1_addr),
+      .in_axi_awready (out1_in_axi_awready),
+      .in_axi_wready  (out1_in_axi_wready),
+      .in_axi_bvalid  (out1_in_axi_bvalid),
+      .in_axi_bresp   (out1_in_axi_bresp),
+      .in_axi_arready (out1_in_axi_arready),
+      .in_axi_rvalid  (out1_in_axi_rvalid),
+      .in_axi_rdata   (out1_in_axi_rdata),
+      .in_axi_rresp   (out1_in_axi_rresp),
+      .out_axi_awaddr (out1_axi_awaddr),
+      .out_axi_awvalid(out1_axi_awvalid),
+      .out_axi_awready(out1_axi_awready),
+      .out_axi_wdata  (out1_axi_wdata),
+      .out_axi_wstrb  (out1_axi_wstrb),
+      .out_axi_wvalid (out1_axi_wvalid),
+      .out_axi_wready (out1_axi_wready),
+      .out_axi_bresp  (out1_axi_bresp),
+      .out_axi_bvalid (out1_axi_bvalid),
+      .out_axi_bready (out1_axi_bready),
+      .out_axi_araddr (out1_axi_araddr),
+      .out_axi_arvalid(out1_axi_arvalid),
+      .out_axi_arready(out1_axi_arready),
+      .out_axi_rdata  (out1_axi_rdata),
+      .out_axi_rresp  (out1_axi_rresp),
+      .out_axi_rvalid (out1_axi_rvalid),
+      .out_axi_rready (out1_axi_rready)
   );
-
-  assign wg0_txn_accepted  = wg0_awdone && wg0_wdone;
-  assign wg0_txn_completed = out0_axi_bvalid && out0_axi_bready;
-
-  assign rg0_txn_accepted  = out0_axi_arvalid && out0_axi_arready;
-  assign rg0_txn_completed = out0_axi_rvalid && out0_axi_rready;
-
-  axi_arbiter wg0_arbiter_inst (
-      .axi_clk         (axi_clk),
-      .axi_resetn      (axi_resetn),
-      .requesting_grant(wg0_greq),
-      .txn_accepted    (wg0_txn_accepted),
-      .txn_completed   (wg0_txn_completed),
-      .active_request  (wg0_grant),
-      .active_response (wg0_resp)
-  );
-
-  axi_arbiter rg0_arbiter_inst (
-      .axi_clk         (axi_clk),
-      .axi_resetn      (axi_resetn),
-      .requesting_grant(rg0_greq),
-      .txn_accepted    (rg0_txn_accepted),
-      .txn_completed   (rg0_txn_completed),
-      .active_request  (rg0_grant),
-      .active_response (rg0_resp)
-  );
-
-  //
-  // out0 AW and W mux
-  //
-  assign out0_axi_awaddr  = all_axi_awaddr[wg0_grant];
-  assign out0_axi_awvalid = all_axi_awvalid[wg0_grant];
-  assign out0_axi_wdata   = all_axi_wdata[wg0_grant];
-  assign out0_axi_wstrb   = all_axi_wstrb[wg0_grant];
-  assign out0_axi_wvalid  = all_axi_wvalid[wg0_grant];
-
-  always_comb begin
-    in0_axi_awready = '0;
-    in0_axi_wready  = '0;
-    in1_axi_awready = '0;
-    in1_axi_wready  = '0;
-    in2_axi_awready = '0;
-    in2_axi_wready  = '0;
-
-    case (wg0_grant)
-      2'd0: begin
-        in0_axi_awready = out0_axi_awready;
-        in0_axi_wready  = out0_axi_wready;
-      end
-
-      2'd1: begin
-        in1_axi_awready = out0_axi_awready;
-        in1_axi_wready  = out0_axi_wready;
-      end
-
-      2'd2: begin
-        in2_axi_awready = out0_axi_awready;
-        in2_axi_wready  = out0_axi_wready;
-      end
-
-      default: begin
-      end
-    endcase
-  end
-
-  //
-  // out0 B mux
-  //
-  assign out0_axi_bready = all_axi_bready[wg0_resp];
-
-  always_comb begin
-    in0_axi_bvalid = '0;
-    in1_axi_bvalid = '0;
-    in2_axi_bvalid = '0;
-
-    case (wg0_resp)
-      2'd0: begin
-        in0_axi_bvalid = out0_axi_bvalid;
-      end
-
-      2'd1: begin
-        in1_axi_bvalid = out0_axi_bvalid;
-      end
-
-      2'd2: begin
-        in2_axi_bvalid = out0_axi_bvalid;
-      end
-
-      default: begin
-      end
-    endcase
-  end
-
-  //
-  // out0 AR valid mux
-  //
-  assign out0_axi_araddr  = all_axi_araddr[rg0_grant];
-  assign out0_axi_arvalid = all_axi_arvalid[rg0_grant];
-
-  always_comb begin
-    in0_axi_arready = '0;
-    in1_axi_arready = '0;
-    in2_axi_arready = '0;
-
-    case (rg0_grant)
-      2'd0: begin
-        in0_axi_arready = out0_axi_arready;
-      end
-
-      2'd1: begin
-        in1_axi_arready = out0_axi_arready;
-      end
-
-      2'd2: begin
-        in2_axi_arready = out0_axi_arready;
-      end
-
-      default: begin
-      end
-    endcase
-  end
-
-  //
-  // out0 R mux
-  //
-  assign out0_axi_rready = all_axi_rready[rg0_resp];
-
-  always_comb begin
-    in0_axi_rvalid = '0;
-    in0_axi_rdata  = '0;
-    in0_axi_rresp  = '0;
-    in1_axi_rvalid = '0;
-    in1_axi_rdata  = '0;
-    in1_axi_rresp  = '0;
-    in2_axi_rvalid = '0;
-    in2_axi_rdata  = '0;
-    in2_axi_rresp  = '0;
-
-    case (rg0_resp)
-      2'd0: begin
-        in0_axi_rvalid = out0_axi_rvalid;
-        in0_axi_rdata  = out0_axi_rdata;
-        in0_axi_rresp  = out0_axi_rresp;
-      end
-
-      2'd1: begin
-        in1_axi_rvalid = out0_axi_rvalid;
-        in1_axi_rdata  = out0_axi_rdata;
-        in1_axi_rresp  = out0_axi_rresp;
-      end
-
-      2'd2: begin
-        in2_axi_rvalid = out0_axi_rvalid;
-        in2_axi_rdata  = out0_axi_rdata;
-        in2_axi_rresp  = out0_axi_rresp;
-      end
-
-      default: begin
-      end
-    endcase
-  end
 
 endmodule
-// verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNDRIVEN
+// verilator lint_on DECLFILENAME
 
 `endif
