@@ -27,6 +27,9 @@
 // Subordinates are routed with even addresses to 0 and odd to 1.
 //
 
+// FIXME: reduce and shift the addr bits to the subordinates by 1 since they
+// are unused.
+//
 // TODO: parameterize the number of managers and subordinates in the modules
 // and move them to their own files.
 // verilator lint_off DECLFILENAME
