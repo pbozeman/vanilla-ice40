@@ -5,6 +5,9 @@
 
 `include "vga_mode.sv"
 
+// TODO: move to axi like interface with valid/ready of the input
+// and valid/ready/last on the output
+//
 module gfx_clear #(
     parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
     parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,

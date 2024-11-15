@@ -104,6 +104,10 @@ are effectively writting/reading at 50mhz. When there is a reader and writer bot
 max we can do. Double buffering will bring this up to 50mhz, which is enough
 for 800x600's 40mhz. 1024x768 will need pipelining/interleaving on top of this.
 
+### gfx
+
+- use axi like interface with valid/ready inputs and valid/ready/last outputs
+
 ### Style
 
 - move to system verilog, but decide on what conventions to use
