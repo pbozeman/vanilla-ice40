@@ -6,14 +6,14 @@
 `define ASSERT(condition) \
   if (!(condition)) begin \
     $display("ASSERTION FAILURE: %s:%0d", `__FILE__, `__LINE__); \
-    #5; \
+    #20; \
     $fatal; \
   end
 
 `define ASSERT_EQ(a, b) \
   if (!(a === b)) begin \
     $display("ASSERTION FAILURE: %s:%0d %d(0x%h) %d(0x%h)", `__FILE__, `__LINE__, a, a, b, b); \
-    #5; \
+    #20; \
     $fatal; \
   end
 
