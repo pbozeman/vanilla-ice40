@@ -70,7 +70,9 @@ module axi_arbiter (
     logic [2:0] mask;
 
     // mask out the current txn
+    mask        = MASK_IDLE;
     masked_greq = '0;
+
     next_grant  = active_request;
 
     if (txn_accepted || idle) begin
@@ -79,10 +81,11 @@ module axi_arbiter (
         mask = MASK_IDLE;
       end else begin
         case (active_request)
-          2'd0:    mask = MASK_0;
-          2'd1:    mask = MASK_1;
-          2'd2:    mask = MASK_2;
-          default: mask = MASK_IDLE;
+          2'd0: mask = MASK_0;
+          2'd1: mask = MASK_1;
+          2'd2: mask = MASK_2;
+          default: begin
+          end
         endcase
       end
 
