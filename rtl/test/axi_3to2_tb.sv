@@ -981,6 +981,40 @@ module axi_3to2_tb;
     end
   endtask
 
+  task test_sequential_write;
+    begin
+      test_line = `__LINE__;
+      reset();
+
+      in0_axi_awaddr  = 20'h1000;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hDEAD;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      `WAIT_FOR_SIGNAL(in0_axi_awready);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, 0);
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, '1);
+      `ASSERT_EQ(out0_axi_awaddr, 20'h1000);
+      `ASSERT_EQ(out0_axi_wdata, 16'hDEAD);
+      @(posedge axi_clk);
+
+      in0_axi_awaddr  = 20'h1001;
+      in0_axi_awvalid = 1'b1;
+      in0_axi_wdata   = 16'hBEEF;
+      in0_axi_wstrb   = 2'b11;
+      in0_axi_wvalid  = 1'b1;
+      in0_axi_bready  = 1'b1;
+
+      `WAIT_FOR_SIGNAL(in0_axi_awready);
+      `ASSERT_EQ(uut.sub0_mux.wg_grant, '1);
+      `ASSERT_EQ(uut.sub1_mux.wg_grant, 0);
+      `ASSERT_EQ(out1_axi_awaddr, 20'h1001);
+      `ASSERT_EQ(out1_axi_wdata, 16'hBEEF);
+    end
+  endtask
+
   initial begin
     // Even / subordinate 0 tests
     test_awaddr_grant_even();
@@ -1007,6 +1041,7 @@ module axi_3to2_tb;
     // Mixed subordinate tests
     test_simultaneous_even_odd_write();
     test_simultaneous_even_odd_read();
+    test_sequential_write();
 
     #100;
     $finish;

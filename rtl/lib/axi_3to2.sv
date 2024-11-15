@@ -76,40 +76,56 @@ module axi_arbiter (
     mask        = MASK_IDLE;
     masked_greq = '0;
 
-    next_grant  = active_request;
+    next_grant  = CHANNEL_IDLE;
 
-    if (txn_accepted || idle) begin
-      // First mask out current requester and check for others
-      if (idle) begin
-        mask = MASK_IDLE;
-      end else begin
-        case (active_request)
-          2'd0: mask = MASK_0;
-          2'd1: mask = MASK_1;
-          2'd2: mask = MASK_2;
-          default: begin
-          end
-        endcase
-      end
+    if (!idle && !txn_accepted) begin
+      next_grant = active_request;
+    end else begin
+      if (txn_accepted || idle) begin
+        // First mask out current requester and check for others
+        if (idle) begin
+          mask = MASK_IDLE;
+        end else begin
+          case (active_request)
+            2'd0: mask = MASK_0;
+            2'd1: mask = MASK_1;
+            2'd2: mask = MASK_2;
+            default: begin
+            end
+          endcase
+        end
 
-      // Apply mask to grant requests
-      masked_greq = requesting_grant & mask;
+        // Apply mask to grant requests
+        masked_greq = requesting_grant & mask;
 
-      // Priority encoder for next grant - check other requesters first
-      if (masked_greq & 3'b001) begin
-        next_grant = 0;
-      end else if (masked_greq & 3'b010) begin
-        next_grant = 1;
-      end else if (masked_greq & 3'b100) begin
-        next_grant = 2;
-      end else begin
-        // If no other requests, keep current requester.
-        // This prevents a pipeline bubble from transitioning
-        // back through idle before starting the next txn.
-        if (!idle && requesting_grant[active_request]) begin
-          next_grant = active_request;
+        // Priority encoder for next grant - check other requesters first
+        if (masked_greq & 3'b001) begin
+          next_grant = 0;
+        end else if (masked_greq & 3'b010) begin
+          next_grant = 1;
+        end else if (masked_greq & 3'b100) begin
+          next_grant = 2;
         end else begin
           next_grant = CHANNEL_IDLE;
+          // TODO: the code below is buggy. Leaving it out introduces
+          // a 1 cycle bubble, but as is and in the context of the rest of the
+          // code at the time this comment is written, the code below causes the
+          // next request to go to the wrong addr... i.e. if we were just writing
+          // to addr 0 and the next write request is to addr 1, this still writes to
+          // out0 rather than out1. This is caught by test_sequential_write
+          // in the tb. This will need to be revisited when the calling
+          // modules are trying to achieve higher pixel clocks. It might also
+          // be possible to remove a cycle of latency from sram_controller, in
+          // which we won't really need the code below.
+          //
+          // // If no other requests, keep current requester.
+          // // This prevents a pipeline bubble from transitioning
+          // // back through idle before starting the next txn.
+          // if (!idle && requesting_grant[active_request]) begin
+          //   next_grant = active_request;
+          // end else begin
+          //   next_grant = CHANNEL_IDLE;
+          // end
         end
       end
     end
