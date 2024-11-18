@@ -45,23 +45,23 @@ module gfx_demo #(
   logic [ FB_Y_BITS-1:0] gfx_y;
   logic [PIXEL_BITS-1:0] gfx_color;
   logic [ META_BITS-1:0] gfx_meta;
-  logic                  gfx_inc;
+  logic                  gfx_pready;
+  logic                  gfx_pvalid;
   logic                  gfx_last;
-  logic                  gfx_valid;
   logic                  gfx_ready;
   logic                  gfx_vsync;
 
   logic                  vga_enable;
 
   gfx_test_pattern gfx_inst (
-      .clk  (clk),
-      .reset(reset),
-      .inc  (gfx_inc),
-      .x    (gfx_x),
-      .y    (gfx_y),
-      .color(gfx_color),
-      .valid(gfx_valid),
-      .last (gfx_last)
+      .clk   (clk),
+      .reset (reset),
+      .pready(gfx_pready),
+      .pvalid(gfx_pvalid),
+      .x     (gfx_x),
+      .y     (gfx_y),
+      .color (gfx_color),
+      .last  (gfx_last)
   );
 
   // TODO: use this
@@ -82,8 +82,8 @@ module gfx_demo #(
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
       .gfx_meta (gfx_meta),
-      .gfx_valid(gfx_valid),
-      .gfx_ready(gfx_ready),
+      .gfx_valid(gfx_pvalid),
+      .gfx_ready(gfx_pready),
       .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),
@@ -101,8 +101,6 @@ module gfx_demo #(
       .sram_io_oe_n(sram_io_oe_n),
       .sram_io_ce_n(sram_io_ce_n)
   );
-
-  assign gfx_inc = (gfx_valid & gfx_ready);
 
   // Give the gfx side some time to start laying down pixels before
   // we stream them to the display.

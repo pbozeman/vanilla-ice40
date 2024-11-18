@@ -136,11 +136,16 @@ module axi_sram_dbuf_controller #(
   assign prod_axi_araddr  = 0;
   assign prod_axi_rready  = 1'b0;
 
+  //
+  // TODO: we set bready for the consumer in case a switch is requested
+  // during a write. This would arguably be a bug and we should be letting
+  // writes finalize before the switch, but none of the current code in this
+  // repo is even using the response codes, so it's ok for now.
   assign cons_axi_awvalid = 1'b0;
   assign cons_axi_awaddr  = 0;
   assign cons_axi_wvalid  = 1'b0;
   assign cons_axi_wdata   = 0;
-  assign cons_axi_bready  = 1'b0;
+  assign cons_axi_bready  = 1'b1;
   assign cons_axi_wstrb   = {((AXI_DATA_WIDTH + 7) / 8) {1'b1}};
 
   axi_2x2 #(

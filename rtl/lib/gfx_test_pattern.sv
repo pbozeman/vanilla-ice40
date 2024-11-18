@@ -5,8 +5,6 @@
 
 `include "vga_mode.sv"
 
-// TODO: move to axi like interface with valid/ready/last on the output
-
 module gfx_test_pattern #(
     parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
     parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
@@ -14,11 +12,11 @@ module gfx_test_pattern #(
 ) (
     input  logic                  clk,
     input  logic                  reset,
-    input  logic                  inc,
+    input  logic                  pready,
+    output logic                  pvalid,
     output logic [ FB_X_BITS-1:0] x,
     output logic [ FB_Y_BITS-1:0] y,
     output logic [PIXEL_BITS-1:0] color,
-    output logic                  valid,
     output logic                  last
 );
 
@@ -37,6 +35,9 @@ module gfx_test_pattern #(
   logic [FB_X_BITS-1:0] next_x;
   logic [FB_Y_BITS-1:0] next_y;
 
+  logic                 pixel_done;
+  assign pixel_done = (pready && pvalid);
+
   always_comb begin
     next_x = x;
     next_y = y;
@@ -49,9 +50,7 @@ module gfx_test_pattern #(
       next_x = 0;
       next_y = 0;
     end else begin
-      // if the inc check gets removed, move the color calc
-      // into the non-comb block
-      if (inc) begin
+      if (pixel_done) begin
         if (x == MAX_X) begin
           next_x = 0;
           if (y == MAX_Y) begin
@@ -88,7 +87,7 @@ module gfx_test_pattern #(
       x <= 0;
       y <= 0;
     end else begin
-      if (!done & inc) begin
+      if (!done & pixel_done) begin
         x <= next_x;
         y <= next_y;
       end
@@ -99,6 +98,21 @@ module gfx_test_pattern #(
     color <= {red, grn, blu};
   end
 
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      pvalid <= 0;
+    end else begin
+      if (!done) begin
+        pvalid <= 1'b1;
+      end
+
+      // TODO: this is not going as fast as we could
+      if (pvalid && pready) begin
+        pvalid <= 1'b0;
+      end
+    end
+  end
+
   logic done;
   always_ff @(posedge clk) begin
     if (reset) begin
@@ -107,14 +121,6 @@ module gfx_test_pattern #(
       if (!done) begin
         done <= last;
       end
-    end
-  end
-
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      valid <= 1'b1;
-    end else begin
-      valid <= !done;
     end
   end
 

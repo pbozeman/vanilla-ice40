@@ -65,22 +65,22 @@ module adc_xy_vga #(
   logic [ADC_DATA_BITS-1:0] gfx_adc_y;
 
   // clear screen signals
+  logic                     clr_pvalid;
+  logic                     clr_pready;
   logic [    FB_X_BITS-1:0] clr_x;
   logic [    FB_Y_BITS-1:0] clr_y;
   logic [   PIXEL_BITS-1:0] clr_color;
-  logic                     clr_valid;
   // verilator lint_off UNUSEDSIGNAL
   logic                     clr_last;
   // verilator lint_on UNUSEDSIGNAL
-  logic                     clr_inc;
 
   // gfx signals
   logic [    FB_X_BITS-1:0] gfx_x;
   logic [    FB_Y_BITS-1:0] gfx_y;
   logic [   PIXEL_BITS-1:0] gfx_color;
   logic [    META_BITS-1:0] gfx_meta;
-  logic                     gfx_valid;
-  logic                     gfx_ready;
+  logic                     gfx_pvalid;
+  logic                     gfx_pready;
   logic                     gfx_vsync;
 
   logic                     vga_enable;
@@ -95,27 +95,28 @@ module adc_xy_vga #(
   // TODO: add gfx init signals and/or a mem clear that gets run
   // on the sram at startup
   //
-  assign clr_inc = (clr_valid & gfx_ready);
   gfx_clear #(
       .FB_WIDTH  (VGA_WIDTH),
       .FB_HEIGHT (VGA_HEIGHT),
       .PIXEL_BITS(PIXEL_BITS)
   ) gfx_clear_inst (
-      .clk  (clk),
-      .reset(reset | posedge_first_mem_switch),
-      .inc  (clr_inc),
-      .x    (clr_x),
-      .y    (clr_y),
-      .color(clr_color),
-      .valid(clr_valid),
-      .last (clr_last)
+      .clk   (clk),
+      .reset (reset | posedge_first_mem_switch),
+      .pvalid(clr_pvalid),
+      .pready(clr_pready),
+      .x     (clr_x),
+      .y     (clr_y),
+      .color (clr_color),
+      .last  (clr_last)
   );
 
   //
   // adc
   //
   logic adc_tvalid;
-  logic adc_tready = gfx_ready;
+  logic adc_tready;
+
+  assign adc_tready = gfx_pready;
 
   adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
@@ -163,11 +164,13 @@ module adc_xy_vga #(
   end
 
   // output mux
-  assign gfx_x     = clr_valid ? clr_x : gfx_adc_x;
-  assign gfx_y     = clr_valid ? clr_y : gfx_adc_y;
-  assign gfx_color = clr_valid ? clr_color : {PIXEL_BITS{1'b1}};
-  assign gfx_meta  = '0;
-  assign gfx_valid = clr_valid || adc_tvalid;
+  assign gfx_x      = clr_pvalid ? clr_x : gfx_adc_x;
+  assign gfx_y      = clr_pvalid ? clr_y : gfx_adc_y;
+  assign gfx_color  = clr_pvalid ? clr_color : {PIXEL_BITS{1'b1}};
+  assign gfx_meta   = '0;
+
+  assign gfx_pvalid = clr_pvalid || adc_tvalid;
+  assign clr_pready = gfx_pready;
 
   logic [COLOR_BITS-1:0] vga_raw_red;
   logic [COLOR_BITS-1:0] vga_raw_grn;
@@ -189,12 +192,12 @@ module adc_xy_vga #(
 
       .mem_switch(mem_switch),
 
+      .gfx_valid(gfx_pvalid),
+      .gfx_ready(gfx_pready),
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_valid(gfx_valid),
       .gfx_meta (gfx_meta),
-      .gfx_ready(gfx_ready),
       .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),

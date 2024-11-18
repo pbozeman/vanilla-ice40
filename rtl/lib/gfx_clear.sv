@@ -5,9 +5,6 @@
 
 `include "vga_mode.sv"
 
-// TODO: move to axi like interface with valid/ready of the input
-// and valid/ready/last on the output
-//
 module gfx_clear #(
     parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
     parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
@@ -19,11 +16,11 @@ module gfx_clear #(
 ) (
     input  logic                  clk,
     input  logic                  reset,
-    input  logic                  inc,
+    input  logic                  pready,
+    output logic                  pvalid,
     output logic [ FB_X_BITS-1:0] x,
     output logic [ FB_Y_BITS-1:0] y,
     output logic [PIXEL_BITS-1:0] color,
-    output logic                  valid,
     output logic                  last
 );
   localparam MAX_X = FB_WIDTH - 1;
@@ -32,11 +29,14 @@ module gfx_clear #(
   logic [FB_X_BITS-1:0] next_x;
   logic [FB_Y_BITS-1:0] next_y;
 
+  logic                 pixel_done;
+  assign pixel_done = (pready && pvalid);
+
   always_comb begin
     next_x = x;
     next_y = y;
 
-    if (inc) begin
+    if (pixel_done) begin
       if (x == MAX_X) begin
         next_x = 0;
         if (y == MAX_Y) begin
@@ -54,7 +54,7 @@ module gfx_clear #(
     if (reset) begin
       x <= 0;
     end else begin
-      if (!done & inc) begin
+      if (!done & pixel_done) begin
         x <= next_x;
       end
     end
@@ -64,7 +64,7 @@ module gfx_clear #(
     if (reset) begin
       y <= 0;
     end else begin
-      if (!done & inc) begin
+      if (!done & pixel_done) begin
         y <= next_y;
       end
     end
@@ -82,6 +82,22 @@ module gfx_clear #(
     end
   end
 
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      pvalid <= 0;
+    end else begin
+      if (!done_p1) begin
+        pvalid <= 1'b1;
+      end
+
+      // TODO: this is not going as fast as we could
+      if (pvalid && pready) begin
+        pvalid <= 1'b0;
+      end
+    end
+  end
+
+  // TODO: this seems like a mess, come back and clean this up
   logic done;
   always_ff @(posedge clk) begin
     if (reset) begin
@@ -99,7 +115,6 @@ module gfx_clear #(
       done_p1 <= 1'b0;
     end else begin
       done_p1 <= done;
-      valid   <= !done_p1;
     end
   end
 

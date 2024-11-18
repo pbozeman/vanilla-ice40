@@ -175,17 +175,18 @@ module gfx_vga_dbuf #(
       .detected(negedge_switching)
   );
 
-  always_comb begin
-    gfx_ready = (fbw_axi_tready && !switching);
-  end
-
   // fb writer axi flow control signals
-  logic                            fbw_axi_tvalid = 0;
+  logic                            fbw_axi_tvalid;
   logic                            fbw_axi_tready;
 
   // and the data that goes with them
   logic [      AXI_ADDR_WIDTH-1:0] fbw_addr;
   logic [PIXEL_BITS+META_BITS-1:0] fbw_color;
+
+  assign gfx_ready      = (fbw_axi_tready && !switching);
+  assign fbw_axi_tvalid = gfx_valid;
+  assign fbw_addr       = (VGA_WIDTH * gfx_y + gfx_x);
+  assign fbw_color      = {gfx_color, gfx_meta};
 
   fb_writer #(
       .PIXEL_BITS    (PIXEL_BITS + META_BITS),
@@ -212,35 +213,6 @@ module gfx_vga_dbuf #(
       .sram_axi_bready (gfx_axi_bready),
       .sram_axi_bresp  (gfx_axi_bresp)
   );
-
-  logic [AXI_ADDR_WIDTH-1:0] gfx_addr;
-  assign gfx_addr = (VGA_WIDTH * gfx_y + gfx_x);
-
-  // fb writer data
-  always_ff @(posedge clk) begin
-    // icecube2 crashes if we set this on reset.
-    // TODO: see if there is a workaround, in the mean time,
-    // the value is set to 0 above during bootup.
-    if (gfx_valid) begin
-      fbw_axi_tvalid <= 1'b1;
-    end else begin
-      if (fbw_axi_tvalid && fbw_axi_tready) begin
-        fbw_axi_tvalid <= 1'b0;
-      end
-    end
-  end
-
-  always_ff @(posedge clk) begin
-    if (gfx_valid) begin
-      fbw_addr <= gfx_addr;
-    end
-  end
-
-  always_ff @(posedge clk) begin
-    if (gfx_valid) begin
-      fbw_color <= {gfx_color, gfx_meta};
-    end
-  end
 
   //
   // VGA pixel stream
