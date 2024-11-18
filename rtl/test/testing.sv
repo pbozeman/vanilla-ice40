@@ -26,9 +26,9 @@
 `define TEST_SETUP_SLOW(mod)                                 \
    initial begin                                             \
      $dumpfile({".build/", `"mod`", ".vcd"});                \
-     $dumpvars(4, mod);                                      \
+     $dumpvars(5, mod);                                      \
    end                                                       \
-   logic skip_slow_tests;                                      \
+   logic skip_slow_tests;                                    \
    initial begin                                             \
      if ($value$plusargs("SKIP_SLOW_TESTS=%b", skip_slow_tests)) begin \
        if (skip_slow_tests) begin                            \
