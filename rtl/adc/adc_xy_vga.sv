@@ -4,10 +4,10 @@
 `include "directives.sv"
 
 `include "adc_xy_axi.sv"
+`include "delay.sv"
 `include "detect_falling.sv"
-`include "detect_rising.sv"
 `include "gfx_clear.sv"
-`include "gfx_vga_dbuf.sv"
+`include "gfx_vga_3to2.sv"
 `include "vga_mode.sv"
 
 module adc_xy_vga #(
@@ -84,16 +84,10 @@ module adc_xy_vga #(
   logic                     gfx_vsync;
 
   logic                     vga_enable;
-  logic                     mem_switch;
-  logic                     posedge_first_mem_switch;
+  logic                     adc_active;
 
   //
   // clear screen before adc output
-  //
-  // the first_mem_switch is a bit weird here.
-  //
-  // TODO: add gfx init signals and/or a mem clear that gets run
-  // on the sram at startup
   //
   gfx_clear #(
       .FB_WIDTH  (VGA_WIDTH),
@@ -101,9 +95,9 @@ module adc_xy_vga #(
       .PIXEL_BITS(PIXEL_BITS)
   ) gfx_clear_inst (
       .clk   (clk),
-      .reset (reset | posedge_first_mem_switch),
-      .pvalid(clr_pvalid),
+      .reset (reset),
       .pready(clr_pready),
+      .pvalid(clr_pvalid),
       .x     (clr_x),
       .y     (clr_y),
       .color (clr_color),
@@ -120,12 +114,12 @@ module adc_xy_vga #(
 
   adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
-  ) adc_xy_axi_inst (
+  ) adc_xy_inst (
       .clk      (clk),
       .reset    (reset),
+      .adc_clk  (adc_clk),
       .tvalid   (adc_tvalid),
       .tready   (adc_tready),
-      .adc_clk  (adc_clk),
       .adc_x_bus(adc_x_bus),
       .adc_y_bus(adc_y_bus),
       .adc_x    (adc_x),
@@ -134,10 +128,8 @@ module adc_xy_vga #(
 
   // Temporary work around for the fact that our signal is 0 to 1024 while our
   // fb is 640x480. Just get something on the screen as a POC.
-  always_ff @(posedge clk) begin
-    gfx_adc_x <= adc_x >> 1;
-    gfx_adc_y <= adc_y >> 1;
-  end
+  assign gfx_adc_x = adc_x >> 1;
+  assign gfx_adc_y = adc_y >> 1;
 
   // Persistence
   logic                    gfx_new_frame;
@@ -164,12 +156,12 @@ module adc_xy_vga #(
   end
 
   // output mux
-  assign gfx_x      = clr_pvalid ? clr_x : gfx_adc_x;
-  assign gfx_y      = clr_pvalid ? clr_y : gfx_adc_y;
-  assign gfx_color  = clr_pvalid ? clr_color : {PIXEL_BITS{1'b1}};
+  assign gfx_x      = adc_active ? gfx_adc_x : clr_x;
+  assign gfx_y      = adc_active ? gfx_adc_y : clr_y;
+  assign gfx_color  = adc_active ? {PIXEL_BITS{1'b1}} : clr_color;
   assign gfx_meta   = '0;
 
-  assign gfx_pvalid = clr_pvalid || adc_tvalid;
+  assign gfx_pvalid = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready = gfx_pready;
 
   logic [COLOR_BITS-1:0] vga_raw_red;
@@ -179,18 +171,16 @@ module adc_xy_vga #(
   //
   // vga
   //
-  gfx_vga_dbuf #(
+  gfx_vga_3to2 #(
       .VGA_WIDTH     (VGA_WIDTH),
       .VGA_HEIGHT    (VGA_HEIGHT),
       .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) gfx_vga_dbuf_inst (
+  ) gfx_vga_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
       .reset    (reset),
-
-      .mem_switch(mem_switch),
 
       .gfx_valid(gfx_pvalid),
       .gfx_ready(gfx_pready),
@@ -250,48 +240,24 @@ module adc_xy_vga #(
   assign vga_grn = vga_raw_grn;
   assign vga_blu = vga_raw_blu;
 
-  //
-  // Wait for the system to fill the first fb before we start reading,
-  // otherwise, we will be displaying from uninitialized memory.
-  //
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      vga_enable <= 1'b0;
-    end else begin
-      if (!vga_enable) begin
-        vga_enable <= clr_last;
-      end
-    end
-  end
-
-  logic first_mem_switch;
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      first_mem_switch <= 0;
-    end else begin
-      if (!first_mem_switch) begin
-        first_mem_switch <= clr_last;
-      end
-    end
-  end
-
-  detect_rising detect_rising_first_mem_switch_inst (
-      .clk     (clk),
-      .signal  (first_mem_switch),
-      .detected(posedge_first_mem_switch)
+  // Give the gfx side some time to start laying down pixels before
+  // we stream them to the display.
+  delay #(
+      .DELAY_CYCLES(8)
+  ) vga_fb_delay (
+      .clk(clk),
+      .in (~reset),
+      .out(vga_enable)
   );
 
-  //
-  // FB double buffer switching logic
-  //
-  logic negedge_vsync;
-  detect_falling falling_sram_vga_vsync (
-      .clk     (clk),
-      .signal  (gfx_vsync),
-      .detected(negedge_vsync)
+  // wait for the clr to finish writing before we flip to the adc
+  delay #(
+      .DELAY_CYCLES(8)
+  ) adc_active_delay (
+      .clk(clk),
+      .in (clr_last),
+      .out(adc_active)
   );
-
-  assign mem_switch = vga_enable ? negedge_vsync : clr_last;
 
 endmodule
 `endif

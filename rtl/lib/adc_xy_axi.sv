@@ -45,11 +45,11 @@ module adc_xy_axi #(
         tvalid <= 1'b1;
         adc_x  <= adc_x_int;
         adc_y  <= adc_y_int;
-      end else begin
-        if (tready) begin
-          adc_x <= adc_x_int;
-          adc_y <= adc_y_int;
-        end
+      end
+
+      // TODO: this is not going as fast as we could
+      if (tvalid && tready) begin
+        tvalid <= 1'b0;
       end
     end
   end
