@@ -19,6 +19,9 @@ VGA_MODE := "640_480_60"
 # Clock Frequency in MHZ
 CLK_FREQ := 100
 
+# Custom seeds set with <top_module>_SEED
+# adc_xy_vga_top_SEED := 10
+
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
@@ -134,7 +137,11 @@ $(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 
 define pnr_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) --json $$< $(addprefix --pcf ,$(PCF_FILE)) --top $(notdir $(basename $(1))) --asc $$@ || (mv $$@ $$@.sav && echo failed: $$@)
+	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
+		--json $$< $(addprefix --pcf ,$(PCF_FILE)) \
+		--top $(notdir $(basename $(1))) \
+	  $(if $($(notdir $(basename $(1)))_SEED),--seed $($(notdir $(basename $(1)))_SEED)) \
+		--asc $$@ || (mv $$@ $$@.sav && echo failed: $$@)
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
