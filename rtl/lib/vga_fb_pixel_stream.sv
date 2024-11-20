@@ -98,18 +98,6 @@ module vga_fb_pixel_stream #(
   );
 
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
-
-  // This was measured to be faster than a counter. When registering the
-  // final outputs just before sending them (to pipeline the addr calc),
-  // multiply was achieving 145Mhz maxf while the counter was 112 maxf.
-  // (After adding more logic to this module, maxf dropped to 130ish, but adding
-  // more pipelining can get it back, which isn't really worth doing since
-  // we are meeting timing by a wide margin.
-  //
-  // One sram reads were added, the overall maxf dropped to around 115 mhz.
-  // I think the limiting factor is the sram controller. So, it's important
-  // to have a fresh pipeline point just before calling into it, as we are
-  // doing with the _p1 signals.
   assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row) + fb_pixel_column;
 
   // Pipelined versions of the signals prior to kicking off the read
