@@ -6,7 +6,7 @@
 
 `include "directives.sv"
 
-`include "fifo.sv"
+`include "sync_fifo.sv"
 `include "vga_mode.sv"
 `include "vga_sync.sv"
 
@@ -37,6 +37,7 @@ module vga_fb_pixel_stream #(
     input logic reset,
 
     // stream signals
+    // TODO: replace with axi like signaling.
     input  logic enable,
     output logic valid,
 
@@ -100,12 +101,15 @@ module vga_fb_pixel_stream #(
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
   assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row) + fb_pixel_column;
 
-  // Pipelined versions of the signals prior to kicking off the read
+  // Pipelined versions of the signals prior to kicking off the read.
+  // This is to pipeline the mult/add of the addr.
   logic                      enable_p1;
   logic                      fb_pixel_visible_p1;
+  logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_p1;
   logic                      fb_pixel_hsync_p1;
   logic                      fb_pixel_vsync_p1;
-  logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_p1;
+  logic                      fb_pixel_inc_p1;
+
 
   always_ff @(posedge clk) begin
     if (reset) begin
@@ -116,10 +120,11 @@ module vga_fb_pixel_stream #(
   end
 
   always_ff @(posedge clk) begin
+    fb_pixel_inc_p1     <= fb_pixel_inc;
+    fb_pixel_addr_p1    <= fb_pixel_addr_calc;
     fb_pixel_visible_p1 <= fb_pixel_visible;
     fb_pixel_hsync_p1   <= fb_pixel_hsync;
     fb_pixel_vsync_p1   <= fb_pixel_vsync;
-    fb_pixel_addr_p1    <= fb_pixel_addr_calc;
   end
 
   //
@@ -206,103 +211,71 @@ module vga_fb_pixel_stream #(
     end
   end
 
-
   // Send the metadata we computed about the pixel through a fifo to be
   // matched with it's pixel value from the frame buffer.
-  //
-  // An alternative to this would be a shift register, but that requires
-  // us to know the pipeline size of the axi stream.
   localparam PIXEL_CONTEXT_WIDTH = 3;
-  logic [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_send;
-  logic [PIXEL_CONTEXT_WIDTH-1:0] pixel_context_recv;
 
-  // marshal the pixel metadata for the fifo
-  assign pixel_context_send = {
-    fb_pixel_visible, fb_pixel_vsync_p1, fb_pixel_hsync_p1
-  };
+  logic [PIXEL_CONTEXT_WIDTH-1:0] fifo_w_data;
+  logic                           fifo_w_inc;
 
-  logic fifo_empty;
+  logic [PIXEL_CONTEXT_WIDTH-1:0] fifo_r_data;
+  logic                           fifo_r_inc;
+
+  logic                           fifo_r_empty;
   // verilator lint_off UNUSEDSIGNAL
-  logic fifo_full;
+  logic                           fifo_w_full;
   // verilator lint_on UNUSEDSIGNAL
 
-  logic pixel_inc;
-  assign pixel_inc = !fifo_empty & (read_done | !fb_pixel_visible_p1);
+  assign fifo_w_data = {
+    fb_pixel_addr_p1, fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1
+  };
 
-  fifo #(
+  assign fifo_w_inc = fb_pixel_inc_p1;
+  assign fifo_r_inc = read_done || (!fifo_pixel_visible && !fifo_r_empty);
+
+  sync_fifo #(
       .DATA_WIDTH(PIXEL_CONTEXT_WIDTH),
-      .DEPTH     (4)
+      .ADDR_SIZE (5)
   ) fb_fifo (
-      .clk       (clk),
-      .reset     (reset),
-      .write_en  (fb_pixel_inc),
-      .read_en   (pixel_inc),
-      .write_data(pixel_context_send),
-      .read_data (pixel_context_recv),
-      .empty     (fifo_empty),
-      .full      (fifo_full)
+      .clk    (clk),
+      .rst_n  (~reset),
+      .w_inc  (fifo_w_inc),
+      .w_data (fifo_w_data),
+      .w_full (fifo_w_full),
+      .r_inc  (fifo_r_inc),
+      .r_data (fifo_r_data),
+      .r_empty(fifo_r_empty)
   );
 
-  // Delay pixel_inc by 1 because pixel_context_recv comes
-  // 1 clock after the inc. Otherwise, we interpret one
-  // clock early, which is especially bad at the start (and the end).
-  //
-  // TODO: the sync fifo interface should be better and operate more
-  // like the aysnc fifo does in that the data is valid, if not empty,
-  // and inc takes you to the next one.
-
-  logic pixel_inc_p1;
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      pixel_inc_p1 <= 1'b0;
-    end else begin
-      pixel_inc_p1 <= pixel_inc;
-    end
-  end
-
-  // unmarshal the pixel metadata to send to the caller
+  // unmarshal the pixel metadata from the fifo
   logic fifo_pixel_visible;
   logic fifo_pixel_vsync;
   logic fifo_pixel_hsync;
-  logic fifo_pixel_valid;
 
-  assign fifo_pixel_visible = pixel_context_recv[2];
-  assign fifo_pixel_vsync   = pixel_context_recv[1];
-  assign fifo_pixel_hsync   = pixel_context_recv[0];
+  assign {fifo_pixel_visible, fifo_pixel_vsync, fifo_pixel_hsync} = fifo_r_data;
 
-  assign fifo_pixel_valid   = pixel_inc_p1;
-
+  // registered response to the caller
+  logic                      pixel_valid;
   logic                      pixel_visible;
   logic                      pixel_hsync;
   logic                      pixel_vsync;
   logic [AXI_DATA_WIDTH-1:0] pixel_data;
-  logic                      pixel_valid;
 
-  // The pixel data from the fifo won't be valid for awhile, so set
-  // the important bits. hsync/vsync so the monitor won't try to interpret
-  // data.
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      pixel_hsync <= 1'b1;
-      pixel_vsync <= 1'b1;
-    end else begin
-      if (fifo_pixel_valid) begin
-        pixel_visible <= fifo_pixel_visible;
-        pixel_hsync   <= fifo_pixel_hsync;
-        pixel_vsync   <= fifo_pixel_vsync;
-      end
-    end
-  end
+  always @(posedge clk) begin
+    pixel_valid <= 1'b0;
 
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      pixel_data  <= 0;
-      pixel_valid <= 0;
-    end else begin
-      pixel_valid <= pixel_inc;
+    if (!fifo_r_empty) begin
+      pixel_visible <= fifo_pixel_visible;
+      pixel_hsync   <= fifo_pixel_hsync;
+      pixel_vsync   <= fifo_pixel_vsync;
 
-      if (read_done) begin
-        pixel_data <= sram_axi_rdata;
+      if (!fifo_pixel_visible) begin
+        pixel_valid <= 1'b1;
+      end else begin
+        if (read_done) begin
+          pixel_valid <= 1'b1;
+          pixel_data  <= sram_axi_rdata;
+        end
       end
     end
   end
