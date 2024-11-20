@@ -3,9 +3,7 @@
 
 `include "directives.sv"
 
-
-// Synchronous FIFO with parameterized width and depth Uses increment signals
-// for read/write control
+// Synchronous FIFO with FWFT (first word fall through.)
 //
 // This shares a similar interface to cdc_fifo, but works when the reader
 // and writer are in the same clock domain.
