@@ -5,11 +5,9 @@
 `include "sticky_bit.sv"
 
 // verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNUSEDPARAM
 module gfx_vga_tb;
   localparam AXI_ADDR_WIDTH = 10;
   localparam AXI_DATA_WIDTH = 16;
-  localparam AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8;
 
   // Reduce the size so testing doesn't take an eternity.
 
@@ -232,28 +230,67 @@ module gfx_vga_tb;
     end
   end
 
+  //
+  // Linear write block
+  //
+  logic wl_en;
+
+  always_comb begin
+    // This is kinda weird, but it matches the pattern that the
+    // uninitialized sram returns.
+    {gfx_color, gfx_meta} = gfx_y * H_VISIBLE + gfx_x;
+  end
+
+  always @(posedge clk) begin
+    if (reset) begin
+      gfx_x      <= '0;
+      gfx_y      <= '0;
+      gfx_pvalid <= 1'b0;
+    end else if (wl_en) begin
+      if (!gfx_pvalid || gfx_pready) begin
+        gfx_pvalid <= 1'b1;
+
+        if (gfx_pready) begin
+          // Increment coordinates
+          if (gfx_x < H_VISIBLE - 1) begin
+            gfx_x <= gfx_x + 1'b1;
+          end else begin
+            gfx_x <= '0;
+            if (gfx_y < V_VISIBLE - 1) begin
+              gfx_y <= gfx_y + 1'b1;
+            end else begin
+              gfx_y <= '0;
+            end
+          end
+        end
+      end
+    end
+  end
+
   task reset_test;
     begin
-      @(posedge clk);
-      reset = 1'b1;
-      @(posedge clk);
+      vga_enable = 1'b0;
+      reset      = 1'b1;
+
+      // it takes a few cycles for the cdc fifos to reset
+      repeat (2) @(posedge pixel_clk);
 
       gfx_x      = '0;
       gfx_y      = '0;
-      gfx_color  = '0;
-      gfx_meta   = '0;
       gfx_pvalid = 1'b0;
 
       pixel_x    = '0;
       pixel_y    = '0;
 
-      @(posedge clk);
+      wl_en      = 1'b0;
+
+      @(posedge pixel_clk);
       reset = 1'b0;
-      @(posedge clk);
+      @(posedge pixel_clk);
     end
   endtask
 
-  task test_basic;
+  task test_idle;
     begin
       test_line = `__LINE__;
       reset_test();
@@ -267,12 +304,27 @@ module gfx_vga_tb;
     end
   endtask
 
+  task test_linear_write;
+    begin
+      test_line = `__LINE__;
+      reset_test();
+
+      vga_enable = 1'b1;
+      wl_en      = 1'b1;
+
+      // 3 frames
+      repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
+        @(posedge pixel_clk);
+      end
+    end
+  endtask
+
   initial begin
-    test_basic();
+    test_idle();
+    test_linear_write();
 
     $finish;
   end
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNUSEDPARAM
