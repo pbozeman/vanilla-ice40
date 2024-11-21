@@ -28,8 +28,8 @@ module vga_fb_pixel_stream_tb;
 
   localparam PIXEL_BITS = 12;
   localparam META_BITS = 4;
-  localparam FB_X_BITS = $clog2(H_WHOLE_LINE);
-  localparam FB_Y_BITS = $clog2(V_WHOLE_FRAME);
+  localparam PIXEL_X_BITS = $clog2(H_WHOLE_LINE);
+  localparam PIXEL_Y_BITS = $clog2(V_WHOLE_FRAME);
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
   logic                      clk;
@@ -166,8 +166,8 @@ module vga_fb_pixel_stream_tb;
   `TEST_SETUP(vga_fb_pixel_stream_tb);
   logic [               8:0] test_line;
 
-  logic [     FB_X_BITS-1:0] pixel_x;
-  logic [     FB_Y_BITS-1:0] pixel_y;
+  logic [  PIXEL_X_BITS-1:0] pixel_x;
+  logic [  PIXEL_Y_BITS-1:0] pixel_y;
 
   logic [AXI_ADDR_WIDTH-1:0] pixel_addr;
   logic [    PIXEL_BITS-1:0] pixel_bits;
