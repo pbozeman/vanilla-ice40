@@ -6,9 +6,9 @@
 `include "vga_mode.sv"
 
 module gfx_test_pattern #(
-    parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
-    parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS = 12
+    parameter FB_WIDTH,
+    parameter FB_HEIGHT,
+    parameter PIXEL_BITS
 ) (
     input  logic                  clk,
     input  logic                  reset,
@@ -72,7 +72,7 @@ module gfx_test_pattern #(
   localparam color_on = {COLOR_BITS{1'b1}};
   localparam color_off = {COLOR_BITS{1'b0}};
 
-  localparam THIRD_SCREEN = `VGA_MODE_H_VISIBLE / 3;
+  localparam THIRD_SCREEN = FB_WIDTH / 3;
   localparam RED_END = THIRD_SCREEN;
   localparam GRN_START = RED_END;
   localparam GRN_END = THIRD_SCREEN * 2;

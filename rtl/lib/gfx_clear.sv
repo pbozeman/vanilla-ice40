@@ -6,9 +6,9 @@
 `include "vga_mode.sv"
 
 module gfx_clear #(
-    parameter FB_WIDTH   = `VGA_MODE_H_VISIBLE,
-    parameter FB_HEIGHT  = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS = 12,
+    parameter FB_WIDTH,
+    parameter FB_HEIGHT,
+    parameter PIXEL_BITS,
 
     // Frame buffer coordinate width calculations
     localparam FB_X_BITS = $clog2(FB_WIDTH),

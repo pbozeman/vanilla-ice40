@@ -6,6 +6,9 @@
 `include "vga_pixel_addr.sv"
 
 module vga_pixel_addr_tb;
+  localparam H_WHOLE_LINE = `VGA_MODE_H_WHOLE_LINE;
+  localparam V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME;
+
   logic       clk;
   logic       reset;
   logic [9:0] column;
@@ -14,7 +17,10 @@ module vga_pixel_addr_tb;
   // TODO: add enable tests
   logic       enable = 1'b1;
 
-  vga_pixel_addr uut (
+  vga_pixel_addr #(
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) uut (
       .clk   (clk),
       .reset (reset),
       .enable(enable),

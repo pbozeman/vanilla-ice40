@@ -5,23 +5,34 @@
 
 `include "adc_xy_axi.sv"
 `include "delay.sv"
-`include "detect_falling.sv"
+// `include "detect_falling.sv"
 `include "gfx_clear.sv"
 `include "gfx_vga_3to2.sv"
 `include "vga_mode.sv"
 
 module adc_xy_vga #(
-    parameter ADC_DATA_BITS  = 10,
-    parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
-    parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS     = 12,
-    parameter META_BITS      = 4,
+    parameter ADC_DATA_BITS = 10,
+
+    parameter PIXEL_BITS = 12,
+    parameter META_BITS  = 4,
+
+    parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
+    parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
+    parameter H_SYNC_PULSE  = `VGA_MODE_H_SYNC_PULSE,
+    parameter H_BACK_PORCH  = `VGA_MODE_H_BACK_PORCH,
+    parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
+
+    parameter V_VISIBLE     = `VGA_MODE_V_VISIBLE,
+    parameter V_FRONT_PORCH = `VGA_MODE_V_FRONT_PORCH,
+    parameter V_SYNC_PULSE  = `VGA_MODE_V_SYNC_PULSE,
+    parameter V_BACK_PORCH  = `VGA_MODE_V_BACK_PORCH,
+    parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
+
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
-    parameter P_FRAMES       = 4,
 
-    localparam FB_X_BITS  = $clog2(VGA_WIDTH),
-    localparam FB_Y_BITS  = $clog2(VGA_HEIGHT),
+    localparam FB_X_BITS  = $clog2(H_VISIBLE),
+    localparam FB_Y_BITS  = $clog2(V_VISIBLE),
     localparam COLOR_BITS = PIXEL_BITS / 3
 ) (
     input logic clk,
@@ -55,7 +66,7 @@ module adc_xy_vga #(
     output logic                      sram1_io_oe_n,
     output logic                      sram1_io_ce_n
 );
-  localparam P_FRAME_BITS = $clog2(P_FRAMES);
+  // localparam P_FRAME_BITS = $clog2(P_FRAMES);
 
   // adc signals
   logic [ADC_DATA_BITS-1:0] adc_x;
@@ -81,7 +92,9 @@ module adc_xy_vga #(
   logic [    META_BITS-1:0] gfx_meta;
   logic                     gfx_pvalid;
   logic                     gfx_pready;
+  // verilator lint_off UNUSEDSIGNAL
   logic                     gfx_vsync;
+  // verilator lint_on UNUSEDSIGNAL
 
   logic                     vga_enable;
   logic                     adc_active;
@@ -90,8 +103,8 @@ module adc_xy_vga #(
   // clear screen before adc output
   //
   gfx_clear #(
-      .FB_WIDTH  (VGA_WIDTH),
-      .FB_HEIGHT (VGA_HEIGHT),
+      .FB_WIDTH  (H_VISIBLE),
+      .FB_HEIGHT (V_VISIBLE),
       .PIXEL_BITS(PIXEL_BITS)
   ) gfx_clear_inst (
       .clk   (clk),
@@ -128,32 +141,32 @@ module adc_xy_vga #(
 
   // Temporary work around for the fact that our signal is 0 to 1024 while our
   // fb is 640x480. Just get something on the screen as a POC.
-  assign gfx_adc_x = adc_x >> 1;
-  assign gfx_adc_y = adc_y >> 1;
+  assign gfx_adc_x  = adc_x >> 1;
+  assign gfx_adc_y  = adc_y >> 1;
 
   // Persistence
-  logic                    gfx_new_frame;
-  logic [P_FRAME_BITS-1:0] gfx_frame;
+  // logic                    gfx_new_frame;
+  // logic [P_FRAME_BITS-1:0] gfx_frame;
 
-  detect_falling gfx_vsync_falling_inst (
-      .clk     (clk),
-      .signal  (gfx_vsync),
-      .detected(gfx_new_frame)
-  );
-
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      gfx_frame <= 0;
-    end else begin
-      if (gfx_new_frame) begin
-        if (gfx_frame < P_FRAMES) begin
-          gfx_frame <= gfx_frame + 1;
-        end else begin
-          gfx_frame <= 0;
-        end
-      end
-    end
-  end
+  // detect_falling gfx_vsync_falling_inst (
+  //     .clk     (clk),
+  //     .signal  (gfx_vsync),
+  //     .detected(gfx_new_frame)
+  // );
+  //
+  // always_ff @(posedge clk) begin
+  //   if (reset) begin
+  //     gfx_frame <= 0;
+  //   end else begin
+  //     if (gfx_new_frame) begin
+  //       if (gfx_frame < P_FRAMES) begin
+  //         gfx_frame <= gfx_frame + 1;
+  //       end else begin
+  //         gfx_frame <= 0;
+  //       end
+  //     end
+  //   end
+  // end
 
   // output mux
   assign gfx_x      = adc_active ? gfx_adc_x : clr_x;
@@ -172,11 +185,23 @@ module adc_xy_vga #(
   // vga
   //
   gfx_vga_3to2 #(
-      .VGA_WIDTH     (VGA_WIDTH),
-      .VGA_HEIGHT    (VGA_HEIGHT),
-      .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
-      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
+
+      .H_VISIBLE    (H_VISIBLE),
+      .H_FRONT_PORCH(H_FRONT_PORCH),
+      .H_SYNC_PULSE (H_SYNC_PULSE),
+      .H_BACK_PORCH (H_BACK_PORCH),
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+
+      .V_VISIBLE    (V_VISIBLE),
+      .V_FRONT_PORCH(V_FRONT_PORCH),
+      .V_SYNC_PULSE (V_SYNC_PULSE),
+      .V_BACK_PORCH (V_BACK_PORCH),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME),
+
+      .PIXEL_BITS(PIXEL_BITS),
+      .META_BITS (META_BITS)
   ) gfx_vga_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
@@ -213,28 +238,28 @@ module adc_xy_vga #(
   );
 
   // vga side frame/persistence tracking
-  logic                    vga_new_frame;
-  logic [P_FRAME_BITS-1:0] vga_frame;
-
-  detect_falling vga_vsync_falling_inst (
-      .clk     (pixel_clk),
-      .signal  (vga_vsync),
-      .detected(vga_new_frame)
-  );
-
-  always_ff @(posedge pixel_clk) begin
-    if (reset) begin
-      vga_frame <= 0;
-    end else begin
-      if (vga_new_frame) begin
-        if (vga_frame < P_FRAMES) begin
-          vga_frame <= vga_frame + 1;
-        end else begin
-          vga_frame <= 0;
-        end
-      end
-    end
-  end
+  // logic                    vga_new_frame;
+  // logic [P_FRAME_BITS-1:0] vga_frame;
+  //
+  // detect_falling vga_vsync_falling_inst (
+  //     .clk     (pixel_clk),
+  //     .signal  (vga_vsync),
+  //     .detected(vga_new_frame)
+  // );
+  //
+  // always_ff @(posedge pixel_clk) begin
+  //   if (reset) begin
+  //     vga_frame <= 0;
+  //   end else begin
+  //     if (vga_new_frame) begin
+  //       if (vga_frame < P_FRAMES) begin
+  //         vga_frame <= vga_frame + 1;
+  //       end else begin
+  //         vga_frame <= 0;
+  //       end
+  //     end
+  //   end
+  // end
 
   assign vga_red = vga_raw_red;
   assign vga_grn = vga_raw_grn;

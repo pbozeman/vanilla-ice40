@@ -9,8 +9,8 @@
 // and valid/ready/last on the output
 
 module gfx_line #(
-    parameter FB_WIDTH  = `VGA_MODE_H_VISIBLE,
-    parameter FB_HEIGHT = `VGA_MODE_V_VISIBLE
+    parameter FB_WIDTH,
+    parameter FB_HEIGHT
 ) (
     input logic clk,
     input logic reset,

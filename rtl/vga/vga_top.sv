@@ -41,8 +41,20 @@ module vga_top (
     output logic `VGA_HSYNC,
     output logic `VGA_VSYNC
 );
-  localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
-  localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
+  localparam H_VISIBLE     = `VGA_MODE_H_VISIBLE;
+  localparam H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH;
+  localparam H_SYNC_PULSE  = `VGA_MODE_H_SYNC_PULSE;
+  localparam H_BACK_PORCH  = `VGA_MODE_H_BACK_PORCH;
+  localparam H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE;
+
+  localparam V_VISIBLE     = `VGA_MODE_V_VISIBLE;
+  localparam V_FRONT_PORCH = `VGA_MODE_V_FRONT_PORCH;
+  localparam V_SYNC_PULSE  = `VGA_MODE_V_SYNC_PULSE;
+  localparam V_BACK_PORCH  = `VGA_MODE_V_BACK_PORCH;
+  localparam V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME;
+
+  localparam FB_X_BITS  = $clog2(H_WHOLE_LINE);
+  localparam FB_Y_BITS  = $clog2(V_WHOLE_FRAME);
 
   logic reset = 0;
 
@@ -50,8 +62,8 @@ module vga_top (
   logic visible;
   // verilator lint_on UNUSEDSIGNAL
 
-  logic [COLUMN_BITS-1:0] column;
-  logic [ROW_BITS-1:0] row;
+  logic [FB_X_BITS-1:0] column;
+  logic [FB_Y_BITS-1:0] row;
 
   logic [3:0] red;
   logic [3:0] green;
@@ -65,7 +77,18 @@ module vga_top (
       .clk_o(vga_clk)
   );
 
-  vga_sync vga_inst (
+  vga_sync #(
+      .H_VISIBLE    (H_VISIBLE),
+      .H_FRONT_PORCH(H_FRONT_PORCH),
+      .H_SYNC_PULSE (H_SYNC_PULSE),
+      .H_BACK_PORCH (H_BACK_PORCH),
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+      .V_VISIBLE    (V_VISIBLE),
+      .V_FRONT_PORCH(V_FRONT_PORCH),
+      .V_SYNC_PULSE (V_SYNC_PULSE),
+      .V_BACK_PORCH (V_BACK_PORCH),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) vga_inst (
       .clk(vga_clk),
       .reset(reset),
       .enable(enable),
@@ -76,7 +99,13 @@ module vga_top (
       .row(row)
   );
 
-  vga_test_01 vga_pattern (
+  vga_test_01 #(
+      .H_VISIBLE   (H_VISIBLE),
+      .H_WHOLE_LINE(H_WHOLE_LINE),
+
+      .V_VISIBLE    (V_VISIBLE),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) vga_pattern (
       .column(column),
       .row(row),
       .red(red),

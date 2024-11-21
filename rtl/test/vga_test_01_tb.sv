@@ -6,6 +6,18 @@
 // verilator lint_off UNUSEDSIGNAL
 
 module vga_test_01_tb;
+  localparam H_VISIBLE = `VGA_MODE_H_VISIBLE;
+  localparam H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH;
+  localparam H_SYNC_PULSE = `VGA_MODE_H_SYNC_PULSE;
+  localparam H_BACK_PORCH = `VGA_MODE_H_BACK_PORCH;
+  localparam H_WHOLE_LINE = `VGA_MODE_H_WHOLE_LINE;
+
+  localparam V_VISIBLE = `VGA_MODE_V_VISIBLE;
+  localparam V_FRONT_PORCH = `VGA_MODE_V_FRONT_PORCH;
+  localparam V_SYNC_PULSE = `VGA_MODE_V_SYNC_PULSE;
+  localparam V_BACK_PORCH = `VGA_MODE_V_BACK_PORCH;
+  localparam V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME;
+
   localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
   localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
 
@@ -23,7 +35,19 @@ module vga_test_01_tb;
   // TODO: add enable tests
   logic                   enable = 1'b1;
 
-  vga_sync vga_inst (
+  vga_sync #(
+      .H_VISIBLE    (H_VISIBLE),
+      .H_FRONT_PORCH(H_FRONT_PORCH),
+      .H_SYNC_PULSE (H_SYNC_PULSE),
+      .H_BACK_PORCH (H_BACK_PORCH),
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+
+      .V_VISIBLE    (V_VISIBLE),
+      .V_FRONT_PORCH(V_FRONT_PORCH),
+      .V_SYNC_PULSE (V_SYNC_PULSE),
+      .V_BACK_PORCH (V_BACK_PORCH),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) vga_inst (
       .clk    (clk),
       .reset  (reset),
       .enable (enable),
@@ -34,7 +58,13 @@ module vga_test_01_tb;
       .row    (row)
   );
 
-  vga_test_01 vga_pattern (
+  vga_test_01 #(
+      .H_VISIBLE   (H_VISIBLE),
+      .H_WHOLE_LINE(H_WHOLE_LINE),
+
+      .V_VISIBLE    (V_VISIBLE),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME)
+  ) vga_pattern (
       .column(column),
       .row   (row),
       .red   (red),

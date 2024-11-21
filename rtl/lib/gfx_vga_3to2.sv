@@ -30,15 +30,26 @@
 // meta_bits, for now. (The initial use case is using them for intensity
 // in simulating fade of a vector display.)
 module gfx_vga_3to2 #(
-    parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
-    parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS     = 12,
-    parameter META_BITS      = 4,
-    parameter AXI_ADDR_WIDTH = 20,
-    parameter AXI_DATA_WIDTH = 16,
+    parameter PIXEL_BITS,
+    parameter META_BITS,
 
-    localparam FB_X_BITS  = $clog2(VGA_WIDTH),
-    localparam FB_Y_BITS  = $clog2(VGA_HEIGHT),
+    parameter H_VISIBLE,
+    parameter H_FRONT_PORCH,
+    parameter H_SYNC_PULSE,
+    parameter H_BACK_PORCH,
+    parameter H_WHOLE_LINE,
+
+    parameter V_VISIBLE,
+    parameter V_FRONT_PORCH,
+    parameter V_SYNC_PULSE,
+    parameter V_BACK_PORCH,
+    parameter V_WHOLE_FRAME,
+
+    parameter AXI_ADDR_WIDTH,
+    parameter AXI_DATA_WIDTH,
+
+    localparam FB_X_BITS  = $clog2(H_VISIBLE),
+    localparam FB_Y_BITS  = $clog2(V_VISIBLE),
     localparam COLOR_BITS = PIXEL_BITS / 3
 ) (
     input logic clk,
@@ -242,7 +253,7 @@ module gfx_vga_3to2 #(
 
   assign gfx_ready      = fbw_axi_tready;
   assign fbw_axi_tvalid = gfx_valid;
-  assign fbw_addr       = (VGA_WIDTH * gfx_y + gfx_x);
+  assign fbw_addr       = (H_VISIBLE * gfx_y + gfx_x);
   assign fbw_color      = {gfx_color, gfx_meta};
 
   fb_writer #(
@@ -293,9 +304,23 @@ module gfx_vga_3to2 #(
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
   vga_fb_pixel_stream #(
-      .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
-      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
+
+      .H_VISIBLE    (H_VISIBLE),
+      .H_FRONT_PORCH(H_FRONT_PORCH),
+      .H_SYNC_PULSE (H_SYNC_PULSE),
+      .H_BACK_PORCH (H_BACK_PORCH),
+      .H_WHOLE_LINE (H_WHOLE_LINE),
+
+      .V_VISIBLE    (V_VISIBLE),
+      .V_FRONT_PORCH(V_FRONT_PORCH),
+      .V_SYNC_PULSE (V_SYNC_PULSE),
+      .V_BACK_PORCH (V_BACK_PORCH),
+      .V_WHOLE_FRAME(V_WHOLE_FRAME),
+
+      .PIXEL_BITS(PIXEL_BITS),
+      .META_BITS (META_BITS)
   ) vga_fb_pixel_stream_inst (
       .clk   (clk),
       .reset (reset),

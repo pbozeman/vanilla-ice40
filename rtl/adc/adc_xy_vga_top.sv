@@ -9,13 +9,12 @@
 `include "vga_pll.sv"
 
 module adc_xy_vga_top #(
-    parameter VGA_WIDTH      = `VGA_MODE_H_VISIBLE,
-    parameter VGA_HEIGHT     = `VGA_MODE_V_VISIBLE,
-    parameter PIXEL_BITS     = 12,
-    parameter META_BITS      = 4,
-    parameter SRAM_ADDR_BITS = 20,
-    parameter SRAM_DATA_BITS = 16,
-    parameter ADC_DATA_BITS  = 10
+    parameter  SRAM_ADDR_BITS = 20,
+    parameter  SRAM_DATA_BITS = 16,
+    parameter  ADC_DATA_BITS  = 10,
+    parameter  PIXEL_BITS     = 12,
+    parameter  META_BITS      = 4,
+    localparam COLOR_BITS     = PIXEL_BITS / 3
 ) (
     input logic                     CLK,
     input logic                     L_ADC_CLK_TO_FPGA,
@@ -39,8 +38,6 @@ module adc_xy_vga_top #(
     output logic [7:0] R_E,
     output logic [7:0] R_F
 );
-  localparam COLOR_BITS = PIXEL_BITS / 3;
-
   logic                  reset;
 
   logic [COLOR_BITS-1:0] vga_red;
@@ -63,14 +60,7 @@ module adc_xy_vga_top #(
       .reset(reset)
   );
 
-  adc_xy_vga #(
-      .ADC_DATA_BITS (ADC_DATA_BITS),
-      .VGA_WIDTH     (VGA_WIDTH),
-      .VGA_HEIGHT    (VGA_HEIGHT),
-      .PIXEL_BITS    (PIXEL_BITS),
-      .AXI_ADDR_WIDTH(SRAM_ADDR_BITS),
-      .AXI_DATA_WIDTH(SRAM_DATA_BITS)
-  ) u_demo (
+  adc_xy_vga u_demo (
       .clk      (CLK),
       .adc_clk  (L_ADC_CLK_TO_FPGA),
       .pixel_clk(pixel_clk),

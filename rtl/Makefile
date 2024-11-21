@@ -20,15 +20,16 @@ VGA_MODE := "640_480_60"
 CLK_FREQ := 100
 
 # Custom seeds set with <top_module>_SEED
-adc_xy_vga_top_SEED := 1
-gfx_demo_dbuf_top_SEED := 2
-gfx_demo_top_SEED := 0
+adc_xy_vga_top_SEED := 14
+gfx_demo_top_SEED := 4
+gfx_demo_dbuf_top_SEED := 5
+gfx_demo_3to2_top_SEED := 14
 
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
 # TOP_IGNORE := adc/adc_xy_vga_top.sv gfx/gfx_demo_dbuf_top.sv
-TOP_IGNORE := gfx/gfx_demo_3to2_top.sv
+# TOP_IGNORE := gfx/gfx_demo_3to2_top.sv
 
 # Directories
 TEST_DIR := test
