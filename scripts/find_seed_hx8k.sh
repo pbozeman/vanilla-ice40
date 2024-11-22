@@ -10,7 +10,7 @@ cd $(dirname $(readlink -f $0))
 cd ../rtl
 
 # Iterate over seeds
-for seed in {0..19}; do
+for seed in {0..32}; do
     echo "Running nextpnr with seed $seed..."
 
     nextpnr-ice40 --hx8k --package ct256 --freq 100 --json .build/$1.json --pcf ../constraints/vanilla-ice40-hx8k-ct256.pcf --top $1 --seed $seed --asc .build/hx8k-ct256/$1.asc
