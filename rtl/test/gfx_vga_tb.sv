@@ -323,12 +323,50 @@ module gfx_vga_tb;
   end
 
   //
+  // Random write block
+  //
+  logic                  wr_en;
+
+  logic [ FB_X_BITS-1:0] gfx_wr_x;
+  logic [ FB_Y_BITS-1:0] gfx_wr_y;
+  logic [PIXEL_BITS-1:0] gfx_wr_color;
+  logic [ META_BITS-1:0] gfx_wr_meta;
+  logic                  gfx_wr_pready;
+  logic                  gfx_wr_pvalid;
+
+  assign gfx_wr_pready = gfx_pready;
+
+  // Color matches the pattern of uninitialized SRAM for checking
+  always_comb begin
+    {gfx_wr_color, gfx_wr_meta} = gfx_wr_y * H_VISIBLE + gfx_wr_x;
+  end
+
+  // Generate random coordinates on each write
+  always @(posedge clk) begin
+    if (reset) begin
+      gfx_wr_x      <= '0;
+      gfx_wr_y      <= '0;
+      gfx_wr_pvalid <= 1'b0;
+    end else if (wr_en) begin
+      if (!gfx_wr_pvalid || gfx_wr_pready) begin
+        gfx_wr_pvalid <= 1'b1;
+
+        if (gfx_wr_pready) begin
+          // Random coordinates within visible area
+          gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
+          gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
+        end
+      end
+    end
+  end
+
+  //
   // gfx mux
   //
   always @(posedge clk) begin
     // a safeguard against bad testing.
     // only 1 should be active.
-    `ASSERT(!(wl_en && we_en));
+    `ASSERT(!(wl_en && we_en && wr_en));
   end
 
   always_comb begin
@@ -352,6 +390,14 @@ module gfx_vga_tb;
       gfx_pvalid = gfx_we_pvalid;
       gfx_color  = gfx_we_color;
       gfx_meta   = gfx_we_meta;
+    end
+
+    if (wr_en) begin
+      gfx_x      = gfx_wr_x;
+      gfx_y      = gfx_wr_y;
+      gfx_pvalid = gfx_wr_pvalid;
+      gfx_color  = gfx_wr_color;
+      gfx_meta   = gfx_wr_meta;
     end
   end
 
@@ -419,10 +465,26 @@ module gfx_vga_tb;
     end
   endtask
 
+  task test_random_write;
+    begin
+      test_line = `__LINE__;
+      reset_test();
+
+      vga_enable = 1'b1;
+      wr_en      = 1'b1;
+
+      // 3 frames
+      repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
+        @(posedge pixel_clk);
+      end
+    end
+  endtask
+
   initial begin
     test_idle();
     test_linear_write();
     test_even_write();
+    test_random_write();
 
     $finish;
   end
