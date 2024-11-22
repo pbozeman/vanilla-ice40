@@ -1,6 +1,6 @@
 `include "testing.sv"
 
-`include "adc_xy_vga.sv"
+`include "adc_xy_vga_3to2.sv"
 `include "counter.sv"
 `include "sram_model.sv"
 `include "vga_mode.sv"
@@ -9,7 +9,7 @@
 // in the simulator.
 //
 // verilator lint_off UNUSEDSIGNAL
-module adc_xy_vga_tb;
+module adc_xy_vga_3to2_tb;
   localparam ADC_DATA_BITS = 10;
   localparam PIXEL_BITS = 12;
   localparam META_BITS = 4;
@@ -67,7 +67,7 @@ module adc_xy_vga_tb;
       .data_io(sram1_io_data)
   );
 
-  adc_xy_vga #(
+  adc_xy_vga_3to2 #(
       .ADC_DATA_BITS (ADC_DATA_BITS),
       .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -137,7 +137,7 @@ module adc_xy_vga_tb;
     forever #`VGA_MODE_TB_PIXEL_CLK pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP_SLOW(adc_xy_vga_tb)
+  `TEST_SETUP_SLOW(adc_xy_vga_3to2_tb)
 
   // Test stimulus
   initial begin

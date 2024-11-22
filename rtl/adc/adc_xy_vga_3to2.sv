@@ -1,5 +1,5 @@
-`ifndef ADC_XY_VGA_V
-`define ADC_XY_VGA_V
+`ifndef ADC_XY_VGA_3TO2_V
+`define ADC_XY_VGA_3TO2_V
 
 `include "directives.sv"
 
@@ -10,7 +10,7 @@
 `include "gfx_vga_3to2.sv"
 `include "vga_mode.sv"
 
-module adc_xy_vga #(
+module adc_xy_vga_3to2 #(
     parameter ADC_DATA_BITS = 10,
 
     parameter PIXEL_BITS = 12,

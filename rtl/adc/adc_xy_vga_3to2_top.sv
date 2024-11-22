@@ -1,14 +1,14 @@
-`ifndef ADC_XY_VGA_TOP_V
-`define ADC_XY_VGA_TOP_V
+`ifndef ADC_XY_VGA_3TO2_TOP_V
+`define ADC_XY_VGA_3TO2_TOP_V
 
 `include "directives.sv"
 
-`include "adc_xy_vga.sv"
+`include "adc_xy_vga_3to2.sv"
 `include "initial_reset.sv"
 `include "vga_mode.sv"
 `include "vga_pll.sv"
 
-module adc_xy_vga_top #(
+module adc_xy_vga_3to2_top #(
     parameter  SRAM_ADDR_BITS = 20,
     parameter  SRAM_DATA_BITS = 16,
     parameter  ADC_DATA_BITS  = 10,
@@ -60,7 +60,7 @@ module adc_xy_vga_top #(
       .reset(reset)
   );
 
-  adc_xy_vga u_demo (
+  adc_xy_vga_3to2 u_demo (
       .clk      (CLK),
       .adc_clk  (L_ADC_CLK_TO_FPGA),
       .pixel_clk(pixel_clk),
