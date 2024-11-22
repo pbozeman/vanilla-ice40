@@ -21,9 +21,9 @@ CLK_FREQ := 100
 
 # Custom seeds set with <top_module>_SEED
 adc_xy_vga_top_SEED := 14
-gfx_demo_top_SEED := 4
-gfx_demo_dbuf_top_SEED := 5
-gfx_demo_3to2_top_SEED := 14
+gfx_demo_top_SEED := 0
+gfx_demo_dbuf_top_SEED := 1
+gfx_demo_3to2_top_SEED := 12
 
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do

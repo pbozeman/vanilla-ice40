@@ -111,7 +111,9 @@ module axi_sram_controller #(
   logic rw_pri = 0;
   always_ff @(posedge axi_clk) begin
     if (sram_req) begin
-      rw_pri <= ~rw_pri;
+      // don't just flip on any request, only prioritize writes if the last op
+      // was a read
+      rw_pri <= !sram_write_enable;
     end
   end
 
