@@ -26,11 +26,13 @@ CLK_FREQ := 100
 # seeds to meet timing.
 OS := $(shell uname)
 ifeq ($(OS), Linux)
+  adc_xy_vga_top_SEED := 13
   adc_xy_vga_3to2_top_SEED := 23
   gfx_demo_top_SEED := 24
   gfx_demo_dbuf_top_SEED := 1
   gfx_demo_3to2_top_SEED := 5
 else ifeq ($(OS), Darwin)
+  adc_xy_vga_top_SEED := 13
   adc_xy_vga_3to2_top_SEED := 3
   gfx_demo_top_SEED := 0
   gfx_demo_dbuf_top_SEED := 1

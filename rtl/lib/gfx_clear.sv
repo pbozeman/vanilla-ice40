@@ -71,7 +71,11 @@ module gfx_clear #(
   end
 
   always_ff @(posedge clk) begin
-    last <= (x == MAX_X && y == MAX_Y);
+    if (reset) begin
+      last <= 1'b0;
+    end else begin
+      last <= (x == MAX_X && y == MAX_Y);
+    end
   end
 
   always_ff @(posedge clk) begin
