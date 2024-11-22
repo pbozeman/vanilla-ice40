@@ -233,37 +233,125 @@ module gfx_vga_tb;
   //
   // Linear write block
   //
-  logic wl_en;
+  logic                  wl_en;
+
+  logic [ FB_X_BITS-1:0] gfx_wl_x;
+  logic [ FB_Y_BITS-1:0] gfx_wl_y;
+  logic [PIXEL_BITS-1:0] gfx_wl_color;
+  logic [ META_BITS-1:0] gfx_wl_meta;
+  logic                  gfx_wl_pready;
+  logic                  gfx_wl_pvalid;
+
+  assign gfx_wl_pready = gfx_pready;
 
   always_comb begin
     // This is kinda weird, but it matches the pattern that the
     // uninitialized sram returns.
-    {gfx_color, gfx_meta} = gfx_y * H_VISIBLE + gfx_x;
+    {gfx_wl_color, gfx_wl_meta} = gfx_wl_y * H_VISIBLE + gfx_wl_x;
   end
 
   always @(posedge clk) begin
     if (reset) begin
-      gfx_x      <= '0;
-      gfx_y      <= '0;
-      gfx_pvalid <= 1'b0;
+      gfx_wl_x      <= '0;
+      gfx_wl_y      <= '0;
+      gfx_wl_pvalid <= 1'b0;
     end else if (wl_en) begin
-      if (!gfx_pvalid || gfx_pready) begin
-        gfx_pvalid <= 1'b1;
+      if (!gfx_wl_pvalid || gfx_wl_pready) begin
+        gfx_wl_pvalid <= 1'b1;
 
         if (gfx_pready) begin
           // Increment coordinates
-          if (gfx_x < H_VISIBLE - 1) begin
-            gfx_x <= gfx_x + 1'b1;
+          if (gfx_wl_x < H_VISIBLE - 1) begin
+            gfx_wl_x <= gfx_wl_x + 1;
           end else begin
-            gfx_x <= '0;
-            if (gfx_y < V_VISIBLE - 1) begin
-              gfx_y <= gfx_y + 1'b1;
+            gfx_wl_x <= '0;
+            if (gfx_wl_y < V_VISIBLE - 1) begin
+              gfx_wl_y <= gfx_wl_y + 1;
             end else begin
-              gfx_y <= '0;
+              gfx_wl_y <= '0;
             end
           end
         end
       end
+    end
+  end
+
+  //
+  // Even write block
+  //
+  logic                  we_en;
+
+  logic [ FB_X_BITS-1:0] gfx_we_x;
+  logic [ FB_Y_BITS-1:0] gfx_we_y;
+  logic [PIXEL_BITS-1:0] gfx_we_color;
+  logic [ META_BITS-1:0] gfx_we_meta;
+  logic                  gfx_we_pready;
+  logic                  gfx_we_pvalid;
+
+  assign gfx_we_pready = gfx_pready;
+
+  always_comb begin
+    // This is kinda weird, but it matches the pattern that the
+    // uninitialized sram returns.
+    {gfx_we_color, gfx_we_meta} = gfx_we_y * H_VISIBLE + gfx_we_x;
+  end
+
+  always @(posedge clk) begin
+    if (reset) begin
+      gfx_we_x      <= 0;
+      gfx_we_y      <= 0;
+      gfx_we_pvalid <= 1'b0;
+    end else if (we_en) begin
+      if (!gfx_we_pvalid || gfx_we_pready) begin
+        gfx_we_pvalid <= 1'b1;
+
+        if (gfx_we_pready) begin
+          // Increment coordinates
+          if (gfx_we_x < H_VISIBLE - 1) begin
+            gfx_we_x <= gfx_we_x + 2;
+          end else begin
+            gfx_we_x <= '0;
+            if (gfx_we_y < V_VISIBLE - 1) begin
+              gfx_we_y <= gfx_we_y + 1;
+            end else begin
+              gfx_we_y <= '0;
+            end
+          end
+        end
+      end
+    end
+  end
+
+  //
+  // gfx mux
+  //
+  always @(posedge clk) begin
+    // a safeguard against bad testing.
+    // only 1 should be active.
+    `ASSERT(!(wl_en && we_en));
+  end
+
+  always_comb begin
+    gfx_x      = '0;
+    gfx_y      = '0;
+    gfx_pvalid = 1'b0;
+    gfx_color  = '0;
+    gfx_meta   = '0;
+
+    if (wl_en) begin
+      gfx_x      = gfx_wl_x;
+      gfx_y      = gfx_wl_y;
+      gfx_pvalid = gfx_wl_pvalid;
+      gfx_color  = gfx_wl_color;
+      gfx_meta   = gfx_wl_meta;
+    end
+
+    if (we_en) begin
+      gfx_x      = gfx_we_x;
+      gfx_y      = gfx_we_y;
+      gfx_pvalid = gfx_we_pvalid;
+      gfx_color  = gfx_we_color;
+      gfx_meta   = gfx_we_meta;
     end
   end
 
@@ -275,14 +363,11 @@ module gfx_vga_tb;
       // it takes a few cycles for the cdc fifos to reset
       repeat (2) @(posedge pixel_clk);
 
-      gfx_x      = '0;
-      gfx_y      = '0;
-      gfx_pvalid = 1'b0;
+      pixel_x = '0;
+      pixel_y = '0;
 
-      pixel_x    = '0;
-      pixel_y    = '0;
-
-      wl_en      = 1'b0;
+      wl_en   = 1'b0;
+      we_en   = 1'b0;
 
       @(posedge pixel_clk);
       reset = 1'b0;
@@ -319,9 +404,25 @@ module gfx_vga_tb;
     end
   endtask
 
+  task test_even_write;
+    begin
+      test_line = `__LINE__;
+      reset_test();
+
+      vga_enable = 1'b1;
+      we_en      = 1'b1;
+
+      // 3 frames
+      repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
+        @(posedge pixel_clk);
+      end
+    end
+  endtask
+
   initial begin
     test_idle();
     test_linear_write();
+    test_even_write();
 
     $finish;
   end
