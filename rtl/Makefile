@@ -20,10 +20,24 @@ VGA_MODE := "640_480_60"
 CLK_FREQ := 100
 
 # Custom seeds set with <top_module>_SEED
-adc_xy_vga_top_SEED := 3
-gfx_demo_top_SEED := 0
-gfx_demo_dbuf_top_SEED := 1
-gfx_demo_3to2_top_SEED := 10
+#
+# These are supposed to be reproducible across platforms, but
+# that has not been my experience. Linux v.s. Darwin need different
+# seeds to meet timing.
+OS := $(shell uname)
+ifeq ($(OS), Linux)
+  adc_xy_vga_top_SEED := 23
+  gfx_demo_top_SEED := 24
+  gfx_demo_dbuf_top_SEED := 1
+  gfx_demo_3to2_top_SEED := 5
+else ifeq ($(OS), Darwin)
+  adc_xy_vga_top_SEED := 3
+  gfx_demo_top_SEED := 0
+  gfx_demo_dbuf_top_SEED := 1
+  gfx_demo_3to2_top_SEED := 10
+else
+  $(error Unsupported OS detected: $(OS))
+endif
 
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
