@@ -23,8 +23,13 @@
           yosys
         ];
 
-        # Conditionally add verible if the system is not Darwin
-        buildInputs = baseBuildInputs ++ pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [ pkgs.verible pkgs.xdot ];
+        # Conditionally add packages if the system is not Darwin
+        buildInputs = baseBuildInputs ++
+          pkgs.lib.optionals (!pkgs.stdenv.isDarwin) [
+            # these packages don't work correctly on Darwin
+            pkgs.verible
+            pkgs.xdot
+          ];
       in
       {
         devShell = pkgs.mkShell {
