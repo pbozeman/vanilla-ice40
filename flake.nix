@@ -14,7 +14,7 @@
         };
 
         # Python package with required dependencies
-        pythonEnv = pkgs.python39.withPackages (ps: with ps; [
+        pythonEnv = pkgs.python3.withPackages (ps: with ps; [
         ]);
 
         # Base build inputs common to all systems
