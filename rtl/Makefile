@@ -146,8 +146,8 @@ endef
 # Find seed dependencies
 
 define find_seed_rule
-$(BUILD_DIR)/$(notdir $(basename $(1))).seed: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BUILD_DIR)
-	@flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BUILD_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
+$(BITS_DIR)/$(notdir $(basename $(1))).seed: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BUILD_DIR)
+	@flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BITS_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call find_seed_rule,$(top))))
@@ -159,8 +159,8 @@ find_seeds: $(addprefix $(BUILD_DIR)/,$(addsuffix .seed,$(notdir $(basename $(TO
 # print the command on failure so that it's easy to copy/paste for a manual run
 # PNR rule using found seeds
 define pnr_rule
-$(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) $(BUILD_DIR)/$(notdir $(basename $(1))).seed | $(BITS_DIR)
-	$(eval PNR_CMD := $(call nextpnr_cmd,$(1)) --seed `cat $(BUILD_DIR)/$(notdir $(basename $(1))).seed`)
+$(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) $(BITS_DIR)/$(notdir $(basename $(1))).seed | $(BITS_DIR)
+	$(eval PNR_CMD := $(call nextpnr_cmd,$(1)) --seed `cat $(BITS_DIR)/$(notdir $(basename $(1))).seed`)
 	$(PNR_CMD) || { echo -e "FAILED:\n$(PNR_CMD)"; false; }
 endef
 
