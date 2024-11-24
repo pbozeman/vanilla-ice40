@@ -19,6 +19,7 @@
 
         # Base build inputs common to all systems
         baseBuildInputs = with pkgs; [
+          flock
           gtkwave
           icestorm
           nextpnr

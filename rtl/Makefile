@@ -19,28 +19,6 @@ VGA_MODE := "640_480_60"
 # Clock Frequency in MHZ
 CLK_FREQ := 100
 
-# Custom seeds set with <top_module>_SEED
-#
-# These are supposed to be reproducible across platforms, but
-# that has not been my experience. Linux v.s. Darwin need different
-# seeds to meet timing.
-OS := $(shell uname)
-ifeq ($(OS), Linux)
-  adc_xy_vga_top_SEED := 13
-  adc_xy_vga_3to2_top_SEED := 23
-  gfx_demo_top_SEED := 24
-  # gfx_demo_dbuf_top_SEED := 1
-  # gfx_demo_3to2_top_SEED := 5
-else ifeq ($(OS), Darwin)
-  adc_xy_vga_top_SEED := 13
-  adc_xy_vga_3to2_top_SEED := 3
-  gfx_demo_top_SEED := 0
-  gfx_demo_dbuf_top_SEED := 1
-  gfx_demo_3to2_top_SEED := 10
-else
-  $(error Unsupported OS detected: $(OS))
-endif
-
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
@@ -63,6 +41,8 @@ TOP_MODULES := $(filter-out $(TOP_IGNORE), $(foreach dir,$(TOP_DIRS),$(wildcard 
 ifneq ($(DEVICE),hx8k)
   TOP_MODULES := $(filter-out %left_top.sv %both_top.sv, $(TOP_MODULES))
 endif
+
+SEED_LOCK := $(BUILD_DIR)/.seed_lock
 
 # Test benches
 TEST_BENCHES := $(basename $(notdir $(wildcard $(TEST_DIR)/*_tb.sv)))
@@ -111,6 +91,8 @@ quick_unit: $(VCD_FILES)
 # Ensure build directory exists
 $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
+	touch $(SEED_LOCK)
+
 
 $(BITS_DIR):
 	mkdir -p $(BITS_DIR)
@@ -161,10 +143,24 @@ $(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
 	--asc $(BITS_DIR)/$(notdir $(basename $(1))).asc
 endef
 
+# Find seed dependencies
+
+define find_seed_rule
+$(BUILD_DIR)/$(notdir $(basename $(1))).seed: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BUILD_DIR)
+	@flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BUILD_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
+endef
+
+$(foreach top,$(TOP_MODULES),$(eval $(call find_seed_rule,$(top))))
+
+# The seed finding script is already self-parallelized.
+.PHONY: find_seeds
+find_seeds: $(addprefix $(BUILD_DIR)/,$(addsuffix .seed,$(notdir $(basename $(TOP_MODULES)))))
+
 # print the command on failure so that it's easy to copy/paste for a manual run
+# PNR rule using found seeds
 define pnr_rule
-$(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(eval PNR_CMD := $(call nextpnr_cmd,$(1)))
+$(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) $(BUILD_DIR)/$(notdir $(basename $(1))).seed | $(BITS_DIR)
+	$(eval PNR_CMD := $(call nextpnr_cmd,$(1)) --seed `cat $(BUILD_DIR)/$(notdir $(basename $(1))).seed`)
 	$(PNR_CMD) || { echo -e "FAILED:\n$(PNR_CMD)"; false; }
 endef
 
