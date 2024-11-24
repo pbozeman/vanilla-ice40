@@ -29,8 +29,8 @@ ifeq ($(OS), Linux)
   adc_xy_vga_top_SEED := 13
   adc_xy_vga_3to2_top_SEED := 23
   gfx_demo_top_SEED := 24
-  gfx_demo_dbuf_top_SEED := 1
-  gfx_demo_3to2_top_SEED := 5
+  # gfx_demo_dbuf_top_SEED := 1
+  # gfx_demo_3to2_top_SEED := 5
 else ifeq ($(OS), Darwin)
   adc_xy_vga_top_SEED := 13
   adc_xy_vga_3to2_top_SEED := 3
@@ -154,13 +154,15 @@ PCF_FILE := $(PCF_DIR)/vanilla-ice40-$(DEVICE)-$(PACKAGE).pcf
 $(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 	../scripts/pins.py $(DEVICE) > $(PCF_FILE)
 
+# print the command on failure so that it's easy to copy/paste for a manual run
 define pnr_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
-		--json $$< $(addprefix --pcf ,$(PCF_FILE)) \
+	$(eval PNR_CMD := $(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
+		--json $(BUILD_DIR)/$(notdir $(basename $(1))).json $(addprefix --pcf ,$(PCF_FILE)) \
 		--top $(notdir $(basename $(1))) \
-	  $(if $($(notdir $(basename $(1)))_SEED),--seed $($(notdir $(basename $(1)))_SEED)) \
-		--asc $$@ || (mv $$@ $$@.sav && echo failed: $$@)
+		$(if $($(notdir $(basename $(1)))_SEED),--seed $($(notdir $(basename $(1)))_SEED)) \
+		--asc $(BITS_DIR)/$(notdir $(basename $(1))).asc)
+	$(PNR_CMD) || { echo -e "FAILED:\n$(PNR_CMD)"; false; }
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call pnr_rule,$(top))))
