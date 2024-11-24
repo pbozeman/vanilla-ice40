@@ -13,11 +13,16 @@
           inherit system;
         };
 
+        # Python package with required dependencies
+        pythonEnv = pkgs.python39.withPackages (ps: with ps; [
+        ]);
+
         # Base build inputs common to all systems
         baseBuildInputs = with pkgs; [
           gtkwave
           icestorm
           nextpnr
+          pythonEnv
           verilator
           verilog
           yosys
