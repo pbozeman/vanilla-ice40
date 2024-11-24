@@ -154,14 +154,17 @@ PCF_FILE := $(PCF_DIR)/vanilla-ice40-$(DEVICE)-$(PACKAGE).pcf
 $(PCF_FILE): ../scripts/pins.py | $(PCF_DIR)
 	../scripts/pins.py $(DEVICE) > $(PCF_FILE)
 
+define nextpnr_cmd
+$(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
+	--json $(BUILD_DIR)/$(notdir $(basename $(1))).json $(addprefix --pcf ,$(PCF_FILE)) \
+	--top $(notdir $(basename $(1))) \
+	--asc $(BITS_DIR)/$(notdir $(basename $(1))).asc
+endef
+
 # print the command on failure so that it's easy to copy/paste for a manual run
 define pnr_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).asc: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BITS_DIR)
-	$(eval PNR_CMD := $(NEXTPNR) --$(DEVICE) --package $(PACKAGE) --freq $(CLK_FREQ) \
-		--json $(BUILD_DIR)/$(notdir $(basename $(1))).json $(addprefix --pcf ,$(PCF_FILE)) \
-		--top $(notdir $(basename $(1))) \
-		$(if $($(notdir $(basename $(1)))_SEED),--seed $($(notdir $(basename $(1)))_SEED)) \
-		--asc $(BITS_DIR)/$(notdir $(basename $(1))).asc)
+	$(eval PNR_CMD := $(call nextpnr_cmd,$(1)))
 	$(PNR_CMD) || { echo -e "FAILED:\n$(PNR_CMD)"; false; }
 endef
 
