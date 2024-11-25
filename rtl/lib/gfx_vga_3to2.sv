@@ -18,6 +18,7 @@
 `include "axi_sram_controller.sv"
 `include "cdc_fifo.sv"
 `include "fb_writer.sv"
+`include "gfx_clear.sv"
 `include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
 
@@ -154,9 +155,10 @@ module gfx_vga_3to2 #(
   logic                              fade_axi_rvalid;
   logic                              fade_axi_rready;
   logic [                       1:0] fade_axi_rresp;
+  // verilator lint_on UNDRIVEN
 
-  logic                              fade_axi_awvalid = 0;
-  logic                              fade_axi_wvalid = 0;
+  logic                              fade_axi_awvalid;
+  logic                              fade_axi_wvalid;
 
   logic [        AXI_ADDR_WIDTH-1:0] fade_axi_awaddr;
   logic                              fade_axi_awready;
@@ -167,7 +169,6 @@ module gfx_vga_3to2 #(
   logic [                       1:0] fade_axi_bresp;
   logic                              fade_axi_bvalid;
   // verilator lint_on UNUSEDSIGNAL
-  // verilator lint_off UNDRIVEN
 
   axi_sram_3to2 #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -260,7 +261,7 @@ module gfx_vga_3to2 #(
       .PIXEL_BITS    (PIXEL_BITS + META_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) fb_writer_inst (
+  ) fb_writer_gfx (
       .clk  (clk),
       .reset(reset),
 
@@ -280,6 +281,78 @@ module gfx_vga_3to2 #(
       .sram_axi_bvalid (gfx_axi_bvalid),
       .sram_axi_bready (gfx_axi_bready),
       .sram_axi_bresp  (gfx_axi_bresp)
+  );
+
+  //
+  // Fading
+  //
+  // For now, just clear the pixels in a loop as a poc
+  // TODO: implement actual fading
+  //
+  // fade writer axi flow control signals
+  logic                            fw_axi_tvalid;
+  logic                            fw_axi_tready;
+
+  // and the data that goes with them
+  logic [      AXI_ADDR_WIDTH-1:0] fw_addr;
+  logic [PIXEL_BITS+META_BITS-1:0] fw_color;
+
+  logic                            clr_pvalid;
+  logic                            clr_pready;
+  logic [           FB_X_BITS-1:0] clr_x;
+  logic [           FB_Y_BITS-1:0] clr_y;
+  logic [          PIXEL_BITS-1:0] clr_color;
+  logic [           META_BITS-1:0] clr_meta;
+  logic                            clr_last;
+
+  // TODO: use this for fading
+  assign clr_meta = '0;
+
+  gfx_clear #(
+      .FB_WIDTH  (H_VISIBLE),
+      .FB_HEIGHT (V_VISIBLE),
+      .PIXEL_BITS(PIXEL_BITS)
+  ) gfx_clear_inst (
+      .clk   (clk),
+      .reset (reset || clr_last),
+      .pready(clr_pready),
+      .pvalid(clr_pvalid),
+      .x     (clr_x),
+      .y     (clr_y),
+      .color (clr_color),
+      .last  (clr_last)
+  );
+
+  assign clr_pready    = fw_axi_tready;
+  assign fw_axi_tvalid = clr_pvalid;
+
+  assign fw_addr       = (H_VISIBLE * clr_y + clr_x);
+  assign fw_color      = {clr_color, clr_meta};
+
+  fb_writer #(
+      .PIXEL_BITS    (PIXEL_BITS + META_BITS),
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+      .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+  ) fb_writer_fade (
+      .clk  (clk),
+      .reset(reset),
+
+      .axi_tvalid(fw_axi_tvalid),
+      .axi_tready(fw_axi_tready),
+
+      .addr (fw_addr),
+      .color(fw_color),
+
+      .sram_axi_awaddr (fade_axi_awaddr),
+      .sram_axi_awvalid(fade_axi_awvalid),
+      .sram_axi_awready(fade_axi_awready),
+      .sram_axi_wdata  (fade_axi_wdata),
+      .sram_axi_wstrb  (fade_axi_wstrb),
+      .sram_axi_wvalid (fade_axi_wvalid),
+      .sram_axi_wready (fade_axi_wready),
+      .sram_axi_bvalid (fade_axi_bvalid),
+      .sram_axi_bready (fade_axi_bready),
+      .sram_axi_bresp  (fade_axi_bresp)
   );
 
   //

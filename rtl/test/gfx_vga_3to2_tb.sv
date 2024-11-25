@@ -235,7 +235,10 @@ module gfx_vga_3to2_tb;
   always @(posedge pixel_clk) begin
     if (checks_en) begin
       if (pixel_x < H_VISIBLE && pixel_y < V_VISIBLE) begin
-        `ASSERT_EQ(pixel_bits, pixel_addr);
+        // The pixel might have faded.
+        if (pixel_bits !== 0) begin
+          `ASSERT_EQ(pixel_bits, pixel_addr);
+        end
       end else begin
         `ASSERT_EQ(pixel_bits, '0);
       end
