@@ -6,11 +6,11 @@
 `include "vga_mode.sv"
 
 module vga_test_01 #(
-    parameter H_VISIBLE,
-    parameter H_WHOLE_LINE,
+    parameter H_VISIBLE    = 640,
+    parameter H_WHOLE_LINE = 800,
 
-    parameter V_VISIBLE,
-    parameter V_WHOLE_FRAME,
+    parameter V_VISIBLE     = 640,
+    parameter V_WHOLE_FRAME = 525,
 
     localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
     localparam ROW_BITS    = $clog2(V_WHOLE_FRAME),

@@ -9,7 +9,7 @@
 // and valid/ready/last on the output
 
 module gfx_line #(
-    parameter FB_WIDTH,
+    parameter FB_WIDTH  = 640,
     parameter FB_HEIGHT
 ) (
     input logic clk,

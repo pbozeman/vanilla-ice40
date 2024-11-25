@@ -6,8 +6,8 @@
 `include "vga_mode.sv"
 
 module gfx_test_pattern #(
-    parameter FB_WIDTH,
-    parameter FB_HEIGHT,
+    parameter FB_WIDTH   = 640,
+    parameter FB_HEIGHT  = 480,
     parameter PIXEL_BITS
 ) (
     input  logic                  clk,

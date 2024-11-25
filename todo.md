@@ -50,6 +50,8 @@
 
 - start moving modules into groups directories in lib
 - move unit tests with the lib
+- add some sort of check for required parameters to ensure they are set.
+  Removing defaults is not an option because icecube2 requires them.
 
 ### make
 

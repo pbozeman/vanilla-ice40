@@ -7,8 +7,8 @@
 `include "vga_mode.sv"
 
 module vga_pixel_addr #(
-    parameter H_WHOLE_LINE,
-    parameter V_WHOLE_FRAME,
+    parameter H_WHOLE_LINE  = 800,
+    parameter V_WHOLE_FRAME = 525,
 
     localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
     localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)

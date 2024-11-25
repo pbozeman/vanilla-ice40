@@ -7,21 +7,21 @@
 `include "vga_pixel_addr.sv"
 
 module vga_sync #(
-    parameter H_VISIBLE,
-    parameter H_FRONT_PORCH,
-    parameter H_SYNC_PULSE,
+    parameter H_VISIBLE     = 640,
+    parameter H_FRONT_PORCH = 16,
+    parameter H_SYNC_PULSE  = 96,
     // verilator lint_off UNUSEDPARAM
-    parameter H_BACK_PORCH,
+    parameter H_BACK_PORCH  = 48,
     // verilator lint_on UNUSEDPARAM
-    parameter H_WHOLE_LINE,
+    parameter H_WHOLE_LINE  = 800,
 
-    parameter V_VISIBLE,
-    parameter V_FRONT_PORCH,
-    parameter V_SYNC_PULSE,
+    parameter V_VISIBLE     = 640,
+    parameter V_FRONT_PORCH = 10,
+    parameter V_SYNC_PULSE  = 2,
     // verilator lint_off UNUSEDPARAM
-    parameter V_BACK_PORCH,
+    parameter V_BACK_PORCH  = 33,
     // verilator lint_on UNUSEDPARAM
-    parameter V_WHOLE_FRAME,
+    parameter V_WHOLE_FRAME = 525,
 
     localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
     localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)

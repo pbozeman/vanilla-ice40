@@ -8,7 +8,7 @@
 // addr and data lines and the response signaling. Dumb it all down so that
 // it's easier to do basic operations.
 module fb_writer #(
-    parameter PIXEL_BITS,
+    parameter PIXEL_BITS     = 12,
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
 ) (

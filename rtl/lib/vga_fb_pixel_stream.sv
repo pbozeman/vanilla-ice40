@@ -11,23 +11,23 @@
 `include "vga_sync.sv"
 
 module vga_fb_pixel_stream #(
-    parameter PIXEL_BITS,
-    parameter META_BITS,
+    parameter PIXEL_BITS = 12,
+    parameter META_BITS  = 4,
 
-    parameter H_VISIBLE,
-    parameter H_FRONT_PORCH,
-    parameter H_SYNC_PULSE,
-    parameter H_BACK_PORCH,
-    parameter H_WHOLE_LINE,
+    parameter H_VISIBLE     = 640,
+    parameter H_FRONT_PORCH = 16,
+    parameter H_SYNC_PULSE  = 96,
+    parameter H_BACK_PORCH  = 48,
+    parameter H_WHOLE_LINE  = 800,
 
-    parameter V_VISIBLE,
-    parameter V_FRONT_PORCH,
-    parameter V_SYNC_PULSE,
-    parameter V_BACK_PORCH,
-    parameter V_WHOLE_FRAME,
+    parameter V_VISIBLE     = 640,
+    parameter V_FRONT_PORCH = 10,
+    parameter V_SYNC_PULSE  = 2,
+    parameter V_BACK_PORCH  = 33,
+    parameter V_WHOLE_FRAME = 525,
 
-    parameter AXI_ADDR_WIDTH,
-    parameter AXI_DATA_WIDTH,
+    parameter AXI_ADDR_WIDTH = 20,
+    parameter AXI_DATA_WIDTH = 16,
 
     localparam FB_X_BITS  = $clog2(H_WHOLE_LINE),
     localparam FB_Y_BITS  = $clog2(V_WHOLE_FRAME),
