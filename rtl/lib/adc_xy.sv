@@ -47,7 +47,7 @@ module adc_xy #(
   // fifo. For now, just send it.
   cdc_fifo #(
       .DATA_WIDTH(FIFO_WIDTH),
-      .ADDR_SIZE (2)
+      .ADDR_SIZE (3)
   ) fifo (
       .w_clk        (adc_clk),
       .w_rst_n      (w_rst_n),
