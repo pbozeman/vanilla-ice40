@@ -15,8 +15,8 @@ module adc_xy #(
     input logic adc_clk,
     input logic reset,
 
-    input logic [DATA_BITS-1:0] adc_x_bus,
-    input logic [DATA_BITS-1:0] adc_y_bus,
+    input logic [DATA_BITS-1:0] adc_x_io,
+    input logic [DATA_BITS-1:0] adc_y_io,
 
     output logic [DATA_BITS-1:0] adc_x,
     output logic [DATA_BITS-1:0] adc_y
@@ -38,7 +38,7 @@ module adc_xy #(
   logic                  r_empty;
   // verilator lint_on UNUSEDSIGNAL
 
-  assign w_data         = {adc_x_bus, adc_y_bus};
+  assign w_data         = {adc_x_io, adc_y_io};
   assign {adc_x, adc_y} = r_data;
 
   // Just blast data in/out without checking since the ADC isn't going

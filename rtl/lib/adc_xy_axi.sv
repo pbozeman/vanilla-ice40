@@ -15,8 +15,8 @@ module adc_xy_axi #(
     output logic tvalid,
     input  logic tready,
 
-    input logic [DATA_BITS-1:0] adc_x_bus,
-    input logic [DATA_BITS-1:0] adc_y_bus,
+    input logic [DATA_BITS-1:0] adc_x_io,
+    input logic [DATA_BITS-1:0] adc_y_io,
 
     output logic [DATA_BITS-1:0] adc_x,
     output logic [DATA_BITS-1:0] adc_y
@@ -28,13 +28,13 @@ module adc_xy_axi #(
   adc_xy #(
       .DATA_BITS(DATA_BITS)
   ) adc_xy_inst (
-      .clk      (clk),
-      .adc_clk  (adc_clk),
-      .reset    (reset),
-      .adc_x_bus(adc_x_bus),
-      .adc_y_bus(adc_y_bus),
-      .adc_x    (adc_x_int),
-      .adc_y    (adc_y_int)
+      .clk     (clk),
+      .adc_clk (adc_clk),
+      .reset   (reset),
+      .adc_x_io(adc_x_io),
+      .adc_y_io(adc_y_io),
+      .adc_x   (adc_x_int),
+      .adc_y   (adc_y_int)
   );
 
   always_ff @(posedge clk) begin

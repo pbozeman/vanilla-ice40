@@ -40,8 +40,8 @@ module adc_xy_vga #(
     input logic reset,
 
     // adc signals
-    input logic [ADC_DATA_BITS-1:0] adc_x_bus,
-    input logic [ADC_DATA_BITS-1:0] adc_y_bus,
+    input logic [ADC_DATA_BITS-1:0] adc_x_io,
+    input logic [ADC_DATA_BITS-1:0] adc_y_io,
 
     // vga signals
     output logic [COLOR_BITS-1:0] vga_red,
@@ -119,15 +119,15 @@ module adc_xy_vga #(
   adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
   ) adc_xy_inst (
-      .clk      (clk),
-      .reset    (reset),
-      .adc_clk  (adc_clk),
-      .tvalid   (adc_tvalid),
-      .tready   (adc_tready),
-      .adc_x_bus(adc_x_bus),
-      .adc_y_bus(adc_y_bus),
-      .adc_x    (adc_x),
-      .adc_y    (adc_y)
+      .clk     (clk),
+      .reset   (reset),
+      .adc_clk (adc_clk),
+      .tvalid  (adc_tvalid),
+      .tready  (adc_tready),
+      .adc_x_io(adc_x_io),
+      .adc_y_io(adc_y_io),
+      .adc_x   (adc_x),
+      .adc_y   (adc_y)
   );
 
   // Temporary work around for the fact that our signal is 0 to 1024 while our

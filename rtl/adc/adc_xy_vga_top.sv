@@ -60,8 +60,8 @@ module adc_xy_vga_top #(
       .reset    (reset),
 
       // adc signals
-      .adc_x_bus(L_ADC_X),
-      .adc_y_bus(L_ADC_Y),
+      .adc_x_io(L_ADC_X),
+      .adc_y_io(L_ADC_Y),
 
       // vga signals
       .vga_red  (vga_red),

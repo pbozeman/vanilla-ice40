@@ -31,13 +31,13 @@ module adc_xy_top #(
   adc_xy #(
       .DATA_BITS(DATA_BITS)
   ) adc_xy_inst (
-      .clk      (CLK),
-      .reset    (reset),
-      .adc_clk  (L_ADC_CLK_TO_FPGA),
-      .adc_x_bus(L_ADC_X),
-      .adc_y_bus(L_ADC_Y),
-      .adc_x    (x_data),
-      .adc_y    (y_data)
+      .clk     (CLK),
+      .reset   (reset),
+      .adc_clk (L_ADC_CLK_TO_FPGA),
+      .adc_x_io(L_ADC_X),
+      .adc_y_io(L_ADC_Y),
+      .adc_x   (x_data),
+      .adc_y   (y_data)
   );
 
   initial_reset initial_reset_inst (

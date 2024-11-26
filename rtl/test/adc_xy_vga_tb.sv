@@ -22,8 +22,8 @@ module adc_xy_vga_tb;
   logic                      pixel_clk;
   logic                      reset;
 
-  logic [ ADC_DATA_BITS-1:0] adc_x_bus;
-  logic [ ADC_DATA_BITS-1:0] adc_y_bus;
+  logic [ ADC_DATA_BITS-1:0] adc_x_io;
+  logic [ ADC_DATA_BITS-1:0] adc_y_io;
 
   logic [    COLOR_BITS-1:0] vga_red;
   logic [    COLOR_BITS-1:0] vga_grn;
@@ -61,8 +61,8 @@ module adc_xy_vga_tb;
       .pixel_clk(pixel_clk),
       .reset    (reset),
 
-      .adc_x_bus(adc_x_bus),
-      .adc_y_bus(adc_y_bus),
+      .adc_x_io(adc_x_io),
+      .adc_y_io(adc_y_io),
 
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
@@ -84,7 +84,7 @@ module adc_xy_vga_tb;
       .clk   (adc_clk),
       .reset (reset),
       .enable(!reset),
-      .count (adc_x_bus)
+      .count (adc_x_io)
   );
 
   counter #(
@@ -93,7 +93,7 @@ module adc_xy_vga_tb;
       .clk   (adc_clk),
       .reset (reset),
       .enable(!reset),
-      .count (adc_y_bus)
+      .count (adc_y_io)
   );
 
   // 100mhz
