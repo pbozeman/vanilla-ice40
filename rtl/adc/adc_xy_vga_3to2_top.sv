@@ -20,6 +20,9 @@ module adc_xy_vga_3to2_top #(
     input logic                     L_ADC_CLK_TO_FPGA,
     input logic [ADC_DATA_BITS-1:0] L_ADC_Y,
     input logic [ADC_DATA_BITS-1:0] L_ADC_X,
+    input logic                     L_ADC_RED,
+    input logic                     L_ADC_GRN,
+    input logic                     L_ADC_BLU,
 
     // sram 0
     output logic [SRAM_ADDR_BITS-1:0] R_SRAM_ADDR_BUS,
@@ -67,8 +70,11 @@ module adc_xy_vga_3to2_top #(
       .reset    (reset),
 
       // adc signals
-      .adc_x_io(L_ADC_X),
-      .adc_y_io(L_ADC_Y),
+      .adc_x_io  (L_ADC_X),
+      .adc_y_io  (L_ADC_Y),
+      .adc_red_io(L_ADC_RED),
+      .adc_grn_io(L_ADC_GRN),
+      .adc_blu_io(L_ADC_BLU),
 
       // vga signals
       .vga_red  (vga_red),

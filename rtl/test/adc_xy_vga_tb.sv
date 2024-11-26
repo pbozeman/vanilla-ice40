@@ -24,6 +24,9 @@ module adc_xy_vga_tb;
 
   logic [ ADC_DATA_BITS-1:0] adc_x_io;
   logic [ ADC_DATA_BITS-1:0] adc_y_io;
+  logic                      adc_red_io;
+  logic                      adc_grn_io;
+  logic                      adc_blu_io;
 
   logic [    COLOR_BITS-1:0] vga_red;
   logic [    COLOR_BITS-1:0] vga_grn;
@@ -61,8 +64,11 @@ module adc_xy_vga_tb;
       .pixel_clk(pixel_clk),
       .reset    (reset),
 
-      .adc_x_io(adc_x_io),
-      .adc_y_io(adc_y_io),
+      .adc_x_io  (adc_x_io),
+      .adc_y_io  (adc_y_io),
+      .adc_red_io(adc_red_io),
+      .adc_grn_io(adc_grn_io),
+      .adc_blu_io(adc_blu_io),
 
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
@@ -77,6 +83,11 @@ module adc_xy_vga_tb;
       .sram0_io_oe_n(sram0_io_oe_n),
       .sram0_io_ce_n(sram0_io_ce_n)
   );
+
+  // TODO: add color tests
+  assign adc_red_io = 1'b1;
+  assign adc_grn_io = 1'b1;
+  assign adc_blu_io = 1'b1;
 
   counter #(
       .MAX_VALUE(1024)

@@ -42,6 +42,9 @@ module adc_xy_vga #(
     // adc signals
     input logic [ADC_DATA_BITS-1:0] adc_x_io,
     input logic [ADC_DATA_BITS-1:0] adc_y_io,
+    input logic                     adc_red_io,
+    input logic                     adc_grn_io,
+    input logic                     adc_blu_io,
 
     // vga signals
     output logic [COLOR_BITS-1:0] vga_red,
@@ -62,9 +65,16 @@ module adc_xy_vga #(
   // adc signals
   logic [ADC_DATA_BITS-1:0] adc_x;
   logic [ADC_DATA_BITS-1:0] adc_y;
+  logic                     adc_red;
+  logic                     adc_grn;
+  logic                     adc_blu;
 
   logic [ADC_DATA_BITS-1:0] gfx_adc_x;
   logic [ADC_DATA_BITS-1:0] gfx_adc_y;
+  logic [   COLOR_BITS-1:0] gfx_adc_red;
+  logic [   COLOR_BITS-1:0] gfx_adc_grn;
+  logic [   COLOR_BITS-1:0] gfx_adc_blu;
+  logic [   PIXEL_BITS-1:0] gfx_adc_color;
 
   // clear screen signals
   logic                     clr_pvalid;
@@ -119,30 +129,41 @@ module adc_xy_vga #(
   adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
   ) adc_xy_inst (
-      .clk     (clk),
-      .reset   (reset),
-      .adc_clk (adc_clk),
-      .tvalid  (adc_tvalid),
-      .tready  (adc_tready),
-      .adc_x_io(adc_x_io),
-      .adc_y_io(adc_y_io),
-      .adc_x   (adc_x),
-      .adc_y   (adc_y)
+      .clk       (clk),
+      .reset     (reset),
+      .adc_clk   (adc_clk),
+      .tvalid    (adc_tvalid),
+      .tready    (adc_tready),
+      .adc_x_io  (adc_x_io),
+      .adc_y_io  (adc_y_io),
+      .adc_red_io(adc_red_io),
+      .adc_grn_io(adc_grn_io),
+      .adc_blu_io(adc_blu_io),
+      .adc_x     (adc_x),
+      .adc_y     (adc_y),
+      .adc_red   (adc_red),
+      .adc_grn   (adc_grn),
+      .adc_blu   (adc_blu)
   );
 
   // Temporary work around for the fact that our signal is 0 to 1024 while our
   // fb is 640x480. Just get something on the screen as a POC.
-  assign gfx_adc_x  = adc_x >> 1;
-  assign gfx_adc_y  = adc_y >> 1;
+  assign gfx_adc_x     = adc_x >> 1;
+  assign gfx_adc_y     = adc_y >> 1;
+
+  assign gfx_adc_red   = {PIXEL_BITS{adc_red}};
+  assign gfx_adc_grn   = {PIXEL_BITS{adc_grn}};
+  assign gfx_adc_blu   = {PIXEL_BITS{adc_blu}};
+  assign gfx_adc_color = {gfx_adc_red, gfx_adc_grn, gfx_adc_blu};
 
   // output mux
-  assign gfx_x      = adc_active ? gfx_adc_x : clr_x;
-  assign gfx_y      = adc_active ? gfx_adc_y : clr_y;
-  assign gfx_color  = adc_active ? {PIXEL_BITS{1'b1}} : clr_color;
-  assign gfx_meta   = '0;
+  assign gfx_x         = adc_active ? gfx_adc_x : clr_x;
+  assign gfx_y         = adc_active ? gfx_adc_y : clr_y;
+  assign gfx_color     = adc_active ? gfx_adc_color : clr_color;
+  assign gfx_meta      = '0;
 
-  assign gfx_pvalid = adc_active ? adc_tvalid : clr_pvalid;
-  assign clr_pready = gfx_pready;
+  assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
+  assign clr_pready    = gfx_pready;
 
   logic [COLOR_BITS-1:0] vga_raw_red;
   logic [COLOR_BITS-1:0] vga_raw_grn;

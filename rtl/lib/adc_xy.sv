@@ -17,11 +17,17 @@ module adc_xy #(
 
     input logic [DATA_BITS-1:0] adc_x_io,
     input logic [DATA_BITS-1:0] adc_y_io,
+    input logic                 adc_red_io,
+    input logic                 adc_grn_io,
+    input logic                 adc_blu_io,
 
     output logic [DATA_BITS-1:0] adc_x,
-    output logic [DATA_BITS-1:0] adc_y
+    output logic [DATA_BITS-1:0] adc_y,
+    output logic                 adc_red,
+    output logic                 adc_grn,
+    output logic                 adc_blu
 );
-  localparam FIFO_WIDTH = DATA_BITS * 2;
+  localparam FIFO_WIDTH = DATA_BITS * 2 + 3;
 
   logic                  w_rst_n;
   logic                  w_inc;
@@ -38,8 +44,11 @@ module adc_xy #(
   logic                  r_empty;
   // verilator lint_on UNUSEDSIGNAL
 
-  assign w_data         = {adc_x_io, adc_y_io};
-  assign {adc_x, adc_y} = r_data;
+  // TODO: this is wrong. The x/y and color bits have different delays.
+  // Measure and/or review the data sheet for the adc and add delays
+  // for the color bits.
+  assign w_data = {adc_x_io, adc_y_io, adc_red_io, adc_grn_io, adc_blu_io};
+  assign {adc_x, adc_y, adc_red, adc_grn, adc_blu} = r_data;
 
   // Just blast data in/out without checking since the ADC isn't going
   // to stop for us. On the other hand, we might want to have an enable
