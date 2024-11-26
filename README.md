@@ -3,6 +3,62 @@
 Hardware design and verilog sample files for Lattice ICE40
 development boards and expansion boards.
 
+## YOSYS HQ Bug Report Branch
+
+This branch is to demonstrate yosys/nexpnr not meeting timing
+while the vendor tools (Lattice IceCube2) does. To do a build
+that tries to build one of the designs that can't meet timing:
+
+```bash
+cd rtl
+make adc_xy_vga_3to2_top
+```
+
+Or, if the make system doesn't work for some reason, here are the manual commands:
+
+```bash
+cd rtl
+mkdir -p .build/hx8k-ct256
+yosys_script="read_verilog -sv -Ilib -Iadc/ adc/adc_xy_vga_3to2_top.sv; "
+yosys_script+="synth_ice40 -top adc_xy_vga_3to2_top; "
+yosys_script+="write_json .build/adc_xy_vga_3to2_top.json"
+yosys -DSYNTH_YOSYS -DVGA_MODE_640_480_60 -p $yosys_script
+
+nextpnr-ice40 --hx8k --package ct256 --freq 100 \
+              --json .build/adc_xy_vga_3to2_top.json \
+              --pcf ../constraints/vanilla-ice40-hx8k-ct256.pcf \
+              --top adc_xy_vga_3to2_top \
+              --asc .build/hx8k-ct256/adc_xy_vga_3to2_top.asc
+```
+
+Note: the makefile will attempt to find a seed with [scripts/find_seed.py](scripts/find_seed.py)
+while the commands above will just use the default seed.
+
+The corresponding Lattice IceCube2 project is in [lattice_proj/adc_xy_vga_3to2/adc_xy_vga_3to2_sbt.project](lattice_proj/adc_xy_vga_3to2/adc_xy_vga_3to2_sbt.project).
+
+I checked in the post PNR timing report from IceCube2 in: [vendor_reports/adc_xy_vga_3to2_top_timing.rpt.gz](vendor_reports/adc_xy_vga_3to2_top_timing.rpt.gz)
+The high level summary of the report from IceCube2 is:
+
+```text
+ #####################################################################
+                    1::Clock Frequency Summary
+ =====================================================================
+Number of clocks: 4
+Clock: CLK                                    | Frequency: 114.16 MHz  | Target: 100.00 MHz  |
+Clock: adc_xy_vga_3to2_top|L_ADC_CLK_TO_FPGA  | Frequency: 210.61 MHz  | Target: 1.00 MHz    |
+Clock: vga_pll_inst.pll_inst/PLLOUTCORE       | N/A                    | Target: 25.00 MHz   |
+Clock: vga_pll_inst.pll_inst/PLLOUTGLOBAL     | Frequency: 187.86 MHz  | Target: 25.00 MHz   |
+
+ =====================================================================
+                    End of Clock Frequency Summary
+ #####################################################################
+```
+
+And yes, it looks like L_ADC_CLK_TO_FPGA is not correctly constrained.
+I just noticed that, however, it shouldn't be relevant.
+
+## Original Readme
+
 ![Vanilla ICE40 ecosystem](images/ecosystem.png?raw=true "vanilla ice40 ecosystem")
 
 ## Development Boards
