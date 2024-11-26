@@ -6,14 +6,9 @@
 DEVICE := hx8k
 PACKAGE := ct256
 
-# nextpnr can't manage to place and route the 800x600 and make timing.
-# use icecube2 instead :( Running tb's at higher resolutions is fine,
-# just not real bitstream generation.
 VGA_MODE := "640_480_60"
+# 640x480 is the only actual working resolution
 # VGA_MODE := "800_600_60"
-
-# VGA_MODE 1024_768 won't currently work because the pixel clock is too fast
-# for the sram.
 # VGA_MODE := "1024_768_60"
 
 # Clock Frequency in MHZ
@@ -22,7 +17,10 @@ CLK_FREQ := 100
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
-TOP_IGNORE := adc/adc_xy_vga_3to2_top.sv gfx/gfx_demo_3to2_top.sv
+#
+# These don't actually make timing on yosys/nextprn, but don't ignore them
+# so that the yosys/nextprn folks can look at them.
+# TOP_IGNORE := adc/adc_xy_vga_3to2_top.sv gfx/gfx_demo_3to2_top.sv
 
 # Directories
 TEST_DIR := test
@@ -146,7 +144,7 @@ endef
 
 define find_seed_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).seed: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BUILD_DIR)
-	@flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BITS_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
+	flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BITS_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call find_seed_rule,$(top))))
