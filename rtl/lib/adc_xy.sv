@@ -4,6 +4,7 @@
 `include "directives.sv"
 
 `include "cdc_fifo.sv"
+`include "delay.sv"
 
 // Sample the ADC bits on the ADC clock and ship the result to the main clock
 // domain via a cdc_fifo.
@@ -44,10 +45,24 @@ module adc_xy #(
   logic                  r_empty;
   // verilator lint_on UNUSEDSIGNAL
 
-  // TODO: this is wrong. The x/y and color bits have different delays.
-  // Measure and/or review the data sheet for the adc and add delays
-  // for the color bits.
-  assign w_data = {adc_x_io, adc_y_io, adc_red_io, adc_grn_io, adc_blu_io};
+  logic                  adc_red_io_d;
+  logic                  adc_grn_io_d;
+  logic                  adc_blu_io_d;
+
+  // Data sheet for the adc says 7 cycle delay for x/y
+  delay #(
+      .DELAY_CYCLES(7),
+      .WIDTH       (3)
+  ) adc_color_delay (
+      .clk(clk),
+      .in ({adc_red_io, adc_grn_io, adc_blu_io}),
+      .out({adc_red_io_d, adc_grn_io_d, adc_blu_io_d})
+  );
+
+  always_comb begin
+    w_data = {adc_x_io, adc_y_io, adc_red_io_d, adc_grn_io_d, adc_blu_io_d};
+  end
+
   assign {adc_x, adc_y, adc_red, adc_grn, adc_blu} = r_data;
 
   // Just blast data in/out without checking since the ADC isn't going
