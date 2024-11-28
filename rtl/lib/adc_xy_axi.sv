@@ -57,7 +57,7 @@ module adc_xy_axi #(
       tvalid <= 0;
     end else begin
       if (!tvalid) begin
-        tvalid  <= 1'b1;
+        tvalid  <= (adc_red_int || adc_grn_int || adc_blu_int);
         adc_x   <= adc_x_int;
         adc_y   <= adc_y_int;
         adc_red <= adc_red_int;
