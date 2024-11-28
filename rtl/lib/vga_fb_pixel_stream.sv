@@ -227,7 +227,7 @@ module vga_fb_pixel_stream #(
   // verilator lint_on UNUSEDSIGNAL
 
   assign fifo_w_data = {
-    fb_pixel_addr_p1, fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1
+    fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1
   };
 
   assign fifo_w_inc = fb_pixel_inc_p1;
