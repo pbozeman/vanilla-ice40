@@ -6,6 +6,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 
@@ -39,6 +40,11 @@ def find_working_seed(
         for seed, success, output in pool.imap_unordered(try_seed, args):
             if success:
                 pool.terminate()
+                pool.join()
+                # the sleep should not be necessary because of the join, but it seems that
+                # some of the children continue to write anyway. This messes up the later real
+                # build. An alternative would be to have them write to temp dirs.
+                time.sleep(1)
                 print("\nOutput from successful run:")
                 print(output)
                 print(f"\nSuccess! Found working seed: {seed}")
