@@ -314,7 +314,6 @@ module gfx_vga_fade #(
   end
 
   assign clr_pready    = fw_axi_tready;
-  // assign fw_axi_tvalid = 1'b0;
   assign fw_axi_tvalid = clr_pvalid;
 
   assign fw_addr       = (H_VISIBLE * clr_y + clr_x);
