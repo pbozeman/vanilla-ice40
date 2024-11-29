@@ -28,9 +28,8 @@ module vga_fb_pixel_stream #(
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16,
 
-    localparam FB_X_BITS  = $clog2(H_WHOLE_LINE),
-    localparam FB_Y_BITS  = $clog2(V_WHOLE_FRAME),
-    localparam COLOR_BITS = PIXEL_BITS / 3
+    localparam FB_X_BITS = $clog2(H_WHOLE_LINE),
+    localparam FB_Y_BITS = $clog2(V_WHOLE_FRAME)
 ) (
     input logic clk,
     input logic reset,
@@ -45,9 +44,7 @@ module vga_fb_pixel_stream #(
     output logic hsync,
 
     // color
-    output logic [COLOR_BITS-1:0] red,
-    output logic [COLOR_BITS-1:0] grn,
-    output logic [COLOR_BITS-1:0] blu,
+    output logic [PIXEL_BITS-1:0] color,
 
     // pixel addr in the fb, this let's a caller get a pixel for display,
     // but also modify it in the frame buffer after. While it might be
@@ -301,11 +298,11 @@ module vga_fb_pixel_stream #(
   // the data to use when the pixel is not visible
   logic [AXI_DATA_WIDTH:0] blank_pixel = 0;
 
-  assign hsync           = pixel_hsync;
-  assign vsync           = pixel_vsync;
-  assign valid           = pixel_valid;
-  assign {red, grn, blu} = pixel_visible ? pixel_data : blank_pixel;
-  assign addr            = pixel_addr;
+  assign hsync = pixel_hsync;
+  assign vsync = pixel_vsync;
+  assign valid = pixel_valid;
+  assign color = pixel_visible ? pixel_data : blank_pixel;
+  assign addr  = pixel_addr;
 
 endmodule
 

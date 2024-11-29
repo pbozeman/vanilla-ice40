@@ -29,7 +29,6 @@ module vga_fb_pixel_stream_tb;
   localparam PIXEL_BITS = 12;
   localparam PIXEL_X_BITS = $clog2(H_WHOLE_LINE);
   localparam PIXEL_Y_BITS = $clog2(V_WHOLE_FRAME);
-  localparam COLOR_BITS = PIXEL_BITS / 3;
 
   logic                      clk;
   logic                      reset;
@@ -43,9 +42,7 @@ module vga_fb_pixel_stream_tb;
   logic                      pixel_stream_hsync;
 
   // color
-  logic [    COLOR_BITS-1:0] pixel_stream_red;
-  logic [    COLOR_BITS-1:0] pixel_stream_grn;
-  logic [    COLOR_BITS-1:0] pixel_stream_blu;
+  logic [    PIXEL_BITS-1:0] pixel_stream_color;
 
   // pixel addr
   logic [AXI_ADDR_WIDTH-1:0] pixel_stream_addr;
@@ -106,12 +103,9 @@ module vga_fb_pixel_stream_tb;
       .vsync(pixel_stream_vsync),
       .hsync(pixel_stream_hsync),
 
-      // color
-      .red(pixel_stream_red),
-      .grn(pixel_stream_grn),
-      .blu(pixel_stream_blu),
-
-      .addr(pixel_stream_addr),
+      // color/addr
+      .color(pixel_stream_color),
+      .addr (pixel_stream_addr),
 
       .sram_axi_araddr (sram0_axi_araddr),
       .sram_axi_arvalid(sram0_axi_arvalid),
@@ -173,7 +167,7 @@ module vga_fb_pixel_stream_tb;
   logic [AXI_ADDR_WIDTH-1:0] pixel_addr;
   logic [    PIXEL_BITS-1:0] pixel_bits;
 
-  assign pixel_bits = {pixel_stream_red, pixel_stream_grn, pixel_stream_blu};
+  assign pixel_bits = pixel_stream_color;
 
   initial begin
     clk = 0;

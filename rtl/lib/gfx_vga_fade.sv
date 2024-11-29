@@ -141,9 +141,7 @@ module gfx_vga_fade #(
   logic                      vga_fb_hsync;
 
   // color signals
-  logic [    COLOR_BITS-1:0] vga_fb_red;
-  logic [    COLOR_BITS-1:0] vga_fb_grn;
-  logic [    COLOR_BITS-1:0] vga_fb_blu;
+  logic [    PIXEL_BITS-1:0] vga_fb_color;
 
   // pixel addr
   // verilator lint_off UNUSEDSIGNAL
@@ -176,9 +174,7 @@ module gfx_vga_fade #(
       .valid (vga_fb_valid),
       .hsync (vga_fb_hsync),
       .vsync (vga_fb_vsync),
-      .red   (vga_fb_red),
-      .grn   (vga_fb_grn),
-      .blu   (vga_fb_blu),
+      .color (vga_fb_color),
       .addr  (vga_fb_addr),
 
       .sram_axi_araddr (disp_axi_araddr),
@@ -219,9 +215,7 @@ module gfx_vga_fade #(
   logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
   logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
-  assign fifo_fb_data = {
-    vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
-  };
+  assign fifo_fb_data = {vga_fb_hsync, vga_fb_vsync, vga_fb_color};
 
   assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
 
