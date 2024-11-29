@@ -149,6 +149,7 @@ module axi_arbiter (
   logic       fifo_r_empty;
   // verilator lint_off UNUSEDSIGNAL
   logic       fifo_w_full;
+  logic       fifo_w_almost_full;
   // verilator lint_on UNUSEDSIGNAL
 
   assign fifo_w_data     = active_request;
@@ -161,14 +162,15 @@ module axi_arbiter (
       .DATA_WIDTH(3),
       .ADDR_SIZE (3)
   ) wg0_resp_fifo (
-      .clk    (axi_clk),
-      .rst_n  (axi_resetn),
-      .w_inc  (fifo_w_inc),
-      .w_data (fifo_w_data),
-      .w_full (fifo_w_full),
-      .r_inc  (fifo_r_inc),
-      .r_data (fifo_r_data),
-      .r_empty(fifo_r_empty)
+      .clk          (axi_clk),
+      .rst_n        (axi_resetn),
+      .w_inc        (fifo_w_inc),
+      .w_data       (fifo_w_data),
+      .w_full       (fifo_w_full),
+      .w_almost_full(fifo_w_almost_full),
+      .r_inc        (fifo_r_inc),
+      .r_data       (fifo_r_data),
+      .r_empty      (fifo_r_empty)
   );
 endmodule
 

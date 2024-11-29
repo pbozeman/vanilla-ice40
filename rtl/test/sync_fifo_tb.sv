@@ -13,6 +13,10 @@ module sync_fifo_tb;
   logic                  w_inc;
   logic [DATA_WIDTH-1:0] w_data;
   logic                  w_full;
+  // verilator lint_off UNUSEDSIGNAL
+  // TODO: add almost full tests
+  logic                  w_almost_full;
+  // verilator lint_on UNUSEDSIGNAL
   logic                  r_inc;
   logic                  r_empty;
   logic [DATA_WIDTH-1:0] r_data;
@@ -21,14 +25,15 @@ module sync_fifo_tb;
       .DATA_WIDTH(DATA_WIDTH),
       .ADDR_SIZE (ADDR_SIZE)
   ) uut (
-      .clk    (clk),
-      .rst_n  (rst_n),
-      .w_inc  (w_inc),
-      .w_data (w_data),
-      .w_full (w_full),
-      .r_inc  (r_inc),
-      .r_empty(r_empty),
-      .r_data (r_data)
+      .clk          (clk),
+      .rst_n        (rst_n),
+      .w_inc        (w_inc),
+      .w_data       (w_data),
+      .w_full       (w_full),
+      .w_almost_full(w_almost_full),
+      .r_inc        (r_inc),
+      .r_empty      (r_empty),
+      .r_data       (r_data)
   );
 
   `TEST_SETUP(sync_fifo_tb)

@@ -224,6 +224,7 @@ module vga_fb_pixel_stream #(
   logic                           fifo_r_empty;
   // verilator lint_off UNUSEDSIGNAL
   logic                           fifo_w_full;
+  logic                           fifo_w_almost_full;
   // verilator lint_on UNUSEDSIGNAL
 
   assign fifo_w_data = {
@@ -237,14 +238,15 @@ module vga_fb_pixel_stream #(
       .DATA_WIDTH(PIXEL_CONTEXT_WIDTH),
       .ADDR_SIZE (5)
   ) fb_fifo (
-      .clk    (clk),
-      .rst_n  (~reset),
-      .w_inc  (fifo_w_inc),
-      .w_data (fifo_w_data),
-      .w_full (fifo_w_full),
-      .r_inc  (fifo_r_inc),
-      .r_data (fifo_r_data),
-      .r_empty(fifo_r_empty)
+      .clk          (clk),
+      .rst_n        (~reset),
+      .w_inc        (fifo_w_inc),
+      .w_data       (fifo_w_data),
+      .w_full       (fifo_w_full),
+      .w_almost_full(fifo_w_almost_full),
+      .r_inc        (fifo_r_inc),
+      .r_data       (fifo_r_data),
+      .r_empty      (fifo_r_empty)
   );
 
   // unmarshal the pixel metadata from the fifo

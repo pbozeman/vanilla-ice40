@@ -12,8 +12,9 @@
 // was done before I knew what I wanted in a fifo module.
 
 module sync_fifo #(
-    parameter DATA_WIDTH = 8,
-    parameter ADDR_SIZE  = 4
+    parameter DATA_WIDTH      = 8,
+    parameter ADDR_SIZE       = 4,
+    parameter ALMOST_FULL_BUF = 1
 ) (
     input logic clk,
     input logic rst_n,
@@ -21,6 +22,7 @@ module sync_fifo #(
     input  logic                  w_inc,
     input  logic [DATA_WIDTH-1:0] w_data,
     output logic                  w_full,
+    output logic                  w_almost_full,
 
     input  logic                  r_inc,
     output logic                  r_empty,
@@ -68,6 +70,20 @@ module sync_fifo #(
   assign w_full  = (w_ptr[ADDR_SIZE] ^ r_ptr[ADDR_SIZE]) && w_addr == r_addr;
   assign r_empty = (w_ptr == r_ptr);
   assign r_data  = mem[r_addr];
+
+  //
+  // almost full
+  //
+  logic [ADDR_SIZE:0] w_slots_used;
+  assign w_slots_used = w_ptr - r_ptr;
+
+  localparam ALMOST_FULL_SLOTS = (1 << ADDR_SIZE) - ALMOST_FULL_BUF;
+  logic w_almost_full_val;
+  assign w_almost_full_val = w_slots_used >= ALMOST_FULL_SLOTS;
+
+  always_ff @(posedge clk) begin
+    w_almost_full <= w_almost_full_val;
+  end
 
 endmodule
 
