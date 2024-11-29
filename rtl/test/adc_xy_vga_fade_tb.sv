@@ -1,6 +1,6 @@
 `include "testing.sv"
 
-`include "adc_xy_vga_3to2.sv"
+`include "adc_xy_vga_fade.sv"
 `include "counter.sv"
 `include "sram_model.sv"
 `include "vga_mode.sv"
@@ -9,7 +9,7 @@
 // in the simulator.
 //
 // verilator lint_off UNUSEDSIGNAL
-module adc_xy_vga_3to2_tb;
+module adc_xy_vga_fade_tb;
   localparam ADC_DATA_BITS = 10;
   localparam PIXEL_BITS = 12;
   localparam META_BITS = 4;
@@ -41,12 +41,6 @@ module adc_xy_vga_3to2_tb;
   logic                      sram0_io_oe_n;
   logic                      sram0_io_ce_n;
 
-  logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr;
-  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data;
-  logic                      sram1_io_we_n;
-  logic                      sram1_io_oe_n;
-  logic                      sram1_io_ce_n;
-
   // Instantiate the mocked SRAM model
   sram_model #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
@@ -59,18 +53,7 @@ module adc_xy_vga_3to2_tb;
       .data_io(sram0_io_data)
   );
 
-  sram_model #(
-      .ADDR_BITS(AXI_ADDR_WIDTH),
-      .DATA_BITS(AXI_DATA_WIDTH)
-  ) sram_1 (
-      .we_n   (sram1_io_we_n),
-      .oe_n   (sram1_io_oe_n),
-      .ce_n   (sram1_io_ce_n),
-      .addr   (sram1_io_addr),
-      .data_io(sram1_io_data)
-  );
-
-  adc_xy_vga_3to2 #(
+  adc_xy_vga_fade #(
       .ADC_DATA_BITS (ADC_DATA_BITS),
       .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -98,13 +81,7 @@ module adc_xy_vga_3to2_tb;
       .sram0_io_data(sram0_io_data),
       .sram0_io_we_n(sram0_io_we_n),
       .sram0_io_oe_n(sram0_io_oe_n),
-      .sram0_io_ce_n(sram0_io_ce_n),
-
-      .sram1_io_addr(sram1_io_addr),
-      .sram1_io_data(sram1_io_data),
-      .sram1_io_we_n(sram1_io_we_n),
-      .sram1_io_oe_n(sram1_io_oe_n),
-      .sram1_io_ce_n(sram1_io_ce_n)
+      .sram0_io_ce_n(sram0_io_ce_n)
   );
 
   // TODO: add color tests
@@ -148,7 +125,7 @@ module adc_xy_vga_3to2_tb;
     forever #`VGA_MODE_TB_PIXEL_CLK pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP_SLOW(adc_xy_vga_3to2_tb)
+  `TEST_SETUP_SLOW(adc_xy_vga_fade_tb)
 
   // Test stimulus
   initial begin

@@ -22,7 +22,7 @@ CLK_FREQ := 100
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
-TOP_IGNORE := adc/adc_xy_vga_3to2_top.sv gfx/gfx_demo_3to2_top.sv
+# TOP_IGNORE := <modules>
 
 # Directories
 TEST_DIR := test
