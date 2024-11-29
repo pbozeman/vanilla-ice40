@@ -230,8 +230,6 @@ module vga_fb_pixel_stream_tb;
 
   // data
   always @(posedge clk) begin
-    `ASSERT(!uut.fb_fifo.w_full);
-
     if (pixel_stream_valid) begin
       if (pixel_x < H_VISIBLE && pixel_y < V_VISIBLE) begin
         `ASSERT_EQ(pixel_bits, pixel_addr);

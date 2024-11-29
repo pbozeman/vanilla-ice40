@@ -73,8 +73,12 @@ module vga_fb_pixel_stream #(
 
   // In this context, fb_pixel_visible is the previous value. Keep generating
   // pixels in the non-visible area as long as we are enabled.
+  //
+  // TODO: fifo_w_almost_full is used here and in enable_p1, which
+  // is kinda hacky. Clean up the next pixel signal and enable_p1.
   logic                 fb_pixel_inc;
-  assign fb_pixel_inc = (read_start | (!fb_pixel_visible & enable));
+  assign fb_pixel_inc = (!fifo_w_almost_full &&
+                         (read_start || (!fb_pixel_visible && enable)));
 
   vga_sync #(
       .H_VISIBLE    (H_VISIBLE),
@@ -115,7 +119,7 @@ module vga_fb_pixel_stream #(
     if (reset) begin
       enable_p1 <= 1'b0;
     end else begin
-      enable_p1 <= enable;
+      enable_p1 <= (enable && !fifo_w_almost_full);
     end
   end
 
@@ -224,8 +228,8 @@ module vga_fb_pixel_stream #(
   logic                           fifo_r_empty;
   // verilator lint_off UNUSEDSIGNAL
   logic                           fifo_w_full;
-  logic                           fifo_w_almost_full;
   // verilator lint_on UNUSEDSIGNAL
+  logic                           fifo_w_almost_full;
 
   assign fifo_w_data = {
     fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1
@@ -234,9 +238,13 @@ module vga_fb_pixel_stream #(
   assign fifo_w_inc = fb_pixel_inc_p1;
   assign fifo_r_inc = read_done || (!fifo_pixel_visible && !fifo_r_empty);
 
+  // This is very brittle. If this queue becomes longer than the sram
+  // read latency, read_done can fire before our pixel metadata has made
+  // it through the queue.
   sync_fifo #(
-      .DATA_WIDTH(PIXEL_CONTEXT_WIDTH),
-      .ADDR_SIZE (5)
+      .DATA_WIDTH     (PIXEL_CONTEXT_WIDTH),
+      .ADDR_SIZE      (3),
+      .ALMOST_FULL_BUF(2)
   ) fb_fifo (
       .clk          (clk),
       .rst_n        (~reset),
