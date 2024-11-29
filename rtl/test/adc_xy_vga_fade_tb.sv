@@ -12,7 +12,6 @@
 module adc_xy_vga_fade_tb;
   localparam ADC_DATA_BITS = 10;
   localparam PIXEL_BITS = 12;
-  localparam META_BITS = 4;
   localparam COLOR_BITS = PIXEL_BITS / 3;
   localparam AXI_ADDR_WIDTH = 20;
   localparam AXI_DATA_WIDTH = 16;
@@ -31,7 +30,6 @@ module adc_xy_vga_fade_tb;
   logic [    COLOR_BITS-1:0] vga_red;
   logic [    COLOR_BITS-1:0] vga_grn;
   logic [    COLOR_BITS-1:0] vga_blu;
-  logic [     META_BITS-1:0] vga_meta;
   logic                      vga_hsync;
   logic                      vga_vsync;
 
@@ -73,7 +71,6 @@ module adc_xy_vga_fade_tb;
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

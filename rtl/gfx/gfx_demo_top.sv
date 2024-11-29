@@ -15,7 +15,6 @@ module gfx_demo_top #(
     parameter VGA_WIDTH  = `VGA_MODE_H_VISIBLE,
     parameter VGA_HEIGHT = `VGA_MODE_V_VISIBLE,
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
     parameter ADDR_BITS  = 20,
     parameter DATA_BITS  = 16
 ) (
@@ -44,7 +43,6 @@ module gfx_demo_top #(
   logic [COLOR_BITS-1:0] vga_red;
   logic [COLOR_BITS-1:0] vga_grn;
   logic [COLOR_BITS-1:0] vga_blu;
-  logic [ META_BITS-1:0] vga_meta;
   logic                  vga_hsync;
   logic                  vga_vsync;
 
@@ -71,7 +69,6 @@ module gfx_demo_top #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

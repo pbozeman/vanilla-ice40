@@ -13,7 +13,6 @@ module adc_xy_vga_fade #(
     parameter ADC_DATA_BITS = 10,
 
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
     parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
@@ -50,7 +49,6 @@ module adc_xy_vga_fade #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
-    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -90,7 +88,6 @@ module adc_xy_vga_fade #(
   logic [    FB_X_BITS-1:0] gfx_x;
   logic [    FB_Y_BITS-1:0] gfx_y;
   logic [   PIXEL_BITS-1:0] gfx_color;
-  logic [    META_BITS-1:0] gfx_meta;
   logic                     gfx_pvalid;
   logic                     gfx_pready;
   // verilator lint_off UNUSEDSIGNAL
@@ -160,7 +157,6 @@ module adc_xy_vga_fade #(
   assign gfx_x         = adc_active ? gfx_adc_x : clr_x;
   assign gfx_y         = adc_active ? gfx_adc_y : clr_y;
   assign gfx_color     = adc_active ? gfx_adc_color : clr_color;
-  assign gfx_meta      = '0;
 
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready    = gfx_pready;
@@ -188,8 +184,7 @@ module adc_xy_vga_fade #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) gfx_vga_fade_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
@@ -200,7 +195,6 @@ module adc_xy_vga_fade #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_meta (gfx_meta),
       .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),
@@ -208,7 +202,6 @@ module adc_xy_vga_fade #(
       .vga_red  (vga_raw_red),
       .vga_grn  (vga_raw_grn),
       .vga_blu  (vga_raw_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

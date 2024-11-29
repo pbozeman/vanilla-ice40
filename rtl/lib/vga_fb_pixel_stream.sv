@@ -12,7 +12,6 @@
 
 module vga_fb_pixel_stream #(
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
@@ -49,7 +48,6 @@ module vga_fb_pixel_stream #(
     output logic [COLOR_BITS-1:0] red,
     output logic [COLOR_BITS-1:0] grn,
     output logic [COLOR_BITS-1:0] blu,
-    output logic [ META_BITS-1:0] meta,
 
     //
     // The AXI interface backing the frame buffer.
@@ -293,10 +291,10 @@ module vga_fb_pixel_stream #(
   // the data to use when the pixel is not visible
   logic [AXI_DATA_WIDTH:0] blank_pixel = 0;
 
-  assign hsync                 = pixel_hsync;
-  assign vsync                 = pixel_vsync;
-  assign valid                 = pixel_valid;
-  assign {red, grn, blu, meta} = pixel_visible ? pixel_data : blank_pixel;
+  assign hsync           = pixel_hsync;
+  assign vsync           = pixel_vsync;
+  assign valid           = pixel_valid;
+  assign {red, grn, blu} = pixel_visible ? pixel_data : blank_pixel;
 
 endmodule
 

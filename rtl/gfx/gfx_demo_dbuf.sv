@@ -14,7 +14,6 @@
 // verilator lint_off UNUSEDSIGNAL
 module gfx_demo_dbuf #(
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
     parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
@@ -43,7 +42,6 @@ module gfx_demo_dbuf #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
-    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -65,7 +63,6 @@ module gfx_demo_dbuf #(
   logic [ FB_X_BITS-1:0] gfx_x;
   logic [ FB_Y_BITS-1:0] gfx_y;
   logic [PIXEL_BITS-1:0] gfx_color;
-  logic [ META_BITS-1:0] gfx_meta;
   logic                  gfx_pready;
   logic                  gfx_pvalid;
   logic                  gfx_last;
@@ -91,9 +88,6 @@ module gfx_demo_dbuf #(
       .last  (gfx_last)
   );
 
-  // TODO: use this
-  assign gfx_meta = '0;
-
   // fb writer axi flow control signals
   logic fbw_axi_tvalid;
   logic fbw_axi_tready;
@@ -114,8 +108,7 @@ module gfx_demo_dbuf #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) gfx_vga_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
@@ -126,7 +119,6 @@ module gfx_demo_dbuf #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_meta (gfx_meta),
       .gfx_valid(gfx_pvalid),
       .gfx_ready(gfx_pready),
       .gfx_vsync(gfx_vsync),
@@ -136,7 +128,6 @@ module gfx_demo_dbuf #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

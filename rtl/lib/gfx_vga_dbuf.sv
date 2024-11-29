@@ -20,7 +20,6 @@
 
 module gfx_vga_dbuf #(
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
@@ -51,7 +50,6 @@ module gfx_vga_dbuf #(
     input  logic [ FB_X_BITS-1:0] gfx_x,
     input  logic [ FB_Y_BITS-1:0] gfx_y,
     input  logic [PIXEL_BITS-1:0] gfx_color,
-    input  logic [ META_BITS-1:0] gfx_meta,
     input  logic                  gfx_valid,
     output logic                  gfx_ready,
     output logic                  gfx_vsync,
@@ -61,7 +59,6 @@ module gfx_vga_dbuf #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
-    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -187,20 +184,20 @@ module gfx_vga_dbuf #(
   );
 
   // fb writer axi flow control signals
-  logic                            fbw_axi_tvalid;
-  logic                            fbw_axi_tready;
+  logic                      fbw_axi_tvalid;
+  logic                      fbw_axi_tready;
 
   // and the data that goes with them
-  logic [      AXI_ADDR_WIDTH-1:0] fbw_addr;
-  logic [PIXEL_BITS+META_BITS-1:0] fbw_color;
+  logic [AXI_ADDR_WIDTH-1:0] fbw_addr;
+  logic [    PIXEL_BITS-1:0] fbw_color;
 
   assign gfx_ready      = (fbw_axi_tready && !switching);
   assign fbw_axi_tvalid = gfx_valid;
   assign fbw_addr       = (H_VISIBLE * gfx_y + gfx_x);
-  assign fbw_color      = {gfx_color, gfx_meta};
+  assign fbw_color      = gfx_color;
 
   fb_writer #(
-      .PIXEL_BITS    (PIXEL_BITS + META_BITS),
+      .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) fb_writer_inst (
@@ -241,7 +238,6 @@ module gfx_vga_dbuf #(
   logic [COLOR_BITS-1:0] vga_fb_red;
   logic [COLOR_BITS-1:0] vga_fb_grn;
   logic [COLOR_BITS-1:0] vga_fb_blu;
-  logic [ META_BITS-1:0] vga_fb_meta;
 
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
@@ -261,8 +257,7 @@ module gfx_vga_dbuf #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) vga_fb_pixel_stream_inst (
       .clk   (clk),
       .reset (reset),
@@ -273,7 +268,6 @@ module gfx_vga_dbuf #(
       .red   (vga_fb_red),
       .grn   (vga_fb_grn),
       .blu   (vga_fb_blu),
-      .meta  (vga_fb_meta),
 
       .sram_axi_araddr (disp_axi_araddr),
       .sram_axi_arvalid(disp_axi_arvalid),
@@ -308,24 +302,19 @@ module gfx_vga_dbuf #(
   // fifo_fb_ comes from the frame buffer and is in the writer clock domain.
   // fifo_vga_ is used by the vga side and is in the reader clock domain.
   //
-  localparam VGA_DATA_WIDTH = PIXEL_BITS + META_BITS + 2;
+  localparam VGA_DATA_WIDTH = PIXEL_BITS + 2;
 
   logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
   logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
   always_comb begin
     fifo_fb_data = {
-      vga_fb_hsync,
-      vga_fb_vsync,
-      vga_fb_red,
-      vga_fb_grn,
-      vga_fb_blu,
-      vga_fb_meta
+      vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
     };
   end
 
   always_comb begin
-    {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu, vga_meta} = fifo_vga_data;
+    {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
   end
 
   // ship it

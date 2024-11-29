@@ -13,7 +13,6 @@ module adc_xy_vga_fade_top #(
     parameter  SRAM_DATA_BITS = 16,
     parameter  ADC_DATA_BITS  = 10,
     parameter  PIXEL_BITS     = 12,
-    parameter  META_BITS      = 4,
     localparam COLOR_BITS     = PIXEL_BITS / 3
 ) (
     input logic                     CLK,
@@ -39,9 +38,6 @@ module adc_xy_vga_fade_top #(
   logic [COLOR_BITS-1:0] vga_red;
   logic [COLOR_BITS-1:0] vga_grn;
   logic [COLOR_BITS-1:0] vga_blu;
-  // verilator lint_off UNUSEDSIGNAL
-  logic [ META_BITS-1:0] vga_meta;
-  // verilator lint_on UNUSEDSIGNAL
   logic                  vga_hsync;
   logic                  vga_vsync;
 
@@ -73,7 +69,6 @@ module adc_xy_vga_fade_top #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

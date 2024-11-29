@@ -11,7 +11,6 @@
 // verilator lint_off UNUSEDSIGNAL
 module gfx_demo #(
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = `VGA_MODE_H_VISIBLE,
     parameter H_FRONT_PORCH = `VGA_MODE_H_FRONT_PORCH,
@@ -40,7 +39,6 @@ module gfx_demo #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
-    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -55,7 +53,6 @@ module gfx_demo #(
   logic [ FB_X_BITS-1:0] gfx_x;
   logic [ FB_Y_BITS-1:0] gfx_y;
   logic [PIXEL_BITS-1:0] gfx_color;
-  logic [ META_BITS-1:0] gfx_meta;
   logic                  gfx_pready;
   logic                  gfx_pvalid;
   logic                  gfx_last;
@@ -79,9 +76,6 @@ module gfx_demo #(
       .last  (gfx_last)
   );
 
-  // TODO: use this
-  assign gfx_meta = '0;
-
   gfx_vga #(
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH),
@@ -98,8 +92,7 @@ module gfx_demo #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) gfx_vga_inst (
       .clk      (clk),
       .pixel_clk(pixel_clk),
@@ -108,7 +101,6 @@ module gfx_demo #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_meta (gfx_meta),
       .gfx_valid(gfx_pvalid),
       .gfx_ready(gfx_pready),
       .gfx_vsync(gfx_vsync),
@@ -118,7 +110,6 @@ module gfx_demo #(
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 

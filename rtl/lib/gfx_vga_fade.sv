@@ -17,17 +17,8 @@
 `include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
 
-// meta bits are extra metadata that can be associated with the pixel. It
-// might have been better to just the pixel be gfx_pixel_data rather than
-// splitting color out and later. If that was (or later, is) done, then
-// the vga_rgb lines should be separated out by the caller and we should
-// only be passing gfx_pixel_data through this module. But, the interface is
-// in flux, so let's just do the simple thing first when adding in the
-// meta_bits, for now. (The initial use case is using them for intensity
-// in simulating fade of a vector display.)
 module gfx_vga_fade #(
     parameter PIXEL_BITS = 12,
-    parameter META_BITS  = 4,
 
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
@@ -56,7 +47,6 @@ module gfx_vga_fade #(
     input  logic [ FB_X_BITS-1:0] gfx_x,
     input  logic [ FB_Y_BITS-1:0] gfx_y,
     input  logic [PIXEL_BITS-1:0] gfx_color,
-    input  logic [ META_BITS-1:0] gfx_meta,
     input  logic                  gfx_valid,
     output logic                  gfx_ready,
     output logic                  gfx_vsync,
@@ -66,7 +56,6 @@ module gfx_vga_fade #(
     output logic [COLOR_BITS-1:0] vga_red,
     output logic [COLOR_BITS-1:0] vga_grn,
     output logic [COLOR_BITS-1:0] vga_blu,
-    output logic [ META_BITS-1:0] vga_meta,
     output logic                  vga_hsync,
     output logic                  vga_vsync,
 
@@ -155,7 +144,6 @@ module gfx_vga_fade #(
   logic [COLOR_BITS-1:0] vga_fb_red;
   logic [COLOR_BITS-1:0] vga_fb_grn;
   logic [COLOR_BITS-1:0] vga_fb_blu;
-  logic [ META_BITS-1:0] vga_fb_meta;
 
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
@@ -175,8 +163,7 @@ module gfx_vga_fade #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) vga_fb_pixel_stream_inst (
       .clk   (clk),
       .reset (reset),
@@ -187,7 +174,6 @@ module gfx_vga_fade #(
       .red   (vga_fb_red),
       .grn   (vga_fb_grn),
       .blu   (vga_fb_blu),
-      .meta  (vga_fb_meta),
 
       .sram_axi_araddr (disp_axi_araddr),
       .sram_axi_arvalid(disp_axi_arvalid),
@@ -222,17 +208,16 @@ module gfx_vga_fade #(
   // fifo_fb_ comes from the frame buffer and is in the writer clock domain.
   // fifo_vga_ is used by the vga side and is in the reader clock domain.
   //
-  localparam VGA_DATA_WIDTH = PIXEL_BITS + META_BITS + 2;
+  localparam VGA_DATA_WIDTH = PIXEL_BITS + 2;
 
   logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
   logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
   assign fifo_fb_data = {
-    vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu, vga_fb_meta
+    vga_fb_hsync, vga_fb_vsync, vga_fb_red, vga_fb_grn, vga_fb_blu
   };
 
-  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu, vga_meta} =
-      fifo_vga_data;
+  assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
 
   // ship it
   cdc_fifo #(
@@ -264,25 +249,20 @@ module gfx_vga_fade #(
   // TODO: implement actual fading
   //
   // fade writer axi flow control signals
-  logic                            fw_axi_tvalid;
-  logic                            fw_axi_tready;
+  logic                      fw_axi_tvalid;
+  logic                      fw_axi_tready;
 
   // and the data that goes with them
-  logic [      AXI_ADDR_WIDTH-1:0] fw_addr;
-  logic [PIXEL_BITS+META_BITS-1:0] fw_color;
+  logic [AXI_ADDR_WIDTH-1:0] fw_addr;
+  logic [    PIXEL_BITS-1:0] fw_color;
 
-  logic                            clr_pvalid;
-  logic                            clr_pready;
-  logic [           FB_X_BITS-1:0] clr_x;
-  logic [           FB_Y_BITS-1:0] clr_y;
-  logic [          PIXEL_BITS-1:0] clr_color;
-  logic [           META_BITS-1:0] clr_meta;
-  logic                            clr_last;
-  logic                            clr_reset;
-
-  // TODO: use this for fading
-  assign clr_meta = '0;
-
+  logic                      clr_pvalid;
+  logic                      clr_pready;
+  logic [     FB_X_BITS-1:0] clr_x;
+  logic [     FB_Y_BITS-1:0] clr_y;
+  logic [    PIXEL_BITS-1:0] clr_color;
+  logic                      clr_last;
+  logic                      clr_reset;
 
   gfx_clear #(
       .FB_WIDTH  (H_VISIBLE),
@@ -338,27 +318,27 @@ module gfx_vga_fade #(
   assign fw_axi_tvalid = clr_pvalid;
 
   assign fw_addr       = (H_VISIBLE * clr_y + clr_x);
-  assign fw_color      = {clr_color, clr_meta};
+  assign fw_color      = clr_color;
 
   //
   // gfx writer
   //
 
   // gfx writer axi flow control signals
-  logic                            gw_axi_tvalid;
-  logic                            gw_axi_tready;
+  logic                      gw_axi_tvalid;
+  logic                      gw_axi_tready;
 
   // and the data that goes with them
-  logic [      AXI_ADDR_WIDTH-1:0] gw_addr;
-  logic [PIXEL_BITS+META_BITS-1:0] gw_color;
+  logic [AXI_ADDR_WIDTH-1:0] gw_addr;
+  logic [    PIXEL_BITS-1:0] gw_color;
 
   assign gfx_ready     = gw_axi_tready;
   assign gw_axi_tvalid = gfx_valid;
   assign gw_addr       = (H_VISIBLE * gfx_y + gfx_x);
-  assign gw_color      = {gfx_color, gfx_meta};
+  assign gw_color      = gfx_color;
 
   fb_writer_2to1 #(
-      .PIXEL_BITS    (PIXEL_BITS + META_BITS),
+      .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) fb_writer_2to1_inst (

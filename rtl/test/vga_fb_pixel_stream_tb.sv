@@ -27,7 +27,6 @@ module vga_fb_pixel_stream_tb;
   localparam V_WHOLE_FRAME = 16;
 
   localparam PIXEL_BITS = 12;
-  localparam META_BITS = 4;
   localparam PIXEL_X_BITS = $clog2(H_WHOLE_LINE);
   localparam PIXEL_Y_BITS = $clog2(V_WHOLE_FRAME);
   localparam COLOR_BITS = PIXEL_BITS / 3;
@@ -47,7 +46,6 @@ module vga_fb_pixel_stream_tb;
   logic [    COLOR_BITS-1:0] pixel_stream_red;
   logic [    COLOR_BITS-1:0] pixel_stream_grn;
   logic [    COLOR_BITS-1:0] pixel_stream_blu;
-  logic [     META_BITS-1:0] pixel_stream_meta;
 
   // SRAM AXI
   logic [AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
@@ -92,8 +90,7 @@ module vga_fb_pixel_stream_tb;
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) uut (
       .clk  (clk),
       .reset(reset),
@@ -107,10 +104,9 @@ module vga_fb_pixel_stream_tb;
       .hsync(pixel_stream_hsync),
 
       // color
-      .red (pixel_stream_red),
-      .grn (pixel_stream_grn),
-      .blu (pixel_stream_blu),
-      .meta(pixel_stream_meta),
+      .red(pixel_stream_red),
+      .grn(pixel_stream_grn),
+      .blu(pixel_stream_blu),
 
       .sram_axi_araddr (sram0_axi_araddr),
       .sram_axi_arvalid(sram0_axi_arvalid),
@@ -172,9 +168,7 @@ module vga_fb_pixel_stream_tb;
   logic [AXI_ADDR_WIDTH-1:0] pixel_addr;
   logic [    PIXEL_BITS-1:0] pixel_bits;
 
-  assign pixel_bits = {
-    pixel_stream_red, pixel_stream_grn, pixel_stream_blu, pixel_stream_meta
-  };
+  assign pixel_bits = {pixel_stream_red, pixel_stream_grn, pixel_stream_blu};
 
   initial begin
     clk = 0;

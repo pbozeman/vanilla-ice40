@@ -50,7 +50,7 @@ module fb_writer #(
   assign sram_axi_awaddr  = addr;
 
   assign sram_axi_wvalid  = axi_tvalid;
-  assign sram_axi_wdata   = {color, {(AXI_DATA_WIDTH - PIXEL_BITS) {1'b0}}};
+  assign sram_axi_wdata   = {{(AXI_DATA_WIDTH - PIXEL_BITS) {1'b0}}, color};
 
   // We're always ready for a response...because we ignore it ¯\_(ツ)_/¯)
   assign sram_axi_bready  = 1'b1;

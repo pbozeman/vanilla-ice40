@@ -26,7 +26,6 @@ module gfx_vga_fade_tb;
   localparam V_WHOLE_FRAME = 16;
 
   localparam PIXEL_BITS = 12;
-  localparam META_BITS = 4;
   localparam FB_X_BITS = $clog2(H_VISIBLE);
   localparam FB_Y_BITS = $clog2(V_VISIBLE);
   localparam PIXEL_X_BITS = $clog2(H_WHOLE_LINE);
@@ -41,7 +40,6 @@ module gfx_vga_fade_tb;
   logic [     FB_X_BITS-1:0] gfx_x;
   logic [     FB_Y_BITS-1:0] gfx_y;
   logic [    PIXEL_BITS-1:0] gfx_color;
-  logic [     META_BITS-1:0] gfx_meta;
   logic                      gfx_pready;
   logic                      gfx_pvalid;
   logic                      gfx_vsync;
@@ -57,7 +55,6 @@ module gfx_vga_fade_tb;
   logic [    COLOR_BITS-1:0] vga_red;
   logic [    COLOR_BITS-1:0] vga_grn;
   logic [    COLOR_BITS-1:0] vga_blu;
-  logic [     META_BITS-1:0] vga_meta;
 
   // SRAM 0
   logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr;
@@ -82,8 +79,7 @@ module gfx_vga_fade_tb;
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS),
-      .META_BITS (META_BITS)
+      .PIXEL_BITS(PIXEL_BITS)
   ) uut (
       .clk      (clk),
       .pixel_clk(pixel_clk),
@@ -92,7 +88,6 @@ module gfx_vga_fade_tb;
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_meta (gfx_meta),
       .gfx_valid(gfx_pvalid),
       .gfx_ready(gfx_pready),
       .gfx_vsync(gfx_vsync),
@@ -102,7 +97,6 @@ module gfx_vga_fade_tb;
       .vga_red  (vga_red),
       .vga_grn  (vga_grn),
       .vga_blu  (vga_blu),
-      .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
@@ -148,7 +142,7 @@ module gfx_vga_fade_tb;
   logic [    PIXEL_BITS-1:0] pixel_bits;
   logic                      checks_en;
 
-  assign pixel_bits = {vga_red, vga_grn, vga_blu, vga_meta};
+  assign pixel_bits = {vga_red, vga_grn, vga_blu};
 
   // invariants
   localparam H_SYNC_START = H_VISIBLE + H_FRONT_PORCH;
@@ -242,16 +236,13 @@ module gfx_vga_fade_tb;
   logic [ FB_X_BITS-1:0] gfx_wl_x;
   logic [ FB_Y_BITS-1:0] gfx_wl_y;
   logic [PIXEL_BITS-1:0] gfx_wl_color;
-  logic [ META_BITS-1:0] gfx_wl_meta;
   logic                  gfx_wl_pready;
   logic                  gfx_wl_pvalid;
 
   assign gfx_wl_pready = gfx_pready;
 
   always_comb begin
-    // This is kinda weird, but it matches the pattern that the
-    // uninitialized sram returns.
-    {gfx_wl_color, gfx_wl_meta} = gfx_wl_y * H_VISIBLE + gfx_wl_x;
+    gfx_wl_color = gfx_wl_y * H_VISIBLE + gfx_wl_x;
   end
 
   always @(posedge clk) begin
@@ -288,16 +279,13 @@ module gfx_vga_fade_tb;
   logic [ FB_X_BITS-1:0] gfx_we_x;
   logic [ FB_Y_BITS-1:0] gfx_we_y;
   logic [PIXEL_BITS-1:0] gfx_we_color;
-  logic [ META_BITS-1:0] gfx_we_meta;
   logic                  gfx_we_pready;
   logic                  gfx_we_pvalid;
 
   assign gfx_we_pready = gfx_pready;
 
   always_comb begin
-    // This is kinda weird, but it matches the pattern that the
-    // uninitialized sram returns.
-    {gfx_we_color, gfx_we_meta} = gfx_we_y * H_VISIBLE + gfx_we_x;
+    gfx_we_color = gfx_we_y * H_VISIBLE + gfx_we_x;
   end
 
   always @(posedge clk) begin
@@ -334,7 +322,6 @@ module gfx_vga_fade_tb;
   logic [ FB_X_BITS-1:0] gfx_wr_x;
   logic [ FB_Y_BITS-1:0] gfx_wr_y;
   logic [PIXEL_BITS-1:0] gfx_wr_color;
-  logic [ META_BITS-1:0] gfx_wr_meta;
   logic                  gfx_wr_pready;
   logic                  gfx_wr_pvalid;
 
@@ -342,7 +329,7 @@ module gfx_vga_fade_tb;
 
   // Color matches the pattern of uninitialized SRAM for checking
   always_comb begin
-    {gfx_wr_color, gfx_wr_meta} = gfx_wr_y * H_VISIBLE + gfx_wr_x;
+    gfx_wr_color = gfx_wr_y * H_VISIBLE + gfx_wr_x;
   end
 
   // Generate random coordinates on each write
@@ -378,14 +365,12 @@ module gfx_vga_fade_tb;
     gfx_y      = '0;
     gfx_pvalid = 1'b0;
     gfx_color  = '0;
-    gfx_meta   = '0;
 
     if (wl_en) begin
       gfx_x      = gfx_wl_x;
       gfx_y      = gfx_wl_y;
       gfx_pvalid = gfx_wl_pvalid;
       gfx_color  = gfx_wl_color;
-      gfx_meta   = gfx_wl_meta;
     end
 
     if (we_en) begin
@@ -393,7 +378,6 @@ module gfx_vga_fade_tb;
       gfx_y      = gfx_we_y;
       gfx_pvalid = gfx_we_pvalid;
       gfx_color  = gfx_we_color;
-      gfx_meta   = gfx_we_meta;
     end
 
     if (wr_en) begin
@@ -401,7 +385,6 @@ module gfx_vga_fade_tb;
       gfx_y      = gfx_wr_y;
       gfx_pvalid = gfx_wr_pvalid;
       gfx_color  = gfx_wr_color;
-      gfx_meta   = gfx_wr_meta;
     end
   end
 
