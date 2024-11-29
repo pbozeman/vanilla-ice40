@@ -47,6 +47,9 @@ module vga_fb_pixel_stream_tb;
   logic [    COLOR_BITS-1:0] pixel_stream_grn;
   logic [    COLOR_BITS-1:0] pixel_stream_blu;
 
+  // pixel addr
+  logic [AXI_ADDR_WIDTH-1:0] pixel_stream_addr;
+
   // SRAM AXI
   logic [AXI_ADDR_WIDTH-1:0] sram0_axi_awaddr;
   logic                      sram0_axi_awvalid;
@@ -107,6 +110,8 @@ module vga_fb_pixel_stream_tb;
       .red(pixel_stream_red),
       .grn(pixel_stream_grn),
       .blu(pixel_stream_blu),
+
+      .addr(pixel_stream_addr),
 
       .sram_axi_araddr (sram0_axi_araddr),
       .sram_axi_arvalid(sram0_axi_arvalid),
@@ -236,6 +241,12 @@ module vga_fb_pixel_stream_tb;
   // pixel_addr
   always_comb begin
     pixel_addr = pixel_y * H_VISIBLE + pixel_x;
+  end
+
+  always @(posedge clk) begin
+    if (pixel_stream_valid) begin
+      `ASSERT_EQ(pixel_stream_addr, pixel_addr);
+    end
   end
 
   // pixel x/y

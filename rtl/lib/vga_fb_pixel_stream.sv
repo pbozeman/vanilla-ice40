@@ -49,6 +49,12 @@ module vga_fb_pixel_stream #(
     output logic [COLOR_BITS-1:0] grn,
     output logic [COLOR_BITS-1:0] blu,
 
+    // pixel addr in the fb, this let's a caller get a pixel for display,
+    // but also modify it in the frame buffer after. While it might be
+    // logically better to return x/y, this prevents the need for a
+    // redundant multiply later.
+    output logic [AXI_ADDR_WIDTH-1:0] addr,
+
     //
     // The AXI interface backing the frame buffer.
     // This module is the master.
@@ -215,7 +221,7 @@ module vga_fb_pixel_stream #(
 
   // Send the metadata we computed about the pixel through a fifo to be
   // matched with it's pixel value from the frame buffer.
-  localparam PIXEL_CONTEXT_WIDTH = 3;
+  localparam PIXEL_CONTEXT_WIDTH = 3 + AXI_ADDR_WIDTH;
 
   logic [PIXEL_CONTEXT_WIDTH-1:0] fifo_w_data;
   logic                           fifo_w_inc;
@@ -230,7 +236,7 @@ module vga_fb_pixel_stream #(
   logic                           fifo_w_almost_full;
 
   assign fifo_w_data = {
-    fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1
+    fb_pixel_visible_p1, fb_pixel_vsync_p1, fb_pixel_hsync_p1, fb_pixel_addr_p1
   };
 
   assign fifo_w_inc = fb_pixel_inc_p1;
@@ -256,17 +262,20 @@ module vga_fb_pixel_stream #(
   );
 
   // unmarshal the pixel metadata from the fifo
-  logic fifo_pixel_visible;
-  logic fifo_pixel_vsync;
-  logic fifo_pixel_hsync;
+  logic                      fifo_pixel_visible;
+  logic                      fifo_pixel_vsync;
+  logic                      fifo_pixel_hsync;
+  logic [AXI_ADDR_WIDTH-1:0] fifo_pixel_addr;
 
-  assign {fifo_pixel_visible, fifo_pixel_vsync, fifo_pixel_hsync} = fifo_r_data;
+  assign {fifo_pixel_visible, fifo_pixel_vsync, fifo_pixel_hsync,
+          fifo_pixel_addr} = fifo_r_data;
 
   // registered response to the caller
   logic                      pixel_valid;
   logic                      pixel_visible;
   logic                      pixel_hsync;
   logic                      pixel_vsync;
+  logic [AXI_ADDR_WIDTH-1:0] pixel_addr;
   logic [AXI_DATA_WIDTH-1:0] pixel_data;
 
   always @(posedge clk) begin
@@ -276,6 +285,7 @@ module vga_fb_pixel_stream #(
       pixel_visible <= fifo_pixel_visible;
       pixel_hsync   <= fifo_pixel_hsync;
       pixel_vsync   <= fifo_pixel_vsync;
+      pixel_addr    <= fifo_pixel_addr;
 
       if (!fifo_pixel_visible) begin
         pixel_valid <= 1'b1;
@@ -295,6 +305,7 @@ module vga_fb_pixel_stream #(
   assign vsync           = pixel_vsync;
   assign valid           = pixel_valid;
   assign {red, grn, blu} = pixel_visible ? pixel_data : blank_pixel;
+  assign addr            = pixel_addr;
 
 endmodule
 

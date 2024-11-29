@@ -170,17 +170,22 @@ module gfx_vga #(
   //
 
   // control signals
-  logic                  vga_fb_enable;
-  logic                  vga_fb_valid;
+  logic                      vga_fb_enable;
+  logic                      vga_fb_valid;
 
   // sync signals
-  logic                  vga_fb_vsync;
-  logic                  vga_fb_hsync;
+  logic                      vga_fb_vsync;
+  logic                      vga_fb_hsync;
 
   // color signals
-  logic [COLOR_BITS-1:0] vga_fb_red;
-  logic [COLOR_BITS-1:0] vga_fb_grn;
-  logic [COLOR_BITS-1:0] vga_fb_blu;
+  logic [    COLOR_BITS-1:0] vga_fb_red;
+  logic [    COLOR_BITS-1:0] vga_fb_grn;
+  logic [    COLOR_BITS-1:0] vga_fb_blu;
+
+  // pixel addr
+  // verilator lint_off UNUSEDSIGNAL
+  logic [AXI_ADDR_WIDTH-1:0] vga_fb_addr;
+  // verilator lint_on UNUSEDSIGNAL
 
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
@@ -211,6 +216,7 @@ module gfx_vga #(
       .red   (vga_fb_red),
       .grn   (vga_fb_grn),
       .blu   (vga_fb_blu),
+      .addr  (vga_fb_addr),
 
       .sram_axi_araddr (disp_axi_araddr),
       .sram_axi_arvalid(disp_axi_arvalid),
