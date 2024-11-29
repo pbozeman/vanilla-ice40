@@ -165,10 +165,6 @@ module adc_xy_vga #(
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready    = gfx_pready;
 
-  logic [COLOR_BITS-1:0] vga_raw_red;
-  logic [COLOR_BITS-1:0] vga_raw_grn;
-  logic [COLOR_BITS-1:0] vga_raw_blu;
-
   //
   // vga
   //
@@ -205,9 +201,9 @@ module adc_xy_vga #(
 
       .vga_enable(vga_enable),
 
-      .vga_red  (vga_raw_red),
-      .vga_grn  (vga_raw_grn),
-      .vga_blu  (vga_raw_blu),
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
       .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
@@ -218,10 +214,6 @@ module adc_xy_vga #(
       .sram_io_oe_n(sram0_io_oe_n),
       .sram_io_ce_n(sram0_io_ce_n)
   );
-
-  assign vga_red = vga_raw_red;
-  assign vga_grn = vga_raw_grn;
-  assign vga_blu = vga_raw_blu;
 
   // Give the gfx side some time to start laying down pixels before
   // we stream them to the display.

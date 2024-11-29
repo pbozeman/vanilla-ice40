@@ -69,8 +69,6 @@ module adc_xy_vga_3to2 #(
     output logic                      sram1_io_oe_n,
     output logic                      sram1_io_ce_n
 );
-  // localparam P_FRAME_BITS = $clog2(P_FRAMES);
-
   // adc signals
   logic [ADC_DATA_BITS-1:0] adc_x;
   logic [ADC_DATA_BITS-1:0] adc_y;
@@ -165,30 +163,6 @@ module adc_xy_vga_3to2 #(
   assign gfx_adc_blu   = {PIXEL_BITS{adc_blu}};
   assign gfx_adc_color = {gfx_adc_red, gfx_adc_grn, gfx_adc_blu};
 
-  // Persistence
-  // logic                    gfx_new_frame;
-  // logic [P_FRAME_BITS-1:0] gfx_frame;
-
-  // detect_falling gfx_vsync_falling_inst (
-  //     .clk     (clk),
-  //     .signal  (gfx_vsync),
-  //     .detected(gfx_new_frame)
-  // );
-  //
-  // always_ff @(posedge clk) begin
-  //   if (reset) begin
-  //     gfx_frame <= 0;
-  //   end else begin
-  //     if (gfx_new_frame) begin
-  //       if (gfx_frame < P_FRAMES) begin
-  //         gfx_frame <= gfx_frame + 1;
-  //       end else begin
-  //         gfx_frame <= 0;
-  //       end
-  //     end
-  //   end
-  // end
-
   // output mux
   assign gfx_x         = adc_active ? gfx_adc_x : clr_x;
   assign gfx_y         = adc_active ? gfx_adc_y : clr_y;
@@ -197,10 +171,6 @@ module adc_xy_vga_3to2 #(
 
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready    = gfx_pready;
-
-  logic [COLOR_BITS-1:0] vga_raw_red;
-  logic [COLOR_BITS-1:0] vga_raw_grn;
-  logic [COLOR_BITS-1:0] vga_raw_blu;
 
   //
   // vga
@@ -238,9 +208,9 @@ module adc_xy_vga_3to2 #(
 
       .vga_enable(vga_enable),
 
-      .vga_red  (vga_raw_red),
-      .vga_grn  (vga_raw_grn),
-      .vga_blu  (vga_raw_blu),
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
       .vga_meta (vga_meta),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
@@ -257,34 +227,6 @@ module adc_xy_vga_3to2 #(
       .sram1_io_oe_n(sram1_io_oe_n),
       .sram1_io_ce_n(sram1_io_ce_n)
   );
-
-  // vga side frame/persistence tracking
-  // logic                    vga_new_frame;
-  // logic [P_FRAME_BITS-1:0] vga_frame;
-  //
-  // detect_falling vga_vsync_falling_inst (
-  //     .clk     (pixel_clk),
-  //     .signal  (vga_vsync),
-  //     .detected(vga_new_frame)
-  // );
-  //
-  // always_ff @(posedge pixel_clk) begin
-  //   if (reset) begin
-  //     vga_frame <= 0;
-  //   end else begin
-  //     if (vga_new_frame) begin
-  //       if (vga_frame < P_FRAMES) begin
-  //         vga_frame <= vga_frame + 1;
-  //       end else begin
-  //         vga_frame <= 0;
-  //       end
-  //     end
-  //   end
-  // end
-
-  assign vga_red = vga_raw_red;
-  assign vga_grn = vga_raw_grn;
-  assign vga_blu = vga_raw_blu;
 
   // Give the gfx side some time to start laying down pixels before
   // we stream them to the display.
