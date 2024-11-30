@@ -216,19 +216,9 @@ module adc_xy_vga_fade #(
   assign vga_grn = vga_raw_grn;
   assign vga_blu = vga_raw_blu;
 
-  // Give the gfx side some time to start laying down pixels before
-  // we stream them to the display.
-  delay #(
-      .DELAY_CYCLES(8)
-  ) vga_fb_delay (
-      .clk(clk),
-      .in (~reset),
-      .out(vga_enable)
-  );
-
+  // Clear screen before we start
   logic clr_last_delay;
 
-  // wait for the clr to finish writing before we flip to the adc
   delay #(
       .DELAY_CYCLES(8)
   ) adc_active_delay (
@@ -240,7 +230,12 @@ module adc_xy_vga_fade #(
   always_ff @(posedge clk) begin
     if (reset) begin
       adc_active <= 1'b0;
+      vga_enable <= 1'b0;
     end else begin
+      if (!vga_enable) begin
+        vga_enable <= clr_last_delay;
+      end
+
       if (!adc_active) begin
         adc_active <= clr_last_delay;
       end
