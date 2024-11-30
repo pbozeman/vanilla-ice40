@@ -471,9 +471,9 @@ module gfx_vga_fade_tb;
 
   initial begin
     test_idle();
-    // test_linear_write();
-    // test_even_write();
-    // test_random_write();
+    test_linear_write();
+    test_even_write();
+    test_random_write();
 
     $finish;
   end
