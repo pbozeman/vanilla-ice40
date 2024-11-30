@@ -11,9 +11,7 @@
 
 `include "axi_sram_controller.sv"
 `include "cdc_fifo.sv"
-`include "detect_rising.sv"
 `include "fb_writer_2to1.sv"
-`include "gfx_clear.sv"
 `include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
 
@@ -66,6 +64,9 @@ module gfx_vga_fade #(
     output logic                      sram_io_oe_n,
     output logic                      sram_io_ce_n
 );
+  localparam PIXEL_AGE_BITS = 4;
+  localparam FADING_PIXEL_BITS = PIXEL_BITS + PIXEL_AGE_BITS;
+
   //
   // gfx axi writter
   //
@@ -133,23 +134,22 @@ module gfx_vga_fade #(
   //
 
   // control signals
-  logic                      vga_fb_enable;
-  logic                      vga_fb_valid;
+  logic                         vga_fb_enable;
+  logic                         vga_fb_valid;
 
   // sync signals
-  logic                      vga_fb_vsync;
-  logic                      vga_fb_hsync;
-  // verilator lint_off UNUSEDSIGNAL
-  logic                      vga_fb_visible;
-  // verilator lint_on UNUSEDSIGNAL
+  logic                         vga_fb_vsync;
+  logic                         vga_fb_hsync;
+  logic                         vga_fb_visible;
 
   // color signals
-  logic [    PIXEL_BITS-1:0] vga_fb_color;
+  logic [FADING_PIXEL_BITS-1:0] vga_fb_data;
+  logic [   PIXEL_AGE_BITS-1:0] vga_fb_age;
+  logic [       PIXEL_BITS-1:0] vga_fb_color;
+  assign {vga_fb_age, vga_fb_color} = vga_fb_data;
 
   // pixel addr
-  // verilator lint_off UNUSEDSIGNAL
   logic [AXI_ADDR_WIDTH-1:0] vga_fb_addr;
-  // verilator lint_on UNUSEDSIGNAL
 
   assign vga_fb_enable = vga_enable & !fifo_almost_full;
 
@@ -169,7 +169,7 @@ module gfx_vga_fade #(
       .V_BACK_PORCH (V_BACK_PORCH),
       .V_WHOLE_FRAME(V_WHOLE_FRAME),
 
-      .PIXEL_BITS(PIXEL_BITS)
+      .PIXEL_BITS(FADING_PIXEL_BITS)
   ) vga_fb_pixel_stream_inst (
       .clk    (clk),
       .reset  (reset),
@@ -178,7 +178,7 @@ module gfx_vga_fade #(
       .hsync  (vga_fb_hsync),
       .vsync  (vga_fb_vsync),
       .visible(vga_fb_visible),
-      .color  (vga_fb_color),
+      .color  (vga_fb_data),
       .addr   (vga_fb_addr),
 
       .sram_axi_araddr (disp_axi_araddr),
@@ -219,7 +219,9 @@ module gfx_vga_fade #(
   logic [VGA_DATA_WIDTH-1:0] fifo_fb_data;
   logic [VGA_DATA_WIDTH-1:0] fifo_vga_data;
 
-  assign fifo_fb_data = {vga_fb_hsync, vga_fb_vsync, vga_fb_color};
+  always_comb begin
+    fifo_fb_data = {vga_fb_hsync, vga_fb_vsync, vga_fb_color};
+  end
 
   assign {vga_hsync, vga_vsync, vga_red, vga_grn, vga_blu} = fifo_vga_data;
 
@@ -249,99 +251,117 @@ module gfx_vga_fade #(
   //
   // Fading follows the pixel we just read from the fb.
   //
-  // Or it will, for now, just clear the pixels in a loop as a poc
-  // TODO: implement actual fading
+  localparam FADE_FIFO_DATA_WIDTH = AXI_ADDR_WIDTH + FADING_PIXEL_BITS;
+
+  logic                            fade_fifo_w_inc;
+  logic [FADE_FIFO_DATA_WIDTH-1:0] fade_fifo_w_data;
+  // verilator lint_off UNUSEDSIGNAL
+  logic                            fade_fifo_w_almost_full;
+  logic                            fade_fifo_w_full;
+  // verilator lint_on UNUSEDSIGNAL
+  logic                            fade_fifo_r_inc;
+  logic [FADE_FIFO_DATA_WIDTH-1:0] fade_fifo_r_data;
+  logic                            fade_fifo_r_empty;
+
   //
-  // fade writer axi flow control signals
-  logic                      fw_axi_tvalid;
-  logic                      fw_axi_tready;
-
-  // and the data that goes with them
-  logic [AXI_ADDR_WIDTH-1:0] fw_addr;
-  logic [    PIXEL_BITS-1:0] fw_color;
-
-  logic                      clr_pvalid;
-  logic                      clr_pready;
-  logic [     FB_X_BITS-1:0] clr_x;
-  logic [     FB_Y_BITS-1:0] clr_y;
-  logic [    PIXEL_BITS-1:0] clr_color;
-  logic                      clr_last;
-  logic                      clr_reset;
-
-  gfx_clear #(
-      .FB_WIDTH  (H_VISIBLE),
-      .FB_HEIGHT (V_VISIBLE),
-      .PIXEL_BITS(PIXEL_BITS)
-  ) gfx_clear_inst (
-      .clk   (clk),
-      .reset (reset || clr_reset),
-      .pready(clr_pready),
-      .pvalid(clr_pvalid),
-      .x     (clr_x),
-      .y     (clr_y),
-      .color (clr_color),
-      .last  (clr_last)
-  );
-
-  // This is temporary and still a total hack, but it's the next simplest
-  // POC and reduces flicker.
+  // pipeline fading calc to meet timing
   //
-  // Actually, while marginally better than clearing at full speed, this
-  // still looks very terrible, but better considering it was a 2 minute
-  // implementation. Next up is the proper fading implementation.
-  localparam FRAMES_PERSISTENCE = 2;
-  logic [$clog2(FRAMES_PERSISTENCE):0] persistence_count;
-  logic                                frame_done;
+  // Since the caller is slower than the writer and we aren't using the fifo
+  // backpressure, it's easier to do this on this side of the fifo.
+  // We are missing skid buffers necessary to register axi backpressure
+  // on the other side of the fifo.
+  //
+  logic                            fade_fifo_w_inc_p1;
+  logic [FADE_FIFO_DATA_WIDTH-1:0] fade_fifo_w_data_p1;
 
-  detect_rising detect_rising_vsync (
-      .clk     (clk),
-      .signal  (vga_fb_vsync),
-      .detected(frame_done)
-  );
+  logic [          PIXEL_BITS-1:0] next_vga_fb_color;
+  logic [      PIXEL_AGE_BITS-1:0] next_vga_fb_age;
 
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      persistence_count <= 0;
-      clr_reset         <= 1'b0;
-    end else begin
-      clr_reset <= 1'b0;
+  logic [          COLOR_BITS-1:0] vga_fb_red;
+  logic [          COLOR_BITS-1:0] vga_fb_grn;
+  logic [          COLOR_BITS-1:0] vga_fb_blu;
 
-      if (clr_last && frame_done) begin
-        if (persistence_count == FRAMES_PERSISTENCE) begin
-          clr_reset         <= 1'b1;
-          persistence_count <= 0;
-        end else begin
-          persistence_count <= persistence_count + 1;
-        end
-      end
+  assign {vga_fb_red, vga_fb_grn, vga_fb_blu} = vga_fb_color;
+
+  always_comb begin
+    next_vga_fb_age = 0;
+
+    if (vga_fb_age > 0) begin
+      next_vga_fb_age = vga_fb_age - 1;
     end
   end
 
-  assign clr_pready    = fw_axi_tready;
-  assign fw_axi_tvalid = clr_pvalid;
+  always_comb begin
+    // TODO: more advanced fading, also, clean up the constants
+    if (next_vga_fb_age == 4'd2) begin
+      next_vga_fb_color = {vga_fb_red >> 1, vga_fb_grn >> 1, vga_fb_blu >> 1};
+    end else begin
+      next_vga_fb_color = {vga_fb_red, vga_fb_grn, vga_fb_blu};
+    end
+  end
 
-  assign fw_addr       = (H_VISIBLE * clr_y + clr_x);
-  assign fw_color      = clr_color;
+  always_comb begin
+    fade_fifo_w_data = {
+      vga_fb_addr, next_vga_fb_age, next_vga_fb_age ? next_vga_fb_color : '0
+    };
+  end
+
+  assign fade_fifo_w_inc = vga_fb_valid && vga_fb_visible && vga_fb_age;
+
+  always_ff @(posedge clk) begin
+    fade_fifo_w_inc_p1  <= fade_fifo_w_inc;
+    fade_fifo_w_data_p1 <= fade_fifo_w_data;
+  end
+
+  sync_fifo #(
+      .DATA_WIDTH(FADE_FIFO_DATA_WIDTH),
+      .ADDR_SIZE (3)
+  ) fade_fifo (
+      .clk          (clk),
+      .rst_n        (~reset),
+      .w_inc        (fade_fifo_w_inc_p1),
+      .w_data       (fade_fifo_w_data_p1),
+      .w_full       (fade_fifo_w_full),
+      .w_almost_full(fade_fifo_w_almost_full),
+      .r_inc        (fade_fifo_r_inc),
+      .r_data       (fade_fifo_r_data),
+      .r_empty      (fade_fifo_r_empty)
+  );
+
+  // fade writer axi flow control signals
+  logic                         fw_axi_tvalid;
+  logic                         fw_axi_tready;
+
+  // and the data that goes with them
+  logic [   AXI_ADDR_WIDTH-1:0] fw_addr;
+  logic [FADING_PIXEL_BITS-1:0] fw_color;
+
+  assign fade_fifo_r_inc = fw_axi_tready;
+  assign fw_axi_tvalid   = !fade_fifo_r_empty;
+
+  always_comb begin
+    {fw_addr, fw_color} = fade_fifo_r_data;
+  end
 
   //
   // gfx writer
   //
 
   // gfx writer axi flow control signals
-  logic                      gw_axi_tvalid;
-  logic                      gw_axi_tready;
+  logic                         gw_axi_tvalid;
+  logic                         gw_axi_tready;
 
   // and the data that goes with them
-  logic [AXI_ADDR_WIDTH-1:0] gw_addr;
-  logic [    PIXEL_BITS-1:0] gw_color;
+  logic [   AXI_ADDR_WIDTH-1:0] gw_addr;
+  logic [FADING_PIXEL_BITS-1:0] gw_color;
 
   assign gfx_ready     = gw_axi_tready;
   assign gw_axi_tvalid = gfx_valid;
   assign gw_addr       = (H_VISIBLE * gfx_y + gfx_x);
-  assign gw_color      = gfx_color;
+  assign gw_color      = {4'd4, gfx_color};
 
   fb_writer_2to1 #(
-      .PIXEL_BITS    (PIXEL_BITS),
+      .PIXEL_BITS    (FADING_PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
   ) fb_writer_2to1_inst (

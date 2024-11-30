@@ -202,9 +202,11 @@ module gfx_vga_fade_tb;
       `ASSERT(!uut.fifo.r_empty);
       if (pixel_x < H_VISIBLE && pixel_y < V_VISIBLE) begin
         // TODO: test fading pixels
-        if (pixel_bits != 0) begin
-          `ASSERT_EQ(pixel_bits, pixel_addr);
-        end
+        // Because the fade actually happens now, we can't just compare to the
+        // addr or 0.
+        // if (pixel_bits != 0) begin
+        //   `ASSERT(pixel_bits, pixel_addr);
+        // end
       end else begin
         `ASSERT_EQ(pixel_bits, '0);
       end
