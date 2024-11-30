@@ -3,6 +3,7 @@
 `include "adc_xy_vga_fade.sv"
 `include "counter.sv"
 `include "sram_model.sv"
+`include "sticky_bit.sv"
 `include "vga_mode.sv"
 
 // This is not intended to be a full test. This is just to see some wave forms
@@ -123,6 +124,26 @@ module adc_xy_vga_fade_tb;
   end
 
   `TEST_SETUP_SLOW(adc_xy_vga_fade_tb)
+
+  always @(posedge adc_clk) begin
+    `ASSERT(!uut.adc_xy_inst.adc_xy_inst.w_full);
+  end
+
+  // checks are enabled once the first pixel makes it through the pipeline
+  logic checks_en;
+  sticky_bit sticky_checks_en (
+      .clk  (pixel_clk),
+      .reset(reset),
+      .clear(1'b0),
+      .in   (!uut.gfx_vga_fade_inst.fifo.r_empty),
+      .out  (checks_en)
+  );
+
+  always @(posedge pixel_clk) begin
+    if (checks_en) begin
+      `ASSERT(!uut.gfx_vga_fade_inst.fifo_empty);
+    end
+  end
 
   // Test stimulus
   initial begin
