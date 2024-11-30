@@ -233,6 +233,9 @@ module gfx_vga_dbuf #(
   // sync signals
   logic                      vga_fb_vsync;
   logic                      vga_fb_hsync;
+  // verilator lint_off UNUSEDSIGNAL
+  logic                      vga_fb_visible;
+  // verilator lint_on UNUSEDSIGNAL
 
   // color signals
   logic [    PIXEL_BITS-1:0] vga_fb_color;
@@ -262,14 +265,15 @@ module gfx_vga_dbuf #(
 
       .PIXEL_BITS(PIXEL_BITS)
   ) vga_fb_pixel_stream_inst (
-      .clk   (clk),
-      .reset (reset),
-      .enable(vga_fb_enable),
-      .valid (vga_fb_valid),
-      .hsync (vga_fb_hsync),
-      .vsync (vga_fb_vsync),
-      .color (vga_fb_color),
-      .addr  (vga_fb_addr),
+      .clk    (clk),
+      .reset  (reset),
+      .enable (vga_fb_enable),
+      .valid  (vga_fb_valid),
+      .hsync  (vga_fb_hsync),
+      .vsync  (vga_fb_vsync),
+      .visible(vga_fb_visible),
+      .color  (vga_fb_color),
+      .addr   (vga_fb_addr),
 
       .sram_axi_araddr (disp_axi_araddr),
       .sram_axi_arvalid(disp_axi_arvalid),

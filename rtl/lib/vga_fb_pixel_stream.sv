@@ -51,6 +51,7 @@ module vga_fb_pixel_stream #(
     // logically better to return x/y, this prevents the need for a
     // redundant multiply later.
     output logic [AXI_ADDR_WIDTH-1:0] addr,
+    output logic                      visible,
 
     //
     // The AXI interface backing the frame buffer.
@@ -298,11 +299,12 @@ module vga_fb_pixel_stream #(
   // the data to use when the pixel is not visible
   logic [AXI_DATA_WIDTH:0] blank_pixel = 0;
 
-  assign hsync = pixel_hsync;
-  assign vsync = pixel_vsync;
-  assign valid = pixel_valid;
-  assign color = pixel_visible ? pixel_data : blank_pixel;
-  assign addr  = pixel_addr;
+  assign hsync   = pixel_hsync;
+  assign vsync   = pixel_vsync;
+  assign valid   = pixel_valid;
+  assign color   = pixel_visible ? pixel_data : blank_pixel;
+  assign addr    = pixel_addr;
+  assign visible = pixel_visible;
 
 endmodule
 

@@ -40,6 +40,7 @@ module vga_fb_pixel_stream_tb;
   // sync signals
   logic                      pixel_stream_vsync;
   logic                      pixel_stream_hsync;
+  logic                      pixel_stream_visible;
 
   // color
   logic [    PIXEL_BITS-1:0] pixel_stream_color;
@@ -100,8 +101,9 @@ module vga_fb_pixel_stream_tb;
       .valid (pixel_stream_valid),
 
       // sync signals
-      .vsync(pixel_stream_vsync),
-      .hsync(pixel_stream_hsync),
+      .vsync  (pixel_stream_vsync),
+      .hsync  (pixel_stream_hsync),
+      .visible(pixel_stream_visible),
 
       // color/addr
       .color(pixel_stream_color),
@@ -225,8 +227,10 @@ module vga_fb_pixel_stream_tb;
   always @(posedge clk) begin
     if (pixel_stream_valid) begin
       if (pixel_x < H_VISIBLE && pixel_y < V_VISIBLE) begin
+        `ASSERT(pixel_stream_visible);
         `ASSERT_EQ(pixel_bits, pixel_addr);
       end else begin
+        `ASSERT(!pixel_stream_visible);
         `ASSERT_EQ(pixel_bits, '0);
       end
     end
