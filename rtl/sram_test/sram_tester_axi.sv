@@ -7,6 +7,7 @@
 `include "fifo.sv"
 `include "iter.sv"
 `include "sram_pattern_generator.sv"
+`include "sticky_bit.sv"
 
 module sram_tester_axi #(
     parameter integer ADDR_BITS = 20,
@@ -148,7 +149,7 @@ module sram_tester_axi #(
   // We do this because we don't know how many cycles a read may take
   // and don't know how long to delay the expected pattern data.
   fifo #(
-      .DEPTH     (8),
+      .DEPTH     (4),
       .DATA_WIDTH(DATA_BITS)
   ) expected_fifo (
       .clk       (clk),
@@ -166,7 +167,6 @@ module sram_tester_axi #(
   //
   localparam [2:0] START = 3'b000;
   localparam [2:0] WRITE = 3'b001;
-  localparam [2:0] WRITE_WAIT = 3'b010;
   localparam [2:0] READ = 3'b100;
   localparam [2:0] READ_WAIT = 3'b101;
   localparam [2:0] DONE = 3'b110;
@@ -190,13 +190,9 @@ module sram_tester_axi #(
       end
 
       WRITE: begin
-        next_state = WRITE_WAIT;
-      end
-
-      WRITE_WAIT: begin
         if (write_accepted) begin
           if (writes_done) begin
-            next_state = READ;
+            next_state = READ_WAIT;
             read_start = 1'b1;
           end else begin
             next_state  = WRITE;
@@ -262,41 +258,49 @@ module sram_tester_axi #(
   logic write_data_accepted;
   logic write_accepted;
 
+  sticky_bit sticky_awdone (
+      .clk  (clk),
+      .reset(reset),
+      .in   (axi_awvalid && axi_awready),
+      .out  (write_addr_accepted),
+      .clear(write_accepted)
+  );
+
+  sticky_bit sticky_wdone (
+      .clk  (clk),
+      .reset(reset),
+      .in   (axi_wvalid && axi_wready),
+      .out  (write_data_accepted),
+      .clear(write_accepted)
+  );
+
   logic last_write;
   logic writes_done;
 
-  assign write_accepted = (write_addr_accepted & write_data_accepted);
-  assign writes_done    = (write_accepted & last_write);
+  assign write_accepted = (write_addr_accepted && write_data_accepted);
+  assign writes_done    = (write_accepted && last_write);
 
   always_ff @(posedge clk) begin
     if (reset) begin
-      axi_awaddr          <= 0;
-      axi_awvalid         <= 1'b1;
-      axi_wdata           <= 1'b0;
-      axi_wvalid          <= 1'b0;
-      axi_bready          <= 1'b0;
-
-      write_addr_accepted <= 1'b0;
-      write_data_accepted <= 1'b0;
+      axi_awaddr  <= 0;
+      axi_awvalid <= 1'b1;
+      axi_wdata   <= 1'b0;
+      axi_wvalid  <= 1'b0;
+      axi_bready  <= 1'b0;
     end else begin
       if (write_start) begin
-        axi_awaddr          <= iter_addr;
-        axi_awvalid         <= 1'b1;
-        axi_wdata           <= pattern;
-        axi_wvalid          <= 1'b1;
-        axi_bready          <= 1'b1;
-
-        write_addr_accepted <= 1'b0;
-        write_data_accepted <= 1'b0;
+        axi_awaddr  <= iter_addr;
+        axi_awvalid <= 1'b1;
+        axi_wdata   <= pattern;
+        axi_wvalid  <= 1'b1;
+        axi_bready  <= 1'b1;
       end else begin
         if (axi_awready && axi_awvalid) begin
-          write_addr_accepted <= 1'b1;
-          axi_awvalid         <= 1'b0;
+          axi_awvalid <= 1'b0;
         end
 
         if (axi_wready && axi_wvalid) begin
-          write_data_accepted <= 1'b1;
-          axi_wvalid          <= 1'b0;
+          axi_wvalid <= 1'b0;
         end
       end
     end
