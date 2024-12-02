@@ -191,11 +191,21 @@ module vga_fb_pixel_stream #(
   //
   // AXI Read
   //
+
+  logic read_start_p1;
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      read_start_p1 <= 1'b0;
+    end else begin
+      read_start_p1 <= read_start;
+    end
+  end
+
   always_ff @(posedge clk) begin
     if (reset) begin
       sram_axi_arvalid <= 1'b0;
     end else begin
-      if (read_start) begin
+      if (read_start_p1) begin
         sram_axi_arvalid <= 1'b1;
       end else begin
         if (read_accepted) begin
@@ -206,7 +216,7 @@ module vga_fb_pixel_stream #(
   end
 
   always_ff @(posedge clk) begin
-    if (read_start) begin
+    if (read_start_p1) begin
       sram_axi_araddr <= fb_pixel_addr_p1;
     end
   end
