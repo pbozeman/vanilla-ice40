@@ -4,10 +4,10 @@
 `include "directives.sv"
 
 `include "axi_sram_controller.sv"
-`include "fifo.sv"
 `include "iter.sv"
 `include "sram_pattern_generator.sv"
 `include "sticky_bit.sv"
+`include "sync_fifo.sv"
 
 module sram_tester_axi #(
     parameter integer ADDR_BITS = 20,
@@ -81,13 +81,14 @@ module sram_tester_axi #(
   //
   // Fifo signals
   //
-  logic                         fifo_write_en;
-  logic                         fifo_read_en;
+  logic                         fifo_write_inc;
+  logic                         fifo_read_inc;
   logic [        DATA_BITS-1:0] fifo_write_data;
   logic [        DATA_BITS-1:0] fifo_read_data;
-  // verilator lint_off UNUSEDSIGNAL
   logic                         fifo_empty;
+  // verilator lint_off UNUSEDSIGNAL
   logic                         fifo_full;
+  logic                         fifo_almost_full;
   // verilator lint_on UNUSEDSIGNAL
 
   assign axi_wstrb = 2'b11;
@@ -148,18 +149,19 @@ module sram_tester_axi #(
   // Push the expected data through a fifo and read it out to validate.
   // We do this because we don't know how many cycles a read may take
   // and don't know how long to delay the expected pattern data.
-  fifo #(
-      .DEPTH     (4),
+  sync_fifo #(
+      .ADDR_SIZE (2),
       .DATA_WIDTH(DATA_BITS)
   ) expected_fifo (
-      .clk       (clk),
-      .reset     (reset),
-      .write_en  (fifo_write_en),
-      .read_en   (fifo_read_en),
-      .write_data(fifo_write_data),
-      .read_data (fifo_read_data),
-      .empty     (fifo_empty),
-      .full      (fifo_full)
+      .clk          (clk),
+      .rst_n        (~reset),
+      .w_inc        (fifo_write_inc),
+      .w_data       (fifo_write_data),
+      .w_full       (fifo_full),
+      .w_almost_full(fifo_almost_full),
+      .r_inc        (fifo_read_inc),
+      .r_data       (fifo_read_data),
+      .r_empty      (fifo_empty)
   );
 
   //
@@ -334,17 +336,17 @@ module sram_tester_axi #(
   //
   always_ff @(posedge clk) begin
     if (reset) begin
-      axi_araddr    <= 0;
-      axi_arvalid   <= 1'b0;
-      axi_rready    <= 1'b0;
+      axi_araddr     <= 0;
+      axi_arvalid    <= 1'b0;
+      axi_rready     <= 1'b0;
 
-      last_read     <= 1'b0;
-      fifo_write_en <= 1'b0;
+      last_read      <= 1'b0;
+      fifo_write_inc <= 1'b0;
     end else begin
-      fifo_write_en <= 1'b0;
+      fifo_write_inc <= 1'b0;
 
       // We're always ready for a response
-      axi_rready    <= 1'b1;
+      axi_rready     <= 1'b1;
 
       if (read_start) begin
         axi_araddr      <= iter_addr;
@@ -352,7 +354,7 @@ module sram_tester_axi #(
 
         last_read       <= iter_addr_done;
 
-        fifo_write_en   <= 1'b1;
+        fifo_write_inc  <= 1'b1;
         fifo_write_data <= pattern;
       end else begin
         if (read_accepted) begin
@@ -365,35 +367,16 @@ module sram_tester_axi #(
   //
   // read response
   //
-  logic validate;
   logic read_data_done;
-
   assign read_data_done = (axi_rready & axi_rvalid);
-
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      validate <= 1'b0;
-    end else begin
-      validate <= 1'b0;
-
-      if (read_data_done) begin
-        validate       <= 1'b1;
-        prev_read_data <= axi_rdata;
-      end
-    end
-  end
-
-  assign fifo_read_en       = read_data_done;
-  assign prev_expected_data = fifo_read_data;
+  assign fifo_read_inc  = read_data_done;
 
   always_ff @(posedge clk) begin
     if (reset) begin
       test_pass <= 1'b1;
     end else begin
-      if (validate) begin
-        if (prev_expected_data != prev_read_data) begin
-          test_pass <= 1'b0;
-        end
+      if (read_data_done) begin
+        test_pass <= fifo_read_data == axi_rdata;
       end
     end
   end
