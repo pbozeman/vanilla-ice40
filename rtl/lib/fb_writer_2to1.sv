@@ -44,9 +44,9 @@ module fb_writer_2to1 #(
   //
   // Concatenate the inputs (one extra the idle channel)
   //
-  logic [1:0]                     in_axi_tvalid;
-  logic [1:0][AXI_ADDR_WIDTH-1:0] in_addr;
-  logic [1:0][    PIXEL_BITS-1:0] in_color;
+  logic [2:0]                     in_axi_tvalid;
+  logic [2:0][AXI_ADDR_WIDTH-1:0] in_addr;
+  logic [2:0][    PIXEL_BITS-1:0] in_color;
 
   assign in_axi_tvalid = {{1'b0}, in1_axi_tvalid, in0_axi_tvalid};
   assign in_addr       = {{AXI_ADDR_WIDTH{1'b0}}, in1_addr, in0_addr};
@@ -70,7 +70,7 @@ module fb_writer_2to1 #(
 
   always_comb begin
     logic [1:0] mask;
-    logic [1:0] masked_tvalid;
+    logic [2:0] masked_tvalid;
 
     mask          = '1;
     masked_tvalid = '0;
@@ -84,9 +84,9 @@ module fb_writer_2to1 #(
       mask          = grant == IDLE ? '1 : ~grant;
       masked_tvalid = in_axi_tvalid & mask;
 
-      if (masked_tvalid & 2'b01) begin
+      if (|(masked_tvalid & 2'b01)) begin
         next_grant = 0;
-      end else if (masked_tvalid & 2'b10) begin
+      end else if (|(masked_tvalid & 2'b10)) begin
         next_grant = 1;
       end else begin
         next_grant = IDLE;

@@ -91,7 +91,7 @@ module sram_tester_axi #(
   logic                         fifo_almost_full;
   // verilator lint_on UNUSEDSIGNAL
 
-  assign axi_wstrb = 2'b11;
+  assign axi_wstrb = '1;
 
   axi_sram_controller #(
       .AXI_ADDR_WIDTH(ADDR_BITS),
@@ -393,7 +393,7 @@ module sram_tester_axi #(
   assign iter_addr_inc  = (write_start | read_start);
   assign pattern_reset  = (state == DONE | reset);
   assign pattern_inc    = (next_state == NEXT_PATTERN);
-  assign pattern_custom = iter_addr;
+  assign pattern_custom = iter_addr[DATA_BITS-1:0];
   assign test_done      = (state == DONE);
 
 endmodule

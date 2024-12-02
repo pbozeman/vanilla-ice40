@@ -8,8 +8,6 @@
 // This shares a similar interface to cdc_fifo, but works when the reader
 // and writer are in the same clock domain.
 //
-// TODO: remove the old "fifo.sv" It's interface is not generally useful and
-// was done before I knew what I wanted in a fifo module.
 
 module sync_fifo #(
     parameter DATA_WIDTH      = 8,

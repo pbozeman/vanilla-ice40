@@ -60,7 +60,10 @@ module vga_fb_pixel_stream #(
     output logic [AXI_ADDR_WIDTH-1:0] sram_axi_araddr,
     output logic                      sram_axi_arvalid,
     input  logic                      sram_axi_arready,
+    // verilator lint_off UNUSEDSIGNAL
+    // We don't use all the bits. Consider a more surgical unused.
     input  logic [AXI_DATA_WIDTH-1:0] sram_axi_rdata,
+    // verilator lint_on UNUSEDSIGNAL
     output logic                      sram_axi_rready,
     // verilator lint_off UNUSEDSIGNAL
     input  logic [               1:0] sram_axi_rresp,
@@ -284,7 +287,7 @@ module vga_fb_pixel_stream #(
   logic                      pixel_hsync;
   logic                      pixel_vsync;
   logic [AXI_ADDR_WIDTH-1:0] pixel_addr;
-  logic [AXI_DATA_WIDTH-1:0] pixel_data;
+  logic [    PIXEL_BITS-1:0] pixel_data;
 
   always @(posedge clk) begin
     pixel_valid <= 1'b0;
@@ -300,14 +303,14 @@ module vga_fb_pixel_stream #(
       end else begin
         if (read_done) begin
           pixel_valid <= 1'b1;
-          pixel_data  <= sram_axi_rdata;
+          pixel_data  <= sram_axi_rdata[PIXEL_BITS-1:0];
         end
       end
     end
   end
 
   // the data to use when the pixel is not visible
-  logic [AXI_DATA_WIDTH:0] blank_pixel = 0;
+  logic [PIXEL_BITS-1:0] blank_pixel = 0;
 
   assign hsync   = pixel_hsync;
   assign vsync   = pixel_vsync;

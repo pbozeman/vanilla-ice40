@@ -68,7 +68,10 @@ module adc_xy_vga_fade #(
   logic                     adc_blu;
 
   logic [ADC_DATA_BITS-1:0] gfx_adc_x;
+  // verilator lint_off UNUSEDSIGNAL
+  // See the FIXME below
   logic [ADC_DATA_BITS-1:0] gfx_adc_y;
+  // verilator lint_on UNUSEDSIGNAL
   logic [   COLOR_BITS-1:0] gfx_adc_red;
   logic [   COLOR_BITS-1:0] gfx_adc_grn;
   logic [   COLOR_BITS-1:0] gfx_adc_blu;
@@ -150,14 +153,15 @@ module adc_xy_vga_fade #(
   assign gfx_adc_x     = (MAX_X - adc_x) >> 1;
   assign gfx_adc_y     = adc_y >> 1;
 
-  assign gfx_adc_red   = {PIXEL_BITS{adc_red}};
-  assign gfx_adc_grn   = {PIXEL_BITS{adc_grn}};
-  assign gfx_adc_blu   = {PIXEL_BITS{adc_blu}};
+  assign gfx_adc_red   = {COLOR_BITS{adc_red}};
+  assign gfx_adc_grn   = {COLOR_BITS{adc_grn}};
+  assign gfx_adc_blu   = {COLOR_BITS{adc_blu}};
   assign gfx_adc_color = {gfx_adc_red, gfx_adc_grn, gfx_adc_blu};
 
   // output mux
+  // FIXME: make adc_y match FB_Y in the port list
   assign gfx_x         = adc_active ? gfx_adc_x : clr_x;
-  assign gfx_y         = adc_active ? gfx_adc_y : clr_y;
+  assign gfx_y         = adc_active ? gfx_adc_y[FB_Y_BITS-1:0] : clr_y;
   assign gfx_color     = adc_active ? gfx_adc_color : clr_color;
 
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;

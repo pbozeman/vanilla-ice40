@@ -82,7 +82,9 @@ module cdc_sync2_tb;
 
     // Test case 4: Rapid input changes
     repeat (10) begin
+      // verilator lint_off WIDTHTRUNC
       @(posedge clk) d = $random;
+      // verilator lint_on WIDTHTRUNC
     end
     @(posedge clk);
     d = 4'b1100;

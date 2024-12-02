@@ -90,7 +90,7 @@ module sync_fifo_tb;
     reset_test();
 
     for (int i = 0; i < DEPTH; i++) begin
-      w_data = i;
+      w_data = i[DATA_WIDTH-1:0];
       w_inc  = 1;
       @(posedge clk);
       @(negedge clk);

@@ -302,11 +302,13 @@ module gfx_vga_fade #(
 
   always_comb begin
     fade_fifo_w_data = {
-      vga_fb_addr, next_vga_fb_age, next_vga_fb_age ? next_vga_fb_color : '0
+      vga_fb_addr,
+      next_vga_fb_age,
+      (next_vga_fb_age > 0 ? next_vga_fb_color : '0)
     };
   end
 
-  assign fade_fifo_w_inc = vga_fb_valid && vga_fb_visible && vga_fb_age;
+  assign fade_fifo_w_inc = vga_fb_valid && vga_fb_visible && (vga_fb_age > 0);
 
   always_ff @(posedge clk) begin
     fade_fifo_w_inc_p1  <= fade_fifo_w_inc;

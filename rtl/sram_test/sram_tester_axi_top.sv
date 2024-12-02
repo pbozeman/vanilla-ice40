@@ -111,8 +111,10 @@ module sram_tester_axi_top #(
   // LED2 is success
   assign LED2     = test_pass;
 
+  // verilator lint_off WIDTHTRUNC
   assign R_I      = expected_data;
   assign R_J      = read_data;
+  // verilator lint_on WIDTHTRUNC
 
   assign R_E[2:0] = pattern_state_reversed;
 

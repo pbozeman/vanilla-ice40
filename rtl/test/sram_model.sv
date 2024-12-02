@@ -8,10 +8,10 @@
 // verilator lint_off SYNCASYNCNET
 
 module sram_model #(
-    parameter integer ADDR_BITS                 = 10,
-    parameter integer DATA_BITS                 = 8,
-    parameter integer UNINITIALIZED_READS_FATAL = 1,
-    parameter integer INJECT_ERROR              = 0,
+    parameter ADDR_BITS                 = 10,
+    parameter DATA_BITS                 = 8,
+    parameter UNINITIALIZED_READS_FATAL = 1,
+    parameter INJECT_ERROR              = 0,
 
     // timings (in ns)
     parameter real tAA  = 10,   // Address Access Time
@@ -19,7 +19,7 @@ module sram_model #(
     parameter real tDOE = 6,    // OE# Access Time
     parameter real tAW  = 8,    // Address Setup Time to Write End
 
-    parameter integer BAD_DATA = 1'bx
+    parameter BAD_DATA = 1'bx
 ) (
     input logic                 we_n,
     input logic                 oe_n,
@@ -75,7 +75,9 @@ module sram_model #(
             $display("read from unitialized addr %h", addr);
             $fatal;
           end else begin
+            // verilator lint_off WIDTHTRUNC
             data_out = addr;
+            // verilator lint_on WIDTHTRUNC
           end
         end else begin
           data_out = sram_mem[addr];

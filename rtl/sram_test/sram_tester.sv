@@ -121,7 +121,7 @@ module sram_tester #(
   always_comb begin
     // Default assignments
     next_state     = state;
-    pattern_custom = sram_addr;
+    pattern_custom = sram_addr[DATA_BITS-1:0];
 
     if (!reset) begin
       case (state)

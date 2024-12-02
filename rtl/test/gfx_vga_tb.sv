@@ -340,8 +340,10 @@ module gfx_vga_tb;
 
         if (gfx_wr_pready) begin
           // Random coordinates within visible area
+          // verilator lint_off WIDTHTRUNC
           gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
           gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
+          // verilator lint_on WIDTHTRUNC
         end
       end
     end
