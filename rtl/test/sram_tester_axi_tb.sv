@@ -17,8 +17,8 @@ module sram_tester_axi_tb ();
 
   // sram tester debug signals
   logic [                   2:0] pattern_state;
-  logic [         DATA_BITS-1:0] prev_expected_data;
-  logic [         DATA_BITS-1:0] prev_read_data;
+  logic [         DATA_BITS-1:0] expected_data;
+  logic [         DATA_BITS-1:0] read_data;
   logic [         ADDR_BITS-1:0] iter_addr;
 
   //
@@ -45,10 +45,10 @@ module sram_tester_axi_tb ();
       .test_pass(test_pass),
 
       // sram tester debug signals
-      .pattern_state     (pattern_state),
-      .prev_expected_data(prev_expected_data),
-      .prev_read_data    (prev_read_data),
-      .iter_addr         (iter_addr),
+      .pattern_state(pattern_state),
+      .expected_data(expected_data),
+      .read_data    (read_data),
+      .iter_addr    (iter_addr),
 
       // sram controller to io pins
       .sram_io_addr(sram_io_addr),
@@ -98,8 +98,9 @@ module sram_tester_axi_tb ();
   initial begin
     reset = 1;
     @(posedge clk);
-    @(negedge clk);
+    @(posedge clk);
     reset = 0;
+    @(posedge clk);
 
     wait (done_counter == 2 || timeout_counter == MAX_CYCLES - 1);
     `ASSERT(done_counter === 2);

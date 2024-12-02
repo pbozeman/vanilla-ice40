@@ -21,8 +21,8 @@ module sram_tester_axi #(
 
     // debug/output signals
     output logic [          2:0] pattern_state,
-    output logic [DATA_BITS-1:0] prev_read_data,
-    output logic [DATA_BITS-1:0] prev_expected_data,
+    output logic [DATA_BITS-1:0] read_data,
+    output logic [DATA_BITS-1:0] expected_data,
     output logic [ADDR_BITS-1:0] iter_addr,
 
     // sram controller to io pins
@@ -85,8 +85,8 @@ module sram_tester_axi #(
   logic                         fifo_read_inc;
   logic [        DATA_BITS-1:0] fifo_write_data;
   logic [        DATA_BITS-1:0] fifo_read_data;
-  logic                         fifo_empty;
   // verilator lint_off UNUSEDSIGNAL
+  logic                         fifo_empty;
   logic                         fifo_full;
   logic                         fifo_almost_full;
   // verilator lint_on UNUSEDSIGNAL
@@ -285,7 +285,7 @@ module sram_tester_axi #(
   always_ff @(posedge clk) begin
     if (reset) begin
       axi_awaddr  <= 0;
-      axi_awvalid <= 1'b1;
+      axi_awvalid <= 1'b0;
       axi_wdata   <= 1'b0;
       axi_wvalid  <= 1'b0;
       axi_bready  <= 1'b0;
@@ -371,12 +371,15 @@ module sram_tester_axi #(
   assign read_data_done = (axi_rready & axi_rvalid);
   assign fifo_read_inc  = read_data_done;
 
+  assign read_data      = axi_rdata;
+  assign expected_data  = fifo_read_data;
+
   always_ff @(posedge clk) begin
     if (reset) begin
       test_pass <= 1'b1;
     end else begin
       if (read_data_done) begin
-        test_pass <= fifo_read_data == axi_rdata;
+        test_pass <= expected_data == read_data;
       end
     end
   end

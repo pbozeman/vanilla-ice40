@@ -40,8 +40,8 @@ module sram_tester_axi_top #(
 
   logic [          2:0] pattern_state;
   // verilator lint_off UNUSEDSIGNAL
-  logic [DATA_BITS-1:0] prev_expected_data;
-  logic [DATA_BITS-1:0] prev_read_data;
+  logic [DATA_BITS-1:0] expected_data;
+  logic [DATA_BITS-1:0] read_data;
   // verilator lint_on UNUSEDSIGNAL
 
   logic [ADDR_BITS-1:0] iter_addr;
@@ -57,10 +57,10 @@ module sram_tester_axi_top #(
       .test_pass(test_pass),
 
       // debug signals
-      .pattern_state     (pattern_state),
-      .prev_expected_data(prev_expected_data),
-      .prev_read_data    (prev_read_data),
-      .iter_addr         (iter_addr),
+      .pattern_state(pattern_state),
+      .expected_data(expected_data),
+      .read_data    (read_data),
+      .iter_addr    (iter_addr),
 
       // sram controller to io pins
       .sram_io_addr(R_SRAM_ADDR_BUS),
@@ -111,8 +111,8 @@ module sram_tester_axi_top #(
   // LED2 is success
   assign LED2     = test_pass;
 
-  assign R_I      = prev_expected_data;
-  assign R_J      = prev_read_data;
+  assign R_I      = expected_data;
+  assign R_J      = read_data;
 
   assign R_E[2:0] = pattern_state_reversed;
 
