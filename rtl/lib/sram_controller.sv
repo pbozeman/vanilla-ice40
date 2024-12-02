@@ -52,46 +52,27 @@ module sram_controller #(
   // we don't have to wait between a read and a write as the sram goes
   // high-z after 4ns, and we won't be writing for at least 5.
   //
-  localparam IDLE = 2'd0;
-  localparam READING = 2'd1;
-  localparam WRITING = 2'd2;
 
   //
   // State
   //
-  logic [2:0] state = 0;
-  logic [2:0] next_state;
-  logic       ready_reg;
+  logic active;
+  logic writing;
+
+  logic next_active;
+  logic next_writing;
 
   //
   // Next state
   //
   always_comb begin
-    next_state = state;
-
-    case (state)
-      IDLE: begin
-        if (req) begin
-          if (!write_enable) begin
-            next_state = READING;
-          end else begin
-            next_state = WRITING;
-          end
-        end
-      end
-
-      READING: begin
-        next_state = IDLE;
-      end
-
-      WRITING: begin
-        next_state = IDLE;
-      end
-
-      default: begin
-        next_state = state;
-      end
-    endcase
+    if (!active) begin
+      next_active  = req;
+      next_writing = write_enable;
+    end else begin
+      next_active  = 1'b0;
+      next_writing = 1'b0;
+    end
   end
 
   //
@@ -99,9 +80,11 @@ module sram_controller #(
   //
   always_ff @(posedge clk) begin
     if (reset) begin
-      state <= IDLE;
+      active  <= 1'b0;
+      writing <= 1'b0;
     end else begin
-      state <= next_state;
+      active  <= next_active;
+      writing <= next_writing;
     end
   end
 
@@ -141,23 +124,12 @@ module sram_controller #(
   );
 
   //
-  // Ready
-  //
-  always_ff @(posedge clk) begin
-    if (reset) begin
-      ready_reg <= 1;
-    end else begin
-      ready_reg <= (next_state == IDLE);
-    end
-  end
-
-  //
   // Addr/data to pad
   //
   always_ff @(posedge clk) begin
-    if (next_state != IDLE) begin
+    if (next_active) begin
       pad_addr <= addr;
-      if (write_enable) begin
+      if (next_writing) begin
         pad_write_data <= write_data;
       end
     end
@@ -168,16 +140,16 @@ module sram_controller #(
   //
   always_ff @(posedge clk) begin
     pad_ce_n              <= 1'b0;
-    pad_write_data_enable <= (next_state == WRITING || state == WRITING);
-    pad_we_n              <= !(next_state == WRITING);
-    pad_oe_n              <= !(next_state == READING);
+    pad_write_data_enable <= writing || next_writing;
+    pad_we_n              <= !next_writing;
+    pad_oe_n              <= !(next_active && !next_writing);
   end
 
   assign read_data       = pad_read_data;
   assign read_data_valid = pad_read_data_valid;
-  assign ready           = ready_reg;
+  assign ready           = !active;
 
-  assign write_done      = (state == WRITING);
+  assign write_done      = writing;
 
 endmodule
 
