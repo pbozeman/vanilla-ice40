@@ -167,10 +167,13 @@ module sram_tester_axi #(
   //
   // State machine
   //
+  // TODO: cleanup the states and remove the need for NEXT_PATTERN,
+  // it's partially needed because of the weirdness with the iter,
+  // which really should have a last signal instead of done.
   localparam [2:0] START = 3'b000;
   localparam [2:0] WRITE = 3'b001;
   localparam [2:0] READ = 3'b100;
-  localparam [2:0] READ_WAIT = 3'b101;
+  localparam [2:0] NEXT_PATTERN = 3'b101;
   localparam [2:0] DONE = 3'b110;
   localparam [2:0] HALT = 3'b111;
 
@@ -194,7 +197,7 @@ module sram_tester_axi #(
       WRITE: begin
         if (write_accepted) begin
           if (writes_done) begin
-            next_state = READ_WAIT;
+            next_state = READ;
             read_start = 1'b1;
           end else begin
             next_state  = WRITE;
@@ -204,23 +207,23 @@ module sram_tester_axi #(
       end
 
       READ: begin
-        next_state = READ_WAIT;
-      end
-
-      READ_WAIT: begin
         if (read_accepted) begin
           if (reads_done) begin
             if (pattern_done) begin
               next_state = DONE;
             end else begin
-              next_state  = WRITE;
-              write_start = 1'b1;
+              next_state = NEXT_PATTERN;
             end
           end else begin
             next_state = READ;
             read_start = 1'b1;
           end
         end
+      end
+
+      NEXT_PATTERN: begin
+        next_state  = WRITE;
+        write_start = 1'b1;
       end
 
       DONE: begin
@@ -389,7 +392,7 @@ module sram_tester_axi #(
   //
   assign iter_addr_inc  = (write_start | read_start);
   assign pattern_reset  = (state == DONE | reset);
-  assign pattern_inc    = (state == READ_WAIT & iter_addr_done);
+  assign pattern_inc    = (next_state == NEXT_PATTERN);
   assign pattern_custom = iter_addr;
   assign test_done      = (state == DONE);
 
