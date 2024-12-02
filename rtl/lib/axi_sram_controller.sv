@@ -62,10 +62,7 @@ module axi_sram_controller #(
   logic                      sram_write_done;
   logic [AXI_DATA_WIDTH-1:0] sram_read_data;
   logic                      sram_read_data_valid;
-
-  // verilator lint_off UNUSEDSIGNAL
   logic                      sram_ready;
-  // verilator lint_on UNUSEDSIGNAL
 
   // FSM states (note: writes start with 0, reads with 1 in the msb)
   localparam IDLE = 3'b000;
@@ -117,37 +114,45 @@ module axi_sram_controller #(
     end
   end
 
+  logic [2:0] next_rw_state;
+  always_comb begin
+    next_rw_state = IDLE;
+    // don't let readers/writers starve each other
+    if (sram_ready) begin
+      if (rw_pri) begin
+        // prioritize writes
+        if (axi_awvalid && axi_wvalid) begin
+          next_rw_state = WRITE;
+        end else begin
+          if (axi_arvalid) begin
+            next_rw_state = READ;
+          end
+        end
+      end else begin
+        // prioritize reads
+        if (axi_arvalid) begin
+          next_rw_state = READ;
+        end else begin
+          if (axi_awvalid && axi_wvalid) begin
+            next_rw_state = WRITE;
+          end
+        end
+      end
+    end
+  end
+
   // state machine
   always_comb begin
     next_state = current_state;
 
     case (current_state)
       IDLE: begin
-        // don't let readers/writers starve each other
-        if (rw_pri) begin
-          // prioritize writes
-          if (axi_awvalid && axi_wvalid) begin
-            next_state = WRITE;
-          end else begin
-            if (axi_arvalid) begin
-              next_state = READ;
-            end
-          end
-        end else begin
-          // prioritize reads
-          if (axi_arvalid) begin
-            next_state = READ;
-          end else begin
-            if (axi_awvalid && axi_wvalid) begin
-              next_state = WRITE;
-            end
-          end
-        end
+        next_state = next_rw_state;
       end
 
       WRITE: begin
         if (sram_write_done & axi_bready) begin
-          next_state = IDLE;
+          next_state = next_rw_state;
         end else begin
           next_state = WRITE_RESP;
         end
@@ -155,7 +160,7 @@ module axi_sram_controller #(
 
       WRITE_RESP: begin
         if (axi_bready) begin
-          next_state = IDLE;
+          next_state = next_rw_state;
         end else begin
           next_state = WRITE_RESP;
         end
@@ -165,7 +170,7 @@ module axi_sram_controller #(
         next_state = IDLE;
 
         if (axi_rready) begin
-          next_state = IDLE;
+          next_state = next_rw_state;
         end else begin
           next_state = READ_RESP;
         end
@@ -173,7 +178,7 @@ module axi_sram_controller #(
 
       READ_RESP: begin
         if (axi_rready) begin
-          next_state = IDLE;
+          next_state = next_rw_state;
         end else begin
           next_state = READ_RESP;
         end
@@ -223,13 +228,13 @@ module axi_sram_controller #(
   );
 
   // write channels
-  assign axi_awready = (next_state == WRITE);
-  assign axi_wready = (next_state == WRITE);
+  assign axi_awready = next_state == WRITE;
+  assign axi_wready = next_state == WRITE;
   assign axi_bvalid = axi_bvalid_reg;
   assign axi_bresp = (axi_bvalid ? RESP_OK : 2'bxx);
 
   // read channels
-  assign axi_arready = (current_state == READ);
+  assign axi_arready = next_state == READ;
   assign axi_rvalid = axi_rvalid_reg;
   assign axi_rdata = (axi_rvalid ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
   assign axi_rresp = (axi_rvalid ? RESP_OK : 2'bxx);
