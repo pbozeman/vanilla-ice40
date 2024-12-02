@@ -71,11 +71,6 @@
 
 - add tests
 
-### fifo
-
-- maybe add an "almost full" as it's hard to manage right
-  at the boundary of being full
-
 ### SRAM
 
 change the sram data and addr ports to use _bus and/or differentiate the caller ports from the
