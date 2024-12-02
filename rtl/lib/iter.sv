@@ -1,13 +1,11 @@
 `ifndef ITER_V
 `define ITER_V
-
 `include "directives.sv"
-
 `include "counter.sv"
 
 module iter #(
-    parameter integer MAX_VALUE = 15,
-    parameter         WIDTH     = $clog2(MAX_VALUE)
+    parameter  MAX_VALUE = 15,
+    localparam WIDTH     = $clog2(MAX_VALUE)
 ) (
     input  logic             clk,
     input  logic             reset,
@@ -15,6 +13,7 @@ module iter #(
     output logic [WIDTH-1:0] val,
     output logic             done
 );
+  localparam [WIDTH-1:0] MAX_COUNT = WIDTH'(MAX_VALUE);
 
   counter #(
       .MAX_VALUE(MAX_VALUE)
@@ -25,8 +24,7 @@ module iter #(
       .count (val)
   );
 
-  assign done = (val == MAX_VALUE);
+  assign done = (val == MAX_COUNT);
 
 endmodule
-
 `endif

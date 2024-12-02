@@ -136,7 +136,7 @@ module gfx_vga #(
 
   assign gfx_ready      = fbw_axi_tready;
   assign fbw_axi_tvalid = gfx_valid;
-  assign fbw_addr       = (H_VISIBLE * gfx_y + gfx_x);
+  assign fbw_addr       = (H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x));
   assign fbw_color      = gfx_color;
 
   fb_writer #(

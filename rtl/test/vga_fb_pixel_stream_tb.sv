@@ -160,6 +160,7 @@ module vga_fb_pixel_stream_tb;
       .data_io(sram0_io_data)
   );
 
+  // verilator lint_off WIDTHEXPAND
   `TEST_SETUP(vga_fb_pixel_stream_tb);
   logic [               8:0] test_line;
 
@@ -278,6 +279,7 @@ module vga_fb_pixel_stream_tb;
 
     $finish;
   end
+  // verilator lint_on WIDTHEXPAND
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

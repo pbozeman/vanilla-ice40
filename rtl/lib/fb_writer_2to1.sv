@@ -70,7 +70,7 @@ module fb_writer_2to1 #(
 
   always_comb begin
     logic [1:0] mask;
-    logic [2:0] masked_tvalid;
+    logic [1:0] masked_tvalid;
 
     mask          = '1;
     masked_tvalid = '0;
@@ -82,7 +82,7 @@ module fb_writer_2to1 #(
       next_grant = grant;
     end else begin
       mask          = grant == IDLE ? '1 : ~grant;
-      masked_tvalid = in_axi_tvalid & mask;
+      masked_tvalid = in_axi_tvalid[1:0] & mask;
 
       if (|(masked_tvalid & 2'b01)) begin
         next_grant = 0;

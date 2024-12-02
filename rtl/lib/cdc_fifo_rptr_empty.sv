@@ -33,7 +33,7 @@ module cdc_fifo_rptr_empty #(
   // Pointers
   //
   // next pointer values
-  assign r_bin_next  = r_bin + (r_inc & ~r_empty);
+  assign r_bin_next  = (r_inc && !r_empty) ? r_bin + 1 : r_bin;
   assign r_gray_next = (r_bin_next >> 1) ^ r_bin_next;
 
   // register next pointer values

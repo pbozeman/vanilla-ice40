@@ -76,8 +76,10 @@ module sram_model #(
             $fatal;
           end else begin
             // verilator lint_off WIDTHTRUNC
+            // verilator lint_off WIDTHEXPAND
             data_out = addr;
             // verilator lint_on WIDTHTRUNC
+            // verilator lint_on WIDTHEXPAND
           end
         end else begin
           data_out = sram_mem[addr];
@@ -112,7 +114,7 @@ module sram_model #(
   // verilator lint_off LATCH
   always @(*) begin
     if (write_enable) begin
-      if (INJECT_ERROR && addr == {DATA_BITS{1'b1}}) begin
+      if (INJECT_ERROR && addr == {ADDR_BITS{1'b1}}) begin
         sram_mem[addr] = {DATA_BITS{1'b1}};
       end else if (!we_n) begin
         sram_mem[addr] = data_io;

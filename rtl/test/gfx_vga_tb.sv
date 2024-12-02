@@ -173,6 +173,9 @@ module gfx_vga_tb;
       .out  (checks_en)
   );
 
+  // verilator lint_off WIDTHTRUNC
+  // verilator lint_off WIDTHEXPAND
+
   always @(posedge pixel_clk) begin
     // This would indicate that there as a bubble somewhere (i.e. with memory
     // contention between the gfx writer and the display stream) and a pixel
@@ -473,6 +476,9 @@ module gfx_vga_tb;
 
     $finish;
   end
+
+  // verilator lint_on WIDTHTRUNC
+  // verilator lint_on WIDTHEXPAND
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

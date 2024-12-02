@@ -359,7 +359,7 @@ module gfx_vga_fade #(
 
   assign gfx_ready     = gw_axi_tready;
   assign gw_axi_tvalid = gfx_valid;
-  assign gw_addr       = (H_VISIBLE * gfx_y + gfx_x);
+  assign gw_addr       = H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x);
   assign gw_color      = {4'd4, gfx_color};
 
   fb_writer_2to1 #(

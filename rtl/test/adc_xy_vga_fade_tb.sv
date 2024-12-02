@@ -88,7 +88,7 @@ module adc_xy_vga_fade_tb;
   assign adc_blu_io = 1'b1;
 
   counter #(
-      .MAX_VALUE(1024)
+      .MAX_VALUE(1023)
   ) counter_x_inst (
       .clk   (adc_clk),
       .reset (reset),
@@ -97,7 +97,7 @@ module adc_xy_vga_fade_tb;
   );
 
   counter #(
-      .MAX_VALUE(1024)
+      .MAX_VALUE(1023)
   ) counter_y_inst (
       .clk   (adc_clk),
       .reset (reset),

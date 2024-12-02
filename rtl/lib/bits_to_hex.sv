@@ -42,8 +42,8 @@ module bits_to_hex #(
   // Binary to ASCII conversion for a single nibble
   function [7:0] nibble_to_ascii(input [3:0] nibble);
     begin
-      if (nibble < 10) nibble_to_ascii = "0" + nibble;
-      else nibble_to_ascii = "A" + (nibble - 10);
+      if (nibble < 10) nibble_to_ascii = "0" + 8'(nibble);
+      else nibble_to_ascii = "A" + (8'(nibble) - 10);
     end
   endfunction
 

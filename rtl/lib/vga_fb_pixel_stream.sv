@@ -108,7 +108,8 @@ module vga_fb_pixel_stream #(
   );
 
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
-  assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row) + fb_pixel_column;
+  assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row +
+                               AXI_ADDR_WIDTH'(fb_pixel_column));
 
   // Pipelined versions of the signals prior to kicking off the read.
   // This is to pipeline the mult/add of the addr.

@@ -121,6 +121,9 @@ module gfx_vga_fade_tb;
 
   `TEST_SETUP(gfx_vga_fade_tb);
 
+  // verilator lint_off WIDTHTRUNC
+  // verilator lint_off WIDTHEXPAND
+
   logic [8:0] test_line;
 
   // 100mhz main clock (also axi clock)
@@ -479,6 +482,9 @@ module gfx_vga_fade_tb;
 
     $finish;
   end
+
+  // verilator lint_on WIDTHTRUNC
+  // verilator lint_on WIDTHEXPAND
 
 endmodule
 // verilator lint_on UNUSEDSIGNAL

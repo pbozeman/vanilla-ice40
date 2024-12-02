@@ -288,7 +288,7 @@ module sram_tester #(
   // pattern_prev
   always_ff @(posedge clk) begin
     if (reset) begin
-      pattern_prev <= 1'b0;
+      pattern_prev <= '0;
     end else begin
       pattern_prev <= pattern;
     end

@@ -38,6 +38,8 @@ module sync_fifo_tb;
 
   `TEST_SETUP(sync_fifo_tb)
 
+  // verilator lint_off WIDTHEXPAND
+
   // Clock generation
   initial begin
     clk = 0;
@@ -126,4 +128,6 @@ module sync_fifo_tb;
 
     $finish;
   end
+
+  // verilator lint_on WIDTHEXPAND
 endmodule

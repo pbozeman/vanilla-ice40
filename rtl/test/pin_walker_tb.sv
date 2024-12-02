@@ -27,6 +27,7 @@ module pin_walker_tb;
 
   `TEST_SETUP(pin_walker_tb);
 
+  // verilator lint_off WIDTHEXPAND
   initial begin
     for (i = 0; i < 32 * (CLOCK_FREQ_HZ / DIVISOR); i = i + 1) begin
       @(posedge clk);
@@ -37,6 +38,7 @@ module pin_walker_tb;
         `ASSERT(pins == expected);
       end
     end
+    // verilator lint_on WIDTHEXPAND
 
     $finish;
   end

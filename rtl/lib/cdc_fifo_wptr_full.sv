@@ -45,7 +45,7 @@ module cdc_fifo_wptr_full #(
   //
   // next pointer values
   //
-  assign w_bin_next  = w_bin + (w_inc & ~w_full);
+  assign w_bin_next  = (w_inc && !w_full) ? w_bin + 1 : w_bin;
   assign w_gray_next = (w_bin_next >> 1) ^ w_bin_next;
 
   // register next pointer values

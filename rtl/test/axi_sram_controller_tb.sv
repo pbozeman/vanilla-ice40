@@ -118,13 +118,13 @@ module axi_sram_controller_tb;
 
   task reset;
     begin
-      axi_awaddr  = 1'b0;
+      axi_awaddr  = '0;
       axi_awvalid = 1'b0;
-      axi_wdata   = 1'b0;
-      axi_wstrb   = 1'b0;
+      axi_wdata   = '0;
+      axi_wstrb   = '0;
       axi_wvalid  = 1'b0;
       axi_bready  = 1'b0;
-      axi_araddr  = 1'b0;
+      axi_araddr  = '0;
       axi_arvalid = 1'b0;
 
       axi_resetn  = 1'b0;

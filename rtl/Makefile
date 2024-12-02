@@ -59,7 +59,7 @@ IVERILOG := iverilog -Wall -Wno-portbind -Wno-timescale -DSYNTH_YOSYS -DVGA_MODE
 VVP := vvp
 
 # Linter
-LINTER := verilator -DLINTING=1 -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) --lint-only --quiet -Wall --timing --Wno-WIDTHEXPAND
+LINTER := verilator -DLINTING=1 -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) --lint-only --quiet -Wall --timing
 
 # Add top module names (without directory prefix and .sv suffix)
 TOP_MODULE_NAMES := $(notdir $(basename $(TOP_MODULES)))
