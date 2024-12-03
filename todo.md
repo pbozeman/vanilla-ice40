@@ -118,3 +118,4 @@ for 800x600's 40mhz. 1024x768 will need pipelining/interleaving on top of this.
 - there is a mix of usage of state, current_state. pick one
 - pick if next_ goes at the front or the end
 - put _io_ in the port names of wires on the board
+- use .signal() for unused signals
