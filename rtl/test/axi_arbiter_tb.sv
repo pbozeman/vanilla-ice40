@@ -124,7 +124,7 @@ module axi_arbiter_tb;
       req_accepted = 0;
 
       #1;
-      `ASSERT_EQ(g_req, 0);
+      `ASSERT_EQ(g_req, NUM_M);
       `ASSERT_EQ(g_resp, 0);
 
       // Complete transaction

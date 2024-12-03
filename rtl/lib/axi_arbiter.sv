@@ -50,7 +50,13 @@ module axi_arbiter #(
       next_g_req = g_req;
     end else begin
       for (int i = NUM_M; i >= 0; i--) begin
-        if (g_want[i]) begin
+        // TODO: the logic can likely be optimized.
+        //
+        // The reason we can't grant back to the same m is that since g_req is
+        // registered, the instantiating module doesn't see the valid signal
+        // on the same clock that ready is raised. By cutting off the caller,
+        // we are dropping valid to the sub on their behalf.
+        if (g_want[i] && G_BITS'(i) != g_req) begin
           req_started = 1'b1;
           next_g_req  = G_BITS'(i);
         end
