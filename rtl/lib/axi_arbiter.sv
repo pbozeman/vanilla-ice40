@@ -1,12 +1,12 @@
-`ifndef AXI_ARBITRATED_MUX_V
-`define AXI_ARBITRATED_MUX_V
+`ifndef AXI_ARBITER_V
+`define AXI_ARBITER_V
 
 `include "directives.sv"
 
 `include "arbiter.sv"
 `include "sticky_bit.sv"
 
-module axi_arbitrated_mux #(
+module axi_arbiter #(
     parameter  NUM_M          = 2,
     parameter  SEL_BITS       = 1,
     parameter  AXI_ADDR_WIDTH = 20,

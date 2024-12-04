@@ -1,6 +1,6 @@
 `include "testing.sv"
 
-`include "axi_arbitrated_mux.sv"
+`include "axi_arbiter.sv"
 `include "axi_sram_controller.sv"
 `include "sram_model.sv"
 
@@ -9,7 +9,7 @@
 // NOTE: use addrs below A000 for writing. Reads don't
 // initialize memory and are letting the model fill return
 // mocked data using the addr.
-module axi_arbitrated_mux_tb;
+module axi_arbiter_tb;
   localparam NUM_M = 3;
   localparam SEL_BITS = 1;
 
@@ -112,7 +112,7 @@ module axi_arbitrated_mux_tb;
   );
 
   // UUT instantiation
-  axi_arbitrated_mux #(
+  axi_arbiter #(
       .NUM_M         (NUM_M),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
@@ -121,7 +121,7 @@ module axi_arbitrated_mux_tb;
   );
 
 
-  `TEST_SETUP(axi_arbitrated_mux_tb);
+  `TEST_SETUP(axi_arbiter_tb);
 
   // Clock generation
   initial begin
