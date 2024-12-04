@@ -1,12 +1,12 @@
-`ifndef AXI_ARBITER_V
-`define AXI_ARBITER_V
+`ifndef ARBITER_V
+`define ARBITER_V
 
 `include "directives.sv"
 
 `include "sync_fifo.sv"
 
 //
-// AXI-Lite arbiter that issues grants from Managers to a Subordinate.
+// Arbiter that issues grants from Managers to a Subordinate.
 //
 // Managers are selected with a modified priority encoding, with bit 0 as the
 // highest pri.
@@ -14,12 +14,12 @@
 // Request and response grants are tracked separately and released when
 // the transaction is accepted (i.e. valid/ready pair are both high.)
 //
-module axi_arbiter #(
+module arbiter #(
     parameter  NUM_M  = 2,
     localparam G_BITS = $clog2(NUM_M + 1)
 ) (
-    input logic axi_clk,
-    input logic axi_resetn,
+    input logic clk,
+    input logic rst_n,
 
     // bitmask of managers wanting a grant
     input logic [NUM_M-1:0] g_want,
@@ -69,8 +69,8 @@ module axi_arbiter #(
     end
   end
 
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
+  always_ff @(posedge clk) begin
+    if (~rst_n) begin
       g_req <= NUM_M;
     end else begin
       g_req <= next_g_req;
@@ -81,7 +81,7 @@ module axi_arbiter #(
   logic [G_BITS-1:0] fifo_r_data;
   logic              fifo_r_empty;
 
-  always_ff @(posedge axi_clk) begin
+  always_ff @(posedge clk) begin
     fifo_w_inc <= req_started;
   end
 
@@ -91,8 +91,8 @@ module axi_arbiter #(
       .DATA_WIDTH(G_BITS),
       .ADDR_SIZE (3)
   ) resp_fifo (
-      .clk          (axi_clk),
-      .rst_n        (axi_resetn),
+      .clk          (clk),
+      .rst_n        (rst_n),
       .w_inc        (fifo_w_inc),
       .w_data       (g_req),
       .w_almost_full(),

@@ -1,12 +1,12 @@
 `include "testing.sv"
-`include "axi_arbiter.sv"
+`include "arbiter.sv"
 
-module axi_arbiter_tb;
+module arbiter_tb;
   localparam NUM_M = 3;
   localparam G_BITS = $clog2(NUM_M + 1);
 
-  logic              axi_clk;
-  logic              axi_resetn;
+  logic              clk;
+  logic              rst_n;
   logic [ NUM_M-1:0] g_want;
   logic              req_accepted;
   logic              resp_accepted;
@@ -17,11 +17,11 @@ module axi_arbiter_tb;
   logic [       8:0] test_line;
   // verilator lint_on UNUSEDSIGNAL
 
-  axi_arbiter #(
+  arbiter #(
       .NUM_M(NUM_M)
   ) uut (
-      .axi_clk,
-      .axi_resetn,
+      .clk,
+      .rst_n,
       .g_want,
       .req_accepted(req_accepted),
       .resp_accepted,
@@ -29,23 +29,23 @@ module axi_arbiter_tb;
       .g_resp
   );
 
-  `TEST_SETUP(axi_arbiter_tb)
+  `TEST_SETUP(arbiter_tb)
 
   initial begin
-    axi_clk = 0;
-    forever #5 axi_clk = ~axi_clk;
+    clk = 0;
+    forever #5 clk = ~clk;
   end
 
   task setup();
     begin
-      @(posedge axi_clk);
-      axi_resetn    = 0;
+      @(posedge clk);
+      rst_n         = 0;
       g_want        = '0;
       req_accepted  = 0;
       resp_accepted = 0;
-      @(posedge axi_clk);
-      axi_resetn = 1;
-      @(posedge axi_clk);
+      @(posedge clk);
+      rst_n = 1;
+      @(posedge clk);
     end
   endtask
 
@@ -56,7 +56,7 @@ module axi_arbiter_tb;
 
       // Request from manager 0
       g_want = 3'b001;
-      @(posedge axi_clk);
+      @(posedge clk);
       g_want       = 3'b000;
       req_accepted = 1;
 
@@ -64,7 +64,7 @@ module axi_arbiter_tb;
       `ASSERT_EQ(g_req, 0);
 
       // response grant
-      @(posedge axi_clk);
+      @(posedge clk);
       req_accepted  = 0;
       resp_accepted = 1;
 
@@ -72,7 +72,7 @@ module axi_arbiter_tb;
       `ASSERT_EQ(g_resp, 0);
 
       // Verify grants cleared
-      `TICK(axi_clk);
+      `TICK(clk);
       resp_accepted = 0;
 
       #1;
@@ -90,7 +90,7 @@ module axi_arbiter_tb;
       // Verify highest priority (lowest index) gets grant
       g_want = 3'b111;
 
-      @(posedge axi_clk);
+      @(posedge clk);
       req_accepted = 1;
       g_want       = 3'b110;
 
@@ -98,7 +98,7 @@ module axi_arbiter_tb;
       `ASSERT_EQ(g_req, 0);
 
       // Accept request
-      @(posedge axi_clk);
+      @(posedge clk);
       req_accepted = 0;
 
       #1;
@@ -114,13 +114,13 @@ module axi_arbiter_tb;
       // Initial request
       g_want = 3'b001;
 
-      @(posedge axi_clk);
+      @(posedge clk);
       req_accepted = 1;
 
       #1;
       `ASSERT_EQ(g_req, 0);
 
-      @(posedge axi_clk);
+      @(posedge clk);
       req_accepted = 0;
 
       #1;
@@ -131,7 +131,7 @@ module axi_arbiter_tb;
       resp_accepted = 1;
       resp_accepted = 0;
 
-      @(posedge axi_clk);
+      @(posedge clk);
 
       #1;
       `ASSERT_EQ(g_req, 0);

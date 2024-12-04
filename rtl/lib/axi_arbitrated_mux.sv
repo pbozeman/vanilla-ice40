@@ -3,7 +3,7 @@
 
 `include "directives.sv"
 
-`include "axi_arbiter.sv"
+`include "arbiter.sv"
 `include "sticky_bit.sv"
 
 module axi_arbitrated_mux #(
@@ -136,11 +136,11 @@ module axi_arbitrated_mux #(
   assign wg_resp_active = (wg_resp != NUM_M);
 
   // reads
-  axi_arbiter #(
+  arbiter #(
       .NUM_M(NUM_M)
   ) r_arbiter (
-      .axi_clk      (axi_clk),
-      .axi_resetn   (axi_resetn),
+      .clk          (axi_clk),
+      .rst_n        (axi_resetn),
       .g_want       (rg_want),
       .req_accepted (r_req_accepted),
       .resp_accepted(r_resp_accepted),
@@ -149,11 +149,11 @@ module axi_arbitrated_mux #(
   );
 
   // writes
-  axi_arbiter #(
+  arbiter #(
       .NUM_M(NUM_M)
   ) w_arbiter (
-      .axi_clk      (axi_clk),
-      .axi_resetn   (axi_resetn),
+      .clk          (axi_clk),
+      .rst_n        (axi_resetn),
       .g_want       (wg_want),
       .req_accepted (w_req_accepted),
       .resp_accepted(w_resp_accepted),
