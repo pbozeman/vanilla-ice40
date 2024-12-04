@@ -52,10 +52,15 @@ module axi_arbiter #(
       for (int i = NUM_M; i >= 0; i--) begin
         // TODO: the logic can likely be optimized.
         //
-        // The reason we can't grant back to the same m is that since g_req is
-        // registered, the instantiating module doesn't see the valid signal
-        // on the same clock that ready is raised. By cutting off the caller,
-        // we are dropping valid to the sub on their behalf.
+        // The reason we can't currently grant back to the same m is that since
+        // g_req is registered. If the txn is accepted in the same clock that
+        // it is issued, the instantiating module won't see the valid signal
+        // in time. By cutting off the caller, we are dropping valid to the sub
+        // on their behalf, and the instantiator will see ready on the next
+        // rising clock. This slows down a single caller to only being able
+        // to issue a txn every other cycle, but that's currently fine as this is
+        // being used with sram modules that can only run every other clock
+        // anyway. Research skid buffers and see if they can help here.
         if (g_want[i] && G_BITS'(i) != g_req) begin
           req_started = 1'b1;
           next_g_req  = G_BITS'(i);
