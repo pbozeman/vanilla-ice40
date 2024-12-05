@@ -5,6 +5,14 @@
 `include "sram_controller.sv"
 `include "sticky_bit.sv"
 
+// FIXME: consider addressing the following:
+//
+// SPEC MISMATCH: This differs from how axi addresses are supposed to work.
+// I misunderstood the addr scheme and thought the addresses were for words of
+// size DATA_WIDTH. If this module is instantiated with a DATA_WIDTH of 16,
+// addr 0 will return word 0 (bytes 1 and 0 from the sram on the data bus),
+// and addr 1 will word 1 (bytes 2 and 3 from the sram on the data bus.)
+
 // Note: wstrb is ignored as the boards with the sram chips
 // I use have the ub and lb pins hard logicd to enable.
 //
