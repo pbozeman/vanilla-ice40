@@ -10,12 +10,15 @@
 `include "directives.sv"
 
 `include "axi_sram_controller.sv"
+`include "axi_stripe_interconnect.sv"
 `include "cdc_fifo.sv"
 `include "fb_writer.sv"
-`include "vga_mode.sv"
 `include "vga_fb_pixel_stream.sv"
+`include "vga_mode.sv"
 
 module gfx_vga_stripe #(
+    parameter NUM_S = 2,
+
     parameter PIXEL_BITS = 12,
 
     parameter H_VISIBLE     = 640,
@@ -58,72 +61,159 @@ module gfx_vga_stripe #(
     output logic                  vga_vsync,
 
     // sram0 controller to io pins
-    output logic [AXI_ADDR_WIDTH-1:0] sram_io_addr,
-    inout  wire  [AXI_DATA_WIDTH-1:0] sram_io_data,
-    output logic                      sram_io_we_n,
-    output logic                      sram_io_oe_n,
-    output logic                      sram_io_ce_n
+    output logic [NUM_S-1:0][AXI_ADDR_WIDTH-1:0] sram_io_addr,
+    inout  wire  [NUM_S-1:0][AXI_DATA_WIDTH-1:0] sram_io_data,
+    output logic [NUM_S-1:0]                     sram_io_we_n,
+    output logic [NUM_S-1:0]                     sram_io_oe_n,
+    output logic [NUM_S-1:0]                     sram_io_ce_n
 );
+  localparam AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8;
+
   //
   // gfx axi writter
   //
-  logic [        AXI_ADDR_WIDTH-1:0] gfx_axi_awaddr;
-  logic                              gfx_axi_awvalid;
-  logic                              gfx_axi_awready;
-  logic [        AXI_DATA_WIDTH-1:0] gfx_axi_wdata;
-  logic                              gfx_axi_wvalid;
-  logic                              gfx_axi_wready;
-  logic                              gfx_axi_bready;
-  logic                              gfx_axi_bvalid;
-  logic [((AXI_DATA_WIDTH+7)/8)-1:0] gfx_axi_wstrb;
-  logic [                       1:0] gfx_axi_bresp;
+  logic [        AXI_ADDR_WIDTH-1:0]                     gfx_axi_awaddr;
+  logic                                                  gfx_axi_awvalid;
+  logic                                                  gfx_axi_awready;
+  logic [        AXI_DATA_WIDTH-1:0]                     gfx_axi_wdata;
+  logic                                                  gfx_axi_wvalid;
+  logic                                                  gfx_axi_wready;
+  logic                                                  gfx_axi_bready;
+  logic                                                  gfx_axi_bvalid;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0]                     gfx_axi_wstrb;
+  logic [                       1:0]                     gfx_axi_bresp;
+
+  logic [        AXI_ADDR_WIDTH-1:0]                     gfx_axi_araddr = '0;
+  logic                                                  gfx_axi_arvalid = '0;
+  logic                                                  gfx_axi_rready = '0;
+  // verilator lint_off UNUSEDSIGNAL
+  logic [        AXI_DATA_WIDTH-1:0]                     gfx_axi_rdata;
+  logic                                                  gfx_axi_rvalid;
+  logic                                                  gfx_axi_arready;
+  logic [                       1:0]                     gfx_axi_rresp;
+  // verilator lint_on UNUSEDSIGNAL
 
   //
   // disp axi reader
   //
-  logic [        AXI_ADDR_WIDTH-1:0] disp_axi_araddr;
-  logic                              disp_axi_arvalid;
-  logic                              disp_axi_arready;
-  logic [        AXI_DATA_WIDTH-1:0] disp_axi_rdata;
-  logic                              disp_axi_rvalid;
-  logic                              disp_axi_rready;
-  logic [                       1:0] disp_axi_rresp;
+  logic [        AXI_ADDR_WIDTH-1:0]                     disp_axi_araddr;
+  logic                                                  disp_axi_arvalid;
+  logic                                                  disp_axi_arready;
+  logic [        AXI_DATA_WIDTH-1:0]                     disp_axi_rdata;
+  logic                                                  disp_axi_rvalid;
+  logic                                                  disp_axi_rready;
+  logic [                       1:0]                     disp_axi_rresp;
 
-  axi_sram_controller #(
+  logic [        AXI_ADDR_WIDTH-1:0]                     disp_axi_awaddr = '0;
+  logic                                                  disp_axi_awvalid = '0;
+  logic [        AXI_DATA_WIDTH-1:0]                     disp_axi_wdata = '0;
+  logic                                                  disp_axi_wvalid = '0;
+  logic                                                  disp_axi_bready = '0;
+  logic [((AXI_DATA_WIDTH+7)/8)-1:0]                     disp_axi_wstrb = '0;
+  // verilator lint_off UNUSEDSIGNAL
+  logic                                                  disp_axi_awready;
+  logic                                                  disp_axi_wready;
+  logic                                                  disp_axi_bvalid;
+  logic [                       1:0]                     disp_axi_bresp;
+  // verilator lint_on UNUSEDSIGNAL
+
+  // Output AXI interface
+  logic [                 NUM_S-1:0][AXI_ADDR_WIDTH-1:0] out_axi_awaddr;
+  logic [                 NUM_S-1:0]                     out_axi_awvalid;
+  logic [                 NUM_S-1:0]                     out_axi_awready;
+  logic [                 NUM_S-1:0][AXI_DATA_WIDTH-1:0] out_axi_wdata;
+  logic [                 NUM_S-1:0][AXI_STRB_WIDTH-1:0] out_axi_wstrb;
+  logic [                 NUM_S-1:0]                     out_axi_wvalid;
+  logic [                 NUM_S-1:0]                     out_axi_wready;
+  logic [                 NUM_S-1:0][               1:0] out_axi_bresp;
+  logic [                 NUM_S-1:0]                     out_axi_bvalid;
+  logic [                 NUM_S-1:0]                     out_axi_bready;
+  logic [                 NUM_S-1:0][AXI_ADDR_WIDTH-1:0] out_axi_araddr;
+  logic [                 NUM_S-1:0]                     out_axi_arvalid;
+  logic [                 NUM_S-1:0]                     out_axi_arready;
+  logic [                 NUM_S-1:0][AXI_DATA_WIDTH-1:0] out_axi_rdata;
+  logic [                 NUM_S-1:0][               1:0] out_axi_rresp;
+  logic [                 NUM_S-1:0]                     out_axi_rvalid;
+  logic [                 NUM_S-1:0]                     out_axi_rready;
+
+
+  for (genvar i = 0; i < NUM_S; i++) begin : gen_s_modules
+    axi_sram_controller #(
+        .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+        .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+    ) axi_sram_ctrl_i (
+        .axi_clk     (clk),
+        .axi_resetn  (~reset),
+        .axi_awaddr  (out_axi_awaddr[i]),
+        .axi_awvalid (out_axi_awvalid[i]),
+        .axi_awready (out_axi_awready[i]),
+        .axi_wdata   (out_axi_wdata[i]),
+        .axi_wstrb   (out_axi_wstrb[i]),
+        .axi_wvalid  (out_axi_wvalid[i]),
+        .axi_wready  (out_axi_wready[i]),
+        .axi_bresp   (out_axi_bresp[i]),
+        .axi_bvalid  (out_axi_bvalid[i]),
+        .axi_bready  (out_axi_bready[i]),
+        .axi_araddr  (out_axi_araddr[i]),
+        .axi_arvalid (out_axi_arvalid[i]),
+        .axi_arready (out_axi_arready[i]),
+        .axi_rdata   (out_axi_rdata[i]),
+        .axi_rresp   (out_axi_rresp[i]),
+        .axi_rvalid  (out_axi_rvalid[i]),
+        .axi_rready  (out_axi_rready[i]),
+        .sram_io_addr(sram_io_addr[i]),
+        .sram_io_data(sram_io_data[i]),
+        .sram_io_we_n(sram_io_we_n[i]),
+        .sram_io_oe_n(sram_io_oe_n[i]),
+        .sram_io_ce_n(sram_io_ce_n[i])
+    );
+  end
+
+  axi_stripe_interconnect #(
+      .NUM_M         (2),
+      .NUM_S         (NUM_S),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
-  ) axi_sram_controller_inst (
-      // core signals
+  ) uut (
       .axi_clk   (clk),
       .axi_resetn(~reset),
 
-      // producer interface
-      .axi_awaddr (gfx_axi_awaddr),
-      .axi_awvalid(gfx_axi_awvalid),
-      .axi_awready(gfx_axi_awready),
-      .axi_wdata  (gfx_axi_wdata),
-      .axi_wvalid (gfx_axi_wvalid),
-      .axi_wready (gfx_axi_wready),
-      .axi_wstrb  (gfx_axi_wstrb),
-      .axi_bready (gfx_axi_bready),
-      .axi_bvalid (gfx_axi_bvalid),
-      .axi_bresp  (gfx_axi_bresp),
+      .in_axi_awaddr ({gfx_axi_awaddr, disp_axi_awaddr}),
+      .in_axi_awvalid({gfx_axi_awvalid, disp_axi_awvalid}),
+      .in_axi_awready({gfx_axi_awready, disp_axi_awready}),
+      .in_axi_wdata  ({gfx_axi_wdata, disp_axi_wdata}),
+      .in_axi_wvalid ({gfx_axi_wvalid, disp_axi_wvalid}),
+      .in_axi_wready ({gfx_axi_wready, disp_axi_wready}),
+      .in_axi_wstrb  ({gfx_axi_wstrb, disp_axi_wstrb}),
+      .in_axi_bready ({gfx_axi_bready, disp_axi_bready}),
+      .in_axi_bvalid ({gfx_axi_bvalid, disp_axi_bvalid}),
+      .in_axi_bresp  ({gfx_axi_bresp, disp_axi_bresp}),
 
-      // consumer interface
-      .axi_araddr (disp_axi_araddr),
-      .axi_arvalid(disp_axi_arvalid),
-      .axi_arready(disp_axi_arready),
-      .axi_rdata  (disp_axi_rdata),
-      .axi_rvalid (disp_axi_rvalid),
-      .axi_rready (disp_axi_rready),
-      .axi_rresp  (disp_axi_rresp),
+      .in_axi_araddr ({gfx_axi_araddr, disp_axi_araddr}),
+      .in_axi_arvalid({gfx_axi_arvalid, disp_axi_arvalid}),
+      .in_axi_arready({gfx_axi_arready, disp_axi_arready}),
+      .in_axi_rdata  ({gfx_axi_rdata, disp_axi_rdata}),
+      .in_axi_rvalid ({gfx_axi_rvalid, disp_axi_rvalid}),
+      .in_axi_rready ({gfx_axi_rready, disp_axi_rready}),
+      .in_axi_rresp  ({gfx_axi_rresp, disp_axi_rresp}),
 
-      // sram controller to io pins
-      .sram_io_addr(sram_io_addr),
-      .sram_io_data(sram_io_data),
-      .sram_io_we_n(sram_io_we_n),
-      .sram_io_oe_n(sram_io_oe_n),
-      .sram_io_ce_n(sram_io_ce_n)
+      .out_axi_awaddr,
+      .out_axi_awvalid,
+      .out_axi_awready,
+      .out_axi_wdata,
+      .out_axi_wstrb,
+      .out_axi_wvalid,
+      .out_axi_wready,
+      .out_axi_bresp,
+      .out_axi_bvalid,
+      .out_axi_bready,
+      .out_axi_araddr,
+      .out_axi_arvalid,
+      .out_axi_arready,
+      .out_axi_rdata,
+      .out_axi_rresp,
+      .out_axi_rvalid,
+      .out_axi_rready
   );
 
   // fb writer axi flow control signals
