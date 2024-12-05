@@ -5,7 +5,6 @@
 `include "sram_model.sv"
 
 // verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNDRIVEN
 //
 // NOTE: use addrs below A000 for writing. Reads don't
 // initialize memory and are letting the model fill return
