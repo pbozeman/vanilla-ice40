@@ -1,7 +1,7 @@
 `ifndef ITER_V
 `define ITER_V
 `include "directives.sv"
-`include "counter.sv"
+`include "counter_fixed.sv"
 
 module iter #(
     parameter  MAX_VALUE = 15,
@@ -15,7 +15,7 @@ module iter #(
 );
   localparam [WIDTH-1:0] MAX_COUNT = WIDTH'(MAX_VALUE);
 
-  counter #(
+  counter_fixed #(
       .MAX_VALUE(MAX_VALUE)
   ) i (
       .clk   (clk),

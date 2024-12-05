@@ -1,8 +1,8 @@
 `include "testing.sv"
 
-`include "counter.sv"
+`include "counter_fixed.sv"
 
-module counter_tb;
+module counter_fixed_tb;
   parameter MAX_VALUE = 250;
   parameter WIDTH = 8;
 
@@ -11,7 +11,7 @@ module counter_tb;
   logic             enable;
   logic [WIDTH-1:0] count;
 
-  counter #(
+  counter_fixed #(
       .MAX_VALUE(MAX_VALUE)
   ) uut (
       .clk   (clk),
@@ -25,7 +25,7 @@ module counter_tb;
     #1000;
   end
 
-  `TEST_SETUP(counter_tb);
+  `TEST_SETUP(counter_fixed_tb);
 
   initial begin
     clk    = 0;
@@ -51,7 +51,7 @@ module counter_tb;
     @(negedge clk);
     `ASSERT(count == 0);
 
-    // Enable counter and count
+    // Enable counter_fixed and count
     enable = 1;
     `ASSERT(count == 0);
 

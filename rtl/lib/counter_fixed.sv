@@ -1,9 +1,9 @@
-`ifndef COUNTER_V
-`define COUNTER_V
+`ifndef COUNTER_FIXED_V
+`define COUNTER_FIXED_V
 
 `include "directives.sv"
 
-module counter #(
+module counter_fixed #(
     parameter MAX_VALUE = 15,
     parameter WIDTH     = $clog2(MAX_VALUE + 1)
 ) (
