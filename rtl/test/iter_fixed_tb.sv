@@ -1,8 +1,8 @@
 `include "testing.sv"
 
-`include "iter.sv"
+`include "iter_fixed.sv"
 
-module iter_tb;
+module iter_fixed_tb;
 
   parameter MAX_VALUE = 10;
   parameter WIDTH = $clog2(MAX_VALUE + 1);
@@ -15,7 +15,7 @@ module iter_tb;
 
   logic [WIDTH-1:0] expected_val;
 
-  iter #(
+  iter_fixed #(
       .MAX_VALUE(MAX_VALUE)
   ) uut (
       .clk  (clk),
@@ -30,7 +30,7 @@ module iter_tb;
     forever #5 clk = ~clk;
   end
 
-  `TEST_SETUP(iter_tb);
+  `TEST_SETUP(iter_fixed_tb);
 
   initial begin
     reset        = 1;

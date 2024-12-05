@@ -4,7 +4,7 @@
 `include "directives.sv"
 
 `include "delay.sv"
-`include "iter.sv"
+`include "iter_fixed.sv"
 `include "sram_controller.sv"
 `include "sram_pattern_generator.sv"
 
@@ -93,7 +93,7 @@ module sram_tester #(
       .io_ce_n        (sram_io_ce_n)
   );
 
-  iter #(
+  iter_fixed #(
       .MAX_VALUE((1 << ADDR_BITS) - 1)
   ) addr_gen (
       .clk  (clk),

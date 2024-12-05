@@ -1,9 +1,9 @@
-`ifndef ITER_V
-`define ITER_V
+`ifndef ITER_FIXED_V
+`define ITER_FIXED_V
 `include "directives.sv"
 `include "counter_fixed.sv"
 
-module iter #(
+module iter_fixed #(
     parameter  MAX_VALUE = 15,
     localparam WIDTH     = $clog2(MAX_VALUE)
 ) (
