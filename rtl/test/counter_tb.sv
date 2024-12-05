@@ -5,7 +5,7 @@ module counter_tb;
   logic       clk;
   logic       reset;
   logic       enable;
-  logic [7:0] count;
+  logic [7:0] val;
 
   counter #(
       .WIDTH(8)
@@ -13,7 +13,7 @@ module counter_tb;
       .clk   (clk),
       .reset (reset),
       .enable(enable),
-      .count (count)
+      .val   (val)
   );
 
   `TEST_SETUP(counter_tb)
@@ -45,20 +45,20 @@ module counter_tb;
       enable = 1;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h01);
+      `ASSERT_EQ(val, 8'h01);
 
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h02);
+      `ASSERT_EQ(val, 8'h02);
 
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h03);
+      `ASSERT_EQ(val, 8'h03);
 
       enable = 0;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h03);
+      `ASSERT_EQ(val, 8'h03);
     end
   endtask
 
@@ -71,12 +71,12 @@ module counter_tb;
       @(posedge clk);
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h02);
+      `ASSERT_EQ(val, 8'h02);
 
       reset = 1;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h00);
+      `ASSERT_EQ(val, 8'h00);
     end
   endtask
 
@@ -88,17 +88,17 @@ module counter_tb;
       enable = 1;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h01);
+      `ASSERT_EQ(val, 8'h01);
 
       enable = 0;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h01);
+      `ASSERT_EQ(val, 8'h01);
 
       enable = 1;
       @(posedge clk);
       #1;
-      `ASSERT_EQ(count, 8'h02);
+      `ASSERT_EQ(val, 8'h02);
     end
   endtask
 
