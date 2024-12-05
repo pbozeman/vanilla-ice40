@@ -57,23 +57,21 @@ module arbiter_tb;
       // Request from manager 0
       g_want = 3'b001;
       @(posedge clk);
-      g_want       = 3'b000;
-      req_accepted = 1;
 
       #1;
       `ASSERT_EQ(g_req, 0);
+      g_want       = 3'b000;
 
-      // response grant
+      req_accepted = 1;
       @(posedge clk);
-      req_accepted  = 0;
-      resp_accepted = 1;
-
       #1;
       `ASSERT_EQ(g_resp, 0);
 
-      // Verify grants cleared
-      `TICK(clk);
-      resp_accepted = 0;
+      @(posedge clk);
+      `ASSERT_EQ(g_resp, 0);
+
+      resp_accepted = 1;
+      @(posedge clk);
 
       #1;
       `ASSERT_EQ(g_req, NUM_M);
@@ -115,17 +113,18 @@ module arbiter_tb;
       g_want = 3'b001;
 
       @(posedge clk);
-      req_accepted = 1;
-
       #1;
+      req_accepted = 1;
       `ASSERT_EQ(g_req, 0);
+      `ASSERT_EQ(g_resp, NUM_M);
 
       @(posedge clk);
-      req_accepted = 0;
-
+      @(posedge clk);
       #1;
-      `ASSERT_EQ(g_req, NUM_M);
+      `ASSERT_EQ(g_req, 0);
       `ASSERT_EQ(g_resp, 0);
+
+      req_accepted  = 0;
 
       // Complete transaction
       resp_accepted = 1;

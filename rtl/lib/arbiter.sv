@@ -37,14 +37,12 @@ module arbiter #(
 );
 
   logic [G_BITS-1:0] next_g_req;
-  logic              req_started;
 
   logic              req_idle;
   assign req_idle = g_req == NUM_M;
 
   always_comb begin
-    next_g_req  = NUM_M;
-    req_started = 1'b0;
+    next_g_req = NUM_M;
 
     if (!req_idle && !req_accepted) begin
       next_g_req = g_req;
@@ -63,8 +61,7 @@ module arbiter #(
           // being used with sram modules that can only run every other clock
           // anyway. Research skid buffers and see if they can help here.
           if (g_want[i] && G_BITS'(i) != g_req) begin
-            req_started = 1'b1;
-            next_g_req  = G_BITS'(i);
+            next_g_req = G_BITS'(i);
           end
         end
       end
@@ -84,11 +81,9 @@ module arbiter #(
   logic [G_BITS-1:0] fifo_r_data;
   logic              fifo_r_empty;
 
-  always_ff @(posedge clk) begin
-    fifo_w_inc <= req_started;
-  end
+  assign fifo_w_inc = req_accepted;
 
-  assign g_resp = fifo_r_empty ? NUM_M : fifo_r_data;
+  assign g_resp     = fifo_r_empty ? NUM_M : fifo_r_data;
 
   // TODO: this is a significant contributor to the ltp of the axi_arbiter.
   // Consider a special case double entry fifo, or even a direct
