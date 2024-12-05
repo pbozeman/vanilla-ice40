@@ -146,7 +146,7 @@ endef
 
 define find_seed_rule
 $(BITS_DIR)/$(notdir $(basename $(1))).seed: $(BUILD_DIR)/$(notdir $(basename $(1))).json $(PCF_FILE) | $(BUILD_DIR)
-	@flock $(SEED_LOCK) ../scripts/find_seed.py -o $(BITS_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
+	@flock -w 30 $(SEED_LOCK) ../scripts/find_seed.py -o $(BITS_DIR)/$(notdir $(basename $(1))).seed $(call nextpnr_cmd,$(1))
 endef
 
 $(foreach top,$(TOP_MODULES),$(eval $(call find_seed_rule,$(top))))
