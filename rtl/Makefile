@@ -22,7 +22,7 @@ CLK_FREQ := 100
 # these are files that we can't build with yosys/nextpnr and only
 # work with icecube2. nextprn just can't always (or ever) do
 # place and route that meets timing, but icecube2 can.
-# TOP_IGNORE := <modules>
+TOP_IGNORE := sram_test/sram_tester_axi_top.sv
 
 # Directories
 TEST_DIR := test
