@@ -119,12 +119,40 @@ module sync_fifo_tb;
     `ASSERT(r_empty);
   endtask
 
+  task test_write_read_same_clock;
+    reset_test();
+
+    // write
+    w_data = 8'hA5;
+    w_inc  = 1;
+    @(posedge clk);
+    @(negedge clk);
+    `ASSERT(r_empty === 1'b0)
+    `ASSERT_EQ(r_data, 8'hA5)
+
+    // second write with read
+    w_data = 8'hA6;
+    r_inc  = 1;
+    @(posedge clk);
+    @(negedge clk);
+    `ASSERT(r_empty === 1'b0)
+    `ASSERT_EQ(r_data, 8'hA6)
+    w_inc = 0;
+
+    // read
+    r_inc = 1;
+    @(posedge clk);
+    @(negedge clk);
+    `ASSERT(r_empty === 1'b1)
+  endtask
+
   // Test stimulus
   initial begin
     test_post_reset();
     test_single_write_read();
     test_fill_fifo();
     test_read_full_fifo();
+    test_write_read_same_clock();
 
     $finish;
   end
