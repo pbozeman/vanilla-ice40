@@ -14,9 +14,6 @@
 
 // verilog_format: off
 `ifdef VGA_MODE_1024_768_60
-  // the pixel clock is too fast for sram, as the sram is currently used
-  `include "VGA_MODE_1024_768_60 is broken (consider this an error directive)"
-
   // icepll -i 100 -o 65
   `define VGA_MODE_PLL_DIVR (4'd4)
   `define VGA_MODE_PLL_DIVF (7'd51)
