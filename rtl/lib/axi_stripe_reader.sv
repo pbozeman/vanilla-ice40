@@ -26,7 +26,7 @@
 module axi_stripe_reader #(
     parameter NUM_S            = 2,
     parameter AXI_ADDR_WIDTH   = 20,
-    parameter AXI_DATA_WIDTH   = 8,
+    parameter AXI_DATA_WIDTH   = 16,
     parameter AXI_ARLENW_WIDTH = 8
 ) (
     input logic axi_clk,
