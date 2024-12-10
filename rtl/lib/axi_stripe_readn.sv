@@ -1,5 +1,5 @@
-`ifndef AXI_STRIPE_READER_V
-`define AXI_STRIPE_READER_V
+`ifndef AXI_STRIPE_READN_V
+`define AXI_STRIPE_READN_V
 
 `include "directives.sv"
 
@@ -23,7 +23,7 @@
 //
 // For now, in_axi_arlenw must be divisible by NUM_S. This isn't caught,
 // and this will just break if not the case.
-module axi_stripe_reader #(
+module axi_stripe_readn #(
     parameter NUM_S            = 2,
     parameter AXI_ADDR_WIDTH   = 20,
     parameter AXI_DATA_WIDTH   = 16,

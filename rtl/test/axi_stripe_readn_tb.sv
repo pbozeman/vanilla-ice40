@@ -1,14 +1,14 @@
 `include "testing.sv"
 
 `include "axi_sram_controller.sv"
-`include "axi_stripe_reader.sv"
+`include "axi_stripe_readn.sv"
 `include "sram_model.sv"
 
 // Per the axi spec, arlen is a 0 based count, so 0 is 1 transfer, 1 is 2,
 // etc.
 
 // verilator lint_off UNUSEDSIGNAL
-module axi_stripe_reader_tb;
+module axi_stripe_readn_tb;
   localparam NUM_S = 2;
   localparam AXI_ADDR_WIDTH = 20;
   localparam AXI_DATA_WIDTH = 16;
@@ -88,7 +88,7 @@ module axi_stripe_reader_tb;
     );
   end
 
-  axi_stripe_reader #(
+  axi_stripe_readn #(
       .NUM_S           (NUM_S),
       .AXI_ADDR_WIDTH  (AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH  (AXI_DATA_WIDTH),
@@ -97,7 +97,7 @@ module axi_stripe_reader_tb;
       .*
   );
 
-  `TEST_SETUP(axi_stripe_reader_tb)
+  `TEST_SETUP(axi_stripe_readn_tb)
 
   // Clock generation
   initial begin
