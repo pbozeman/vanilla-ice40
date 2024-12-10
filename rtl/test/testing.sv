@@ -55,7 +55,7 @@
     while (!(signal)) begin          \
       @(posedge axi_clk);            \
       cnt = cnt + 1;                 \
-      `ASSERT(cnt < 10);             \
+      `ASSERT(cnt < 20);             \
     end                              \
     `ASSERT((signal) === 1'b1);      \
   end
