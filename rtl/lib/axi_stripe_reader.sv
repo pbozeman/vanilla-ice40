@@ -1,5 +1,5 @@
-`ifndef AXI_STRIPE_STREAM_V
-`define AXI_STRIPE_STREAM_V
+`ifndef AXI_STRIPE_READER_V
+`define AXI_STRIPE_READER_V
 
 `include "directives.sv"
 
