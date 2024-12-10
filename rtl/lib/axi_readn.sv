@@ -1,12 +1,12 @@
-`ifndef AXI_READ_WORDS_V
-`define AXI_READ_WORDS_V
+`ifndef AXI_READN_V
+`define AXI_READN_V
 
 `include "directives.sv"
 
 `include "iter.sv"
 `include "sync_fifo.sv"
 
-// Like axi_stripe_reader, this takes a parameter like arlen, but instead
+// Like axi_stripe_readn, this takes a parameter like arlen, but instead
 // it uses arlenw. This is because I misunderstood axi when first implementing
 // it, and the incorrectly thought the addrs are actually for words of DATA_WIDTH
 // size. This should be fixed, but in the mean time, let's make it clear that
@@ -24,7 +24,7 @@
 // a cycle between results. This could be removed, but for now, doesn't
 // matter as the initial use case for this is going to round robin
 // across several of these and won't be reading every cycle anyway.
-module axi_read_words #(
+module axi_readn #(
     parameter STRIDE           = 2,
     parameter AXI_ADDR_WIDTH   = 20,
     parameter AXI_DATA_WIDTH   = 16,

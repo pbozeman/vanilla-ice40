@@ -3,7 +3,7 @@
 
 `include "directives.sv"
 
-`include "axi_read_words.sv"
+`include "axi_readn.sv"
 `include "iter.sv"
 
 // This module reads from multiple subordinates that have data striped across
@@ -72,12 +72,12 @@ module axi_stripe_reader #(
   logic [NUM_S-1:0]                       strip_axi_rready;
 
   for (genvar i = 0; i < NUM_S; i++) begin : gen_rw
-    axi_read_words #(
+    axi_readn #(
         .STRIDE          (NUM_S),
         .AXI_ADDR_WIDTH  (AXI_ADDR_WIDTH),
         .AXI_DATA_WIDTH  (AXI_DATA_WIDTH),
         .AXI_ARLENW_WIDTH(AXI_ARLENW_WIDTH)
-    ) axi_read_words_i (
+    ) axi_readn_i (
         .axi_clk   (axi_clk),
         .axi_resetn(axi_resetn),
 

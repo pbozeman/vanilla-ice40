@@ -1,10 +1,10 @@
 `include "testing.sv"
-`include "axi_read_words.sv"
+`include "axi_readn.sv"
 `include "axi_sram_controller.sv"
 `include "sram_model.sv"
 
 // verilator lint_off UNUSEDSIGNAL
-module axi_read_words_tb;
+module axi_readn_tb;
 
   parameter STRIDE = 2;
   parameter AXI_ADDR_WIDTH = 20;
@@ -86,7 +86,7 @@ module axi_read_words_tb;
       .sram_io_ce_n(sram_io_ce_n)
   );
 
-  axi_read_words #(
+  axi_readn #(
       .STRIDE          (STRIDE),
       .AXI_ADDR_WIDTH  (AXI_ADDR_WIDTH),
       .AXI_DATA_WIDTH  (AXI_DATA_WIDTH),
@@ -95,7 +95,7 @@ module axi_read_words_tb;
       .*
   );
 
-  `TEST_SETUP(axi_read_words_tb)
+  `TEST_SETUP(axi_readn_tb)
 
   // Clock generation
   initial begin
