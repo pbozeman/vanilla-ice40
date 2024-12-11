@@ -4,7 +4,7 @@
 `include "directives.sv"
 
 `include "axi_sram_controller.sv"
-`include "iter_fixed.sv"
+`include "iter.sv"
 `include "sram_pattern_generator.sv"
 `include "sticky_bit.sv"
 `include "sync_fifo.sv"
@@ -123,14 +123,17 @@ module sram_tester_axi #(
       .sram_io_ce_n(sram_io_ce_n)
   );
 
-  iter_fixed #(
-      .MAX_VALUE((1 << ADDR_BITS) - 1)
+  // preserves the semantics of the previous kind of iter
+  iter #(
+      .WIDTH(ADDR_BITS)
   ) addr_gen (
-      .clk  (clk),
-      .reset(reset),
-      .inc  (iter_addr_inc),
-      .val  (iter_addr),
-      .done (iter_addr_done)
+      .clk     (clk),
+      .init    (reset || (iter_addr_done && iter_addr_inc)),
+      .init_val('0),
+      .max_val ('1),
+      .inc     (iter_addr_inc),
+      .val     (iter_addr),
+      .last    (iter_addr_done)
   );
 
   sram_pattern_generator #(
