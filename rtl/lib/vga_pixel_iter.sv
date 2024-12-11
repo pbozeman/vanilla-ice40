@@ -1,12 +1,12 @@
-`ifndef VGA_PIXEL_ADDR_V
-`define VGA_PIXEL_ADDR_V
+`ifndef VGA_PIXEL_ITER_V
+`define VGA_PIXEL_ITER_V
 
 `include "directives.sv"
 
 `include "iter.sv"
 `include "vga_mode.sv"
 
-module vga_pixel_addr #(
+module vga_pixel_iter #(
     parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
     parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
 

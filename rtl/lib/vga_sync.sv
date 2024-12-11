@@ -4,7 +4,7 @@
 `include "directives.sv"
 
 `include "vga_mode.sv"
-`include "vga_pixel_addr.sv"
+`include "vga_pixel_iter.sv"
 
 module vga_sync #(
     parameter H_VISIBLE     = 640,
@@ -41,7 +41,7 @@ module vga_sync #(
   localparam V_SYNC_START = V_VISIBLE + V_FRONT_PORCH;
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
-  vga_pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
+  vga_pixel_iter #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
       .clk   (clk),
       .reset (reset),
       .inc   (inc),

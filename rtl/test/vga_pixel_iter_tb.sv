@@ -3,9 +3,9 @@
 // maybe check the other modes sometime, but this should be fine.
 `ifdef VGA_MODE_640_480_60
 
-`include "vga_pixel_addr.sv"
+`include "vga_pixel_iter.sv"
 
-module vga_pixel_addr_tb;
+module vga_pixel_iter_tb;
   localparam H_WHOLE_LINE = `VGA_MODE_H_WHOLE_LINE;
   localparam V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME;
 
@@ -15,7 +15,7 @@ module vga_pixel_addr_tb;
   logic [9:0] y;
 
   // TODO: add enable tests and last tests
-  vga_pixel_addr #(
+  vga_pixel_iter #(
       .H_WHOLE_LINE (H_WHOLE_LINE),
       .V_WHOLE_FRAME(V_WHOLE_FRAME)
   ) uut (
@@ -33,7 +33,7 @@ module vga_pixel_addr_tb;
     forever #5 clk = ~clk;
   end
 
-  `TEST_SETUP(vga_pixel_addr_tb);
+  `TEST_SETUP(vga_pixel_iter_tb);
 
   initial begin
     // Reset
@@ -97,7 +97,7 @@ module vga_pixel_addr_tb;
   end
 endmodule
 `else
-module vga_pixel_addr_tb;
+module vga_pixel_iter_tb;
 endmodule
 `endif
 
