@@ -79,12 +79,12 @@ module tlight #(
   ) vga_sync_i (
       .clk    (clk),
       .reset  (reset),
-      .enable (1'b1),
+      .inc    (1'b1),
       .visible(vga_visible),
-      .column (),
-      .row    (),
       .hsync  (vga_hsync),
-      .vsync  (vga_vsync)
+      .vsync  (vga_vsync),
+      .x      (),
+      .y      ()
   );
 
   //

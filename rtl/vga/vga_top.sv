@@ -62,15 +62,15 @@ module vga_top (
   logic visible;
   // verilator lint_on UNUSEDSIGNAL
 
-  logic [FB_X_BITS-1:0] column;
-  logic [FB_Y_BITS-1:0] row;
+  logic [FB_X_BITS-1:0] x;
+  logic [FB_Y_BITS-1:0] y;
 
   logic [3:0] red;
   logic [3:0] green;
   logic [3:0] blue;
 
   logic vga_clk;
-  logic enable = 1'b1;
+  logic inc = 1'b1;
 
   vga_pll vga_pll_inst (
       .clk_i(CLK),
@@ -91,12 +91,12 @@ module vga_top (
   ) vga_inst (
       .clk(vga_clk),
       .reset(reset),
-      .enable(enable),
+      .inc(inc),
       .visible(visible),
       .hsync(`VGA_HSYNC),
       .vsync(`VGA_VSYNC),
-      .column(column),
-      .row(row)
+      .x(x),
+      .y(y)
   );
 
   vga_test_01 #(
@@ -106,8 +106,8 @@ module vga_top (
       .V_VISIBLE    (V_VISIBLE),
       .V_WHOLE_FRAME(V_WHOLE_FRAME)
   ) vga_pattern (
-      .column(column),
-      .row(row),
+      .x(x),
+      .y(y),
       .red(red),
       .green(green),
       .blue(blue)

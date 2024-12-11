@@ -18,22 +18,22 @@ module vga_test_01_tb;
   localparam V_BACK_PORCH = `VGA_MODE_V_BACK_PORCH;
   localparam V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME;
 
-  localparam COLUMN_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
-  localparam ROW_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
+  localparam col_BITS = $clog2(`VGA_MODE_H_WHOLE_LINE);
+  localparam Y_BITS = $clog2(`VGA_MODE_V_WHOLE_FRAME);
 
-  logic                   clk = 1'b0;
-  logic                   reset = 1'b0;
-  logic                   visible;
-  logic                   hsync;
-  logic                   vsync;
-  logic [COLUMN_BITS-1:0] column;
-  logic [   ROW_BITS-1:0] row;
-  logic [            3:0] red;
-  logic [            3:0] green;
-  logic [            3:0] blue;
+  logic                clk = 1'b0;
+  logic                reset = 1'b0;
+  logic                visible;
+  logic                hsync;
+  logic                vsync;
+  logic [col_BITS-1:0] x;
+  logic [  Y_BITS-1:0] y;
+  logic [         3:0] red;
+  logic [         3:0] green;
+  logic [         3:0] blue;
 
-  // TODO: add enable tests
-  logic                   enable = 1'b1;
+  // TODO: add inc tests
+  logic                inc = 1'b1;
 
   vga_sync #(
       .H_VISIBLE    (H_VISIBLE),
@@ -50,12 +50,12 @@ module vga_test_01_tb;
   ) vga_inst (
       .clk    (clk),
       .reset  (reset),
-      .enable (enable),
+      .inc    (inc),
       .visible(visible),
       .hsync  (hsync),
       .vsync  (vsync),
-      .column (column),
-      .row    (row)
+      .x      (x),
+      .y      (y)
   );
 
   vga_test_01 #(
@@ -65,11 +65,11 @@ module vga_test_01_tb;
       .V_VISIBLE    (V_VISIBLE),
       .V_WHOLE_FRAME(V_WHOLE_FRAME)
   ) vga_pattern (
-      .column(column),
-      .row   (row),
-      .red   (red),
-      .green (green),
-      .blue  (blue)
+      .x    (x),
+      .y    (y),
+      .red  (red),
+      .green(green),
+      .blue (blue)
   );
 
   // mode specific clock

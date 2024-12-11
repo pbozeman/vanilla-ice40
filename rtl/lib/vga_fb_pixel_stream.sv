@@ -73,8 +73,8 @@ module vga_fb_pixel_stream #(
   logic                 fb_pixel_visible;
   logic                 fb_pixel_hsync;
   logic                 fb_pixel_vsync;
-  logic [FB_X_BITS-1:0] fb_pixel_column;
-  logic [FB_Y_BITS-1:0] fb_pixel_row;
+  logic [FB_X_BITS-1:0] fb_pixel_x;
+  logic [FB_Y_BITS-1:0] fb_pixel_y;
 
   // In this context, fb_pixel_visible is the previous value. Keep generating
   // pixels in the non-visible area as long as we are enabled.
@@ -99,17 +99,17 @@ module vga_fb_pixel_stream #(
   ) sync (
       .clk    (clk),
       .reset  (reset),
-      .enable (fb_pixel_inc),
+      .inc    (fb_pixel_inc),
       .visible(fb_pixel_visible),
       .hsync  (fb_pixel_hsync),
       .vsync  (fb_pixel_vsync),
-      .column (fb_pixel_column),
-      .row    (fb_pixel_row)
+      .x      (fb_pixel_x),
+      .y      (fb_pixel_y)
   );
 
   logic [AXI_ADDR_WIDTH-1:0] fb_pixel_addr_calc;
-  assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_row +
-                               AXI_ADDR_WIDTH'(fb_pixel_column));
+  assign fb_pixel_addr_calc = (H_VISIBLE * fb_pixel_y +
+                               AXI_ADDR_WIDTH'(fb_pixel_x));
 
   // Pipelined versions of the signals prior to kicking off the read.
   // This is to pipeline the mult/add of the addr.

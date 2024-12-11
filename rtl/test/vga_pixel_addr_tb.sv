@@ -11,8 +11,8 @@ module vga_pixel_addr_tb;
 
   logic       clk;
   logic       reset;
-  logic [9:0] column;
-  logic [9:0] row;
+  logic [9:0] x;
+  logic [9:0] y;
 
   // TODO: add enable tests
   logic       enable = 1'b1;
@@ -21,11 +21,11 @@ module vga_pixel_addr_tb;
       .H_WHOLE_LINE (H_WHOLE_LINE),
       .V_WHOLE_FRAME(V_WHOLE_FRAME)
   ) uut (
-      .clk   (clk),
-      .reset (reset),
-      .enable(enable),
-      .column(column),
-      .row   (row)
+      .clk  (clk),
+      .reset(reset),
+      .inc  (enable),
+      .x    (x),
+      .y    (y)
   );
 
   initial begin
@@ -44,54 +44,54 @@ module vga_pixel_addr_tb;
     @(posedge clk);
 
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 0);
 
     @(posedge clk);
     reset = 0;
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 0);
 
     @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 1);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 1);
+    `ASSERT_EQ(y, 0);
 
     @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 2);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 2);
+    `ASSERT_EQ(y, 0);
 
     // Advance to end of line
     repeat (797) @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 799);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 799);
+    `ASSERT_EQ(y, 0);
 
     // Row should roll over
     @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 1);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 1);
 
     // Advance to next line
     repeat (800) @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 2);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 2);
 
     // Advance to next line
     repeat (522) repeat (800) @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 524);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 524);
 
     // Should advance to next frame
     repeat (800) @(posedge clk);
     #1;
-    `ASSERT_EQ(column, 0);
-    `ASSERT_EQ(row, 0);
+    `ASSERT_EQ(x, 0);
+    `ASSERT_EQ(y, 0);
 
     $finish;
   end

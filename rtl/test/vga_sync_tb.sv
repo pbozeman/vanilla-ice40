@@ -23,13 +23,13 @@ module vga_sync_tb;
   logic       visible;
   logic       hsync;
   logic       vsync;
-  logic [9:0] column;
-  logic [9:0] row;
+  logic [9:0] x;
+  logic [9:0] y;
 
   logic [3:0] frames = 0;
 
-  // TODO: add enable tests
-  logic       enable = 1'b1;
+  // TODO: add inc tests
+  logic       inc = 1'b1;
 
   vga_sync #(
       .H_VISIBLE    (H_VISIBLE),
@@ -46,12 +46,12 @@ module vga_sync_tb;
   ) uut (
       .clk    (clk),
       .reset  (reset),
-      .enable (enable),
+      .inc    (inc),
       .visible(visible),
       .hsync  (hsync),
       .vsync  (vsync),
-      .column (column),
-      .row    (row)
+      .x      (x),
+      .y      (y)
   );
 
   // clock generator
@@ -79,18 +79,18 @@ module vga_sync_tb;
 
   // invariants
   always @(posedge clk) begin
-    `ASSERT(column < 800)
-    `ASSERT(row < 525)
+    `ASSERT(x < 800)
+    `ASSERT(y < 525)
 
     // visible should only be on for display area
-    if (column < 640 && row < 480) begin
+    if (x < 640 && y < 480) begin
       `ASSERT(visible)
     end else begin
       `ASSERT(!visible)
     end
 
     // vsync should only be on for lines 490 and 491
-    if (row == 490 || row == 491) begin
+    if (y == 490 || y == 491) begin
       // Low active
       `ASSERT(!vsync)
     end else begin
@@ -98,13 +98,13 @@ module vga_sync_tb;
     end
 
     // hsync test
-    if (column >= 656 && column < 752) begin
+    if (x >= 656 && x < 752) begin
       `ASSERT(!hsync)
     end else begin
       `ASSERT(hsync);
     end
 
-    if (row == 524 && column == 799) begin
+    if (y == 524 && x == 799) begin
       frames <= frames + 1;
     end
   end

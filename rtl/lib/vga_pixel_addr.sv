@@ -10,43 +10,43 @@ module vga_pixel_addr #(
     parameter H_WHOLE_LINE  = `VGA_MODE_H_WHOLE_LINE,
     parameter V_WHOLE_FRAME = `VGA_MODE_V_WHOLE_FRAME,
 
-    localparam COLUMN_BITS = $clog2(H_WHOLE_LINE),
-    localparam ROW_BITS    = $clog2(V_WHOLE_FRAME)
+    localparam X_BITS = $clog2(H_WHOLE_LINE),
+    localparam Y_BITS = $clog2(V_WHOLE_FRAME)
 ) (
-    input  logic                   clk,
-    input  logic                   reset,
-    input  logic                   enable,
-    output logic [COLUMN_BITS-1:0] column,
-    output logic [   ROW_BITS-1:0] row
+    input  logic              clk,
+    input  logic              reset,
+    input  logic              inc,
+    output logic [X_BITS-1:0] x,
+    output logic [Y_BITS-1:0] y
 );
-  logic col_last;
-  logic row_last;
+  logic x_last;
+  logic y_last;
 
-  // Using enable with the init might seem strange, but the reason is that we
+  // Using inc with the init might seem strange, but the reason is that we
   // init is similar to inc. The caller doesn't want values to change when
-  // enable is low.
+  // inc is low.
   iter #(
-      .WIDTH(COLUMN_BITS)
+      .WIDTH(X_BITS)
   ) h_counter_i (
       .clk     (clk),
-      .init    (reset || (col_last && enable)),
+      .init    (reset || (x_last && inc)),
       .init_val('0),
-      .max_val (COLUMN_BITS'(H_WHOLE_LINE - 1)),
-      .inc     (enable),
-      .val     (column),
-      .last    (col_last)
+      .max_val (X_BITS'(H_WHOLE_LINE - 1)),
+      .inc     (inc),
+      .val     (x),
+      .last    (x_last)
   );
 
   iter #(
-      .WIDTH(ROW_BITS)
+      .WIDTH(Y_BITS)
   ) v_counter_i (
       .clk     (clk),
-      .init    (reset || (row_last && col_last && enable)),
+      .init    (reset || (y_last && x_last && inc)),
       .init_val('0),
-      .max_val (ROW_BITS'(V_WHOLE_FRAME - 1)),
-      .inc     (col_last && enable),
-      .val     (row),
-      .last    (row_last)
+      .max_val (Y_BITS'(V_WHOLE_FRAME - 1)),
+      .inc     (x_last && inc),
+      .val     (y),
+      .last    (y_last)
   );
 
 endmodule
