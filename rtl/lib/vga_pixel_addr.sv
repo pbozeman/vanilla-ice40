@@ -17,11 +17,10 @@ module vga_pixel_addr #(
     input  logic              reset,
     input  logic              inc,
     output logic [X_BITS-1:0] x,
-    output logic [Y_BITS-1:0] y
+    output logic [Y_BITS-1:0] y,
+    output logic              x_last,
+    output logic              y_last
 );
-  logic x_last;
-  logic y_last;
-
   // Using inc with the init might seem strange, but the reason is that we
   // init is similar to inc. The caller doesn't want values to change when
   // inc is low.

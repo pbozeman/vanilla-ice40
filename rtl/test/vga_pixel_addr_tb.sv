@@ -14,18 +14,18 @@ module vga_pixel_addr_tb;
   logic [9:0] x;
   logic [9:0] y;
 
-  // TODO: add enable tests
-  logic       enable = 1'b1;
-
+  // TODO: add enable tests and last tests
   vga_pixel_addr #(
       .H_WHOLE_LINE (H_WHOLE_LINE),
       .V_WHOLE_FRAME(V_WHOLE_FRAME)
   ) uut (
-      .clk  (clk),
-      .reset(reset),
-      .inc  (enable),
-      .x    (x),
-      .y    (y)
+      .clk   (clk),
+      .reset (reset),
+      .inc   (1'b1),
+      .x     (x),
+      .y     (y),
+      .x_last(),
+      .y_last()
   );
 
   initial begin

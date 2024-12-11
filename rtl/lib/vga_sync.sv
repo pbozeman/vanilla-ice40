@@ -42,11 +42,13 @@ module vga_sync #(
   localparam V_SYNC_END = V_SYNC_START + V_SYNC_PULSE;
 
   vga_pixel_addr #(H_WHOLE_LINE, V_WHOLE_FRAME) addr (
-      .clk  (clk),
-      .reset(reset),
-      .inc  (inc),
-      .x    (x),
-      .y    (y)
+      .clk   (clk),
+      .reset (reset),
+      .inc   (inc),
+      .x     (x),
+      .y     (y),
+      .x_last(),
+      .y_last()
   );
 
   assign visible = (x < H_VISIBLE && y < V_VISIBLE) ? 1 : 0;
