@@ -60,6 +60,11 @@ module vga_sync_tb;
   `TEST_SETUP(vga_sync_tb);
 
   initial begin
+    reset = 1;
+    @(posedge clk);
+    reset = 0;
+    @(posedge clk);
+
     // 3 frames
     repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
       @(posedge clk);
@@ -67,7 +72,7 @@ module vga_sync_tb;
 
     // Make sure we actually did stuff
     @(negedge clk);
-    `ASSERT(frames == 3);
+    `ASSERT_EQ(frames, 3);
 
     $finish;
   end
