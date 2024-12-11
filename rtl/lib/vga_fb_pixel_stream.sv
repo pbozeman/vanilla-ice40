@@ -57,18 +57,18 @@ module vga_fb_pixel_stream #(
     // The AXI interface backing the frame buffer.
     // This module is the master.
     //
-    output logic [AXI_ADDR_WIDTH-1:0] sram_axi_araddr,
-    output logic                      sram_axi_arvalid,
-    input  logic                      sram_axi_arready,
+    output logic [AXI_ADDR_WIDTH-1:0] axi_araddr,
+    output logic                      axi_arvalid,
+    input  logic                      axi_arready,
     // verilator lint_off UNUSEDSIGNAL
     // We don't use all the bits. Consider a more surgical unused.
-    input  logic [AXI_DATA_WIDTH-1:0] sram_axi_rdata,
+    input  logic [AXI_DATA_WIDTH-1:0] axi_rdata,
     // verilator lint_on UNUSEDSIGNAL
-    output logic                      sram_axi_rready,
+    output logic                      axi_rready,
     // verilator lint_off UNUSEDSIGNAL
-    input  logic [               1:0] sram_axi_rresp,
+    input  logic [               1:0] axi_rresp,
     // verilator lint_on UNUSEDSIGNAL
-    input  logic                      sram_axi_rvalid
+    input  logic                      axi_rvalid
 );
   logic                 fb_pixel_visible;
   logic                 fb_pixel_hsync;
@@ -151,8 +151,8 @@ module vga_fb_pixel_stream #(
   logic read_accepted;
   logic read_done;
 
-  assign read_accepted = sram_axi_arready & sram_axi_arvalid;
-  assign read_done     = sram_axi_rready & sram_axi_rvalid;
+  assign read_accepted = axi_arready & axi_arvalid;
+  assign read_done     = axi_rready & axi_rvalid;
 
   // state machine
   always_comb begin
@@ -207,13 +207,13 @@ module vga_fb_pixel_stream #(
 
   always_ff @(posedge clk) begin
     if (reset) begin
-      sram_axi_arvalid <= 1'b0;
+      axi_arvalid <= 1'b0;
     end else begin
       if (read_start_p1) begin
-        sram_axi_arvalid <= 1'b1;
+        axi_arvalid <= 1'b1;
       end else begin
         if (read_accepted) begin
-          sram_axi_arvalid <= 1'b0;
+          axi_arvalid <= 1'b0;
         end
       end
     end
@@ -221,13 +221,13 @@ module vga_fb_pixel_stream #(
 
   always_ff @(posedge clk) begin
     if (read_start_p1) begin
-      sram_axi_araddr <= fb_pixel_addr_p1;
+      axi_araddr <= fb_pixel_addr_p1;
     end
   end
 
   always_ff @(posedge clk) begin
     if (reset) begin
-      sram_axi_rready <= 1'b1;
+      axi_rready <= 1'b1;
     end
   end
 
@@ -304,7 +304,7 @@ module vga_fb_pixel_stream #(
       end else begin
         if (read_done) begin
           pixel_valid <= 1'b1;
-          pixel_data  <= sram_axi_rdata[PIXEL_BITS-1:0];
+          pixel_data  <= axi_rdata[PIXEL_BITS-1:0];
         end
       end
     end

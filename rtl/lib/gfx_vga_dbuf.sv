@@ -210,16 +210,16 @@ module gfx_vga_dbuf #(
       .addr (fbw_addr),
       .color(fbw_color),
 
-      .sram_axi_awaddr (gfx_axi_awaddr),
-      .sram_axi_awvalid(gfx_axi_awvalid),
-      .sram_axi_awready(gfx_axi_awready),
-      .sram_axi_wdata  (gfx_axi_wdata),
-      .sram_axi_wstrb  (gfx_axi_wstrb),
-      .sram_axi_wvalid (gfx_axi_wvalid),
-      .sram_axi_wready (gfx_axi_wready),
-      .sram_axi_bvalid (gfx_axi_bvalid),
-      .sram_axi_bready (gfx_axi_bready),
-      .sram_axi_bresp  (gfx_axi_bresp)
+      .axi_awaddr (gfx_axi_awaddr),
+      .axi_awvalid(gfx_axi_awvalid),
+      .axi_awready(gfx_axi_awready),
+      .axi_wdata  (gfx_axi_wdata),
+      .axi_wstrb  (gfx_axi_wstrb),
+      .axi_wvalid (gfx_axi_wvalid),
+      .axi_wready (gfx_axi_wready),
+      .axi_bvalid (gfx_axi_bvalid),
+      .axi_bready (gfx_axi_bready),
+      .axi_bresp  (gfx_axi_bresp)
   );
 
   //
@@ -275,13 +275,13 @@ module gfx_vga_dbuf #(
       .color  (vga_fb_color),
       .addr   (vga_fb_addr),
 
-      .sram_axi_araddr (disp_axi_araddr),
-      .sram_axi_arvalid(disp_axi_arvalid),
-      .sram_axi_arready(disp_axi_arready),
-      .sram_axi_rdata  (disp_axi_rdata),
-      .sram_axi_rready (disp_axi_rready),
-      .sram_axi_rresp  (disp_axi_rresp),
-      .sram_axi_rvalid (disp_axi_rvalid)
+      .axi_araddr (disp_axi_araddr),
+      .axi_arvalid(disp_axi_arvalid),
+      .axi_arready(disp_axi_arready),
+      .axi_rdata  (disp_axi_rdata),
+      .axi_rready (disp_axi_rready),
+      .axi_rresp  (disp_axi_rresp),
+      .axi_rvalid (disp_axi_rvalid)
   );
 
   // pass vsync back to the gfx caller in case they need it

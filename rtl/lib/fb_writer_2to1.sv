@@ -30,16 +30,16 @@ module fb_writer_2to1 #(
     input  logic [    PIXEL_BITS-1:0] in1_color,
 
     // The AXI interface backing the frame buffer.
-    output logic [        AXI_ADDR_WIDTH-1:0] sram_axi_awaddr,
-    output logic                              sram_axi_awvalid,
-    input  logic                              sram_axi_awready,
-    output logic [        AXI_DATA_WIDTH-1:0] sram_axi_wdata,
-    output logic [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
-    output logic                              sram_axi_wvalid,
-    input  logic                              sram_axi_wready,
-    output logic                              sram_axi_bready,
-    input  logic                              sram_axi_bvalid,
-    input  logic [                       1:0] sram_axi_bresp
+    output logic [        AXI_ADDR_WIDTH-1:0] axi_awaddr,
+    output logic                              axi_awvalid,
+    input  logic                              axi_awready,
+    output logic [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    output logic [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    output logic                              axi_wvalid,
+    input  logic                              axi_wready,
+    output logic                              axi_bready,
+    input  logic                              axi_bvalid,
+    input  logic [                       1:0] axi_bresp
 );
   //
   // Concatenate the inputs (one extra the idle channel)
@@ -128,16 +128,16 @@ module fb_writer_2to1 #(
       .addr (fbw_addr),
       .color(fbw_color),
 
-      .sram_axi_awaddr (sram_axi_awaddr),
-      .sram_axi_awvalid(sram_axi_awvalid),
-      .sram_axi_awready(sram_axi_awready),
-      .sram_axi_wdata  (sram_axi_wdata),
-      .sram_axi_wstrb  (sram_axi_wstrb),
-      .sram_axi_wvalid (sram_axi_wvalid),
-      .sram_axi_wready (sram_axi_wready),
-      .sram_axi_bvalid (sram_axi_bvalid),
-      .sram_axi_bready (sram_axi_bready),
-      .sram_axi_bresp  (sram_axi_bresp)
+      .axi_awaddr (axi_awaddr),
+      .axi_awvalid(axi_awvalid),
+      .axi_awready(axi_awready),
+      .axi_wdata  (axi_wdata),
+      .axi_wstrb  (axi_wstrb),
+      .axi_wvalid (axi_wvalid),
+      .axi_wready (axi_wready),
+      .axi_bvalid (axi_bvalid),
+      .axi_bready (axi_bready),
+      .axi_bresp  (axi_bresp)
   );
 
 endmodule

@@ -109,13 +109,13 @@ module vga_fb_pixel_stream_tb;
       .color(pixel_stream_color),
       .addr (pixel_stream_addr),
 
-      .sram_axi_araddr (sram0_axi_araddr),
-      .sram_axi_arvalid(sram0_axi_arvalid),
-      .sram_axi_arready(sram0_axi_arready),
-      .sram_axi_rdata  (sram0_axi_rdata),
-      .sram_axi_rready (sram0_axi_rready),
-      .sram_axi_rresp  (sram0_axi_rresp),
-      .sram_axi_rvalid (sram0_axi_rvalid)
+      .axi_araddr (sram0_axi_araddr),
+      .axi_arvalid(sram0_axi_arvalid),
+      .axi_arready(sram0_axi_arready),
+      .axi_rdata  (sram0_axi_rdata),
+      .axi_rready (sram0_axi_rready),
+      .axi_rresp  (sram0_axi_rresp),
+      .axi_rvalid (sram0_axi_rvalid)
   );
 
   axi_sram_controller #(

@@ -32,31 +32,31 @@ module fb_writer #(
     // The AXI interface backing the frame buffer.
     // This module is the master.
     //
-    output logic [        AXI_ADDR_WIDTH-1:0] sram_axi_awaddr,
-    output logic                              sram_axi_awvalid,
-    input  logic                              sram_axi_awready,
-    output logic [        AXI_DATA_WIDTH-1:0] sram_axi_wdata,
-    output logic [((AXI_DATA_WIDTH+7)/8)-1:0] sram_axi_wstrb,
-    output logic                              sram_axi_wvalid,
-    input  logic                              sram_axi_wready,
-    output logic                              sram_axi_bready,
+    output logic [        AXI_ADDR_WIDTH-1:0] axi_awaddr,
+    output logic                              axi_awvalid,
+    input  logic                              axi_awready,
+    output logic [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    output logic [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    output logic                              axi_wvalid,
+    input  logic                              axi_wready,
+    output logic                              axi_bready,
     // verilator lint_off UNUSEDSIGNAL
-    input  logic                              sram_axi_bvalid,
-    input  logic [                       1:0] sram_axi_bresp
+    input  logic                              axi_bvalid,
+    input  logic [                       1:0] axi_bresp
     // verilator lint_on UNUSEDSIGNAL
 );
 
-  assign sram_axi_awvalid = axi_tvalid;
-  assign sram_axi_awaddr  = addr;
+  assign axi_awvalid = axi_tvalid;
+  assign axi_awaddr  = addr;
 
-  assign sram_axi_wvalid  = axi_tvalid;
-  assign sram_axi_wdata   = {{(AXI_DATA_WIDTH - PIXEL_BITS) {1'b0}}, color};
+  assign axi_wvalid  = axi_tvalid;
+  assign axi_wdata   = {{(AXI_DATA_WIDTH - PIXEL_BITS) {1'b0}}, color};
 
   // We're always ready for a response...because we ignore it ¯\_(ツ)_/¯)
-  assign sram_axi_bready  = 1'b1;
-  assign sram_axi_wstrb   = {((AXI_DATA_WIDTH + 7) / 8) {1'b1}};
+  assign axi_bready  = 1'b1;
+  assign axi_wstrb   = {((AXI_DATA_WIDTH + 7) / 8) {1'b1}};
 
-  assign axi_tready       = (sram_axi_awready & sram_axi_wready);
+  assign axi_tready  = (axi_awready & axi_wready);
 
 endmodule
 
