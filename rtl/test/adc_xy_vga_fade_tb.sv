@@ -1,7 +1,7 @@
 `include "testing.sv"
 
 `include "adc_xy_vga_fade.sv"
-`include "counter_fixed.sv"
+`include "counter.sv"
 `include "sram_model.sv"
 `include "sticky_bit.sv"
 `include "vga_mode.sv"
@@ -87,22 +87,22 @@ module adc_xy_vga_fade_tb;
   assign adc_grn_io = 1'b1;
   assign adc_blu_io = 1'b1;
 
-  counter_fixed #(
-      .MAX_VALUE(1023)
+  counter #(
+      .WIDTH($clog2(1023))
   ) counter_x_inst (
       .clk   (adc_clk),
       .reset (reset),
       .enable(!reset),
-      .count (adc_x_io)
+      .val   (adc_x_io)
   );
 
-  counter_fixed #(
-      .MAX_VALUE(1023)
+  counter #(
+      .WIDTH($clog2(1023))
   ) counter_y_inst (
       .clk   (adc_clk),
       .reset (reset),
       .enable(!reset),
-      .count (adc_y_io)
+      .val   (adc_y_io)
   );
 
   // 100mhz
