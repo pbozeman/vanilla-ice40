@@ -35,7 +35,8 @@ DIRS := $(filter-out $(TEST_DIR)/, $(wildcard */))
 TOP_DIRS := $(filter-out $(TEST_DIR)/, $(DIRS))
 
 # Top modules
-TOP_MODULES := $(filter-out $(TOP_IGNORE), $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv)))
+TOP_MODULES_ALL := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv))
+TOP_MODULES := $(filter-out $(TOP_IGNORE), $(TOP_MODULES_ALL))
 
 ifneq ($(DEVICE),hx8k)
   TOP_MODULES := $(filter-out %left_top.sv %both_top.sv, $(TOP_MODULES))
@@ -63,6 +64,7 @@ LINTER := verilator -DLINTING=1 -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) --lint-only
 
 # Add top module names (without directory prefix and .sv suffix)
 TOP_MODULE_NAMES := $(notdir $(basename $(TOP_MODULES)))
+TOP_MODULE_NAMES_ALL := $(notdir $(basename $(TOP_MODULES_ALL)))
 
 # Formatter
 #
@@ -246,8 +248,8 @@ check: lint unit
 # Linting
 #
 ##############################################################################
-.PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES))
-lint: $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES))
+.PHONY: lint lint_% $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES_ALL))
+lint: $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES_ALL))
 
 LINT_TB_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).sv
 define lint_tb_rule
@@ -258,14 +260,14 @@ endef
 
 $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_tb_rule,$(tb))))
 
-LINT_TOP_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(filter %/$(1).sv,$(TOP_MODULES))
+LINT_TOP_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(filter %/$(1).sv,$(TOP_MODULES_ALL))
 define lint_top_rule
 lint_$(1):
 	@echo "make lint_$1"
 	@$(LINT_TOP_CMD) || (echo $(LINT_TOP_CMD); exit 1)
 endef
 
-$(foreach top,$(TOP_MODULE_NAMES),$(eval $(call lint_top_rule,$(top))))
+$(foreach top,$(TOP_MODULE_NAMES_ALL),$(eval $(call lint_top_rule,$(top))))
 
 ##############################################################################
 #
