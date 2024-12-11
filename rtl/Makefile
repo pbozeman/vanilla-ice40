@@ -252,7 +252,7 @@ lint: $(addprefix lint_, $(TEST_BENCHES)) $(addprefix lint_, $(TOP_MODULE_NAMES)
 LINT_TB_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(TEST_DIR)/$(1).sv
 define lint_tb_rule
 lint_$(1):
-	@echo "make lint $1"
+	@echo "make lint_$1"
 	@$(LINT_TB_CMD) || (echo $(LINT_TB_CMD); exit 1)
 endef
 
@@ -261,7 +261,7 @@ $(foreach tb,$(TEST_BENCHES),$(eval $(call lint_tb_rule,$(tb))))
 LINT_TOP_CMD=$(LINTER) $(foreach dir,$(DIRS),-I$(dir)) -I$(TEST_DIR) $(filter %/$(1).sv,$(TOP_MODULES))
 define lint_top_rule
 lint_$(1):
-	@echo "make lint $1"
+	@echo "make lint_$1"
 	@$(LINT_TOP_CMD) || (echo $(LINT_TOP_CMD); exit 1)
 endef
 
