@@ -141,6 +141,7 @@ module axi_stripe_readn_tb;
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'h1001);
+      `ASSERT_EQ(in_axi_rlast, 1'b1);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b0);
@@ -163,18 +164,22 @@ module axi_stripe_readn_tb;
 
       `WAIT_FOR_SIGNAL(in_axi_rvalid);
       `ASSERT_EQ(in_axi_rdata, 16'hA000);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA001);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA002);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA003);
+      `ASSERT_EQ(in_axi_rlast, 1'b1);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b0);
@@ -201,14 +206,17 @@ module axi_stripe_readn_tb;
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA001);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA002);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hA003);
+      `ASSERT_EQ(in_axi_rlast, 1'b1);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b0);
@@ -223,18 +231,22 @@ module axi_stripe_readn_tb;
 
       `WAIT_FOR_SIGNAL(in_axi_rvalid);
       `ASSERT_EQ(in_axi_rdata, 16'hB000);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hB001);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hB002);
+      `ASSERT_EQ(in_axi_rlast, 1'b0);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b1);
       `ASSERT_EQ(in_axi_rdata, 16'hB003);
+      `ASSERT_EQ(in_axi_rlast, 1'b1);
 
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b0);

@@ -210,7 +210,7 @@ module axi_stripe_readn #(
   //
   // burst signals back to the caller
   //
-  assign in_axi_rlast   = state == COMPLETE;
+  assign in_axi_rlast   = next_state == COMPLETE;
   assign in_axi_arready = state == COMPLETE;
 
 endmodule
