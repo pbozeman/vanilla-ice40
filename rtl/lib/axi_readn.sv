@@ -60,6 +60,9 @@ module axi_readn #(
   // but the addr management is tricky to not avoid a circular dependency
   // due to addr_last. For the initial use case of this, this optimization
   // is not needed.
+  //
+  // TODO: it might be possible to get rid of the state machine like was
+  // done in vga_fb_stream_stiped.
   localparam [1:0] IDLE = 2'b00;
   localparam [1:0] INIT_BURST = 2'b01;
   localparam [1:0] READING_BEATS = 2'b10;
@@ -115,7 +118,7 @@ module axi_readn #(
       end
 
       READING_BEATS: begin
-        if (beat_read_accepted) begin
+        if (!out_axi_arvalid || out_axi_arready) begin
           if (!addr_done) begin
             beat_read_start = (!meta_fifo_w_almost_full &&
                                !res_fifo_w_almost_full);
@@ -149,7 +152,7 @@ module axi_readn #(
     if (burst_start) begin
       addr_done <= 1'b0;
     end else begin
-      if (beat_read_accepted) begin
+      if (beat_read_start) begin
         addr_done <= addr_last;
       end
     end

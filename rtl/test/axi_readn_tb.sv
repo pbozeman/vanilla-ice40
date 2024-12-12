@@ -294,12 +294,15 @@ module axi_readn_tb;
 
   // Test sequence
   initial begin
-    // test_single_read();
-    // test_burst_read_2();
-    // test_burst_read_3();
-    // test_burst_read_delay();
+    test_single_read();
+    test_burst_read_2();
+    test_burst_read_3();
+    test_burst_read_delay();
 
     test_burst_read_2_again();
+
+    // TODO: add a test that fills the response fifo inside readn to make sure
+    // reads start again after the almost full condition is cleared.
     #100;
 
     $finish;
