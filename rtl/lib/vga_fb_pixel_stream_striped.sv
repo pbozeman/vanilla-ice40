@@ -20,12 +20,11 @@
 `include "iter.sv"
 `include "vga_mode.sv"
 
-// verilator lint_off UNUSEDSIGNAL
-// verilator lint_off UNUSEDPARAM
 module vga_fb_pixel_stream_striped #(
     parameter NUM_S      = 2,
     parameter PIXEL_BITS = 12,
 
+    // verilator lint_off UNUSEDPARAM
     parameter H_VISIBLE     = 640,
     parameter H_FRONT_PORCH = 16,
     parameter H_SYNC_PULSE  = 96,
@@ -37,6 +36,7 @@ module vga_fb_pixel_stream_striped #(
     parameter V_SYNC_PULSE  = 2,
     parameter V_BACK_PORCH  = 33,
     parameter V_WHOLE_FRAME = 525,
+    // verilator lint_on UNUSEDPARAM
 
     parameter AXI_ADDR_WIDTH = 20,
     parameter AXI_DATA_WIDTH = 16
@@ -82,9 +82,6 @@ module vga_fb_pixel_stream_striped #(
   // fb reader
   //
   localparam AXI_ARLENW_WIDTH = $clog2(H_VISIBLE);
-  logic                        burst_read_start;
-  logic                        burst_read_accepted;
-
   logic                        beat_read_done;
   logic                        beat_read_done_last;
 
@@ -92,8 +89,11 @@ module vga_fb_pixel_stream_striped #(
   logic [AXI_ARLENW_WIDTH-1:0] axi_arlenw;
   logic                        axi_arvalid;
   logic                        axi_arready;
+  // verilator lint_off UNUSEDSIGNAL
+  // Not all bits of rdata are used
   logic [  AXI_DATA_WIDTH-1:0] axi_rdata;
   logic [                 1:0] axi_rresp;
+  // verilator lint_on UNUSEDSIGNAL
   logic                        axi_rvalid;
   logic                        axi_rlast;
   logic                        axi_rready;
@@ -299,8 +299,5 @@ module vga_fb_pixel_stream_striped #(
   assign color   = pixel_data;
 
 endmodule
-
-// verilator lint_on UNUSEDSIGNAL
-// verilator lint_on UNUSEDPARAM
 
 `endif
