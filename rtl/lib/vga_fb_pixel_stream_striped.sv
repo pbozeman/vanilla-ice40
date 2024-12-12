@@ -198,7 +198,7 @@ module vga_fb_pixel_stream_striped #(
     if (reset) begin
       axi_arvalid <= 1'b0;
     end else begin
-      if (!axi_arvalid || axi_arready) begin
+      if (enable && (!axi_arvalid || axi_arready)) begin
         axi_araddr  <= fb_y * H_VISIBLE;
         axi_arlenw  <= AXI_ARLENW_WIDTH'(H_VISIBLE - 1);
         axi_arvalid <= 1'b1;
@@ -282,11 +282,13 @@ module vga_fb_pixel_stream_striped #(
           pixel_data    <= axi_rdata[PIXEL_BITS-1:0];
         end
       end else begin
-        pixel_valid   <= 1'b1;
-        pixel_visible <= 1'b0;
-        pixel_hsync   <= !hsync_pulse;
-        pixel_vsync   <= !vsync_pulse;
-        pixel_data    <= '0;
+        if (enable) begin
+          pixel_valid   <= 1'b1;
+          pixel_visible <= 1'b0;
+          pixel_hsync   <= !hsync_pulse;
+          pixel_vsync   <= !vsync_pulse;
+          pixel_data    <= '0;
+        end
       end
     end
   end
