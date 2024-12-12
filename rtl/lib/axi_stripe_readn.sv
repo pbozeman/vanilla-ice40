@@ -111,7 +111,7 @@ module axi_stripe_readn #(
   logic                strip_idx_inc;
   logic                strip_idx_last;
 
-  assign strip_idx_init = burst_start || strip_idx_last;
+  assign strip_idx_init = burst_start || (strip_idx_last && strip_idx_inc);
   assign strip_idx_inc  = in_axi_rvalid && in_axi_rready;
 
   iter #(
