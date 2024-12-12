@@ -91,7 +91,8 @@ module axi_stripe_writer #(
   );
 
   axi_stripe_router #(
-      .SEL_BITS(SEL_BITS)
+      .SEL_BITS      (SEL_BITS),
+      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH)
   ) axi_stripe_router_i (
       .axi_clk      (axi_clk),
       .axi_resetn   (axi_resetn),
