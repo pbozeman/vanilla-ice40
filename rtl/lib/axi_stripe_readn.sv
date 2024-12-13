@@ -147,7 +147,8 @@ module axi_stripe_readn #(
       end
 
       READING_BEATS: begin
-        if (strip_idx_last && strip_axi_rlast[strip_idx]) begin
+        if ((strip_idx_last && strip_axi_rlast[strip_idx]) &&
+            (in_axi_rvalid && in_axi_rready)) begin
           next_state = COMPLETE;
         end
       end
