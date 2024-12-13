@@ -269,7 +269,8 @@ module vga_fb_pixel_stream_striped #(
       // even though pixel_addr really should only be used when the pixel is
       // visible, always returning it, even for non-visible pixels, helps
       // debug simulations when pixels are dropped.
-      pixel_addr <= (pixel_y * H_VISIBLE) + AXI_ADDR_WIDTH'(pixel_x);
+      pixel_addr  <= (pixel_y * H_VISIBLE) + AXI_ADDR_WIDTH'(pixel_x);
+      pixel_valid <= 1'b0;
 
       if (pixel_x_vis && pixel_y_vis) begin
         pixel_valid <= 1'b0;
