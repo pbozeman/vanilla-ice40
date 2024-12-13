@@ -111,6 +111,9 @@ module vga_sync_tb;
 endmodule
 `else
 module vga_sync_tb;
+  initial begin
+    $finish;
+  end
 endmodule
 
 `endif

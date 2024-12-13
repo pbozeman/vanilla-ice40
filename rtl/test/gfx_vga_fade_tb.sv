@@ -1,5 +1,6 @@
 `include "testing.sv"
 
+`ifdef VGA_MODE_640_480_60
 `include "gfx_vga_fade.sv"
 `include "sram_model.sv"
 `include "sticky_bit.sv"
@@ -487,4 +488,11 @@ module gfx_vga_fade_tb;
   // verilator lint_on WIDTHEXPAND
 
 endmodule
+`else
+module gfx_vga_fade_tb;
+  initial begin
+    $finish;
+  end
+endmodule
+`endif
 // verilator lint_on UNUSEDSIGNAL
