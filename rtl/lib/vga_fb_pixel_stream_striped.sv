@@ -217,10 +217,11 @@ module vga_fb_pixel_stream_striped #(
   //
   // Return pixels to the caller
   //
-  assign pixel_x_iter_init = reset || pixel_x_iter_last;
+  assign pixel_x_iter_init = (enable && pixel_x_iter_last) || reset;
   assign pixel_x_iter_init_val = 0;
   assign pixel_x_iter_max = X_BITS'(H_WHOLE_LINE - 1);
-  assign pixel_x_iter_inc = (beat_read_done || !(pixel_x_vis && pixel_y_vis));
+  assign pixel_x_iter_inc = (beat_read_done ||
+                             (enable && !(pixel_x_vis && pixel_y_vis)));
 
   assign pixel_x_vis = pixel_x < H_VISIBLE;
 
@@ -236,10 +237,11 @@ module vga_fb_pixel_stream_striped #(
       .last    (pixel_x_iter_last)
   );
 
-  assign pixel_y_iter_init = reset || (pixel_y_iter_last && pixel_x_iter_last);
+  assign pixel_y_iter_init = (enable && pixel_y_iter_last &&
+                              pixel_x_iter_last) || reset;
   assign pixel_y_iter_init_val = 0;
   assign pixel_y_iter_max = Y_BITS'(V_WHOLE_FRAME - 1);
-  assign pixel_y_iter_inc = pixel_x_iter_last;
+  assign pixel_y_iter_inc = enable && pixel_x_iter_last;
 
   assign pixel_y_vis = pixel_y < V_VISIBLE;
 
