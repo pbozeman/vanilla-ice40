@@ -25,8 +25,8 @@ module gfx_test_pattern #(
   localparam FB_Y_BITS = $clog2(FB_HEIGHT);
   localparam COLOR_BITS = PIXEL_BITS / 3;
 
-  localparam MAX_X = FB_WIDTH - 1;
-  localparam MAX_Y = FB_HEIGHT - 1;
+  localparam MAX_X = FB_X_BITS'(FB_WIDTH - 1);
+  localparam MAX_Y = FB_Y_BITS'(FB_HEIGHT - 1);
 
   always_comb begin
     last = (x == MAX_X & y == MAX_Y);
@@ -72,11 +72,11 @@ module gfx_test_pattern #(
   localparam color_on = {COLOR_BITS{1'b1}};
   localparam color_off = {COLOR_BITS{1'b0}};
 
-  localparam THIRD_SCREEN = FB_WIDTH / 3;
-  localparam RED_END = THIRD_SCREEN;
-  localparam GRN_START = RED_END;
-  localparam GRN_END = THIRD_SCREEN * 2;
-  localparam BLU_START = GRN_END;
+  localparam THIRD_SCREEN = FB_X_BITS'(FB_WIDTH / 3);
+  localparam RED_END = FB_X_BITS'(THIRD_SCREEN);
+  localparam GRN_START = FB_X_BITS'(RED_END);
+  localparam GRN_END = FB_X_BITS'(THIRD_SCREEN * 2);
+  localparam BLU_START = FB_X_BITS'(GRN_END);
 
   assign red = next_x < RED_END ? color_on : color_off;
   assign grn = next_x >= GRN_START && next_x < GRN_END ? color_on : color_off;

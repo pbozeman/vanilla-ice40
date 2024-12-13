@@ -23,8 +23,8 @@ module gfx_clear #(
     output logic [PIXEL_BITS-1:0] color,
     output logic                  last
 );
-  localparam MAX_X = FB_WIDTH - 1;
-  localparam MAX_Y = FB_HEIGHT - 1;
+  localparam MAX_X = FB_X_BITS'(FB_WIDTH - 1);
+  localparam MAX_Y = FB_Y_BITS'(FB_HEIGHT - 1);
 
   logic [FB_X_BITS-1:0] next_x;
   logic [FB_Y_BITS-1:0] next_y;
