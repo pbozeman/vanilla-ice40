@@ -6,7 +6,7 @@
 
 // verilator lint_off UNUSEDSIGNAL
 module gfx_vga_stripe_tb;
-  localparam NUM_S = 2;
+  localparam NUM_S = 4;
 
   localparam AXI_ADDR_WIDTH = 10;
   localparam AXI_DATA_WIDTH = 16;
