@@ -3,6 +3,7 @@
 
 `include "directives.sv"
 
+`ifdef VGA_MODE_640_480_60
 `include "vga_mode.sv"
 `include "vga_sync.sv"
 
@@ -135,4 +136,9 @@ module tlight #(
   assign {vga_red, vga_grn, vga_blu} = colors[color_sel];
 
 endmodule
+`else
+module tlight;
+endmodule
+`endif
+
 `endif

@@ -3,6 +3,7 @@
 
 `include "directives.sv"
 
+`ifdef VGA_MODE_640_480_60
 `include "initial_reset.sv"
 `include "tlight.sv"
 `include "vga_mode.sv"
@@ -65,5 +66,9 @@ module tlight_top #(
   assign R_F[7]   = 1'b0;
 
 endmodule
+`else
+module tlight_top;
+endmodule
+`endif
 
 `endif
