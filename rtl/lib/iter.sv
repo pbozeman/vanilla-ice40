@@ -23,16 +23,15 @@ module iter #(
 );
   logic [WIDTH-1:0] max_val_r;
 
-  assign last = (val == max_val_r);
-
   always_ff @(posedge clk) begin
     if (init) begin
       val       <= init_val;
       max_val_r <= max_val;
+      last      <= (init_val == max_val);
     end else if (!last && inc) begin
-      val <= val + INC_VAL;
+      val  <= val + INC_VAL;
+      last <= ((val + INC_VAL) == max_val_r);
     end
   end
-
 endmodule
 `endif
