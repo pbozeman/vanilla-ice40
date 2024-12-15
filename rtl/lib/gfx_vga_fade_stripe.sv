@@ -9,12 +9,13 @@
 
 `include "directives.sv"
 
+`include "axi_skidbuf.sv"
 `include "axi_sram_controller.sv"
 `include "axi_stripe_writer.sv"
 `include "cdc_fifo.sv"
 `include "fb_writer_2to1.sv"
-`include "vga_mode.sv"
 `include "vga_fb_pixel_stream_striped.sv"
+`include "vga_mode.sv"
 
 module gfx_vga_fade_stripe #(
     parameter NUM_S      = 2,
@@ -103,6 +104,26 @@ module gfx_vga_fade_stripe #(
   logic [                 NUM_S-1:0]                     fb_axi_rvalid;
   logic [                 NUM_S-1:0]                     fb_axi_rready;
 
+  // sram axi interface
+  logic [                 NUM_S-1:0][AXI_ADDR_WIDTH-1:0] sram_axi_awaddr;
+  logic [                 NUM_S-1:0]                     sram_axi_awvalid;
+  logic [                 NUM_S-1:0]                     sram_axi_awready;
+  logic [                 NUM_S-1:0][AXI_DATA_WIDTH-1:0] sram_axi_wdata;
+  logic [                 NUM_S-1:0][AXI_STRB_WIDTH-1:0] sram_axi_wstrb;
+  logic [                 NUM_S-1:0]                     sram_axi_wvalid;
+  logic [                 NUM_S-1:0]                     sram_axi_wready;
+  logic [                 NUM_S-1:0][               1:0] sram_axi_bresp;
+  logic [                 NUM_S-1:0]                     sram_axi_bvalid;
+  logic [                 NUM_S-1:0]                     sram_axi_bready;
+  logic [                 NUM_S-1:0][AXI_ADDR_WIDTH-1:0] sram_axi_araddr;
+  logic [                 NUM_S-1:0]                     sram_axi_arvalid;
+  logic [                 NUM_S-1:0]                     sram_axi_arready;
+  logic [                 NUM_S-1:0][AXI_DATA_WIDTH-1:0] sram_axi_rdata;
+  logic [                 NUM_S-1:0][               1:0] sram_axi_rresp;
+  logic [                 NUM_S-1:0]                     sram_axi_rvalid;
+  logic [                 NUM_S-1:0]                     sram_axi_rready;
+
+
   for (genvar i = 0; i < NUM_S; i++) begin : gen_s_modules
     axi_sram_controller #(
         .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -110,28 +131,72 @@ module gfx_vga_fade_stripe #(
     ) axi_sram_ctrl_i (
         .axi_clk     (clk),
         .axi_resetn  (~reset),
-        .axi_awaddr  (fb_axi_awaddr[i]),
-        .axi_awvalid (fb_axi_awvalid[i]),
-        .axi_awready (fb_axi_awready[i]),
-        .axi_wdata   (fb_axi_wdata[i]),
-        .axi_wstrb   (fb_axi_wstrb[i]),
-        .axi_wvalid  (fb_axi_wvalid[i]),
-        .axi_wready  (fb_axi_wready[i]),
-        .axi_bresp   (fb_axi_bresp[i]),
-        .axi_bvalid  (fb_axi_bvalid[i]),
-        .axi_bready  (fb_axi_bready[i]),
-        .axi_araddr  (fb_axi_araddr[i]),
-        .axi_arvalid (fb_axi_arvalid[i]),
-        .axi_arready (fb_axi_arready[i]),
-        .axi_rdata   (fb_axi_rdata[i]),
-        .axi_rresp   (fb_axi_rresp[i]),
-        .axi_rvalid  (fb_axi_rvalid[i]),
-        .axi_rready  (fb_axi_rready[i]),
+        .axi_awaddr  (sram_axi_awaddr[i]),
+        .axi_awvalid (sram_axi_awvalid[i]),
+        .axi_awready (sram_axi_awready[i]),
+        .axi_wdata   (sram_axi_wdata[i]),
+        .axi_wstrb   (sram_axi_wstrb[i]),
+        .axi_wvalid  (sram_axi_wvalid[i]),
+        .axi_wready  (sram_axi_wready[i]),
+        .axi_bresp   (sram_axi_bresp[i]),
+        .axi_bvalid  (sram_axi_bvalid[i]),
+        .axi_bready  (sram_axi_bready[i]),
+        .axi_araddr  (sram_axi_araddr[i]),
+        .axi_arvalid (sram_axi_arvalid[i]),
+        .axi_arready (sram_axi_arready[i]),
+        .axi_rdata   (sram_axi_rdata[i]),
+        .axi_rresp   (sram_axi_rresp[i]),
+        .axi_rvalid  (sram_axi_rvalid[i]),
+        .axi_rready  (sram_axi_rready[i]),
         .sram_io_addr(sram_io_addr[i]),
         .sram_io_data(sram_io_data[i]),
         .sram_io_we_n(sram_io_we_n[i]),
         .sram_io_oe_n(sram_io_oe_n[i]),
         .sram_io_ce_n(sram_io_ce_n[i])
+    );
+
+    axi_skidbuf #(
+        .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+        .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+    ) axi_skidbuf_i (
+        .axi_clk   (clk),
+        .axi_resetn(~reset),
+
+        .s_axi_awaddr (fb_axi_awaddr[i]),
+        .s_axi_awvalid(fb_axi_awvalid[i]),
+        .s_axi_awready(fb_axi_awready[i]),
+        .s_axi_wdata  (fb_axi_wdata[i]),
+        .s_axi_wstrb  (fb_axi_wstrb[i]),
+        .s_axi_wvalid (fb_axi_wvalid[i]),
+        .s_axi_wready (fb_axi_wready[i]),
+        .s_axi_bresp  (fb_axi_bresp[i]),
+        .s_axi_bvalid (fb_axi_bvalid[i]),
+        .s_axi_bready (fb_axi_bready[i]),
+        .s_axi_araddr (fb_axi_araddr[i]),
+        .s_axi_arvalid(fb_axi_arvalid[i]),
+        .s_axi_arready(fb_axi_arready[i]),
+        .s_axi_rdata  (fb_axi_rdata[i]),
+        .s_axi_rresp  (fb_axi_rresp[i]),
+        .s_axi_rvalid (fb_axi_rvalid[i]),
+        .s_axi_rready (fb_axi_rready[i]),
+
+        .m_axi_awaddr (sram_axi_awaddr[i]),
+        .m_axi_awvalid(sram_axi_awvalid[i]),
+        .m_axi_awready(sram_axi_awready[i]),
+        .m_axi_wdata  (sram_axi_wdata[i]),
+        .m_axi_wstrb  (sram_axi_wstrb[i]),
+        .m_axi_wvalid (sram_axi_wvalid[i]),
+        .m_axi_wready (sram_axi_wready[i]),
+        .m_axi_bresp  (sram_axi_bresp[i]),
+        .m_axi_bvalid (sram_axi_bvalid[i]),
+        .m_axi_bready (sram_axi_bready[i]),
+        .m_axi_araddr (sram_axi_araddr[i]),
+        .m_axi_arvalid(sram_axi_arvalid[i]),
+        .m_axi_arready(sram_axi_arready[i]),
+        .m_axi_rdata  (sram_axi_rdata[i]),
+        .m_axi_rresp  (sram_axi_rresp[i]),
+        .m_axi_rvalid (sram_axi_rvalid[i]),
+        .m_axi_rready (sram_axi_rready[i])
     );
   end
 
