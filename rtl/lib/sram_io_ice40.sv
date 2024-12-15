@@ -21,7 +21,6 @@ module sram_io_ice40 #(
     parameter integer DATA_BITS = 16
 ) (
     input logic clk,
-    input logic reset,
 
     // to/from the ice40 pad
     input  logic [ADDR_BITS-1:0] pad_addr,
@@ -72,19 +71,11 @@ module sram_io_ice40 #(
   logic [1:0] pad_we_n_ddr;
 
   always_ff @(posedge clk) begin
-    if (reset) begin
-      pad_we_n_p1 <= 1'b1;
-    end else begin
-      pad_we_n_p1 <= pad_we_n;
-    end
+    pad_we_n_p1 <= pad_we_n;
   end
 
   always @(negedge clk) begin
-    if (reset) begin
-      pad_we_n_p2 <= 1'b1;
-    end else begin
-      pad_we_n_p2 <= pad_we_n_p1;
-    end
+    pad_we_n_p2 <= pad_we_n_p1;
   end
 
   assign pad_we_n_ddr = {pad_we_n_p2, pad_we_n_p1};
@@ -113,19 +104,11 @@ module sram_io_ice40 #(
   logic [1:0] pad_oe_n_ddr;
 
   always_ff @(posedge clk) begin
-    if (reset) begin
-      pad_oe_n_p1 <= 1'b1;
-    end else begin
-      pad_oe_n_p1 <= pad_oe_n;
-    end
+    pad_oe_n_p1 <= pad_oe_n;
   end
 
   always @(negedge clk) begin
-    if (reset) begin
-      pad_oe_n_p2 <= 1'b1;
-    end else begin
-      pad_oe_n_p2 <= pad_oe_n_p1;
-    end
+    pad_oe_n_p2 <= pad_oe_n_p1;
   end
 
   assign pad_oe_n_ddr = {pad_oe_n_p2, pad_oe_n_p1};
