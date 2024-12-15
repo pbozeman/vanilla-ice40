@@ -3,11 +3,17 @@
 
 `include "directives.sv"
 
+`include "axi_skidbuf.sv"
 `include "axi_sram_controller.sv"
 `include "iter.sv"
 `include "sram_pattern_generator.sv"
 `include "sticky_bit.sv"
 `include "sync_fifo.sv"
+
+//
+// This module is a mess. It was one of my first, and looking back with some
+// experience, it could be so much cleaner.
+//
 
 module sram_tester_axi #(
     parameter integer ADDR_BITS = 20,
@@ -63,6 +69,25 @@ module sram_tester_axi #(
   logic                         axi_rvalid;
   logic                         axi_rready;
 
+  // sram versions
+  logic [        ADDR_BITS-1:0] sram_axi_awaddr;
+  logic                         sram_axi_awvalid;
+  logic                         sram_axi_awready;
+  logic [        DATA_BITS-1:0] sram_axi_wdata;
+  logic [((DATA_BITS+7)/8)-1:0] sram_axi_wstrb;
+  logic                         sram_axi_wvalid;
+  logic                         sram_axi_wready;
+  logic [                  1:0] sram_axi_bresp;
+  logic                         sram_axi_bvalid;
+  logic                         sram_axi_bready;
+  logic [        ADDR_BITS-1:0] sram_axi_araddr;
+  logic                         sram_axi_arvalid;
+  logic                         sram_axi_arready;
+  logic [        DATA_BITS-1:0] sram_axi_rdata;
+  logic [                  1:0] sram_axi_rresp;
+  logic                         sram_axi_rvalid;
+  logic                         sram_axi_rready;
+
   //
   // Address iteration
   //
@@ -99,28 +124,72 @@ module sram_tester_axi #(
   ) ctrl (
       .axi_clk     (clk),
       .axi_resetn  (~reset),
-      .axi_awaddr  (axi_awaddr),
-      .axi_awvalid (axi_awvalid),
-      .axi_awready (axi_awready),
-      .axi_wdata   (axi_wdata),
-      .axi_wstrb   (axi_wstrb),
-      .axi_wvalid  (axi_wvalid),
-      .axi_wready  (axi_wready),
-      .axi_bresp   (axi_bresp),
-      .axi_bvalid  (axi_bvalid),
-      .axi_bready  (axi_bready),
-      .axi_araddr  (axi_araddr),
-      .axi_arvalid (axi_arvalid),
-      .axi_arready (axi_arready),
-      .axi_rdata   (axi_rdata),
-      .axi_rresp   (axi_rresp),
-      .axi_rvalid  (axi_rvalid),
-      .axi_rready  (axi_rready),
+      .axi_awaddr  (sram_axi_awaddr),
+      .axi_awvalid (sram_axi_awvalid),
+      .axi_awready (sram_axi_awready),
+      .axi_wdata   (sram_axi_wdata),
+      .axi_wstrb   (sram_axi_wstrb),
+      .axi_wvalid  (sram_axi_wvalid),
+      .axi_wready  (sram_axi_wready),
+      .axi_bresp   (sram_axi_bresp),
+      .axi_bvalid  (sram_axi_bvalid),
+      .axi_bready  (sram_axi_bready),
+      .axi_araddr  (sram_axi_araddr),
+      .axi_arvalid (sram_axi_arvalid),
+      .axi_arready (sram_axi_arready),
+      .axi_rdata   (sram_axi_rdata),
+      .axi_rresp   (sram_axi_rresp),
+      .axi_rvalid  (sram_axi_rvalid),
+      .axi_rready  (sram_axi_rready),
       .sram_io_addr(sram_io_addr),
       .sram_io_data(sram_io_data),
       .sram_io_we_n(sram_io_we_n),
       .sram_io_oe_n(sram_io_oe_n),
       .sram_io_ce_n(sram_io_ce_n)
+  );
+
+  axi_skidbuf #(
+      .AXI_ADDR_WIDTH(ADDR_BITS),
+      .AXI_DATA_WIDTH(DATA_BITS)
+  ) axi_skidbuf_i (
+      .axi_clk   (clk),
+      .axi_resetn(~reset),
+
+      .s_axi_awaddr (axi_awaddr),
+      .s_axi_awvalid(axi_awvalid),
+      .s_axi_awready(axi_awready),
+      .s_axi_wdata  (axi_wdata),
+      .s_axi_wstrb  (axi_wstrb),
+      .s_axi_wvalid (axi_wvalid),
+      .s_axi_wready (axi_wready),
+      .s_axi_bresp  (axi_bresp),
+      .s_axi_bvalid (axi_bvalid),
+      .s_axi_bready (axi_bready),
+      .s_axi_araddr (axi_araddr),
+      .s_axi_arvalid(axi_arvalid),
+      .s_axi_arready(axi_arready),
+      .s_axi_rdata  (axi_rdata),
+      .s_axi_rresp  (axi_rresp),
+      .s_axi_rvalid (axi_rvalid),
+      .s_axi_rready (axi_rready),
+
+      .m_axi_awaddr (sram_axi_awaddr),
+      .m_axi_awvalid(sram_axi_awvalid),
+      .m_axi_awready(sram_axi_awready),
+      .m_axi_wdata  (sram_axi_wdata),
+      .m_axi_wstrb  (sram_axi_wstrb),
+      .m_axi_wvalid (sram_axi_wvalid),
+      .m_axi_wready (sram_axi_wready),
+      .m_axi_bresp  (sram_axi_bresp),
+      .m_axi_bvalid (sram_axi_bvalid),
+      .m_axi_bready (sram_axi_bready),
+      .m_axi_araddr (sram_axi_araddr),
+      .m_axi_arvalid(sram_axi_arvalid),
+      .m_axi_arready(sram_axi_arready),
+      .m_axi_rdata  (sram_axi_rdata),
+      .m_axi_rresp  (sram_axi_rresp),
+      .m_axi_rvalid (sram_axi_rvalid),
+      .m_axi_rready (sram_axi_rready)
   );
 
   // preserves the semantics of the previous kind of iter
@@ -153,7 +222,7 @@ module sram_tester_axi #(
   // We do this because we don't know how many cycles a read may take
   // and don't know how long to delay the expected pattern data.
   sync_fifo #(
-      .ADDR_SIZE (2),
+      .ADDR_SIZE (3),
       .DATA_WIDTH(DATA_BITS)
   ) expected_fifo (
       .clk          (clk),
