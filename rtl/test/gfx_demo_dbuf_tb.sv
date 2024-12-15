@@ -72,6 +72,7 @@ module gfx_demo_dbuf_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_0 (
+      .reset  (reset),
       .we_n   (sram0_io_we_n),
       .oe_n   (sram0_io_oe_n),
       .ce_n   (sram0_io_ce_n),
@@ -83,6 +84,7 @@ module gfx_demo_dbuf_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_1 (
+      .reset  (reset),
       .we_n   (sram1_io_we_n),
       .oe_n   (sram1_io_oe_n),
       .ce_n   (sram1_io_ce_n),

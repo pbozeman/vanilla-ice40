@@ -63,6 +63,7 @@ module sram_tester_axi_tb ();
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
+      .reset  (reset),
       .we_n   (sram_io_we_n),
       .oe_n   (sram_io_oe_n),
       .ce_n   (sram_io_ce_n),

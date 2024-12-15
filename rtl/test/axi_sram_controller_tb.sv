@@ -79,6 +79,7 @@ module axi_sram_controller_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram (
+      .reset  (~axi_resetn),
       .we_n   (sram_io_we_n),
       .oe_n   (sram_io_oe_n),
       .ce_n   (sram_io_ce_n),

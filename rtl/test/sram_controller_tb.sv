@@ -56,6 +56,7 @@ module sram_controller_tb;
       .ADDR_BITS(ADDR_BITS),
       .DATA_BITS(DATA_BITS)
   ) sram (
+      .reset  (reset),
       .we_n   (io_we_n),
       .oe_n   (io_oe_n),
       .ce_n   (io_ce_n),

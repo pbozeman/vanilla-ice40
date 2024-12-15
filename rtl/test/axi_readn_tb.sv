@@ -49,6 +49,7 @@ module axi_readn_tb;
       .DATA_BITS                (AXI_DATA_WIDTH),
       .UNINITIALIZED_READS_FATAL(0)
   ) sram (
+      .reset  (~axi_resetn),
       .we_n   (sram_io_we_n),
       .oe_n   (sram_io_oe_n),
       .ce_n   (sram_io_ce_n),

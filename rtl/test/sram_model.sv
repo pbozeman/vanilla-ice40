@@ -3,6 +3,9 @@
 
 `include "directives.sv"
 
+// Reset is only passed in so that we can ignore addr and data changes during 
+// reset, which is fine.
+
 // verilator lint_save
 // verilator lint_off BLKSEQ
 // verilator lint_off SYNCASYNCNET
@@ -21,6 +24,8 @@ module sram_model #(
 
     parameter BAD_DATA = 1'bx
 ) (
+    input logic reset,
+
     input logic                 we_n,
     input logic                 oe_n,
     input logic                 ce_n,
@@ -131,6 +136,8 @@ module sram_model #(
   logic                 writes_active = 0;
 
   always @(negedge oe_n) begin
+    // Do not add !reset to this check, we don't ever want this to happen as it
+    // can damage the hardwaare
     if (data_io !== {DATA_BITS{1'bz}}) begin
       $display("oe_n low while fpga driving bus");
       $fatal;
@@ -141,7 +148,7 @@ module sram_model #(
 
   always @(posedge oe_n) begin
     if (reads_active) begin
-      if (oe_n_initial_addr != addr) begin
+      if (oe_n_initial_addr != addr && !reset) begin
         $display("addr changed during read, old: %h new: %h",
                  oe_n_initial_addr, addr);
         $fatal;
@@ -157,12 +164,12 @@ module sram_model #(
 
   always @(posedge we_n) begin
     if (writes_active) begin
-      if (we_n_initial_addr !== addr) begin
+      if (we_n_initial_addr !== addr && !reset) begin
         $display("addr changed during write");
         $fatal;
       end
 
-      if (we_n_initial_data !== data_io) begin
+      if (we_n_initial_data !== data_io && !reset) begin
         $display("data changed during write");
         $fatal;
       end

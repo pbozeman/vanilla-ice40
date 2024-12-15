@@ -45,6 +45,7 @@ module adc_xy_vga_fade_tb;
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
   ) sram_0 (
+      .reset  (reset),
       .we_n   (sram0_io_we_n),
       .oe_n   (sram0_io_oe_n),
       .ce_n   (sram0_io_ce_n),

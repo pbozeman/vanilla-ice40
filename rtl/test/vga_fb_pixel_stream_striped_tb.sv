@@ -156,6 +156,7 @@ module vga_fb_pixel_stream_striped_tb;
         .DATA_BITS                (AXI_DATA_WIDTH),
         .UNINITIALIZED_READS_FATAL(0)
     ) sram_i (
+        .reset  (reset),
         .we_n   (sram_io_we_n[i]),
         .oe_n   (sram_io_oe_n[i]),
         .ce_n   (sram_io_ce_n[i]),
