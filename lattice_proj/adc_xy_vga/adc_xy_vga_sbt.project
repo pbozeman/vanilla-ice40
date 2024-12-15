@@ -4,7 +4,7 @@ Version=Lattice Semiconductor Corporation iCEcube - Release: 2020.12.27943 - Bui
 ProjectName=adc_xy_vga
 Vendor=SiliconBlue
 Synthesis=synplify
-ProjectVFiles=../../rtl/adc/adc_xy_vga_top.sv=work
+ProjectVFiles=../../rtl/adc/adc_xy_vga_fade_stripe_top.sv=work
 ProjectCFiles=../../constraints/vanilla-ice40-clock.sdc
 CurImplementation=adc_xy_vga_Implmnt
 Implementations=adc_xy_vga_Implmnt
@@ -19,9 +19,9 @@ DevicePower=
 NetlistFile=adc_xy_vga_Implmnt/adc_xy_vga.edf
 AdditionalEDIFFile=
 IPEDIFFile=
-DesignLib=adc_xy_vga_Implmnt/sbt/netlist/oadb-adc_xy_vga_top
+DesignLib=adc_xy_vga_Implmnt/sbt/netlist/oadb-adc_xy_vga_fade_stripe_top
 DesignView=_rt
-DesignCell=adc_xy_vga_top
+DesignCell=adc_xy_vga_fade_stripe_top
 SynthesisSDCFile=adc_xy_vga_Implmnt/adc_xy_vga.scf
 UserPinConstraintFile=
 UserSDCFile=../../constraints/vanilla-ice40-clock.sdc
