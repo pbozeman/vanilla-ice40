@@ -103,7 +103,7 @@ module sram_tester_axi_tb ();
     @(posedge clk);
 
     wait (done_counter == 2 || timeout_counter == MAX_CYCLES - 1);
-    `ASSERT(done_counter === 2);
+    `ASSERT_EQ(done_counter, 2);
 
     $finish;
   end

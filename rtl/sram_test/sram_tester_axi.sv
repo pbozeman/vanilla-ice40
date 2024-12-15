@@ -44,11 +44,11 @@ module sram_tester_axi #(
   logic                         axi_wready;
 
   // AXI-Lite Write Response Channel
+  logic                         axi_bvalid;
+  logic                         axi_bready;
   // verilator lint_off UNUSEDSIGNAL
   logic [                  1:0] axi_bresp;
-  logic                         axi_bvalid;
   // verilator lint_on UNUSEDSIGNAL
-  logic                         axi_bready;
 
   // AXI-Lite Read Address Channel
   logic [        ADDR_BITS-1:0] axi_araddr;
@@ -173,15 +173,18 @@ module sram_tester_axi #(
   // TODO: cleanup the states and remove the need for NEXT_PATTERN,
   // it's partially needed because of the weirdness with the iter,
   // which really should have a last signal instead of done.
-  localparam [2:0] START = 3'b000;
-  localparam [2:0] WRITE = 3'b001;
-  localparam [2:0] READ = 3'b100;
+  localparam [2:0] INIT = 3'b000;
+  localparam [2:0] WRITING = 3'b001;
+  localparam [2:0] READING = 3'b100;
   localparam [2:0] NEXT_PATTERN = 3'b101;
   localparam [2:0] DONE = 3'b110;
   localparam [2:0] HALT = 3'b111;
 
   logic [2:0] state;
   logic [2:0] next_state;
+
+  logic [3:0] writes_outstanding;
+  logic [3:0] reads_outstanding;
 
   //
   // next_state
@@ -192,45 +195,39 @@ module sram_tester_axi #(
     read_start  = 1'b0;
 
     case (state)
-      START: begin
-        next_state  = WRITE;
+      INIT: begin
+        next_state  = WRITING;
         write_start = 1'b1;
       end
 
-      WRITE: begin
-        if (write_accepted) begin
-          if (writes_done) begin
-            next_state = READ;
-            read_start = 1'b1;
-          end else begin
-            next_state  = WRITE;
-            write_start = 1'b1;
-          end
+      WRITING: begin
+        if (!writes_done) begin
+          write_start = write_accepted && !last_write;
+        end else begin
+          next_state = READING;
+          read_start = 1'b1;
         end
       end
 
-      READ: begin
-        if (read_accepted) begin
-          if (reads_done) begin
-            if (pattern_done) begin
-              next_state = DONE;
-            end else begin
-              next_state = NEXT_PATTERN;
-            end
+      READING: begin
+        if (!reads_done) begin
+          read_start = read_accepted && !last_read;
+        end else begin
+          if (pattern_done) begin
+            next_state = DONE;
           end else begin
-            next_state = READ;
-            read_start = 1'b1;
+            next_state = NEXT_PATTERN;
           end
         end
       end
 
       NEXT_PATTERN: begin
-        next_state  = WRITE;
+        next_state  = WRITING;
         write_start = 1'b1;
       end
 
       DONE: begin
-        next_state  = WRITE;
+        next_state  = WRITING;
         write_start = 1'b1;
       end
 
@@ -247,12 +244,42 @@ module sram_tester_axi #(
   //
   always_ff @(posedge clk) begin
     if (reset) begin
-      state <= START;
+      state <= INIT;
     end else begin
       if (test_pass) begin
         state <= next_state;
       end else begin
         state <= HALT;
+      end
+    end
+  end
+
+  //
+  // writes outstanding
+  //
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      writes_outstanding <= 0;
+    end else begin
+      if (write_start && !write_completed) begin
+        writes_outstanding <= writes_outstanding + 1;
+      end else if (!write_start && write_completed) begin
+        writes_outstanding <= writes_outstanding - 1;
+      end
+    end
+  end
+
+  //
+  // reads outstanding
+  //
+  always_ff @(posedge clk) begin
+    if (reset) begin
+      reads_outstanding <= 0;
+    end else begin
+      if (read_start && !read_completed) begin
+        reads_outstanding <= reads_outstanding + 1;
+      end else if (!read_start && read_completed) begin
+        reads_outstanding <= reads_outstanding - 1;
       end
     end
   end
@@ -265,6 +292,8 @@ module sram_tester_axi #(
   logic write_addr_accepted;
   logic write_data_accepted;
   logic write_accepted;
+  logic write_completed;
+
 
   sticky_bit sticky_awdone (
       .clk  (clk),
@@ -285,8 +314,9 @@ module sram_tester_axi #(
   logic last_write;
   logic writes_done;
 
-  assign write_accepted = (write_addr_accepted && write_data_accepted);
-  assign writes_done    = (write_accepted && last_write);
+  assign write_accepted  = (write_addr_accepted && write_data_accepted);
+  assign write_completed = (axi_bvalid && axi_bready);
+  assign writes_done     = (writes_outstanding == 0 && last_write);
 
   always_ff @(posedge clk) begin
     if (reset) begin
@@ -332,10 +362,13 @@ module sram_tester_axi #(
   logic read_accepted;
   assign read_accepted = axi_arready & axi_arvalid;
 
+  logic read_completed;
+  assign read_completed = axi_rready & axi_rvalid;
+
   logic last_read;
 
   logic reads_done;
-  assign reads_done = (read_accepted & last_read);
+  assign reads_done = (reads_outstanding == 0 & last_read);
 
   //
   // Start read
