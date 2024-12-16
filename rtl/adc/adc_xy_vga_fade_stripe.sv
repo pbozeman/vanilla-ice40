@@ -3,6 +3,7 @@
 
 `include "directives.sv"
 
+`include "axis_skidbuf.sv"
 `include "adc_xy_axi.sv"
 `include "delay.sv"
 `include "gfx_clear.sv"
@@ -95,6 +96,12 @@ module adc_xy_vga_fade_stripe #(
   logic                     gfx_pvalid;
   logic                     gfx_pready;
 
+  logic [    FB_X_BITS-1:0] vga_gfx_x;
+  logic [    FB_Y_BITS-1:0] vga_gfx_y;
+  logic [   PIXEL_BITS-1:0] vga_gfx_color;
+  logic                     vga_gfx_pvalid;
+  logic                     vga_gfx_pready;
+
   logic                     vga_enable;
   logic                     adc_active;
 
@@ -165,6 +172,21 @@ module adc_xy_vga_fade_stripe #(
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready    = gfx_pready;
 
+  axis_skidbuf #(
+      .DATA_BITS(FB_X_BITS + FB_Y_BITS + PIXEL_BITS)
+  ) gfx_sb (
+      .axi_clk   (clk),
+      .axi_resetn(~reset),
+
+      .s_axi_tvalid(gfx_pvalid),
+      .s_axi_tready(gfx_pready),
+      .s_axi_tdata ({gfx_x, gfx_y, gfx_color}),
+
+      .m_axi_tvalid(vga_gfx_pvalid),
+      .m_axi_tready(vga_gfx_pready),
+      .m_axi_tdata ({vga_gfx_x, vga_gfx_y, vga_gfx_color})
+  );
+
   //
   // vga
   //
@@ -192,11 +214,11 @@ module adc_xy_vga_fade_stripe #(
       .pixel_clk(pixel_clk),
       .reset    (reset),
 
-      .gfx_valid(gfx_pvalid),
-      .gfx_ready(gfx_pready),
-      .gfx_x    (gfx_x),
-      .gfx_y    (gfx_y),
-      .gfx_color(gfx_color),
+      .gfx_valid(vga_gfx_pvalid),
+      .gfx_ready(vga_gfx_pready),
+      .gfx_x    (vga_gfx_x),
+      .gfx_y    (vga_gfx_y),
+      .gfx_color(vga_gfx_color),
 
       .vga_enable(vga_enable),
 
