@@ -19,8 +19,9 @@
 // TODO: come back and implement wstrb, and/or consider setting
 // an error in the resp if they are used.
 module axi_sram_controller #(
-    parameter integer AXI_ADDR_WIDTH = 20,
-    parameter integer AXI_DATA_WIDTH = 16
+    parameter  integer AXI_ADDR_WIDTH = 20,
+    parameter  integer AXI_DATA_WIDTH = 16,
+    localparam         AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8
 ) (
     // AXI-Lite Global Signals
     input logic axi_clk,
@@ -32,12 +33,12 @@ module axi_sram_controller #(
     output logic                      axi_awready,
 
     // AXI-Lite Write Data Channel
-    input  logic [        AXI_DATA_WIDTH-1:0] axi_wdata,
+    input  logic [AXI_DATA_WIDTH-1:0] axi_wdata,
     // verilator lint_off UNUSEDSIGNAL
-    input  logic [((AXI_DATA_WIDTH+7)/8)-1:0] axi_wstrb,
+    input  logic [AXI_STRB_WIDTH-1:0] axi_wstrb,
     // verilator lint_on UNUSEDSIGNAL
-    input  logic                              axi_wvalid,
-    output logic                              axi_wready,
+    input  logic                      axi_wvalid,
+    output logic                      axi_wready,
 
     // AXI-Lite Write Response Channel
     output logic [1:0] axi_bresp,
