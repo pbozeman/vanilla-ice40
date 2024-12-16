@@ -88,8 +88,6 @@ module axi_readn #(
   logic                      beat_read_done;
   logic                      res_beat_read_last;
 
-  logic                      burst_done;
-
   // pre read addr metadata (really only the last bit)
   logic                      meta_fifo_w_almost_full;
 
@@ -106,6 +104,8 @@ module axi_readn #(
 
     case (state)
       IDLE: begin
+        // in_axi_arready is implied as its true when we are in the IDLE
+        // state.
         if (in_axi_arvalid) begin
           burst_start = 1'b1;
           next_state  = INIT_BURST;
@@ -129,7 +129,7 @@ module axi_readn #(
       end
 
       FINISH_BURST: begin
-        if (burst_done) begin
+        if (in_axi_rlast && in_axi_rvalid && in_axi_rready) begin
           next_state = IDLE;
         end
       end
@@ -158,18 +158,11 @@ module axi_readn #(
     end
   end
 
-  // burst start/end
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
-      in_axi_arready <= 1'b0;
+      in_axi_arready <= 1'b1;
     end else begin
-      if (beat_read_accepted) begin
-        in_axi_arready <= 1'b0;
-      end
-
-      if (beat_read_done) begin
-        in_axi_arready <= 1'b1;
-      end
+      in_axi_arready <= (next_state == IDLE);
     end
   end
 
@@ -254,20 +247,11 @@ module axi_readn #(
   //
   // send responses back to the caller
   //
-  // We could remove a cycle of latency here with something more skid_buffer
-  // like, and possibly an actual skid buffer. But, this implementation
-  // is easy and straight forward, and for how this is being used,
-  // a few cycles of latency don't matter. (The initial use case being
-  // reading lines from a frame buffer. The piplelines are reset during
-  // the horizontal blanking period, which in terms of cycles, are an
-  // eternity.)
 
   assign res_fifo_w_inc = beat_read_done;
   assign res_fifo_w_data = {res_beat_read_last, out_axi_rdata};
   assign res_fifo_r_inc = (!res_fifo_r_empty && in_axi_rvalid && in_axi_rready);
   assign {in_axi_rlast, in_axi_rdata} = res_fifo_r_data;
-
-  assign burst_done = in_axi_rlast && in_axi_rvalid && in_axi_rready;
 
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin

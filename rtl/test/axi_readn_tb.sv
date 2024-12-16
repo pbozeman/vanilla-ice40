@@ -244,7 +244,42 @@ module axi_readn_tb;
     end
   endtask
 
-  task test_burst_read_2_again;
+  task test_burst_read_fill_fifo;
+    begin
+      localparam NUM_WORDS = 32;
+
+      test_line = `__LINE__;
+      setup();
+
+      // Start burst read request
+      in_axi_araddr  = 20'hF000;
+      in_axi_arlenw  = NUM_WORDS - 1;
+      in_axi_arvalid = 1;
+      in_axi_rready  = 0;
+
+      `WAIT_FOR_SIGNAL(in_axi_rvalid);
+      `ASSERT_EQ(in_axi_rdata, 16'hF000);
+      `ASSERT_EQ(in_axi_rvalid, 1'b1);
+
+      // hold ready low for double the amount of reads
+      in_axi_rready = 0;
+      repeat (NUM_WORDS * 2) @(posedge axi_clk);
+
+      // should not have moved
+      `ASSERT_EQ(in_axi_rdata, 16'hF000);
+      `ASSERT_EQ(in_axi_rvalid, 1'b1);
+
+      in_axi_rready = 1;
+
+      for (int i = 0; i < NUM_WORDS - 2; i++) begin
+        @(posedge axi_clk);
+        `WAIT_FOR_SIGNAL(in_axi_rvalid);
+        `ASSERT_EQ(in_axi_rdata, 16'hF000 + AXI_DATA_WIDTH'((i * 2)));
+      end
+    end
+  endtask
+
+  task test_burst_read_2_multiple;
     begin
       test_line = `__LINE__;
       setup();
@@ -268,6 +303,7 @@ module axi_readn_tb;
       `ASSERT_EQ(in_axi_rvalid, 1'b0);
 
       `WAIT_FOR_SIGNAL(in_axi_arready);
+      #1;
 
       //
       // Second request
@@ -289,6 +325,27 @@ module axi_readn_tb;
       @(posedge axi_clk);
       `ASSERT_EQ(in_axi_rvalid, 1'b0);
       `WAIT_FOR_SIGNAL(in_axi_arready);
+
+      //
+      // Third request
+      //
+      in_axi_araddr  = 20'hD000;
+      in_axi_arlenw  = 8'h1;
+      in_axi_arvalid = 1;
+      in_axi_rready  = 1;
+
+      `WAIT_FOR_SIGNAL(in_axi_rvalid);
+      `ASSERT_EQ(in_axi_rdata, 16'hD000);
+
+      // stride is 2
+      @(posedge axi_clk);
+      `WAIT_FOR_SIGNAL(in_axi_rvalid);
+      `ASSERT_EQ(in_axi_rvalid, 1'b1);
+      `ASSERT_EQ(in_axi_rdata, 16'hD002);
+
+      @(posedge axi_clk);
+      `ASSERT_EQ(in_axi_rvalid, 1'b0);
+      `WAIT_FOR_SIGNAL(in_axi_arready);
     end
   endtask
 
@@ -299,8 +356,8 @@ module axi_readn_tb;
     test_burst_read_2();
     test_burst_read_3();
     test_burst_read_delay();
-
-    test_burst_read_2_again();
+    test_burst_read_fill_fifo();
+    test_burst_read_2_multiple();
 
     // TODO: add a test that fills the response fifo inside readn to make sure
     // reads start again after the almost full condition is cleared.
