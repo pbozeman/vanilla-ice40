@@ -194,7 +194,6 @@ module adc_xy_vga_fade #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_vsync(),
 
       .vga_enable(vga_enable),
 

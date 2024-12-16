@@ -43,7 +43,6 @@ module gfx_vga_tb;
   logic [    PIXEL_BITS-1:0] gfx_color;
   logic                      gfx_pready;
   logic                      gfx_pvalid;
-  logic                      gfx_vsync;
 
   // vga signals
   logic                      vga_enable;
@@ -91,7 +90,6 @@ module gfx_vga_tb;
       .gfx_color(gfx_color),
       .gfx_valid(gfx_pvalid),
       .gfx_ready(gfx_pready),
-      .gfx_vsync(gfx_vsync),
 
       .vga_enable(vga_enable),
 

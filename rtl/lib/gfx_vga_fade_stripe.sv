@@ -50,7 +50,6 @@ module gfx_vga_fade_stripe #(
     input  logic [PIXEL_BITS-1:0] gfx_color,
     input  logic                  gfx_valid,
     output logic                  gfx_ready,
-    output logic                  gfx_vsync,
 
     // vga signals
     input  logic                  vga_enable,
@@ -293,10 +292,6 @@ module gfx_vga_fade_stripe #(
       .fb_axi_rresp  (fb_axi_rresp),
       .fb_axi_rvalid (fb_axi_rvalid)
   );
-
-  // pass vsync back to the gfx caller in case they need it
-  assign gfx_vsync = vga_fb_vsync;
-
   //
   // CDC over to the VGA output clock domain
   //
