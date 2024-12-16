@@ -93,9 +93,6 @@ module adc_xy_vga_fade #(
   logic [   PIXEL_BITS-1:0] gfx_color;
   logic                     gfx_pvalid;
   logic                     gfx_pready;
-  // verilator lint_off UNUSEDSIGNAL
-  logic                     gfx_vsync;
-  // verilator lint_on UNUSEDSIGNAL
 
   logic                     vga_enable;
   logic                     adc_active;
@@ -167,10 +164,6 @@ module adc_xy_vga_fade #(
   assign gfx_pvalid    = adc_active ? adc_tvalid : clr_pvalid;
   assign clr_pready    = gfx_pready;
 
-  logic [COLOR_BITS-1:0] vga_raw_red;
-  logic [COLOR_BITS-1:0] vga_raw_grn;
-  logic [COLOR_BITS-1:0] vga_raw_blu;
-
   //
   // vga
   //
@@ -201,13 +194,13 @@ module adc_xy_vga_fade #(
       .gfx_x    (gfx_x),
       .gfx_y    (gfx_y),
       .gfx_color(gfx_color),
-      .gfx_vsync(gfx_vsync),
+      .gfx_vsync(),
 
       .vga_enable(vga_enable),
 
-      .vga_red  (vga_raw_red),
-      .vga_grn  (vga_raw_grn),
-      .vga_blu  (vga_raw_blu),
+      .vga_red  (vga_red),
+      .vga_grn  (vga_grn),
+      .vga_blu  (vga_blu),
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
@@ -217,10 +210,6 @@ module adc_xy_vga_fade #(
       .sram_io_oe_n(sram0_io_oe_n),
       .sram_io_ce_n(sram0_io_ce_n)
   );
-
-  assign vga_red = vga_raw_red;
-  assign vga_grn = vga_raw_grn;
-  assign vga_blu = vga_raw_blu;
 
   // Clear screen before we start
   logic clr_last_delay;
