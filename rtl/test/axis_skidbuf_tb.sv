@@ -147,7 +147,6 @@ module axis_skidbuf_tb;
       #1;
       `ASSERT_EQ(s_axi_tvalid, 1'b0);
       `ASSERT_EQ(m_axi_tready, 1'b1);
-      `ASSERT_EQ(s_axi_tdata, 8'h0);
     end
   endtask
 

@@ -45,14 +45,8 @@ module axis_skidbuf #(
   end
 
   always @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      skid_s_tdata <= 0;
-    end else begin
-      if (!s_axi_tvalid || m_axi_tready) begin
-        skid_s_tdata <= 0;
-      end else if (s_axi_tvalid && s_axi_tready) begin
-        skid_s_tdata <= s_axi_tdata;
-      end
+    if (s_axi_tvalid && s_axi_tready) begin
+      skid_s_tdata <= s_axi_tdata;
     end
   end
 
@@ -76,17 +70,11 @@ module axis_skidbuf #(
   assign m_axi_tvalid = skid_m_tvalid;
 
   always @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      m_axi_tdata <= 0;
-    end else begin
-      if (!m_axi_tvalid || m_axi_tready) begin
-        if (skid_s_tvalid) begin
-          m_axi_tdata <= skid_s_tdata;
-        end else if (s_axi_tvalid) begin
-          m_axi_tdata <= s_axi_tdata;
-        end else begin
-          m_axi_tdata <= 0;
-        end
+    if (!m_axi_tvalid || m_axi_tready) begin
+      if (skid_s_tvalid) begin
+        m_axi_tdata <= skid_s_tdata;
+      end else if (s_axi_tvalid) begin
+        m_axi_tdata <= s_axi_tdata;
       end
     end
   end
