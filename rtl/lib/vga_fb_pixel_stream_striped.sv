@@ -82,8 +82,8 @@ module vga_fb_pixel_stream_striped #(
   // fb reader
   //
   localparam AXI_ARLENW_WIDTH = $clog2(H_VISIBLE);
+  logic                        beat_read_accepted;
   logic                        beat_read_done;
-  logic                        beat_read_done_last;
 
   logic [  AXI_ADDR_WIDTH-1:0] axi_araddr;
   logic [AXI_ARLENW_WIDTH-1:0] axi_arlenw;
@@ -93,9 +93,9 @@ module vga_fb_pixel_stream_striped #(
   // Not all bits of rdata are used
   logic [  AXI_DATA_WIDTH-1:0] axi_rdata;
   logic [                 1:0] axi_rresp;
+  logic                        axi_rlast;
   // verilator lint_on UNUSEDSIGNAL
   logic                        axi_rvalid;
-  logic                        axi_rlast;
   logic                        axi_rready;
 
   //
@@ -146,10 +146,10 @@ module vga_fb_pixel_stream_striped #(
   //
   // iterators
   //
-  assign fb_y_iter_init     = reset || (fb_y_iter_last && beat_read_done_last);
+  assign fb_y_iter_init     = reset || (fb_y_iter_last && beat_read_accepted);
   assign fb_y_iter_init_val = 0;
   assign fb_y_iter_max      = Y_BITS'(V_VISIBLE - 1);
-  assign fb_y_iter_inc      = beat_read_done_last;
+  assign fb_y_iter_inc      = beat_read_accepted;
 
   iter #(
       .WIDTH(Y_BITS)
@@ -202,17 +202,16 @@ module vga_fb_pixel_stream_striped #(
         axi_araddr  <= fb_y * H_VISIBLE;
         axi_arlenw  <= AXI_ARLENW_WIDTH'(H_VISIBLE - 1);
         axi_arvalid <= 1'b1;
-      end else begin
-        if (axi_arvalid && axi_arready) begin
-          axi_arvalid <= 1'b0;
-        end
+      end
+      if (axi_arvalid && axi_arready) begin
+        axi_arvalid <= 1'b0;
       end
     end
   end
 
   assign axi_rready = (enable && pixel_x_vis && pixel_y_vis);
+  assign beat_read_accepted = axi_arvalid && axi_arready;
   assign beat_read_done = axi_rvalid && axi_rready;
-  assign beat_read_done_last = axi_rvalid && axi_rready && axi_rlast;
 
   //
   // Return pixels to the caller
