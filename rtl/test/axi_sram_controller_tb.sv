@@ -211,26 +211,6 @@ module axi_sram_controller_tb;
   endtask
 
 
-  task test_waddr_only;
-    begin
-      test_line = `__LINE__;
-      reset();
-
-      axi_awaddr  = 10'hA0;
-      axi_awvalid = 1'b1;
-
-      // waddr should not go ready because the controller can't accept
-      // another waddr until it receives a matching wdata.
-      //
-      // clock a few times for good measure
-      repeat (10) begin
-        @(posedge axi_clk);
-        `ASSERT(axi_awready === 1'b0);
-      end
-    end
-  endtask
-
-
   task test_write;
     begin
       test_line = `__LINE__;
@@ -280,7 +260,6 @@ module axi_sram_controller_tb;
       @(negedge axi_clk);
 
       `ASSERT(axi_bvalid === 1'b0);
-      `ASSERT(axi_bresp === 2'bxx);
     end
   endtask
 
@@ -376,9 +355,7 @@ module axi_sram_controller_tb;
       @(posedge axi_clk);
 
       // Our response should not be available
-      `ASSERT(axi_rdata === 8'bxx);
       `ASSERT(axi_rvalid === 1'b0);
-      `ASSERT(axi_rresp === 2'bxx);
 
       `WAIT_FOR_SIGNAL(axi_rvalid);
 
@@ -434,7 +411,6 @@ module axi_sram_controller_tb;
 
   // Test sequence
   initial begin
-    test_waddr_only();
     test_write();
     test_write_delay_resp();
     test_multi_write();

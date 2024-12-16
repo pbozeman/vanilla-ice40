@@ -18,6 +18,7 @@
 //
 // TODO: come back and implement wstrb, and/or consider setting
 // an error in the resp if they are used.
+// verilator lint_off UNUSEDSIGNAL
 module axi_sram_controller #(
     parameter  integer AXI_ADDR_WIDTH = 20,
     parameter  integer AXI_DATA_WIDTH = 16,
@@ -30,9 +31,7 @@ module axi_sram_controller #(
     input  logic                      axi_awvalid,
     output logic                      axi_awready,
     input  logic [AXI_DATA_WIDTH-1:0] axi_wdata,
-    // verilator lint_off UNUSEDSIGNAL
     input  logic [AXI_STRB_WIDTH-1:0] axi_wstrb,
-    // verilator lint_on UNUSEDSIGNAL
     input  logic                      axi_wvalid,
     output logic                      axi_wready,
     output logic [               1:0] axi_bresp,
@@ -72,20 +71,15 @@ module axi_sram_controller #(
   // high-z after 4ns, and we won't be writing for at least 5.
 
   //
-  // state signals
+  // states
   //
   localparam [1:0] IDLE = 2'b00;
   localparam [1:0] READING = 2'b01;
-  localparam [1:0] WRITING = 2'b10;
 
   logic [               1:0] state;
   logic [               1:0] next_state;
 
   logic                      read_start;
-  logic                      write_start;
-  logic                      write_start_p1;
-  logic                      sram_ready;
-  logic                      pri_read;
 
   //
   // the ice40 pads
@@ -126,57 +120,19 @@ module axi_sram_controller #(
   //
   // state machine
   //
-
   always_comb begin
-    next_state  = state;
-    read_start  = 1'b0;
-    write_start = 1'b0;
+    state      = next_state;
+    read_start = 1'b0;
 
     case (state)
       IDLE: begin
-        if (pri_read) begin
-          if (axi_arvalid) begin
-            next_state = READING;
-            read_start = 1'b1;
-          end else if (axi_awvalid && axi_wvalid) begin
-            next_state  = WRITING;
-            write_start = 1'b1;
-          end
-        end else begin
-          if (axi_awvalid && axi_wvalid) begin
-            next_state  = WRITING;
-            write_start = 1'b1;
-          end else if (axi_arvalid) begin
-            next_state = READING;
-            read_start = 1'b1;
-          end
+        if (axi_arvalid) begin
+          next_state = READING;
+          read_start = 1'b1;
         end
       end
 
       READING: begin
-        if (axi_rready) begin
-          next_state = IDLE;
-          if (sram_ready) begin
-          end
-        end
-      end
-
-      WRITING: begin
-        if (axi_bready) begin
-          next_state = IDLE;
-          if (sram_ready) begin
-            if (axi_arvalid) begin
-              next_state = READING;
-              read_start = 1'b1;
-            end else if (axi_awvalid && axi_wvalid) begin
-              next_state  = WRITING;
-              write_start = 1'b1;
-            end
-          end
-        end
-      end
-
-      default: begin
       end
     endcase
   end
@@ -189,28 +145,33 @@ module axi_sram_controller #(
     end
   end
 
-  always_ff @(posedge axi_clk) begin
-    sram_ready <= !write_start && !read_start;
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (write_start) begin
-      pri_read <= 1'b1;
-    end else if (read_start) begin
-      pri_read <= 1'b0;
-    end
-  end
-
   //
   // Reads
   //
-  assign axi_arready = read_start;
+  always_ff @(posedge axi_clk) begin
+    if (read_start) begin
+      axi_arready <= 1'b1;
+    end else begin
+      axi_arready <= 1'b0;
+    end
+  end
 
   always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
+    if (reset) begin
       pad_oe_n <= 1'b1;
     end else begin
-      pad_oe_n <= !read_start;
+      pad_oe_n <= read_start;
+    end
+  end
+
+  always_ff @(posedge axi_clk) begin
+    if (read_start) begin
+      axi_arready <= 1'b1;
+      pad_addr    <= axi_araddr;
+      pad_oe_n    <= 1'b0;
+    end else begin
+      axi_arready <= 1'b0;
+      pad_oe_n    <= 1'b1;
     end
   end
 
@@ -220,44 +181,14 @@ module axi_sram_controller #(
       axi_rdata  <= '0;
       axi_rresp  <= '0;
     end else begin
-      // We should be checking to see if axi_rvalid is already high and doing
-      // something skid buffer like if so.
-      // All current callers will be ok with this, but it should be fixed.
-      if (pad_read_data_valid) begin
-        axi_rvalid <= 1'b1;
-        axi_rdata  <= pad_read_data;
-      end else if (axi_rvalid && axi_rready) begin
-        axi_rvalid <= 1'b0;
-      end
     end
-  end
-
-  //
-  // Writes
-  //
-  always_ff @(posedge axi_clk) begin
-    // used for holding the pad active, and detecting when done
-    write_start_p1 <= write_start;
-  end
-
-  assign axi_awready = write_start;
-  assign axi_wready  = write_start;
-
-  always_ff @(posedge axi_clk) begin
-    if (write_start) begin
-      pad_write_data <= axi_wdata;
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    pad_write_data_enable <= (write_start || write_start_p1);
   end
 
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
-      pad_we_n <= 1'b1;
+      axi_awready <= 1'b0;
+      axi_wready  <= 1'b0;
     end else begin
-      pad_we_n <= !write_start;
     end
   end
 
@@ -266,25 +197,22 @@ module axi_sram_controller #(
       axi_bvalid <= '0;
       axi_bresp  <= '0;
     end else begin
-      if (write_start) begin
-        axi_bvalid <= 1'b1;
-      end else if (axi_bvalid && axi_bready) begin
-        axi_bvalid <= 1'b0;
-      end
     end
   end
 
-  //
-  // Addr (shared with read/write)
-  //
   always_ff @(posedge axi_clk) begin
-    if (read_start) begin
-      pad_addr <= axi_araddr;
-    end else if (write_start) begin
-      pad_addr <= axi_awaddr;
+    if (~axi_resetn) begin
+      pad_write_data_enable <= 1'b0;
+      pad_we_n              <= 1'b1;
+      pad_oe_n              <= 1'b1;
+      pad_write_data        <= '0;
+      pad_addr              <= '0;
+    end else begin
     end
   end
+
 
 endmodule
+// verilator lint_on UNUSEDSIGNAL
 
 `endif
