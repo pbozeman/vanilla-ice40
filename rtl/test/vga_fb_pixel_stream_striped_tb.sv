@@ -14,11 +14,11 @@ module vga_fb_pixel_stream_striped_tb;
   // Reduce the size so testing doesn't take an eternity.
 
   // Horizontal Timing
-  localparam H_VISIBLE = 128;
-  localparam H_FRONT_PORCH = 5;
-  localparam H_SYNC_PULSE = 2;
-  localparam H_BACK_PORCH = 5;
-  localparam H_WHOLE_LINE = 140;
+  localparam H_VISIBLE = 16;
+  localparam H_FRONT_PORCH = 2;
+  localparam H_SYNC_PULSE = 3;
+  localparam H_BACK_PORCH = 2;
+  localparam H_WHOLE_LINE = 23;
 
   // Vertical Timing
   localparam V_VISIBLE = 8;

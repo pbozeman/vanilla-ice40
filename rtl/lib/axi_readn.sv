@@ -230,8 +230,8 @@ module axi_readn #(
 
   sync_fifo #(
       .DATA_WIDTH     (1 + AXI_DATA_WIDTH),
-      .ADDR_SIZE      (4),
-      .ALMOST_FULL_BUF(8)
+      .ADDR_SIZE      (3),
+      .ALMOST_FULL_BUF(4)
   ) res_fifo (
       .clk          (axi_clk),
       .rst_n        (axi_resetn),
