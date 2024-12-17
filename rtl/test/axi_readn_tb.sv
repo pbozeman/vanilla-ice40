@@ -359,8 +359,6 @@ module axi_readn_tb;
     test_burst_read_fill_fifo();
     test_burst_read_2_multiple();
 
-    // TODO: add a test that fills the response fifo inside readn to make sure
-    // reads start again after the almost full condition is cleared.
     #100;
 
     $finish;
