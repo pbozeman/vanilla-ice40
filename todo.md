@@ -91,6 +91,9 @@ io on the board
   that specifically do axi managment like the axi_2x2
 - use the tnx_done detector to track handshakes, especially when needing to
   combine A and W which may not happen at the same time
+- the state management in all of the axi modules is weird. Review the zipcpu axi
+  writeups and fix them. Alternatively, review and pull in <https://github.com/alexforencich>
+  axi code as submodules.
 
 ### adc vga
 

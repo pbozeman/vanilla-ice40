@@ -130,6 +130,14 @@ module axi_stripe_readn #(
   //
   // state machine
   //
+  // The state machine is kinda wonky because this and axi_readn
+  // where my first subordinates that weren't primarily just passing
+  // data through to something managing the signaling at a lower layer.
+  //
+  // What should be happening here is that in_axi_arready should be true
+  // when we are idle and we should be registering the iteration arguments
+  // when arvalid and arready are high. Address this when doing an overall
+  // axi overhaul.
   always_comb begin
     next_state  = state;
     burst_start = 1'b0;
