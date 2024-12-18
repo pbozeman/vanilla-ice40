@@ -35,10 +35,10 @@ module axi_stripe_router #(
 
   always_comb begin
     next_req = CHANNEL_IDLE;
-    if (txn_started && !req_accepted) begin
-      next_req = req;
-    end else begin
-      if (axi_avalid) begin
+    if (!req_accepted) begin
+      if (txn_started) begin
+        next_req = req;
+      end else if (axi_avalid) begin
         next_req = {1'b0, axi_addr_low};
       end
     end

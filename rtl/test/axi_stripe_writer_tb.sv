@@ -290,41 +290,29 @@ module axi_stripe_writer_tb;
       test_line = `__LINE__;
       setup();
 
-      // First write from to even
-      in_axi_awaddr  = 20'h1000;
-      in_axi_awvalid = 1'b1;
-      in_axi_wdata   = 16'hDEAD;
-      in_axi_wstrb   = 2'b11;
-      in_axi_wvalid  = 1'b1;
-      in_axi_bready  = 1'b1;
-
       @(posedge axi_clk);
-      // Check first transaction signals
-      #1;
-      `ASSERT_EQ(uut.req, 0);
-      `ASSERT_EQ(out_axi_awaddr[0], 20'h1000);
-      `ASSERT_EQ(out_axi_wdata[0], 16'hDEAD);
+      for (int i = 0; i < 32; i++) begin
+        @(posedge axi_clk);
+        in_axi_awaddr  = 20'(i);
+        in_axi_awvalid = 1'b1;
+        in_axi_wdata   = 16'hD000 + 16'(i);
+        in_axi_wstrb   = 2'b11;
+        in_axi_wvalid  = 1'b1;
+        in_axi_bready  = 1'b1;
 
-      // then to odd
-      in_axi_awaddr  = 20'h2001;
-      in_axi_awvalid = 1'b1;
-      in_axi_wdata   = 16'hBEEF;
-      in_axi_wstrb   = 2'b11;
-      in_axi_wvalid  = 1'b1;
-      in_axi_bready  = 1'b1;
+        `WAIT_FOR_SIGNAL(in_write_accepted);
 
-      `WAIT_FOR_SIGNAL(in_write_accepted);
+        if (i % 2 == 0) begin
+          `ASSERT_EQ(uut.req_full, 0);
+          `ASSERT_EQ(out_axi_awaddr[0], 20'(i));
+          `ASSERT_EQ(out_axi_wdata[0], 16'hD000 + 16'(i));
+        end else begin
+          `ASSERT_EQ(uut.req_full, 1);
+          `ASSERT_EQ(out_axi_awaddr[1], 20'(i));
+          `ASSERT_EQ(out_axi_wdata[1], 16'hD000 + 16'(i));
+        end
 
-      // Check second transaction grant and signals.
-      @(posedge axi_clk);
-      #1;
-      `ASSERT_EQ(uut.req, 1);
-      `ASSERT_EQ(out_axi_awaddr[1], 20'h2001);
-      `ASSERT_EQ(out_axi_wdata[1], 16'hBEEF);
-
-      // Wait for B channel to complete
-      `WAIT_FOR_SIGNAL(in_axi_bvalid);
-
+      end
     end
   endtask
 
