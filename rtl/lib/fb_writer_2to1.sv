@@ -63,7 +63,7 @@ module fb_writer_2to1 #(
   //
   // Grant management
   //
-  localparam IDLE = 2'b11;
+  localparam IDLE = 2'b10;
 
   logic [1:0] grant;
   logic [1:0] next_grant;
