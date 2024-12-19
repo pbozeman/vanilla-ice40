@@ -112,10 +112,13 @@ module adc_xy_vga_fade_tb;
     forever #5 clk = ~clk;
   end
 
-  // 50mhz
+  // Beat between 47 MHz and 53 MHz, this simulates the clock jitter on the
+  // real hw
   initial begin
     adc_clk = 0;
-    forever #10 adc_clk = ~adc_clk;
+    forever begin
+      #(9 + $urandom_range(0, 2)) adc_clk = ~adc_clk;
+    end
   end
 
   // mode specific pixel clock
