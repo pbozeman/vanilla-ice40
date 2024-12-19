@@ -50,7 +50,7 @@ TB_LIB_SRC = $(filter-out test/%_tb.sv, $(wildcard $(TEST_DIR)/*.sv))
 ALL_SRC = $(SRC) $(TB_LIB_SRC)
 
 # Compiler and simulator
-IVERILOG := iverilog -Wall -Wno-portbind -Wno-timescale -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) -DSIMULATOR -DTB_EXCLUDE_SLOW
+IVERILOG := iverilog -Wall -Wno-portbind -Wno-timescale -DSYNTH_YOSYS -DVGA_MODE_$(VGA_MODE) -DSIMULATOR
 VVP := vvp
 
 # Linter
@@ -215,10 +215,10 @@ $(BUILD_DIR)/%: $(TEST_DIR)/%.sv $(CELLS_SIM) Makefile | $(BUILD_DIR)
 	@echo "$@: $$(tr '\n' ' ' < $(@).dep)" > $(@).d
 
 $(BUILD_DIR)/%.vcd: $(BUILD_DIR)/%
-	@$(VVP) $^ +SKIP_SLOW_TESTS=1
+	@$(VVP) $^ +SKIP_SLOW_TESTS=$(SKIP_SLOW_TESTS)
 
 define run_test
-	@$(VVP) $1 +SKIP_SLOW_TESTS=1 && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "make $(notdir $1)" >> $(BUILD_DIR)/tb_failure.log
+	@$(VVP) $1 +SKIP_SLOW_TESTS=$(SKIP_SLOW_TESTS) && echo "$1" >> $(BUILD_DIR)/tb_success.log || echo "make $(notdir $1)" >> $(BUILD_DIR)/tb_failure.log
 endef
 
 # General rule for running each test bench
@@ -228,6 +228,7 @@ $(TEST_BENCHES): % : $(BUILD_DIR)/%
 	$(call run_test,$<)
 
 # Run all test benches sequentially and show summary
+unit: SKIP_SLOW_TESTS := 1
 unit: clean_logs $(TEST_BENCHES)
 	@echo "=============================="
 	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
@@ -235,7 +236,17 @@ unit: clean_logs $(TEST_BENCHES)
 	@sed 's/^/    /' $(BUILD_DIR)/tb_failure.log
 	@echo "=============================="
 
+unit_slow: SKIP_SLOW_TESTS := 0
+unit_slow: clean_logs $(TEST_BENCHES)
+	@echo "=============================="
+	@echo "Successful tests: $$(wc -l < $(BUILD_DIR)/tb_success.log)"
+	@echo "Failed tests: $$(wc -l < $(BUILD_DIR)/tb_failure.log)"
+	@sed 's/^/    /' $(BUILD_DIR)/tb_failure.log
+	@echo "=============================="
+
 check: lint unit
+
+check_slow: lint unit_slow
 
 ##############################################################################
 #
