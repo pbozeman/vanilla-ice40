@@ -7,6 +7,9 @@ __pycache__
 # verilog builds
 .build
 
+# mac
+.DS_Store
+
 # Ideally these will get checked in, but
 # Diamond Programmer hardcodes the paths, and so,
 # don't work between OS's, different users, etc.
