@@ -81,6 +81,7 @@ ICEPROG := iceprog
 
 VCD_FILES := $(addprefix $(BUILD_DIR)/,$(addsuffix .vcd,$(TEST_BENCHES)))
 .PHONY: quick_unit
+quick_unit: SKIP_SLOW_TESTS := 1
 quick_unit: $(VCD_FILES)
 
 # Ensure build directory exists
