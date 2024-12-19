@@ -68,25 +68,22 @@ module fb_writer_2to1 #(
   logic [1:0] grant;
   logic [1:0] next_grant;
 
+  // constant selects in always_comb blocks are not supported by verilator
+  logic       v0;
+  assign v0 = in_axi_tvalid[0];
+
+  logic v1;
+  assign v1 = in_axi_tvalid[1];
+
+
   always_comb begin
-    logic [1:0] mask;
-    logic [1:0] masked_tvalid;
-
-    mask          = '1;
-    masked_tvalid = '0;
-
-    next_grant    = grant;
-
     if (fbw_axi_tvalid && !fbw_axi_tready) begin
       // there is an outstanding txn
       next_grant = grant;
     end else begin
-      mask          = grant == IDLE ? '1 : ~grant;
-      masked_tvalid = in_axi_tvalid[1:0] & mask;
-
-      if (|(masked_tvalid & 2'b01)) begin
+      if (v0) begin
         next_grant = 0;
-      end else if (|(masked_tvalid & 2'b10)) begin
+      end else if (v1) begin
         next_grant = 1;
       end else begin
         next_grant = IDLE;

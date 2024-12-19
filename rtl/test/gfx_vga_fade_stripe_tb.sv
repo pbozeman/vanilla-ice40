@@ -166,6 +166,7 @@ module gfx_vga_fade_stripe_tb;
     // We are running faster than the pixel clock, but we should not
     // overrun the fifo.
     `ASSERT(!uut.fifo.w_full);
+    `ASSERT(!uut.fade_fifo.w_full);
   end
 
   //

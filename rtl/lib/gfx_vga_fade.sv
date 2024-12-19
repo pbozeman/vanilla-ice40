@@ -366,15 +366,15 @@ module gfx_vga_fade #(
       .clk  (clk),
       .reset(reset),
 
-      .in0_axi_tvalid(gw_axi_tvalid),
-      .in0_axi_tready(gw_axi_tready),
-      .in0_addr      (gw_addr),
-      .in0_color     (gw_color),
+      .in0_axi_tvalid(fw_axi_tvalid),
+      .in0_axi_tready(fw_axi_tready),
+      .in0_addr      (fw_addr),
+      .in0_color     (fw_color),
 
-      .in1_axi_tvalid(fw_axi_tvalid),
-      .in1_axi_tready(fw_axi_tready),
-      .in1_addr      (fw_addr),
-      .in1_color     (fw_color),
+      .in1_axi_tvalid(gw_axi_tvalid),
+      .in1_axi_tready(gw_axi_tready),
+      .in1_addr      (gw_addr),
+      .in1_color     (gw_color),
 
       .axi_awaddr (gfx_axi_awaddr),
       .axi_awvalid(gfx_axi_awvalid),
