@@ -134,21 +134,23 @@ module axi_sram_controller #(
 
     case (state)
       IDLE: begin
-        if (pri_read) begin
-          if (axi_arvalid) begin
-            next_state = READING;
-            read_start = 1'b1;
-          end else if (axi_awvalid && axi_wvalid) begin
-            next_state  = WRITING;
-            write_start = 1'b1;
-          end
-        end else begin
-          if (axi_awvalid && axi_wvalid) begin
-            next_state  = WRITING;
-            write_start = 1'b1;
-          end else if (axi_arvalid) begin
-            next_state = READING;
-            read_start = 1'b1;
+        if (sram_ready) begin
+          if (pri_read) begin
+            if (axi_arvalid) begin
+              next_state = READING;
+              read_start = 1'b1;
+            end else if (axi_awvalid && axi_wvalid) begin
+              next_state  = WRITING;
+              write_start = 1'b1;
+            end
+          end else begin
+            if (axi_awvalid && axi_wvalid) begin
+              next_state  = WRITING;
+              write_start = 1'b1;
+            end else if (axi_arvalid) begin
+              next_state = READING;
+              read_start = 1'b1;
+            end
           end
         end
       end
@@ -157,6 +159,13 @@ module axi_sram_controller #(
         if (axi_rready) begin
           next_state = IDLE;
           if (sram_ready) begin
+            if (axi_awvalid && axi_wvalid) begin
+              next_state = WRITING;
+              read_start = 1'b1;
+            end else if (axi_arvalid) begin
+              next_state = READING;
+              read_start = 1'b1;
+            end
           end
         end
       end
