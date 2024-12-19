@@ -58,9 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        "text_thickness|94710000|63160000|a7b55b76-ae4d-4639-8ba1-9d97b7b12536|00000000-0000-0000-0000-000000000000"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -612,6 +610,12 @@
         },
         {
           "group_by": false,
+          "label": "JLCPCB Rotation Offset",
+          "name": "JLCPCB Rotation Offset",
+          "show": true
+        },
+        {
+          "group_by": false,
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
@@ -648,12 +652,6 @@
         },
         {
           "group_by": false,
-          "label": "JLCPCB Rotation Offset",
-          "name": "JLCPCB Rotation Offset",
-          "show": false
-        },
-        {
-          "group_by": false,
           "label": "LCSC Part #",
           "name": "LCSC Part #",
           "show": true
@@ -669,7 +667,7 @@
       "group_symbols": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "Digi-Key Part Number"
     },
     "connection_grid_size": 50.0,
     "drawing": {

@@ -22774,6 +22774,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Rotation Offset" "180"
+			(at 356.87 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "117"
 			(uuid "186fa87f-3417-47b5-9bca-4d29940b3e2f")
 		)
@@ -23492,6 +23501,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Rotation Offset" "-90"
+			(at 170.18 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "30"
 			(uuid "4605667a-4c02-4146-8169-72b494135fcd")
 		)
@@ -24163,6 +24181,15 @@
 				(hide yes)
 			)
 		)
+		(property "JLCPCB Rotation Offset" "180"
+			(at 322.58 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "117"
 			(uuid "97551402-11fe-481b-a0dc-6340519f57e3")
 		)
@@ -24776,6 +24803,15 @@
 			)
 		)
 		(property "Digi-Key Part Number" "706-1146-ND"
+			(at 171.45 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "-90"
 			(at 171.45 172.72 0)
 			(effects
 				(font
@@ -25585,6 +25621,15 @@
 			)
 		)
 		(property "LCSC Part #" "C598059"
+			(at 393.7 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" "180"
 			(at 393.7 96.52 0)
 			(effects
 				(font
