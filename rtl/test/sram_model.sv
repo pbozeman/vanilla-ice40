@@ -122,7 +122,21 @@ module sram_model #(
       if (INJECT_ERROR && addr == {ADDR_BITS{1'b1}}) begin
         sram_mem[addr] = {DATA_BITS{1'b1}};
       end else if (!we_n) begin
-        sram_mem[addr] = data_io;
+        // This is a bit weird in that a true sram chip doesn't have a reset
+        // signal, but some of the unit tests setup continuous io and then do
+        // a bunch of validations. Those might get reset during a write, and
+        // could cause bz to get written if the reset happens mid write.
+        //
+        // Those tests are typically writing known values to memory locations
+        // based on their address, and can cause test issues if a write gets
+        // aborted due to reset. Note: the first part of the write will have
+        // already occurred. What this is preventing is starting a write,
+        // putting down a value for the last half of a cycle, and then
+        // writting bz on the next clock edge. (Writes are negedge of we_n to
+        // negedge, so they span 2 clocks)
+        if (!reset) begin
+          sram_mem[addr] = data_io;
+        end
       end
     end
   end
