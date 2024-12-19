@@ -2,8 +2,8 @@
 `define AXI_SRAM_CONTROLLER_V
 
 `include "directives.sv"
-
-`include "sram_io_ice40.sv"
+`include "sram_controller.sv"
+`include "sticky_bit.sv"
 
 // FIXME: consider addressing the following:
 //
@@ -23,25 +23,34 @@ module axi_sram_controller #(
     parameter  integer AXI_DATA_WIDTH = 16,
     localparam         AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8
 ) (
+    // AXI-Lite Global Signals
     input logic axi_clk,
     input logic axi_resetn,
 
+    // AXI-Lite Write Address Channel
     input  logic [AXI_ADDR_WIDTH-1:0] axi_awaddr,
     input  logic                      axi_awvalid,
     output logic                      axi_awready,
+
+    // AXI-Lite Write Data Channel
     input  logic [AXI_DATA_WIDTH-1:0] axi_wdata,
     // verilator lint_off UNUSEDSIGNAL
     input  logic [AXI_STRB_WIDTH-1:0] axi_wstrb,
     // verilator lint_on UNUSEDSIGNAL
     input  logic                      axi_wvalid,
     output logic                      axi_wready,
-    output logic [               1:0] axi_bresp,
-    output logic                      axi_bvalid,
-    input  logic                      axi_bready,
 
+    // AXI-Lite Write Response Channel
+    output logic [1:0] axi_bresp,
+    output logic       axi_bvalid,
+    input  logic       axi_bready,
+
+    // AXI-Lite Read Address Channel
     input  logic [AXI_ADDR_WIDTH-1:0] axi_araddr,
     input  logic                      axi_arvalid,
     output logic                      axi_arready,
+
+    // AXI-Lite Read Data Channel
     output logic [AXI_DATA_WIDTH-1:0] axi_rdata,
     output logic [               1:0] axi_rresp,
     output logic                      axi_rvalid,
@@ -53,246 +62,197 @@ module axi_sram_controller #(
     output logic                      sram_io_oe_n,
     output logic                      sram_io_ce_n
 );
-  // Reads and writes happen over 2 clock cycles.
-  //
-  // For writes, we wait half a clock (5 ns) for signals to settle, then
-  // pulse we_n on a negative clock edge for a full 10ns. We don't update
-  // data or addresses until we_n has been high for another 5ns.
-  // The order is:
-  //   .... we_n is disabled
-  //   first_leading_edge: set addr and data lines.
-  //   first_falling_edge: set we_n
-  //   second_leading_edge: hold/idle
-  //   second_falling_edge: release we_n
-  //   .... and we_n is disabled for half a clock before we start over
-  //
-  // Reads are similar in that oe_n happens on the negative clock
-  // edge. Because output is disabled half a clock before the next op,
-  // we don't have to wait between a read and a write as the sram goes
-  // high-z after 4ns, and we won't be writing for at least 5.
 
-  //
-  // state signals
-  //
-  localparam [1:0] IDLE = 2'b00;
-  localparam [1:0] READING = 2'b01;
-  localparam [1:0] WRITING = 2'b10;
-
-  logic [               1:0] state;
-  logic [               1:0] next_state;
-
-  logic                      read_start;
-  logic                      write_start;
-  logic                      write_start_p1;
+  // SRAM signals
+  logic                      sram_req;
+  logic                      sram_write_enable;
+  logic [AXI_ADDR_WIDTH-1:0] sram_addr_internal;
+  logic [AXI_DATA_WIDTH-1:0] sram_write_data;
+  logic                      sram_write_done;
+  logic [AXI_DATA_WIDTH-1:0] sram_read_data;
+  logic                      sram_read_data_valid;
   logic                      sram_ready;
-  logic                      pri_read;
 
-  //
-  // the ice40 pads
-  //
-  logic [AXI_ADDR_WIDTH-1:0] pad_addr;
-  logic [AXI_DATA_WIDTH-1:0] pad_write_data;
-  logic                      pad_write_data_enable;
-  logic [AXI_DATA_WIDTH-1:0] pad_read_data;
-  logic                      pad_read_data_valid;
-  logic                      pad_ce_n;
-  logic                      pad_we_n;
-  logic                      pad_oe_n;
+  // FSM states (note: writes start with 0, reads with 1 in the msb)
+  localparam IDLE = 3'b000;
+  localparam WRITE = 3'b001;
+  localparam WRITE_RESP = 3'b010;
+  localparam READ = 3'b100;
+  localparam READ_RESP = 3'b110;
 
-  assign pad_ce_n = 1'b0;
+  localparam RESP_OK = 2'b00;
 
-  sram_io_ice40 #(
+  logic [2:0] current_state = IDLE;
+  logic [2:0] next_state;
+
+  // write state
+  logic       axi_bvalid_reg;
+
+  // read state
+  logic       axi_rvalid_reg;
+
+  // Instantiate SRAM controller
+  sram_controller #(
       .ADDR_BITS(AXI_ADDR_WIDTH),
       .DATA_BITS(AXI_DATA_WIDTH)
-  ) u_sram_io_ice40 (
-      .clk(axi_clk),
-
-      .pad_addr             (pad_addr),
-      .pad_write_data       (pad_write_data),
-      .pad_write_data_enable(pad_write_data_enable),
-      .pad_read_data        (pad_read_data),
-      .pad_read_data_valid  (pad_read_data_valid),
-      .pad_ce_n             (pad_ce_n),
-      .pad_we_n             (pad_we_n),
-      .pad_oe_n             (pad_oe_n),
-
-      .io_addr_bus(sram_io_addr),
-      .io_data_bus(sram_io_data),
-      .io_we_n    (sram_io_we_n),
-      .io_oe_n    (sram_io_oe_n),
-      .io_ce_n    (sram_io_ce_n)
+  ) sram_ctrl (
+      .clk            (axi_clk),
+      .reset          (~axi_resetn),
+      .req            (sram_req),
+      .ready          (sram_ready),
+      .write_enable   (sram_write_enable),
+      .addr           (sram_addr_internal),
+      .write_data     (sram_write_data),
+      .write_done     (sram_write_done),
+      .read_data      (sram_read_data),
+      .read_data_valid(sram_read_data_valid),
+      .io_addr_bus    (sram_io_addr),
+      .io_data_bus    (sram_io_data),
+      .io_we_n        (sram_io_we_n),
+      .io_oe_n        (sram_io_oe_n),
+      .io_ce_n        (sram_io_ce_n)
   );
 
-  //
-  // state machine
-  //
+  // flip read/write priority every other cycle
+  logic rw_pri = 0;
+  always_ff @(posedge axi_clk) begin
+    if (sram_req) begin
+      // don't just flip on any request, only prioritize writes if the last op
+      // was a read
+      rw_pri <= !sram_write_enable;
+    end
+  end
 
+  logic [2:0] next_rw_state;
   always_comb begin
-    next_state  = state;
-    read_start  = 1'b0;
-    write_start = 1'b0;
+    next_rw_state = IDLE;
+    // don't let readers/writers starve each other
+    if (sram_ready) begin
+      if (rw_pri) begin
+        // prioritize writes
+        if (axi_awvalid && axi_wvalid) begin
+          next_rw_state = WRITE;
+        end else begin
+          if (axi_arvalid) begin
+            next_rw_state = READ;
+          end
+        end
+      end else begin
+        // prioritize reads
+        if (axi_arvalid) begin
+          next_rw_state = READ;
+        end else begin
+          if (axi_awvalid && axi_wvalid) begin
+            next_rw_state = WRITE;
+          end
+        end
+      end
+    end
+  end
 
-    case (state)
+  // state machine
+  always_comb begin
+    next_state = current_state;
+
+    case (current_state)
       IDLE: begin
-        if (sram_ready) begin
-          if (pri_read) begin
-            if (axi_arvalid) begin
-              next_state = READING;
-              read_start = 1'b1;
-            end else if (axi_awvalid && axi_wvalid) begin
-              next_state  = WRITING;
-              write_start = 1'b1;
-            end
-          end else begin
-            if (axi_awvalid && axi_wvalid) begin
-              next_state  = WRITING;
-              write_start = 1'b1;
-            end else if (axi_arvalid) begin
-              next_state = READING;
-              read_start = 1'b1;
-            end
-          end
+        next_state = next_rw_state;
+      end
+
+      WRITE: begin
+        if (sram_write_done & axi_bready) begin
+          next_state = next_rw_state;
+        end else begin
+          next_state = WRITE_RESP;
         end
       end
 
-      READING: begin
-        if (axi_rready) begin
-          next_state = IDLE;
-          if (sram_ready) begin
-            if (axi_awvalid && axi_wvalid) begin
-              next_state = WRITING;
-              read_start = 1'b1;
-            end else if (axi_arvalid) begin
-              next_state = READING;
-              read_start = 1'b1;
-            end
-          end
-        end
-      end
-
-      WRITING: begin
+      WRITE_RESP: begin
         if (axi_bready) begin
-          next_state = IDLE;
-          if (sram_ready) begin
-            if (axi_arvalid) begin
-              next_state = READING;
-              read_start = 1'b1;
-            end else if (axi_awvalid && axi_wvalid) begin
-              next_state  = WRITING;
-              write_start = 1'b1;
-            end
-          end
+          next_state = next_rw_state;
+        end else begin
+          next_state = WRITE_RESP;
         end
       end
 
-      default: begin
+      READ: begin
+        next_state = IDLE;
+
+        if (axi_rready) begin
+          next_state = next_rw_state;
+        end else begin
+          next_state = READ_RESP;
+        end
       end
+
+      READ_RESP: begin
+        if (axi_rready) begin
+          next_state = next_rw_state;
+        end else begin
+          next_state = READ_RESP;
+        end
+      end
+
+      default: next_state = current_state;
     endcase
   end
 
+  // state machine registration
   always_ff @(posedge axi_clk) begin
     if (~axi_resetn) begin
-      state <= IDLE;
+      current_state <= IDLE;
     end else begin
-      state <= next_state;
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    sram_ready <= !write_start && !read_start;
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (write_start) begin
-      pri_read <= 1'b1;
-    end else if (read_start) begin
-      pri_read <= 1'b0;
+      current_state <= next_state;
     end
   end
 
   //
-  // Reads
+  // axi_bvalid
   //
-  assign axi_arready = read_start;
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      pad_oe_n <= 1'b1;
-    end else begin
-      pad_oe_n <= !read_start;
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      axi_rvalid <= 1'b0;
-      axi_rdata  <= '0;
-      axi_rresp  <= '0;
-    end else begin
-      // We should be checking to see if axi_rvalid is already high and doing
-      // something skid buffer like if so.
-      // All current callers will be ok with this, but it should be fixed.
-      if (pad_read_data_valid) begin
-        axi_rvalid <= 1'b1;
-        axi_rdata  <= pad_read_data;
-      end else if (axi_rvalid && axi_rready) begin
-        axi_rvalid <= 1'b0;
-      end
-    end
-  end
+  // Remember sram_write_done in case the caller isn't ready.
+  // The sram_controller only asserts it for 1 cycle.
+  //
+  sticky_bit sticky_sram_bvalid_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .in   (sram_write_done),
+      .out  (axi_bvalid_reg),
+      .clear(axi_bvalid && axi_bready)
+  );
 
   //
-  // Writes
+  // axi_rvalid
   //
-  always_ff @(posedge axi_clk) begin
-    // used for holding the pad active, and detecting when done
-    write_start_p1 <= write_start;
-  end
-
-  assign axi_awready = write_start;
-  assign axi_wready  = write_start;
-
-  always_ff @(posedge axi_clk) begin
-    if (write_start) begin
-      pad_write_data <= axi_wdata;
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    pad_write_data_enable <= (write_start || write_start_p1);
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      pad_we_n <= 1'b1;
-    end else begin
-      pad_we_n <= !write_start;
-    end
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      axi_bvalid <= '0;
-      axi_bresp  <= '0;
-    end else begin
-      if (write_start) begin
-        axi_bvalid <= 1'b1;
-      end else if (axi_bvalid && axi_bready) begin
-        axi_bvalid <= 1'b0;
-      end
-    end
-  end
-
+  // Remember sram_read_data_valid in case the caller isn't ready.
+  // The sram_controller only asserts it for 1 cycle.
   //
-  // Addr (shared with read/write)
+  // The actual data is latched already.
   //
-  always_ff @(posedge axi_clk) begin
-    if (read_start) begin
-      pad_addr <= axi_araddr;
-    end else if (write_start) begin
-      pad_addr <= axi_awaddr;
-    end
-  end
+  sticky_bit sticky_sram_rvalid_inst (
+      .clk  (axi_clk),
+      .reset(~axi_resetn),
+      .in   (sram_read_data_valid),
+      .out  (axi_rvalid_reg),
+      .clear(axi_rvalid_reg && axi_rready)
+  );
+
+  // write channels
+  assign axi_awready = next_state == WRITE;
+  assign axi_wready = next_state == WRITE;
+  assign axi_bvalid = axi_bvalid_reg;
+  assign axi_bresp = (axi_bvalid ? RESP_OK : 2'bxx);
+
+  // read channels
+  assign axi_arready = next_state == READ;
+  assign axi_rvalid = axi_rvalid_reg;
+  assign axi_rdata = (axi_rvalid ? sram_read_data : {AXI_DATA_WIDTH{1'bx}});
+  assign axi_rresp = (axi_rvalid ? RESP_OK : 2'bxx);
+
+  assign sram_write_enable = (next_state == WRITE);
+  assign sram_addr_internal = (next_state == WRITE ? axi_awaddr : axi_araddr);
+  assign sram_write_data = (next_state == WRITE ?
+                            axi_wdata : {AXI_DATA_WIDTH{1'bx}});
+  assign sram_req = (next_state == WRITE || next_state == READ);
 
 endmodule
 
