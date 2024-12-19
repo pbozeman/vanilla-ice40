@@ -22068,7 +22068,7 @@
 			(uuid "e322513d-bc2e-43c2-b485-1902a35dee26")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J1")
 					(unit 1)
@@ -22530,7 +22530,7 @@
 			(uuid "e322513d-bc2e-43c2-b485-1902a35dee27")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J1")
 					(unit 2)
@@ -22595,7 +22595,7 @@
 			(uuid "5eadbb47-37d5-4a05-bd45-8e91afbc4611")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR010")
 					(unit 1)
@@ -22692,7 +22692,7 @@
 			(uuid "2951892d-2013-4349-97e1-0bfe85aa0668")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C3")
 					(unit 1)
@@ -23153,7 +23153,7 @@
 			(uuid "a1f3ccf4-e3ff-4f50-81e2-c3102dbf9613")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J2")
 					(unit 2)
@@ -23250,7 +23250,7 @@
 			(uuid "feae1204-1106-4c2e-8342-703154f0e47a")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C8")
 					(unit 1)
@@ -23347,7 +23347,7 @@
 			(uuid "82e7e8e8-bea7-4aa0-bbd4-af9fc4129836")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C2")
 					(unit 1)
@@ -23412,7 +23412,7 @@
 			(uuid "ed2166b0-33d9-4e13-9faa-98c5214fb35c")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR03")
 					(unit 1)
@@ -23607,7 +23607,7 @@
 			(uuid "ed96a36e-8db7-4b90-893d-6e06dddc430f")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "U1")
 					(unit 1)
@@ -23672,7 +23672,7 @@
 			(uuid "981c27e4-228f-490d-8ecd-4016e923c318")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR06")
 					(unit 1)
@@ -23738,7 +23738,7 @@
 			(uuid "65e713b0-7960-4961-b870-11f237dd80b4")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR08")
 					(unit 1)
@@ -23835,7 +23835,7 @@
 			(uuid "03aadddb-3fdc-49d6-8785-e0ab4bee6c16")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C1")
 					(unit 1)
@@ -23901,7 +23901,7 @@
 			(uuid "093db493-1cbe-4e8d-a9fd-e8e6d0403b6c")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR013")
 					(unit 1)
@@ -23998,7 +23998,7 @@
 			(uuid "a71cf5e9-7291-4fc9-bcb1-20ba4e4d9c9e")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C7")
 					(unit 1)
@@ -24063,7 +24063,7 @@
 			(uuid "6a68d3ef-4c88-4b59-b90d-2944cf75a16d")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR02")
 					(unit 1)
@@ -24524,7 +24524,7 @@
 			(uuid "d49537d2-3a6b-4aa8-ad87-f3ea0c69d345")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J2")
 					(unit 1)
@@ -24589,7 +24589,7 @@
 			(uuid "8fb0c413-cac1-48bf-a2b1-245970a2a442")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR012")
 					(unit 1)
@@ -24686,7 +24686,7 @@
 			(uuid "2bb27d40-bdee-48b3-9c88-a01968eeddc9")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "C9")
 					(unit 1)
@@ -24881,7 +24881,7 @@
 			(uuid "8eab1240-5de0-4afb-b304-ab046578cdd7")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "U3")
 					(unit 1)
@@ -24947,7 +24947,7 @@
 			(uuid "bbde93cc-41ba-4573-89bc-ca1f0ce5e044")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#FLG02")
 					(unit 1)
@@ -25013,7 +25013,7 @@
 			(uuid "6d59376c-e0c5-4574-a0b6-c3c7ac4ed7c7")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR05")
 					(unit 1)
@@ -25475,7 +25475,7 @@
 			(uuid "ed96f20a-d155-4622-85b8-f19f18fc9649")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J1")
 					(unit 3)
@@ -25936,7 +25936,7 @@
 			(uuid "d49537d2-3a6b-4aa8-ad87-f3ea0c69d346")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "J2")
 					(unit 3)
@@ -26001,7 +26001,7 @@
 			(uuid "e8c8d1b9-74f1-4748-9197-a1f936be8e6b")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR04")
 					(unit 1)
@@ -26067,7 +26067,7 @@
 			(uuid "e4f64488-2c9a-418d-897a-3541d22edabf")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#FLG01")
 					(unit 1)
@@ -26133,7 +26133,7 @@
 			(uuid "f6f025f3-f884-4c70-94e3-dcef52bd910b")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR01")
 					(unit 1)
@@ -26198,7 +26198,7 @@
 			(uuid "1a14f271-d2a6-48c8-a719-60a1a3722300")
 		)
 		(instances
-			(project "breakout-sram-256x4"
+			(project "breakout-sram-256x2"
 				(path "/d2bd5fff-fefd-4ccc-b759-a35e7db9cedb"
 					(reference "#PWR014")
 					(unit 1)
