@@ -8,8 +8,8 @@
 // way to do this in icecube2 that can easily be changed
 // in all the projects, so set a VGA mode here.
 `ifndef SYNTH_YOSYS
-// `define VGA_MODE_640_480_60 1
-`define VGA_MODE_800_600_60 1
+`define VGA_MODE_640_480_60 1
+// `define VGA_MODE_800_600_60 1
 // `define VGA_MODE_1024_768_60 1
 `endif
 
