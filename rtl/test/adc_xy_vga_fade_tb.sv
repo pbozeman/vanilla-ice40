@@ -130,7 +130,7 @@ module adc_xy_vga_fade_tb;
   `TEST_SETUP_SLOW(adc_xy_vga_fade_tb)
 
   always @(posedge adc_clk) begin
-    `ASSERT(!uut.adc_xy_inst.adc_xy_inst.w_full);
+    `ASSERT(!uut.adc_xy_inst.fifo.w_full);
   end
 
   // checks are enabled once the first pixel makes it through the pipeline
@@ -152,7 +152,7 @@ module adc_xy_vga_fade_tb;
   // Test stimulus
   initial begin
     reset = 1;
-    repeat (10) @(posedge clk);
+    repeat (20) @(posedge clk);
     reset = 0;
 
     repeat (4 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME + 100) begin

@@ -137,6 +137,7 @@ module adc_xy_vga_fade_stripe #(
       .clk       (clk),
       .reset     (reset),
       .adc_clk   (adc_clk),
+      .enable    (adc_active),
       .tvalid    (adc_tvalid),
       .tready    (adc_tready),
       .adc_x_io  (adc_x_io),

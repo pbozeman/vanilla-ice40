@@ -54,7 +54,7 @@ module adc_xy #(
       .DELAY_CYCLES(7),
       .WIDTH       (3)
   ) adc_color_delay (
-      .clk(clk),
+      .clk(adc_clk),
       .in ({adc_red_io, adc_grn_io, adc_blu_io}),
       .out({adc_red_io_d, adc_grn_io_d, adc_blu_io_d})
   );

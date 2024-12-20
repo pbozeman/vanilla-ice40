@@ -121,7 +121,7 @@ module adc_xy_vga_fade #(
   logic adc_tvalid;
   logic adc_tready;
 
-  assign adc_tready = gfx_pready;
+  assign adc_tready = adc_active ? gfx_pready : 1'b0;
 
   adc_xy_axi #(
       .DATA_BITS(ADC_DATA_BITS)
@@ -129,6 +129,7 @@ module adc_xy_vga_fade #(
       .clk       (clk),
       .reset     (reset),
       .adc_clk   (adc_clk),
+      .enable    (adc_active),
       .tvalid    (adc_tvalid),
       .tready    (adc_tready),
       .adc_x_io  (adc_x_io),
