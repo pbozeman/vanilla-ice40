@@ -37,6 +37,17 @@
      end                                                     \
    end
 
+`define TEST_DISABLED(mod)                                   \
+   initial begin                                             \
+     $dumpfile({".build/", `"mod`", ".vcd"});                \
+     $dumpvars(0, mod);                                      \
+   end                                                       \
+   initial begin                                             \
+     #10;                                                    \
+     $display({"SKIPPED DISABLED tb: ", `"mod`"});           \
+     $finish;                                                \
+   end
+
 `define FIXME_DISABLED_TEST_SETUP(mod)           \
    initial begin                                 \
      #10;                                        \
