@@ -3,6 +3,8 @@
 
 `include "directives.sv"
 
+// FIXME: add a reset that sets values to 0. It's caused a bunch of issues in
+// testing.
 module delay #(
     parameter DELAY_CYCLES = 1,
     parameter WIDTH        = 1
