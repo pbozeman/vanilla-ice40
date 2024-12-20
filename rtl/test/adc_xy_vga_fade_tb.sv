@@ -115,11 +115,11 @@ module adc_xy_vga_fade_tb;
     forever #5 clk = ~clk;
   end
 
-  // 25mhz external adc clock with jitter
+  // 25mhz adc clock (no jitter, since we are now the generator)
   initial begin
     adc_clk = 0;
     forever begin
-      #(19 + $urandom_range(0, 1)) adc_clk = ~adc_clk;
+      #20 adc_clk = ~adc_clk;
     end
   end
 

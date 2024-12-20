@@ -121,17 +121,15 @@ module adc_xy_axi #(
     if (reset) begin
       tvalid <= 0;
     end else begin
-      if (!tvalid || tready) begin
-        if (fifo_r_empty) begin
-          tvalid <= 1'b0;
-        end else begin
-          tvalid  <= 1'b1;
-          adc_x   <= adc_x_int;
-          adc_y   <= adc_y_int;
-          adc_red <= adc_red_int;
-          adc_grn <= adc_grn_int;
-          adc_blu <= adc_blu_int;
-        end
+      if (tvalid && tready) begin
+        tvalid <= 1'b0;
+      end else if (!tvalid && !fifo_r_empty) begin
+        tvalid  <= 1'b1;
+        adc_x   <= adc_x_int;
+        adc_y   <= adc_y_int;
+        adc_red <= adc_red_int;
+        adc_grn <= adc_grn_int;
+        adc_blu <= adc_blu_int;
       end
     end
   end
