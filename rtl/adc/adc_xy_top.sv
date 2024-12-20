@@ -3,7 +3,7 @@
 
 `include "directives.sv"
 
-`include "adc_xy.sv"
+`include "adc_xy_axi.sv"
 `include "initial_reset.sv"
 
 module adc_xy_top #(
@@ -25,6 +25,7 @@ module adc_xy_top #(
 );
 
   logic                 reset;
+  logic                 tvalid;
 
   // verilator lint_off UNUSEDSIGNAL
   logic [DATA_BITS-1:0] adc_x;
@@ -34,11 +35,14 @@ module adc_xy_top #(
   logic                 adc_blu;
   // verilator lint_on UNUSEDSIGNAL
 
-  adc_xy #(
+  adc_xy_axi #(
       .DATA_BITS(DATA_BITS)
   ) adc_xy_inst (
       .clk       (CLK),
       .reset     (reset),
+      .enable    (1'b1),
+      .tvalid    (tvalid),
+      .tready    (1'b1),
       .adc_clk   (L_ADC_CLK_TO_FPGA),
       .adc_x_io  (L_ADC_X),
       .adc_y_io  (L_ADC_Y),
@@ -59,11 +63,11 @@ module adc_xy_top #(
 
   // Output y_data on R_E and R_F
   assign R_E = adc_y[7:0];
-  assign R_F = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, adc_y[9:8]};
+  assign R_F = {tvalid, 1'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, adc_y[9:8]};
 
   // Second copy - use one for LEDs and one for logic analyzer
   assign R_H = adc_y[7:0];
-  assign R_I = {2'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, adc_y[9:8]};
+  assign R_I = {tvalid, 1'b0, L_ADC_CLK_TO_FPGA, 1'b0, CLK, 1'b0, adc_y[9:8]};
 
 endmodule
 
