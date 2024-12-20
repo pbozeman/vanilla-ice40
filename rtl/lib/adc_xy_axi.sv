@@ -7,7 +7,11 @@
 `include "delay.sv"
 
 module adc_xy_axi #(
-    parameter DATA_BITS = 10
+    parameter DATA_BITS   = 10,
+    parameter SCALE_NUM_X = 3,
+    parameter SCALE_DEN_X = 4,
+    parameter SCALE_NUM_Y = 3,
+    parameter SCALE_DEN_Y = 4
 ) (
     input logic clk,
     input logic adc_clk,
@@ -32,7 +36,12 @@ module adc_xy_axi #(
 );
   // X/Y + color
   localparam FIFO_WIDTH = DATA_BITS * 2 + 3;
+
+  // mirror and rotate parms
   localparam MAX_ADC = {DATA_BITS{1'b1}};
+  localparam SCALE_BITS = (DATA_BITS + $clog2(
+      (SCALE_NUM_X > SCALE_NUM_Y) ? SCALE_NUM_X : SCALE_NUM_Y
+  ));
 
   logic                  w_data_changed;
 
@@ -45,8 +54,14 @@ module adc_xy_axi #(
   logic [FIFO_WIDTH-1:0] fifo_r_data;
 
   // pipeline scaling in the caller's coordinates
-  logic [ DATA_BITS-1:0] adc_x_io_scaled_p1;
-  logic [ DATA_BITS-1:0] adc_y_io_scaled_p1;
+  logic [SCALE_BITS-1:0] adc_x_io_scaled_p1;
+  logic [SCALE_BITS-1:0] adc_y_io_scaled_p1;
+
+  // verilator lint_off UNUSEDSIGNAL
+  // Not all bits are used
+  logic [SCALE_BITS-1:0] adc_x_io_scaled_p2;
+  logic [SCALE_BITS-1:0] adc_y_io_scaled_p2;
+  // verilator lint_on UNUSEDSIGNAL
 
   // delay the color to match the adc x/y
   //
@@ -67,10 +82,13 @@ module adc_xy_axi #(
 
   logic                  w_pixel_lit;
 
-  // Data sheet for the adc says 7 cycle delay for x/y, plus one cycle to
-  // scale io
+  // Data sheet for the adc says 7 cycle delay for x/y, plus scaling cycles
+  //
+  // TODO: there is a little blue line under the player name in game,
+  // so despite the data sheet, this seems wrong, like the gun turned on/off
+  // early or late. Measure and tune this.
   delay #(
-      .DELAY_CYCLES(7 + 1),
+      .DELAY_CYCLES(7 + 2),
       .WIDTH       (3)
   ) adc_color_delay (
       .clk(adc_clk),
@@ -78,18 +96,23 @@ module adc_xy_axi #(
       .out({adc_red_io_d, adc_grn_io_d, adc_blu_io_d})
   );
 
-  // Temporary work around for the fact that our signal is 0 to 1024 while our
-  // fb is 640x480. Just get something on the screen as a POC.
   //
-  // Also, move this outside this module.
+  // Scaling
+  //
   always_ff @(posedge adc_clk) begin
-    adc_x_io_scaled_p1 <= (MAX_ADC - adc_x_io) >> 1;
-    adc_y_io_scaled_p1 <= adc_y_io >> 1;
+    adc_x_io_scaled_p1 <=
+        ((SCALE_BITS'(MAX_ADC) - SCALE_BITS'(adc_x_io)) * SCALE_NUM_X);
+    adc_y_io_scaled_p1 <= SCALE_BITS'(adc_y_io) * SCALE_NUM_Y;
+  end
+
+  always_ff @(posedge adc_clk) begin
+    adc_x_io_scaled_p2 <= adc_x_io_scaled_p1 / SCALE_DEN_X;
+    adc_y_io_scaled_p2 <= adc_y_io_scaled_p1 / SCALE_DEN_Y;
   end
 
   assign fifo_w_data = {
-    adc_x_io_scaled_p1,
-    adc_y_io_scaled_p1,
+    adc_x_io_scaled_p2[DATA_BITS-1:0],
+    adc_y_io_scaled_p2[DATA_BITS-1:0],
     adc_red_io_d,
     adc_grn_io_d,
     adc_blu_io_d
