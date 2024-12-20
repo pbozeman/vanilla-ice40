@@ -106,6 +106,9 @@ module adc_xy_vga_fade_stripe_tb;
   assign adc_grn_io = 1'b1;
   assign adc_blu_io = 1'b1;
 
+  // TODO: replace with some line pattern that is more representative, but
+  // this is a fairly hard pattern as it is basically drawing horizontal
+  // lines, which are the hardest for the blanker to keep up with.
   counter #(
       .WIDTH($clog2(1023))
   ) counter_x_inst (
@@ -120,7 +123,7 @@ module adc_xy_vga_fade_stripe_tb;
   ) counter_y_inst (
       .clk   (adc_clk),
       .reset (reset),
-      .enable(!reset),
+      .enable(adc_x_io == '1),
       .val   (adc_y_io)
   );
 
@@ -130,12 +133,11 @@ module adc_xy_vga_fade_stripe_tb;
     forever #5 clk = ~clk;
   end
 
-  // Beat between 47 MHz and 53 MHz, this simulates the clock jitter on the
-  // real hw
+  // 25mhz external adc clock with jitter
   initial begin
     adc_clk = 0;
     forever begin
-      #(9 + $urandom_range(0, 2)) adc_clk = ~adc_clk;
+      #(19 + $urandom_range(0, 1)) adc_clk = ~adc_clk;
     end
   end
 

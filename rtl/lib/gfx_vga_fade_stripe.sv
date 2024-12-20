@@ -241,7 +241,6 @@ module gfx_vga_fade_stripe #(
   // sync signals
   logic                         vga_fb_vsync;
   logic                         vga_fb_hsync;
-  logic                         vga_fb_visible;
 
   // color signals
   logic [FADING_PIXEL_BITS-1:0] vga_fb_data;
@@ -280,7 +279,7 @@ module gfx_vga_fade_stripe #(
       .valid  (vga_fb_valid),
       .hsync  (vga_fb_hsync),
       .vsync  (vga_fb_vsync),
-      .visible(vga_fb_visible),
+      .visible(),
       .color  (vga_fb_data),
       .addr   (vga_fb_addr),
 
@@ -407,7 +406,7 @@ module gfx_vga_fade_stripe #(
     };
   end
 
-  assign fade_fifo_w_inc = vga_fb_valid && vga_fb_visible && (vga_fb_age > 0);
+  assign fade_fifo_w_inc = vga_fb_valid && |vga_fb_color && (vga_fb_age > 0);
 
   always_ff @(posedge clk) begin
     fade_fifo_w_inc_p1  <= fade_fifo_w_inc;

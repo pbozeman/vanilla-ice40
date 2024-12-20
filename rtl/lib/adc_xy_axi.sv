@@ -33,8 +33,11 @@ module adc_xy_axi #(
   // X/Y + color
   localparam FIFO_WIDTH = DATA_BITS * 2 + 3;
 
+  logic                  w_data_changed;
+
   logic                  fifo_w_inc;
   logic [FIFO_WIDTH-1:0] fifo_w_data;
+  logic [FIFO_WIDTH-1:0] fifo_w_data_prev;
 
   logic                  fifo_r_inc;
   logic                  fifo_r_empty;
@@ -80,7 +83,7 @@ module adc_xy_axi #(
 
   cdc_fifo #(
       .DATA_WIDTH(FIFO_WIDTH),
-      .ADDR_SIZE (3)
+      .ADDR_SIZE (8)
   ) fifo (
       .w_clk        (adc_clk),
       .w_rst_n      (~reset),
@@ -100,37 +103,27 @@ module adc_xy_axi #(
       tvalid <= 0;
     end else begin
       if (!tvalid || tready) begin
-        if (!fifo_r_empty) begin
+        if (fifo_r_empty) begin
+          tvalid <= 1'b0;
+        end else begin
           tvalid  <= 1'b1;
           adc_x   <= adc_x_int;
           adc_y   <= adc_y_int;
           adc_red <= adc_red_int;
           adc_grn <= adc_grn_int;
           adc_blu <= adc_blu_int;
-        end else begin
-          if (tvalid && tready) begin
-            tvalid <= 1'b0;
-          end
         end
       end
     end
   end
 
-  assign fifo_w_inc = enable && w_pixel_lit;
+  always_ff @(posedge adc_clk) begin
+    fifo_w_data_prev <= fifo_w_data;
+  end
 
-  // FIXME: Work up to using all the pixels, but for now, the combo of our
-  // sample rate, plus blankign, plus reading for display is faster than the
-  // memory we have. (Visually, it still looks ok though, likely because the
-  // input is actually fairly slow, non-lit a lot of the time, and we get
-  // enough samples during the blanking period for it to not be terrible.
-  //
-  // Look into the queue depth necessary to absorb pixel and then burst them
-  // out during the blanking period. Note: this will ensuring that we don't
-  // hog the memory with writes before the prefetch starts happening prior to
-  // starting a new output line.
-  //
-  // assign fifo_r_inc = tvalid && tready;
-  assign fifo_r_inc = 1'b1;
+  assign w_data_changed = fifo_w_data != fifo_w_data_prev;
+  assign fifo_w_inc     = enable && w_pixel_lit && w_data_changed;
+  assign fifo_r_inc     = tvalid && tready;
 
 endmodule
 

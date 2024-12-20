@@ -97,6 +97,9 @@ module adc_xy_vga_fade_tb;
       .val   (adc_x_io)
   );
 
+  // the stripe version uses enable at the end of the x line so that is
+  // effectively drawing horizontal lines on the screen. The single chip sram
+  // can't keep up that plus the blanking, so be more gentle in this tb.
   counter #(
       .WIDTH($clog2(1023))
   ) counter_y_inst (
@@ -112,12 +115,11 @@ module adc_xy_vga_fade_tb;
     forever #5 clk = ~clk;
   end
 
-  // Beat between 47 MHz and 53 MHz, this simulates the clock jitter on the
-  // real hw
+  // 25mhz external adc clock with jitter
   initial begin
     adc_clk = 0;
     forever begin
-      #(9 + $urandom_range(0, 2)) adc_clk = ~adc_clk;
+      #(19 + $urandom_range(0, 1)) adc_clk = ~adc_clk;
     end
   end
 
