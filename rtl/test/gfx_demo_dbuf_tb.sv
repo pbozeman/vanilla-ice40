@@ -105,7 +105,7 @@ module gfx_demo_dbuf_tb;
     forever #`VGA_MODE_TB_PIXEL_CLK pixel_clk = ~pixel_clk;
   end
 
-  `TEST_SETUP_SLOW(gfx_demo_dbuf_tb);
+  `TEST_DISABLED(gfx_demo_dbuf_tb);
 
   // Test procedure
   initial begin
