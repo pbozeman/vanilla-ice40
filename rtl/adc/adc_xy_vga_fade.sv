@@ -143,13 +143,8 @@ module adc_xy_vga_fade #(
       .adc_grn   (adc_grn),
       .adc_blu   (adc_blu)
   );
-
-  localparam MAX_X = {ADC_DATA_BITS{1'b1}};
-
-  // Temporary work around for the fact that our signal is 0 to 1024 while our
-  // fb is 640x480. Just get something on the screen as a POC.
-  assign gfx_adc_x     = (MAX_X - adc_x) >> 1;
-  assign gfx_adc_y     = adc_y >> 1;
+  assign gfx_adc_x     = adc_x;
+  assign gfx_adc_y     = adc_y;
 
   assign gfx_adc_red   = {COLOR_BITS{adc_red}};
   assign gfx_adc_grn   = {COLOR_BITS{adc_grn}};

@@ -32,6 +32,7 @@ module adc_xy_axi #(
 );
   // X/Y + color
   localparam FIFO_WIDTH = DATA_BITS * 2 + 3;
+  localparam MAX_ADC = {DATA_BITS{1'b1}};
 
   logic                  w_data_changed;
 
@@ -42,6 +43,10 @@ module adc_xy_axi #(
   logic                  fifo_r_inc;
   logic                  fifo_r_empty;
   logic [FIFO_WIDTH-1:0] fifo_r_data;
+
+  // pipeline scaling in the caller's coordinates
+  logic [ DATA_BITS-1:0] adc_x_io_scaled_p1;
+  logic [ DATA_BITS-1:0] adc_y_io_scaled_p1;
 
   // delay the color to match the adc x/y
   //
@@ -62,9 +67,10 @@ module adc_xy_axi #(
 
   logic                  w_pixel_lit;
 
-  // Data sheet for the adc says 7 cycle delay for x/y
+  // Data sheet for the adc says 7 cycle delay for x/y, plus one cycle to
+  // scale io
   delay #(
-      .DELAY_CYCLES(7),
+      .DELAY_CYCLES(7 + 1),
       .WIDTH       (3)
   ) adc_color_delay (
       .clk(adc_clk),
@@ -72,8 +78,21 @@ module adc_xy_axi #(
       .out({adc_red_io_d, adc_grn_io_d, adc_blu_io_d})
   );
 
+  // Temporary work around for the fact that our signal is 0 to 1024 while our
+  // fb is 640x480. Just get something on the screen as a POC.
+  //
+  // Also, move this outside this module.
+  always_ff @(posedge adc_clk) begin
+    adc_x_io_scaled_p1 <= (MAX_ADC - adc_x_io) >> 1;
+    adc_y_io_scaled_p1 <= adc_y_io >> 1;
+  end
+
   assign fifo_w_data = {
-    adc_x_io, adc_y_io, adc_red_io_d, adc_grn_io_d, adc_blu_io_d
+    adc_x_io_scaled_p1,
+    adc_y_io_scaled_p1,
+    adc_red_io_d,
+    adc_grn_io_d,
+    adc_blu_io_d
   };
 
   assign w_pixel_lit = (adc_red_io_d || adc_grn_io_d || adc_blu_io_d);
@@ -83,7 +102,7 @@ module adc_xy_axi #(
 
   cdc_fifo #(
       .DATA_WIDTH(FIFO_WIDTH),
-      .ADDR_SIZE (8)
+      .ADDR_SIZE (4)
   ) fifo (
       .w_clk        (adc_clk),
       .w_rst_n      (~reset),
