@@ -250,8 +250,8 @@ module gfx_vga_fade #(
 
   logic                            fade_fifo_w_inc;
   logic [FADE_FIFO_DATA_WIDTH-1:0] fade_fifo_w_data;
-  // verilator lint_off UNUSEDSIGNAL
   logic                            fade_fifo_w_almost_full;
+  // verilator lint_off UNUSEDSIGNAL
   logic                            fade_fifo_w_full;
   // verilator lint_on UNUSEDSIGNAL
   logic                            fade_fifo_r_inc;
@@ -311,8 +311,9 @@ module gfx_vga_fade #(
   end
 
   sync_fifo #(
-      .DATA_WIDTH(FADE_FIFO_DATA_WIDTH),
-      .ADDR_SIZE (3)
+      .DATA_WIDTH     (FADE_FIFO_DATA_WIDTH),
+      .ADDR_SIZE      (3),
+      .ALMOST_FULL_BUF(4)
   ) fade_fifo (
       .clk          (clk),
       .rst_n        (~reset),
@@ -352,7 +353,7 @@ module gfx_vga_fade #(
   logic [   AXI_ADDR_WIDTH-1:0] gw_addr;
   logic [FADING_PIXEL_BITS-1:0] gw_color;
 
-  assign gfx_ready     = gw_axi_tready;
+  assign gfx_ready     = (gw_axi_tready && !fade_fifo_w_almost_full);
   assign gw_axi_tvalid = gfx_valid;
   assign gw_addr       = H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x);
   assign gw_color      = {4'd4, gfx_color};

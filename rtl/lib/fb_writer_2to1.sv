@@ -75,18 +75,26 @@ module fb_writer_2to1 #(
   logic v1;
   assign v1 = in_axi_tvalid[1];
 
-
+  // priority encoder, but with fairness
   always_comb begin
+    next_grant = IDLE;
+
     if (fbw_axi_tvalid && !fbw_axi_tready) begin
       // there is an outstanding txn
       next_grant = grant;
     end else begin
-      if (v0) begin
-        next_grant = 0;
-      end else if (v1) begin
-        next_grant = 1;
+      if (grant == 0) begin
+        if (v1) begin
+          next_grant = 1;
+        end else if (v0) begin
+          next_grant = 0;
+        end
       end else begin
-        next_grant = IDLE;
+        if (v0) begin
+          next_grant = 0;
+        end else if (v1) begin
+          next_grant = 1;
+        end
       end
     end
   end
