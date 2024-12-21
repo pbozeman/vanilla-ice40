@@ -3,6 +3,8 @@
 
 `include "directives.sv"
 
+`include "initial_reset.sv"
+
 `ifdef VGA_MODE_640_480_60
 `include "initial_reset.sv"
 `include "tlight.sv"
@@ -67,7 +69,22 @@ module tlight_top #(
 
 endmodule
 `else
-module tlight_top;
+module tlight_top (
+    input logic CLK
+);
+  // This is a hack to avoid the error that happens as part of auto dependency
+  // if there isn't one, i.e. we get an error like:
+  //
+  // Makefile:118: *** target file '.build/tlight_top.json' has both : and :: entries.  Stop.
+  //
+  // This should get a better solution, but this works for now and lets use
+  // higher resolutions as default in the makefile.
+
+  initial_reset initial_reset_i (
+      .clk  (CLK),
+      .reset()
+  );
+
 endmodule
 `endif
 
