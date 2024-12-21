@@ -1,5 +1,6 @@
 `include "testing.sv"
 
+`ifdef VGA_MODE_640_480_60
 `include "adc_xy_vga_fade.sv"
 `include "counter.sv"
 `include "sram_model.sv"
@@ -165,3 +166,10 @@ module adc_xy_vga_fade_tb;
   end
 
 endmodule
+`else
+module adc_xy_vga_fade_tb;
+  initial begin
+    $finish;
+  end
+endmodule
+`endif
