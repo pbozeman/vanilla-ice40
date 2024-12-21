@@ -255,19 +255,23 @@ module gfx_vga_stripe_tb;
       gfx_wl_y      <= '0;
       gfx_wl_pvalid <= 1'b0;
     end else if (wl_en) begin
-      if (!gfx_wl_pvalid || gfx_wl_pready) begin
-        gfx_wl_pvalid <= 1'b1;
+      if (gfx_wl_pvalid && gfx_wl_pready) begin
+        gfx_wl_pvalid <= 1'b0;
+      end else begin
+        if (!gfx_wl_pvalid || gfx_wl_pready) begin
+          gfx_wl_pvalid <= 1'b1;
 
-        if (gfx_pready) begin
-          // Increment coordinates
-          if (gfx_wl_x < H_VISIBLE - 1) begin
-            gfx_wl_x <= gfx_wl_x + 1;
-          end else begin
-            gfx_wl_x <= '0;
-            if (gfx_wl_y < V_VISIBLE - 1) begin
-              gfx_wl_y <= gfx_wl_y + 1;
+          if (gfx_pready) begin
+            // Increment coordinates
+            if (gfx_wl_x < H_VISIBLE - 1) begin
+              gfx_wl_x <= gfx_wl_x + 1;
             end else begin
-              gfx_wl_y <= '0;
+              gfx_wl_x <= '0;
+              if (gfx_wl_y < V_VISIBLE - 1) begin
+                gfx_wl_y <= gfx_wl_y + 1;
+              end else begin
+                gfx_wl_y <= '0;
+              end
             end
           end
         end
@@ -298,19 +302,23 @@ module gfx_vga_stripe_tb;
       gfx_we_y      <= 0;
       gfx_we_pvalid <= 1'b0;
     end else if (we_en) begin
-      if (!gfx_we_pvalid || gfx_we_pready) begin
-        gfx_we_pvalid <= 1'b1;
+      if (gfx_we_pvalid && gfx_we_pready) begin
+        gfx_we_pvalid <= 1'b0;
+      end else begin
+        if (!gfx_we_pvalid || gfx_we_pready) begin
+          gfx_we_pvalid <= 1'b1;
 
-        if (gfx_we_pready) begin
-          // Increment coordinates
-          if (gfx_we_x < H_VISIBLE - 1) begin
-            gfx_we_x <= gfx_we_x + 2;
-          end else begin
-            gfx_we_x <= '0;
-            if (gfx_we_y < V_VISIBLE - 1) begin
-              gfx_we_y <= gfx_we_y + 1;
+          if (gfx_we_pready) begin
+            // Increment coordinates
+            if (gfx_we_x < H_VISIBLE - 1) begin
+              gfx_we_x <= gfx_we_x + 2;
             end else begin
-              gfx_we_y <= '0;
+              gfx_we_x <= '0;
+              if (gfx_we_y < V_VISIBLE - 1) begin
+                gfx_we_y <= gfx_we_y + 1;
+              end else begin
+                gfx_we_y <= '0;
+              end
             end
           end
         end
@@ -343,15 +351,19 @@ module gfx_vga_stripe_tb;
       gfx_wr_y      <= '0;
       gfx_wr_pvalid <= 1'b0;
     end else if (wr_en) begin
-      if (!gfx_wr_pvalid || gfx_wr_pready) begin
-        gfx_wr_pvalid <= 1'b1;
+      if (gfx_wr_pvalid && gfx_wr_pready) begin
+        gfx_wr_pvalid <= 1'b0;
+      end else begin
+        if (!gfx_wr_pvalid || gfx_wr_pready) begin
+          gfx_wr_pvalid <= 1'b1;
 
-        if (gfx_wr_pready) begin
-          // Random coordinates within visible area
-          // verilator lint_off WIDTHTRUNC
-          gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
-          gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
-          // verilator lint_on WIDTHTRUNC
+          if (gfx_wr_pready) begin
+            // Random coordinates within visible area
+            // verilator lint_off WIDTHTRUNC
+            gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
+            gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
+            // verilator lint_on WIDTHTRUNC
+          end
         end
       end
     end
