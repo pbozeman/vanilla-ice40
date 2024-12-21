@@ -17,6 +17,16 @@ module adc_xy_vga_fade_stripe_tb;
   localparam AXI_ADDR_WIDTH = 20;
   localparam AXI_DATA_WIDTH = 16;
 
+`ifdef VGA_MODE_640_480_60
+  localparam ADC_CLK_HALF_PERIOD = 20;
+`else
+  // assuming this is 800x600, we have a 40mhz pixel clock.. so with writing
+  // full horizontal lines, and with blanking, we need 80mhz of memory bw just
+  // for display and blanking. With 2 sram, we have 100mhz. Reduce the adc
+  // sample clock to 20mhz.
+  localparam ADC_CLK_HALF_PERIOD = 25;
+`endif
+
   logic                      clk;
   logic                      adc_clk;
   logic                      pixel_clk;
@@ -137,7 +147,7 @@ module adc_xy_vga_fade_stripe_tb;
   initial begin
     adc_clk = 0;
     forever begin
-      #20 adc_clk = ~adc_clk;
+      #ADC_CLK_HALF_PERIOD adc_clk = ~adc_clk;
     end
   end
 
