@@ -15,6 +15,12 @@
 // contention at a subordinate, there is no guarantee about which will finish
 // first. Without an xid, we can't really return results.
 //
+// Follow up comment: I think the conclusion above is wrong. It is likely
+// possible to be compliant, even with axi-lite, by passing the idx of the
+// subordinate being written to into a fifo. Then, return data on the response
+// channel based on the idx coming out of the fifo. I haven't thought fully
+// about this, but wanted to capture a potential general direction.
+//
 // TODO: move to full axi for the reasons noted above.
 module axi_stripe_writer #(
     parameter  NUM_S          = 2,
