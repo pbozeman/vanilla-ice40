@@ -18,28 +18,28 @@ module axi_stripe_writer #(
     input logic axi_clk,
     input logic axi_resetn,
 
-    input  logic [AXI_ADDR_WIDTH-1:0] in_axi_awaddr,
-    input  logic                      in_axi_awvalid,
-    output logic                      in_axi_awready,
-    input  logic [AXI_DATA_WIDTH-1:0] in_axi_wdata,
-    input  logic [AXI_STRB_WIDTH-1:0] in_axi_wstrb,
-    input  logic                      in_axi_wvalid,
-    output logic                      in_axi_wready,
-    output logic [               1:0] in_axi_bresp,
-    output logic                      in_axi_bvalid,
-    input  logic                      in_axi_bready,
+    input  logic [AXI_ADDR_WIDTH-1:0] s_axi_awaddr,
+    input  logic                      s_axi_awvalid,
+    output logic                      s_axi_awready,
+    input  logic [AXI_DATA_WIDTH-1:0] s_axi_wdata,
+    input  logic [AXI_STRB_WIDTH-1:0] s_axi_wstrb,
+    input  logic                      s_axi_wvalid,
+    output logic                      s_axi_wready,
+    output logic [               1:0] s_axi_bresp,
+    output logic                      s_axi_bvalid,
+    input  logic                      s_axi_bready,
 
     // Subordinate interfaces
-    output logic [NUM_S-1:0][AXI_ADDR_WIDTH-1:0] out_axi_awaddr,
-    output logic [NUM_S-1:0]                     out_axi_awvalid,
-    input  logic [NUM_S-1:0]                     out_axi_awready,
-    output logic [NUM_S-1:0][AXI_DATA_WIDTH-1:0] out_axi_wdata,
-    output logic [NUM_S-1:0][AXI_STRB_WIDTH-1:0] out_axi_wstrb,
-    output logic [NUM_S-1:0]                     out_axi_wvalid,
-    input  logic [NUM_S-1:0]                     out_axi_wready,
-    input  logic [NUM_S-1:0][               1:0] out_axi_bresp,
-    input  logic [NUM_S-1:0]                     out_axi_bvalid,
-    output logic [NUM_S-1:0]                     out_axi_bready
+    output logic [NUM_S-1:0][AXI_ADDR_WIDTH-1:0] m_axi_awaddr,
+    output logic [NUM_S-1:0]                     m_axi_awvalid,
+    input  logic [NUM_S-1:0]                     m_axi_awready,
+    output logic [NUM_S-1:0][AXI_DATA_WIDTH-1:0] m_axi_wdata,
+    output logic [NUM_S-1:0][AXI_STRB_WIDTH-1:0] m_axi_wstrb,
+    output logic [NUM_S-1:0]                     m_axi_wvalid,
+    input  logic [NUM_S-1:0]                     m_axi_wready,
+    input  logic [NUM_S-1:0][               1:0] m_axi_bresp,
+    input  logic [NUM_S-1:0]                     m_axi_bvalid,
+    output logic [NUM_S-1:0]                     m_axi_bready
 );
   localparam SEL_BITS = $clog2(NUM_S);
   localparam R_BITS = $clog2(NUM_S + 1);
@@ -66,7 +66,7 @@ module axi_stripe_writer #(
   logic                resp_idle;
 
   assign req_accepted  = awdone && wdone;
-  assign resp_accepted = in_axi_bvalid && in_axi_bready;
+  assign resp_accepted = s_axi_bvalid && s_axi_bready;
 
   assign req_idle      = req_full == CHANNEL_IDLE;
   assign resp_idle     = resp_full == CHANNEL_IDLE;
@@ -77,7 +77,7 @@ module axi_stripe_writer #(
   sticky_bit sticky_awdone (
       .clk  (axi_clk),
       .reset(~axi_resetn),
-      .in   (in_axi_awvalid && in_axi_awready),
+      .in   (s_axi_awvalid && s_axi_awready),
       .out  (awdone),
       .clear(req_accepted)
   );
@@ -85,7 +85,7 @@ module axi_stripe_writer #(
   sticky_bit sticky_wdone (
       .clk  (axi_clk),
       .reset(~axi_resetn),
-      .in   (in_axi_wvalid && in_axi_wready),
+      .in   (s_axi_wvalid && s_axi_wready),
       .out  (wdone),
       .clear(req_accepted)
   );
@@ -96,8 +96,8 @@ module axi_stripe_writer #(
   ) axi_stripe_router_i (
       .axi_clk      (axi_clk),
       .axi_resetn   (axi_resetn),
-      .axi_avalid   (in_axi_awvalid),
-      .axi_addr     (in_axi_awaddr),
+      .axi_avalid   (s_axi_awvalid),
+      .axi_addr     (s_axi_awaddr),
       .req_accepted (req_accepted),
       .resp_accepted(resp_accepted),
       .req          (req_full),
@@ -108,48 +108,48 @@ module axi_stripe_writer #(
   // Muxing
   //
   always_comb begin
-    out_axi_awaddr  = '0;
-    out_axi_awvalid = '0;
+    m_axi_awaddr  = '0;
+    m_axi_awvalid = '0;
 
-    out_axi_wdata   = '0;
-    out_axi_wstrb   = '0;
-    out_axi_wvalid  = '0;
+    m_axi_wdata   = '0;
+    m_axi_wstrb   = '0;
+    m_axi_wvalid  = '0;
 
-    out_axi_bready  = '0;
+    m_axi_bready  = '0;
 
     if (!req_idle) begin
       // AW channel
-      out_axi_awaddr[req]  = in_axi_awaddr;
-      out_axi_awvalid[req] = in_axi_awvalid;
+      m_axi_awaddr[req]  = s_axi_awaddr;
+      m_axi_awvalid[req] = s_axi_awvalid;
 
       // W channel
-      out_axi_wdata[req]   = in_axi_wdata;
-      out_axi_wstrb[req]   = in_axi_wstrb;
-      out_axi_wvalid[req]  = in_axi_wvalid;
+      m_axi_wdata[req]   = s_axi_wdata;
+      m_axi_wstrb[req]   = s_axi_wstrb;
+      m_axi_wvalid[req]  = s_axi_wvalid;
     end
 
     if (!resp_idle) begin
       // B channel
-      out_axi_bready[resp] = in_axi_bready;
+      m_axi_bready[resp] = s_axi_bready;
     end
   end
 
   always_comb begin
-    in_axi_awready = '0;
-    in_axi_wready  = '0;
+    s_axi_awready = '0;
+    s_axi_wready  = '0;
 
-    in_axi_bresp   = '0;
-    in_axi_bvalid  = '0;
+    s_axi_bresp   = '0;
+    s_axi_bvalid  = '0;
 
     if (!req_idle) begin
       // AW and W
-      in_axi_awready = out_axi_awready[req];
-      in_axi_wready  = out_axi_wready[req];
+      s_axi_awready = m_axi_awready[req];
+      s_axi_wready  = m_axi_wready[req];
     end
 
     if (!resp_idle) begin
-      in_axi_bresp  = out_axi_bresp[resp];
-      in_axi_bvalid = out_axi_bvalid[resp];
+      s_axi_bresp  = m_axi_bresp[resp];
+      s_axi_bvalid = m_axi_bvalid[resp];
     end
   end
 
