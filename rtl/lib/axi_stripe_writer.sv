@@ -3,12 +3,19 @@
 
 `include "directives.sv"
 
-`include "axi_stripe_router.sv"
-`include "sticky_bit.sv"
+`include "axi_fifobuf_write.sv"
 
-// Unlike the reader, this module does not take an length, it's
-// just a single word, but, is a thin-ish wrapper for doing the
-// routing
+// This is not axi lite compliant in that the write response from the
+// subordinates is ignored and not passed back to the manager. It's not really
+// possible to do what this module is doing in an axi lite compliant way. It
+// would need to be moved to full axi so that responses could be returned
+// out of order... because the whole point of this module is to let a caller
+// do linear writes at the combined bandwidth of the subordinates, which means,
+// accepting new writes before old ones finish. And because there might be
+// contention at a subordinate, there is no guarantee about which will finish
+// first. Without an xid, we can't really return results.
+//
+// TODO: move to full axi for the reasons noted above.
 module axi_stripe_writer #(
     parameter  NUM_S          = 2,
     parameter  AXI_ADDR_WIDTH = 20,
@@ -27,7 +34,9 @@ module axi_stripe_writer #(
     output logic                      s_axi_wready,
     output logic [               1:0] s_axi_bresp,
     output logic                      s_axi_bvalid,
+    // verilator lint_off UNUSEDSIGNAL
     input  logic                      s_axi_bready,
+    // verilator lint_on UNUSEDSIGNAL
 
     // Subordinate interfaces
     output logic [NUM_S-1:0][AXI_ADDR_WIDTH-1:0] m_axi_awaddr,
@@ -42,117 +51,89 @@ module axi_stripe_writer #(
     output logic [NUM_S-1:0]                     m_axi_bready
 );
   localparam SEL_BITS = $clog2(NUM_S);
-  localparam R_BITS = $clog2(NUM_S + 1);
-  localparam CHANNEL_IDLE = {R_BITS{1'b1}};
 
-  // The full versions of these are basically just +1 bit
-  // where the extra bit is an active bit. This was to be consistent with the
-  // other maxing interfaces, back from a time when these were used to select
-  // into an actual array. Now that that method isn't used anymore, we should
-  // likely have some sort of explicit req/resp active or valid bit instead.
-  // Although for now, just be consistent with the rest of the design.
-  logic [  R_BITS-1:0] req_full;
-  logic [  R_BITS-1:0] resp_full;
+  logic [NUM_S-1:0][AXI_ADDR_WIDTH-1:0] buf_axi_awaddr;
+  logic [NUM_S-1:0]                     buf_axi_awvalid;
+  logic [NUM_S-1:0]                     buf_axi_awready;
+  logic [NUM_S-1:0][AXI_DATA_WIDTH-1:0] buf_axi_wdata;
+  logic [NUM_S-1:0][AXI_STRB_WIDTH-1:0] buf_axi_wstrb;
+  logic [NUM_S-1:0]                     buf_axi_wvalid;
+  logic [NUM_S-1:0]                     buf_axi_wready;
+  // verilator lint_off UNUSEDSIGNAL
+  logic [NUM_S-1:0][               1:0] buf_axi_bresp;
+  logic [NUM_S-1:0]                     buf_axi_bvalid;
+  // verilator lint_on UNUSEDSIGNAL
+  logic [NUM_S-1:0]                     buf_axi_bready;
 
-  logic [SEL_BITS-1:0] req;
-  logic [SEL_BITS-1:0] resp;
+  logic                                 fully_ready;
 
-  logic                awdone;
-  logic                wdone;
-  logic                req_accepted;
-  logic                resp_accepted;
+  // We could possibly be picky, but the logic would be more complicated, and
+  // this is likely fine for our use cases.
+  assign fully_ready   = &buf_axi_awready && &buf_axi_wready;
+  assign s_axi_awready = fully_ready;
+  assign s_axi_wready  = fully_ready;
+  assign s_axi_bresp   = 2'b0;
+  assign s_axi_bvalid  = 1'b1;
 
-  logic                req_idle;
-  logic                resp_idle;
+  for (genvar i = 0; i < NUM_S; i++) begin : gen_fifobuf
+    axi_fifobuf_write #(
+        .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
+        .AXI_DATA_WIDTH(AXI_DATA_WIDTH)
+    ) sync_fifo_i (
+        .axi_clk   (axi_clk),
+        .axi_resetn(axi_resetn),
 
-  assign req_accepted  = awdone && wdone;
-  assign resp_accepted = s_axi_bvalid && s_axi_bready;
+        .s_axi_awaddr (buf_axi_awaddr[i]),
+        .s_axi_awvalid(buf_axi_awvalid[i]),
+        .s_axi_awready(buf_axi_awready[i]),
+        .s_axi_wdata  (buf_axi_wdata[i]),
+        .s_axi_wstrb  (buf_axi_wstrb[i]),
+        .s_axi_wvalid (buf_axi_wvalid[i]),
+        .s_axi_wready (buf_axi_wready[i]),
+        .s_axi_bresp  (buf_axi_bresp[i]),
+        .s_axi_bvalid (buf_axi_bvalid[i]),
+        .s_axi_bready (buf_axi_bready[i]),
 
-  assign req_idle      = req_full == CHANNEL_IDLE;
-  assign resp_idle     = resp_full == CHANNEL_IDLE;
-
-  assign req           = req_full[SEL_BITS-1:0];
-  assign resp          = resp_full[SEL_BITS-1:0];
-
-  sticky_bit sticky_awdone (
-      .clk  (axi_clk),
-      .reset(~axi_resetn),
-      .in   (s_axi_awvalid && s_axi_awready),
-      .out  (awdone),
-      .clear(req_accepted)
-  );
-
-  sticky_bit sticky_wdone (
-      .clk  (axi_clk),
-      .reset(~axi_resetn),
-      .in   (s_axi_wvalid && s_axi_wready),
-      .out  (wdone),
-      .clear(req_accepted)
-  );
-
-  axi_stripe_router #(
-      .SEL_BITS      (SEL_BITS),
-      .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH)
-  ) axi_stripe_router_i (
-      .axi_clk      (axi_clk),
-      .axi_resetn   (axi_resetn),
-      .axi_avalid   (s_axi_awvalid),
-      .axi_addr     (s_axi_awaddr),
-      .req_accepted (req_accepted),
-      .resp_accepted(resp_accepted),
-      .req          (req_full),
-      .resp         (resp_full)
-  );
-
-  //
-  // Muxing
-  //
-  always_comb begin
-    m_axi_awaddr  = '0;
-    m_axi_awvalid = '0;
-
-    m_axi_wdata   = '0;
-    m_axi_wstrb   = '0;
-    m_axi_wvalid  = '0;
-
-    m_axi_bready  = '0;
-
-    if (!req_idle) begin
-      // AW channel
-      m_axi_awaddr[req]  = s_axi_awaddr;
-      m_axi_awvalid[req] = s_axi_awvalid;
-
-      // W channel
-      m_axi_wdata[req]   = s_axi_wdata;
-      m_axi_wstrb[req]   = s_axi_wstrb;
-      m_axi_wvalid[req]  = s_axi_wvalid;
-    end
-
-    if (!resp_idle) begin
-      // B channel
-      m_axi_bready[resp] = s_axi_bready;
-    end
+        .m_axi_awaddr (m_axi_awaddr[i]),
+        .m_axi_awvalid(m_axi_awvalid[i]),
+        .m_axi_awready(m_axi_awready[i]),
+        .m_axi_wdata  (m_axi_wdata[i]),
+        .m_axi_wstrb  (m_axi_wstrb[i]),
+        .m_axi_wvalid (m_axi_wvalid[i]),
+        .m_axi_wready (m_axi_wready[i]),
+        .m_axi_bresp  (m_axi_bresp[i]),
+        .m_axi_bvalid (m_axi_bvalid[i]),
+        .m_axi_bready (m_axi_bready[i])
+    );
   end
 
+  logic [SEL_BITS-1:0] addr_sel;
+  assign addr_sel = s_axi_awaddr[SEL_BITS-1:0];
+
   always_comb begin
-    s_axi_awready = '0;
-    s_axi_wready  = '0;
+    buf_axi_awaddr  = '0;
+    buf_axi_awvalid = '0;
+    buf_axi_wdata   = '0;
+    buf_axi_wstrb   = '0;
+    buf_axi_wvalid  = '0;
+    buf_axi_bready  = '1;
 
-    s_axi_bresp   = '0;
-    s_axi_bvalid  = '0;
-
-    if (!req_idle) begin
-      // AW and W
-      s_axi_awready = m_axi_awready[req];
-      s_axi_wready  = m_axi_wready[req];
-    end
-
-    if (!resp_idle) begin
-      s_axi_bresp  = m_axi_bresp[resp];
-      s_axi_bvalid = m_axi_bvalid[resp];
+    // Only route when we have both address and data valid, otherwise, we
+    // would have to be buffering the writes to match to the right
+    // destination. This might technically be a protocol violation, but will
+    // work with our current managers.
+    if (s_axi_awvalid && s_axi_wvalid) begin
+      for (int i = 0; i < NUM_S; i++) begin
+        if (addr_sel == SEL_BITS'(i)) begin
+          buf_axi_awaddr[i]  = s_axi_awaddr;
+          buf_axi_awvalid[i] = 1'b1;
+          buf_axi_wdata[i]   = s_axi_wdata;
+          buf_axi_wstrb[i]   = s_axi_wstrb;
+          buf_axi_wvalid[i]  = 1'b1;
+        end
+      end
     end
   end
 
 endmodule
-
 `endif

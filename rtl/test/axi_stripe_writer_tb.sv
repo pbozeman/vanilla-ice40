@@ -4,6 +4,17 @@
 `include "axi_sram_controller.sv"
 `include "sram_model.sv"
 
+
+// This TB was writen back when axi_stripe_writer was just a basic router
+// across striped axi subordinates. Now, it does a bunch of queuing and what
+// not. On one hand, it's great that this module still works (minus moving
+// some assertions to happen sooner), but there are probably corner cases that
+// could be better explored. That said, the stripe writer is now a thin layer
+// over the axis_fifobuf, so deeper testing could likely be done there.
+//
+// If stripe writer ever properly handles independent completion of addr and
+// data (see the comments in the module), those cases should be tested here.
+
 // verilator lint_off UNUSEDSIGNAL
 module axi_stripe_writer_tb;
   localparam NUM_S = 2;
@@ -188,15 +199,12 @@ module axi_stripe_writer_tb;
       test_line = `__LINE__;
       setup();
 
-      `ASSERT_EQ(uut.req, '1);
-
       m_axi_awvalid = 1'b1;
       m_axi_awaddr  = 20'h1000;
       m_axi_wvalid  = 1'b1;
 
       @(posedge axi_clk);
       #1;
-      `ASSERT_EQ(uut.req, 0);
       `ASSERT_EQ(s_axi_awvalid[0], 1'b1);
       `ASSERT_EQ(s_axi_awaddr[0], 20'h1000);
 
@@ -207,7 +215,6 @@ module axi_stripe_writer_tb;
 
       @(posedge axi_clk);
       #1;
-      `ASSERT_EQ(uut.req, 1);
       `ASSERT_EQ(s_axi_awvalid[1], 1'b1);
       `ASSERT_EQ(s_axi_awaddr[1], 20'h2001);
     end
@@ -225,9 +232,9 @@ module axi_stripe_writer_tb;
       m_axi_wvalid  = 1'b1;
       m_axi_bready  = 1'b1;
 
-      @(posedge axi_clk);
+      `WAIT_FOR_SIGNAL(in_write_accepted);
+
       #1;
-      `ASSERT_EQ(uut.req, 0);
       `ASSERT_EQ(s_axi_awvalid[0], 1'b1);
       `ASSERT_EQ(s_axi_awaddr[0], 20'h1000);
       `ASSERT_EQ(s_axi_awvalid[0], 1'b1);
@@ -235,12 +242,6 @@ module axi_stripe_writer_tb;
       `ASSERT_EQ(s_axi_wvalid[0], 1'b1);
       `ASSERT_EQ(s_axi_wstrb[0], 2'b10);
 
-      `ASSERT_EQ(s_axi_bready[0], 1'b0);
-      `WAIT_FOR_SIGNAL(in_write_accepted);
-
-      @(posedge axi_clk);
-      #1;
-      `ASSERT_EQ(s_axi_bready[0], 1'b1);
     end
   endtask
 
@@ -256,14 +257,9 @@ module axi_stripe_writer_tb;
       m_axi_wvalid  = 1'b1;
       m_axi_bready  = 1'b1;
 
-      @(posedge axi_clk);
-      #1;
-      `ASSERT_EQ(m_axi_awvalid, 1'b1);
-      `ASSERT_EQ(m_axi_awready, 1'b1);
-      `ASSERT_EQ(m_axi_wvalid, 1'b1);
-      `ASSERT_EQ(m_axi_wready, 1'b1);
-
-      `WAIT_FOR_SIGNAL(m_axi_bvalid);
+      // the stripe writer lies, so we have to look directly at the sram
+      // controller for testing
+      `WAIT_FOR_SIGNAL(s_axi_bvalid[0]);
     end
   endtask
 
@@ -283,7 +279,6 @@ module axi_stripe_writer_tb;
       @(posedge axi_clk);
       // Check first transaction signals
       #1;
-      `ASSERT_EQ(uut.req, 0);
       `ASSERT_EQ(s_axi_awaddr[0], 20'h1000);
       `ASSERT_EQ(s_axi_wdata[0], 16'hDEAD);
 
@@ -299,12 +294,13 @@ module axi_stripe_writer_tb;
 
       // Check second transaction grant and signals.
       #1;
-      `ASSERT_EQ(uut.req, 0);
       `ASSERT_EQ(s_axi_awaddr[0], 20'h2000);
       `ASSERT_EQ(s_axi_wdata[0], 16'hBEEF);
 
       // Wait for B channel to complete
+      // verilator lint_off UNUSEDLOOP
       `WAIT_FOR_SIGNAL(m_axi_bvalid);
+      // verilator lint_on UNUSEDLOOP
     end
   endtask
 
@@ -315,26 +311,22 @@ module axi_stripe_writer_tb;
 
       @(posedge axi_clk);
       for (int i = 0; i < 32; i++) begin
-        @(posedge axi_clk);
         m_axi_awaddr  = 20'(i);
         m_axi_awvalid = 1'b1;
         m_axi_wdata   = 16'hD000 + 16'(i);
         m_axi_wstrb   = 2'b11;
         m_axi_wvalid  = 1'b1;
         m_axi_bready  = 1'b1;
-
-        `WAIT_FOR_SIGNAL(in_write_accepted);
+        @(posedge axi_clk);
+        #1;
 
         if (i % 2 == 0) begin
-          `ASSERT_EQ(uut.req_full, 0);
           `ASSERT_EQ(s_axi_awaddr[0], 20'(i));
           `ASSERT_EQ(s_axi_wdata[0], 16'hD000 + 16'(i));
         end else begin
-          `ASSERT_EQ(uut.req_full, 1);
           `ASSERT_EQ(s_axi_awaddr[1], 20'(i));
           `ASSERT_EQ(s_axi_wdata[1], 16'hD000 + 16'(i));
         end
-
       end
     end
   endtask
