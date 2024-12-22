@@ -51,16 +51,6 @@ module axi_stripe_readn #(
     input  logic [NUM_S-1:0]                     out_axi_rvalid,
     output logic [NUM_S-1:0]                     out_axi_rready
 );
-  localparam [1:0] IDLE = 2'b00;
-  localparam [1:0] INIT_BURST = 2'b01;
-  localparam [1:0] READING_BEATS = 2'b10;
-  localparam [1:0] COMPLETE = 2'b11;
-
-  logic [      1:0]                       state;
-  logic [      1:0]                       next_state;
-
-  logic                                   burst_start;
-
   logic [NUM_S-1:0][  AXI_ADDR_WIDTH-1:0] strip_axi_araddr;
   logic [NUM_S-1:0][AXI_ARLENW_WIDTH-1:0] strip_axi_arlenw;
   logic [NUM_S-1:0]                       strip_axi_arvalid;
@@ -70,6 +60,8 @@ module axi_stripe_readn #(
   logic [NUM_S-1:0]                       strip_axi_rvalid;
   logic [NUM_S-1:0]                       strip_axi_rlast;
   logic [NUM_S-1:0]                       strip_axi_rready;
+
+  logic [NUM_S-1:0]                       strip_addr_accepted;
 
   for (genvar i = 0; i < NUM_S; i++) begin : gen_rw
     axi_readn #(
@@ -111,7 +103,10 @@ module axi_stripe_readn #(
   logic                strip_idx_inc;
   logic                strip_idx_last;
 
-  assign strip_idx_init = burst_start || (strip_idx_last && strip_idx_inc);
+  //
+  // strip iteration
+  //
+  assign strip_idx_init = (~axi_resetn || (strip_idx_last && strip_idx_inc));
   assign strip_idx_inc  = in_axi_rvalid && in_axi_rready;
 
   iter #(
@@ -128,72 +123,30 @@ module axi_stripe_readn #(
   );
 
   //
-  // state machine
-  //
-  // The state machine is kinda wonky because this and axi_readn
-  // where my first subordinates that weren't primarily just passing
-  // data through to something managing the signaling at a lower layer.
-  //
-  // What should be happening here is that in_axi_arready should be true
-  // when we are idle and we should be registering the iteration arguments
-  // when arvalid and arready are high. Address this when doing an overall
-  // axi overhaul.
-  always_comb begin
-    next_state  = state;
-    burst_start = 1'b0;
-
-    case (state)
-      IDLE: begin
-        if (in_axi_arvalid) begin
-          next_state  = INIT_BURST;
-          burst_start = 1'b1;
-        end
-      end
-
-      INIT_BURST: begin
-        next_state = READING_BEATS;
-      end
-
-      READING_BEATS: begin
-        if ((strip_idx_last && strip_axi_rlast[strip_idx]) &&
-            (in_axi_rvalid && in_axi_rready)) begin
-          next_state = COMPLETE;
-        end
-      end
-
-      COMPLETE: begin
-        next_state = IDLE;
-      end
-
-      default: begin
-      end
-    endcase
-  end
-
-  always_ff @(posedge axi_clk) begin
-    if (~axi_resetn) begin
-      state <= IDLE;
-    end else begin
-      state <= next_state;
-    end
-  end
-
-  //
-  // strip burst request start signals
+  // init burst
   //
   for (genvar i = 0; i < NUM_S; i++) begin : gen_rw_start
     always_ff @(posedge axi_clk) begin
       if (~axi_resetn) begin
-        strip_axi_arvalid[i] <= 1'b0;
+        strip_axi_arvalid[i]   <= 1'b0;
+        strip_addr_accepted[i] <= 1'b0;
+        in_axi_arready         <= 1'b1;
       end else begin
-        if (burst_start) begin
-          strip_axi_araddr[i]  <= in_axi_araddr + i;
-          strip_axi_arvalid[i] <= 1'b1;
-          strip_axi_arlenw[i]  <= (in_axi_arlenw / NUM_S);
+        if (in_axi_arready) begin
+          if (in_axi_arvalid) begin
+            in_axi_arready         <= 1'b0;
+            strip_addr_accepted[i] <= 1'b0;
+            strip_axi_araddr[i]    <= in_axi_araddr + i;
+            strip_axi_arvalid[i]   <= 1'b1;
+            strip_axi_arlenw[i]    <= (in_axi_arlenw / NUM_S);
+          end
+        end else begin
+          in_axi_arready <= &strip_addr_accepted;
         end
 
         if (strip_axi_arvalid[i] && strip_axi_arready[i]) begin
-          strip_axi_arvalid[i] <= 1'b0;
+          strip_axi_arvalid[i]   <= 1'b0;
+          strip_addr_accepted[i] <= 1'b1;
         end
       end
     end
@@ -203,9 +156,9 @@ module axi_stripe_readn #(
   // strip beat signals back to caller
   //
   always_comb begin
-    in_axi_rvalid = state == READING_BEATS ? strip_axi_rvalid[strip_idx] : 1'b0;
-    in_axi_rdata = state == READING_BEATS ? strip_axi_rdata[strip_idx] : '0;
-    in_axi_rresp = state == READING_BEATS ? strip_axi_rresp[strip_idx] : '0;
+    in_axi_rvalid = strip_axi_rvalid[strip_idx];
+    in_axi_rdata  = strip_axi_rdata[strip_idx];
+    in_axi_rresp  = strip_axi_rresp[strip_idx];
   end
 
   //
@@ -219,8 +172,7 @@ module axi_stripe_readn #(
   //
   // burst signals back to the caller
   //
-  assign in_axi_rlast   = next_state == COMPLETE;
-  assign in_axi_arready = state == COMPLETE;
+  assign in_axi_rlast = strip_idx_last && strip_axi_rlast[strip_idx];
 
 endmodule
 
