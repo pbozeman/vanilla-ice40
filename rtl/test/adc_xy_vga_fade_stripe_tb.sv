@@ -24,7 +24,15 @@ module adc_xy_vga_fade_stripe_tb;
   // full horizontal lines, and with blanking, we need 80mhz of memory bw just
   // for display and blanking. With 2 sram, we have 100mhz. Reduce the adc
   // sample clock to 20mhz.
-  localparam ADC_CLK_HALF_PERIOD = 25;
+  //
+  // FIXME: the above comment would be true if we were using a 3 way
+  // interconnect with the blanker, the adc, and the pixel reader getting
+  // equal priority. What we actually have is a 2to1 fb writer, and a reader.
+  // So, the reader gets 50mhz of BW, and the 2to1 have to share 50mhz. Since
+  // we have to blank at 40mhz to not drop pixels, we only have 10mhz left
+  // over for the adc. Next up, using a 3 to 1 interconnect that works with
+  // the way we are pre-reading stripes.
+  localparam ADC_CLK_HALF_PERIOD = 50;
 `endif
 
   logic                      clk;
