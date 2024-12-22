@@ -160,6 +160,7 @@ module adc_xy_vga_fade_stripe_tb;
   `TEST_SETUP_SLOW(adc_xy_vga_fade_stripe_tb)
 
   always @(posedge adc_clk) begin
+    // Ensure we don't drop adc samples
     `ASSERT(!uut.adc_xy_inst.fifo.w_full);
   end
 
@@ -175,7 +176,11 @@ module adc_xy_vga_fade_stripe_tb;
 
   always @(posedge pixel_clk) begin
     if (checks_en) begin
+      // Ensure we don't drop vga pixels
       `ASSERT(!uut.gfx_vga_fade_inst.fifo_empty);
+
+      // ensure we don't drop blanking pixels
+      `ASSERT(!uut.gfx_vga_fade_inst.fade_fifo.w_full);
     end
   end
 
