@@ -108,6 +108,12 @@ module axi_stripe_readn_tb;
 
   logic [8:0] test_line;
 
+  always @(posedge axi_clk) begin
+    if (in_axi_arvalid && in_axi_arready) begin
+      in_axi_arvalid <= 1'b0;
+    end
+  end
+
   // Common test setup
   task setup();
     begin
