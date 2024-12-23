@@ -11,6 +11,7 @@
 //
 // verilator lint_off UNUSEDSIGNAL
 module adc_xy_vga_fade_stripe_tb;
+  localparam NUM_S = 4;
   localparam ADC_DATA_BITS = 10;
   localparam PIXEL_BITS = 12;
   localparam COLOR_BITS = PIXEL_BITS / 3;
@@ -18,70 +19,74 @@ module adc_xy_vga_fade_stripe_tb;
   localparam AXI_DATA_WIDTH = 16;
 
 `ifdef VGA_MODE_640_480_60
-  localparam ADC_CLK_HALF_PERIOD = 20;
+  // 25Mhz pixel clock, 2x for fading, leaves 50, even with only 2 chips.
+  localparam ADC_CLK_HALF_PERIOD = 10;
 `else
+`ifdef VGA_MODE_800_600_60
   // assuming this is 800x600, we have a 40mhz pixel clock.. so with writing
   // full horizontal lines, and with blanking, we need 80mhz of memory bw just
-  // for display and blanking. With 2 sram, we have 100mhz. Reduce the adc
-  // sample clock to 20mhz.
-  localparam ADC_CLK_HALF_PERIOD = 25;
+  // for display and blanking. (20msps left with 2 chips)
+  localparam ADC_CLK_HALF_PERIOD = (NUM_S == 2) ? 25 : 10;
+`else
+`ifdef VGA_MODE_1024_768_60
+  // This will fail at only 2 chips, so don't even bother trying to
+  // conditionally set it. Note: we still share the 2to1, which means
+  // the blanker and gfx get 100 between them. With a full horizontal line,
+  // the blanker will need 65. Set a 33mhz half period.
+  //
+  // TODO: 33mhz actually fails and we have to go lower. 25 works, but
+  // something between 25 and 33 might work too. Those values haven't been
+  // tested. Decide if this is sufficient, or if the 2to1 needs to be replaced with
+  // a 3 way interconnect to get access to 1/3 of the memory bw, which would
+  // be 66, giving the opportunity to run the adc at, say 50msps, with plenty of head
+  // room.
+  localparam ADC_CLK_HALF_PERIOD = 20;
+`else
+  `include "bad or missing VGA_MODE_ define (consider this an error directive)"
+`endif
+`endif
 `endif
 
-  logic                      clk;
-  logic                      adc_clk;
-  logic                      pixel_clk;
-  logic                      reset;
+  logic                                         clk;
+  logic                                         adc_clk;
+  logic                                         pixel_clk;
+  logic                                         reset;
 
-  logic [ ADC_DATA_BITS-1:0] adc_x_io;
-  logic [ ADC_DATA_BITS-1:0] adc_y_io;
-  logic                      adc_red_io;
-  logic                      adc_grn_io;
-  logic                      adc_blu_io;
+  logic [ADC_DATA_BITS-1:0]                     adc_x_io;
+  logic [ADC_DATA_BITS-1:0]                     adc_y_io;
+  logic                                         adc_red_io;
+  logic                                         adc_grn_io;
+  logic                                         adc_blu_io;
 
-  logic [    COLOR_BITS-1:0] vga_red;
-  logic [    COLOR_BITS-1:0] vga_grn;
-  logic [    COLOR_BITS-1:0] vga_blu;
-  logic                      vga_hsync;
-  logic                      vga_vsync;
+  logic [   COLOR_BITS-1:0]                     vga_red;
+  logic [   COLOR_BITS-1:0]                     vga_grn;
+  logic [   COLOR_BITS-1:0]                     vga_blu;
+  logic                                         vga_hsync;
+  logic                                         vga_vsync;
 
-  logic [AXI_ADDR_WIDTH-1:0] sram0_io_addr;
-  wire  [AXI_DATA_WIDTH-1:0] sram0_io_data;
-  logic                      sram0_io_we_n;
-  logic                      sram0_io_oe_n;
-  logic                      sram0_io_ce_n;
+  logic [        NUM_S-1:0][AXI_ADDR_WIDTH-1:0] sram_io_addr;
+  wire  [        NUM_S-1:0][AXI_DATA_WIDTH-1:0] sram_io_data;
+  logic [        NUM_S-1:0]                     sram_io_we_n;
+  logic [        NUM_S-1:0]                     sram_io_oe_n;
+  logic [        NUM_S-1:0]                     sram_io_ce_n;
 
-  logic [AXI_ADDR_WIDTH-1:0] sram1_io_addr;
-  wire  [AXI_DATA_WIDTH-1:0] sram1_io_data;
-  logic                      sram1_io_we_n;
-  logic                      sram1_io_oe_n;
-  logic                      sram1_io_ce_n;
 
-  // Instantiate the mocked SRAM model
-  sram_model #(
-      .ADDR_BITS(AXI_ADDR_WIDTH),
-      .DATA_BITS(AXI_DATA_WIDTH)
-  ) sram_0 (
-      .reset  (reset),
-      .we_n   (sram0_io_we_n),
-      .oe_n   (sram0_io_oe_n),
-      .ce_n   (sram0_io_ce_n),
-      .addr   (sram0_io_addr),
-      .data_io(sram0_io_data)
-  );
-
-  sram_model #(
-      .ADDR_BITS(AXI_ADDR_WIDTH),
-      .DATA_BITS(AXI_DATA_WIDTH)
-  ) sram_1 (
-      .reset  (reset),
-      .we_n   (sram1_io_we_n),
-      .oe_n   (sram1_io_oe_n),
-      .ce_n   (sram1_io_ce_n),
-      .addr   (sram1_io_addr),
-      .data_io(sram1_io_data)
-  );
+  for (genvar i = 0; i < NUM_S; i++) begin : gen_sram
+    sram_model #(
+        .ADDR_BITS(AXI_ADDR_WIDTH),
+        .DATA_BITS(AXI_DATA_WIDTH)
+    ) sram_i (
+        .reset  (reset),
+        .we_n   (sram_io_we_n[i]),
+        .oe_n   (sram_io_oe_n[i]),
+        .ce_n   (sram_io_ce_n[i]),
+        .addr   (sram_io_addr[i]),
+        .data_io(sram_io_data[i])
+    );
+  end
 
   adc_xy_vga_fade_stripe #(
+      .NUM_S         (NUM_S),
       .ADC_DATA_BITS (ADC_DATA_BITS),
       .PIXEL_BITS    (PIXEL_BITS),
       .AXI_ADDR_WIDTH(AXI_ADDR_WIDTH),
@@ -104,11 +109,11 @@ module adc_xy_vga_fade_stripe_tb;
       .vga_hsync(vga_hsync),
       .vga_vsync(vga_vsync),
 
-      .sram_io_addr({sram1_io_addr, sram0_io_addr}),
-      .sram_io_data({sram1_io_data, sram0_io_data}),
-      .sram_io_we_n({sram1_io_we_n, sram0_io_we_n}),
-      .sram_io_oe_n({sram1_io_oe_n, sram0_io_oe_n}),
-      .sram_io_ce_n({sram1_io_ce_n, sram0_io_ce_n})
+      .sram_io_addr(sram_io_addr),
+      .sram_io_data(sram_io_data),
+      .sram_io_we_n(sram_io_we_n),
+      .sram_io_oe_n(sram_io_oe_n),
+      .sram_io_ce_n(sram_io_ce_n)
   );
 
   // TODO: add color tests

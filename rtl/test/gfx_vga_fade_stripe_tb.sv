@@ -1,5 +1,6 @@
 `include "testing.sv"
 
+`include "gfx_clear.sv"
 `include "gfx_vga_fade_stripe.sv"
 `include "sram_model.sv"
 `include "sticky_bit.sv"
@@ -63,6 +64,34 @@ module gfx_vga_fade_stripe_tb;
   logic [     NUM_S-1:0]                     sram_io_we_n;
   logic [     NUM_S-1:0]                     sram_io_oe_n;
   logic [     NUM_S-1:0]                     sram_io_ce_n;
+
+  // even though we have a fifo write buffer for the axi write stream, the
+  // blanker and the gfx have to share a single fb 2to1 writer. It runs at the
+  // full clock speed of the fpga (100mhz), but since it has to be shared, the
+  // gfx writes can't use more than 100-blanker, which in the case of 1024x768
+  // is 100-65 = 35. This implies we should be able to run at 33mhz with a 15
+  // half clock period, but this is failing when running that fast. Running
+  // right at 33 probably pushes something right to the edge and 2 memory ops
+  // get scheduled in such a way that we drop a pixel. This need additional
+  // debugging, but first decide if the 2to1 is being kept, or moving to an
+  // 3 way interconnect, and debug the final solution.
+  logic                                      gfx_enable;
+
+`ifdef VGA_MODE_1024_768_60
+  logic [2:0] gfx_clk_counter;
+
+  always @(posedge clk) begin
+    if (reset) begin
+      gfx_clk_counter <= 0;
+    end else begin
+      gfx_clk_counter <= gfx_clk_counter + 1;
+      gfx_enable      <= (gfx_clk_counter == 3'd3);
+    end
+  end
+`else
+  assign gfx_enable = 1'b1;
+`endif
+
 
   for (genvar i = 0; i < NUM_S; i++) begin : gen_sram
     sram_model #(
@@ -129,7 +158,7 @@ module gfx_vga_fade_stripe_tb;
   // verilator lint_off WIDTHTRUNC
   // verilator lint_off WIDTHEXPAND
 
-  logic [8:0] test_line;
+  logic [9:0] test_line;
 
   // 100mhz main clock (also axi clock)
   initial begin
@@ -269,18 +298,20 @@ module gfx_vga_fade_stripe_tb;
         gfx_wl_pvalid <= 1'b0;
       end else begin
         if (!gfx_wl_pvalid || gfx_wl_pready) begin
-          gfx_wl_pvalid <= 1'b1;
+          if (gfx_enable) begin
+            gfx_wl_pvalid <= 1'b1;
 
-          if (gfx_pready) begin
-            // Increment coordinates
-            if (gfx_wl_x < H_VISIBLE - 1) begin
-              gfx_wl_x <= gfx_wl_x + 1;
-            end else begin
-              gfx_wl_x <= '0;
-              if (gfx_wl_y < V_VISIBLE - 1) begin
-                gfx_wl_y <= gfx_wl_y + 1;
+            if (gfx_pready) begin
+              // Increment coordinates
+              if (gfx_wl_x < H_VISIBLE - 1) begin
+                gfx_wl_x <= gfx_wl_x + 1;
               end else begin
-                gfx_wl_y <= '0;
+                gfx_wl_x <= '0;
+                if (gfx_wl_y < V_VISIBLE - 1) begin
+                  gfx_wl_y <= gfx_wl_y + 1;
+                end else begin
+                  gfx_wl_y <= '0;
+                end
               end
             end
           end
@@ -316,18 +347,20 @@ module gfx_vga_fade_stripe_tb;
         gfx_we_pvalid <= 1'b0;
       end else begin
         if (!gfx_we_pvalid || gfx_we_pready) begin
-          gfx_we_pvalid <= 1'b1;
+          if (gfx_enable) begin
+            gfx_we_pvalid <= 1'b1;
 
-          if (gfx_we_pready) begin
-            // Increment coordinates
-            if (gfx_we_x < H_VISIBLE - 1) begin
-              gfx_we_x <= gfx_we_x + 2;
-            end else begin
-              gfx_we_x <= '0;
-              if (gfx_we_y < V_VISIBLE - 1) begin
-                gfx_we_y <= gfx_we_y + 1;
+            if (gfx_we_pready) begin
+              // Increment coordinates
+              if (gfx_we_x < H_VISIBLE - 1) begin
+                gfx_we_x <= gfx_we_x + 2;
               end else begin
-                gfx_we_y <= '0;
+                gfx_we_x <= '0;
+                if (gfx_we_y < V_VISIBLE - 1) begin
+                  gfx_we_y <= gfx_we_y + 1;
+                end else begin
+                  gfx_we_y <= '0;
+                end
               end
             end
           end
@@ -365,19 +398,51 @@ module gfx_vga_fade_stripe_tb;
         gfx_wr_pvalid <= 1'b0;
       end else begin
         if (!gfx_wr_pvalid || gfx_wr_pready) begin
-          gfx_wr_pvalid <= 1'b1;
+          if (gfx_enable) begin
+            gfx_wr_pvalid <= 1'b1;
 
-          if (gfx_wr_pready) begin
-            // Random coordinates within visible area
-            // verilator lint_off WIDTHTRUNC
-            gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
-            gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
-            // verilator lint_on WIDTHTRUNC
+            if (gfx_wr_pready) begin
+              // Random coordinates within visible area
+              // verilator lint_off WIDTHTRUNC
+              gfx_wr_x <= $urandom_range(0, H_VISIBLE - 1);
+              gfx_wr_y <= $urandom_range(0, V_VISIBLE - 1);
+              // verilator lint_on WIDTHTRUNC
+            end
           end
         end
       end
     end
   end
+
+  // clear screen signals
+  // (also, using clear to generate a fill pattern, which is kinda of a hack
+  // and should be cleaned up. It was fast for debugging though.)
+  logic                  clr_en;
+  logic                  fill_en;
+
+  logic                  gfx_clr_pvalid;
+  logic                  gfx_clr_pready;
+  logic [ FB_X_BITS-1:0] gfx_clr_x;
+  logic [ FB_Y_BITS-1:0] gfx_clr_y;
+  logic [PIXEL_BITS-1:0] gfx_clr_color;
+  logic                  gfx_clr_last;
+
+  assign gfx_clr_pready = (clr_en || fill_en && gfx_pready);
+
+  gfx_clear #(
+      .FB_WIDTH  (H_VISIBLE),
+      .FB_HEIGHT (V_VISIBLE),
+      .PIXEL_BITS(PIXEL_BITS)
+  ) gfx_clear_inst (
+      .clk   (clk),
+      .reset (reset),
+      .pready(gfx_clr_pready),
+      .pvalid(gfx_clr_pvalid),
+      .x     (gfx_clr_x),
+      .y     (gfx_clr_y),
+      .color (gfx_clr_color),
+      .last  (gfx_clr_last)
+  );
 
   //
   // gfx mux
@@ -385,7 +450,7 @@ module gfx_vga_fade_stripe_tb;
   always @(posedge clk) begin
     // a safeguard against bad testing.
     // only 1 should be active.
-    `ASSERT(!(wl_en && we_en && wr_en));
+    `ASSERT(!(wl_en && we_en && wr_en && clr_en && fill_en));
   end
 
   always_comb begin
@@ -393,6 +458,20 @@ module gfx_vga_fade_stripe_tb;
     gfx_y      = '0;
     gfx_pvalid = 1'b0;
     gfx_color  = '0;
+
+    if (clr_en) begin
+      gfx_x      = gfx_clr_x;
+      gfx_y      = gfx_clr_y;
+      gfx_pvalid = gfx_clr_pvalid;
+      gfx_color  = gfx_clr_color;
+    end
+
+    if (fill_en) begin
+      gfx_x      = gfx_clr_x;
+      gfx_y      = gfx_clr_y;
+      gfx_pvalid = gfx_clr_pvalid;
+      gfx_color  = '1;
+    end
 
     if (wl_en) begin
       gfx_x      = gfx_wl_x;
@@ -450,6 +529,40 @@ module gfx_vga_fade_stripe_tb;
     end
   endtask
 
+  task test_clear;
+    begin
+      test_line = `__LINE__;
+      reset_test();
+
+      clr_en = 1'b1;
+
+      // 3 frames
+      repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
+        if (!vga_enable) begin
+          vga_enable = gfx_clr_last;
+        end
+        @(posedge pixel_clk);
+      end
+    end
+  endtask
+
+  task test_fill;
+    begin
+      test_line = `__LINE__;
+      reset_test();
+
+      fill_en = 1'b1;
+
+      // 3 frames
+      repeat (3 * H_WHOLE_LINE * V_WHOLE_FRAME) begin
+        if (!vga_enable) begin
+          vga_enable = gfx_clr_last;
+        end
+        @(posedge pixel_clk);
+      end
+    end
+  endtask
+
   task test_linear_write;
     begin
       test_line = `__LINE__;
@@ -497,6 +610,8 @@ module gfx_vga_fade_stripe_tb;
 
   initial begin
     test_idle();
+    test_clear();
+    test_fill();
     test_linear_write();
     test_even_write();
     test_random_write();

@@ -457,10 +457,11 @@ module gfx_vga_fade_stripe #(
   logic [   AXI_ADDR_WIDTH-1:0] gw_addr;
   logic [FADING_PIXEL_BITS-1:0] gw_color;
 
-  assign gfx_ready     = gw_axi_tready && !fade_fifo_w_almost_full;
+  assign gfx_ready = (gw_axi_tready && !fade_fifo_w_almost_full &&
+                      !fifo_almost_full);
   assign gw_axi_tvalid = gfx_valid;
-  assign gw_addr       = H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x);
-  assign gw_color      = {4'd4, gfx_color};
+  assign gw_addr = H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x);
+  assign gw_color = {4'd4, gfx_color};
 
   fb_writer_2to1 #(
       .PIXEL_BITS    (FADING_PIXEL_BITS),
