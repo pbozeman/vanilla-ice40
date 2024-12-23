@@ -67,7 +67,7 @@ module gfx_vga_fade_stripe #(
     output logic [NUM_S-1:0]                     sram_io_ce_n
 );
   localparam AXI_STRB_WIDTH = (AXI_DATA_WIDTH + 7) / 8;
-  localparam PIXEL_AGE_BITS = 4;
+  localparam PIXEL_AGE_BITS = 3;
   localparam FADING_PIXEL_BITS = PIXEL_BITS + PIXEL_AGE_BITS;
 
   //
@@ -392,7 +392,7 @@ module gfx_vga_fade_stripe #(
 
   always_comb begin
     // TODO: more advanced fading, also, clean up the constants
-    if (next_vga_fb_age == 4'd2) begin
+    if (next_vga_fb_age == PIXEL_AGE_BITS'(2)) begin
       next_vga_fb_color = {vga_fb_red >> 1, vga_fb_grn >> 1, vga_fb_blu >> 1};
     end else begin
       next_vga_fb_color = {vga_fb_red, vga_fb_grn, vga_fb_blu};
@@ -461,7 +461,7 @@ module gfx_vga_fade_stripe #(
                       !fifo_almost_full);
   assign gw_axi_tvalid = gfx_valid;
   assign gw_addr = H_VISIBLE * gfx_y + AXI_ADDR_WIDTH'(gfx_x);
-  assign gw_color = {4'd4, gfx_color};
+  assign gw_color = {PIXEL_AGE_BITS'(4), gfx_color};
 
   fb_writer_2to1 #(
       .PIXEL_BITS    (FADING_PIXEL_BITS),
