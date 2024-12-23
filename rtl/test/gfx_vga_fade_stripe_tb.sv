@@ -15,11 +15,11 @@ module gfx_vga_fade_stripe_tb;
   // Reduce the size so testing doesn't take an eternity.
 
   // Horizontal Timing
-  localparam H_VISIBLE = 128;
-  localparam H_FRONT_PORCH = 12;
+  localparam H_VISIBLE = 16;
+  localparam H_FRONT_PORCH = 4;
   localparam H_SYNC_PULSE = 3;
-  localparam H_BACK_PORCH = 12;
-  localparam H_WHOLE_LINE = 266;
+  localparam H_BACK_PORCH = 4;
+  localparam H_WHOLE_LINE = 27;
 
   // Vertical Timing
   localparam V_VISIBLE = 8;
