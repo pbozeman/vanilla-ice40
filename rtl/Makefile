@@ -15,10 +15,10 @@ CLK_FREQ := 100
 
 # These are files that we can't build with yosys/nextpnr and need icecube2.
 # nextprn just can't meet timing.
-TOP_IGNORE := adc/adc_xy_vga_fade_top.sv adc/adc_xy_vga_fade_stripe_top.sv
+TOP_IGNORE := adc/%.sv
 
 # these require both sides of the IO
-HX8K_ONLY := gfx/gfx_demo_dbuf_top.sv adc/adc_xy_top.sv adc/adc_xy_vga_fade_top.sv adc/xy_vga_fade_stripe_top.sv
+HX8K_ONLY := gfx/gfx_demo_dbuf_top.sv adc/%.sv
 
 # Directories
 TEST_DIR := test
