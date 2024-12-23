@@ -17,6 +17,9 @@ CLK_FREQ := 100
 # nextprn just can't meet timing.
 TOP_IGNORE := adc/adc_xy_vga_fade_top.sv adc/adc_xy_vga_fade_stripe_top.sv
 
+# these require both sides of the IO
+HX8K_ONLY := gfx/gfx_demo_dbuf_top.sv adc/adc_xy_top.sv adc/adc_xy_vga_fade_top.sv adc/xy_vga_fade_stripe_top.sv
+
 # Directories
 TEST_DIR := test
 LIB_DIR := lib
@@ -32,7 +35,7 @@ TOP_MODULES_ALL := $(foreach dir,$(TOP_DIRS),$(wildcard $(dir)*_top.sv))
 TOP_MODULES := $(filter-out $(TOP_IGNORE), $(TOP_MODULES_ALL))
 
 ifneq ($(DEVICE),hx8k)
-  TOP_MODULES := $(filter-out %left_top.sv %both_top.sv, $(TOP_MODULES))
+  TOP_MODULES := $(filter-out $(HX8K_ONLY), $(TOP_MODULES))
 endif
 
 SEED_LOCK := $(BUILD_DIR)/.seed_lock
