@@ -105,6 +105,102 @@ sram_groups = [
 
 sram_signals = [("SRAM_CS_N", "D[0]"), ("SRAM_OE_N", "A[2]"), ("SRAM_WE_N", "G[4]")]
 
+sram_256_a_groups = [
+    (
+        "SRAM_256_A_ADDR_BUS",
+        [
+            "A[0]",
+            "A[4]",
+            "A[1]",
+            "A[5]",
+            "A[2]",
+            "B[3]",
+            "B[7]",
+            "C[0]",
+            "C[4]",
+            "C[1]",
+            "D[7]",
+            "D[3]",
+            "D[6]",
+            "D[2]",
+            "D[5]",
+            "C[6]",
+            "C[2]",
+            "C[5]",
+        ],
+    ),
+    (
+        "SRAM_256_A_DATA_BUS",
+        [
+            "A[6]",
+            "A[3]",
+            "A[7]",
+            "B[0]",
+            "B[4]",
+            "B[1]",
+            "B[5]",
+            "B[2]",
+            "D[1]",
+            "D[4]",
+            "D[0]",
+            "C[7]",
+        ],
+    ),
+]
+
+sram_256_a_signals = [
+    ("SRAM_256_A_OE_N", "C[3]"),
+    ("SRAM_256_A_WE_N", "B[6]"),
+]
+
+sram_256_b_groups = [
+    (
+        "SRAM_256_B_ADDR_BUS",
+        [
+            "G[0]",
+            "G[4]",
+            "G[1]",
+            "G[5]",
+            "G[2]",
+            "H[3]",
+            "H[7]",
+            "J[6]",
+            "J[3]",
+            "J[7]",
+            "J[2]",
+            "J[5]",
+            "J[1]",
+            "J[4]",
+            "J[0]",
+            "K[6]",
+            "K[3]",
+            "K[7]",
+        ],
+    ),
+    (
+        "SRAM_256_B_DATA_BUS",
+        [
+            "G[6]",
+            "G[3]",
+            "G[7]",
+            "H[0]",
+            "H[4]",
+            "H[1]",
+            "H[5]",
+            "H[2]",
+            "K[0]",
+            "K[4]",
+            "K[1]",
+            "K[5]",
+        ],
+    ),
+]
+
+sram_256_b_signals = [
+    ("SRAM_256_B_OE_N", "K[2]"),
+    ("SRAM_256_B_WE_N", "H[6]"),
+]
+
 adc_groups = [
     (
         "ADC_X",
@@ -238,6 +334,38 @@ def gen_pcf_from_groups(side: str, ice_groups):
 
     print()
     for g in sram_ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
+        print()
+        print(ice_group_to_pcf_array(f"{side}_{lable}", pins))
+        print()
+
+    # sram 256_a
+    sram_256_a_ice_groups = [
+        (l, base_group_to_ice_group(p)) for l, p in sram_256_a_groups
+    ]
+
+    for s, p in sram_256_a_signals:
+        print(f"set_io {side}_{s} {base_to_p[p]}")
+
+    print()
+    for g in sram_256_a_ice_groups:
+        lable, pins = g
+        print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
+        print()
+        print(ice_group_to_pcf_array(f"{side}_{lable}", pins))
+        print()
+
+    # sram 256_b
+    sram_256_b_ice_groups = [
+        (l, base_group_to_ice_group(p)) for l, p in sram_256_b_groups
+    ]
+
+    for s, p in sram_256_b_signals:
+        print(f"set_io {side}_{s} {base_to_p[p]}")
+
+    print()
+    for g in sram_256_b_ice_groups:
         lable, pins = g
         print(ice_group_to_pcf_pin(f"{side}_{lable}", pins))
         print()
