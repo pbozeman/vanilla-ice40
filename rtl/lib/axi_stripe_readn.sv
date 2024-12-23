@@ -130,24 +130,32 @@ module axi_stripe_readn #(
       if (~axi_resetn) begin
         strip_axi_arvalid[i]   <= 1'b0;
         strip_addr_accepted[i] <= 1'b0;
-        in_axi_arready         <= 1'b1;
       end else begin
-        if (in_axi_arready) begin
-          if (in_axi_arvalid) begin
-            in_axi_arready         <= 1'b0;
-            strip_addr_accepted[i] <= 1'b0;
-            strip_axi_araddr[i]    <= in_axi_araddr + i;
-            strip_axi_arvalid[i]   <= 1'b1;
-            strip_axi_arlenw[i]    <= (in_axi_arlenw / NUM_S);
-          end
-        end else begin
-          in_axi_arready <= &strip_addr_accepted;
+        if (in_axi_arready && in_axi_arvalid) begin
+          strip_addr_accepted[i] <= 1'b0;
+          strip_axi_araddr[i]    <= in_axi_araddr + i;
+          strip_axi_arvalid[i]   <= 1'b1;
+          strip_axi_arlenw[i]    <= (in_axi_arlenw / NUM_S);
         end
 
         if (strip_axi_arvalid[i] && strip_axi_arready[i]) begin
           strip_axi_arvalid[i]   <= 1'b0;
           strip_addr_accepted[i] <= 1'b1;
         end
+      end
+    end
+  end
+
+  always_ff @(posedge axi_clk) begin
+    if (~axi_resetn) begin
+      in_axi_arready <= 1'b1;
+    end else begin
+      if (in_axi_arready) begin
+        if (in_axi_arvalid) begin
+          in_axi_arready <= 1'b0;
+        end
+      end else begin
+        in_axi_arready <= &strip_addr_accepted;
       end
     end
   end
