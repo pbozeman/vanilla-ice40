@@ -158,7 +158,7 @@ module adc_xy_vga_fade_tb;
     repeat (20) @(posedge clk);
     reset = 0;
 
-    repeat (4 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME + 100) begin
+    repeat (3 * `VGA_MODE_H_WHOLE_LINE * `VGA_MODE_V_WHOLE_FRAME + 100) begin
       @(posedge pixel_clk);
     end
 
