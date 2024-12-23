@@ -430,6 +430,13 @@ module gfx_vga_fade_stripe #(
       .r_empty      (fade_fifo_r_empty)
   );
 
+  logic [FADE_FIFO_DATA_WIDTH-1:0] fade_fifo_r_data_p1;
+  logic                            fade_fifo_r_empty_p1;
+  always_ff @(posedge clk) begin
+    fade_fifo_r_data_p1  <= fade_fifo_r_data;
+    fade_fifo_r_empty_p1 <= fade_fifo_r_empty;
+  end
+
   // fade writer axi flow control signals
   logic                         fw_axi_tvalid;
   logic                         fw_axi_tready;
@@ -439,10 +446,10 @@ module gfx_vga_fade_stripe #(
   logic [FADING_PIXEL_BITS-1:0] fw_color;
 
   assign fade_fifo_r_inc = fw_axi_tready;
-  assign fw_axi_tvalid   = !fade_fifo_r_empty;
+  assign fw_axi_tvalid   = !fade_fifo_r_empty_p1;
 
   always_comb begin
-    {fw_addr, fw_color} = fade_fifo_r_data;
+    {fw_addr, fw_color} = fade_fifo_r_data_p1;
   end
 
   //
