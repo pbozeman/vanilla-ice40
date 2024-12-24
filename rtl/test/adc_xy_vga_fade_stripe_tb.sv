@@ -18,15 +18,13 @@ module adc_xy_vga_fade_stripe_tb;
   localparam AXI_ADDR_WIDTH = 20;
   localparam AXI_DATA_WIDTH = 16;
 
+  // We are adding 10mhz or so of buffer room to each of the resolutions.
+  // See the TODOs below.
 `ifdef VGA_MODE_640_480_60
-  // 25Mhz pixel clock, 2x for fading, leaves 50, even with only 2 chips.
-  localparam ADC_CLK_HALF_PERIOD = 10;
+  localparam ADC_CLK_HALF_PERIOD = 15;
 `else
 `ifdef VGA_MODE_800_600_60
-  // assuming this is 800x600, we have a 40mhz pixel clock.. so with writing
-  // full horizontal lines, and with blanking, we need 80mhz of memory bw just
-  // for display and blanking. (20msps left with 2 chips)
-  localparam ADC_CLK_HALF_PERIOD = (NUM_S == 2) ? 25 : 10;
+  localparam ADC_CLK_HALF_PERIOD = (NUM_S == 2) ? 30 : 15;
 `else
 `ifdef VGA_MODE_1024_768_60
   // This will fail at only 2 chips, so don't even bother trying to
