@@ -4,6 +4,10 @@
 	(generator_version "8.0")
 	(uuid "5c0d1780-7e8a-4a41-b82f-b359104a2ca8")
 	(paper "USLedger")
+	(title_block
+		(title "Vanilia Ice HX8K")
+		(rev "1.5.0")
+	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x05_Pin"
 			(pin_names
