@@ -58,10 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        "lib_footprint_mismatch|132962500|108737500|80c3e38d-4c16-4ee6-89b5-676805d15b4e|00000000-0000-0000-0000-000000000000",
-        "lib_footprint_mismatch|143790000|109550001|6517ff84-7ce5-4ec4-893b-c23ec043e4b0|00000000-0000-0000-0000-000000000000"
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -761,7 +758,7 @@
       "group_symbols": true,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Reference"
+      "sort_field": "Footprint"
     },
     "connection_grid_size": 50.0,
     "drawing": {
