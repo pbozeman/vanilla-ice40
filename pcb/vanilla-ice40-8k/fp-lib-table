@@ -6,5 +6,5 @@
   (lib (name "logo")(type "KiCad")(uri "${KIPRJMOD}/../models/logo.pretty")(options "")(descr ""))
   (lib (name "SM04B-SRSS-TB-LF-SN")(type "KiCad")(uri "${KIPRJMOD}/../models/ul_SM04B-SRSS-TB-LF-SN/KiCADv6/footprints.pretty")(options "")(descr ""))
   (lib (name "DF40C-100DS-0-4V-51")(type "KiCad")(uri "${KIPRJMOD}/../models/ul_DF40C-100DS-0-4V-51/KiCADv6/footprints.pretty")(options "")(descr ""))
-  (lib (name "DF40C-40DS-0-4V-51")(type "KiCad")(uri "/home/pbozeman/src/vanilla-ice40/pcb/models/ul_DF40C-40DS-0-4V-51/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "DF40C-40DS-0-4V-51")(type "KiCad")(uri "${KIPRJMOD}/../models/ul_DF40C-40DS-0-4V-51/KiCADv6/footprints.pretty")(options "")(descr ""))
 )
