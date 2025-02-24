@@ -42194,7 +42194,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0797e6a9-f7d0-4335-b29e-66dfd8453f3e")
-		(property "Reference" "J10"
+		(property "Reference" "J2"
 			(at 64.516 126.238 0)
 			(effects
 				(font
@@ -42233,6 +42233,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 76.2 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 76.2 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 76.2 133.35 0)
 			(effects
 				(font
@@ -42544,7 +42562,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J10")
+					(reference "J2")
 					(unit 1)
 				)
 			)
@@ -42656,7 +42674,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "175ee9be-b001-4c3c-bf7a-445ea3d0785a")
-		(property "Reference" "J6"
+		(property "Reference" "J1"
 			(at 14.478 126.238 0)
 			(effects
 				(font
@@ -42695,6 +42713,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 25.4 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 25.4 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 25.4 133.35 0)
 			(effects
 				(font
@@ -43006,7 +43042,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J6")
+					(reference "J1")
 					(unit 1)
 				)
 			)
@@ -43021,7 +43057,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "191bc2fa-3b23-46fb-a36a-4940f1175abd")
-		(property "Reference" "J6"
+		(property "Reference" "J1"
 			(at 39.624 126.238 0)
 			(effects
 				(font
@@ -43060,6 +43096,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 50.8 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 50.8 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 50.8 133.35 0)
 			(effects
 				(font
@@ -43371,7 +43425,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J6")
+					(reference "J1")
 					(unit 2)
 				)
 			)
@@ -46203,7 +46257,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "52fb4216-4490-43be-bab2-48f002ba955f")
-		(property "Reference" "J2"
+		(property "Reference" "J3"
 			(at 122.936 126.492 0)
 			(effects
 				(font
@@ -46242,6 +46296,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 135.89 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 135.89 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 135.89 133.35 0)
 			(effects
 				(font
@@ -46553,7 +46625,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J2")
+					(reference "J3")
 					(unit 1)
 				)
 			)
@@ -48664,7 +48736,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8c772201-7e87-49f2-862e-f3091235e030")
-		(property "Reference" "J11"
+		(property "Reference" "J4"
 			(at 184.15 126.746 0)
 			(effects
 				(font
@@ -48703,6 +48775,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 190.5 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 190.5 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 190.5 133.35 0)
 			(effects
 				(font
@@ -49014,7 +49104,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J11")
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -49029,7 +49119,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8cd37ef0-1f13-42a0-933a-0478b5c6240f")
-		(property "Reference" "J10"
+		(property "Reference" "J2"
 			(at 93.218 126.492 0)
 			(effects
 				(font
@@ -49068,6 +49158,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 104.14 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 104.14 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 104.14 133.35 0)
 			(effects
 				(font
@@ -49379,7 +49487,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J10")
+					(reference "J2")
 					(unit 2)
 				)
 			)
@@ -49396,7 +49504,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8d5f7259-c599-451c-980b-c0cd340b11dc")
-		(property "Reference" "J1"
+		(property "Reference" "I2C1"
 			(at 354.584 55.118 0)
 			(effects
 				(font
@@ -49497,7 +49605,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J1")
+					(reference "I2C1")
 					(unit 1)
 				)
 			)
@@ -51054,7 +51162,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c796593e-ea3f-49eb-97de-f6b47a7c621f")
-		(property "Reference" "J2"
+		(property "Reference" "J3"
 			(at 149.606 126.492 0)
 			(effects
 				(font
@@ -51093,6 +51201,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 160.02 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 160.02 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 160.02 133.35 0)
 			(effects
 				(font
@@ -51404,7 +51530,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J2")
+					(reference "J3")
 					(unit 2)
 				)
 			)
@@ -51740,7 +51866,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d8de36df-6b85-4491-a9cc-4346deef4782")
-		(property "Reference" "J11"
+		(property "Reference" "J4"
 			(at 211.074 126.746 0)
 			(effects
 				(font
@@ -51779,6 +51905,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 218.44 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11615CT-ND"
+			(at 218.44 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C597931"
 			(at 218.44 133.35 0)
 			(effects
 				(font
@@ -52090,7 +52234,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J11")
+					(reference "J4")
 					(unit 2)
 				)
 			)
@@ -52335,7 +52479,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e63fa17e-e22b-4b6b-9da5-0b6b394ed258")
-		(property "Reference" "J101"
+		(property "Reference" "J5"
 			(at 106.172 14.732 0)
 			(effects
 				(font
@@ -52374,6 +52518,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 107.95 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "H11625CT-ND"
+			(at 107.95 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C424644"
 			(at 107.95 21.59 0)
 			(effects
 				(font
@@ -52505,7 +52667,7 @@
 		(instances
 			(project ""
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "J101")
+					(reference "J5")
 					(unit 1)
 				)
 			)

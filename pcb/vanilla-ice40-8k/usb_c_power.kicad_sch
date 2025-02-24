@@ -6791,7 +6791,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "9d6f7480-6c7c-49c0-aea7-d06d9d6c5152")
-		(property "Reference" "J7"
+		(property "Reference" "J8"
 			(at 33.655 29.21 0)
 			(effects
 				(font
@@ -6870,7 +6870,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
-					(reference "J7")
+					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -8432,7 +8432,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "e0d39406-b979-47ea-a2db-a626afeb7a2c")
-		(property "Reference" "J8"
+		(property "Reference" "J7"
 			(at 67.945 29.21 0)
 			(effects
 				(font
@@ -8511,7 +8511,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
-					(reference "J8")
+					(reference "J7")
 					(unit 1)
 				)
 			)
@@ -8780,7 +8780,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "fab7b2da-34fd-4cb2-b77d-a884b716be04")
-		(property "Reference" "J9"
+		(property "Reference" "J6"
 			(at 98.425 29.21 0)
 			(effects
 				(font
@@ -8859,7 +8859,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
-					(reference "J9")
+					(reference "J6")
 					(unit 1)
 				)
 			)

@@ -7429,7 +7429,7 @@
 		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "2b9c8b36-1e7c-45d3-a49f-37d30a14d121")
-		(property "Reference" "J5"
+		(property "Reference" "J9"
 			(at 45.085 82.55 0)
 			(effects
 				(font
@@ -7520,7 +7520,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/8fcffd86-9b82-4947-9420-a56f34009c5e"
-					(reference "J5")
+					(reference "J9")
 					(unit 1)
 				)
 			)
@@ -8884,7 +8884,7 @@
 		(dnp yes)
 		(fields_autoplaced yes)
 		(uuid "59894e43-4f96-4ce1-b36a-e484c2b97d0c")
-		(property "Reference" "J4"
+		(property "Reference" "J10"
 			(at 43.815 52.07 0)
 			(effects
 				(font
@@ -8972,7 +8972,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/8fcffd86-9b82-4947-9420-a56f34009c5e"
-					(reference "J4")
+					(reference "J10")
 					(unit 1)
 				)
 			)
