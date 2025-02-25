@@ -1,0 +1,51 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "1d881721-6b5c-40e4-ad82-ad7aa7534091")
+	(paper "USLedger")
+	(lib_symbols)
+	(sheet
+		(at 45.72 39.37)
+		(size 48.26 34.29)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "b81bd18d-00fb-4768-9a2f-8fa5d0532b88")
+		(property "Sheetname" "b2b"
+			(at 45.72 38.6584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "b2b.kicad_sch"
+			(at 45.72 74.2446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "breakout-stackthrough"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
