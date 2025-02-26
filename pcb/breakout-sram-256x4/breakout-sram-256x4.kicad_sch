@@ -140,6 +140,128 @@
 				)
 			)
 		)
+		(symbol "Device:R_Small"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0.254) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0.762 0.508 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "R_Small"
+				(at 0.762 -1.016 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor, small symbol"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_Small_0_1"
+				(rectangle
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_Small_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "IS61WV25616-10TLI:IS61WV25616BLL-10TLI-TR"
 			(pin_names
 				(offset 0.254)
@@ -1264,6 +1386,12 @@
 		(uuid "37e5cbbe-2a3e-4e0f-bcca-437ca8e35f27")
 	)
 	(junction
+		(at 110.49 224.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "527d3337-8b96-474d-b2e9-dab883d79cd7")
+	)
+	(junction
 		(at 232.41 158.75)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1280,12 +1408,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "6cb1053c-0cd1-452d-b5b2-675f48e2b589")
-	)
-	(junction
-		(at 130.81 227.33)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6d348e43-dce8-46b8-a298-6fb661d3d360")
 	)
 	(junction
 		(at 222.25 232.41)
@@ -1318,6 +1440,18 @@
 		(uuid "a8944d63-d830-4fd6-8a85-e02642407d81")
 	)
 	(junction
+		(at 201.93 224.79)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "a9ec4ebf-b0a9-4a1a-bd3f-2046e250dc4a")
+	)
+	(junction
+		(at 200.66 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "aa477214-5a68-495a-be12-f463a0eebde4")
+	)
+	(junction
 		(at 219.71 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1330,28 +1464,22 @@
 		(uuid "b1d4838e-ff99-4e3a-80e7-c1d6d8d34265")
 	)
 	(junction
-		(at 130.81 113.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "b8aa20e7-ecaa-4d51-b69c-195bd9b548e1")
-	)
-	(junction
 		(at 219.71 44.45)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "c39b624a-24d4-4cc5-90ad-a9e0419c2213")
 	)
 	(junction
-		(at 222.25 227.33)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "cb73082d-afe2-4587-8a63-ab20be01cca5")
-	)
-	(junction
 		(at 222.25 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cd93a294-2f7b-4fda-9559-bf5f946ecd6e")
+	)
+	(junction
+		(at 109.22 110.49)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d474626e-fcf5-4465-8c20-1f8d5a56ff13")
 	)
 	(junction
 		(at 231.14 34.29)
@@ -1364,12 +1492,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d837e07a-0867-4942-91e3-770ac0eeb2a4")
-	)
-	(junction
-		(at 222.25 113.03)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e63b54d6-d84c-4493-be26-6362f4f98696")
 	)
 	(junction
 		(at 129.54 158.75)
@@ -1386,6 +1508,16 @@
 			(type default)
 		)
 		(uuid "00127cae-4cf4-4880-a10b-7de722ed8226")
+	)
+	(wire
+		(pts
+			(xy 200.66 118.11) (xy 200.66 121.92)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01a19036-9ed3-4f6f-be32-92fc7eb00ae3")
 	)
 	(wire
 		(pts
@@ -1406,6 +1538,16 @@
 			(type default)
 		)
 		(uuid "07f04d69-a95b-4dc8-a3af-6b30282a474e")
+	)
+	(wire
+		(pts
+			(xy 109.22 106.68) (xy 109.22 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "09f7d1d0-de9b-4952-b100-984cf2a3cb8f")
 	)
 	(wire
 		(pts
@@ -1479,16 +1621,6 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 224.79) (xy 222.25 227.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1262734a-91ed-47d3-84d8-4f1da3bd659c")
-	)
-	(wire
-		(pts
 			(xy 125.73 214.63) (xy 134.62 214.63)
 		)
 		(stroke
@@ -1546,6 +1678,16 @@
 			(type default)
 		)
 		(uuid "16aa8f2c-d30f-42e7-b383-6134569442a2")
+	)
+	(wire
+		(pts
+			(xy 201.93 224.79) (xy 226.06 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17e73a65-786b-45e4-9046-40b0b86a7105")
 	)
 	(wire
 		(pts
@@ -1639,13 +1781,13 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 110.49) (xy 224.79 110.49)
+			(xy 109.22 118.11) (xy 109.22 121.92)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "23cbe1ff-b7c5-4dca-9d7e-c954d9a8fa89")
+		(uuid "2368d52d-a4c7-404b-8df7-43da635591b7")
 	)
 	(wire
 		(pts
@@ -1696,6 +1838,16 @@
 			(type default)
 		)
 		(uuid "2749c5b6-9d78-4ab0-b5cc-93b1c035835d")
+	)
+	(wire
+		(pts
+			(xy 110.49 232.41) (xy 110.49 236.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "28732129-6513-4bf5-855d-0d0660e761c3")
 	)
 	(wire
 		(pts
@@ -1999,6 +2151,16 @@
 	)
 	(wire
 		(pts
+			(xy 110.49 220.98) (xy 110.49 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50ac9531-d5a0-4fdd-b5ac-b0f9b8aa19fd")
+	)
+	(wire
+		(pts
 			(xy 215.9 95.25) (xy 224.79 95.25)
 		)
 		(stroke
@@ -2026,6 +2188,16 @@
 			(type default)
 		)
 		(uuid "53196925-a2c1-4c15-a5ea-1d07e1d78be9")
+	)
+	(wire
+		(pts
+			(xy 200.66 113.03) (xy 200.66 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5377e960-633a-4441-9a10-241efea0b786")
 	)
 	(wire
 		(pts
@@ -2116,6 +2288,26 @@
 			(type default)
 		)
 		(uuid "59e51743-2f8a-4704-a9b4-d9fa021674e6")
+	)
+	(wire
+		(pts
+			(xy 201.93 227.33) (xy 201.93 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b0fe824-ab42-4a70-8eec-e8d19e541f24")
+	)
+	(wire
+		(pts
+			(xy 201.93 214.63) (xy 201.93 215.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5b8c00fc-56a1-42e4-a8e6-bb6dd09e6143")
 	)
 	(wire
 		(pts
@@ -2229,16 +2421,6 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 224.79) (xy 226.06 224.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "626c8f23-2df7-4156-a9c6-fe05727e6a1a")
-	)
-	(wire
-		(pts
 			(xy 124.46 95.25) (xy 133.35 95.25)
 		)
 		(stroke
@@ -2309,6 +2491,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 106.68) (xy 200.66 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6be49f20-b696-45ce-a445-05d8938fbfe4")
+	)
+	(wire
+		(pts
 			(xy 255.27 97.79) (xy 264.16 97.79)
 		)
 		(stroke
@@ -2329,6 +2521,16 @@
 	)
 	(wire
 		(pts
+			(xy 201.93 220.98) (xy 201.93 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6fa4d173-9586-48e1-830a-7c88ee2b1d32")
+	)
+	(wire
+		(pts
 			(xy 149.86 166.37) (xy 149.86 148.59)
 		)
 		(stroke
@@ -2336,6 +2538,16 @@
 			(type default)
 		)
 		(uuid "6fcfca41-1c1e-4b6c-9077-b4fe8e9eed7a")
+	)
+	(wire
+		(pts
+			(xy 109.22 113.03) (xy 109.22 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "723c3ca0-dbc0-4f61-8d49-87ce1ae9fe9e")
 	)
 	(wire
 		(pts
@@ -2366,16 +2578,6 @@
 			(type default)
 		)
 		(uuid "756e4ac4-dcdc-47e5-8f3f-0f1bd7b9fb4b")
-	)
-	(wire
-		(pts
-			(xy 130.81 224.79) (xy 130.81 227.33)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75a1b110-7ab6-4a19-8447-984f826d72af")
 	)
 	(wire
 		(pts
@@ -2499,6 +2701,16 @@
 	)
 	(wire
 		(pts
+			(xy 109.22 100.33) (xy 109.22 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "80204c4f-2a11-4d3f-9333-1e981feed44a")
+	)
+	(wire
+		(pts
 			(xy 130.81 232.41) (xy 134.62 232.41)
 		)
 		(stroke
@@ -2589,6 +2801,16 @@
 	)
 	(wire
 		(pts
+			(xy 200.66 110.49) (xy 224.79 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8821670f-f4e6-44e3-8697-0dd0d75c24e1")
+	)
+	(wire
+		(pts
 			(xy 215.9 100.33) (xy 224.79 100.33)
 		)
 		(stroke
@@ -2626,6 +2848,16 @@
 			(type default)
 		)
 		(uuid "8c6f7a58-e386-45e1-83e0-a879a8ccde81")
+	)
+	(wire
+		(pts
+			(xy 109.22 110.49) (xy 133.35 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8cb01acb-27c8-4916-92d4-d837d2b946cb")
 	)
 	(wire
 		(pts
@@ -2719,16 +2951,6 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 110.49) (xy 133.35 110.49)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "95a894d4-0aba-4708-a4e4-522cb8d5b32f")
-	)
-	(wire
-		(pts
 			(xy 129.54 148.59) (xy 140.97 148.59)
 		)
 		(stroke
@@ -2776,6 +2998,16 @@
 			(type default)
 		)
 		(uuid "9c4465ec-2c06-453d-a4ee-1b892d72e678")
+	)
+	(wire
+		(pts
+			(xy 110.49 227.33) (xy 110.49 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c8a1c29-ec31-4ed3-bb8d-c27a38beb174")
 	)
 	(wire
 		(pts
@@ -2859,16 +3091,6 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 110.49) (xy 130.81 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a693a499-94a4-4a81-986f-06cd80a525e7")
-	)
-	(wire
-		(pts
 			(xy 256.54 191.77) (xy 265.43 191.77)
 		)
 		(stroke
@@ -2889,16 +3111,6 @@
 	)
 	(wire
 		(pts
-			(xy 222.25 110.49) (xy 222.25 113.03)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a8745a41-1594-4d5c-85dd-8cc91e50466f")
-	)
-	(wire
-		(pts
 			(xy 215.9 67.31) (xy 224.79 67.31)
 		)
 		(stroke
@@ -2916,6 +3128,16 @@
 			(type default)
 		)
 		(uuid "aacceab5-668f-4ec1-997f-0018e1c6b584")
+	)
+	(wire
+		(pts
+			(xy 200.66 100.33) (xy 200.66 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad40355c-6213-402e-a035-3f76300d3d3a")
 	)
 	(wire
 		(pts
@@ -3239,6 +3461,16 @@
 	)
 	(wire
 		(pts
+			(xy 110.49 224.79) (xy 134.62 224.79)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1c6c539-01ba-4d23-b5e3-2b123bbe4592")
+	)
+	(wire
+		(pts
 			(xy 163.83 95.25) (xy 172.72 95.25)
 		)
 		(stroke
@@ -3509,6 +3741,16 @@
 	)
 	(wire
 		(pts
+			(xy 201.93 232.41) (xy 201.93 236.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed2ead5f-5f2f-4e42-b1b8-3983d02850c6")
+	)
+	(wire
+		(pts
 			(xy 165.1 191.77) (xy 173.99 191.77)
 		)
 		(stroke
@@ -3599,6 +3841,16 @@
 	)
 	(wire
 		(pts
+			(xy 110.49 214.63) (xy 110.49 215.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8767667-47f6-404b-bf07-1dce85945cbb")
+	)
+	(wire
+		(pts
 			(xy 165.1 189.23) (xy 173.99 189.23)
 		)
 		(stroke
@@ -3629,16 +3881,6 @@
 	)
 	(wire
 		(pts
-			(xy 130.81 224.79) (xy 134.62 224.79)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fba48f3a-cb4e-4e90-b859-f75f5ca2a9c1")
-	)
-	(wire
-		(pts
 			(xy 255.27 69.85) (xy 264.16 69.85)
 		)
 		(stroke
@@ -3656,6 +3898,50 @@
 			(type default)
 		)
 		(uuid "febaf37c-19a2-49cf-97f2-b6386059191a")
+	)
+	(label "U3_CEn"
+		(at 205.74 110.49 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2b7177b5-41fb-4760-8e0b-89b2671bc8f6")
+	)
+	(label "U2_CEn"
+		(at 115.57 224.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2cdf2235-a5ef-45ab-98dd-60784b045abb")
+	)
+	(label "U4_CEn"
+		(at 207.01 224.79 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "b9d79aaf-9d4b-44e7-834e-08f3bd8062d4")
+	)
+	(label "U1_CEn"
+		(at 114.3 110.49 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "ed3825fc-649f-4496-bc00-2e18e19309e4")
 	)
 	(global_label "B_68"
 		(shape bidirectional)
@@ -6891,6 +7177,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 109.22 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "042aad04-2564-4397-9d46-2cc9143462f1")
+		(property "Reference" "#PWR042"
+			(at 109.22 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 109.22 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 109.22 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0a4776c0-93f7-42d9-af88-9b1e0586c4bd")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR042")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 140.97 153.67 0)
 		(unit 1)
@@ -7151,6 +7502,198 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 110.49 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "18a7baa7-c3b7-474f-8992-3dd9419f8685")
+		(property "Reference" "R3"
+			(at 111.252 217.932 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 111.252 219.456 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C25804"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "2ed9bab2-41db-437e-a49e-ec2c48a59587")
+		)
+		(pin "1"
+			(uuid "282c9c95-f3f3-441d-8da5-366a2d29cdec")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 201.93 229.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "21676d6c-56bc-4541-b4d3-760d5aa9202f")
+		(property "Reference" "R8"
+			(at 202.692 229.362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0"
+			(at 202.692 230.886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C21189"
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-J/-000ELFCT-ND"
+			(at 201.93 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "52d80065-f9d8-4023-b85f-dd036e2cf701")
+		)
+		(pin "1"
+			(uuid "64147a95-f15d-4190-84f6-51e33b0d73a5")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C_Small")
 		(at 210.82 153.67 0)
 		(unit 1)
@@ -7345,6 +7888,167 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 200.66 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2a6b5a0f-3377-48bd-91fb-63c57b0daa8c")
+		(property "Reference" "R5"
+			(at 201.422 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 201.422 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C25804"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "46f1e40c-13ec-40a2-86d1-10173a48b5de")
+		)
+		(pin "1"
+			(uuid "cc80cdad-44e4-49c1-a08b-e8ca5715151e")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 200.66 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "370283b0-3f85-4aa0-9836-a187871a88df")
+		(property "Reference" "#PWR047"
+			(at 200.66 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 200.66 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 200.66 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "befa2ae8-9298-464b-8b3c-6466ae53b293")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR047")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 231.14 46.99 0)
 		(unit 1)
@@ -7404,6 +8108,71 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "#PWR034")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 110.49 214.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "411da1f2-05c7-470f-8193-9a09c3bb014c")
+		(property "Reference" "#PWR043"
+			(at 110.49 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 110.49 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 110.49 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cf6fb6ed-8f98-4aed-bf38-ea0383a67896")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR043")
 					(unit 1)
 				)
 			)
@@ -8016,6 +8785,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 109.22 100.33 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4cf944ad-7e82-4d5a-9245-d9a0bdf50efb")
+		(property "Reference" "#PWR041"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 109.22 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 109.22 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 109.22 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 109.22 100.33 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3f30d4d0-1c25-427d-b82f-184cab8485b1")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR041")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 240.03 129.54 0)
 		(unit 1)
@@ -8075,6 +8909,102 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "#PWR036")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 109.22 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5d383e41-7d4e-4fe7-88d4-37fa16379f98")
+		(property "Reference" "R1"
+			(at 109.982 103.632 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 109.982 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C25804"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
+			(at 109.22 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a19a6b47-514c-42bc-a633-b089d85101bf")
+		)
+		(pin "1"
+			(uuid "bc10950f-6f38-4e2c-9ba3-e068ae47fcdf")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -8237,6 +9167,71 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "#PWR027")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 201.93 214.63 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "662a63de-4042-4e4c-b483-7fc6a9078be1")
+		(property "Reference" "#PWR045"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 201.93 209.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 201.93 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+3V3\""
+			(at 201.93 214.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e9be1f12-8a9c-449f-a414-5f1f46061f5e")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR045")
 					(unit 1)
 				)
 			)
@@ -8406,6 +9401,71 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 200.66 121.92 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "78edfe06-fd56-43a5-822f-41a58603e79b")
+		(property "Reference" "#PWR048"
+			(at 200.66 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 200.66 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 200.66 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 200.66 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 200.66 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "a8bbb1e6-2433-40e8-94b6-2638c43677ac")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR048")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 241.3 243.84 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8464,6 +9524,71 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "#PWR040")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 110.49 236.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7b091d3f-995b-495d-b74e-e8831c5505cd")
+		(property "Reference" "#PWR044"
+			(at 110.49 242.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 110.49 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 110.49 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 110.49 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 110.49 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c3155838-e42a-4bf2-b19c-d883292bc5bd")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR044")
 					(unit 1)
 				)
 			)
@@ -9016,6 +10141,102 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 200.66 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9b72b714-d2fe-4b6f-b4ad-9cab3eb250d3")
+		(property "Reference" "R6"
+			(at 201.422 115.062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0"
+			(at 201.422 116.586 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C21189"
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-J/-000ELFCT-ND"
+			(at 200.66 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a3c52a82-49a6-4297-9515-cf3866e554b7")
+		)
+		(pin "1"
+			(uuid "e48e88fa-bc5a-4aef-83d3-cc2208dd417a")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "IS61WV25616-10TLI:IS61WV25616BLL-10TLI-TR")
 		(at 219.71 62.23 0)
 		(unit 1)
@@ -9238,6 +10459,102 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R_Small")
+		(at 109.22 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ac3ebebe-de02-4043-a9a7-da180e6d7d2a")
+		(property "Reference" "R2"
+			(at 109.982 115.062 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0"
+			(at 109.982 116.586 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C21189"
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-J/-000ELFCT-ND"
+			(at 109.22 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "24f87732-ba82-4b71-9ade-0b8c6bc837eb")
+		)
+		(pin "1"
+			(uuid "a32d7938-bcc3-4191-898a-6e6728adce5f")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+3V3")
 		(at 139.7 33.02 0)
 		(unit 1)
@@ -9298,6 +10615,167 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "#PWR025")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 201.93 218.44 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cad232bc-454d-4018-afb7-972bbba82ab4")
+		(property "Reference" "R7"
+			(at 202.692 217.932 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10K"
+			(at 202.692 219.456 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C25804"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
+			(at 201.93 218.44 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "3186e756-1b9f-4a14-8ba4-a42ddc117a17")
+		)
+		(pin "1"
+			(uuid "5504fc5c-d1bd-4ad0-a75b-fc2332cd5f79")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 201.93 236.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cf3e8488-624b-426b-b775-4f0b7eb6d899")
+		(property "Reference" "#PWR046"
+			(at 201.93 242.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 201.93 240.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 201.93 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 201.93 236.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "271533cb-da4a-4918-83fb-595518b87517")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "#PWR046")
 					(unit 1)
 				)
 			)
@@ -9719,6 +11197,102 @@
 			(project "breakout-sram-256x4"
 				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
 					(reference "C11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R_Small")
+		(at 110.49 229.87 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eabea931-45a8-4545-b516-a6cb10c350ee")
+		(property "Reference" "R4"
+			(at 111.252 229.362 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "0"
+			(at 111.252 230.886 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor, small symbol"
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "LCSC Part #" "C21189"
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "JLCPCB Rotation Offset" ""
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Digi-Key Part Number" "CR0603-J/-000ELFCT-ND"
+			(at 110.49 229.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4a4be7e2-a15e-43a7-8371-756de8dcc20c")
+		)
+		(pin "1"
+			(uuid "e92d5ea2-9061-4e67-8434-ebb93f21e85e")
+		)
+		(instances
+			(project "breakout-sram-256x4"
+				(path "/1d881721-6b5c-40e4-ad82-ad7aa7534091"
+					(reference "R4")
 					(unit 1)
 				)
 			)
