@@ -267,7 +267,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
+			(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS574"
 				(at 0 0 0)
 				(effects
 					(font
@@ -283,6 +283,14 @@
 						(size 1.27 1.27)
 					)
 					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
 			(property "ki_keywords" "TTL REG DFF DFF8 3State"
@@ -5008,12 +5016,6 @@
 		(uuid "6f825531-fba4-47a1-9f34-50e847074622")
 	)
 	(junction
-		(at 375.92 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "7018dbe9-620d-44b1-8032-f16ddb027207")
-	)
-	(junction
 		(at 207.01 160.02)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5344,6 +5346,10 @@
 	(no_connect
 		(at 331.47 186.69)
 		(uuid "5c261c3b-6c13-40c7-8b0f-f357a77f178e")
+	)
+	(no_connect
+		(at 118.11 232.41)
+		(uuid "c9a0043f-7c28-4e4a-8de2-44dc7bdff461")
 	)
 	(no_connect
 		(at 247.65 105.41)
@@ -6561,16 +6567,6 @@
 	)
 	(wire
 		(pts
-			(xy 383.54 57.15) (xy 394.97 57.15)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "41c79d85-f675-4cd1-8ea2-a0bd99d33696")
-	)
-	(wire
-		(pts
 			(xy 129.54 227.33) (xy 137.16 227.33)
 		)
 		(stroke
@@ -6621,7 +6617,7 @@
 	)
 	(wire
 		(pts
-			(xy 375.92 86.36) (xy 375.92 85.09)
+			(xy 375.92 81.28) (xy 375.92 86.36)
 		)
 		(stroke
 			(width 0)
@@ -6798,16 +6794,6 @@
 			(type default)
 		)
 		(uuid "5158a4a6-99d2-4bf9-8591-2e9589bcb1c6")
-	)
-	(wire
-		(pts
-			(xy 367.03 85.09) (xy 375.92 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "515ed77b-95c3-40da-983e-e19028162390")
 	)
 	(wire
 		(pts
@@ -7901,16 +7887,6 @@
 	)
 	(wire
 		(pts
-			(xy 118.11 232.41) (xy 124.46 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "940bfedf-0b9d-4536-b848-bec88c67f0fa")
-	)
-	(wire
-		(pts
 			(xy 331.47 179.07) (xy 337.82 179.07)
 		)
 		(stroke
@@ -8478,16 +8454,6 @@
 			(type default)
 		)
 		(uuid "b71c6d5f-1623-4ff5-9e7b-5c356597819d")
-	)
-	(wire
-		(pts
-			(xy 129.54 232.41) (xy 137.16 232.41)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b76d5aaa-8756-4ee4-ae44-33b33f4566f0")
 	)
 	(wire
 		(pts
@@ -9168,16 +9134,6 @@
 			(type default)
 		)
 		(uuid "de60b742-3000-4530-abf7-58c19ae6b40e")
-	)
-	(wire
-		(pts
-			(xy 375.92 81.28) (xy 375.92 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e02ba0ab-26ac-477a-823a-63a422f8b056")
 	)
 	(wire
 		(pts
@@ -9995,17 +9951,6 @@
 		)
 		(uuid "08e472c4-714a-4e37-bf82-1d050ab050b0")
 	)
-	(label "CLK_HDR"
-		(at 137.16 232.41 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "0abde406-b0c6-4521-9e58-fd2ae8bf2b72")
-	)
 	(label "X7"
 		(at 337.82 129.54 180)
 		(fields_autoplaced yes)
@@ -10115,17 +10060,6 @@
 			(justify left bottom)
 		)
 		(uuid "22a92952-dc09-46dc-bfb0-0223d5c37df9")
-	)
-	(label "CLK_HDR"
-		(at 383.54 57.15 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "26a9f3ac-53d5-43d4-a19e-2e39ab9c95e1")
 	)
 	(label "DA1"
 		(at 298.45 181.61 0)
@@ -10988,18 +10922,6 @@
 			(justify left)
 		)
 		(uuid "99d601ed-f02f-475f-8fbc-b8486f6314e2")
-	)
-	(hierarchical_label "CLK_HDR"
-		(shape output)
-		(at 394.97 57.15 0)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "baea442b-6db5-4202-8ae6-bd42a5579a66")
 	)
 	(hierarchical_label "X"
 		(shape input)
@@ -14845,72 +14767,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:PWR_FLAG")
-		(at 367.03 85.09 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "4f99e260-d7e6-4e49-95ce-6727b6e91b0c")
-		(property "Reference" "#FLG0103"
-			(at 367.03 83.185 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "PWR_FLAG"
-			(at 367.03 80.01 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 367.03 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 367.03 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Special symbol for telling ERC where power comes from"
-			(at 367.03 85.09 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "0d8bfbc9-2feb-4784-86b9-c1b8118982e6")
-		)
-		(instances
-			(project "breakout-adc"
-				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
-					(reference "#FLG0103")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C_Small")
 		(at 80.01 124.46 0)
 		(unit 1)
@@ -17879,7 +17735,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS574"
 			(at 318.77 184.15 0)
 			(effects
 				(font
@@ -18974,7 +18830,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS574"
 			(at 318.77 127 0)
 			(effects
 				(font
@@ -19218,7 +19074,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/sn74als574b.pdf"
+		(property "Datasheet" "http://www.ti.com/lit/gpn/sn74LS574"
 			(at 318.77 68.58 0)
 			(effects
 				(font
@@ -19478,100 +19334,6 @@
 			(project "breakout-adc"
 				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
 					(reference "R23")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 127 232.41 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "a143c4cb-1779-4117-9a9f-7466529125e6")
-		(property "Reference" "R22"
-			(at 123.19 231.14 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "22"
-			(at 130.302 231.14 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Resistor, small symbol"
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC Part #" "C107701"
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Digi-Key Part Number" "311-22.0HRCT-ND"
-			(at 127 232.41 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "2"
-			(uuid "a66e9359-16c7-4983-a093-178a0ae6513b")
-		)
-		(pin "1"
-			(uuid "f46f026c-4ffd-44cb-b17c-b3f4c3bba15d")
-		)
-		(instances
-			(project "breakout-adc"
-				(path "/912c7b42-54cd-43e2-8ab1-2cdab401e0a2/72f7b3b0-9aad-456f-b2b7-645b743c86eb"
-					(reference "R22")
 					(unit 1)
 				)
 			)
