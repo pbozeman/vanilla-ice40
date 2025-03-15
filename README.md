@@ -56,44 +56,6 @@ likely requires higher soldering skills.
 
 ## Verilog examples
 
-Basic verilog examples. Icecube2 projects exist in lattice_proj.
-
-Test benches run under iverilog by running `make check` to run
-all test benches. Wave files are written
-to `.build/<test_name>.vcd` and can be viewed with gtkwave.
-
-Diamond Programmer does not use relative paths, so programmer
-projects are not checked in.
-
-### NOTE
-
-I have been doing all recent development icestorm toolchain, so the Icecube2
-projects are stale. I have heard that yosys/nextprn don't scale to larger designs,
-but for now, they are able to complete synthesis and place-and-route for all
-the examples before Icecube2 can synthesize a single project. That coupled with
-the ability to compile and program from the command line is so delightful compared
-to Icecube2.
-
-## Makefile Targets
-
-The Makefile in the rtl dir works for both hx4k and hx8k boards, but
-one needs to change the DEVICE and PACKAGE at the top of the file based on
-the board in use.
-
-* **unit**: runs unit tests for any changed files. This is the default
-target if one is not specified. vcd files are written to .build/\<name\>_tb.vcd
-
-* **list**: provides a listing of unit test and programming targets
-
-* **\<name\>_tb**: runs the test bench named 'name'
-
-* **\<name\>_top**: builds the bitstream for 'name' and programs the attached board
-with the bitstream.
-
-* **lint**: runs verilator on all _tb files and their includes.
-
-* **format**: runs verible source code formatter on all verilog files.
-
-* **check**: runs linter and full unit test suite, even if files have not changed.
-
-* **bits**: build bitstreams for all top level files.
+* Verilog development has moved to <https://github.com/pbozeman/svc> for the core
+SVC library, and <https://github.com/pbozeman/svc-example> for examples using
+these boards.
