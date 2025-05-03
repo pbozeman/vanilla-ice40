@@ -214,13 +214,13 @@ sram_256_signals = [
 ]
 
 
-def combine_headers(header_maps):
+def combine_headers(pin_config, header_maps):
     combined_map = {}
 
     for prefix, original_map in header_maps.items():
         for key, value in original_map.items():
             new_key = f"{prefix}_{key}"
-            combined_map[new_key] = value
+            combined_map[new_key] = pin_config.logical_pin_to_phys[value]
 
     return combined_map
 
@@ -241,12 +241,13 @@ def gen_pcf(pin_config):
     print()
 
     header_map = combine_headers(
+        pin_config,
         {
             "A": pin_config.j1_to_logical,
             "B": pin_config.j2_to_logical,
             "C": pin_config.j3_to_logical,
             "D": pin_config.j4_to_logical,
-        }
+        },
     )
 
     sram_pcf(header_map)
