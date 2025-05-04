@@ -1,13 +1,15 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "912c7b42-54cd-43e2-8ab1-2cdab401e0a2")
 	(paper "USLedger")
 	(lib_symbols
 		(symbol "Connector:Conn_01x01_Pin"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -81,6 +83,17 @@
 				)
 			)
 			(symbol "Conn_01x01_Pin_1_1"
+				(rectangle
+					(start 0.8636 0.127)
+					(end 0 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
 				(polyline
 					(pts
 						(xy 1.27 0) (xy 0.8636 0)
@@ -91,17 +104,6 @@
 					)
 					(fill
 						(type none)
-					)
-				)
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
 					)
 				)
 				(pin passive line
@@ -123,10 +125,13 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Connector_Generic:Conn_02x06_Top_Bottom"
 			(pin_names
-				(offset 1.016) hide)
+				(offset 1.016)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -193,41 +198,19 @@
 			)
 			(symbol "Conn_02x06_Top_Bottom_1_1"
 				(rectangle
-					(start -1.27 -7.493)
-					(end 0 -7.747)
+					(start -1.27 6.35)
+					(end 3.81 -8.89)
 					(stroke
-						(width 0.1524)
+						(width 0.254)
 						(type default)
 					)
 					(fill
-						(type none)
+						(type background)
 					)
 				)
 				(rectangle
-					(start -1.27 -4.953)
-					(end 0 -5.207)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(rectangle
-					(start -1.27 0.127)
-					(end 0 -0.127)
+					(start -1.27 5.207)
+					(end 0 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -248,8 +231,8 @@
 					)
 				)
 				(rectangle
-					(start -1.27 5.207)
-					(end 0 4.953)
+					(start -1.27 0.127)
+					(end 0 -0.127)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -259,19 +242,8 @@
 					)
 				)
 				(rectangle
-					(start -1.27 6.35)
-					(end 3.81 -8.89)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(rectangle
-					(start 3.81 -7.493)
-					(end 2.54 -7.747)
+					(start -1.27 -2.413)
+					(end 0 -2.667)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -281,8 +253,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 -4.953)
-					(end 2.54 -5.207)
+					(start -1.27 -4.953)
+					(end 0 -5.207)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -292,8 +264,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 -2.413)
-					(end 2.54 -2.667)
+					(start -1.27 -7.493)
+					(end 0 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -303,8 +275,8 @@
 					)
 				)
 				(rectangle
-					(start 3.81 0.127)
-					(end 2.54 -0.127)
+					(start 3.81 5.207)
+					(end 2.54 4.953)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -325,8 +297,41 @@
 					)
 				)
 				(rectangle
-					(start 3.81 5.207)
-					(end 2.54 4.953)
+					(start 3.81 0.127)
+					(end 2.54 -0.127)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -2.413)
+					(end 2.54 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -4.953)
+					(end 2.54 -5.207)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 3.81 -7.493)
+					(end 2.54 -7.747)
 					(stroke
 						(width 0.1524)
 						(type default)
@@ -346,60 +351,6 @@
 						)
 					)
 					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -2.54 180)
-					(length 3.81)
-					(name "Pin_10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -5.08 180)
-					(length 3.81)
-					(name "Pin_11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "11"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 7.62 -7.62 180)
-					(length 3.81)
-					(name "Pin_12"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "12"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -551,7 +502,62 @@
 						)
 					)
 				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 3.81)
+					(name "Pin_10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -5.08 180)
+					(length 3.81)
+					(name "Pin_11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -7.62 180)
+					(length 3.81)
+					(name "Pin_12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "D1213A-04S-7_1"
 			(pin_names
@@ -624,24 +630,6 @@
 				)
 			)
 			(symbol "D1213A-04S-7_1_0_1"
-				(pin power_in line
-					(at 0 -10.16 90)
-					(length 3.81)
-					(name "VN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin passive line
 					(at -12.7 1.27 0)
 					(length 3.81)
@@ -678,6 +666,24 @@
 						)
 					)
 				)
+				(pin passive line
+					(at -12.7 -3.81 0)
+					(length 3.81)
+					(name "CH4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin power_in line
 					(at 0 10.16 270)
 					(length 3.81)
@@ -696,17 +702,17 @@
 						)
 					)
 				)
-				(pin passive line
-					(at -12.7 -3.81 0)
+				(pin power_in line
+					(at 0 -10.16 90)
 					(length 3.81)
-					(name "CH4"
+					(name "VN"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -746,6 +752,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "D1213A-04S:D1213A-04S-7"
 			(pin_names
@@ -818,24 +825,6 @@
 				)
 			)
 			(symbol "D1213A-04S-7_0_1"
-				(pin power_in line
-					(at 0 -10.16 90)
-					(length 3.81)
-					(name "VN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 				(pin passive line
 					(at -12.7 1.27 0)
 					(length 3.81)
@@ -872,6 +861,24 @@
 						)
 					)
 				)
+				(pin passive line
+					(at -12.7 -3.81 0)
+					(length 3.81)
+					(name "CH4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin power_in line
 					(at 0 10.16 270)
 					(length 3.81)
@@ -890,17 +897,17 @@
 						)
 					)
 				)
-				(pin passive line
-					(at -12.7 -3.81 0)
+				(pin power_in line
+					(at 0 -10.16 90)
 					(length 3.81)
-					(name "CH4"
+					(name "VN"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "6"
+					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -940,11 +947,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:C_Small"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1014,10 +1026,10 @@
 			(symbol "C_Small_0_1"
 				(polyline
 					(pts
-						(xy -1.524 -0.508) (xy 1.524 -0.508)
+						(xy -1.524 0.508) (xy 1.524 0.508)
 					)
 					(stroke
-						(width 0.3302)
+						(width 0.3048)
 						(type default)
 					)
 					(fill
@@ -1026,10 +1038,10 @@
 				)
 				(polyline
 					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
 					)
 					(stroke
-						(width 0.3048)
+						(width 0.3302)
 						(type default)
 					)
 					(fill
@@ -1075,11 +1087,16 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Device:R_Small"
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0.254) hide)
+				(offset 0.254)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1197,12 +1214,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+1V5"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1274,7 +1296,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -1286,7 +1308,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1317,12 +1339,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:+3V3"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1394,7 +1421,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 0) (xy 0 2.54)
+						(xy 0 2.54) (xy 0.762 1.27)
 					)
 					(stroke
 						(width 0)
@@ -1406,7 +1433,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54) (xy 0.762 1.27)
+						(xy 0 0) (xy 0 2.54)
 					)
 					(stroke
 						(width 0)
@@ -1437,12 +1464,17 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "power:GND"
 			(power)
-			(pin_numbers hide)
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 0) hide)
+				(offset 0)
+				(hide yes)
+			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1533,7 +1565,193 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
+	)
+	(rectangle
+		(start 25.4 17.78)
+		(end 157.48 127)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 54cadba8-adc3-47b6-a490-fdcdfcf9206f)
+	)
+	(rectangle
+		(start 274.32 17.78)
+		(end 408.94 127)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid 6f518557-39a5-4aa6-9011-ae92f9e0bfc1)
+	)
+	(rectangle
+		(start 25.4 130.81)
+		(end 187.96 255.27)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid a14c1c64-bf4e-4fd4-82d4-4002b92b2da1)
+	)
+	(rectangle
+		(start 160.02 17.78)
+		(end 270.51 127)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(uuid cbe15600-2281-4b64-bdbe-315b8e8a1e42)
+	)
+	(text "Power Pins"
+		(exclude_from_sim no)
+		(at 387.096 35.306 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "02ae0c1e-d761-4f07-8781-d45429628947")
+	)
+	(text "Test Points"
+		(exclude_from_sim no)
+		(at 277.368 21.844 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.25)
+			)
+			(justify left)
+		)
+		(uuid "0835b4a5-3ac6-4ce2-b4ea-d34da995a162")
+	)
+	(text "VCM Pins"
+		(exclude_from_sim no)
+		(at 386.588 68.326 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0bb2748b-d942-4c24-b31b-b8932f8762c9")
+	)
+	(text "Extra GND Pins"
+		(exclude_from_sim no)
+		(at 389.636 100.076 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "0cdfa38f-cafc-4b04-89e1-b5b1b03e88be")
+	)
+	(text "Board to Board Connector"
+		(exclude_from_sim no)
+		(at 46.99 134.62 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.25)
+			)
+		)
+		(uuid "4522f8f1-5372-4818-922d-d1d040734acb")
+	)
+	(text "Analog Inputs & ESD Protection"
+		(exclude_from_sim no)
+		(at 29.972 22.098 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.25)
+			)
+			(justify left)
+		)
+		(uuid "4c3680ce-6a8c-4270-9c08-7b21edc0b0a0")
+	)
+	(text "X/Y Test Pins"
+		(exclude_from_sim no)
+		(at 294.894 41.656 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "7d4531e5-8cab-4073-9c9f-bf2d20e196f3")
+	)
+	(text "RGB Pins"
+		(exclude_from_sim no)
+		(at 292.608 73.66 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "963e4ccf-d661-4c80-89b9-856c4f478aa7")
+	)
+	(text "ADC"
+		(exclude_from_sim no)
+		(at 163.322 21.59 0)
+		(effects
+			(font
+				(size 2 2)
+				(thickness 0.25)
+			)
+			(justify left)
+		)
+		(uuid "af28ca3c-c209-48f8-b8bb-3c2467a8f901")
+	)
+	(text_box "Comments:\n\nX is +/- 8Vpp\nY is +/- 6Vpp\n\nR/G/B are 3bit color. 1.0 is black, 3.5V is on.\n\nThe resistors for RGB input are to limit current in the event of consistent 3.6V overshoot as these go directly to the FPGA.\n\nThe RGB resistors arealso part of the low pass filter, with the cap by the b2b connector. (This filter will be moved right by the FGPA in a final production/non-modular build)"
+		(exclude_from_sim no)
+		(at 190.5 130.81 0)
+		(size 118.11 124.46)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "26ff4dc5-bf86-4fe3-9d48-1d04341b8242")
+	)
+	(text_box "Quesitons:\n\nBecause of it's position on the board, U8 (the ESD protection for X/Y) was referenced to the analog supply. I assume the internal diodes are quite and won't be a source of noise. Is this correct?"
+		(exclude_from_sim no)
+		(at 311.15 130.81 0)
+		(size 97.79 101.6)
+		(margins 0.9525 0.9525 0.9525 0.9525)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "36d8856b-5294-4c78-8ddd-4c3dc36f9adf")
 	)
 	(junction
 		(at 97.79 50.8)
@@ -2715,192 +2933,8 @@
 		)
 		(uuid "fb863371-a462-4664-bff5-d6b70accf045")
 	)
-	(rectangle
-		(start 25.4 17.78)
-		(end 157.48 127)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 54cadba8-adc3-47b6-a490-fdcdfcf9206f)
-	)
-	(rectangle
-		(start 274.32 17.78)
-		(end 408.94 127)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid 6f518557-39a5-4aa6-9011-ae92f9e0bfc1)
-	)
-	(rectangle
-		(start 25.4 130.81)
-		(end 187.96 255.27)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid a14c1c64-bf4e-4fd4-82d4-4002b92b2da1)
-	)
-	(rectangle
-		(start 160.02 17.78)
-		(end 270.51 127)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(uuid cbe15600-2281-4b64-bdbe-315b8e8a1e42)
-	)
-	(text_box "Comments:\n\nX is +/- 8Vpp\nY is +/- 6Vpp\n\nR/G/B are 3bit color. 1.0 is black, 3.5V is on.\n\nThe resistors for RGB input are to limit current in the event of consistent 3.6V overshoot as these go directly to the FPGA.\n\nThe RGB resistors arealso part of the low pass filter, with the cap by the b2b connector. (This filter will be moved right by the FGPA in a final production/non-modular build)"
-		(exclude_from_sim no)
-		(at 190.5 130.81 0)
-		(size 118.11 124.46)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "26ff4dc5-bf86-4fe3-9d48-1d04341b8242")
-	)
-	(text_box "Quesitons:\n\nBecause of it's position on the board, U8 (the ESD protection for X/Y) was referenced to the analog supply. I assume the internal diodes are quite and won't be a source of noise. Is this correct?"
-		(exclude_from_sim no)
-		(at 311.15 130.81 0)
-		(size 97.79 101.6)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(fill
-			(type none)
-		)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left top)
-		)
-		(uuid "36d8856b-5294-4c78-8ddd-4c3dc36f9adf")
-	)
-	(text "Power Pins"
-		(exclude_from_sim no)
-		(at 387.096 35.306 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "02ae0c1e-d761-4f07-8781-d45429628947")
-	)
-	(text "Test Points"
-		(exclude_from_sim no)
-		(at 277.368 21.844 0)
-		(effects
-			(font
-				(size 2 2)
-				(thickness 0.25)
-			)
-			(justify left)
-		)
-		(uuid "0835b4a5-3ac6-4ce2-b4ea-d34da995a162")
-	)
-	(text "VCM Pins"
-		(exclude_from_sim no)
-		(at 386.588 68.326 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "0bb2748b-d942-4c24-b31b-b8932f8762c9")
-	)
-	(text "Extra GND Pins"
-		(exclude_from_sim no)
-		(at 389.636 100.076 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "0cdfa38f-cafc-4b04-89e1-b5b1b03e88be")
-	)
-	(text "Board to Board Connector"
-		(exclude_from_sim no)
-		(at 46.99 134.62 0)
-		(effects
-			(font
-				(size 2 2)
-				(thickness 0.25)
-			)
-		)
-		(uuid "4522f8f1-5372-4818-922d-d1d040734acb")
-	)
-	(text "Analog Inputs & ESD Protection"
-		(exclude_from_sim no)
-		(at 29.972 22.098 0)
-		(effects
-			(font
-				(size 2 2)
-				(thickness 0.25)
-			)
-			(justify left)
-		)
-		(uuid "4c3680ce-6a8c-4270-9c08-7b21edc0b0a0")
-	)
-	(text "X/Y Test Pins"
-		(exclude_from_sim no)
-		(at 294.894 41.656 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "7d4531e5-8cab-4073-9c9f-bf2d20e196f3")
-	)
-	(text "RGB Pins"
-		(exclude_from_sim no)
-		(at 292.608 73.66 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-		)
-		(uuid "963e4ccf-d661-4c80-89b9-856c4f478aa7")
-	)
-	(text "ADC"
-		(exclude_from_sim no)
-		(at 163.322 21.59 0)
-		(effects
-			(font
-				(size 2 2)
-				(thickness 0.25)
-			)
-			(justify left)
-		)
-		(uuid "af28ca3c-c209-48f8-b8bb-3c2467a8f901")
-	)
 	(label "Y4"
 		(at 146.05 185.42 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2911,7 +2945,6 @@
 	)
 	(label "Y7"
 		(at 146.05 177.8 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2922,7 +2955,6 @@
 	)
 	(label "R_IN"
 		(at 285.75 78.74 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2933,7 +2965,6 @@
 	)
 	(label "GND"
 		(at 52.07 199.39 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2944,7 +2975,6 @@
 	)
 	(label "Y3"
 		(at 146.05 187.96 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2955,7 +2985,6 @@
 	)
 	(label "+3V3"
 		(at 85.09 201.93 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2966,7 +2995,6 @@
 	)
 	(label "+3V3"
 		(at 85.09 227.33 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2977,7 +3005,6 @@
 	)
 	(label "G"
 		(at 144.78 157.48 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2988,7 +3015,6 @@
 	)
 	(label "ADC_CLK_FPGA"
 		(at 146.05 146.05 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2999,7 +3025,6 @@
 	)
 	(label "X9"
 		(at 146.05 203.2 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3010,7 +3035,6 @@
 	)
 	(label "Y5"
 		(at 146.05 182.88 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3021,7 +3045,6 @@
 	)
 	(label "B"
 		(at 181.61 138.43 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3032,7 +3055,6 @@
 	)
 	(label "R_IN"
 		(at 57.15 93.98 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3043,7 +3065,6 @@
 	)
 	(label "CLK_TO_ADC"
 		(at 184.15 68.58 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3054,7 +3075,6 @@
 	)
 	(label "R"
 		(at 144.78 154.94 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3065,7 +3085,6 @@
 	)
 	(label "X3"
 		(at 146.05 218.44 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3076,7 +3095,6 @@
 	)
 	(label "Y1"
 		(at 146.05 193.04 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3087,7 +3105,6 @@
 	)
 	(label "GND"
 		(at 52.07 224.79 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3098,7 +3115,6 @@
 	)
 	(label "X"
 		(at 184.15 60.96 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3109,7 +3125,6 @@
 	)
 	(label "G"
 		(at 143.51 76.2 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3120,7 +3135,6 @@
 	)
 	(label "X6"
 		(at 146.05 210.82 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3131,7 +3145,6 @@
 	)
 	(label "Y2"
 		(at 146.05 190.5 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3142,7 +3155,6 @@
 	)
 	(label "X8"
 		(at 146.05 205.74 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3153,7 +3165,6 @@
 	)
 	(label "R"
 		(at 143.51 73.66 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3164,7 +3175,6 @@
 	)
 	(label "+3V3"
 		(at 52.07 201.93 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3175,7 +3185,6 @@
 	)
 	(label "Y9"
 		(at 146.05 172.72 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3186,7 +3195,6 @@
 	)
 	(label "GND"
 		(at 85.09 199.39 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3197,7 +3205,6 @@
 	)
 	(label "G_IN"
 		(at 285.75 82.55 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3208,7 +3215,6 @@
 	)
 	(label "Y"
 		(at 41.91 45.72 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3219,7 +3225,6 @@
 	)
 	(label "Y"
 		(at 184.15 63.5 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3230,7 +3235,6 @@
 	)
 	(label "X"
 		(at 285.75 49.53 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3241,7 +3245,6 @@
 	)
 	(label "B"
 		(at 143.51 78.74 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3252,7 +3255,6 @@
 	)
 	(label "X2"
 		(at 146.05 220.98 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3263,7 +3265,6 @@
 	)
 	(label "G_IN"
 		(at 57.15 96.52 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3274,7 +3275,6 @@
 	)
 	(label "Y8"
 		(at 146.05 175.26 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3285,7 +3285,6 @@
 	)
 	(label "Y0"
 		(at 146.05 195.58 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3296,7 +3295,6 @@
 	)
 	(label "X4"
 		(at 146.05 215.9 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3307,7 +3305,6 @@
 	)
 	(label "X[0..9]"
 		(at 246.38 62.23 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3318,7 +3315,6 @@
 	)
 	(label "G"
 		(at 143.51 76.2 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3329,7 +3325,6 @@
 	)
 	(label "B"
 		(at 144.78 160.02 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3340,7 +3335,6 @@
 	)
 	(label "X1"
 		(at 146.05 223.52 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3351,7 +3345,6 @@
 	)
 	(label "CLK_TO_ADC"
 		(at 146.05 143.51 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3362,7 +3355,6 @@
 	)
 	(label "B_IN"
 		(at 285.75 86.36 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3373,7 +3365,6 @@
 	)
 	(label "X"
 		(at 41.91 48.26 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3384,7 +3375,6 @@
 	)
 	(label "Y"
 		(at 285.75 52.07 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3395,7 +3385,6 @@
 	)
 	(label "G"
 		(at 170.18 138.43 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3406,7 +3395,6 @@
 	)
 	(label "X7"
 		(at 146.05 208.28 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3417,7 +3405,6 @@
 	)
 	(label "+3V3"
 		(at 52.07 227.33 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3428,7 +3415,6 @@
 	)
 	(label "X5"
 		(at 146.05 213.36 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3439,7 +3425,6 @@
 	)
 	(label "X0"
 		(at 146.05 226.06 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3450,7 +3435,6 @@
 	)
 	(label "B_IN"
 		(at 57.15 99.06 0)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3461,7 +3445,6 @@
 	)
 	(label "GND"
 		(at 85.09 224.79 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3472,7 +3455,6 @@
 	)
 	(label "ADC_CLK_FPGA"
 		(at 246.38 68.58 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3483,7 +3465,6 @@
 	)
 	(label "Y[0..9]"
 		(at 246.38 64.77 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3494,7 +3475,6 @@
 	)
 	(label "Y6"
 		(at 146.05 180.34 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3505,7 +3485,6 @@
 	)
 	(label "R"
 		(at 158.75 138.43 180)
-		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -7534,6 +7513,10 @@
 	(sheet
 		(at 199.39 57.15)
 		(size 27.94 19.05)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -7563,63 +7546,63 @@
 		)
 		(pin "X" input
 			(at 199.39 60.96 180)
+			(uuid "bb8ee755-b346-4e7d-b123-6c5f202224cc")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "bb8ee755-b346-4e7d-b123-6c5f202224cc")
 		)
 		(pin "Y" input
 			(at 199.39 63.5 180)
+			(uuid "24fab237-89a5-4ccd-9b5a-8ae1e4aeccfa")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "24fab237-89a5-4ccd-9b5a-8ae1e4aeccfa")
 		)
 		(pin "EXT_CLK" input
 			(at 199.39 68.58 180)
+			(uuid "664f5f96-a8d5-492d-bebc-7d45ad9303a4")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify left)
 			)
-			(uuid "664f5f96-a8d5-492d-bebc-7d45ad9303a4")
 		)
 		(pin "Y[0..9]" output
 			(at 227.33 64.77 0)
+			(uuid "dd409385-d30e-4e7f-88c3-5140083d0474")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "dd409385-d30e-4e7f-88c3-5140083d0474")
 		)
 		(pin "X[0..9]" output
 			(at 227.33 62.23 0)
+			(uuid "b205d0de-7199-4da0-85e8-a4002a3e8187")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "b205d0de-7199-4da0-85e8-a4002a3e8187")
 		)
 		(pin "CLK_FPGA" output
 			(at 227.33 68.58 0)
+			(uuid "bdf37854-b668-441f-848f-94a014d25fe1")
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
 			)
-			(uuid "bdf37854-b668-441f-848f-94a014d25fe1")
 		)
 		(instances
 			(project "breakout-adc"
@@ -7632,6 +7615,10 @@
 	(sheet
 		(at 158.75 175.26)
 		(size 17.78 11.43)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -7672,4 +7659,5 @@
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
