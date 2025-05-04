@@ -42,6 +42,7 @@ sram_256_buses = [
             "A_94",
             "A_90",
             "A_86",
+            "A_82",
             "A_9",
             "A_5",
             "A_1",
@@ -213,6 +214,37 @@ sram_256_signals = [
     ("SRAM_256_D_WE_N", "B_91"),
 ]
 
+pmod_buses = [
+    (
+        "PMOD_A",
+        [
+            "C_58",
+            "C_66",
+            "C_74",
+            "C_82",
+            "C_62",
+            "C_70",
+            "C_78",
+            "C_86",
+        ],
+    ),
+    (
+        # this is based on the ADC pmods, which actually
+        # don't have the last 2 connected
+        "PMOD_B",
+        [
+            "C_94",
+            "D_20",
+            "D_24",
+            "D_28",
+            "C_98",
+            "C_90",
+            "C_97",
+            "C_93",
+        ],
+    ),
+]
+
 
 def combine_headers(pin_config, header_maps):
     combined_map = {}
@@ -225,12 +257,17 @@ def combine_headers(pin_config, header_maps):
     return combined_map
 
 
-def sram_pcf(header_map):
+def header_pcf(header_map):
     for s, p in sram_256_signals:
         print(f"set_io {s} {header_map[p]}")
 
     print()
     for b in sram_256_buses:
+        for i, p in enumerate(b[1]):
+            print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
+
+    print()
+    for b in pmod_buses:
         for i, p in enumerate(b[1]):
             print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
 
@@ -250,7 +287,7 @@ def gen_pcf(pin_config):
         },
     )
 
-    sram_pcf(header_map)
+    header_pcf(header_map)
 
 
 hx8k_v2_config = IcePinConfigV2(

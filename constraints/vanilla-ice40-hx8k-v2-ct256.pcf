@@ -27,9 +27,10 @@ set_io SRAM_256_A_ADDR_BUS[10] B2
 set_io SRAM_256_A_ADDR_BUS[11] A1
 set_io SRAM_256_A_ADDR_BUS[12] A2
 set_io SRAM_256_A_ADDR_BUS[13] B3
-set_io SRAM_256_A_ADDR_BUS[14] E10
-set_io SRAM_256_A_ADDR_BUS[15] E11
-set_io SRAM_256_A_ADDR_BUS[16] F9
+set_io SRAM_256_A_ADDR_BUS[14] B4
+set_io SRAM_256_A_ADDR_BUS[15] E10
+set_io SRAM_256_A_ADDR_BUS[16] E11
+set_io SRAM_256_A_ADDR_BUS[17] F9
 set_io SRAM_256_A_DATA_BUS[0] B13
 set_io SRAM_256_A_DATA_BUS[1] B12
 set_io SRAM_256_A_DATA_BUS[2] A11
@@ -148,3 +149,20 @@ set_io SRAM_256_D_DATA_BUS[12] T6
 set_io SRAM_256_D_DATA_BUS[13] P4
 set_io SRAM_256_D_DATA_BUS[14] N4
 set_io SRAM_256_D_DATA_BUS[15] P5
+
+set_io PMOD_A[0] L14
+set_io PMOD_A[1] M14
+set_io PMOD_A[2] N12
+set_io PMOD_A[3] L11
+set_io PMOD_A[4] M13
+set_io PMOD_A[5] P14
+set_io PMOD_A[6] K12
+set_io PMOD_A[7] K9
+set_io PMOD_B[0] M9
+set_io PMOD_B[1] P9
+set_io PMOD_B[2] T13
+set_io PMOD_B[3] L10
+set_io PMOD_B[4] N10
+set_io PMOD_B[5] L9
+set_io PMOD_B[6] P15
+set_io PMOD_B[7] P16
