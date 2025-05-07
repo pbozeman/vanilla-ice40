@@ -157,21 +157,19 @@
 			(in_bom yes)
 			(on_board yes)
 			(property "Reference" "R"
-				(at 0.762 0.508 0)
+				(at 0 0 90)
 				(effects
 					(font
-						(size 1.27 1.27)
+						(size 1.016 1.016)
 					)
-					(justify left)
 				)
 			)
 			(property "Value" "R_Small"
-				(at 0.762 -1.016 0)
+				(at 1.778 0 90)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
@@ -8288,7 +8286,7 @@
 				)
 			)
 		)
-		(property "Footprint" "IS61WV25616-10TLI:44L_TSOP-2_400_ISI"
+		(property "Footprint" "44L_TSOP-2_400_ISI"
 			(at 128.27 62.23 0)
 			(effects
 				(font
@@ -8510,7 +8508,7 @@
 				)
 			)
 		)
-		(property "Footprint" "IS61WV25616-10TLI:44L_TSOP-2_400_ISI"
+		(property "Footprint" "44L_TSOP-2_400_ISI"
 			(at 220.98 176.53 0)
 			(effects
 				(font
@@ -9963,7 +9961,7 @@
 				)
 			)
 		)
-		(property "Footprint" "IS61WV25616-10TLI:44L_TSOP-2_400_ISI"
+		(property "Footprint" "44L_TSOP-2_400_ISI"
 			(at 129.54 176.53 0)
 			(effects
 				(font
@@ -10281,7 +10279,7 @@
 				)
 			)
 		)
-		(property "Footprint" "IS61WV25616-10TLI:44L_TSOP-2_400_ISI"
+		(property "Footprint" "44L_TSOP-2_400_ISI"
 			(at 219.71 62.23 0)
 			(effects
 				(font
