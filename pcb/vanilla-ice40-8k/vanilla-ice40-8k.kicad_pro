@@ -651,26 +651,26 @@
         },
         {
           "group_by": false,
-          "label": "Datasheet",
-          "name": "Datasheet",
-          "show": true
-        },
-        {
-          "group_by": false,
           "label": "Footprint",
           "name": "Footprint",
           "show": true
         },
         {
           "group_by": false,
-          "label": "Qty",
-          "name": "${QUANTITY}",
+          "label": "Datasheet",
+          "name": "Datasheet",
           "show": true
         },
         {
-          "group_by": true,
-          "label": "DNP",
-          "name": "${DNP}",
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Qty",
+          "name": "${QUANTITY}",
           "show": true
         },
         {
@@ -705,6 +705,12 @@
         },
         {
           "group_by": false,
+          "label": "JLCPCB Position Offset",
+          "name": "JLCPCB Position Offset",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "JLCPCB Rotation Offset",
           "name": "JLCPCB Rotation Offset",
           "show": false
@@ -731,6 +737,12 @@
           "group_by": false,
           "label": "MP",
           "name": "MP",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "MPN",
+          "name": "MPN",
           "show": false
         },
         {
@@ -771,27 +783,21 @@
         },
         {
           "group_by": false,
+          "label": "Sim.Type",
+          "name": "Sim.Type",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "SnapEDA_Link",
           "name": "SnapEDA_Link",
           "show": false
         },
         {
-          "group_by": false,
-          "label": "Description",
-          "name": "Description",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "JLCPCB Position Offset",
-          "name": "JLCPCB Position Offset",
-          "show": false
-        },
-        {
-          "group_by": false,
-          "label": "MPN",
-          "name": "MPN",
-          "show": false
+          "group_by": true,
+          "label": "DNP",
+          "name": "${DNP}",
+          "show": true
         }
       ],
       "filter_string": "",
