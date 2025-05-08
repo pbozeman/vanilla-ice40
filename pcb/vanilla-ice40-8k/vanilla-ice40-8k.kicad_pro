@@ -198,7 +198,7 @@
       ],
       "track_widths": [
         0.0,
-        0.127,
+        0.0762,
         0.156464,
         0.2032,
         0.2286,
@@ -239,8 +239,8 @@
           "drill": 0.0
         },
         {
-          "diameter": 0.35,
-          "drill": 0.2
+          "diameter": 0.4,
+          "drill": 0.3
         },
         {
           "diameter": 0.45,
@@ -497,7 +497,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.11,
+        "clearance": 0.1,
         "diff_pair_gap": 0.1524,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.1524,
@@ -517,14 +517,13 @@
         "bus_width": 12,
         "clearance": 0.1524,
         "diff_pair_gap": 0.254,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.155448,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "90ohm",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 0,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.152908,
         "via_diameter": 0.45,
@@ -532,17 +531,21 @@
         "wire_width": 6
       },
       {
+        "name": "IOT",
+        "pcb_color": "rgb(255, 0, 255)",
+        "priority": 0,
+        "schematic_color": "rgba(0, 0, 0, 0.000)"
+      },
+      {
         "bus_width": 12,
-        "clearance": 0.127,
         "diff_pair_gap": 0.254,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.254,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.254,
         "via_diameter": 0.45,
@@ -553,14 +556,13 @@
         "bus_width": 12,
         "clearance": 0.127,
         "diff_pair_gap": 0.1524,
-        "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.1524,
         "line_style": 0,
         "microvia_diameter": 0.3,
         "microvia_drill": 0.1,
         "name": "POWER_IN",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 3,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.381,
         "via_diameter": 0.45,
@@ -597,6 +599,10 @@
       {
         "netclass": "90ohm",
         "pattern": "/USB_D*"
+      },
+      {
+        "netclass": "IOT",
+        "pattern": "/IOT_*"
       }
     ]
   },
