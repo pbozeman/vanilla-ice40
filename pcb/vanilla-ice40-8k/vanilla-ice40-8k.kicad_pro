@@ -58,16 +58,7 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [
-        [
-          "lib_footprint_mismatch|132962500|108737500|80c3e38d-4c16-4ee6-89b5-676805d15b4e|00000000-0000-0000-0000-000000000000",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|143790000|109550001|6517ff84-7ce5-4ec4-893b-c23ec043e4b0|00000000-0000-0000-0000-000000000000",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -133,8 +124,8 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.1,
-        "min_connection": 0.12446,
+        "min_clearance": 0.0889,
+        "min_connection": 0.0762,
         "min_copper_edge_clearance": 0.25,
         "min_groove_width": 0.0,
         "min_hole_clearance": 0.2,
@@ -146,8 +137,8 @@
         "min_text_height": 0.7,
         "min_text_thickness": 0.1,
         "min_through_hole_diameter": 0.2,
-        "min_track_width": 0.127,
-        "min_via_annular_width": 0.075,
+        "min_track_width": 0.0762,
+        "min_via_annular_width": 0.05,
         "min_via_diameter": 0.25,
         "solder_mask_to_copper_clearance": 0.005,
         "use_height_for_length_calcs": true
@@ -499,7 +490,7 @@
     "classes": [
       {
         "bus_width": 12,
-        "clearance": 0.1,
+        "clearance": 0.09,
         "diff_pair_gap": 0.1524,
         "diff_pair_via_gap": 0.25,
         "diff_pair_width": 0.1524,
@@ -525,18 +516,12 @@
         "microvia_drill": 0.1,
         "name": "90ohm",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 1,
+        "priority": 0,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.152908,
         "via_diameter": 0.45,
         "via_drill": 0.3,
         "wire_width": 6
-      },
-      {
-        "name": "IOT",
-        "pcb_color": "rgb(255, 0, 255)",
-        "priority": 0,
-        "schematic_color": "rgba(0, 0, 0, 0.000)"
       },
       {
         "bus_width": 12,
@@ -547,7 +532,7 @@
         "microvia_drill": 0.1,
         "name": "POWER",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 2,
+        "priority": 1,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.254,
         "via_diameter": 0.45,
@@ -564,7 +549,7 @@
         "microvia_drill": 0.1,
         "name": "POWER_IN",
         "pcb_color": "rgba(0, 0, 0, 0.000)",
-        "priority": 3,
+        "priority": 2,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.381,
         "via_diameter": 0.45,
