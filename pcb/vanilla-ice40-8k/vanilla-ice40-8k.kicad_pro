@@ -133,7 +133,7 @@
       },
       "rules": {
         "max_error": 0.005,
-        "min_clearance": 0.127,
+        "min_clearance": 0.1,
         "min_connection": 0.12446,
         "min_copper_edge_clearance": 0.25,
         "min_groove_width": 0.0,
@@ -601,10 +601,6 @@
       {
         "netclass": "90ohm",
         "pattern": "/USB_D*"
-      },
-      {
-        "netclass": "IOT",
-        "pattern": "/IOT_*"
       }
     ]
   },
