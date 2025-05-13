@@ -29855,6 +29855,72 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 81.28 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2ad1a3ee-fcfa-4577-8adc-f92bd325a30d")
+		(property "Reference" "#PWR097"
+			(at 81.28 256.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 81.28 255.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 81.28 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0fa09bf3-2cf4-484a-bda3-ade3dd8ea7bb")
+		)
+		(instances
+			(project "vanilla-ice40-8k"
+				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
+					(reference "#PWR097")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_name "QTH-060-01-L-D-A_1")
 		(lib_id "!Misc:QTH-060-01-L-D-A")
 		(at 24.13 87.63 0)
@@ -31233,6 +31299,72 @@
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
 					(reference "U1")
 					(unit 4)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 36.83 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "370d6602-252d-4b0c-9805-96d35027132d")
+		(property "Reference" "#PWR098"
+			(at 36.83 256.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 36.83 255.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 36.83 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 36.83 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 36.83 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "69291caf-6c7c-445a-8641-82739584137b")
+		)
+		(instances
+			(project "vanilla-ice40-8k"
+				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
+					(reference "#PWR098")
+					(unit 1)
 				)
 			)
 		)
