@@ -153,7 +153,7 @@
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting front back)
-		(grid_origin 65.072077 67.751127)
+		(grid_origin 75.649439 60.906701)
 		(pcbplotparams
 			(layerselection 0x00000000_00000000_55555555_57555555)
 			(plot_on_all_layers_selection 0x00000000_00000000_00000000_02000000)
@@ -27135,7 +27135,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "9d228e50-1d68-41e5-afdf-5f498e7cf024")
+			(uuid "ca4ef9f4-a4ce-42b5-aa55-eda80e48335a")
 		)
 		(fp_line
 			(start -2 2.985)
@@ -27145,7 +27145,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "6396322e-8b05-46fa-8e26-e08bf5b9a09f")
+			(uuid "8f450aff-a52f-445f-8ab9-44ea84c12332")
 		)
 		(fp_line
 			(start 20.005 2.985)
@@ -27155,7 +27155,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "edb8ba3a-2f87-4302-99cb-22c5222e8397")
+			(uuid "bbd08a21-f926-4470-b8e3-e1113dd5dfc9")
 		)
 		(fp_line
 			(start -20.005 0.7)
@@ -27165,7 +27165,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "c582c2f4-d202-4e7d-8ce1-2463ca8b7cda")
+			(uuid "a70e1f2e-9057-4239-8ce0-ef60f1d185c4")
 		)
 		(fp_line
 			(start 20.005 0.7)
@@ -27175,7 +27175,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "db1797f3-9ecb-467e-b5f7-6717b1c1330a")
+			(uuid "a99d9a35-b0c2-4b27-9ce7-6791bf6696ea")
 		)
 		(fp_line
 			(start -20.005 -1.461)
@@ -27185,7 +27185,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "3dc22e34-0ef9-4d04-901f-8bc6eef502cf")
+			(uuid "513bead0-7c4a-4907-ad30-1b77d6f1a50b")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -27195,7 +27195,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "58a83f4e-9573-4234-98a6-6db0eb5fc14b")
+			(uuid "8752a8b8-3afd-4455-8a9f-2e50eb89bf4f")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -27205,7 +27205,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "61a59e3a-6e5e-4d1c-a26d-eb53a077d409")
+			(uuid "a43bdb41-1adf-4eb1-8e1c-8c8f56fb29ee")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -27215,7 +27215,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "5f0d5e56-39b0-4fe0-94ef-f276d9b6202c")
+			(uuid "7e116351-13b4-458b-a22e-4852effc53bc")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -27225,7 +27225,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "550c183c-f6c2-4245-b685-f49aaaa8d8ea")
+			(uuid "302a811c-e1b0-4983-9f5e-269eac227fc3")
 		)
 		(fp_line
 			(start -2 -2.985)
@@ -27235,7 +27235,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "7a913eda-aefe-4801-a842-fea6538e4d2b")
+			(uuid "9f8c7d19-a749-4d08-be3a-d957d6d1c7c7")
 		)
 		(fp_line
 			(start 18.476 -2.985)
@@ -27245,7 +27245,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "6e5f2608-6896-47c2-bdf8-db0f812e7c1c")
+			(uuid "ca9fa64f-347d-469c-b598-c5974cc1a9cb")
 		)
 		(fp_circle
 			(center -18 3.5)
@@ -27256,7 +27256,7 @@
 			)
 			(fill no)
 			(layer "B.SilkS")
-			(uuid "c84b09a9-6e2a-480d-9a5c-8574045ed076")
+			(uuid "db575d68-7389-4bd4-af3c-31eaa51a4a0c")
 		)
 		(fp_line
 			(start -20.25 4.065)
@@ -27266,7 +27266,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "ac80ac8e-73ad-49eb-957e-1a1b59bbd8cc")
+			(uuid "53a9a224-8f29-480a-a3b5-a8afe49ce2c5")
 		)
 		(fp_line
 			(start 20.25 4.065)
@@ -27276,7 +27276,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "249a723c-df78-4c3e-8b09-34006cd4f49a")
+			(uuid "89f306ad-7f73-4e53-8184-e3b69104dd7e")
 		)
 		(fp_line
 			(start -20.25 -4.065)
@@ -27286,7 +27286,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "3e708397-95c4-4297-881b-af0b69e5954f")
+			(uuid "49cd1e96-a30d-4e5d-8545-821500d88118")
 		)
 		(fp_line
 			(start 20.25 -4.065)
@@ -27296,7 +27296,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "4f840f7f-5619-4a5c-ab81-7dc26d1d793e")
+			(uuid "b7196d04-1d93-4ad9-8304-91374893de66")
 		)
 		(fp_line
 			(start -20.005 2.985)
@@ -27306,7 +27306,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "3a6d744a-f92a-47dd-9967-1991edf71119")
+			(uuid "fc774902-71a4-428f-abe6-c1e395955c4c")
 		)
 		(fp_line
 			(start 20.005 2.985)
@@ -27316,7 +27316,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "b83b2bae-8ee3-43e1-a766-105d5268fb45")
+			(uuid "bccd178f-58d4-4d46-abdd-b646cf3d4a42")
 		)
 		(fp_line
 			(start -20.005 -1.461)
@@ -27326,7 +27326,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "ae2f8120-1a35-4fde-b999-e3ac001ace25")
+			(uuid "e27a8218-c974-4f20-9330-ae00544c98ec")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -27336,7 +27336,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "0da14273-fddf-4cbd-b20f-3b678493e8c6")
+			(uuid "5321e96b-1972-40f4-8217-adcbcdcf4dfa")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -27346,7 +27346,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "d873d425-88d8-45ec-8fac-ece7d38fd26e")
+			(uuid "63e1b22f-56d4-4e5b-973b-1923d801b67a")
 		)
 		(fp_line
 			(start 18.476 -2.985)
@@ -27356,7 +27356,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "d54b3c95-f299-41b3-bc9f-4b1e49bdf79b")
+			(uuid "6ea7c209-4580-41da-b700-7ee8ee65db5f")
 		)
 		(fp_circle
 			(center -18 3.5)
@@ -27367,83 +27367,74 @@
 			)
 			(fill no)
 			(layer "B.Fab")
-			(uuid "62725504-e3cd-41ac-8fb8-50fb0e0376a0")
+			(uuid "ff5131a0-ddfd-446a-89eb-5c8474405969")
 		)
 		(pad "" np_thru_hole circle
 			(at -19.24 2.03 270)
 			(size 1.02 1.02)
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
-			(uuid "56187484-e4a7-4dd3-a4e1-ab96d8c97c5a")
+			(uuid "1cb6a5a2-6a76-41d7-845f-df00a1742451")
 		)
 		(pad "" np_thru_hole circle
 			(at 19.24 2.03 270)
 			(size 1.02 1.02)
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
-			(uuid "de7759ed-23a6-409b-9341-1e69083e1137")
+			(uuid "e572d6a3-93cb-4270-8c47-c5e4aa0663dc")
 		)
 		(pad "01" smd rect
 			(at -17.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "aac47100-9358-4544-9b1a-c8c735343b07")
 		)
 		(pad "02" smd rect
 			(at -17.25 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "613d2d58-4852-41fa-8256-6f39a4ec59c2")
 		)
 		(pad "03" smd rect
 			(at -16.75 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "c5974a48-f3a1-416f-9694-0884c46818c7")
 		)
 		(pad "04" smd rect
 			(at -16.75 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "2828a3fa-d4a5-49c2-a642-ac256725bc21")
 		)
 		(pad "05" smd rect
 			(at -16.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "0993a0aa-c4b5-4517-9a54-e77b9b5f45e2")
 		)
 		(pad "06" smd rect
 			(at -16.25 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "641eb50e-d782-49bf-b18c-984aad01c302")
 		)
 		(pad "07" smd rect
 			(at -15.75 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "bbf4e421-015b-43a4-977e-cad26d9de360")
 		)
 		(pad "08" smd rect
 			(at -15.75 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "98c36089-caae-41cb-9a95-93a212b0b44c")
 		)
 		(pad "09" smd rect
 			(at -15.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "0d9aaa23-16ca-45ae-a8b9-bcb97ecfb50f")
 		)
 		(pad "10" smd rect
@@ -27453,7 +27444,6 @@
 			(net 367 "unconnected-(J1-Pad10)")
 			(pinfunction "10")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "55c4f8e1-2340-444d-bb88-ec6c01f0ebfc")
 		)
 		(pad "11" smd rect
@@ -27463,7 +27453,6 @@
 			(net 385 "unconnected-(J1-Pad11)")
 			(pinfunction "11")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "752a93ac-ab7a-4cd8-95f8-23faa8567c8c")
 		)
 		(pad "12" smd rect
@@ -27473,7 +27462,6 @@
 			(net 363 "unconnected-(J1-Pad12)")
 			(pinfunction "12")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4ca77a9a-d38d-4423-a87b-17dc708fa549")
 		)
 		(pad "13" smd rect
@@ -27483,7 +27471,6 @@
 			(net 382 "unconnected-(J1-Pad13)")
 			(pinfunction "13")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6de10c57-3c07-48d6-8d23-b9467c391c99")
 		)
 		(pad "14" smd rect
@@ -27493,7 +27480,6 @@
 			(net 386 "unconnected-(J1-Pad14)")
 			(pinfunction "14")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "7c6653fc-7a21-4809-972d-363e17ffd8d0")
 		)
 		(pad "15" smd rect
@@ -27503,7 +27489,6 @@
 			(net 333 "unconnected-(J1-Pad15)")
 			(pinfunction "15")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "25ef87b1-0c5c-4da9-9eb8-c01625424e69")
 		)
 		(pad "16" smd rect
@@ -27513,7 +27498,6 @@
 			(net 405 "unconnected-(J1-Pad16)")
 			(pinfunction "16")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b5b155cd-eec5-48f6-bee8-51952bb02756")
 		)
 		(pad "17" smd rect
@@ -27523,7 +27507,6 @@
 			(net 428 "unconnected-(J1-Pad17)")
 			(pinfunction "17")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ffec9c32-0553-4a01-8d4c-c3099bd70592")
 		)
 		(pad "18" smd rect
@@ -27533,7 +27516,6 @@
 			(net 369 "unconnected-(J1-Pad18)")
 			(pinfunction "18")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "563fea46-10a1-44b8-8f60-8dd502ba4dab")
 		)
 		(pad "19" smd rect
@@ -27543,7 +27525,6 @@
 			(net 388 "unconnected-(J1-Pad19)")
 			(pinfunction "19")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "832b977c-bc52-48ee-b2e4-ca76916ebd80")
 		)
 		(pad "20" smd rect
@@ -27553,7 +27534,6 @@
 			(net 412 "unconnected-(J1-Pad20)")
 			(pinfunction "20")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ce7c43b7-2a41-4a5c-aa6d-4e71e1f15db9")
 		)
 		(pad "21" smd rect
@@ -27563,7 +27543,6 @@
 			(net 407 "unconnected-(J1-Pad21)")
 			(pinfunction "21")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "bbd99b7f-8050-49ff-9b54-bfb7fb987ffc")
 		)
 		(pad "22" smd rect
@@ -27573,7 +27552,6 @@
 			(net 415 "unconnected-(J1-Pad22)")
 			(pinfunction "22")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d1739881-c3a2-4033-b7fb-c4b47c8ec637")
 		)
 		(pad "23" smd rect
@@ -27583,7 +27561,6 @@
 			(net 337 "unconnected-(J1-Pad23)")
 			(pinfunction "23")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "29242436-595f-441a-b526-0cab44f185ca")
 		)
 		(pad "24" smd rect
@@ -27593,7 +27570,6 @@
 			(net 326 "unconnected-(J1-Pad24)")
 			(pinfunction "24")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0c783bff-fcf2-450c-b280-8653625abb98")
 		)
 		(pad "25" smd rect
@@ -27603,7 +27579,6 @@
 			(net 403 "unconnected-(J1-Pad25)")
 			(pinfunction "25")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b1b4ecfb-9c41-47aa-aaa5-4bb4640703b9")
 		)
 		(pad "26" smd rect
@@ -27613,7 +27588,6 @@
 			(net 389 "unconnected-(J1-Pad26)")
 			(pinfunction "26")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8333d394-d80a-4857-920b-357d69860693")
 		)
 		(pad "27" smd rect
@@ -27623,7 +27597,6 @@
 			(net 419 "unconnected-(J1-Pad27)")
 			(pinfunction "27")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "db0113ca-d6f8-44b4-b5d0-82b31b294ade")
 		)
 		(pad "28" smd rect
@@ -27633,7 +27606,6 @@
 			(net 394 "unconnected-(J1-Pad28)")
 			(pinfunction "28")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "90ac2404-c1cb-44f0-b3fb-39579b690a61")
 		)
 		(pad "29" smd rect
@@ -27643,7 +27615,6 @@
 			(net 422 "unconnected-(J1-Pad29)")
 			(pinfunction "29")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e2ab22a6-0052-4b29-a670-e049e51d45b3")
 		)
 		(pad "30" smd rect
@@ -27653,7 +27624,6 @@
 			(net 360 "unconnected-(J1-Pad30)")
 			(pinfunction "30")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "487c9f36-7fad-4a3b-9deb-30b829b9c3e5")
 		)
 		(pad "31" smd rect
@@ -27663,7 +27633,6 @@
 			(net 427 "unconnected-(J1-Pad31)")
 			(pinfunction "31")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "fd94b826-2be1-4c52-bd2d-b0f07a93bed8")
 		)
 		(pad "32" smd rect
@@ -27673,7 +27642,6 @@
 			(net 395 "unconnected-(J1-Pad32)")
 			(pinfunction "32")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "927289bb-3c45-41dc-9081-c3e990d3e5ad")
 		)
 		(pad "33" smd rect
@@ -27683,7 +27651,6 @@
 			(net 371 "unconnected-(J1-Pad33)")
 			(pinfunction "33")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5b001383-be27-4f0d-a83c-bcaffa98ebc3")
 		)
 		(pad "34" smd rect
@@ -27693,7 +27660,6 @@
 			(net 381 "unconnected-(J1-Pad34)")
 			(pinfunction "34")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6c0180d1-74e3-4cfe-a2c7-1a28e25b9822")
 		)
 		(pad "35" smd rect
@@ -27703,7 +27669,6 @@
 			(net 413 "unconnected-(J1-Pad35)")
 			(pinfunction "35")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "cf270eae-c3fa-4411-a32b-ac395b05f3b4")
 		)
 		(pad "36" smd rect
@@ -27713,7 +27678,6 @@
 			(net 399 "unconnected-(J1-Pad36)")
 			(pinfunction "36")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "9bb77870-3add-46d3-b06c-a6059764fa90")
 		)
 		(pad "37" smd rect
@@ -27723,7 +27687,6 @@
 			(net 342 "unconnected-(J1-Pad37)")
 			(pinfunction "37")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2d7178f0-3aaf-4fa6-a0b0-c034b792e845")
 		)
 		(pad "38" smd rect
@@ -27733,7 +27696,6 @@
 			(net 356 "unconnected-(J1-Pad38)")
 			(pinfunction "38")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3f462026-0132-48f0-90c9-9d2905dd55d5")
 		)
 		(pad "39" smd rect
@@ -27743,7 +27705,6 @@
 			(net 323 "unconnected-(J1-Pad39)")
 			(pinfunction "39")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "09657647-ecae-4c6e-b96a-1c6d950185b7")
 		)
 		(pad "40" smd rect
@@ -27753,7 +27714,6 @@
 			(net 391 "unconnected-(J1-Pad40)")
 			(pinfunction "40")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8c9bcd6b-fdb4-46ae-9810-18cd2ad6c526")
 		)
 		(pad "41" smd rect
@@ -27763,7 +27723,6 @@
 			(net 354 "unconnected-(J1-Pad41)")
 			(pinfunction "41")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "390696ac-7f2d-4aea-a2ac-bfbce7286736")
 		)
 		(pad "42" smd rect
@@ -27773,7 +27732,6 @@
 			(net 408 "unconnected-(J1-Pad42)")
 			(pinfunction "42")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c09689dc-a4fb-460e-b951-0a225cef73b8")
 		)
 		(pad "43" smd rect
@@ -27783,7 +27741,6 @@
 			(net 373 "unconnected-(J1-Pad43)")
 			(pinfunction "43")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5cf1f6f5-0b6c-428e-9626-d1ecb26a6ddc")
 		)
 		(pad "44" smd rect
@@ -27793,7 +27750,6 @@
 			(net 319 "unconnected-(J1-Pad44)")
 			(pinfunction "44")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "03780e31-6102-4610-8be9-1b8a006cbfdd")
 		)
 		(pad "45" smd rect
@@ -27803,7 +27759,6 @@
 			(net 353 "unconnected-(J1-Pad45)")
 			(pinfunction "45")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "38c1d85e-0453-4c85-b7c6-7cf8332f4532")
 		)
 		(pad "46" smd rect
@@ -27813,7 +27768,6 @@
 			(net 426 "unconnected-(J1-Pad46)")
 			(pinfunction "46")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "fb647a8f-2d03-4a2f-b009-03eafc2d54f7")
 		)
 		(pad "47" smd rect
@@ -27823,7 +27777,6 @@
 			(net 418 "unconnected-(J1-Pad47)")
 			(pinfunction "47")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d88a61a0-1f28-4689-a5b3-79c1cd4cb295")
 		)
 		(pad "48" smd rect
@@ -27833,7 +27786,6 @@
 			(net 379 "unconnected-(J1-Pad48)")
 			(pinfunction "48")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6789e5ba-7373-4718-9558-fc501ce6094c")
 		)
 		(pad "49" smd rect
@@ -27843,7 +27795,6 @@
 			(net 327 "unconnected-(J1-Pad49)")
 			(pinfunction "49")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "186b7587-c727-49ef-87e7-a513f5dd9be8")
 		)
 		(pad "50" smd rect
@@ -27853,7 +27804,6 @@
 			(net 416 "unconnected-(J1-Pad50)")
 			(pinfunction "50")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d3d0a224-ac84-42ef-88a9-940d7cee14b9")
 		)
 		(pad "51" smd rect
@@ -27863,7 +27813,6 @@
 			(net 322 "unconnected-(J1-Pad51)")
 			(pinfunction "51")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "07eed046-33c3-4c8d-92aa-9a2c179ddc63")
 		)
 		(pad "52" smd rect
@@ -27873,7 +27822,6 @@
 			(net 380 "unconnected-(J1-Pad52)")
 			(pinfunction "52")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6b651f41-16b7-4b68-a80c-f59a6030d7f3")
 		)
 		(pad "53" smd rect
@@ -27883,7 +27831,6 @@
 			(net 414 "unconnected-(J1-Pad53)")
 			(pinfunction "53")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d015a514-e5f3-41b9-a8df-3bd9e05d7309")
 		)
 		(pad "54" smd rect
@@ -27893,7 +27840,6 @@
 			(net 400 "unconnected-(J1-Pad54)")
 			(pinfunction "54")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "a1722af6-a5d1-4116-baef-3c987911b838")
 		)
 		(pad "55" smd rect
@@ -27903,7 +27849,6 @@
 			(net 318 "unconnected-(J1-Pad55)")
 			(pinfunction "55")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "02a83fd8-b334-40bc-a33c-00b1fb4bea57")
 		)
 		(pad "56" smd rect
@@ -27913,7 +27858,6 @@
 			(net 344 "unconnected-(J1-Pad56)")
 			(pinfunction "56")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2dc48cdc-0e84-44b6-8d8d-7751db5cf625")
 		)
 		(pad "57" smd rect
@@ -27923,7 +27867,6 @@
 			(net 321 "unconnected-(J1-Pad57)")
 			(pinfunction "57")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "075096a2-af9a-4fcf-8fa5-cadda8f8350e")
 		)
 		(pad "58" smd rect
@@ -27933,7 +27876,6 @@
 			(net 351 "unconnected-(J1-Pad58)")
 			(pinfunction "58")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "37a5c795-ad95-4dac-8bca-79595942005f")
 		)
 		(pad "59" smd rect
@@ -27943,7 +27885,6 @@
 			(net 341 "unconnected-(J1-Pad59)")
 			(pinfunction "59")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2bb6fef1-caa7-45a8-b85f-93066b457228")
 		)
 		(pad "60" smd rect
@@ -27953,7 +27894,6 @@
 			(net 370 "unconnected-(J1-Pad60)")
 			(pinfunction "60")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "56ef361a-8c5b-4b79-899a-3816f1fc7330")
 		)
 		(pad "61" smd rect
@@ -27963,7 +27903,6 @@
 			(net 355 "unconnected-(J1-Pad61)")
 			(pinfunction "61")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3b3bfb70-3dbc-4549-97bc-85128275a160")
 		)
 		(pad "62" smd rect
@@ -27973,7 +27912,6 @@
 			(net 409 "unconnected-(J1-Pad62)")
 			(pinfunction "62")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c0ecbf4e-5842-4cc9-9870-a4c1afc9a88f")
 		)
 		(pad "63" smd rect
@@ -27983,7 +27921,6 @@
 			(net 411 "unconnected-(J1-Pad63)")
 			(pinfunction "63")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c959b037-bfae-4eac-9c11-7bfc50ca4da2")
 		)
 		(pad "64" smd rect
@@ -27993,7 +27930,6 @@
 			(net 393 "unconnected-(J1-Pad64)")
 			(pinfunction "64")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8f08d7b3-d535-47c0-99da-6e7caedb2278")
 		)
 		(pad "65" smd rect
@@ -28003,7 +27939,6 @@
 			(net 350 "unconnected-(J1-Pad65)")
 			(pinfunction "65")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "36b2d74f-4817-4754-8c79-dc687f294115")
 		)
 		(pad "66" smd rect
@@ -28013,7 +27948,6 @@
 			(net 331 "unconnected-(J1-Pad66)")
 			(pinfunction "66")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "216d48ad-c3ff-4d71-85de-dcb8c84b1530")
 		)
 		(pad "67" smd rect
@@ -28023,7 +27957,6 @@
 			(net 362 "unconnected-(J1-Pad67)")
 			(pinfunction "67")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4c13ee20-a007-45ed-9894-49d1ab87b598")
 		)
 		(pad "68" smd rect
@@ -28033,7 +27966,6 @@
 			(net 328 "unconnected-(J1-Pad68)")
 			(pinfunction "68")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1b63b9ba-e31c-4db2-b205-90be3e610de3")
 		)
 		(pad "69" smd rect
@@ -28043,7 +27975,6 @@
 			(net 335 "unconnected-(J1-Pad69)")
 			(pinfunction "69")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2808562a-d8ce-4cba-b07d-626aeb7bd411")
 		)
 		(pad "70" smd rect
@@ -28053,7 +27984,6 @@
 			(net 366 "unconnected-(J1-Pad70)")
 			(pinfunction "70")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "53bf0637-f461-4c0b-8e94-6e83341e2521")
 		)
 		(pad "71" smd rect
@@ -28063,7 +27993,6 @@
 			(net 387 "unconnected-(J1-Pad71)")
 			(pinfunction "71")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "7d5738db-d3f8-4c91-b599-0e6103fe3809")
 		)
 		(pad "72" smd rect
@@ -28073,7 +28002,6 @@
 			(net 346 "unconnected-(J1-Pad72)")
 			(pinfunction "72")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "30d1ad70-227e-4e55-ae2e-62ef0807fb3d")
 		)
 		(pad "73" smd rect
@@ -28083,7 +28011,6 @@
 			(net 361 "unconnected-(J1-Pad73)")
 			(pinfunction "73")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4b339c4b-e1e5-4656-8cc0-637072ac9b94")
 		)
 		(pad "74" smd rect
@@ -28093,7 +28020,6 @@
 			(net 359 "unconnected-(J1-Pad74)")
 			(pinfunction "74")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "478b7b41-e569-4a6f-b7a1-38b0d50ed0c6")
 		)
 		(pad "75" smd rect
@@ -28103,7 +28029,6 @@
 			(net 425 "unconnected-(J1-Pad75)")
 			(pinfunction "75")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "f3927fa0-c902-4565-8887-fd37cedc263d")
 		)
 		(pad "76" smd rect
@@ -28113,7 +28038,6 @@
 			(net 340 "unconnected-(J1-Pad76)")
 			(pinfunction "76")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2ad02685-dd68-4c5b-a542-9e24e58dfeef")
 		)
 		(pad "77" smd rect
@@ -28123,7 +28047,6 @@
 			(net 378 "unconnected-(J1-Pad77)")
 			(pinfunction "77")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "67709023-2fee-4671-af43-949b3b003c48")
 		)
 		(pad "78" smd rect
@@ -28133,7 +28056,6 @@
 			(net 376 "unconnected-(J1-Pad78)")
 			(pinfunction "78")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5ebff096-60c6-42d2-8edc-0ff70c213275")
 		)
 		(pad "79" smd rect
@@ -28143,7 +28065,6 @@
 			(net 352 "unconnected-(J1-Pad79)")
 			(pinfunction "79")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3838dc7b-b3f3-4082-9695-21851639ecf1")
 		)
 		(pad "80" smd rect
@@ -28153,7 +28074,6 @@
 			(net 358 "unconnected-(J1-Pad80)")
 			(pinfunction "80")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4538d88d-b725-4413-8815-a3cf98c97688")
 		)
 		(pad "81" smd rect
@@ -28163,7 +28083,6 @@
 			(net 398 "unconnected-(J1-Pad81)")
 			(pinfunction "81")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "973c6c00-265d-43a3-94d8-da44bd95e7f4")
 		)
 		(pad "82" smd rect
@@ -28173,7 +28092,6 @@
 			(net 325 "unconnected-(J1-Pad82)")
 			(pinfunction "82")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0c3e4700-eb7b-44dd-9ce9-45fbde142900")
 		)
 		(pad "83" smd rect
@@ -28183,7 +28101,6 @@
 			(net 397 "unconnected-(J1-Pad83)")
 			(pinfunction "83")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "968c159e-62c7-4602-b776-eedc2f7b0793")
 		)
 		(pad "84" smd rect
@@ -28193,7 +28110,6 @@
 			(net 392 "unconnected-(J1-Pad84)")
 			(pinfunction "84")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8cdd1482-e3cf-4bb1-bae4-65299986caa7")
 		)
 		(pad "85" smd rect
@@ -28203,7 +28119,6 @@
 			(net 339 "unconnected-(J1-Pad85)")
 			(pinfunction "85")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2aaca687-41e1-46c3-9260-ac2413a1696e")
 		)
 		(pad "86" smd rect
@@ -28213,7 +28128,6 @@
 			(net 368 "unconnected-(J1-Pad86)")
 			(pinfunction "86")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "55ed07c5-775d-460d-9e66-382a640e28a9")
 		)
 		(pad "87" smd rect
@@ -28223,7 +28137,6 @@
 			(net 324 "unconnected-(J1-Pad87)")
 			(pinfunction "87")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0b249084-118c-47d9-a83b-62f4d967239b")
 		)
 		(pad "88" smd rect
@@ -28233,7 +28146,6 @@
 			(net 375 "unconnected-(J1-Pad88)")
 			(pinfunction "88")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5e1f6011-4609-40f8-9b5b-d84b671c3e46")
 		)
 		(pad "89" smd rect
@@ -28243,7 +28155,6 @@
 			(net 338 "unconnected-(J1-Pad89)")
 			(pinfunction "89")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2a45fae8-ec4b-473c-88ce-4c0b358d41af")
 		)
 		(pad "90" smd rect
@@ -28253,7 +28164,6 @@
 			(net 420 "unconnected-(J1-Pad90)")
 			(pinfunction "90")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "db799162-0e7e-40f7-9c67-cbb773a1b011")
 		)
 		(pad "91" smd rect
@@ -28263,7 +28173,6 @@
 			(net 345 "unconnected-(J1-Pad91)")
 			(pinfunction "91")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "308cce4d-d246-4ce4-8a93-6f0e44324dd5")
 		)
 		(pad "92" smd rect
@@ -28273,7 +28182,6 @@
 			(net 372 "unconnected-(J1-Pad92)")
 			(pinfunction "92")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5c81f57b-a9b8-4338-b59e-08d05cd4c869")
 		)
 		(pad "93" smd rect
@@ -28283,7 +28191,6 @@
 			(net 334 "unconnected-(J1-Pad93)")
 			(pinfunction "93")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "277164cc-8380-45db-ac61-314bdd5ae314")
 		)
 		(pad "94" smd rect
@@ -28293,7 +28200,6 @@
 			(net 336 "unconnected-(J1-Pad94)")
 			(pinfunction "94")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "290f9e07-3e4a-4f61-9c4b-bb4bb744e633")
 		)
 		(pad "95" smd rect
@@ -28303,7 +28209,6 @@
 			(net 417 "unconnected-(J1-Pad95)")
 			(pinfunction "95")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d8152221-afeb-43e2-a8f2-808b31cd7eb8")
 		)
 		(pad "96" smd rect
@@ -28313,7 +28218,6 @@
 			(net 320 "unconnected-(J1-Pad96)")
 			(pinfunction "96")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "03dc4324-bbe1-4699-9b56-a1dedb01807a")
 		)
 		(pad "97" smd rect
@@ -28323,7 +28227,6 @@
 			(net 330 "unconnected-(J1-Pad97)")
 			(pinfunction "97")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1e6d7346-098d-44a9-838f-b69996ec5e8d")
 		)
 		(pad "98" smd rect
@@ -28333,7 +28236,6 @@
 			(net 329 "unconnected-(J1-Pad98)")
 			(pinfunction "98")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1c425f99-6334-451d-978d-bee1b6671a75")
 		)
 		(pad "99" smd rect
@@ -28343,7 +28245,6 @@
 			(net 402 "unconnected-(J1-Pad99)")
 			(pinfunction "99")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "afb4047a-1a1f-4179-98dd-85abcc5ff1b9")
 		)
 		(pad "100" smd rect
@@ -28353,7 +28254,6 @@
 			(net 349 "unconnected-(J1-Pad100)")
 			(pinfunction "100")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "36379532-a084-49e6-80ff-7a3ad38c5974")
 		)
 		(pad "101" smd rect
@@ -28363,7 +28263,6 @@
 			(net 401 "unconnected-(J1-Pad101)")
 			(pinfunction "101")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "abf3f666-c427-440c-9115-eddd73aeb095")
 		)
 		(pad "102" smd rect
@@ -28373,7 +28272,6 @@
 			(net 406 "unconnected-(J1-Pad102)")
 			(pinfunction "102")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b8add01f-4e0b-4654-9994-c74c57f237b8")
 		)
 		(pad "103" smd rect
@@ -28383,7 +28281,6 @@
 			(net 404 "unconnected-(J1-Pad103)")
 			(pinfunction "103")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b5a3f75c-15ea-4061-8c8b-12abd96e3aeb")
 		)
 		(pad "104" smd rect
@@ -28393,7 +28290,6 @@
 			(net 343 "unconnected-(J1-Pad104)")
 			(pinfunction "104")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2d7fe8eb-eafe-4f77-a77d-d38f390fe3c6")
 		)
 		(pad "105" smd rect
@@ -28403,7 +28299,6 @@
 			(net 357 "unconnected-(J1-Pad105)")
 			(pinfunction "105")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "418641b0-6370-4043-8ca2-44bd206c5a44")
 		)
 		(pad "106" smd rect
@@ -28413,7 +28308,6 @@
 			(net 374 "unconnected-(J1-Pad106)")
 			(pinfunction "106")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5ddf4d55-8f62-4646-bc83-e3a7f3d61656")
 		)
 		(pad "107" smd rect
@@ -28423,7 +28317,6 @@
 			(net 423 "unconnected-(J1-Pad107)")
 			(pinfunction "107")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e9801872-9a73-4f7c-9329-fa65348eeb67")
 		)
 		(pad "108" smd rect
@@ -28433,7 +28326,6 @@
 			(net 390 "unconnected-(J1-Pad108)")
 			(pinfunction "108")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "85c14d43-6a4a-4c36-aed1-8642afc564f4")
 		)
 		(pad "109" smd rect
@@ -28443,7 +28335,6 @@
 			(net 384 "unconnected-(J1-Pad109)")
 			(pinfunction "109")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "74bfc5ee-c7a3-4f33-bec6-dcc404641a27")
 		)
 		(pad "110" smd rect
@@ -28453,7 +28344,6 @@
 			(net 365 "unconnected-(J1-Pad110)")
 			(pinfunction "110")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "515f4020-a503-4b9c-ae41-9d7bb37d59b6")
 		)
 		(pad "111" smd rect
@@ -28463,7 +28353,6 @@
 			(net 348 "unconnected-(J1-Pad111)")
 			(pinfunction "111")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "34c3a107-23cd-436f-ad5c-59e8dd75fc45")
 		)
 		(pad "112" smd rect
@@ -28473,7 +28362,6 @@
 			(net 377 "unconnected-(J1-Pad112)")
 			(pinfunction "112")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "620cee2a-57fb-4aae-83b9-d434288b8975")
 		)
 		(pad "113" smd rect
@@ -28483,7 +28371,6 @@
 			(net 332 "unconnected-(J1-Pad113)")
 			(pinfunction "113")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "250aad20-0f2e-4027-ac7d-222fe89924aa")
 		)
 		(pad "114" smd rect
@@ -28493,7 +28380,6 @@
 			(net 421 "unconnected-(J1-Pad114)")
 			(pinfunction "114")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "dd1eaf06-e379-4b97-91a7-25800b6f3772")
 		)
 		(pad "115" smd rect
@@ -28503,7 +28389,6 @@
 			(net 347 "unconnected-(J1-Pad115)")
 			(pinfunction "115")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "338527f4-3a04-4f31-bf1e-1686e45ca9e3")
 		)
 		(pad "116" smd rect
@@ -28513,7 +28398,6 @@
 			(net 424 "unconnected-(J1-Pad116)")
 			(pinfunction "116")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "f16ef528-4f75-49e4-95a4-53a1247625b5")
 		)
 		(pad "117" smd rect
@@ -28523,7 +28407,6 @@
 			(net 396 "unconnected-(J1-Pad117)")
 			(pinfunction "117")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "92bce2f3-2fa6-4272-9876-ed70bd0ecfd1")
 		)
 		(pad "118" smd rect
@@ -28533,7 +28416,6 @@
 			(net 383 "unconnected-(J1-Pad118)")
 			(pinfunction "118")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6fdd6ab0-b120-4de5-b722-1e406cfcfdaf")
 		)
 		(pad "119" smd rect
@@ -28543,7 +28425,6 @@
 			(net 364 "unconnected-(J1-Pad119)")
 			(pinfunction "119")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4f2b0f99-42e7-4c84-affe-488e3f4fdf27")
 		)
 		(pad "120" smd rect
@@ -28553,63 +28434,54 @@
 			(net 410 "unconnected-(J1-Pad120)")
 			(pinfunction "120")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c546e4da-5720-4744-8956-447e509de49b")
 		)
 		(pad "G1" smd rect
 			(at -18.44 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "00b2a457-a3dc-4f96-958e-ab04620b4336")
 		)
 		(pad "G2" smd rect
 			(at -13.181 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "019d32ee-0873-4080-a37e-8469f421af8e")
 		)
 		(pad "G3" smd rect
 			(at -6.831 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "76d8d9a9-dddf-4e76-84ea-bba705a6f06a")
 		)
 		(pad "G4" smd rect
 			(at -1.56 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "4baad233-6b40-488e-b54b-e7b6d730bfb1")
 		)
 		(pad "G5" smd rect
 			(at 1.56 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "2b8f320e-dc8d-4cf6-836c-f6262bb0111a")
 		)
 		(pad "G6" smd rect
 			(at 6.831 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "e4898d66-6007-4cb6-abcb-3cbf10789fc1")
 		)
 		(pad "G7" smd rect
 			(at 13.181 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "ad05c6fd-1b78-417e-a783-4786eda1ad90")
 		)
 		(pad "G8" smd rect
 			(at 18.44 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "8854db14-e4ae-4bee-8654-f61bdff317df")
 		)
 		(embedded_fonts no)
@@ -29190,7 +29062,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "6f335a4f-e12c-4420-b3ea-55d468c4d4a6")
+			(uuid "2e8e6648-67e7-4cd9-8508-fc9198911f6f")
 		)
 		(fp_line
 			(start -2 2.985)
@@ -29200,7 +29072,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "5d7fd90c-364c-4415-9eef-1038d9c41563")
+			(uuid "1dc837a4-34cc-4017-9ec3-8a38a2a0684f")
 		)
 		(fp_line
 			(start 20.005 2.985)
@@ -29210,7 +29082,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "80eebb77-15c9-4221-8300-7ccb2a66d953")
+			(uuid "75b575e6-71c0-497c-af42-ba3d8068b15d")
 		)
 		(fp_line
 			(start -20.005 0.7)
@@ -29220,7 +29092,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "29365600-6dd1-4cf1-a153-537ee526cd3c")
+			(uuid "8e3359d2-06a0-4fc3-b9c9-10a3be944942")
 		)
 		(fp_line
 			(start 20.005 0.7)
@@ -29230,7 +29102,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "6d7dedc3-dee7-4ae3-b5a2-719ce3020219")
+			(uuid "f68da8ed-3b3a-4f35-b32d-8850907f157b")
 		)
 		(fp_line
 			(start -20.005 -1.461)
@@ -29240,7 +29112,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "985106d8-afa6-439d-93ea-fc8b310521d0")
+			(uuid "dcbfe77c-a804-426c-95f6-02dd90eb860c")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -29250,7 +29122,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "af20c983-8d10-4921-b56a-251cbc69e266")
+			(uuid "901eda78-e11f-4c7a-8de2-bb53def33b34")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -29260,7 +29132,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "96214d9d-d952-428f-afaa-a3cb942e3fc6")
+			(uuid "046ebc41-73cd-4157-ab86-7c3b3741b893")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -29270,7 +29142,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "86566b39-fa42-4ffa-864f-a862cdae9687")
+			(uuid "2086d16c-3f21-4e04-bf9c-71ed1d68974e")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -29280,7 +29152,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "ba06b8d2-650f-4510-bc7b-987f8cce16d2")
+			(uuid "b56f8364-fee3-4179-a602-4491a9771505")
 		)
 		(fp_line
 			(start -2 -2.985)
@@ -29290,7 +29162,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "a038aae3-6574-4b4d-b942-f999e17af46a")
+			(uuid "c4d1830f-1065-419f-9c0f-b9ae8eaf896b")
 		)
 		(fp_line
 			(start 18.476 -2.985)
@@ -29300,7 +29172,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "446c7197-3882-4516-bdbd-a86dc94b8d83")
+			(uuid "7faa191f-cf61-4856-8ae6-0ccc8784d12c")
 		)
 		(fp_circle
 			(center -18 3.5)
@@ -29311,7 +29183,7 @@
 			)
 			(fill no)
 			(layer "B.SilkS")
-			(uuid "2ddb0252-feb2-4c60-bcf3-7ba442b9eeb8")
+			(uuid "1a429827-7052-4d8b-8d75-275a44796953")
 		)
 		(fp_line
 			(start -20.25 4.065)
@@ -29321,7 +29193,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "94c78367-8e16-4c1e-998b-0f6cca03019d")
+			(uuid "e80b99c7-264e-491d-94b4-3938ca8b30e7")
 		)
 		(fp_line
 			(start 20.25 4.065)
@@ -29331,7 +29203,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "0be70449-f4e7-439e-958c-04c5939243c9")
+			(uuid "78a8d45e-e3df-451e-a630-0e910bbc1331")
 		)
 		(fp_line
 			(start -20.25 -4.065)
@@ -29341,7 +29213,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "872236a9-9d93-44fa-9b5c-08c002e0fb0e")
+			(uuid "cbac9aeb-d2d4-41c8-9f91-c915404ea7f5")
 		)
 		(fp_line
 			(start 20.25 -4.065)
@@ -29351,7 +29223,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "882e5aff-3c05-4bfb-8d09-3e97ac81ec50")
+			(uuid "ed2288ad-fb08-473e-95a7-206068c784c1")
 		)
 		(fp_line
 			(start -20.005 2.985)
@@ -29361,7 +29233,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "75662f45-a821-4b43-bf9e-c9bf962c60ce")
+			(uuid "b6436e92-f9b5-4462-bd4b-036383f1f812")
 		)
 		(fp_line
 			(start 20.005 2.985)
@@ -29371,7 +29243,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "9b10009a-1447-4f6d-875f-354659211d8f")
+			(uuid "336a0380-69ed-41d4-98ef-e9922ec5d353")
 		)
 		(fp_line
 			(start -20.005 -1.461)
@@ -29381,7 +29253,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "6a0ec46c-a7f8-47cf-8ce5-3728ac813db5")
+			(uuid "d994079a-d92b-4882-b861-cb5ed2a063c8")
 		)
 		(fp_line
 			(start 20.005 -1.461)
@@ -29391,7 +29263,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "2e3da164-51b2-480e-810b-facc2380ec27")
+			(uuid "b1e186f6-5b84-4f80-a92b-f5ce3936cebd")
 		)
 		(fp_line
 			(start -18.476 -2.985)
@@ -29401,7 +29273,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "ab6c771f-a3d7-4c16-81d9-70aa6aaf327a")
+			(uuid "aa366d32-0dad-4216-b9e4-b8cb5bb3c0fa")
 		)
 		(fp_line
 			(start 18.476 -2.985)
@@ -29411,7 +29283,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "bc71e3f3-6720-43fb-93df-395ede64f56a")
+			(uuid "e08fe1ab-40c4-49b2-a6ca-afce8f2dfe8b")
 		)
 		(fp_circle
 			(center -18 3.5)
@@ -29422,83 +29294,74 @@
 			)
 			(fill no)
 			(layer "B.Fab")
-			(uuid "43ab1b6f-d8e0-4d8c-bd96-cad0eb05da06")
+			(uuid "010d6827-ef79-4996-b9c9-f30d8e86db35")
 		)
 		(pad "" np_thru_hole circle
 			(at -19.24 2.03 270)
 			(size 1.02 1.02)
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
-			(uuid "48c72846-d99f-44ef-a605-3fa21ced91e9")
+			(uuid "9e0d3c8b-bf70-4bed-baf6-246c80850540")
 		)
 		(pad "" np_thru_hole circle
 			(at 19.24 2.03 270)
 			(size 1.02 1.02)
 			(drill 1.02)
 			(layers "*.Cu" "*.Mask")
-			(uuid "d3f96ed0-3d0a-4924-be6d-17a5f0390579")
+			(uuid "247e5efe-e006-47c0-a2ab-e45a8e798d2e")
 		)
 		(pad "01" smd rect
 			(at -17.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "0113429e-c952-4c36-8b6e-2cd2f264f426")
 		)
 		(pad "02" smd rect
 			(at -17.25 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "774cf57c-83b3-4d7c-ad65-6a02ddb5f8a0")
 		)
 		(pad "03" smd rect
 			(at -16.75 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "202e8b2d-9de2-42d0-958e-f19561d52d52")
 		)
 		(pad "04" smd rect
 			(at -16.75 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "b47b8c85-ce01-4be5-a02c-7b2a24b24101")
 		)
 		(pad "05" smd rect
 			(at -16.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "84b50ae9-a108-4d56-b26a-8ecde4f56c63")
 		)
 		(pad "06" smd rect
 			(at -16.25 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "56012d0a-f3b6-4b38-9d55-102823637020")
 		)
 		(pad "07" smd rect
 			(at -15.75 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "b45ba98e-0d5e-4ccf-97b6-9f2325111af7")
 		)
 		(pad "08" smd rect
 			(at -15.75 -3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "d6f2d479-1e0e-4d86-8575-67e90412552a")
 		)
 		(pad "09" smd rect
 			(at -15.25 3.086 270)
 			(size 0.305 1.45)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "a0505a6b-20bb-4e97-850e-f5b32666bf88")
 		)
 		(pad "10" smd rect
@@ -29508,7 +29371,6 @@
 			(net 478 "unconnected-(J2-Pad10)")
 			(pinfunction "10")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5f2a1786-3383-4f8b-a3a9-a5c42e991409")
 		)
 		(pad "11" smd rect
@@ -29518,7 +29380,6 @@
 			(net 453 "unconnected-(J2-Pad11)")
 			(pinfunction "11")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2e36d8a5-b74a-4a5a-af5f-c750fb6c287c")
 		)
 		(pad "12" smd rect
@@ -29528,7 +29389,6 @@
 			(net 445 "unconnected-(J2-Pad12)")
 			(pinfunction "12")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1871b42a-0957-4641-92ea-59fb7e37b5e1")
 		)
 		(pad "13" smd rect
@@ -29538,7 +29398,6 @@
 			(net 506 "unconnected-(J2-Pad13)")
 			(pinfunction "13")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "aca2374e-c5e2-4637-ba23-6d05188f7716")
 		)
 		(pad "14" smd rect
@@ -29548,7 +29407,6 @@
 			(net 524 "unconnected-(J2-Pad14)")
 			(pinfunction "14")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d1f90d82-c9bf-4b81-b36c-6af1547265a8")
 		)
 		(pad "15" smd rect
@@ -29558,7 +29416,6 @@
 			(net 443 "unconnected-(J2-Pad15)")
 			(pinfunction "15")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "15a64f21-1351-4d93-82b6-4600d31338a5")
 		)
 		(pad "16" smd rect
@@ -29568,7 +29425,6 @@
 			(net 460 "unconnected-(J2-Pad16)")
 			(pinfunction "16")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "396dc891-a9e5-4c10-8e2a-c32e8204faeb")
 		)
 		(pad "17" smd rect
@@ -29578,7 +29434,6 @@
 			(net 461 "unconnected-(J2-Pad17)")
 			(pinfunction "17")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3a4b85d2-aebd-4962-86fd-aaaf295c3a38")
 		)
 		(pad "18" smd rect
@@ -29588,7 +29443,6 @@
 			(net 447 "unconnected-(J2-Pad18)")
 			(pinfunction "18")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1d8dd2da-e421-4a7f-ae6d-c3be2aef9487")
 		)
 		(pad "19" smd rect
@@ -29598,7 +29452,6 @@
 			(net 429 "unconnected-(J2-Pad19)")
 			(pinfunction "19")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "04f675f7-1b85-4417-8832-8029262f374f")
 		)
 		(pad "20" smd rect
@@ -29608,7 +29461,6 @@
 			(net 516 "unconnected-(J2-Pad20)")
 			(pinfunction "20")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "bdfaae0e-77e6-4059-8f03-1cae9e9574d3")
 		)
 		(pad "21" smd rect
@@ -29618,7 +29470,6 @@
 			(net 520 "unconnected-(J2-Pad21)")
 			(pinfunction "21")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c378b801-417f-4397-bd15-dbcaadbf0b33")
 		)
 		(pad "22" smd rect
@@ -29628,7 +29479,6 @@
 			(net 432 "unconnected-(J2-Pad22)")
 			(pinfunction "22")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "07c04e63-163e-43c1-83ac-4c6ad77742d6")
 		)
 		(pad "23" smd rect
@@ -29638,7 +29488,6 @@
 			(net 454 "unconnected-(J2-Pad23)")
 			(pinfunction "23")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2ec358b5-985c-475c-a70c-f86ad2628655")
 		)
 		(pad "24" smd rect
@@ -29648,7 +29497,6 @@
 			(net 476 "unconnected-(J2-Pad24)")
 			(pinfunction "24")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "55c34a5b-82a0-493d-a42c-f84f90ef6c60")
 		)
 		(pad "25" smd rect
@@ -29658,7 +29506,6 @@
 			(net 486 "unconnected-(J2-Pad25)")
 			(pinfunction "25")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "74930386-5cb4-4dcd-af7a-813f102449b7")
 		)
 		(pad "26" smd rect
@@ -29668,7 +29515,6 @@
 			(net 470 "unconnected-(J2-Pad26)")
 			(pinfunction "26")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4fe1aa92-d7af-4fe6-8f9c-88e57017315a")
 		)
 		(pad "27" smd rect
@@ -29678,7 +29524,6 @@
 			(net 469 "unconnected-(J2-Pad27)")
 			(pinfunction "27")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4f8ec104-1414-4ac6-a6ab-eaf4a9fa3f43")
 		)
 		(pad "28" smd rect
@@ -29688,7 +29533,6 @@
 			(net 515 "unconnected-(J2-Pad28)")
 			(pinfunction "28")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "bbd62dbd-e548-4a9a-bbd9-fd7b2acec7cc")
 		)
 		(pad "29" smd rect
@@ -29698,7 +29542,6 @@
 			(net 480 "unconnected-(J2-Pad29)")
 			(pinfunction "29")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "698bbb46-84aa-4d7a-95be-170657619887")
 		)
 		(pad "30" smd rect
@@ -29708,7 +29551,6 @@
 			(net 503 "unconnected-(J2-Pad30)")
 			(pinfunction "30")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "a37350be-d30d-4e5b-b6f8-e834eb2e3dd4")
 		)
 		(pad "31" smd rect
@@ -29718,7 +29560,6 @@
 			(net 494 "unconnected-(J2-Pad31)")
 			(pinfunction "31")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8b8e7a39-6338-44fa-a46b-69af3af34e78")
 		)
 		(pad "32" smd rect
@@ -29728,7 +29569,6 @@
 			(net 538 "unconnected-(J2-Pad32)")
 			(pinfunction "32")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "fb0acfb5-69e3-4b85-86b5-c44df64034a2")
 		)
 		(pad "33" smd rect
@@ -29738,7 +29578,6 @@
 			(net 505 "unconnected-(J2-Pad33)")
 			(pinfunction "33")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ac02a48a-1bf6-4fbb-a2c5-64a9555bb421")
 		)
 		(pad "34" smd rect
@@ -29748,7 +29587,6 @@
 			(net 441 "unconnected-(J2-Pad34)")
 			(pinfunction "34")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "15324024-3f89-4abd-9264-ce4d48be753d")
 		)
 		(pad "35" smd rect
@@ -29758,7 +29596,6 @@
 			(net 491 "unconnected-(J2-Pad35)")
 			(pinfunction "35")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "817174e5-3765-4db9-a1bf-ee34bb1ec211")
 		)
 		(pad "36" smd rect
@@ -29768,7 +29605,6 @@
 			(net 539 "unconnected-(J2-Pad36)")
 			(pinfunction "36")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "fe14e411-7d45-480a-ba34-2a85feb947c5")
 		)
 		(pad "37" smd rect
@@ -29778,7 +29614,6 @@
 			(net 451 "unconnected-(J2-Pad37)")
 			(pinfunction "37")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "28026511-0102-4577-a178-728de020b788")
 		)
 		(pad "38" smd rect
@@ -29788,7 +29623,6 @@
 			(net 446 "unconnected-(J2-Pad38)")
 			(pinfunction "38")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1aa44556-fc59-4857-8743-a5e78edcd234")
 		)
 		(pad "39" smd rect
@@ -29798,7 +29632,6 @@
 			(net 507 "unconnected-(J2-Pad39)")
 			(pinfunction "39")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "af092c1e-7cb4-4ad8-a8f2-06ba1125ce94")
 		)
 		(pad "40" smd rect
@@ -29808,7 +29641,6 @@
 			(net 439 "unconnected-(J2-Pad40)")
 			(pinfunction "40")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "132f4916-3287-47d8-9794-00119f8bfb59")
 		)
 		(pad "41" smd rect
@@ -29818,7 +29650,6 @@
 			(net 457 "unconnected-(J2-Pad41)")
 			(pinfunction "41")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3304f4e0-6bd4-4856-bfef-a1146b8cf00a")
 		)
 		(pad "42" smd rect
@@ -29828,7 +29659,6 @@
 			(net 490 "unconnected-(J2-Pad42)")
 			(pinfunction "42")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "7c758af7-6725-4633-b6b5-d973fca1dce4")
 		)
 		(pad "43" smd rect
@@ -29838,7 +29668,6 @@
 			(net 481 "unconnected-(J2-Pad43)")
 			(pinfunction "43")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6d219a95-06cb-4820-a3b5-0898033c03b9")
 		)
 		(pad "44" smd rect
@@ -29848,7 +29677,6 @@
 			(net 519 "unconnected-(J2-Pad44)")
 			(pinfunction "44")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c33f8404-cb4d-4bdf-8734-335cc8b65a3f")
 		)
 		(pad "45" smd rect
@@ -29858,7 +29686,6 @@
 			(net 479 "unconnected-(J2-Pad45)")
 			(pinfunction "45")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "624c718a-0949-476a-a255-e5f61ce52949")
 		)
 		(pad "46" smd rect
@@ -29868,7 +29695,6 @@
 			(net 489 "unconnected-(J2-Pad46)")
 			(pinfunction "46")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "786769db-065e-4e6c-b8b2-9d179113bafd")
 		)
 		(pad "47" smd rect
@@ -29878,7 +29704,6 @@
 			(net 529 "unconnected-(J2-Pad47)")
 			(pinfunction "47")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e7a17291-3941-4a79-b338-ca0b8cb086c1")
 		)
 		(pad "48" smd rect
@@ -29888,7 +29713,6 @@
 			(net 465 "unconnected-(J2-Pad48)")
 			(pinfunction "48")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4c74b3fb-7e44-498d-b171-ae84142b9cc5")
 		)
 		(pad "49" smd rect
@@ -29898,7 +29722,6 @@
 			(net 521 "unconnected-(J2-Pad49)")
 			(pinfunction "49")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c8873830-52d0-4143-9cd8-7b7d56af2b67")
 		)
 		(pad "50" smd rect
@@ -29908,7 +29731,6 @@
 			(net 530 "unconnected-(J2-Pad50)")
 			(pinfunction "50")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e8e4718e-deab-4caa-a735-624ab8e21306")
 		)
 		(pad "51" smd rect
@@ -29918,7 +29740,6 @@
 			(net 442 "unconnected-(J2-Pad51)")
 			(pinfunction "51")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1584da34-6e54-422e-9d38-646dde261490")
 		)
 		(pad "52" smd rect
@@ -29928,7 +29749,6 @@
 			(net 473 "unconnected-(J2-Pad52)")
 			(pinfunction "52")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "51ceb064-4f8c-4bce-9de4-72513eed14e1")
 		)
 		(pad "53" smd rect
@@ -29938,7 +29758,6 @@
 			(net 475 "unconnected-(J2-Pad53)")
 			(pinfunction "53")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "54ff08d9-ebf9-424f-a5a1-8fbbf3d667a5")
 		)
 		(pad "54" smd rect
@@ -29948,7 +29767,6 @@
 			(net 517 "unconnected-(J2-Pad54)")
 			(pinfunction "54")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c12c1426-33bd-46c7-aa23-a1bddfee07b6")
 		)
 		(pad "55" smd rect
@@ -29958,7 +29776,6 @@
 			(net 434 "unconnected-(J2-Pad55)")
 			(pinfunction "55")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "09dce853-6aef-4eeb-9c22-b4e2071c540a")
 		)
 		(pad "56" smd rect
@@ -29968,7 +29785,6 @@
 			(net 433 "unconnected-(J2-Pad56)")
 			(pinfunction "56")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "09d35115-6db1-47cc-9de9-d3f8656eb135")
 		)
 		(pad "57" smd rect
@@ -29978,7 +29794,6 @@
 			(net 455 "unconnected-(J2-Pad57)")
 			(pinfunction "57")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "302c4cc4-78a9-4a1d-b310-ce16213b54c2")
 		)
 		(pad "58" smd rect
@@ -29988,7 +29803,6 @@
 			(net 468 "unconnected-(J2-Pad58)")
 			(pinfunction "58")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4ed73b09-437a-446f-996a-dbf45e805258")
 		)
 		(pad "59" smd rect
@@ -29998,7 +29812,6 @@
 			(net 510 "unconnected-(J2-Pad59)")
 			(pinfunction "59")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b5532377-2bfb-49ce-a2d2-17b99e80cf60")
 		)
 		(pad "60" smd rect
@@ -30008,7 +29821,6 @@
 			(net 522 "unconnected-(J2-Pad60)")
 			(pinfunction "60")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ca7909e7-b3cc-4b51-ad40-2ef114770748")
 		)
 		(pad "61" smd rect
@@ -30018,7 +29830,6 @@
 			(net 444 "unconnected-(J2-Pad61)")
 			(pinfunction "61")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "17bdf9f8-41ee-4323-849d-d3d1b2293d8a")
 		)
 		(pad "62" smd rect
@@ -30028,7 +29839,6 @@
 			(net 512 "unconnected-(J2-Pad62)")
 			(pinfunction "62")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b67a4bbc-8998-44ff-a177-84bbfb5d2ef1")
 		)
 		(pad "63" smd rect
@@ -30038,7 +29848,6 @@
 			(net 440 "unconnected-(J2-Pad63)")
 			(pinfunction "63")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "1378594c-36ec-4f01-a68a-1d35fd696fdb")
 		)
 		(pad "64" smd rect
@@ -30048,7 +29857,6 @@
 			(net 537 "unconnected-(J2-Pad64)")
 			(pinfunction "64")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "f606868d-50d8-4cf4-bfa4-d2b667191de5")
 		)
 		(pad "65" smd rect
@@ -30058,7 +29866,6 @@
 			(net 499 "unconnected-(J2-Pad65)")
 			(pinfunction "65")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "910e95db-39ac-48f4-988d-eca4802d3bfa")
 		)
 		(pad "66" smd rect
@@ -30068,7 +29875,6 @@
 			(net 450 "unconnected-(J2-Pad66)")
 			(pinfunction "66")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "27af15ab-7595-4f97-966d-1242752f4489")
 		)
 		(pad "67" smd rect
@@ -30078,7 +29884,6 @@
 			(net 502 "unconnected-(J2-Pad67)")
 			(pinfunction "67")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "9c6e5a2d-1994-4ea8-bba3-cc5a0f858c52")
 		)
 		(pad "68" smd rect
@@ -30088,7 +29893,6 @@
 			(net 472 "unconnected-(J2-Pad68)")
 			(pinfunction "68")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "518c78c3-4917-4517-a874-3a9f6c46eeb5")
 		)
 		(pad "69" smd rect
@@ -30098,7 +29902,6 @@
 			(net 533 "unconnected-(J2-Pad69)")
 			(pinfunction "69")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ec57b417-2816-43fe-bf93-599356b16b9a")
 		)
 		(pad "70" smd rect
@@ -30108,7 +29911,6 @@
 			(net 500 "unconnected-(J2-Pad70)")
 			(pinfunction "70")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "97b6bc2e-5b84-4e88-8531-aa68ef660577")
 		)
 		(pad "71" smd rect
@@ -30118,7 +29920,6 @@
 			(net 511 "unconnected-(J2-Pad71)")
 			(pinfunction "71")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b57e7ab1-5a9c-4867-8a1c-b014cc9ec0c2")
 		)
 		(pad "72" smd rect
@@ -30128,7 +29929,6 @@
 			(net 471 "unconnected-(J2-Pad72)")
 			(pinfunction "72")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "501960e0-16b5-4a79-b452-43cc3f1a424b")
 		)
 		(pad "73" smd rect
@@ -30138,7 +29938,6 @@
 			(net 430 "unconnected-(J2-Pad73)")
 			(pinfunction "73")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "06a99f22-f185-44cb-8c44-35ced140d056")
 		)
 		(pad "74" smd rect
@@ -30148,7 +29947,6 @@
 			(net 483 "unconnected-(J2-Pad74)")
 			(pinfunction "74")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6f5b1814-fb54-4e95-8206-fe6a62f2c9c5")
 		)
 		(pad "75" smd rect
@@ -30158,7 +29956,6 @@
 			(net 456 "unconnected-(J2-Pad75)")
 			(pinfunction "75")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "32c02676-3478-47e6-9b65-3e683de80b94")
 		)
 		(pad "76" smd rect
@@ -30168,7 +29965,6 @@
 			(net 493 "unconnected-(J2-Pad76)")
 			(pinfunction "76")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "85e10540-e9b3-46e1-be47-a092601c8afc")
 		)
 		(pad "77" smd rect
@@ -30178,7 +29974,6 @@
 			(net 531 "unconnected-(J2-Pad77)")
 			(pinfunction "77")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e9db3391-8a75-4cc7-b7f3-0d6b8714eeab")
 		)
 		(pad "78" smd rect
@@ -30188,7 +29983,6 @@
 			(net 484 "unconnected-(J2-Pad78)")
 			(pinfunction "78")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6fbc0aa9-51d3-49f7-beef-d10bb183b77e")
 		)
 		(pad "79" smd rect
@@ -30198,7 +29992,6 @@
 			(net 527 "unconnected-(J2-Pad79)")
 			(pinfunction "79")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "df31c23b-bcad-4751-9f87-87415e18c838")
 		)
 		(pad "80" smd rect
@@ -30208,7 +30001,6 @@
 			(net 488 "unconnected-(J2-Pad80)")
 			(pinfunction "80")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "77d8584b-2c16-49a6-85f3-ab0dcb7c5721")
 		)
 		(pad "81" smd rect
@@ -30218,7 +30010,6 @@
 			(net 436 "unconnected-(J2-Pad81)")
 			(pinfunction "81")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0c11d4b5-f1b5-408c-97ad-6058181ed403")
 		)
 		(pad "82" smd rect
@@ -30228,7 +30019,6 @@
 			(net 526 "unconnected-(J2-Pad82)")
 			(pinfunction "82")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "dc2ae517-aca3-4b25-b777-4c5e26895b5d")
 		)
 		(pad "83" smd rect
@@ -30238,7 +30028,6 @@
 			(net 492 "unconnected-(J2-Pad83)")
 			(pinfunction "83")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "83373fc6-64d1-4fda-893c-0060dc36e78e")
 		)
 		(pad "84" smd rect
@@ -30248,7 +30037,6 @@
 			(net 534 "unconnected-(J2-Pad84)")
 			(pinfunction "84")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ed6a0b41-0f69-419c-9bea-1e02de516af0")
 		)
 		(pad "85" smd rect
@@ -30258,7 +30046,6 @@
 			(net 536 "unconnected-(J2-Pad85)")
 			(pinfunction "85")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "f4bc85b6-c334-4e3c-bcf4-1c59a0a6f285")
 		)
 		(pad "86" smd rect
@@ -30268,7 +30055,6 @@
 			(net 532 "unconnected-(J2-Pad86)")
 			(pinfunction "86")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e9e6c53a-47f2-488d-b0f9-80f25df6ec04")
 		)
 		(pad "87" smd rect
@@ -30278,7 +30064,6 @@
 			(net 487 "unconnected-(J2-Pad87)")
 			(pinfunction "87")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "7548582b-0361-4c32-9154-c8ab67f0b5ff")
 		)
 		(pad "88" smd rect
@@ -30288,7 +30073,6 @@
 			(net 458 "unconnected-(J2-Pad88)")
 			(pinfunction "88")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "366539c8-8789-4b06-bb4e-511c2a292347")
 		)
 		(pad "89" smd rect
@@ -30298,7 +30082,6 @@
 			(net 482 "unconnected-(J2-Pad89)")
 			(pinfunction "89")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6dd2edc1-3ec9-4f19-b8b6-278dbb070fd1")
 		)
 		(pad "90" smd rect
@@ -30308,7 +30091,6 @@
 			(net 459 "unconnected-(J2-Pad90)")
 			(pinfunction "90")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "385dbd11-c91d-407e-a5ea-76fcac976abb")
 		)
 		(pad "91" smd rect
@@ -30318,7 +30100,6 @@
 			(net 508 "unconnected-(J2-Pad91)")
 			(pinfunction "91")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b2ed6209-11a2-4496-a6c8-077193230b11")
 		)
 		(pad "92" smd rect
@@ -30328,7 +30109,6 @@
 			(net 518 "unconnected-(J2-Pad92)")
 			(pinfunction "92")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "c15c0ad0-3e5c-41c6-9ff2-21a20d2ad063")
 		)
 		(pad "93" smd rect
@@ -30338,7 +30118,6 @@
 			(net 449 "unconnected-(J2-Pad93)")
 			(pinfunction "93")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "24837ee7-4d8b-4eaa-95d9-9b893f6d23c0")
 		)
 		(pad "94" smd rect
@@ -30348,7 +30127,6 @@
 			(net 467 "unconnected-(J2-Pad94)")
 			(pinfunction "94")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4d5a0e67-7a01-4171-80a0-244963d6f7aa")
 		)
 		(pad "95" smd rect
@@ -30358,7 +30136,6 @@
 			(net 431 "unconnected-(J2-Pad95)")
 			(pinfunction "95")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "077bf14d-3603-4e30-9ee7-63ce060df1cd")
 		)
 		(pad "96" smd rect
@@ -30368,7 +30145,6 @@
 			(net 464 "unconnected-(J2-Pad96)")
 			(pinfunction "96")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "43dcf7f5-d0c3-4be7-bb65-ce8f90aab374")
 		)
 		(pad "97" smd rect
@@ -30378,7 +30154,6 @@
 			(net 462 "unconnected-(J2-Pad97)")
 			(pinfunction "97")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "3ca4437b-1e02-4363-9204-114496b34216")
 		)
 		(pad "98" smd rect
@@ -30388,7 +30163,6 @@
 			(net 477 "unconnected-(J2-Pad98)")
 			(pinfunction "98")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "5df55212-8d83-4cf0-8f35-ac67afa24338")
 		)
 		(pad "99" smd rect
@@ -30398,7 +30172,6 @@
 			(net 463 "unconnected-(J2-Pad99)")
 			(pinfunction "99")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "423910c6-dc4d-49f5-834e-a456c165c2b4")
 		)
 		(pad "100" smd rect
@@ -30408,7 +30181,6 @@
 			(net 495 "unconnected-(J2-Pad100)")
 			(pinfunction "100")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8b9a8cd7-8d63-4eb2-af4e-a7806b10e262")
 		)
 		(pad "101" smd rect
@@ -30418,7 +30190,6 @@
 			(net 497 "unconnected-(J2-Pad101)")
 			(pinfunction "101")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8dc847d0-d8d4-4d0a-ba14-560825455af1")
 		)
 		(pad "102" smd rect
@@ -30428,7 +30199,6 @@
 			(net 437 "unconnected-(J2-Pad102)")
 			(pinfunction "102")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0c27b1bd-cb86-492d-a1c0-3687c148d153")
 		)
 		(pad "103" smd rect
@@ -30438,7 +30208,6 @@
 			(net 528 "unconnected-(J2-Pad103)")
 			(pinfunction "103")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "e4cdf00f-f0f2-4846-80ba-f87538ea9e17")
 		)
 		(pad "104" smd rect
@@ -30448,7 +30217,6 @@
 			(net 513 "unconnected-(J2-Pad104)")
 			(pinfunction "104")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b789348e-5136-451b-a7af-5e47bc60d2ab")
 		)
 		(pad "105" smd rect
@@ -30458,7 +30226,6 @@
 			(net 523 "unconnected-(J2-Pad105)")
 			(pinfunction "105")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d0455aba-dc1b-43b0-9623-52160efdac24")
 		)
 		(pad "106" smd rect
@@ -30468,7 +30235,6 @@
 			(net 498 "unconnected-(J2-Pad106)")
 			(pinfunction "106")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8ef622f7-da8a-4520-aa09-c455ae396b08")
 		)
 		(pad "107" smd rect
@@ -30478,7 +30244,6 @@
 			(net 525 "unconnected-(J2-Pad107)")
 			(pinfunction "107")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "d9dc9745-67d4-4789-b0be-377900da60f5")
 		)
 		(pad "108" smd rect
@@ -30488,7 +30253,6 @@
 			(net 474 "unconnected-(J2-Pad108)")
 			(pinfunction "108")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "530f5e6f-ead0-45fb-b9f6-a4330001d48b")
 		)
 		(pad "109" smd rect
@@ -30498,7 +30262,6 @@
 			(net 438 "unconnected-(J2-Pad109)")
 			(pinfunction "109")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0d7ca92f-075f-4c68-8eb2-49a2c754b874")
 		)
 		(pad "110" smd rect
@@ -30508,7 +30271,6 @@
 			(net 448 "unconnected-(J2-Pad110)")
 			(pinfunction "110")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "241a53b8-0275-4163-9db6-0440e712e76e")
 		)
 		(pad "111" smd rect
@@ -30518,7 +30280,6 @@
 			(net 496 "unconnected-(J2-Pad111)")
 			(pinfunction "111")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "8bba09d4-63aa-43c0-840c-f55c30e2f464")
 		)
 		(pad "112" smd rect
@@ -30528,7 +30289,6 @@
 			(net 535 "unconnected-(J2-Pad112)")
 			(pinfunction "112")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ede0b3ae-9a77-4e0f-81d4-30659a3bb30e")
 		)
 		(pad "113" smd rect
@@ -30538,7 +30298,6 @@
 			(net 485 "unconnected-(J2-Pad113)")
 			(pinfunction "113")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "6ff4f77e-929e-45f6-84f5-bfbdbdaf1333")
 		)
 		(pad "114" smd rect
@@ -30548,7 +30307,6 @@
 			(net 504 "unconnected-(J2-Pad114)")
 			(pinfunction "114")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "ab66590c-7de6-4f8d-813b-d9950a931fd2")
 		)
 		(pad "115" smd rect
@@ -30558,7 +30316,6 @@
 			(net 452 "unconnected-(J2-Pad115)")
 			(pinfunction "115")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "2b8ac2dc-c059-4ab5-bcd7-f8df72c34360")
 		)
 		(pad "116" smd rect
@@ -30568,7 +30325,6 @@
 			(net 435 "unconnected-(J2-Pad116)")
 			(pinfunction "116")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "0a7dcb80-279f-47f4-828e-b7dd68afcaca")
 		)
 		(pad "117" smd rect
@@ -30578,7 +30334,6 @@
 			(net 501 "unconnected-(J2-Pad117)")
 			(pinfunction "117")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "9aed5a11-b374-4c64-afa4-bd3ee6446841")
 		)
 		(pad "118" smd rect
@@ -30588,7 +30343,6 @@
 			(net 509 "unconnected-(J2-Pad118)")
 			(pinfunction "118")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "b37b46be-0067-44f9-8580-26109a27aebe")
 		)
 		(pad "119" smd rect
@@ -30598,7 +30352,6 @@
 			(net 514 "unconnected-(J2-Pad119)")
 			(pinfunction "119")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "bac00f6c-8a15-41a9-a025-704661741a28")
 		)
 		(pad "120" smd rect
@@ -30608,63 +30361,54 @@
 			(net 466 "unconnected-(J2-Pad120)")
 			(pinfunction "120")
 			(pintype "passive")
-			(solder_mask_margin 0.102)
 			(uuid "4cdcf213-cf07-4f63-92b6-f5a562cac18d")
 		)
 		(pad "G1" smd rect
 			(at -18.44 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "da4ea21e-8c0d-4d18-a3a4-ad9af7eef16c")
 		)
 		(pad "G2" smd rect
 			(at -13.181 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "6423b1ed-0b15-4f89-882a-31670c4c10d8")
 		)
 		(pad "G3" smd rect
 			(at -6.831 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "0716c98d-a31a-4087-9a08-eaa71843f52a")
 		)
 		(pad "G4" smd rect
 			(at -1.56 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "7de74348-2ad9-425d-83de-b42b8d1a42f1")
 		)
 		(pad "G5" smd rect
 			(at 1.56 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "3e452eba-5a09-405d-b16e-ca3583767feb")
 		)
 		(pad "G6" smd rect
 			(at 6.831 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "c36c1a24-7f68-4a65-b139-0e3d1bd7c10d")
 		)
 		(pad "G7" smd rect
 			(at 13.181 0 270)
 			(size 4.7 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "b516c9e0-c785-4e8f-ac7a-22203c30f143")
 		)
 		(pad "G8" smd rect
 			(at 18.44 0 270)
 			(size 2.54 0.64)
 			(layers "B.Cu" "B.Mask" "B.Paste")
-			(solder_mask_margin 0.102)
 			(uuid "f4eae58d-0dda-4ccd-b7f9-e4ae6819e294")
 		)
 		(embedded_fonts no)
@@ -37471,14 +37215,6 @@
 		(uuid "d48f2f60-b5ac-410c-9de6-fa1e2c930995")
 	)
 	(segment
-		(start 74.25523 63.427676)
-		(end 74.379684 63.427677)
-		(width 0.254)
-		(layer "In3.Cu")
-		(net 1)
-		(uuid "fef86c34-6215-4c94-98e6-1c2eb97fdd82")
-	)
-	(segment
 		(start 80.098933 75.000001)
 		(end 80.664619 75)
 		(width 0.4)
@@ -43936,22 +43672,6 @@
 		(uuid "f1276f0d-cf6d-40a7-b26e-07b2b51ef036")
 	)
 	(segment
-		(start 76.333191 76.600002)
-		(end 76.255193 76.522004)
-		(width 0.254)
-		(layer "In3.Cu")
-		(net 221)
-		(uuid "6e4e92b3-40c9-416c-8304-d1599296a408")
-	)
-	(segment
-		(start 76.25519 76.521999)
-		(end 76.333191 76.600002)
-		(width 0.254)
-		(layer "In3.Cu")
-		(net 221)
-		(uuid "a923453c-aa20-4667-b93c-92c5e1867861")
-	)
-	(segment
 		(start 74.442078 71.605886)
 		(end 74.442079 71.040201)
 		(width 0.0762)
@@ -45504,12 +45224,12 @@
 		(filled_polygon
 			(layer "F.Cu")
 			(pts
-				(xy 74.415722 73.35714) (xy 74.485413 73.362125) (xy 74.529761 73.390625) (xy 75.980743 74.841607)
-				(xy 76.014228 74.90293) (xy 76.009243 74.972622) (xy 75.980743 75.01697) (xy 74.866342 76.131373)
-				(xy 74.866342 76.131373) (xy 75.344347 76.609374) (xy 75.377833 76.670697) (xy 75.372849 76.740389)
-				(xy 75.344348 76.784737) (xy 75.024734 77.104351) (xy 74.963411 77.137835) (xy 74.893719 77.132851)
-				(xy 74.849372 77.104351) (xy 72.832703 75.087682) (xy 72.799219 75.026359) (xy 72.804203 74.956667)
-				(xy 72.832703 74.91232) (xy 74.354398 73.390625)
+				(xy 74.485414 73.362123) (xy 74.529761 73.390624) (xy 75.980744 74.841607) (xy 76.014229 74.90293)
+				(xy 76.009245 74.972622) (xy 75.980744 75.016969) (xy 74.866342 76.131372) (xy 74.866342 76.131373)
+				(xy 75.344347 76.609375) (xy 75.377832 76.670697) (xy 75.372848 76.740389) (xy 75.344347 76.784737)
+				(xy 75.024734 77.104351) (xy 74.963411 77.137836) (xy 74.89372 77.132852) (xy 74.849372 77.104351)
+				(xy 72.832703 75.087682) (xy 72.799218 75.026359) (xy 72.804202 74.956667) (xy 72.832703 74.91232)
+				(xy 74.354399 73.390624) (xy 74.415722 73.357139)
 			)
 		)
 	)
@@ -45836,19 +45556,20 @@
 		(filled_polygon
 			(layer "B.Cu")
 			(pts
-				(xy 72.612598 74.311736) (xy 72.68229 74.31672) (xy 72.726637 74.34522) (xy 73.06322 74.681803)
-				(xy 73.063221 74.681802) (xy 73.063221 74.681803) (xy 74.354398 73.390625) (xy 74.415722 73.35714)
-				(xy 74.485413 73.362124) (xy 74.529761 73.390625) (xy 75.927005 74.787868) (xy 76.134894 74.810968)
-				(xy 76.136801 74.811766) (xy 76.138847 74.811472) (xy 76.168878 74.825187) (xy 76.19935 74.837936)
-				(xy 76.200522 74.839638) (xy 76.202403 74.840497) (xy 76.22025 74.868269) (xy 76.238994 74.89547)
-				(xy 76.239412 74.898086) (xy 76.240177 74.899275) (xy 76.2452 74.93421) (xy 76.2452 75.063538) (xy 76.225515 75.130578)
-				(xy 76.172712 75.176333) (xy 76.13243 75.187029) (xy 75.856293 75.212132) (xy 75.85629 75.212133)
-				(xy 75.856291 75.212132) (xy 74.901698 76.166724) (xy 75.344348 76.609375) (xy 75.377832 76.670698)
-				(xy 75.372848 76.74039) (xy 75.344348 76.784737) (xy 75.024734 77.104351) (xy 74.963411 77.137835)
-				(xy 74.893719 77.132851) (xy 74.849372 77.104351) (xy 72.408439 74.663418) (xy 72.4041 74.655473)
-				(xy 72.396853 74.650048) (xy 72.387616 74.625285) (xy 72.374955 74.602095) (xy 72.3756 74.593067)
-				(xy 72.372436 74.584583) (xy 72.378053 74.558757) (xy 72.379939 74.532403) (xy 72.385756 74.523351)
-				(xy 72.387288 74.51631) (xy 72.408439 74.488056) (xy 72.551275 74.34522)
+				(xy 74.485413 73.362123) (xy 74.529761 73.390624) (xy 75.927002 74.787866) (xy 75.927003 74.787866)
+				(xy 75.927005 74.787868) (xy 76.134896 74.810967) (xy 76.136802 74.811765) (xy 76.138848 74.811471)
+				(xy 76.168879 74.825185) (xy 76.199351 74.837935) (xy 76.200524 74.839637) (xy 76.202404 74.840496)
+				(xy 76.220255 74.868274) (xy 76.238994 74.895469) (xy 76.239412 74.898083) (xy 76.240178 74.899274)
+				(xy 76.245201 74.934209) (xy 76.245201 75.063537) (xy 76.225516 75.130576) (xy 76.172712 75.176331)
+				(xy 76.132428 75.187028) (xy 75.856293 75.212132) (xy 75.856292 75.212132) (xy 74.901698 76.166723)
+				(xy 74.901698 76.166724) (xy 75.344349 76.609375) (xy 75.377833 76.670697) (xy 75.372849 76.740389)
+				(xy 75.344348 76.784736) (xy 75.024734 77.104351) (xy 74.963411 77.137836) (xy 74.89372 77.132852)
+				(xy 74.849372 77.104351) (xy 72.408439 74.663418) (xy 72.404101 74.655473) (xy 72.396853 74.650048)
+				(xy 72.387617 74.625286) (xy 72.374954 74.602095) (xy 72.375599 74.593065) (xy 72.372436 74.584583)
+				(xy 72.378052 74.558763) (xy 72.379938 74.532403) (xy 72.385757 74.523348) (xy 72.387288 74.516311)
+				(xy 72.408435 74.488059) (xy 72.551278 74.345216) (xy 72.612597 74.311734) (xy 72.682289 74.316718)
+				(xy 72.726634 74.345217) (xy 73.063221 74.681803) (xy 73.063222 74.681803) (xy 74.354399 73.390624)
+				(xy 74.415722 73.357139)
 			)
 		)
 	)
