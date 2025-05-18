@@ -27613,12 +27613,12 @@
 		(uuid "5e365ff0-94ca-47c0-8502-b1b06fca4a1b")
 	)
 	(label "IOR_110"
-		(at 172.72 154.94 0)
+		(at 228.6 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right bottom)
 		)
 		(uuid "5e6a9b27-bf55-4502-8eeb-b09e7b446356")
 	)
@@ -30173,12 +30173,12 @@
 		(uuid "be3b6388-c406-49f3-a372-6fb3365b7ca1")
 	)
 	(label "IOR_109"
-		(at 228.6 162.56 180)
+		(at 172.72 154.94 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "bee55c06-a99e-4f2e-a239-53306fcdab43")
 	)
