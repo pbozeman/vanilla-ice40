@@ -3428,21 +3428,6 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 111.76 104.14) (xy 111.76 147.32) (xy 220.98 147.32) (xy 220.98 104.14)
-			)
-			(stroke
-				(width 0)
-				(type dash)
-			)
-			(fill
-				(type none)
-			)
-			(uuid 9e5b1fab-6e0d-42f0-98a1-d1bed169b8d3)
-		)
-	)
-	(rule_area
-		(polyline
-			(pts
 				(xy 111.76 50.8) (xy 111.76 93.98) (xy 220.98 93.98) (xy 220.98 50.8)
 			)
 			(stroke
@@ -3452,7 +3437,22 @@
 			(fill
 				(type none)
 			)
-			(uuid bda8d98e-ca4c-43b4-85db-3867005f55af)
+			(uuid 237ecd4f-8ce9-40a5-ba87-a7933da7b36f)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 111.76 104.14) (xy 111.76 147.32) (xy 220.98 147.32) (xy 220.98 104.14)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid 9cd4b190-3adc-405f-a4c1-db5fde3fa340)
 		)
 	)
 	(netclass_flag ""
@@ -6775,6 +6775,71 @@
 	)
 	(symbol
 		(lib_id "power:VBUS")
+		(at 72.39 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bcdd0a15-1ace-4085-b8d4-7f9868784252")
+		(property "Reference" "#PWR094"
+			(at 72.39 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+5V"
+			(at 72.39 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 72.39 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 72.39 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VBUS\""
+			(at 72.39 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2c83bf8c-a1ba-473c-b189-399ca482cf77")
+		)
+		(instances
+			(project "vanilla-ice40-8k"
+				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
+					(reference "#PWR094")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VBUS")
 		(at 124.46 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6995,71 +7060,6 @@
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
 					(reference "R36")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:VBUS")
-		(at 72.39 58.42 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c61a53b9-450e-4b4b-b040-1695846294fb")
-		(property "Reference" "#PWR075"
-			(at 72.39 62.23 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "USB_5V"
-			(at 72.644 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 72.39 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 72.39 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"VBUS\""
-			(at 72.39 58.42 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "08217615-00f7-492b-a0fd-6fa73c2a6877")
-		)
-		(instances
-			(project "vanilla-ice40-8k"
-				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5/4c09157d-3537-4cf3-bc9c-21379ec730e4"
-					(reference "#PWR075")
 					(unit 1)
 				)
 			)
