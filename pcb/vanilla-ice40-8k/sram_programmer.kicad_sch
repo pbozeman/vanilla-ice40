@@ -167,6 +167,164 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "!Misc:C_22uf_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "22uf/25V"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" " C59461"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "490-7611-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_22uf_0603_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_22uf_0603_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "!Misc:FT2232HQ"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -7984,7 +8142,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 74.93 120.65 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8029,7 +8187,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 74.93 120.65 0)
 			(effects
 				(font
@@ -8038,7 +8196,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 74.93 120.65 0)
 			(effects
 				(font
@@ -8417,7 +8575,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 110.49 81.28 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8462,7 +8620,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 110.49 81.28 0)
 			(effects
 				(font
@@ -8471,7 +8629,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 110.49 81.28 0)
 			(effects
 				(font
@@ -9259,7 +9417,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 110.49 63.5 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9304,7 +9462,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 110.49 63.5 0)
 			(effects
 				(font
@@ -9313,7 +9471,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 110.49 63.5 0)
 			(effects
 				(font
@@ -10105,7 +10263,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 288.29 124.46 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10150,7 +10308,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 288.29 124.46 0)
 			(effects
 				(font
@@ -10159,7 +10317,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 288.29 124.46 0)
 			(effects
 				(font

@@ -167,6 +167,513 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "!Misc:C_22uf_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "22uf/25V"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" " C59461"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "490-7611-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_22uf_0603_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_22uf_0603_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "!Misc:FB_600"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "FB"
+				(at 1.905 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "FB_600_805"
+				(at 1.905 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Ferrite bead, 600ohm, 0805"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C1017"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "240-2399-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "L ferrite bead inductor filter"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Inductor_* L_* *Ferrite*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "FB_600_0_1"
+				(polyline
+					(pts
+						(xy -1.8288 0.2794) (xy -1.1176 1.4986) (xy 1.8288 -0.2032) (xy 1.1176 -1.4224) (xy -1.8288 0.2794)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0.889) (xy 0 1.2954)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0 -0.7874)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "FB_600_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "!Misc:L_2.2uh_3A"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "L"
+				(at -1.27 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "2.2uH/2A"
+				(at 1.905 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Inductor_SMD:L_1008_2520Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Inductor 2.2nH >3A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C576403"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "490-13055-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "inductor choke coil reactor magnetic"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "L_2.2uh_3A_0_1"
+				(arc
+					(start 0 2.54)
+					(mid 0.6323 1.905)
+					(end 0 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 1.27)
+					(mid 0.6323 0.635)
+					(end 0 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0)
+					(mid 0.6323 -0.635)
+					(end 0 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 -1.27)
+					(mid 0.6323 -1.905)
+					(end 0 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "L_2.2uh_3A_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "!Misc:R_10K_0603"
 			(pin_numbers
 				(hide yes)
@@ -271,6 +778,149 @@
 				)
 			)
 			(symbol "R_10K_0603_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "!Misc:R_10M_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "10M"
+				(at 1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "10M 0603 Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C7250"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "CR0603-FW-1005ELFCT-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_10M_0603_0_1"
+				(rectangle
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_10M_0603_1_1"
 				(pin passive line
 					(at 0 2.54 270)
 					(length 0.762)
@@ -453,31 +1103,34 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:Conn_01x02_Pin"
+		(symbol "!Misc:R_5.1K_0603"
+			(pin_numbers
+				(hide yes)
+			)
 			(pin_names
-				(offset 1.016)
+				(offset 0.254)
 				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
+			(property "Reference" "R"
+				(at 0 0 90)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" "Conn_01x02_Pin"
-				(at 0 -5.08 0)
+			(property "Value" "5.1K"
+				(at 1.778 0 90)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
 				(at 0 0 0)
 				(effects
 					(font
@@ -495,7 +1148,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Generic connector, single row, 01x02, script generated"
+			(property "Description" "5.1K 0603 Resistor"
 				(at 0 0 0)
 				(effects
 					(font
@@ -504,15 +1157,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
+			(property "LCSC Part #" "C23186"
 				(at 0 0 0)
 				(effects
 					(font
@@ -521,7 +1166,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
+			(property "Digi-Key Part Number" "CR0603-FX-5101ELFCT-ND"
 				(at 0 0 0)
 				(effects
 					(font
@@ -530,57 +1175,42 @@
 					(hide yes)
 				)
 			)
-			(symbol "Conn_01x02_Pin_1_1"
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_5.1K_0603_0_1"
 				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
 					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(rectangle
-					(start 0.8636 -2.413)
-					(end 0 -2.667)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy 0.8636 0)
-					)
-					(stroke
-						(width 0.1524)
+						(width 0.2032)
 						(type default)
 					)
 					(fill
 						(type none)
 					)
 				)
-				(polyline
-					(pts
-						(xy 1.27 -2.54) (xy 0.8636 -2.54)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
+			)
+			(symbol "R_5.1K_0603_1_1"
 				(pin passive line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "Pin_1"
+					(at 0 2.54 270)
+					(length 0.762)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -596,9 +1226,9 @@
 					)
 				)
 				(pin passive line
-					(at 5.08 -2.54 180)
-					(length 3.81)
-					(name "Pin_2"
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name "~"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -616,14 +1246,236 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:USB_C_Receptacle_USB2.0_16P"
+		(symbol "!Misc:TPS563257DRLR"
+			(pin_names
+				(offset 0.254)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 16.256 7.366 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "TPS563257DRLR"
+				(at 16.256 4.826 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "!Misc:SOT6_DRL_TEX"
+				(at 3.556 9.144 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf"
+				(at 15.748 12.192 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+						(italic yes)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 2.54 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C20539656"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "JLCPCB Rotation Offset" "-90"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "296-TPS563257DRLRCT-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "TPS563252DRLR"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SOT6_DRL_TEX SOT6_DRL_TEX-M SOT6_DRL_TEX-L"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "TPS563257DRLR_0_1"
+				(pin power_in line
+					(at 8.89 0 0)
+					(length 2.54)
+					(name "VIN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TPS563257DRLR_1_1"
+				(rectangle
+					(start 11.43 2.54)
+					(end 21.59 -7.62)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at 8.89 -5.08 0)
+					(length 2.54)
+					(name "EN"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at 16.51 -10.16 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 24.13 0 180)
+					(length 2.54)
+					(name "PG"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_out line
+					(at 24.13 -2.54 180)
+					(length 2.54)
+					(name "SW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 24.13 -5.08 180)
+					(length 2.54)
+					(name "FB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "!Misc:USB_C_Receptacle_USB2.0_16P"
 			(pin_names
 				(offset 1.016)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "J"
+			(property "Reference" "USB"
 				(at 0 22.225 0)
 				(effects
 					(font
@@ -639,7 +1491,7 @@
 					)
 				)
 			)
-			(property "Footprint" ""
+			(property "Footprint" "!Misc:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
 				(at 3.81 0 0)
 				(effects
 					(font
@@ -658,6 +1510,42 @@
 				)
 			)
 			(property "Description" "USB 2.0-only 16P Type-C Receptacle connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C2686968"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "JLCPCB Position Offset" "0,1.3335"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "JLCPCB Rotation Offset" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "2073-USB4105-GF-ACT-ND"
 				(at 0 0 0)
 				(effects
 					(font
@@ -708,8 +1596,8 @@
 					)
 				)
 				(rectangle
-					(start 10.16 10.414)
-					(end 9.144 9.906)
+					(start 10.16 7.874)
+					(end 9.144 7.366)
 					(stroke
 						(width 0)
 						(type default)
@@ -719,8 +1607,8 @@
 					)
 				)
 				(rectangle
-					(start 10.16 7.874)
-					(end 9.144 7.366)
+					(start 10.16 5.334)
+					(end 9.144 4.826)
 					(stroke
 						(width 0)
 						(type default)
@@ -752,8 +1640,8 @@
 					)
 				)
 				(rectangle
-					(start 10.16 -2.286)
-					(end 9.144 -2.794)
+					(start 10.16 -4.826)
+					(end 9.144 -5.334)
 					(stroke
 						(width 0)
 						(type default)
@@ -763,8 +1651,8 @@
 					)
 				)
 				(rectangle
-					(start 10.16 -4.826)
-					(end 9.144 -5.334)
+					(start 10.16 -7.366)
+					(end 9.144 -7.874)
 					(stroke
 						(width 0)
 						(type default)
@@ -1167,43 +2055,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 15.24 10.16 180)
-					(length 5.08)
-					(name "CC1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "A5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
 					(at 15.24 7.62 180)
-					(length 5.08)
-					(name "CC2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "B5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin bidirectional line
-					(at 15.24 2.54 180)
 					(length 5.08)
 					(name "D-"
 						(effects
@@ -1221,7 +2073,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 15.24 0 180)
+					(at 15.24 5.08 180)
 					(length 5.08)
 					(name "D-"
 						(effects
@@ -1239,7 +2091,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 15.24 -2.54 180)
+					(at 15.24 2.54 180)
 					(length 5.08)
 					(name "D+"
 						(effects
@@ -1257,7 +2109,7 @@
 					)
 				)
 				(pin bidirectional line
-					(at 15.24 -5.08 180)
+					(at 15.24 0 180)
 					(length 5.08)
 					(name "D+"
 						(effects
@@ -1267,6 +2119,42 @@
 						)
 					)
 					(number "B6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 15.24 -5.08 180)
+					(length 5.08)
+					(name "CC1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "A5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin bidirectional line
+					(at 15.24 -7.62 180)
+					(length 5.08)
+					(name "CC2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "B5"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1313,33 +2201,28 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Device:C_Small"
-			(pin_numbers
-				(hide yes)
-			)
+		(symbol "Connector:Conn_01x02_Pin"
 			(pin_names
-				(offset 0.254)
+				(offset 1.016)
 				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "C"
-				(at 0.254 1.778 0)
+			(property "Reference" "J"
+				(at 0 2.54 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "C_Small"
-				(at 0.254 -2.032 0)
+			(property "Value" "Conn_01x02_Pin"
+				(at 0 -5.08 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
@@ -1360,7 +2243,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Unpolarized capacitor, small symbol"
+			(property "Description" "Generic connector, single row, 01x02, script generated"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1369,7 +2252,15 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "capacitor cap"
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1378,7 +2269,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "C_*"
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1387,500 +2278,64 @@
 					(hide yes)
 				)
 			)
-			(symbol "C_Small_0_1"
-				(polyline
-					(pts
-						(xy -1.524 0.508) (xy 1.524 0.508)
-					)
-					(stroke
-						(width 0.3048)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy -1.524 -0.508) (xy 1.524 -0.508)
-					)
-					(stroke
-						(width 0.3302)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "C_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:FerriteBead_Small"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "FB"
-				(at 1.905 1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "FerriteBead_Small"
-				(at 1.905 -1.27 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at -1.778 0 90)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Ferrite bead, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "L ferrite bead inductor filter"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Inductor_* L_* *Ferrite*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "FerriteBead_Small_0_1"
-				(polyline
-					(pts
-						(xy -1.8288 0.2794) (xy -1.1176 1.4986) (xy 1.8288 -0.2032) (xy 1.1176 -1.4224) (xy -1.8288 0.2794)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 0.889) (xy 0 1.2954)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 -1.27) (xy 0 -0.7874)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "FerriteBead_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:L_Small"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "L"
-				(at 0.762 1.016 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "L_Small"
-				(at 0.762 -1.016 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Inductor, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "inductor choke coil reactor magnetic"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Choke_* *Coil* Inductor_* L_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "L_Small_0_1"
-				(arc
-					(start 0 2.032)
-					(mid 0.5058 1.524)
-					(end 0 1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 1.016)
-					(mid 0.5058 0.508)
-					(end 0 0)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 0)
-					(mid 0.5058 -0.508)
-					(end 0 -1.016)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(arc
-					(start 0 -1.016)
-					(mid 0.5058 -1.524)
-					(end 0 -2.032)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "L_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 0.508)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 0.508)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "TPS563252DRLR:TPS563252DRLR"
-			(pin_names
-				(offset 0.254)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 16.256 7.366 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TPS563252DRLR"
-				(at 16.256 4.826 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "SOT6_DRL_TEX"
-				(at 3.556 9.144 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf?ts=1715941486178"
-				(at 15.748 12.192 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-						(italic yes)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 2.54 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "TPS563252DRLR"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "SOT6_DRL_TEX SOT6_DRL_TEX-M SOT6_DRL_TEX-L"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TPS563252DRLR_0_1"
-				(pin power_in line
-					(at 8.89 0 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(symbol "TPS563252DRLR_1_1"
+			(symbol "Conn_01x02_Pin_1_1"
 				(rectangle
-					(start 11.43 2.54)
-					(end 21.59 -7.62)
+					(start 0.8636 0.127)
+					(end 0 -0.127)
 					(stroke
-						(width 0)
+						(width 0.1524)
 						(type default)
 					)
 					(fill
-						(type background)
+						(type outline)
 					)
 				)
-				(pin input line
-					(at 8.89 -5.08 0)
-					(length 2.54)
-					(name "EN"
+				(rectangle
+					(start 0.8636 -2.413)
+					(end 0 -2.667)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0) (xy 0.8636 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 0.8636 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 3.81)
+					(name "Pin_1"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "5"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1888,46 +2343,10 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at 16.51 -10.16 90)
-					(length 2.54)
-					(name "GND"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 24.13 0 180)
-					(length 2.54)
-					(name "PG"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin power_out line
-					(at 24.13 -2.54 180)
-					(length 2.54)
-					(name "SW"
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 3.81)
+					(name "Pin_2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1935,24 +2354,6 @@
 						)
 					)
 					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 24.13 -5.08 180)
-					(length 2.54)
-					(name "FB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2429,22 +2830,16 @@
 		(uuid "0efd4157-be88-4f0f-aa39-6f86e130e212")
 	)
 	(junction
-		(at 58.42 81.28)
+		(at 58.42 76.2)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "22cd83f7-3162-493d-a091-7ac346ef94c2")
 	)
 	(junction
-		(at 58.42 86.36)
+		(at 58.42 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "2e92cd23-0742-46b0-8418-7558bb7e2296")
-	)
-	(junction
-		(at 182.88 125.73)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "33ac02f9-2a5c-4028-bfec-3d98e4b150c9")
 	)
 	(junction
 		(at 40.64 107.95)
@@ -2465,6 +2860,12 @@
 		(uuid "5ebe151f-be4b-4d45-b5f7-987be5dcab13")
 	)
 	(junction
+		(at 182.88 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "630466d8-73cb-4efb-9235-33aa4636188d")
+	)
+	(junction
 		(at 193.04 123.19)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2483,12 +2884,6 @@
 		(uuid "855ebd8b-018b-4f2d-bb08-57ef2150663d")
 	)
 	(junction
-		(at 182.88 69.85)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "85bb4bc2-192e-45dd-ac29-d2f40e03bc39")
-	)
-	(junction
 		(at 124.46 67.31)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2499,6 +2894,18 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "92f0b948-985f-4ac6-ba4f-b65c31be9712")
+	)
+	(junction
+		(at 182.88 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9541d77a-6a3c-450a-9965-43b1d26b6388")
+	)
+	(junction
+		(at 64.77 106.68)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "980eb11d-d255-4eef-9f33-58ac0c4d4527")
 	)
 	(junction
 		(at 165.1 67.31)
@@ -2555,12 +2962,6 @@
 		(uuid "e439b7ea-c807-462f-93e3-ae0e49f630a7")
 	)
 	(junction
-		(at 73.66 95.25)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "ef394a5d-4bdc-436a-8117-267e75390916")
-	)
-	(junction
 		(at 124.46 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2599,6 +3000,16 @@
 			(type default)
 		)
 		(uuid "0621ec3a-3df3-4b99-9c35-82a4c29f30c6")
+	)
+	(wire
+		(pts
+			(xy 161.29 125.73) (xy 167.64 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "06f30c14-de5f-4583-b22c-c194f22bed17")
 	)
 	(wire
 		(pts
@@ -2702,6 +3113,16 @@
 	)
 	(wire
 		(pts
+			(xy 63.5 90.17) (xy 63.5 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "26696ea6-4eb5-49ba-ad91-edd136c237cf")
+	)
+	(wire
+		(pts
 			(xy 203.2 128.27) (xy 203.2 125.73)
 		)
 		(stroke
@@ -2722,23 +3143,13 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 69.85) (xy 168.91 69.85)
+			(xy 55.88 87.63) (xy 66.04 87.63)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "2bb0daa0-593b-49da-8264-0906e4f7f2ae")
-	)
-	(wire
-		(pts
-			(xy 173.99 125.73) (xy 182.88 125.73)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2c27ccea-5493-40eb-9db4-a297720e7df7")
+		(uuid "2dd3b9b1-f3d5-4f1f-b720-09b7e3e930a2")
 	)
 	(wire
 		(pts
@@ -2782,7 +3193,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 86.36) (xy 60.96 86.36)
+			(xy 58.42 81.28) (xy 60.96 81.28)
 		)
 		(stroke
 			(width 0)
@@ -2802,17 +3213,7 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 69.85) (xy 182.88 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3eecefed-4f1e-4e52-ab7c-8147216387f6")
-	)
-	(wire
-		(pts
-			(xy 58.42 80.01) (xy 58.42 81.28)
+			(xy 58.42 74.93) (xy 58.42 76.2)
 		)
 		(stroke
 			(width 0)
@@ -2822,7 +3223,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 80.01) (xy 58.42 80.01)
+			(xy 55.88 74.93) (xy 58.42 74.93)
 		)
 		(stroke
 			(width 0)
@@ -2832,7 +3233,7 @@
 	)
 	(wire
 		(pts
-			(xy 73.66 95.25) (xy 74.93 95.25)
+			(xy 64.77 106.68) (xy 66.04 106.68)
 		)
 		(stroke
 			(width 0)
@@ -2852,7 +3253,7 @@
 	)
 	(wire
 		(pts
-			(xy 55.88 85.09) (xy 58.42 85.09)
+			(xy 55.88 80.01) (xy 58.42 80.01)
 		)
 		(stroke
 			(width 0)
@@ -2872,7 +3273,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 81.28) (xy 60.96 81.28)
+			(xy 58.42 76.2) (xy 60.96 76.2)
 		)
 		(stroke
 			(width 0)
@@ -3012,16 +3413,6 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 74.93) (xy 72.39 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "697ed982-2b48-47c6-b5fb-8dc08c5210a0")
-	)
-	(wire
-		(pts
 			(xy 182.88 71.12) (xy 182.88 69.85)
 		)
 		(stroke
@@ -3029,26 +3420,6 @@
 			(type default)
 		)
 		(uuid "6b9482d1-af0d-4cfe-a48d-7f3f1b168111")
-	)
-	(wire
-		(pts
-			(xy 55.88 74.93) (xy 72.39 74.93)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c2def5f-153f-4000-b063-289d1691abc4")
-	)
-	(wire
-		(pts
-			(xy 55.88 72.39) (xy 74.93 72.39)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6d3011e4-1e5d-4971-9465-ac8584ce9f9a")
 	)
 	(wire
 		(pts
@@ -3062,13 +3433,23 @@
 	)
 	(wire
 		(pts
-			(xy 161.29 125.73) (xy 168.91 125.73)
+			(xy 175.26 69.85) (xy 182.88 69.85)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "789a2470-c771-43e8-b4dc-061b5eb33cbc")
+		(uuid "71ef3ed8-e7e7-4a80-9bb9-3e22fe4747e0")
+	)
+	(wire
+		(pts
+			(xy 161.29 69.85) (xy 167.64 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "74ef200a-d3e9-4466-b1ca-98803b1b7511")
 	)
 	(wire
 		(pts
@@ -3102,6 +3483,16 @@
 	)
 	(wire
 		(pts
+			(xy 64.77 106.68) (xy 64.77 110.49)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7e67a4c1-c488-441c-acf5-41491980c734")
+	)
+	(wire
+		(pts
 			(xy 173.99 67.31) (xy 193.04 67.31)
 		)
 		(stroke
@@ -3122,7 +3513,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 85.09) (xy 58.42 86.36)
+			(xy 58.42 80.01) (xy 58.42 81.28)
 		)
 		(stroke
 			(width 0)
@@ -3182,7 +3573,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 95.25) (xy 73.66 95.25)
+			(xy 63.5 106.68) (xy 64.77 106.68)
 		)
 		(stroke
 			(width 0)
@@ -3212,23 +3603,23 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 72.39) (xy 74.93 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "93989147-8840-43f2-a49f-46e319c67134")
-	)
-	(wire
-		(pts
-			(xy 55.88 82.55) (xy 58.42 82.55)
+			(xy 55.88 77.47) (xy 58.42 77.47)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "978e5cf1-b25b-4522-846b-47d65cac6182")
+	)
+	(wire
+		(pts
+			(xy 66.04 87.63) (xy 66.04 99.06)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "97f452f8-360d-4c2c-ae4e-636d0e0d9c2e")
 	)
 	(wire
 		(pts
@@ -3352,7 +3743,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 81.28) (xy 58.42 82.55)
+			(xy 58.42 76.2) (xy 58.42 77.47)
 		)
 		(stroke
 			(width 0)
@@ -3382,7 +3773,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 92.71) (xy 74.93 95.25)
+			(xy 66.04 104.14) (xy 66.04 106.68)
 		)
 		(stroke
 			(width 0)
@@ -3392,7 +3783,7 @@
 	)
 	(wire
 		(pts
-			(xy 72.39 92.71) (xy 72.39 95.25)
+			(xy 63.5 104.14) (xy 63.5 106.68)
 		)
 		(stroke
 			(width 0)
@@ -3422,7 +3813,7 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 86.36) (xy 58.42 87.63)
+			(xy 58.42 81.28) (xy 58.42 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3432,7 +3823,17 @@
 	)
 	(wire
 		(pts
-			(xy 58.42 87.63) (xy 55.88 87.63)
+			(xy 175.26 125.73) (xy 182.88 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ceb82e38-44e5-4aa2-b4ce-51c3d7f6f64e")
+	)
+	(wire
+		(pts
+			(xy 58.42 82.55) (xy 55.88 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3469,16 +3870,6 @@
 			(type default)
 		)
 		(uuid "d56f5bd5-87b9-490d-bfa4-4851966f4e8e")
-	)
-	(wire
-		(pts
-			(xy 73.66 97.79) (xy 73.66 95.25)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d87722ac-1052-4f7c-b93e-a8fb0ed63e11")
 	)
 	(wire
 		(pts
@@ -3529,6 +3920,16 @@
 			(type default)
 		)
 		(uuid "e1c5570d-4013-4b1b-9002-020314ec85ef")
+	)
+	(wire
+		(pts
+			(xy 55.88 90.17) (xy 63.5 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e272f9e6-fb0c-4e52-8b07-206d5896ab25")
 	)
 	(wire
 		(pts
@@ -3631,7 +4032,7 @@
 		(uuid "fd24e9a4-9937-4556-8c42-35de2550c1f3")
 	)
 	(label "USB_DP"
-		(at 60.96 86.36 0)
+		(at 60.96 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3661,7 +4062,7 @@
 		(uuid "52d033c7-da87-4a0e-ad0a-69d470d5ec17")
 	)
 	(label "USB_DN"
-		(at 60.96 81.28 0)
+		(at 60.96 76.2 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -3745,21 +4146,6 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 111.76 104.14) (xy 111.76 147.32) (xy 220.98 147.32) (xy 220.98 104.14)
-			)
-			(stroke
-				(width 0)
-				(type dash)
-			)
-			(fill
-				(type none)
-			)
-			(uuid 6513bfe5-0cda-49c4-9c46-b1fba2b4c463)
-		)
-	)
-	(rule_area
-		(polyline
-			(pts
 				(xy 111.76 50.8) (xy 111.76 93.98) (xy 220.98 93.98) (xy 220.98 50.8)
 			)
 			(stroke
@@ -3769,7 +4155,22 @@
 			(fill
 				(type none)
 			)
-			(uuid cb4a55ba-c6a1-45ba-8903-a5aa57dace42)
+			(uuid 27ab767d-41f8-427b-902b-16c54fbf2ca2)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 111.76 104.14) (xy 111.76 147.32) (xy 220.98 147.32) (xy 220.98 104.14)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid 79a89070-6cf7-49e0-b51a-8faf5b229d5b)
 		)
 	)
 	(netclass_flag ""
@@ -3854,7 +4255,7 @@
 			)
 		)
 		(property "Value" "0.1uf"
-			(at 29.718 110.49 0)
+			(at 26.416 110.236 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4020,7 +4421,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 193.04 130.81 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4064,7 +4465,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 193.04 130.81 0)
 			(effects
 				(font
@@ -4073,7 +4474,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 193.04 130.81 0)
 			(effects
 				(font
@@ -4342,7 +4743,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 73.66 97.79 0)
+		(at 64.77 110.49 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4350,7 +4751,7 @@
 		(dnp no)
 		(uuid "23faf2c2-a370-49a9-8dec-4e83d044e532")
 		(property "Reference" "#PWR077"
-			(at 73.66 104.14 0)
+			(at 64.77 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4359,7 +4760,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 73.66 102.108 0)
+			(at 64.77 114.808 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4367,7 +4768,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 73.66 97.79 0)
+			(at 64.77 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4376,7 +4777,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 97.79 0)
+			(at 64.77 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4385,7 +4786,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 73.66 97.79 0)
+			(at 64.77 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4601,7 +5002,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:L_Small")
+		(lib_id "!Misc:L_2.2uh_3A")
 		(at 171.45 69.85 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -4643,7 +5044,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Inductor, small symbol"
+		(property "Description" "Inductor 2.2nH >3A"
 			(at 171.45 69.85 0)
 			(effects
 				(font
@@ -4652,7 +5053,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C391305"
+		(property "LCSC Part #" "C576403"
 			(at 171.45 69.85 0)
 			(effects
 				(font
@@ -4670,7 +5071,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "490-10649-1-ND"
+		(property "Digi-Key Part Number" "490-13055-1-ND"
 			(at 171.45 69.85 0)
 			(effects
 				(font
@@ -4847,8 +5248,8 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
-		(at 74.93 90.17 180)
+		(lib_id "!Misc:R_5.1K_0603")
+		(at 66.04 101.6 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4856,7 +5257,7 @@
 		(dnp no)
 		(uuid "39db3df2-9142-4b99-941f-41b993959594")
 		(property "Reference" "R32"
-			(at 78.232 89.154 0)
+			(at 69.342 100.584 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4864,7 +5265,7 @@
 			)
 		)
 		(property "Value" "5.1k"
-			(at 78.486 91.186 0)
+			(at 69.596 102.616 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4872,7 +5273,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 74.93 90.17 0)
+			(at 66.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4881,7 +5282,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 74.93 90.17 0)
+			(at 66.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4889,8 +5290,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
-			(at 74.93 90.17 0)
+		(property "Description" "5.1K 0603 Resistor"
+			(at 66.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4899,7 +5300,7 @@
 			)
 		)
 		(property "LCSC Part #" "C23186"
-			(at 74.93 90.17 0)
+			(at 66.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4908,7 +5309,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "CR0603-FX-5101ELFCT-ND"
-			(at 74.93 90.17 0)
+			(at 66.04 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4998,7 +5399,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 193.04 74.93 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5042,7 +5443,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 193.04 74.93 0)
 			(effects
 				(font
@@ -5051,7 +5452,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 193.04 74.93 0)
 			(effects
 				(font
@@ -5191,7 +5592,7 @@
 		)
 	)
 	(symbol
-		(lib_id "TPS563252DRLR:TPS563252DRLR")
+		(lib_id "!Misc:TPS563257DRLR")
 		(at 137.16 123.19 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5215,8 +5616,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TPS563252DRLR:SOT6_DRL_TEX"
-			(at 137.16 123.19 0)
+		(property "Footprint" "!Misc:SOT6_DRL_TEX"
+			(at 140.716 114.046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5225,8 +5626,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf?ts=1715941486178"
-			(at 137.16 123.19 0)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf"
+			(at 152.908 110.998 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5236,7 +5637,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 123.19 0)
+			(at 139.7 123.19 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5244,7 +5645,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C19188399"
+		(property "LCSC Part #" "C20539656"
 			(at 137.16 123.19 0)
 			(effects
 				(font
@@ -5271,7 +5672,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "296-TPS563252DRLRCT-ND"
+		(property "Digi-Key Part Number" "296-TPS563257DRLRCT-ND"
 			(at 137.16 123.19 0)
 			(effects
 				(font
@@ -5492,7 +5893,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:FerriteBead_Small")
+		(lib_id "!Misc:FB_600")
 		(at 62.23 67.31 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5516,7 +5917,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0603_1608Metric"
+		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
 			(at 62.23 69.088 90)
 			(effects
 				(font
@@ -5534,7 +5935,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ferrite bead, small symbol"
+		(property "Description" "Ferrite bead, 600ohm, 0805"
 			(at 62.23 67.31 0)
 			(effects
 				(font
@@ -5543,7 +5944,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C1002"
+		(property "LCSC Part #" "C1017"
 			(at 62.23 67.31 0)
 			(effects
 				(font
@@ -5561,7 +5962,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "490-5258-1-ND "
+		(property "Digi-Key Part Number" "240-2399-1-ND"
 			(at 62.23 67.31 0)
 			(effects
 				(font
@@ -5618,8 +6019,8 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
-		(at 72.39 90.17 180)
+		(lib_id "!Misc:R_5.1K_0603")
+		(at 63.5 101.6 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5627,7 +6028,7 @@
 		(dnp no)
 		(uuid "5439f80f-f459-45c5-838c-534f7ee0f5c3")
 		(property "Reference" "R31"
-			(at 68.834 89.408 0)
+			(at 59.944 100.838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5635,7 +6036,7 @@
 			)
 		)
 		(property "Value" "5.1k"
-			(at 68.834 91.44 0)
+			(at 59.944 102.87 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5643,7 +6044,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 72.39 90.17 0)
+			(at 63.5 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5652,7 +6053,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 72.39 90.17 0)
+			(at 63.5 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5660,8 +6061,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
-			(at 72.39 90.17 0)
+		(property "Description" "5.1K 0603 Resistor"
+			(at 63.5 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5670,7 +6071,7 @@
 			)
 		)
 		(property "LCSC Part #" "C23186"
-			(at 72.39 90.17 0)
+			(at 63.5 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5679,7 +6080,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "CR0603-FX-5101ELFCT-ND"
-			(at 72.39 90.17 0)
+			(at 63.5 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6027,7 +6428,7 @@
 		)
 	)
 	(symbol
-		(lib_id "TPS563252DRLR:TPS563252DRLR")
+		(lib_id "!Misc:TPS563257DRLR")
 		(at 137.16 67.31 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6051,8 +6452,8 @@
 				)
 			)
 		)
-		(property "Footprint" "TPS563252DRLR:SOT6_DRL_TEX"
-			(at 137.16 67.31 0)
+		(property "Footprint" "!Misc:SOT6_DRL_TEX"
+			(at 140.716 58.166 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6061,8 +6462,8 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf?ts=1715941486178"
-			(at 137.16 67.31 0)
+		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/tps563252.pdf"
+			(at 152.908 55.118 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6072,7 +6473,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 137.16 67.31 0)
+			(at 139.7 67.31 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6080,7 +6481,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C19188399"
+		(property "LCSC Part #" "C20539656"
 			(at 137.16 67.31 0)
 			(effects
 				(font
@@ -6107,7 +6508,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "296-TPS563252DRLRCT-ND"
+		(property "Digi-Key Part Number" "296-TPS563257DRLRCT-ND"
 			(at 137.16 67.31 0)
 			(effects
 				(font
@@ -6489,7 +6890,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 124.46 127 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6533,7 +6934,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 124.46 127 0)
 			(effects
 				(font
@@ -6542,7 +6943,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 124.46 127 0)
 			(effects
 				(font
@@ -6617,7 +7018,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_22uf_0603")
 		(at 124.46 71.12 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6661,7 +7062,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 22uf 0603 6.3V"
 			(at 124.46 71.12 0)
 			(effects
 				(font
@@ -6670,7 +7071,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C59461"
+		(property "LCSC Part #" " C59461"
 			(at 124.46 71.12 0)
 			(effects
 				(font
@@ -7317,7 +7718,7 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
+		(lib_id "!Misc:R_10M_0603")
 		(at 36.83 111.76 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7359,7 +7760,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "10M 0603 Resistor"
 			(at 36.83 111.76 0)
 			(effects
 				(font
@@ -8049,7 +8450,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:L_Small")
+		(lib_id "!Misc:L_2.2uh_3A")
 		(at 171.45 125.73 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8091,7 +8492,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Inductor, small symbol"
+		(property "Description" "Inductor 2.2nH >3A"
 			(at 171.45 125.73 0)
 			(effects
 				(font
@@ -8100,7 +8501,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C391305"
+		(property "LCSC Part #" "C576403"
 			(at 171.45 125.73 0)
 			(effects
 				(font
@@ -8118,7 +8519,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "490-10649-1-ND"
+		(property "Digi-Key Part Number" "490-13055-1-ND"
 			(at 171.45 125.73 0)
 			(effects
 				(font
@@ -8295,7 +8696,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:USB_C_Receptacle_USB2.0_16P")
+		(lib_id "!Misc:USB_C_Receptacle_USB2.0_16P")
 		(at 40.64 82.55 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8320,7 +8721,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_USB:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
+		(property "Footprint" "!Misc:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
 			(at 44.45 82.55 0)
 			(effects
 				(font
