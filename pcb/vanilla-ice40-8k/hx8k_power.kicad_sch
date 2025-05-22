@@ -9,6 +9,307 @@
 		(rev "1.5.0")
 	)
 	(lib_symbols
+		(symbol "!Misc:C_0.1uf_0201"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "C"
+				(at 0.254 1.778 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "0.1uf"
+				(at 0.254 -2.032 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "Capacitor_SMD:C_0201_0603Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Unpolarized capacitor 0.1uf 0402"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C160831 "
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "490-14305-1-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "capacitor cap"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "C_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "C_0.1uf_0201_0_1"
+				(polyline
+					(pts
+						(xy -1.524 0.508) (xy 1.524 0.508)
+					)
+					(stroke
+						(width 0.3048)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.524 -0.508) (xy 1.524 -0.508)
+					)
+					(stroke
+						(width 0.3302)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "C_0.1uf_0201_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 2.032)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "!Misc:R_2.2K_0603"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0.254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "2.2K"
+				(at 1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "2.2K 0603 Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part #" "C25879"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_2.2K_0603_0_1"
+				(rectangle
+					(start -0.762 1.778)
+					(end 0.762 -1.778)
+					(stroke
+						(width 0.2032)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_2.2K_0603_1_1"
+				(pin passive line
+					(at 0 2.54 270)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -2.54 90)
+					(length 0.762)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C_Small"
 			(pin_numbers
 				(hide yes)
@@ -131,133 +432,6 @@
 				(pin passive line
 					(at 0 -2.54 90)
 					(length 2.032)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Device:R_Small"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.254)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "R"
-				(at 0.762 0.508 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "R_Small"
-				(at 0.762 -1.016 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Resistor, small symbol"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "R resistor"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "R_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "R_Small_0_1"
-				(rectangle
-					(start -0.762 1.778)
-					(end 0.762 -1.778)
-					(stroke
-						(width 0.2032)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "R_Small_1_1"
-				(pin passive line
-					(at 0 2.54 270)
-					(length 0.762)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 0 -2.54 90)
-					(length 0.762)
 					(name "~"
 						(effects
 							(font
@@ -7922,6 +8096,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 162.56 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 162.56 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 162.56 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 162.56 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "6e9b5323-e346-4f51-bb44-1f19f6596845")
 		)
@@ -7938,7 +8144,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 130.81 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -7983,7 +8189,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 130.81 57.15 0)
 			(effects
 				(font
@@ -7992,16 +8198,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 130.81 57.15 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 130.81 57.15 0)
 			(effects
 				(font
@@ -8116,6 +8313,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 163.83 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 163.83 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 163.83 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 163.83 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "89f1ba21-a1f9-4ec2-9aee-0cd2f75aae09")
 		)
@@ -8132,7 +8361,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 68.58 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8177,7 +8406,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 68.58 115.57 0)
 			(effects
 				(font
@@ -8186,16 +8415,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 68.58 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 68.58 115.57 0)
 			(effects
 				(font
@@ -8474,6 +8694,38 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 119.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 119.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 119.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 119.38 102.87 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(pin "A9"
@@ -9251,7 +9503,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 100.33 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9296,7 +9548,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 100.33 48.26 0)
 			(effects
 				(font
@@ -9305,16 +9557,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 100.33 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 100.33 48.26 0)
 			(effects
 				(font
@@ -9348,7 +9591,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 68.58 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9393,7 +9636,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 68.58 86.36 0)
 			(effects
 				(font
@@ -9402,16 +9645,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 68.58 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 68.58 86.36 0)
 			(effects
 				(font
@@ -9445,7 +9679,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 182.88 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9490,7 +9724,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 182.88 86.36 0)
 			(effects
 				(font
@@ -9499,16 +9733,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 182.88 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 182.88 86.36 0)
 			(effects
 				(font
@@ -9542,7 +9767,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 48.26 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9587,7 +9812,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 48.26 86.36 0)
 			(effects
 				(font
@@ -9596,16 +9821,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 48.26 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 48.26 86.36 0)
 			(effects
 				(font
@@ -9720,6 +9936,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 38.1 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 38.1 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 38.1 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 38.1 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "6a052789-f692-4de3-af09-b82c44493aa3")
 		)
@@ -9736,7 +9984,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 153.67 49.53 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9781,7 +10029,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 153.67 49.53 0)
 			(effects
 				(font
@@ -9790,16 +10038,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 153.67 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 153.67 49.53 0)
 			(effects
 				(font
@@ -9914,6 +10153,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 162.56 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 162.56 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 162.56 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 162.56 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "bfb7f924-f6c4-4127-b9aa-4b2fad176bd2")
 		)
@@ -9996,7 +10267,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 58.42 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10041,7 +10312,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 58.42 48.26 0)
 			(effects
 				(font
@@ -10050,16 +10321,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 58.42 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 58.42 48.26 0)
 			(effects
 				(font
@@ -10306,6 +10568,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 186.69 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 186.69 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 186.69 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 186.69 49.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "1fcec566-abeb-4175-9d3c-ebc33c8b552e")
 		)
@@ -10388,7 +10682,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 58.42 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10433,7 +10727,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 58.42 115.57 0)
 			(effects
 				(font
@@ -10442,16 +10736,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 58.42 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 58.42 115.57 0)
 			(effects
 				(font
@@ -10485,7 +10770,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 90.17 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10530,7 +10815,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 90.17 48.26 0)
 			(effects
 				(font
@@ -10539,16 +10824,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 90.17 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 90.17 48.26 0)
 			(effects
 				(font
@@ -10846,7 +11122,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 58.42 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10891,7 +11167,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 58.42 86.36 0)
 			(effects
 				(font
@@ -10900,16 +11176,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 58.42 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 58.42 86.36 0)
 			(effects
 				(font
@@ -10943,7 +11210,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 78.74 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -10988,7 +11255,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 78.74 86.36 0)
 			(effects
 				(font
@@ -10997,16 +11264,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 78.74 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 78.74 86.36 0)
 			(effects
 				(font
@@ -11237,7 +11495,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 176.53 49.53 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11282,7 +11540,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 176.53 49.53 0)
 			(effects
 				(font
@@ -11291,16 +11549,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 176.53 49.53 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 176.53 49.53 0)
 			(effects
 				(font
@@ -11399,7 +11648,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 80.01 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11444,7 +11693,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 80.01 48.26 0)
 			(effects
 				(font
@@ -11453,16 +11702,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 80.01 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 80.01 48.26 0)
 			(effects
 				(font
@@ -11628,7 +11868,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 97.79 66.04 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11673,7 +11913,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 97.79 66.04 0)
 			(effects
 				(font
@@ -11682,16 +11922,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 97.79 66.04 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 97.79 66.04 0)
 			(effects
 				(font
@@ -11725,7 +11956,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 48.26 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11770,7 +12001,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 48.26 115.57 0)
 			(effects
 				(font
@@ -11779,16 +12010,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 48.26 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 48.26 115.57 0)
 			(effects
 				(font
@@ -11822,7 +12044,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 193.04 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -11867,7 +12089,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 193.04 115.57 0)
 			(effects
 				(font
@@ -11876,16 +12098,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 193.04 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 193.04 115.57 0)
 			(effects
 				(font
@@ -11985,7 +12198,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 172.72 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12030,7 +12243,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 172.72 86.36 0)
 			(effects
 				(font
@@ -12039,16 +12252,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 172.72 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 172.72 86.36 0)
 			(effects
 				(font
@@ -12082,7 +12286,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 172.72 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12127,7 +12331,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 172.72 115.57 0)
 			(effects
 				(font
@@ -12136,16 +12340,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 172.72 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 172.72 115.57 0)
 			(effects
 				(font
@@ -12179,7 +12374,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 78.74 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12224,7 +12419,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 78.74 115.57 0)
 			(effects
 				(font
@@ -12233,16 +12428,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 78.74 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 78.74 115.57 0)
 			(effects
 				(font
@@ -12276,7 +12462,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 182.88 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12321,7 +12507,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 182.88 115.57 0)
 			(effects
 				(font
@@ -12330,16 +12516,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 182.88 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 182.88 115.57 0)
 			(effects
 				(font
@@ -12505,7 +12682,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
+		(lib_id "!Misc:R_2.2K_0603")
 		(at 158.75 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12560,15 +12737,6 @@
 			)
 		)
 		(property "LCSC Part #" "C22775"
-			(at 158.75 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
 			(at 158.75 38.1 0)
 			(effects
 				(font
@@ -12667,7 +12835,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 203.2 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12712,7 +12880,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 203.2 86.36 0)
 			(effects
 				(font
@@ -12721,16 +12889,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 203.2 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 203.2 86.36 0)
 			(effects
 				(font
@@ -12764,7 +12923,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 203.2 115.57 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12809,7 +12968,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 203.2 115.57 0)
 			(effects
 				(font
@@ -12818,16 +12977,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 203.2 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 203.2 115.57 0)
 			(effects
 				(font
@@ -12861,7 +13011,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Small")
+		(lib_id "!Misc:R_2.2K_0603")
 		(at 181.61 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12924,15 +13074,6 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 181.61 38.1 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Digi-Key Part Number" "CR0603-FX-1000ELFCT-ND"
 			(at 181.61 38.1 0)
 			(effects
@@ -12958,7 +13099,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 69.85 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13003,7 +13144,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 69.85 48.26 0)
 			(effects
 				(font
@@ -13012,16 +13153,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 69.85 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 69.85 48.26 0)
 			(effects
 				(font
@@ -13121,7 +13253,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 193.04 86.36 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13166,7 +13298,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 193.04 86.36 0)
 			(effects
 				(font
@@ -13175,16 +13307,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 193.04 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 193.04 86.36 0)
 			(effects
 				(font
@@ -13299,6 +13422,38 @@
 				(hide yes)
 			)
 		)
+		(property "MPN" ""
+			(at 38.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 38.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 38.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 38.1 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 		(pin "2"
 			(uuid "a34bfb0e-82c3-4415-be34-ccc4b3c173be")
 		)
@@ -13315,7 +13470,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C_Small")
+		(lib_id "!Misc:C_0.1uf_0201")
 		(at 48.26 48.26 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13360,7 +13515,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Unpolarized capacitor, small symbol"
+		(property "Description" "Unpolarized capacitor 0.1uf 0402"
 			(at 48.26 48.26 0)
 			(effects
 				(font
@@ -13369,16 +13524,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C160831"
-			(at 48.26 48.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "JLCPCB Rotation Offset" ""
+		(property "LCSC Part #" "C160831 "
 			(at 48.26 48.26 0)
 			(effects
 				(font
@@ -13491,6 +13637,38 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+		(property "MPN" ""
+			(at 38.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Device" ""
+			(at 38.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 38.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Type" ""
+			(at 38.1 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 			)
 		)
 		(pin "2"
