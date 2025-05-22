@@ -14458,7 +14458,7 @@
 			)
 		)
 	)
-	(global_label "IOT_174"
+	(global_label "IOT_174_LED1"
 		(shape input)
 		(at 62.23 44.45 0)
 		(fields_autoplaced yes)
@@ -14470,7 +14470,7 @@
 		)
 		(uuid "8f27dc4b-999a-463d-8f66-b098144110ba")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 72.7142 44.45 0)
+			(at 78.3384 44.45 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -15338,7 +15338,7 @@
 			)
 		)
 	)
-	(global_label "IOT_170"
+	(global_label "IOT_170_BTN1"
 		(shape input)
 		(at 62.23 34.29 0)
 		(fields_autoplaced yes)
@@ -15350,7 +15350,7 @@
 		)
 		(uuid "bba6bdff-74cb-4fff-9d2e-788757dde127")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 72.7142 34.29 0)
+			(at 78.4594 34.29 0)
 			(effects
 				(font
 					(size 1.27 1.27)
