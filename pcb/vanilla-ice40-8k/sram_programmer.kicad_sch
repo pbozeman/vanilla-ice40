@@ -6268,7 +6268,6 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "13d58b6c-307c-4089-85f2-51019243e43e")
 		(property "Reference" "R23"
 			(at 96.52 134.62 90)
@@ -9373,7 +9372,8 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_2.2K_0603")
-		(at 96.52 127 90)
+		(at 96.52 127 270)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
