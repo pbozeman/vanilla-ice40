@@ -2011,7 +2011,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 59.69) (xy 29.21 59.69)
+			(xy 25.4 59.69) (xy 29.21 59.69)
 		)
 		(stroke
 			(width 0)
@@ -2131,7 +2131,7 @@
 	)
 	(wire
 		(pts
-			(xy 19.05 62.23) (xy 29.21 62.23)
+			(xy 25.4 62.23) (xy 29.21 62.23)
 		)
 		(stroke
 			(width 0)
@@ -2251,7 +2251,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 39.37) (xy 285.75 39.37)
+			(xy 299.72 39.37) (xy 292.1 39.37)
 		)
 		(stroke
 			(width 0)
@@ -2289,16 +2289,6 @@
 		)
 		(uuid "046e5980-37a5-4455-85b8-3d7cd39cd882")
 	)
-	(label "CDONE"
-		(at 19.05 62.23 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "26e9dd00-b29b-43ec-adbe-05838a528cce")
-	)
 	(label "USB_DN"
 		(at 12.7 52.07 0)
 		(effects
@@ -2319,36 +2309,6 @@
 		)
 		(uuid "492a7fa8-1244-4a08-8add-936140119d9f")
 	)
-	(label "IOT_174"
-		(at 259.08 59.69 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "723b3198-f44d-46c3-a0a0-03b1b64901ff")
-	)
-	(label "CDONE"
-		(at 285.75 39.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "ab72c395-cb63-4273-a9ed-f44ab984565b")
-	)
-	(label "IOT_170"
-		(at 259.08 57.15 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "d87c9857-a3c5-40da-a622-b17ffcec47ec")
-	)
 	(label "USB_DP"
 		(at 154.94 29.21 180)
 		(effects
@@ -2359,15 +2319,27 @@
 		)
 		(uuid "e14b2a0c-c060-4a01-a80d-6fc580783b17")
 	)
-	(label "CRESET#"
-		(at 19.05 59.69 0)
+	(global_label "CDONE"
+		(shape input)
+		(at 292.1 39.37 180)
+		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left bottom)
+			(justify right)
 		)
-		(uuid "f80814dd-339f-492b-a0c8-7e692e3cbe53")
+		(uuid "03ee0612-5bd3-40ec-9f29-65c88b1c7dee")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 282.7648 39.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
 	)
 	(global_label "IOR_166_URX"
 		(shape input)
@@ -2409,6 +2381,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "CRESET#"
+		(shape input)
+		(at 25.4 59.69 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "457d9670-c8e9-4577-9cb1-df0bca3080ea")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 14.1297 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -2479,6 +2473,28 @@
 			)
 		)
 	)
+	(global_label "CDONE"
+		(shape input)
+		(at 25.4 62.23 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "a7c45d92-de90-4337-a90e-a3eba3ebb8d0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 16.0648 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "IOR_158_UTX"
 		(shape input)
 		(at 76.2 52.07 0)
@@ -2501,7 +2517,7 @@
 			)
 		)
 	)
-	(global_label "IOR_140_USR1"
+	(global_label "IOT_174_LED1"
 		(shape input)
 		(at 349.25 22.86 180)
 		(fields_autoplaced yes)
@@ -2513,7 +2529,7 @@
 		)
 		(uuid "e6b31627-2c86-43e9-a6de-bc6e1965a1d3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 332.4763 22.86 0)
+			(at 333.1416 22.86 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2567,7 +2583,7 @@
 			)
 		)
 	)
-	(global_label "IOR_122_BUT1"
+	(global_label "IOT_170_BTN1"
 		(shape input)
 		(at 203.2 59.69 0)
 		(fields_autoplaced yes)
@@ -2579,7 +2595,7 @@
 		)
 		(uuid "f7187789-a8e6-4f9b-b8e6-afa836f71ba9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 219.7318 59.69 0)
+			(at 219.4294 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2725,7 +2741,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0f50b7ac-06c4-4076-9602-d72078835e14")
-		(property "Reference" "USR1"
+		(property "Reference" "LED1"
 			(at 353.06 41.8464 90)
 			(effects
 				(font
@@ -2806,7 +2822,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "USR1")
+					(reference "LED1")
 					(unit 1)
 				)
 			)
