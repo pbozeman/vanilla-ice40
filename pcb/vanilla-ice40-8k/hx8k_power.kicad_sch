@@ -325,7 +325,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "!Misc:R_2.2K_0603"
+		(symbol "!Misc:R_100_0603"
 			(pin_numbers
 				(hide yes)
 			)
@@ -344,7 +344,7 @@
 					)
 				)
 			)
-			(property "Value" "2.2K"
+			(property "Value" "51K"
 				(at 1.778 0 90)
 				(effects
 					(font
@@ -370,7 +370,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "2.2K 0603 Resistor"
+			(property "Description" "51K 0603 Resistor"
 				(at 0 0 0)
 				(effects
 					(font
@@ -379,7 +379,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part #" "C25879"
+			(property "LCSC Part #" "C23196"
 				(at 0 0 0)
 				(effects
 					(font
@@ -388,7 +388,7 @@
 					(hide yes)
 				)
 			)
-			(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
+			(property "Digi-Key Part Number" "CR0603-FX-5102ELFCT-ND"
 				(at 0 0 0)
 				(effects
 					(font
@@ -415,7 +415,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "R_2.2K_0603_0_1"
+			(symbol "R_100_0603_0_1"
 				(rectangle
 					(start -0.762 1.778)
 					(end 0.762 -1.778)
@@ -428,7 +428,7 @@
 					)
 				)
 			)
-			(symbol "R_2.2K_0603_1_1"
+			(symbol "R_100_0603_1_1"
 				(pin passive line
 					(at 0 2.54 270)
 					(length 0.762)
@@ -12700,7 +12700,7 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
+		(lib_id "!Misc:R_100_0603")
 		(at 158.75 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -12745,7 +12745,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "51K 0603 Resistor"
 			(at 158.75 38.1 0)
 			(effects
 				(font
@@ -12754,7 +12754,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C22775"
+		(property "LCSC Part #" "C23196"
 			(at 158.75 38.1 0)
 			(effects
 				(font
@@ -12763,7 +12763,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "CR0603-FX-1000ELFCT-ND"
+		(property "Digi-Key Part Number" "CR0603-FX-5102ELFCT-ND"
 			(at 158.75 38.1 0)
 			(effects
 				(font
@@ -13029,7 +13029,7 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
+		(lib_id "!Misc:R_100_0603")
 		(at 181.61 38.1 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -13074,7 +13074,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "51K 0603 Resistor"
 			(at 181.61 38.1 0)
 			(effects
 				(font
@@ -13083,7 +13083,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C22775"
+		(property "LCSC Part #" "C23196"
 			(at 181.61 38.1 0)
 			(effects
 				(font
@@ -13092,7 +13092,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "CR0603-FX-1000ELFCT-ND"
+		(property "Digi-Key Part Number" "CR0603-FX-5102ELFCT-ND"
 			(at 181.61 38.1 0)
 			(effects
 				(font

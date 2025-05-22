@@ -325,7 +325,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "!Misc:FB_600"
+		(symbol "!Misc:FB_600_1206"
 			(pin_numbers
 				(hide yes)
 			)
@@ -344,7 +344,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "FB_600_805"
+			(property "Value" "600/1.5A"
 				(at 1.905 -1.27 0)
 				(effects
 					(font
@@ -353,7 +353,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+			(property "Footprint" "Inductor_SMD:L_1206_3216Metric"
 				(at -1.778 0 90)
 				(effects
 					(font
@@ -371,7 +371,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Ferrite bead, 600ohm, 0805"
+			(property "Description" "Ferrite bead, 600ohm, 1206 1.5A"
 				(at 0 0 0)
 				(effects
 					(font
@@ -380,7 +380,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part #" "C1017"
+			(property "LCSC Part #" "C16902"
 				(at 0 0 0)
 				(effects
 					(font
@@ -389,7 +389,7 @@
 					(hide yes)
 				)
 			)
-			(property "Digi-Key Part Number" "240-2399-1-ND"
+			(property "Digi-Key Part Number" "490-1057-1-ND"
 				(at 0 0 0)
 				(effects
 					(font
@@ -416,7 +416,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "FB_600_0_1"
+			(symbol "FB_600_1206_0_1"
 				(polyline
 					(pts
 						(xy -1.8288 0.2794) (xy -1.1176 1.4986) (xy 1.8288 -0.2032) (xy 1.1176 -1.4224) (xy -1.8288 0.2794)
@@ -454,7 +454,7 @@
 					)
 				)
 			)
-			(symbol "FB_600_1_1"
+			(symbol "FB_600_1206_1_1"
 				(pin passive line
 					(at 0 2.54 270)
 					(length 1.27)
@@ -960,7 +960,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "!Misc:R_2.2K_0603"
+		(symbol "!Misc:R_45.3K_0603"
 			(pin_numbers
 				(hide yes)
 			)
@@ -979,7 +979,7 @@
 					)
 				)
 			)
-			(property "Value" "2.2K"
+			(property "Value" "10K"
 				(at 1.778 0 90)
 				(effects
 					(font
@@ -1005,7 +1005,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "2.2K 0603 Resistor"
+			(property "Description" "45.3K 0603 Resistor"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1014,7 +1014,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC Part #" "C25879"
+			(property "LCSC Part #" "C23058"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1023,7 +1023,7 @@
 					(hide yes)
 				)
 			)
-			(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
+			(property "Digi-Key Part Number" "CR0603-FX-4532ELFCT-ND "
 				(at 0 0 0)
 				(effects
 					(font
@@ -1050,7 +1050,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "R_2.2K_0603_0_1"
+			(symbol "R_45.3K_0603_0_1"
 				(rectangle
 					(start -0.762 1.778)
 					(end 0.762 -1.778)
@@ -1063,7 +1063,7 @@
 					)
 				)
 			)
-			(symbol "R_2.2K_0603_1_1"
+			(symbol "R_45.3K_0603_1_1"
 				(pin passive line
 					(at 0 2.54 270)
 					(length 0.762)
@@ -5741,7 +5741,7 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:R_2.2K_0603")
+		(lib_id "!Misc:R_45.3K_0603")
 		(at 182.88 73.66 180)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5785,7 +5785,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "45.3K 0603 Resistor"
 			(at 182.88 73.66 0)
 			(effects
 				(font
@@ -5893,7 +5893,7 @@
 		)
 	)
 	(symbol
-		(lib_id "!Misc:FB_600")
+		(lib_id "!Misc:FB_600_1206")
 		(at 62.23 67.31 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5917,7 +5917,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Inductor_SMD:L_0805_2012Metric"
+		(property "Footprint" "Inductor_SMD:L_1206_3216Metric"
 			(at 62.23 69.088 90)
 			(effects
 				(font
@@ -5935,7 +5935,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Ferrite bead, 600ohm, 0805"
+		(property "Description" "Ferrite bead, 600ohm, 1206 1.5A"
 			(at 62.23 67.31 0)
 			(effects
 				(font
@@ -5944,7 +5944,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C1017"
+		(property "LCSC Part #" "C16902"
 			(at 62.23 67.31 0)
 			(effects
 				(font
@@ -5962,7 +5962,7 @@
 				(hide yes)
 			)
 		)
-		(property "Digi-Key Part Number" "240-2399-1-ND"
+		(property "Digi-Key Part Number" "490-1057-1-ND"
 			(at 62.23 67.31 0)
 			(effects
 				(font
