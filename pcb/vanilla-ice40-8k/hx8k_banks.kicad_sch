@@ -13600,7 +13600,7 @@
 			)
 		)
 	)
-	(global_label "IOR_166_URX"
+	(global_label "IOR_166_UTX"
 		(shape input)
 		(at 132.08 156.21 0)
 		(fields_autoplaced yes)
@@ -13612,7 +13612,7 @@
 		)
 		(uuid "621e8c13-2d47-49c2-85a8-5fd881dd9da2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.6442 156.21 0)
+			(at 147.3418 156.21 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -14854,7 +14854,7 @@
 			)
 		)
 	)
-	(global_label "IOR_158_UTX"
+	(global_label "IOR_158_URX"
 		(shape input)
 		(at 132.08 143.51 0)
 		(fields_autoplaced yes)
@@ -14866,7 +14866,7 @@
 		)
 		(uuid "a540f1dd-370c-4582-8d72-fb81ae292316")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 147.3418 143.51 0)
+			(at 147.6442 143.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
