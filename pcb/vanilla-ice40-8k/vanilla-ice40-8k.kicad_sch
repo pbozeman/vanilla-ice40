@@ -2607,7 +2607,8 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_10K_0603")
-		(at 195.58 27.94 180)
+		(at 195.58 27.94 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)

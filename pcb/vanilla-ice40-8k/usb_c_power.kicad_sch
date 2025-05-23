@@ -4165,7 +4165,7 @@
 			(fill
 				(type none)
 			)
-			(uuid 35212eea-f1b7-436f-a86c-c9d6a7a5b6b2)
+			(uuid 32297e6b-c8d8-4e0c-b5d2-e5cdc91ecc08)
 		)
 	)
 	(rule_area
@@ -4180,7 +4180,7 @@
 			(fill
 				(type none)
 			)
-			(uuid 5c23993c-b903-4c73-8db0-74df2b69b741)
+			(uuid cdb250e3-26df-4143-ba69-88eb1e0d12c2)
 		)
 	)
 	(netclass_flag ""
@@ -6031,7 +6031,8 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_5.1K_0603")
-		(at 63.5 101.6 180)
+		(at 63.5 101.6 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -6039,7 +6040,7 @@
 		(dnp no)
 		(uuid "5439f80f-f459-45c5-838c-534f7ee0f5c3")
 		(property "Reference" "R31"
-			(at 59.944 100.838 0)
+			(at 59.944 102.362 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6047,7 +6048,7 @@
 			)
 		)
 		(property "Value" "5.1k"
-			(at 59.944 102.87 0)
+			(at 59.944 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
