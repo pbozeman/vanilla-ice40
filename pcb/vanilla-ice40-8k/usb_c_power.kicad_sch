@@ -4156,21 +4156,6 @@
 	(rule_area
 		(polyline
 			(pts
-				(xy 111.76 50.8) (xy 111.76 93.98) (xy 220.98 93.98) (xy 220.98 50.8)
-			)
-			(stroke
-				(width 0)
-				(type dash)
-			)
-			(fill
-				(type none)
-			)
-			(uuid 1c826829-a908-4718-ae1e-009028f027c2)
-		)
-	)
-	(rule_area
-		(polyline
-			(pts
 				(xy 111.76 104.14) (xy 111.76 147.32) (xy 220.98 147.32) (xy 220.98 104.14)
 			)
 			(stroke
@@ -4180,7 +4165,22 @@
 			(fill
 				(type none)
 			)
-			(uuid a1edb6f8-2a51-40a9-8d1d-3896118ce690)
+			(uuid 233ee1f0-ba23-41c8-bb04-a4e485ca670d)
+		)
+	)
+	(rule_area
+		(polyline
+			(pts
+				(xy 111.76 50.8) (xy 111.76 93.98) (xy 220.98 93.98) (xy 220.98 50.8)
+			)
+			(stroke
+				(width 0)
+				(type dash)
+			)
+			(fill
+				(type none)
+			)
+			(uuid a96097d6-b163-4b33-8006-62e424c84320)
 		)
 	)
 	(netclass_flag ""
@@ -8335,7 +8335,8 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_10K_0603")
-		(at 171.45 123.19 270)
+		(at 171.45 123.19 90)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8343,7 +8344,7 @@
 		(dnp no)
 		(uuid "d2e0a624-fb1e-4469-8a1d-b8208df192a8")
 		(property "Reference" "R37"
-			(at 169.418 118.364 90)
+			(at 173.482 118.364 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8352,7 +8353,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 169.672 120.904 90)
+			(at 173.228 120.904 90)
 			(effects
 				(font
 					(size 1.27 1.27)

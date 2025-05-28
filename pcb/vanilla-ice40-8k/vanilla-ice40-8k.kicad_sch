@@ -364,7 +364,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+			(property "Footprint" "!Misc:D_0603_1608Metric"
 				(at 0 0 90)
 				(effects
 					(font
@@ -567,7 +567,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+			(property "Footprint" "!Misc:D_0603_1608Metric"
 				(at 0 0 90)
 				(effects
 					(font
@@ -770,7 +770,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+			(property "Footprint" "!Misc:D_0603_1608Metric"
 				(at 0 0 90)
 				(effects
 					(font
@@ -2760,7 +2760,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "!Misc:D_0603_1608Metric"
 			(at 350.52 43.18 90)
 			(effects
 				(font
@@ -2778,7 +2778,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol"
+		(property "Description" "LED, Blue, 0603"
 			(at 350.52 43.18 0)
 			(effects
 				(font
@@ -2787,7 +2787,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C965807"
+		(property "LCSC Part #" "C434421"
 			(at 350.52 43.18 0)
 			(effects
 				(font
@@ -2839,7 +2839,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "20414179-0624-45d7-baa3-18d81d4371f8")
-		(property "Reference" "BTN2"
+		(property "Reference" "BTN1"
 			(at 186.69 52.07 0)
 			(effects
 				(font
@@ -2950,7 +2950,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "BTN2")
+					(reference "BTN1")
 					(unit 1)
 				)
 			)
@@ -3956,7 +3956,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "!Misc:D_0603_1608Metric"
 			(at 299.72 43.18 90)
 			(effects
 				(font
@@ -3974,7 +3974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol"
+		(property "Description" "LED, Green, 0603"
 			(at 299.72 43.18 0)
 			(effects
 				(font
@@ -4469,7 +4469,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Diode_SMD:D_0603_1608Metric"
+		(property "Footprint" "!Misc:D_0603_1608Metric"
 			(at 323.85 43.18 90)
 			(effects
 				(font
@@ -4487,7 +4487,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Light emitting diode, small symbol"
+		(property "Description" "LED, Red, 0603"
 			(at 323.85 43.18 0)
 			(effects
 				(font
@@ -4496,7 +4496,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C2286"
+		(property "LCSC Part #" "C434419"
 			(at 323.85 43.18 0)
 			(effects
 				(font
@@ -4614,7 +4614,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "f4f68a60-4451-415c-8f98-b8e8be053160")
-		(property "Reference" "BTN1"
+		(property "Reference" "CRESET1"
 			(at 185.42 25.4 0)
 			(effects
 				(font
@@ -4725,7 +4725,7 @@
 		(instances
 			(project "vanilla-ice40-8k"
 				(path "/6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5"
-					(reference "BTN1")
+					(reference "CRESET1")
 					(unit 1)
 				)
 			)

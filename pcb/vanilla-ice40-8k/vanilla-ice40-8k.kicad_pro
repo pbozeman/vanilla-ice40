@@ -60,19 +60,19 @@
       ],
       "drc_exclusions": [
         [
-          "hole_clearance|81974999|53105024|70a9254d-d849-4870-9c8a-9792a4bafcf0|208ab650-8de9-48e3-aa68-afb770cda60d",
+          "hole_clearance|81974999|53105024|535212fb-51a6-4d4e-8680-0eb992955a26|208ab650-8de9-48e3-aa68-afb770cda60d",
           ""
         ],
         [
-          "hole_clearance|81974999|53105024|70a9254d-d849-4870-9c8a-9792a4bafcf0|c0ba2dc9-fc51-49f0-9bec-aae573a4bdb6",
+          "hole_clearance|81974999|53105024|535212fb-51a6-4d4e-8680-0eb992955a26|c0ba2dc9-fc51-49f0-9bec-aae573a4bdb6",
           ""
         ],
         [
-          "hole_clearance|88074999|53105024|7243c9a3-ede2-4b29-b585-4b6a73113136|98ccf0dd-c376-412c-87c8-dd4344ad8e96",
+          "hole_clearance|88074999|53105024|05dffc53-3274-4c2f-8b1b-160a9c8bcde1|98ccf0dd-c376-412c-87c8-dd4344ad8e96",
           ""
         ],
         [
-          "hole_clearance|88074999|53105024|7243c9a3-ede2-4b29-b585-4b6a73113136|e82eebb2-1f24-40aa-946d-3416d3544586",
+          "hole_clearance|88074999|53105024|05dffc53-3274-4c2f-8b1b-160a9c8bcde1|e82eebb2-1f24-40aa-946d-3416d3544586",
           ""
         ]
       ],
@@ -93,9 +93,9 @@
         "duplicate_footprints": "warning",
         "extra_footprint": "warning",
         "footprint": "error",
-        "footprint_filters_mismatch": "ignore",
+        "footprint_filters_mismatch": "warning",
         "footprint_symbol_mismatch": "warning",
-        "footprint_type_mismatch": "ignore",
+        "footprint_type_mismatch": "warning",
         "hole_clearance": "error",
         "hole_near_hole": "error",
         "hole_to_hole": "error",
@@ -110,17 +110,17 @@
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "mirrored_text_on_front_layer": "warning",
-        "missing_courtyard": "ignore",
+        "missing_courtyard": "warning",
         "missing_footprint": "warning",
         "net_conflict": "warning",
         "nonmirrored_text_on_back_layer": "warning",
         "npth_inside_courtyard": "ignore",
         "padstack": "warning",
-        "pth_inside_courtyard": "ignore",
+        "pth_inside_courtyard": "warning",
         "shorting_items": "error",
-        "silk_edge_clearance": "ignore",
-        "silk_over_copper": "ignore",
-        "silk_overlap": "ignore",
+        "silk_edge_clearance": "warning",
+        "silk_over_copper": "warning",
+        "silk_overlap": "warning",
         "skew_out_of_range": "error",
         "solder_mask_bridge": "error",
         "starved_thermal": "error",
@@ -130,13 +130,13 @@
         "through_hole_pad_without_hole": "error",
         "too_many_vias": "error",
         "track_angle": "error",
-        "track_dangling": "ignore",
+        "track_dangling": "error",
         "track_segment_length": "error",
         "track_width": "error",
         "tracks_crossing": "error",
         "unconnected_items": "error",
         "unresolved_variable": "error",
-        "via_dangling": "ignore",
+        "via_dangling": "error",
         "zones_intersect": "error"
       },
       "rules": {
