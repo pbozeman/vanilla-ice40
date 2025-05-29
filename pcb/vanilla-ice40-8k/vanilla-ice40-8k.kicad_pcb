@@ -507,6 +507,7 @@
 	(net 310 "IOT_174_LED1")
 	(net 311 "IOR_158_URX")
 	(net 312 "IOR_166_UTX")
+	(net 313 "unconnected-(U1-PadN14)")
 	(footprint "Resistor_SMD:R_0603_1608Metric"
 		(layer "F.Cu")
 		(uuid "03dd922c-345c-45d2-8b9d-298547afc0b7")
@@ -1808,14 +1809,13 @@
 			)
 		)
 	)
-	(footprint "ICE40HX8K-CT256:BGA256C80P16X16_1400X1400X170"
+	(footprint "!Misc:BGA256C80P16X16_1400X1400X170"
 		(layer "F.Cu")
 		(uuid "25ab636b-28cd-439c-9bbd-b5d33098fddf")
 		(at 75.007763 74.999999 45)
 		(property "Reference" "U1"
 			(at -3.559775 -8.646615 45)
 			(layer "F.SilkS")
-			(hide yes)
 			(uuid "e75b1540-e7da-489d-905a-a9fe8fbcdf8b")
 			(effects
 				(font
@@ -1859,142 +1859,12 @@
 				)
 			)
 		)
-		(property "MF" "Lattice Semiconductor"
+		(property "LCSC Part #" "C1521993"
 			(at 0 0 45)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "561ce8e1-990c-4eaf-8d79-7bd6fc66dcf5")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Description_1" "\niCE40™ HX Field Programmable Gate Array (FPGA) IC 206 131072 7680 256-LFBGA\n"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "d1e13388-2945-4ad0-9032-bbf92905e374")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Package" "CABGA-256 Lattice Semiconductor"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c83eeabf-84e5-4d09-a749-c59872a5e682")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Price" "None"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "79fa7d1c-849e-49db-92b1-6d0d91232eaf")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Check_prices" "https://www.snapeda.com/parts/ICE40HX8K-CT256/Lattice+Semiconductor+Corporation/view-part/?ref=eda"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "cb4f5a19-a656-4c88-878b-8e5928f18269")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "PART_REV" "3.4"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5eec9211-c27d-40be-912d-638d5321a0fc")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "STANDARD" "IPC-7351B"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "60579c6f-3b80-4a6d-b250-2c7bc915386a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "SnapEDA_Link" "https://www.snapeda.com/parts/ICE40HX8K-CT256/Lattice+Semiconductor+Corporation/view-part/?ref=snap"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fb8be18f-b480-44c6-a969-b5b5e93e689a")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "MP" "ICE40HX8K-CT256"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "3d1e4629-a663-4b31-956c-49f96092f297")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Availability" "In Stock"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6fb10f9e-45d3-4c5a-ab89-fc90df1f03f4")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "MANUFACTURER" "Lattice Semiconductor"
-			(at 0 0 45)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb5543f8-75fe-47c3-b52b-06bc50f3f069")
+			(uuid "a9a4c1a7-b812-4620-a4d4-16eb8e506ae3")
 			(effects
 				(font
 					(size 1 1)
@@ -2007,7 +1877,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "083c6808-4a9e-473c-8408-b6f26e87a76d")
+			(uuid "dae09a81-e4a7-4d32-b337-762d95da41dd")
 			(effects
 				(font
 					(size 1 1)
@@ -2015,12 +1885,142 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C1521993"
+		(property "MF" "Lattice Semiconductor"
 			(at 0 0 45)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "38504d57-24a3-41ed-96ab-f7696244be60")
+			(uuid "d6cdaaec-ebee-48e2-bd2b-76816c79b9d6")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Description_1" "\niCE40™ HX Field Programmable Gate Array (FPGA) IC 206 131072 7680 256-LFBGA\n"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "3c9c45c9-131e-4e36-b912-58210836b990")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Package" "CABGA-256 Lattice Semiconductor"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "eb7184b7-bdb6-485a-a900-21ab9ed9f7a2")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Price" "None"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "4a95ea8f-aa1c-4d70-9236-d3fd6a21b24c")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Check_prices" "https://www.snapeda.com/parts/ICE40HX8K-CT256/Lattice+Semiconductor+Corporation/view-part/?ref=eda"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "89d66de6-3853-435c-835b-2f753a629cc3")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "PART_REV" "3.4"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "72695b35-948e-44ef-8ce8-a5f03a87e568")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "STANDARD" "IPC-7351B"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "abc799b6-cba3-46c0-ac50-5b91391425e1")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "SnapEDA_Link" "https://www.snapeda.com/parts/ICE40HX8K-CT256/Lattice+Semiconductor+Corporation/view-part/?ref=snap"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "f24ad3a6-3284-4113-9342-e6515fe96de4")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MP" "ICE40HX8K-CT256"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "bb6ae82a-95be-4fde-ab6a-80d951b40cba")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Availability" "In Stock"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "15627d39-bc12-480d-8c56-87043bcd4318")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MANUFACTURER" "Lattice Semiconductor"
+			(at 0 0 45)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "7b0f4dcc-f51f-48b4-bce6-10bcf4c82982")
 			(effects
 				(font
 					(size 1 1)
@@ -2033,7 +2033,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "24fe5e40-8796-4c20-a68f-2147a9695935")
+			(uuid "62141729-6529-415a-b145-c138a7c39009")
 			(effects
 				(font
 					(size 1 1)
@@ -2046,7 +2046,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "27728ca1-d600-4a0a-a0e3-c5cf921960d9")
+			(uuid "362526bd-f391-459c-9caf-bd720ff468e9")
 			(effects
 				(font
 					(size 1 1)
@@ -2059,7 +2059,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "234b9ea9-8f37-41be-a15d-80b4aaeec6ee")
+			(uuid "ea71621e-afcc-46db-92a8-f921b0f904e6")
 			(effects
 				(font
 					(size 1 1)
@@ -2072,7 +2072,7 @@
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "1d6280e8-176c-4419-b77d-91bc7ae5ecab")
+			(uuid "acdc9bee-d4c0-457d-8796-b728e0b53f3b")
 			(effects
 				(font
 					(size 1 1)
@@ -2092,7 +2092,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "a41512a2-e131-4f44-bf45-5eeebdd3214f")
+			(uuid "5688b488-84cf-499d-9fb8-769f14f68169")
 		)
 		(fp_line
 			(start -7 7)
@@ -2102,7 +2102,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "d0de76c6-0010-4490-8fe6-22e88ea78960")
+			(uuid "c5ffb511-d059-4910-a49f-e1c62164c57e")
 		)
 		(fp_line
 			(start 7 7)
@@ -2112,7 +2112,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "4d91f572-254b-4fdf-aaa0-89b8602bca95")
+			(uuid "2d483902-94d8-41bb-81ba-33e064de7b67")
 		)
 		(fp_line
 			(start 7 7)
@@ -2122,7 +2122,7 @@
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "42af7755-03f3-4e50-9af0-644d69b44f3c")
+			(uuid "e0f2da19-392a-4277-8e03-29f53daf1469")
 		)
 		(fp_circle
 			(center -7.5 -6)
@@ -2133,7 +2133,7 @@
 			)
 			(fill no)
 			(layer "F.SilkS")
-			(uuid "6524c7c0-9965-40e0-8e5b-a47e1df02e26")
+			(uuid "b48fa643-4b6a-48ed-876d-9e0940bd8a67")
 		)
 		(fp_line
 			(start -7.25 -7.25)
@@ -2143,7 +2143,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "54405e02-a2d7-4f98-9340-bda766b746a3")
+			(uuid "d9418e17-943f-48f8-ad7f-731c5dd6eb9b")
 		)
 		(fp_line
 			(start -7.25 7.25)
@@ -2153,7 +2153,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "2ac74a24-95fb-44c7-b0b5-a3010b44078f")
+			(uuid "76ee13ab-b199-4c19-baf4-53c4a911f471")
 		)
 		(fp_line
 			(start -7.25 7.25)
@@ -2163,7 +2163,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "e6bd8ace-d8e8-4839-bca3-1ffb6af319d1")
+			(uuid "b662fed3-d714-4fdc-bba3-52fe2d4f709c")
 		)
 		(fp_line
 			(start 7.25 7.25)
@@ -2173,7 +2173,7 @@
 				(type solid)
 			)
 			(layer "F.CrtYd")
-			(uuid "2ad8e7fd-b0c1-49ab-acb7-c72d75a908ff")
+			(uuid "41a99577-f7df-4584-80da-230e6c1bd5d2")
 		)
 		(fp_line
 			(start 7 -7)
@@ -2183,7 +2183,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "9617db5a-36ed-4b65-8ee4-57a76e014ed4")
+			(uuid "48464cc1-12af-4573-84c3-962d86712273")
 		)
 		(fp_line
 			(start -7 7)
@@ -2193,7 +2193,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "b06024ce-e6de-4867-8c1c-65e0d83ec238")
+			(uuid "2c8f6226-31b8-4ee2-8a4a-0e49d02bfa37")
 		)
 		(fp_line
 			(start 7 7)
@@ -2203,7 +2203,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "904a0318-a1dd-48f6-92e8-3568701cf286")
+			(uuid "28b71bb4-7d1d-4008-a923-6de3279d9ae8")
 		)
 		(fp_line
 			(start 7 7)
@@ -2213,7 +2213,7 @@
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "6703656c-6dac-4a3b-a3ff-ddec7831ca1c")
+			(uuid "5ca2bb35-f5a8-4ffc-bbc9-2aba59712f9e")
 		)
 		(fp_circle
 			(center -6 -6)
@@ -2224,7 +2224,7 @@
 			)
 			(fill no)
 			(layer "F.Fab")
-			(uuid "d05b49d5-d406-4e50-a0ce-838d911a8130")
+			(uuid "ca72267c-c2e5-467d-9836-9c7704572b20")
 		)
 		(pad "A1" smd circle
 			(at -6 -6 45)
@@ -4280,6 +4280,9 @@
 			(at 4.4 3.6 45)
 			(size 0.41 0.41)
 			(layers "F.Cu" "F.Mask" "F.Paste")
+			(net 313 "unconnected-(U1-PadN14)")
+			(pinfunction "N14")
+			(pintype "no_connect")
 			(solder_mask_margin 0.102)
 			(uuid "0fb824d3-910f-4bde-bc0d-93c63abc993c")
 		)
@@ -4784,6 +4787,17 @@
 			(uuid "08365dd9-74d6-4b1e-9494-3889a7a5cd5b")
 		)
 		(embedded_fonts no)
+		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/ICE40HX8K-CT256.stp"
+			(offset
+				(xyz 0 0 0)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 -0 -0)
+			)
+		)
 	)
 	(footprint "!Misc:USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal"
 		(layer "F.Cu")
@@ -7608,7 +7622,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "2.2K 0603 Resistor"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -7620,7 +7634,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C4190"
+		(property "LCSC Part #" "C25879"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -12336,7 +12350,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "2.2K 0603 Resistor"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -12348,7 +12362,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C4190"
+		(property "LCSC Part #" "C25879"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -16563,7 +16577,7 @@
 				)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "2.2K 0603 Resistor"
 			(at 0 0 270)
 			(layer "F.Fab")
 			(hide yes)
@@ -16575,7 +16589,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C4190"
+		(property "LCSC Part #" "C25879"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -27979,7 +27993,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "2.2K 0603 Resistor"
 			(at 0 0 180)
 			(layer "B.Fab")
 			(hide yes)
@@ -27992,7 +28006,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC Part #" "C4190"
+		(property "LCSC Part #" "C25879"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -34456,7 +34470,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
+		(property "Description" "2.2K 0603 Resistor"
 			(at 0 0 90)
 			(layer "B.Fab")
 			(hide yes)
@@ -34469,7 +34483,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC Part #" "C22790"
+		(property "LCSC Part #" "C25879"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -34483,7 +34497,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Digi-Key Part Number" "118-CR0603-FX-1202ELFCT-ND"
+		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
 			(at 0 0 90)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -36114,7 +36128,7 @@
 			)
 		)
 	)
-	(footprint "Oscillator:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
+	(footprint "!Misc:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
 		(layer "B.Cu")
 		(uuid "a1cc8adb-8c55-42cc-8610-49ea90995b40")
 		(at 67.567012 84.965163 135)
@@ -36127,27 +36141,10 @@
 			(uuid "4523cdcf-92a9-4600-9aa6-de00a0bbcd8b")
 			(effects
 				(font
-					(face "MesloLGS NF")
 					(size 1 1)
 					(thickness 0.15)
 				)
 				(justify mirror)
-			)
-			(render_cache "X1" -45
-				(polygon
-					(pts
-						(xy 70.351814 83.288267) (xy 70.246981 83.183435) (xy 69.816599 83.296989) (xy 69.927217 82.86367)
-						(xy 69.822384 82.758838) (xy 69.699202 83.313871) (xy 69.085751 83.464557) (xy 69.190583 83.569389)
-						(xy 69.678002 83.435585) (xy 69.558188 83.936993) (xy 69.663495 84.042301) (xy 69.804034 83.418703)
-					)
-				)
-				(polygon
-					(pts
-						(xy 69.027895 83.243407) (xy 68.876216 83.091728) (xy 69.421059 82.546885) (xy 69.51527 82.81596)
-						(xy 69.609006 82.722224) (xy 69.51432 82.45561) (xy 69.416742 82.358031) (xy 68.77963 82.995142)
-						(xy 68.629894 82.845406) (xy 68.548247 82.927053) (xy 68.946248 83.325054)
-					)
-				)
 			)
 		)
 		(property "Value" "SG-8101CE 100Mhz"
@@ -36191,11 +36188,11 @@
 			)
 		)
 		(property "LCSC Part #" "C390559"
-			(at 0 0 315)
+			(at 0 0 135)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "1b5529a1-9153-4af2-8f1a-2cd8829bfdf2")
+			(uuid "b84ef913-5b4c-4d49-a231-305ff74914bc")
 			(effects
 				(font
 					(size 1 1)
@@ -36205,11 +36202,11 @@
 			)
 		)
 		(property "Digi-Key Part Number" "50-ECS-3225MVQ-1000-CN-CT-ND"
-			(at 0 0 315)
+			(at 0 0 135)
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "54207da1-ccd7-4f53-bf53-5f3978c2f09d")
+			(uuid "f90e9965-82ff-4e76-a83a-c6edeff1b6ae")
 			(effects
 				(font
 					(size 1 1)
@@ -36231,7 +36228,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "295dddc9-28f9-47f3-a943-fb65e4800c2e")
+			(uuid "bebd1bb0-3f8e-4c30-b42a-f4f93ce277c9")
 		)
 		(fp_line
 			(start -2.1 1.75)
@@ -36241,7 +36238,7 @@
 				(type solid)
 			)
 			(layer "B.SilkS")
-			(uuid "58a3e8e8-2ccb-4422-9912-9991158f2baa")
+			(uuid "87f3072e-942d-4a14-ad04-6403934aaa4c")
 		)
 		(fp_circle
 			(center 0 0)
@@ -36252,7 +36249,7 @@
 			)
 			(fill no)
 			(layer "B.Adhes")
-			(uuid "4413d317-b419-44dc-b64d-ebac7e7a4122")
+			(uuid "1819c84e-8e7a-4c61-931c-f8328fd72e64")
 		)
 		(fp_circle
 			(center 0 0)
@@ -36263,7 +36260,7 @@
 			)
 			(fill no)
 			(layer "B.Adhes")
-			(uuid "45e53b40-c030-4f19-a37f-b247fb9df9ba")
+			(uuid "3414e4f5-f7ea-4f87-a9fb-014ceaf2cf58")
 		)
 		(fp_circle
 			(center 0 0)
@@ -36274,7 +36271,7 @@
 			)
 			(fill no)
 			(layer "B.Adhes")
-			(uuid "fbd74b0f-9726-4396-92f9-ac0dab3d138b")
+			(uuid "f190c801-988e-428f-a753-59c0152973be")
 		)
 		(fp_circle
 			(center 0 0)
@@ -36285,7 +36282,7 @@
 			)
 			(fill no)
 			(layer "B.Adhes")
-			(uuid "66f31329-9ff3-468e-8534-463ad43002cc")
+			(uuid "14f588a2-0f5a-4d94-8c7b-520490b72267")
 		)
 		(fp_line
 			(start 2.2 -1.8)
@@ -36295,7 +36292,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "e4958631-4fb8-4ec6-8def-d578ab338ad1")
+			(uuid "106bea8e-1891-40e5-a5f1-e5d80d2fd03e")
 		)
 		(fp_line
 			(start 2.2 1.8)
@@ -36305,7 +36302,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "cd822963-0f94-4d62-a460-b652f9732fae")
+			(uuid "089a2abc-a72e-4cb0-99b6-f6549823b2d4")
 		)
 		(fp_line
 			(start -2.2 -1.8)
@@ -36315,7 +36312,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "ff2aa2da-6b08-47e8-87ff-2db477bd0bac")
+			(uuid "94350feb-3034-450b-b5ee-3ac56258e4e8")
 		)
 		(fp_line
 			(start -2.2 1.8)
@@ -36325,7 +36322,7 @@
 				(type solid)
 			)
 			(layer "B.CrtYd")
-			(uuid "85c9ef96-38cd-42a8-b16e-8d945e553ecd")
+			(uuid "ac97c0c7-b6c7-435b-982e-b74246509a8d")
 		)
 		(fp_line
 			(start 1.6 -1.15)
@@ -36335,7 +36332,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "b5107f58-e0b5-4b21-917a-262a3627a10d")
+			(uuid "4cebd43a-c8ec-45b2-8021-83ddd8fe62ad")
 		)
 		(fp_line
 			(start 1.5 -1.25)
@@ -36345,7 +36342,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "5e9bd62f-4de8-44ca-8ced-c26296b599a4")
+			(uuid "0acda483-601f-4cf0-9eda-a0a7278b2c35")
 		)
 		(fp_line
 			(start 1.6 1.15)
@@ -36355,7 +36352,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "cbd21e88-b882-4842-9be1-7e9f3802ad81")
+			(uuid "0eaeb4ee-97a0-4bb3-99df-52521cdd90e5")
 		)
 		(fp_line
 			(start 1.5 1.25)
@@ -36365,7 +36362,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "f310990d-341e-4685-b0ff-16f21811778f")
+			(uuid "9910d1a3-e093-439f-87b7-7665221da971")
 		)
 		(fp_line
 			(start -1.5 -1.25)
@@ -36375,7 +36372,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "3ce0ddb9-489c-4bce-8165-53eb0d9b6e9e")
+			(uuid "695e021f-aae8-4f2a-b860-85b1f90341e6")
 		)
 		(fp_line
 			(start -1.6 -1.15)
@@ -36385,7 +36382,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "b5d9cf4f-b6e9-4145-841c-3fab4f260ff5")
+			(uuid "034cdb33-3666-44eb-8c1f-95c74c6e9d43")
 		)
 		(fp_line
 			(start -1.6 -0.25)
@@ -36395,7 +36392,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "70acc8e5-caf5-42af-8c7d-a6931ca9cfc1")
+			(uuid "aa3fcefb-945d-4f46-92cc-692c1a1b2a65")
 		)
 		(fp_line
 			(start -1.5 1.25)
@@ -36405,7 +36402,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "ebe67f58-4300-471c-b353-8169ad9bcd93")
+			(uuid "3fec3a28-7475-469d-a9ea-10d39f5c2a5c")
 		)
 		(fp_line
 			(start -1.6 1.15)
@@ -36415,7 +36412,7 @@
 				(type solid)
 			)
 			(layer "B.Fab")
-			(uuid "7b30e166-0e7e-47cb-b064-024752d23b8f")
+			(uuid "9b7b9a24-d246-402e-9eeb-6fdaf6540ce7")
 		)
 		(fp_text user "${REFERENCE}"
 			(at 0 0 315)
@@ -36466,15 +36463,15 @@
 			(uuid "69d3277c-7bc8-400f-9991-e7ebf41d3cb0")
 		)
 		(embedded_fonts no)
-		(model "${KICAD9_3DMODEL_DIR}/Oscillator.3dshapes/Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm.wrl"
+		(model "${KICAD9_3DMODEL_DIR}/Oscillator.3dshapes/Oscillator_SMD_SeikoEpson_SG210-4Pin_2.5x2.0mm.stpZ"
 			(offset
 				(xyz 0 0 0)
 			)
 			(scale
-				(xyz 1 1 1)
+				(xyz 1.4 1.4 1.4)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -0 -0 -0)
 			)
 		)
 	)

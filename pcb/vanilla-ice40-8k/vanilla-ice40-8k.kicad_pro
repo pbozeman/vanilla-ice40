@@ -766,7 +766,7 @@
           "group_by": false,
           "label": "MF",
           "name": "MF",
-          "show": false
+          "show": true
         },
         {
           "group_by": false,
@@ -812,6 +812,12 @@
         },
         {
           "group_by": false,
+          "label": "Sim.Pin",
+          "name": "Sim.Pin",
+          "show": false
+        },
+        {
+          "group_by": false,
           "label": "Sim.Pins",
           "name": "Sim.Pins",
           "show": false
@@ -840,7 +846,7 @@
       "include_excluded_from_bom": false,
       "name": "",
       "sort_asc": true,
-      "sort_field": "Value"
+      "sort_field": "Reference"
     },
     "connection_grid_size": 50.0,
     "drawing": {

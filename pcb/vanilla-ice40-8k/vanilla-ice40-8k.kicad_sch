@@ -3,7 +3,7 @@
 	(generator "eeschema")
 	(generator_version "9.0")
 	(uuid "6fdfbf4b-014a-4077-8dc3-7ce5ecaf5fe5")
-	(paper "USLedger")
+	(paper "USLegal")
 	(title_block
 		(title "Vanilia Ice HX8K")
 		(rev "1.5.0")
@@ -1255,7 +1255,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Oscillator:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
+			(property "Footprint" "!Misc:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
 				(at 17.78 -8.89 0)
 				(effects
 					(font
@@ -1410,174 +1410,6 @@
 						)
 					)
 					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "BUT_PTS810_BLK_1"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "BTN"
-				(at 1.27 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left)
-				)
-			)
-			(property "Value" "SPST"
-				(at 0 -1.524 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "!Misc:SW_SPST_PTS810"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "PTS810 SPST Black, 600 grams"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "LCSC Part #" "C221897"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Digi-Key Part Number" "CKN10878CT-ND"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "switch normally-open pushbutton push-button"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "BUT_PTS810_BLK_1_0_1"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 0 1.27) (xy 0 3.048)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 2.54 1.27) (xy -2.54 1.27)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1816,7 +1648,7 @@
 		)
 	)
 	(junction
-		(at 299.72 39.37)
+		(at 182.88 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "000b1d14-3a0a-499d-af73-d05e4a5e326a")
@@ -1851,7 +1683,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 27.94) (xy 299.72 31.75)
+			(xy 182.88 85.09) (xy 182.88 88.9)
 		)
 		(stroke
 			(width 0)
@@ -1861,7 +1693,7 @@
 	)
 	(wire
 		(pts
-			(xy 323.85 27.94) (xy 323.85 31.75)
+			(xy 207.01 85.09) (xy 207.01 88.9)
 		)
 		(stroke
 			(width 0)
@@ -1891,7 +1723,7 @@
 	)
 	(wire
 		(pts
-			(xy 349.25 22.86) (xy 350.52 22.86)
+			(xy 232.41 80.01) (xy 233.68 80.01)
 		)
 		(stroke
 			(width 0)
@@ -1911,7 +1743,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 36.83) (xy 299.72 39.37)
+			(xy 182.88 93.98) (xy 182.88 96.52)
 		)
 		(stroke
 			(width 0)
@@ -2021,7 +1853,7 @@
 	)
 	(wire
 		(pts
-			(xy 350.52 36.83) (xy 350.52 40.64)
+			(xy 233.68 93.98) (xy 233.68 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2091,7 +1923,7 @@
 	)
 	(wire
 		(pts
-			(xy 323.85 36.83) (xy 323.85 40.64)
+			(xy 207.01 93.98) (xy 207.01 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2151,7 +1983,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 45.72) (xy 299.72 46.99)
+			(xy 182.88 102.87) (xy 182.88 104.14)
 		)
 		(stroke
 			(width 0)
@@ -2161,7 +1993,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 39.37) (xy 299.72 40.64)
+			(xy 182.88 96.52) (xy 182.88 97.79)
 		)
 		(stroke
 			(width 0)
@@ -2211,7 +2043,7 @@
 	)
 	(wire
 		(pts
-			(xy 350.52 22.86) (xy 350.52 31.75)
+			(xy 233.68 80.01) (xy 233.68 88.9)
 		)
 		(stroke
 			(width 0)
@@ -2221,7 +2053,7 @@
 	)
 	(wire
 		(pts
-			(xy 350.52 45.72) (xy 350.52 46.99)
+			(xy 233.68 102.87) (xy 233.68 104.14)
 		)
 		(stroke
 			(width 0)
@@ -2231,7 +2063,7 @@
 	)
 	(wire
 		(pts
-			(xy 323.85 45.72) (xy 323.85 46.99)
+			(xy 207.01 102.87) (xy 207.01 104.14)
 		)
 		(stroke
 			(width 0)
@@ -2251,7 +2083,7 @@
 	)
 	(wire
 		(pts
-			(xy 299.72 39.37) (xy 292.1 39.37)
+			(xy 182.88 96.52) (xy 175.26 96.52)
 		)
 		(stroke
 			(width 0)
@@ -2321,7 +2153,7 @@
 	)
 	(global_label "CDONE"
 		(shape input)
-		(at 292.1 39.37 180)
+		(at 175.26 96.52 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2331,7 +2163,7 @@
 		)
 		(uuid "03ee0612-5bd3-40ec-9f29-65c88b1c7dee")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 282.7648 39.37 0)
+			(at 165.9248 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2519,7 +2351,7 @@
 	)
 	(global_label "IOT_174_LED1"
 		(shape input)
-		(at 349.25 22.86 180)
+		(at 232.41 80.01 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2529,7 +2361,7 @@
 		)
 		(uuid "e6b31627-2c86-43e9-a6de-bc6e1965a1d3")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 333.1416 22.86 0)
+			(at 216.3016 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2667,15 +2499,6 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 195.58 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
 			(at 195.58 27.94 0)
 			(effects
@@ -2683,38 +2506,6 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 195.58 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 195.58 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 195.58 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 195.58 27.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -2734,7 +2525,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:LED_BLU")
-		(at 350.52 43.18 90)
+		(at 233.68 100.33 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2743,7 +2534,7 @@
 		(fields_autoplaced yes)
 		(uuid "0f50b7ac-06c4-4076-9602-d72078835e14")
 		(property "Reference" "LED1"
-			(at 353.06 41.8464 90)
+			(at 236.22 98.9964 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2752,7 +2543,7 @@
 			)
 		)
 		(property "Value" "Blue"
-			(at 353.06 44.3864 90)
+			(at 236.22 101.5364 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2761,7 +2552,7 @@
 			)
 		)
 		(property "Footprint" "!Misc:D_0603_1608Metric"
-			(at 350.52 43.18 90)
+			(at 233.68 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2770,7 +2561,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 350.52 43.18 90)
+			(at 233.68 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2779,7 +2570,7 @@
 			)
 		)
 		(property "Description" "LED, Blue, 0603"
-			(at 350.52 43.18 0)
+			(at 233.68 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2788,7 +2579,7 @@
 			)
 		)
 		(property "LCSC Part #" "C434421"
-			(at 350.52 43.18 0)
+			(at 233.68 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2797,7 +2588,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "732-4966-1-ND "
-			(at 350.52 43.18 0)
+			(at 233.68 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2806,7 +2597,7 @@
 			)
 		)
 		(property "Sim.Pin" "1=K 2=A"
-			(at 350.52 43.18 0)
+			(at 233.68 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2891,15 +2682,6 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 186.69 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Digi-Key Part Number" "CKN10878CT-ND"
 			(at 186.69 59.69 0)
 			(effects
@@ -2907,38 +2689,6 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 186.69 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 186.69 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 186.69 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 186.69 59.69 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -3149,15 +2899,6 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 196.85 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Digi-Key Part Number" "CR0603-FX-1002ELFCT-ND"
 			(at 196.85 54.61 0)
 			(effects
@@ -3165,38 +2906,6 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 196.85 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 196.85 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 196.85 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 196.85 54.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
@@ -3216,7 +2925,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 323.85 46.99 0)
+		(at 207.01 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3225,7 +2934,7 @@
 		(fields_autoplaced yes)
 		(uuid "3dc9caa9-b0b6-49bf-8a63-e2b9530fe226")
 		(property "Reference" "#PWR013"
-			(at 323.85 53.34 0)
+			(at 207.01 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3234,7 +2943,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 323.85 52.07 0)
+			(at 207.01 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3242,7 +2951,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 323.85 46.99 0)
+			(at 207.01 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3251,7 +2960,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 323.85 46.99 0)
+			(at 207.01 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3260,7 +2969,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 323.85 46.99 0)
+			(at 207.01 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3370,7 +3079,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Oscillator:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
+		(property "Footprint" "!Misc:Oscillator_SMD_SeikoEpson_SG8002CE-4Pin_3.2x2.5mm"
 			(at 262.89 55.88 0)
 			(effects
 				(font
@@ -3438,7 +3147,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_2.2K_0603")
-		(at 350.52 34.29 0)
+		(at 233.68 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3447,7 +3156,7 @@
 		(fields_autoplaced yes)
 		(uuid "5cbc0539-d6e4-4de5-a207-8cb35144c0b3")
 		(property "Reference" "R3"
-			(at 353.06 33.0199 0)
+			(at 236.22 90.1699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3456,7 +3165,7 @@
 			)
 		)
 		(property "Value" "2.2k"
-			(at 353.06 35.5599 0)
+			(at 236.22 92.7099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3465,7 +3174,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 350.52 34.29 0)
+			(at 233.68 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3474,7 +3183,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 350.52 34.29 0)
+			(at 233.68 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3482,8 +3191,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
-			(at 350.52 34.29 0)
+		(property "Description" "2.2K 0603 Resistor"
+			(at 233.68 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3491,8 +3200,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C4190"
-			(at 350.52 34.29 0)
+		(property "LCSC Part #" "C25879"
+			(at 233.68 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3501,7 +3210,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 350.52 34.29 0)
+			(at 233.68 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3591,7 +3300,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 350.52 46.99 0)
+		(at 233.68 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3600,7 +3309,7 @@
 		(fields_autoplaced yes)
 		(uuid "65ea51ea-9768-4349-9698-2e33b65ca645")
 		(property "Reference" "#PWR07"
-			(at 350.52 53.34 0)
+			(at 233.68 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3609,7 +3318,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 350.52 52.07 0)
+			(at 233.68 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3617,7 +3326,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 350.52 46.99 0)
+			(at 233.68 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3626,7 +3335,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 350.52 46.99 0)
+			(at 233.68 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3635,7 +3344,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 350.52 46.99 0)
+			(at 233.68 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3723,7 +3432,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_2.2K_0603")
-		(at 323.85 34.29 0)
+		(at 207.01 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3732,7 +3441,7 @@
 		(fields_autoplaced yes)
 		(uuid "6e8569c6-dd60-4135-8e94-fe0989c9ac71")
 		(property "Reference" "R7"
-			(at 326.39 33.0199 0)
+			(at 209.55 90.1699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3741,7 +3450,7 @@
 			)
 		)
 		(property "Value" "2.2k"
-			(at 326.39 35.5599 0)
+			(at 209.55 92.7099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3750,7 +3459,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 323.85 34.29 0)
+			(at 207.01 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3759,7 +3468,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 323.85 34.29 0)
+			(at 207.01 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3767,8 +3476,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
-			(at 323.85 34.29 0)
+		(property "Description" "2.2K 0603 Resistor"
+			(at 207.01 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3776,8 +3485,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C4190"
-			(at 323.85 34.29 0)
+		(property "LCSC Part #" "C25879"
+			(at 207.01 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3786,7 +3495,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 323.85 34.29 0)
+			(at 207.01 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3881,38 +3590,6 @@
 				(hide yes)
 			)
 		)
-		(property "MPN" ""
-			(at 254 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 254 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 254 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 254 31.75 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
 		(pin "2"
 			(uuid "25235ed3-75f7-4aab-b7d6-20886e597e7b")
 		)
@@ -3930,7 +3607,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:LED_GRN")
-		(at 299.72 43.18 90)
+		(at 182.88 100.33 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -3939,7 +3616,7 @@
 		(fields_autoplaced yes)
 		(uuid "7878e4bc-169b-443a-9d98-a662ffdc4f86")
 		(property "Reference" "CDONE1"
-			(at 302.26 41.8464 90)
+			(at 185.42 98.9964 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3948,7 +3625,7 @@
 			)
 		)
 		(property "Value" "Green"
-			(at 302.26 44.3864 90)
+			(at 185.42 101.5364 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3957,7 +3634,7 @@
 			)
 		)
 		(property "Footprint" "!Misc:D_0603_1608Metric"
-			(at 299.72 43.18 90)
+			(at 182.88 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3966,7 +3643,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 43.18 90)
+			(at 182.88 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3975,7 +3652,7 @@
 			)
 		)
 		(property "Description" "LED, Green, 0603"
-			(at 299.72 43.18 0)
+			(at 182.88 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3984,7 +3661,7 @@
 			)
 		)
 		(property "LCSC Part #" "C434423"
-			(at 299.72 43.18 0)
+			(at 182.88 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3993,7 +3670,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "732-4971-1-ND"
-			(at 299.72 43.18 0)
+			(at 182.88 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4002,7 +3679,7 @@
 			)
 		)
 		(property "Sim.Pin" ""
-			(at 299.72 43.18 0)
+			(at 182.88 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4026,7 +3703,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 323.85 27.94 0)
+		(at 207.01 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4035,7 +3712,7 @@
 		(fields_autoplaced yes)
 		(uuid "7f5c8941-8950-418e-aa9c-c5e9d9a53f3b")
 		(property "Reference" "#PWR06"
-			(at 323.85 31.75 0)
+			(at 207.01 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4044,7 +3721,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 323.85 22.86 0)
+			(at 207.01 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4052,7 +3729,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 323.85 27.94 0)
+			(at 207.01 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4061,7 +3738,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 323.85 27.94 0)
+			(at 207.01 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4070,7 +3747,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 323.85 27.94 0)
+			(at 207.01 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4158,7 +3835,7 @@
 	)
 	(symbol
 		(lib_id "power:+3V3")
-		(at 299.72 27.94 0)
+		(at 182.88 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4167,7 +3844,7 @@
 		(fields_autoplaced yes)
 		(uuid "8b7e0206-7562-4a2d-98ee-5af30596d78e")
 		(property "Reference" "#PWR05"
-			(at 299.72 31.75 0)
+			(at 182.88 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4176,7 +3853,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 299.72 22.86 0)
+			(at 182.88 80.01 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4184,7 +3861,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 27.94 0)
+			(at 182.88 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4193,7 +3870,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 299.72 27.94 0)
+			(at 182.88 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4202,7 +3879,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+3V3\""
-			(at 299.72 27.94 0)
+			(at 182.88 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4224,7 +3901,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:R_2.2K_0603")
-		(at 299.72 34.29 0)
+		(at 182.88 91.44 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4233,7 +3910,7 @@
 		(fields_autoplaced yes)
 		(uuid "9c997bdf-e0f9-4bb1-b054-662692d62bdb")
 		(property "Reference" "R6"
-			(at 302.26 33.0199 0)
+			(at 185.42 90.1699 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4242,7 +3919,7 @@
 			)
 		)
 		(property "Value" "2.2k"
-			(at 302.26 35.5599 0)
+			(at 185.42 92.7099 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4251,7 +3928,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 299.72 34.29 0)
+			(at 182.88 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4260,7 +3937,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 299.72 34.29 0)
+			(at 182.88 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4268,8 +3945,8 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Resistor, small symbol"
-			(at 299.72 34.29 0)
+		(property "Description" "2.2K 0603 Resistor"
+			(at 182.88 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4277,8 +3954,8 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C4190"
-			(at 299.72 34.29 0)
+		(property "LCSC Part #" "C25879"
+			(at 182.88 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4287,7 +3964,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "118-CR0603-FX-2201ELFCT-ND"
-			(at 299.72 34.29 0)
+			(at 182.88 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4312,7 +3989,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 299.72 46.99 0)
+		(at 182.88 104.14 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4321,7 +3998,7 @@
 		(fields_autoplaced yes)
 		(uuid "a1f1e675-e468-4a2b-88c1-69e6547f74e1")
 		(property "Reference" "#PWR012"
-			(at 299.72 53.34 0)
+			(at 182.88 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4330,7 +4007,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 299.72 52.07 0)
+			(at 182.88 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4338,7 +4015,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 299.72 46.99 0)
+			(at 182.88 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4347,7 +4024,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 299.72 46.99 0)
+			(at 182.88 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4356,7 +4033,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 299.72 46.99 0)
+			(at 182.88 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4444,7 +4121,7 @@
 	)
 	(symbol
 		(lib_id "!Misc:LED_RED")
-		(at 323.85 43.18 90)
+		(at 207.01 100.33 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -4452,7 +4129,7 @@
 		(dnp no)
 		(uuid "d34cd8da-4f2c-467b-a5c5-fa265fafa5e4")
 		(property "Reference" "PWR1"
-			(at 326.39 41.8464 90)
+			(at 209.55 98.9964 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4461,7 +4138,7 @@
 			)
 		)
 		(property "Value" "Red"
-			(at 326.39 44.3864 90)
+			(at 209.55 101.5364 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4470,7 +4147,7 @@
 			)
 		)
 		(property "Footprint" "!Misc:D_0603_1608Metric"
-			(at 323.85 43.18 90)
+			(at 207.01 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4479,7 +4156,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 323.85 43.18 90)
+			(at 207.01 100.33 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4488,7 +4165,7 @@
 			)
 		)
 		(property "Description" "LED, Red, 0603"
-			(at 323.85 43.18 0)
+			(at 207.01 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4497,7 +4174,7 @@
 			)
 		)
 		(property "LCSC Part #" "C434419"
-			(at 323.85 43.18 0)
+			(at 207.01 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4506,7 +4183,7 @@
 			)
 		)
 		(property "Digi-Key Part Number" "732-4978-1-ND"
-			(at 323.85 43.18 0)
+			(at 207.01 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4515,7 +4192,7 @@
 			)
 		)
 		(property "Sim.Pin" ""
-			(at 323.85 43.18 0)
+			(at 207.01 100.33 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4604,7 +4281,6 @@
 		)
 	)
 	(symbol
-		(lib_name "BUT_PTS810_BLK_1")
 		(lib_id "!Misc:BUT_PTS810_BLK")
 		(at 185.42 33.02 0)
 		(unit 1)
@@ -4666,15 +4342,6 @@
 				(hide yes)
 			)
 		)
-		(property "JLCPCB Rotation Offset" ""
-			(at 185.42 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
 		(property "Digi-Key Part Number" "CKN10878CT-ND"
 			(at 185.42 33.02 0)
 			(effects
@@ -4682,38 +4349,6 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
-			)
-		)
-		(property "MPN" ""
-			(at 185.42 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" ""
-			(at 185.42 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" ""
-			(at 185.42 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Type" ""
-			(at 185.42 33.02 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
 			)
 		)
 		(pin "2"
