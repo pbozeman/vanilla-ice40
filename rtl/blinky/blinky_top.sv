@@ -3,7 +3,9 @@
 module blinky_top (
     input  logic CLK,
     output logic LED1,
-    output       LED2
+    output       LED2,
+
+    output SRAM_256_A_ADDR_BUS[0]
 );
 
   // 100 MHz clock

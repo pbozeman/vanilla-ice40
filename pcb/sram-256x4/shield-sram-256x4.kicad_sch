@@ -8148,7 +8148,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "25101069-099b-4233-9eab-8398fa3c3bec")
 		(property "Reference" "R7"
@@ -8196,7 +8196,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C21189"
+		(property "LCSC Part #" "DNP"
 			(at 265.43 100.33 0)
 			(effects
 				(font
@@ -8939,7 +8939,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "481119dd-dccd-46a5-b784-1386b2864775")
 		(property "Reference" "R5"
@@ -8987,7 +8987,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C21189"
+		(property "LCSC Part #" "DNP"
 			(at 184.15 100.33 0)
 			(effects
 				(font
@@ -9509,7 +9509,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "7fe4bfde-e794-424b-9fe1-1cd525fc8671")
 		(property "Reference" "R1"
@@ -9557,7 +9557,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C21189"
+		(property "LCSC Part #" "DNP"
 			(at 19.05 100.33 0)
 			(effects
 				(font
@@ -9949,7 +9949,7 @@
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
-		(dnp yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "9b46ed05-b5c5-47d3-aebd-b998c7a550bf")
 		(property "Reference" "R3"
@@ -9997,7 +9997,7 @@
 				(hide yes)
 			)
 		)
-		(property "LCSC Part #" "C21189"
+		(property "LCSC Part #" "DNP"
 			(at 104.14 100.33 0)
 			(effects
 				(font
