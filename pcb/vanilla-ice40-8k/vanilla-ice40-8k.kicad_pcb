@@ -4836,7 +4836,7 @@
 			(net 151 "Net-(USB1-SHIELD)")
 			(pinfunction "SHIELD")
 			(pintype "passive")
-			(uuid "910c034c-21e9-4149-9091-235815d2f8c2")
+			(uuid "93d2cc87-fca7-42fb-8302-b437b110ee21")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 -3.105 180)
@@ -4848,7 +4848,7 @@
 			(net 151 "Net-(USB1-SHIELD)")
 			(pinfunction "SHIELD")
 			(pintype "passive")
-			(uuid "910c034c-21e9-4149-9091-235815d2f8c2")
+			(uuid "0edf4d12-1804-4648-90ca-d03475b5c8e3")
 		)
 		(pad "S1" thru_hole oval
 			(at 4.32 1.075 180)
@@ -4860,7 +4860,7 @@
 			(net 151 "Net-(USB1-SHIELD)")
 			(pinfunction "SHIELD")
 			(pintype "passive")
-			(uuid "910c034c-21e9-4149-9091-235815d2f8c2")
+			(uuid "07cbc3c8-d477-4f3a-8d67-fab8dd4d6ed7")
 		)
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/Connector_USB.3dshapes/USB_C_Receptacle_GCT_USB4105-xx-A_16P_TopMnt_Horizontal.wrl"
@@ -6249,7 +6249,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "e328c961-df76-44fb-b423-ebb0ffe1b623")
 		)
 		(pad "GND" smd rect
 			(at -6.8265 0 270)
@@ -6258,7 +6258,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "7d26df77-a4a9-4b91-b75d-4cb852076d3a")
 		)
 		(pad "GND" smd rect
 			(at -1.9365 0 270)
@@ -6267,7 +6267,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "d4452bec-39aa-4be5-8a5b-5dcc90658828")
 		)
 		(pad "GND" smd rect
 			(at 1.9365 0 270)
@@ -6276,7 +6276,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "4291fe0b-b5f8-4b8a-af2c-bd2958993e0b")
 		)
 		(pad "GND" smd rect
 			(at 6.8265 0 270)
@@ -6285,7 +6285,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "5da83ee0-a1a4-4f25-9887-9ec78c034906")
 		)
 		(pad "GND" smd rect
 			(at 13.1765 0 270)
@@ -6294,7 +6294,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "b7d0ed3e-f533-4565-9d03-2047e03e6650")
 		)
 		(pad "GND" smd rect
 			(at 18.0665 0 270)
@@ -6303,7 +6303,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "804d3524-038c-4e07-89d6-60438932f963")
+			(uuid "0ef18dc5-9539-4ef0-ade9-6ca31d3bd0ed")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/QSH-060-01-X-D-A.stp"
@@ -8531,7 +8531,7 @@
 			(net 18 "GND")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "95327a55-6d96-49f2-9540-0991188fccd0")
+			(uuid "fef2ae2a-1e9c-4041-95cb-10152a63cb52")
 		)
 		(pad "2" smd rect
 			(at -2.075 1.075)
@@ -8549,7 +8549,7 @@
 			(net 265 "CRESET#")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "f9ab40e5-6744-4398-bafa-5f7fc93666f4")
+			(uuid "7d3ef355-3704-4bff-bbc8-2cc5f6d13629")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/PTS810.stp"
@@ -9931,7 +9931,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "7bfb970c-36a0-43a0-be46-3fbc041ed677")
 		)
 		(pad "GND" smd rect
 			(at -6.8265 0 270)
@@ -9940,7 +9940,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "5bea7d50-344d-44bb-b825-bce1c5cffb17")
 		)
 		(pad "GND" smd rect
 			(at -1.9365 0 270)
@@ -9949,7 +9949,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "054b4318-3fa5-40e1-8e72-62a0d8ffff05")
 		)
 		(pad "GND" smd rect
 			(at 1.9365 0 270)
@@ -9958,7 +9958,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "956af97d-4e0d-4715-906d-da610789462b")
 		)
 		(pad "GND" smd rect
 			(at 6.8265 0 270)
@@ -9967,7 +9967,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "cd5dfd01-4a00-4ad3-bcd4-cd4ee31fc008")
 		)
 		(pad "GND" smd rect
 			(at 13.1765 0 270)
@@ -9976,7 +9976,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "96d45c14-ad78-4c61-b271-be6855b90d56")
 		)
 		(pad "GND" smd rect
 			(at 18.0665 0 270)
@@ -9985,7 +9985,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "761dcb01-ed5e-4b71-ab1c-4606171665f0")
+			(uuid "22b408ce-6e6c-4480-bf16-9b7cbae6575f")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/QSH-060-01-X-D-A.stp"
@@ -10646,7 +10646,7 @@
 			(net 18 "GND")
 			(pinfunction "1")
 			(pintype "passive")
-			(uuid "84d59a00-f613-47eb-87dd-06d6bff3b82e")
+			(uuid "2232c853-8523-43bc-988c-176f0a455754")
 		)
 		(pad "2" smd rect
 			(at -2.075 1.075)
@@ -10664,7 +10664,7 @@
 			(net 268 "IOT_170_BTN1")
 			(pinfunction "2")
 			(pintype "passive")
-			(uuid "554e813e-bb47-4400-9750-e6014004b163")
+			(uuid "7e18598d-adc6-4480-a475-a81af988ada7")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/PTS810.stp"
@@ -16237,7 +16237,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC Part #" "C23196"
+		(property "LCSC Part #" "C22775"
 			(at 0 0 225)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -28396,7 +28396,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "1766345c-f70f-415c-b605-f4556c550712")
 		)
 		(pad "GND" smd rect
 			(at -6.831 0 270)
@@ -28405,7 +28405,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "97cc41cc-99fe-45ac-a379-70e52601e3fd")
 		)
 		(pad "GND" smd rect
 			(at -1.56 0 270)
@@ -28414,7 +28414,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "53706520-48a5-4d00-8da0-e793b7e2c3ee")
 		)
 		(pad "GND" smd rect
 			(at 1.56 0 270)
@@ -28423,7 +28423,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "052cbd36-add7-484b-836f-29f0bd0840fb")
 		)
 		(pad "GND" smd rect
 			(at 6.831 0 270)
@@ -28432,7 +28432,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "1a2be264-82b8-4c38-81ec-f8b37aefa868")
 		)
 		(pad "GND" smd rect
 			(at 13.181 0 270)
@@ -28441,7 +28441,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "27dc4969-613f-45cd-b9cc-ab3040a4775c")
 		)
 		(pad "GND" smd rect
 			(at 18.44 0 270)
@@ -28450,7 +28450,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "17febd27-e4ca-40c1-985f-7dbc6238ca22")
+			(uuid "8a72e4cd-97a2-4ae0-ba5f-117f2ed0395f")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/QTH-060-01-X-D-A.stp"
@@ -30451,7 +30451,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "2a5b7dee-90bd-4e14-8bea-2538a5a9118e")
 		)
 		(pad "GND" smd rect
 			(at -6.831 0 270)
@@ -30460,7 +30460,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "a8884907-32db-4bd8-b6be-14d5afb786b5")
 		)
 		(pad "GND" smd rect
 			(at -1.56 0 270)
@@ -30469,7 +30469,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "c933aaed-5951-4eb0-a349-6f9743a73b0e")
 		)
 		(pad "GND" smd rect
 			(at 1.56 0 270)
@@ -30478,7 +30478,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "774eb551-276a-4b53-ab8a-bca2f20f5bc4")
 		)
 		(pad "GND" smd rect
 			(at 6.831 0 270)
@@ -30487,7 +30487,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "8fc56b21-4add-4748-ac15-542312c0e842")
 		)
 		(pad "GND" smd rect
 			(at 13.181 0 270)
@@ -30496,7 +30496,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "7770f0c8-ceca-49a6-bbd8-7d9bbd814b7a")
 		)
 		(pad "GND" smd rect
 			(at 18.44 0 270)
@@ -30505,7 +30505,7 @@
 			(net 18 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
-			(uuid "5cd321d0-a359-4bc5-80fc-75c23b9204a6")
+			(uuid "5d5cf381-59b6-4861-9e5a-e2644093200d")
 		)
 		(embedded_fonts no)
 		(model "${KIPRJMOD}/../kicad-base/lib/misc/misc.pretty/QTH-060-01-X-D-A.stp"
@@ -37437,7 +37437,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC Part #" "C23196"
+		(property "LCSC Part #" "C22775"
 			(at 0 0 315)
 			(unlocked yes)
 			(layer "B.Fab")
