@@ -34,8 +34,6 @@ def combine_headers(pin_config, header_maps):
 
 def header_pcf(header_map):
     pass
-    # for s, p in sram_256_signals:
-    #     print(f"set_io {s} {header_map[p]}")
 
 
 def gen_pcf(pin_config):
@@ -49,6 +47,10 @@ def gen_pcf(pin_config):
             "A": pin_config.j1_upper_to_logical,
         },
     )
+
+    # hack this in for now
+    for k, v in pin_config.j1_upper_to_logical.items():
+        print(f"set_io A[{k-1}] {v}")
 
     header_pcf(header_map)
 
