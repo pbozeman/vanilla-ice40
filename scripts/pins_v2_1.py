@@ -19,6 +19,9 @@ class IcePinConfigV2:
     # numeric pin, e.g. 3, to logical name of the pin that its connected
     # to, e.g.: IOL_23B
     j1_upper_to_logical: {int, str}
+    j1_lower_to_logical: {int, str}
+    j2_upper_to_logical: {int, str}
+    j2_lower_to_logical: {int, str}
 
 
 def combine_headers(pin_config, header_maps):
@@ -45,6 +48,9 @@ def gen_pcf(pin_config):
         pin_config,
         {
             "A": pin_config.j1_upper_to_logical,
+            "B": pin_config.j1_lower_to_logical,
+            "C": pin_config.j2_upper_to_logical,
+            "D": pin_config.j2_lower_to_logical,
         },
     )
 
@@ -52,11 +58,25 @@ def gen_pcf(pin_config):
     for k, v in pin_config.j1_upper_to_logical.items():
         print(f"set_io A[{k-1}] {pin_config.logical_pin_to_phys[v]}")
 
+    for k, v in pin_config.j1_lower_to_logical.items():
+        print(f"set_io B[{k-1}] {pin_config.logical_pin_to_phys[v]}")
+
+    for k, v in pin_config.j2_upper_to_logical.items():
+        print(f"set_io C[{k-1}] {pin_config.logical_pin_to_phys[v]}")
+
+    for k, v in pin_config.j2_lower_to_logical.items():
+        print(f"set_io D[{k-1}] {pin_config.logical_pin_to_phys[v]}")
+
     header_pcf(header_map)
 
 
 hx8k_v2_1_config = IcePinConfigV2(
-    hx8k_v2_1.logical_pin_to_phys, hx8k_v2_1.signals, hx8k_v2_1.j1_upper_to_logical
+    hx8k_v2_1.logical_pin_to_phys,
+    hx8k_v2_1.signals,
+    hx8k_v2_1.j1_upper_to_logical,
+    hx8k_v2_1.j1_lower_to_logical,
+    hx8k_v2_1.j2_upper_to_logical,
+    hx8k_v2_1.j2_lower_to_logical,
 )
 
 boards = {"hx8k_v2_1": hx8k_v2_1_config}
