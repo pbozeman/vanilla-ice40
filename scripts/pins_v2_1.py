@@ -50,7 +50,7 @@ def gen_pcf(pin_config):
 
     # hack this in for now
     for k, v in pin_config.j1_upper_to_logical.items():
-        print(f"set_io A[{k-1}] {v}")
+        print(f"set_io A[{k-1}] {pin_config.logical_pin_to_phys[v]}")
 
     header_pcf(header_map)
 
