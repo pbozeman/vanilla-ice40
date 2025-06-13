@@ -427,4 +427,5 @@ signals = (
     ("BTN1", "IOT_170"),
     ("UART_RX", "IOR_158"),
     ("UART_TX", "IOR_166"),
+    ("SPI_SS", "IOB_108_SS"),
 )
