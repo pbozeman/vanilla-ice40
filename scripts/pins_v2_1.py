@@ -174,10 +174,11 @@ sram_256_buses = [
             "D_4",
             "D_6",
             "D_8",
-            "D_10",
+            # 10 here
             "D_46",
             "D_48",
             "D_50",
+            "D_10",
         ],
     ),
     (
@@ -222,6 +223,26 @@ sram_256_signals = [
     ("SRAM_256_D_UB_N", "D_42"),
 ]
 
+pmod_buses = [
+    (
+        "PMOD_A",
+        ["C_23", "C_27", "C_31", "C_35", "C_25", "C_29", "C_33", "C_37"],
+    ),
+    (
+        # this is based on the ADC pmods, which actually
+        # don't have the last 2 connected
+        "PMOD_B",
+        [
+            "D_29",
+            "D_32",
+            "D_33",
+            "D_35",
+            "D_27",
+            "D_25",
+        ],
+    ),
+]
+
 
 def combine_headers(pin_config, header_maps):
     combined_map = {}
@@ -244,10 +265,10 @@ def header_pcf(header_map):
         for i, p in enumerate(b[1]):
             print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
 
-    # print()
-    # for b in pmod_buses:
-    #     for i, p in enumerate(b[1]):
-    #         print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
+    print()
+    for b in pmod_buses:
+        for i, p in enumerate(b[1]):
+            print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
 
 
 def gen_pcf(pin_config):
