@@ -1741,6 +1741,16 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "U4 A14 This would be D10 using the standard pattern, but SDO is an issue.\n"
+		(exclude_from_sim no)
+		(at 302.514 135.382 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "91a12f36-4709-4226-9d06-3bf3769883a3")
+	)
 	(junction
 		(at 104.14 106.68)
 		(diameter 0)
@@ -5145,7 +5155,7 @@
 			)
 		)
 	)
-	(global_label "D10"
+	(global_label "D17"
 		(shape input)
 		(at 283.21 93.98 180)
 		(fields_autoplaced yes)
@@ -5157,7 +5167,7 @@
 		)
 		(uuid "4fe2c8a6-00b9-4bf6-bd8f-268a47d76742")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 276.7172 93.98 0)
+			(at 276.5358 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
