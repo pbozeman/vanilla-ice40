@@ -174,11 +174,10 @@ sram_256_buses = [
             "D_4",
             "D_6",
             "D_8",
-            # 10 here
+            "D_17",
             "D_46",
             "D_48",
             "D_50",
-            "D_17",
         ],
     ),
     (
@@ -234,13 +233,53 @@ pmod_buses = [
         "PMOD_B",
         [
             "D_29",
-            "D_32",
+            "D_31",
             "D_33",
             "D_35",
             "D_27",
             "D_25",
         ],
     ),
+]
+
+adc_buses = [
+    (
+        "ADC_X",
+        [
+            "B_36",
+            "B_34",
+            "B_32",
+            "B_30",
+            "B_28",
+            "B_26",
+            "B_24",
+            "B_22",
+            "B_20",
+            "B_18",
+        ],
+    ),
+    (
+        "ADC_Y",
+        [
+            "A_38",
+            "A_36",
+            "A_34",
+            "A_32",
+            "A_30",
+            "A_28",
+            "A_26",
+            "A_24",
+            "A_22",
+            "A_20",
+        ],
+    ),
+]
+
+adc_signals = [
+    ("ADC_CLK_TO_ADC", "B_16"),
+    ("ADC_RED", "A_16"),
+    ("ADC_GRN", "A_18"),
+    ("ADC_BLU", "B_14"),
 ]
 
 
@@ -260,13 +299,22 @@ def header_pcf(header_map):
     for s, p in sram_256_signals:
         print(f"set_io {s} {header_map[p]}")
 
-    print()
     for b in sram_256_buses:
+        print()
+        for i, p in enumerate(b[1]):
+            print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
+
+    for b in pmod_buses:
+        print()
         for i, p in enumerate(b[1]):
             print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
 
     print()
-    for b in pmod_buses:
+    for s, p in adc_signals:
+        print(f"set_io {s} {header_map[p]}")
+
+    for b in adc_buses:
+        print()
         for i, p in enumerate(b[1]):
             print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
 
