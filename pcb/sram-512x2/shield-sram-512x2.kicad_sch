@@ -4146,22 +4146,22 @@
 	)
 	(global_label "A39"
 		(shape input)
-		(at 85.09 78.74 0)
+		(at 36.83 104.14 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "b0e2905a-a2da-4cf2-b59d-9a2134e07db4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 91.5828 78.74 0)
+			(at 30.3372 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -4630,22 +4630,22 @@
 	)
 	(global_label "A18"
 		(shape input)
-		(at 36.83 104.14 180)
+		(at 85.09 78.74 0)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right)
+			(justify left)
 		)
 		(uuid "f424c98e-dd09-4990-9e68-9cc0ccc3363f")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 30.3372 104.14 0)
+			(at 91.5828 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right)
+				(justify left)
 				(hide yes)
 			)
 		)
