@@ -222,6 +222,110 @@ sram_256_signals = [
     ("SRAM_256_D_UB_N", "D_42"),
 ]
 
+sram_512_buses = [
+    (
+        "SRAM_512_A_ADDR_BUS",
+        [
+            "A_2",
+            "A_4",
+            "A_6",
+            "A_8",
+            "A_10",
+            "A_42",
+            "A_44",
+            "A_46",
+            "A_48",
+            "A_50",
+            "A_49",
+            "A_47",
+            "A_45",
+            "A_43",
+            "A_41",
+            "A_5",
+            "A_3",
+            "A_1",
+            "A_18",
+        ],
+    ),
+    (
+        "SRAM_512_A_DATA_BUS",
+        [
+            "A_12",
+            "A_14",
+            "A_21",
+            "A_23",
+            "A_25",
+            "A_27",
+            "A_29",
+            "A_31",
+            "A_39",
+            "A_37",
+            "A_35",
+            "A_33",
+            "A_19",
+            "A_17",
+            "A_15",
+            "A_13",
+        ],
+    ),
+    (
+        "SRAM_512_B_ADDR_BUS",
+        [
+            "B_2",
+            "B_4",
+            "B_6",
+            "B_8",
+            "B_10",
+            "B_42",
+            "B_44",
+            "B_46",
+            "B_48",
+            "B_50",
+            "B_49",
+            "B_47",
+            "B_45",
+            "B_43",
+            "B_41",
+            "B_5",
+            "B_3",
+            "B_1",
+            "B_14",
+        ],
+    ),
+    (
+        "SRAM_512_B_DATA_BUS",
+        [
+            "B_12",
+            "B_21",
+            "B_23",
+            "B_25",
+            "B_27",
+            "B_29",
+            "B_31",
+            "B_38",
+            "B_39",
+            "B_37",
+            "B_35",
+            "B_33",
+            "B_19",
+            "B_17",
+            "B_15",
+            "B_13",
+        ],
+    ),
+]
+
+sram_512_signals = [
+    ("SRAM_512_A_OE_N", "A_7"),
+    ("SRAM_512_A_WE_N", "A_40"),
+    ("SRAM_512_A_LB_N", "A_11"),
+    ("SRAM_512_A_UB_N", "A_9"),
+    ("SRAM_512_B_OE_N", "B_7"),
+    ("SRAM_512_B_WE_N", "B_40"),
+    ("SRAM_512_B_LB_N", "B_11"),
+    ("SRAM_512_B_UB_N", "B_9"),
+]
+
 pmod_buses = [
     (
         "PMOD_A",
@@ -275,11 +379,13 @@ adc_buses = [
     ),
 ]
 
+# WARNING: these are different for the interim 256 vs 512, but
+# not reflected here
 adc_signals = [
     ("ADC_CLK_TO_ADC", "B_16"),
-    ("ADC_RED", "A_16"),
-    ("ADC_GRN", "A_18"),
-    ("ADC_BLU", "B_14"),
+    ("ADC_RED", "C_1"),
+    ("ADC_GRN", "C_5"),
+    ("ADC_BLU", "C_3"),
 ]
 
 
@@ -300,6 +406,15 @@ def header_pcf(header_map):
         print(f"set_io {s} {header_map[p]}")
 
     for b in sram_256_buses:
+        print()
+        for i, p in enumerate(b[1]):
+            print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
+
+    print()
+    for s, p in sram_512_signals:
+        print(f"set_io {s} {header_map[p]}")
+
+    for b in sram_512_buses:
         print()
         for i, p in enumerate(b[1]):
             print(f"set_io {b[0]}[{i}] {header_map[b[1][i]]}")
